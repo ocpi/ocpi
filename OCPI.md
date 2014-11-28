@@ -1,7 +1,7 @@
 Title:  OCPI, NDR & CDR 1.0
 Author: Olger Warnier <o.warnier@thenewmotion.com>, Dan Brooke <d.brooke@thenewmotion.com>
-Date:   September 26th, 2014
-Version:  0.97
+Date:   November 23th, 2014
+Version:  0.98
 
 # OCPI, NDR & CDR Interface 1.0 (DRAFT v4)
 
@@ -11,6 +11,8 @@ Version:  0.97
 
 ## Introduction and background
 The purpose of this standard is to inform EV drivers during their day to day use of charge points. 
+
+**Therefore, this standard is written to accommedate EV drivers .......**
 
 Starting in 2009, e-laad foundation and the forerunner of the eViolin association specified 2 standards in order to retrieve charge point details and active state. These are called the VAS interface and the Amsterdam interface. 
 In 2011, eViolin combined these 2 interface into the OCPI interface allowing other parties to fetch charge point information and active state. 
@@ -23,6 +25,8 @@ This document describes a combined set of standards based on the work done in th
 This overview shows the back-offices of the (service) provider and the (charge point) operator. 
 The charge point location information interface (OCPI) is served by the operator back-office and is used to find charge points. This will serve the static (and current status) information of the charge points. The option to subscribe to the dynamic information of the charge points is part of this interface. This dynamic information is pushed back to the provider via the NDR interface. 
 A separate interface is available for the delivery of Charge Detail Records (CDRs)  to the provider.
+
+### locatie, chargepoint, evse, connector concept uitleggen (plaatje)
 
 ### Callback interfaces
 ![callback interfaces](callback-overview.jpg)
@@ -66,13 +70,17 @@ The OCPP2 standard is currently under development and will be available via the 
 The interfaces are protected on HTTP transport level, with SSL and Basic Authentication. Please note that this mechanism does **not** require client side certificates for authentication. (Simple basic authentication is used)
 More information on basic authentication is found at the [IETF](http://tools.ietf.org/html/rfc2617#page-5)
 
+## notes on generic data formats
+
+### EvseIdThe EVSEID must follow the specification of ISO/IEC 15118-2 - Annex H ”Specification of Identifiers”.The EVSEID must match the following structure (the notation corresponds to the augmented Backus-Naur Form (ABNF) as defined in RFC5234):<EVSEID> = <Country Code> <S> <EVSE Operator ID> <S><ID Type> <Power Outlet ID><Country Code> = 2 ALPHA   ; two character country code according to ISO 3166-1 (      Alpha-2-Code)<EVSE Operator ID> = 3 (ALPHA / DIGIT)   ; three alphanumeric characters, defined and listed byeMI3 group<ID Type> = "E"   ; one character "E" indicating that this ID representsan "EVSE"<Power Outlet ID> = (ALPHA / DIGIT) *30 (ALPHA / DIGIT / <   S>)   ; sequence of alphanumeric characters or separators,      start with alphanumeric characterALPHA = %x41-5A / %x61-7A   ; according to IETF RFC 5234 (7-Bit ASCII)DIGIT = %x30-39   ; according to IETF RFC 5234 (7-Bit ASCII)<S> = *1 ( "*" )   ; optional separatorAn example for a valid EVSEID is FR*A23*E45B*78C with FR indicating France, A23 representing a particular EVSE Operator, E indicating that it is of type EVSE and 45B*78C representing one of its power outlets.EVSEID SemanticsThe following rules apply:• Each EVSEID has a variable length with at least seven characters (two characters Country Code, three characters EVSE Operator ID, one character ID Type, one character Power Outlet ID) and at most thirty-seven characters (two characters Country Code, three characters EVSE Operator ID, one character ID Type, thirty- one characters Power Outlet ID).• While the EVSE Operator ID shall be assigned by a central issuing authority, each operator with an assigned EVSE Operator ID can choose the Power Outlet ID within the above mentioned rules freely.Backward Compatibility EVSE-IDs as defined in DIN SPEC 91286 MAY be used by applying the following mapping:• The two digit country code ”49” in Germany for geographic areas in ITU-T E.164:11/2010 is mapped onto the ISO-3166-1 (Alpha-2-Code).• The three digit of spot operator ID is mapped 1:1 into the new alphanumeric scheme.• All digits are mapped 1:1 into the new alphanumeric scheme. Example: +49*823*1234*5678 is interpreted as DE*823*E1234*5678
+
 ## OCPI Interface operations
 
 The OCPI interface is served by the operator. 
 
 | Operation             | Purpose                                                          |
 | :-------------------- | :--------------------------------------------------------------- |
-| Find Charge points     | Fetch a series of charge points given a number of search criteria |
+| Find Charge location     | Fetch a series of charge locations given a number of search criteria |
 | Subscribe to updates  | Subscribe to status updates for charge points based on search criteria |
 | Unsubscribe from updates| Unsubscribe to status updates for a list of charge points         |
 | Subscription status   | Get the list of charge points currently subscribed to             |
@@ -82,9 +90,9 @@ Many of the details for charge points are defined as enumerations and types used
 
 Subscription to updates allows the caller to specify an endpoint address that will receive pushed messages. This endpoint needs to implement the NDR specified interface in order to receive messages correctly. Guaranteed message delivery may or may not be implemented, that is a decision up to the parties involved. Guaranteed message delivery SHOULD NOT put additional requirements or changes on the specified NDR format. 
 
-### Find Charge points
+### Find Charge location
 #### request
-Fetch a series of charge points given a number of search criteria. 
+Fetch a series of charge locations given a number of search criteria. 
 
 Available search criteria:
 
@@ -96,6 +104,11 @@ Available search criteria:
 | authorizationType     | o | Charge points with certain type(s) of authorisation         |
 
 No Criteria will return all charge points. 
+
+Additional query parameters:
+
+ * language : ask to only return a specific language
+
 
 #### response
 The response contains a list of charge points matching the search criteria or an error message when the search failed. 
@@ -120,12 +133,12 @@ Charge points contain the following information
 	* location: exact location of the connector (optional)
 		* address: address of the entry location in order to reach the charge point 
 		* point: GPS coordinates in order to reach the charge point (e.g. at a parking)
-		* floor (0 = ground floor)
-	* capabilities: enumeration ('SetChargingProfile') -> optional field to give additional options
-	* charge_protocol:  enumeration (Unknown, Mode3, CHAdeMO, ISO15118, Uncontrolled)
-	* status: enumeration (Available, Occupied, Charging, OutOfService)
+		* floor: String indication of the floor according to the local situation. 
+	* capabilities: enumeration (charging_profile_capable, reservable)
+	* charge_protocol:  enumeration (unknown, mode3, chademo, iso15118, uncontrolled)
+	* status: enumeration (available, occupied, charging, outofservice)
 	* power (replaces enum of DC50kWh / AC11kWh etc etc)
-		* current (AC_1_Phase, AC_2_Phase, AC_3_Phase, DC)
+		* current (ac_1_phase, ac_2_phase, ac_3_phase, dc)
 		* voltage
 		* amperage
 	* price_schemes (list of available options)
@@ -140,22 +153,22 @@ Charge points contain the following information
 			* validity_rule: period_type (enum: Charging, Parking), time (iCalendar RRULE)
 			* display_text: human readable form of this part of the tariff 
 			* currency: ISO 4217 code for currency
-			* pricing_unit: enumeration of types of pricing (kWhToEV, OccupancyHours, ChargingHours, IdleHours, Session see OCPP2)
+			* pricing_unit: enumeration of types of pricing (kwhtoev, occupancyhours, charginghours, idlehours, session see OCPP2)
 			* price_net: amount (in smallest unit for relevant currency with an additional two decimal places, incl. VAT.  e.g. euros = 0.2343, Japanese yen = 45.34)
 			* price_gross: amount (Price of the unit excluding tax. Calculated as 100 * priceNet / (100 + taxPct).
 			* tax_percentage: percentage of tax 
 			* condition: Optional. The conditions under which this tariff is applicable. The format is not specified and left to the implementer. It is intended to be standardised in a next release of OCPP.
  * reserved_parking: integer with amount of reserved parking spaces for EV charging. 
- * vehicle_type enumeration: Car, Bike, Boat (default = Car)
+ * vehicle_type enumeration: car, bike, boat (default = car)
  * authorization_types (list)
-	* type: enumeration that described allowed identification (CIR, Bank, SMS, E-Clearing, Hubject, Provider App, Operator App, None (always usable)) 
+	* type: enumeration that described allowed identification (cir, bank, sms, e-clearing, hubject, providerapp, operatorapp, none (always usable)) 
 	* description: human readable description
- * note: human readable note to help charging
+ * **note**: human readable note to help charging
  * pictures: list of URLs (should be publicly available) 
  * service
-		* name (name of the company/person that supports this location)
-		* phone (phone number to call for support (first line) at the location
-		* display_text (optional, additional text for support)
+	* name (name of the company/person that supports this location)
+	* phone (phone number to call for support (first line) at the location
+	* display_text (optional, additional text for support)
  * availability
  	* start_date (start datetime for availability in ISO8601)
  	* RRULE  (iCalendar RRULE, can be used e.g. by a mobile app so it does not show you a charge point that is currently closed)
@@ -166,7 +179,12 @@ Display text is always in the format that it contains a language marker and a te
 
 The iCalendar RRULE format is described in [RFC 2445](http://tools.ietf.org/html/rfc2445#page-40)
 
-*NOTE: This is a description of the full format. The spec should contain a way to specify that you want to see a summarized format. This summarized format is to be defined based on the needs of application developers. *
+*NOTE: This is a description of the full format. The spec should contain a way to specify that you want to see a summarised format. This summarised format is to be defined based on the needs of application developers. *
+
+### Reserve
+#### request
+
+#### response
 
 ### Subscribe
 #### request
@@ -175,37 +193,42 @@ Fetch a series of charge points given a number of search criteria and subscribe 
 Available search criteria:
 
 | Criteria              | Optional | Possible values                                     | 
-|:--------------------- | -------- | :-------------------------------------------------- |
-| area                  | o | GPS coordinates of NW and SE corners                       |
-| operators             | o | List of codes of the operator(s) to get charge points for   |
-| vehicleType           | o | Type of vehicle to get charge points for (Car,Bike,Boat)    |
-| authorizationType     | o | Return charge points with certain type(s) of authorisation  |
-| identifier(s)         | o | Return status updates for a (list of ) specific charge point (s) |
+|:-------------------------- | -------- | :-------------------------------------------------- |
+| area                           | o | GPS coordinates of NW and SE corners                       |
+| operators                 | o | List of codes of the operator(s) to get charge points for   |
+| vehicle_type             | o | Type of vehicle to get charge points for (car,bike,boat)    |
+| authorization_type  | o | Return charge points with certain type(s) of authorisation  |
+| identifier(s)              | o | Return status updates for a (list of ) specific charge point (s) |
  
-The request must also contain the endpoint URL for delivering the NDR messages.  It MAY include information to authenticate the user. When this is provided then the callbacks will contain contractIds for events relating to cards the user has access to.
+The request must also contain the endpoint URL for delivering the NDR messages.  It MAY include information to authenticate the user (the one that wants to subscribe to updates). When this is provided then the callbacks will contain contractIds for events relating to cards the user has access to.
 
 Please note that the one pushing data to this interface MAY put restrictions on the information that you will receive status updates for.  For the one pushing information - mostly the operator - : It is advised to check the availability of the NDR interface at registration. 
 
 When a subscribe is sent without any of the Criteria, updates of *all* charge points are expected. 
 
 #### response
-The response contains a list of charge points (identifiers) that will be publishing events to the given endpoint, as well as a token id that can be used in future to validate received NDRs.
+The response contains a list of charge points (identifiers) that will be publishing events to the given endpoint, as well as a subscription id that can be used in future to validate received NDRs.
 When the request is sent without criteria, it should list *all* charge point identifiers it will send updates for. This helps the receiver to  see if the list is as expected (not missing specific (new) points)
 
 When the request is invalid or raised an error condition, an error message is returned. 
 
 The operator will thereafter publish messages to the provider via the NDR interface, the provider will return an OK to indicate that the message is accepted. When there is no OK returned, the operator will try it again until the operator sees no need in resending due to information irrelevancy 
 
+#### security handshake between provider and operator for the callbacks. 
+When a provider wants to receive callback messages for the NDR, the provider will give credentials along with its' request. 
+In this way the operator makes use of the given credentials as Basic Authentication for the callback on the given URL in this request. 
+
+
 ### Unsubscribe
 #### request
-Unsubscribe with the token id received during subscription, plus a list of charge points that you no longer wish to receive updates for. Without a list of charge points, all notifications subscribed by this endpoint are stopped.
+Unsubscribe with the subscription id received during subscription, plus a list of charge points that you no longer wish to receive updates for. Without a list of charge points, all notifications subscribed by this endpoint are stopped.
 
 #### response
 An OK or error response
 
 ### SubscriptionStatus
 #### request
-Retrieve all charge points that the given token id is subscribed for.
+Retrieve all charge points that the given subscription id is subscribed for.
 
 #### response
 List of charge point Identifiers or an error response
@@ -215,9 +238,9 @@ List of charge point Identifiers or an error response
 #### request
 message contains:
  
- * evseId: Unique identifier of the EVSE that is attached to the session of the user
- * List of [startDateTime + maxPower (in watts)]
- * tariffType (specified in the  CDR  format, it is a string of 2 characters)
+ * evse-id: Unique identifier of the EVSE that is attached to the session of the user
+ * List of [start-datetime + max-power (in watts)]
+ * tariff-type (specified in the  CDR  format, it is a string of 2 characters)
 
 The EVSE is part of the message to specify the controller in use by this user. The unique EVSE number is given via the NDR interface the moment a session starts. As long as the session is active, the EVSE id is connected to Contract ID using the charge point. 
 
@@ -251,10 +274,10 @@ Please note that many different circumstances may allow the operator to select d
 This interface will receive:
 
  * operator : code of the operator
- * tokenId : tokenId that matches the one returned in the subscribe response
- * evseId: unique identifier of the EVSE inside the charge point
- * connectorNo: connector no on the given charge point
- * contractId : Contract Id that makes use of the charge point (be aware of privacy issues)
+ * subscription_id : subscription id that matches the one returned in the subscribe response
+ * evse-id: unique identifier of the EVSE inside the charge point
+ * connector-no: connector no on the given charge point
+ * contract-id : Contract Id that makes use of the charge point (be aware of privacy issues)
  * event: specific event types are found in the table below.  
 * timestamp (ISO 8601)
 
@@ -262,13 +285,17 @@ The event type will be extended into these child objects, with their additional 
 
 #### Event Types
 
+#### ChargeLocationAvailable
+
+#### ChargeLocationOccupied
+
 ##### SessionStarted
 
 SessionStarted is defined as the moment a charge point connector is occupied, this does not have to be physical, logically occupied (due to a card swipe) is another option. 
 
 contains: 
 
- * startDateTime in ISO8601 format
+ * start-datetime in ISO8601 format
 
 ##### SessionEnded
 
@@ -276,7 +303,7 @@ SessionEnded is defined as the moment a charge point connector is available and 
 
 contains: 
 
- * endDateTime in ISO8601 format
+ * end-datetime in ISO8601 format
 
 ##### ChargingStarted
 
@@ -284,8 +311,8 @@ ChargingStarted is defined as the moment that actual charging takes place.
 
 contains:
 
- * startDateTime in ISO8601 format
- * chargeSessionId
+ * start-datetime in ISO8601 format
+ * chargesession-id
 
 ##### ChargingStopped
 
@@ -293,9 +320,9 @@ ChargingStopped is defined as the moment that actual charging has stopped.
 
 contains: 
 
- * endDateTime in ISO8601 format
- * chargeSessionId
- * wattHours
+ * end-datetime in ISO8601 format
+ * chargesession-id
+ * watt-hours
 
 ##### ChargingInterrupted
 
@@ -305,7 +332,7 @@ So when a car pauzes charging and continues thereafter, there is no ChargingInte
 
 contains:
 
- * chargeSessionId
+ * chargesession-id
 
 ##### ChargingInfoUpdated
 
@@ -313,8 +340,8 @@ ChargingInfoUpdated is a moment in time that charging is taken place and allows 
 
 contains:
 
- * chargeSessionId
- * wattHours 
+ * chargesession-id
+ * watt-hours 
 
 ##### UserMessageCode
 
@@ -322,38 +349,40 @@ UserMessageCode can be transferred any given moment. This code is a string that 
 
 contains:
 
- * messageCode
+ * message-code
+ * display-text
 
 Known UserMessageCodes
 
 | Code | Purpose | 
 |--------------|-----------------------------------------------------|
-| MoveYourCar | The operator likes to ask the driver to move the car currently occupying a parking spot / charge point connector |
+| moveyourcar | The operator likes to ask the driver to move the car currently occupying a parking spot / charge point connector |
+|emergency|-----|
 
 
 ##### LocalBalancingActive
 
-LocalBalancingActive indicates that at the operator level it is not possible to deliver the requested maxPower. 
+localbalancing-active indicates that at the operator level it is not possible to deliver the requested maxPower. 
 
 ##### ChargingProfileAccepted
 
-ChargingProfileAccepted indicates that the Requested Charging Profile is accepted and applied by the operator. 
+chargingprofile-accepted indicates that the Requested Charging Profile is accepted and applied by the operator. 
 
 ##### ChargingProfileDenied
 
-ChargingProfileDenied indicates that the Requested Charging Profile is denied and will not be applied by the operator. 
+chargingprofile-denied indicates that the Requested Charging Profile is denied and will not be applied by the operator. 
 
 #### ChargingProfileFailed
 
-ChargingProfileFailed indicates that the Requested Charging Profile could not be applied by the operator.
+chargingprofile-failed indicates that the Requested Charging Profile could not be applied by the operator.
 
 #### Small example:
 When a driver parks the car, swipes a card and chooses for delayed charging, the driver expects to 'see' 
  
- 1. park and swipe: SessionStarted
- 2. the moment charging start (after the delay) : ChargingStarted
- 3. while charging: ChargingInfoUpdated till: 
- 4. charging stops (battery is full) : ChargingStopped
+ 1. park and swipe: session-started
+ 2. the moment charging start (after the delay) : charging-started
+ 3. while charging: charginginfo-updated till: 
+ 4. charging stops (battery is full) : charging-stopped
  
 ## Privacy note
 
@@ -361,12 +390,38 @@ The party publishing events should be aware that the contractId is linked to per
 
 ### CDR interface
 
-The CDR interface is implemented by the provider another callback interface. 
-This interface allows the operator to deliver CDR messages of finished charge transactions. 
+The CDR interface implemented by the provider is another callback interface. 
+This interface allows the operator to deliver CDR messages of finished charge sessions. 
+
+ * operator_id
+ * service_provider_id (contract_id makes it clear what the service provider is)
+ * cdr_id
+ * evse_id
+ * contract_id
+ * chargesession_id (transactionid)
+ * start_datetime
+ * end_datetime
+ * chargepoint_type
+ * connector_type
+ * max_socket_power
+ * product_type
+ * meter_id
+ * currency
+ * vat percentage
+ * charging_periods
+		* start_datetime
+		* end_datetime
+		* unit_price (itemPrice in OCHP)
+		* unit_amount
+		* period_cost (total cost of unit * amount, ex VAT)
+		* tariff_type (parkingtime, usagetime, energy, power, servicefee) (also known as tariff_type)
+* total_cost: sum of charging_periods, including VAT (allows calculation check) (? really required ??)
 
 *The format of the CDR records needs to be specified as well as the mechanism to ensure secure delivery (and no fake) of CDR records. 
 In order to keep it in line with the interface, the subscription mechanism is most likely candidate in order to cope with the security aspects without the use of message cryptography. 
 *
+
+### Authorization inteface
 
 ## JSON / HTTP implementation guide
 
@@ -399,9 +454,9 @@ Request
             "nw" : [-45.0, 45.0], // lon, lat
             "se" : [45.0, -45.0]  // lon, lat   
         },
-        "operators" : [ "ESS", "TNM", "ELA" ],
-        "vehicle_type" : ["CAR"],
-        "authorization_type" : ["CIR", "HUBJECT"]
+        "operators" : [ "ess", "tnm", "ela" ],
+        "vehicle_type" : ["car"],
+        "authorization_type" : ["cir", "hubject"]
     }
         
 Coordinates are noted as upper left to lower right corner.
@@ -427,12 +482,12 @@ RESPONSE
                         "text": "Standard Tariff"
                     }
                 ],
-                "type": "CIR"
+                "type": "cir"
             }
         ],
         "availability": {
             "start_date": "2010-01-01T00:00Z",
-            "RRULE": "FREQ=DAILY;UNTIL=20201231T000000Z",
+            "rrule": "FREQ=DAILY;UNTIL=20201231T000000Z",
             "display_text": [
                 {
                     "language": "nl",
@@ -459,7 +514,7 @@ RESPONSE
         "connectors": [
             {
                 "capabilities": "SMART CHARGING MARKERS - TB DEFINED",
-                "charge_protocol": "MODE3",
+                "charge_protocol": "mode3",
                 "evse_id": "NL-ELA-0001",
                 "location": {
                     "address": "De Waag 6",
@@ -474,7 +529,7 @@ RESPONSE
                 },
                 "power": {
                     "amperage": 16,
-                    "current": "AC_1_PHASE",
+                    "current": "ac_1_phase",
                     "voltage": 220
                 },
                 "price_schemes": [
@@ -494,8 +549,8 @@ RESPONSE
                         "start_date": "2010-01-01T00:00Z",
                         "tariff": [
                             {
-                                "condition": "NO",
-                                "currency": "EUR",
+                                "condition": "no",
+                                "currency": "eur",
                                 "display_text": [
                                     {
                                         "language": "nl",
@@ -508,18 +563,18 @@ RESPONSE
                                 ],
                                 "price_gross": 0.1936,
                                 "price_net": 0.2343,
-                                "pricing_unit": "kWhToEV",
+                                "pricing_unit": "kwhtoev",
                                 "tariff_id": "kwrate",
                                 "tax_percentage": 21,
                                 "validity_rule": {
-                                    "period_type": "CHARGING"
+                                    "period_type": "charging"
                                 }
                             }
                         ]
                     }
                 ],
-                "status": "AVAILABLE",
-                "type": "CTYPE2"
+                "status": "available",
+                "type": "ctype2"
             }
         ],
         "identifier": "CHARGE_LOCATION_001",
@@ -568,7 +623,7 @@ RESPONSE
             "name": "Gemeente Amersfoort",
             "phone": "033-423234234"
         },
-        "vehicle_type": "CAR"
+        "vehicle_type": "car"
      }
     ]
                           
@@ -584,14 +639,23 @@ REQUEST
         "authentication" : {
             "type" : "basic",
             "credentials" : "aGVsbG86d29ybGQ="
-        }	
+        },
+        "search" :  {
+        	"plek????" (eindhoven, nederland)
+           "area" :  { <- check met GEOJSON voor meer flexibele criteria
+            "nw" : [-45.0, 45.0], // lon, lat
+            "se" : [45.0, -45.0]  // lon, lat   
+        },
+        "operators" : [ "ess", "tnm", "ela" ],
+        "vehicle_type" : ["car"],
+        "authorization_type" : ["cir", "hubject"]
     }
 
 REPLY
 
     200 OK
     {
-        "token_id" : "JmO6uPb-U=1Kg7",
+        "subscription_id" : "JmO6uPb-U=1Kg7",
         "evse" : [ "evseId1", "evseId2", "evseId12"]
     }
 
@@ -599,22 +663,49 @@ REPLY
 #### Operator calls NDR @ provider
 
 (on myprovider.nl, with basic auth "aGVsbG86d29ybGQ=)"
+subscription_id is uniek in combinatie met de operator
 
     POST /api/ndr
-    {
+   {
         "operator": "ELA",
+        "subscription_id" : "JmO6uPb-U=1Kg7",   
+   , [ {
         "evse_id": "evseId2",
-        "token_id" : "JmO6uPb-U=1Kg7",
         "connector_no": 1,  // note 0 has a specific purpose in OCPP and means ALL
         "contract_id":"NL-TNM-023232-X",
         "timestamp":"2014-11-11T12:56Z",
         "event" : {
-        	"type" : "SessionStarted",
+        	"type" : "session-started",
         	"start_datetime":"2014-11-11T12:55Z"
         }	
+    ]
     }
 
 REPLY
 
     200 OK // no data, received don't need to send it again. 
+    
+#### Provider wants to influence a specific charging profile
+Provider calls Operator
+
+    POST /api/chargepoint/<id> BASIC AUTH provider credentials
+    {
+    "evse_id": "",
+    "subscription_id": "",
+    "schedule": {
+        "start_schedule": "",
+        "chargingschedule_periods": [
+            {
+                "max_current": "",
+                "max_power": "",
+                "start_period": ""
+            }
+        ],
+        "duration": ""
+    },
+    "contract_id": "NL-TNM-234234-X"
+    "tariff_type": ""
+}
+
+REPLY 200 OK / no data (when accepted) (NDR calls will show the result ?)
     
