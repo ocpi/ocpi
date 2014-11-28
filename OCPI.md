@@ -1,6 +1,5 @@
 Title:  OCPI, NDR & CDR 1.0
-Author: Olger Warnier <o.warnier@thenewmotion.com>, Dan Brooke <d.brooke@thenewmotion.com>
-Date:   November 23th, 2014
+Date:   November 28th, 2014
 Version:  0.98
 
 # OCPI, NDR & CDR Interface 1.0 (DRAFT v4)
@@ -72,7 +71,53 @@ More information on basic authentication is found at the [IETF](http://tools.iet
 
 ## notes on generic data formats
 
-### EvseIdThe EVSEID must follow the specification of ISO/IEC 15118-2 - Annex H ”Specification of Identifiers”.The EVSEID must match the following structure (the notation corresponds to the augmented Backus-Naur Form (ABNF) as defined in RFC5234):<EVSEID> = <Country Code> <S> <EVSE Operator ID> <S><ID Type> <Power Outlet ID><Country Code> = 2 ALPHA   ; two character country code according to ISO 3166-1 (      Alpha-2-Code)<EVSE Operator ID> = 3 (ALPHA / DIGIT)   ; three alphanumeric characters, defined and listed byeMI3 group<ID Type> = "E"   ; one character "E" indicating that this ID representsan "EVSE"<Power Outlet ID> = (ALPHA / DIGIT) *30 (ALPHA / DIGIT / <   S>)   ; sequence of alphanumeric characters or separators,      start with alphanumeric characterALPHA = %x41-5A / %x61-7A   ; according to IETF RFC 5234 (7-Bit ASCII)DIGIT = %x30-39   ; according to IETF RFC 5234 (7-Bit ASCII)<S> = *1 ( "*" )   ; optional separatorAn example for a valid EVSEID is FR*A23*E45B*78C with FR indicating France, A23 representing a particular EVSE Operator, E indicating that it is of type EVSE and 45B*78C representing one of its power outlets.EVSEID SemanticsThe following rules apply:• Each EVSEID has a variable length with at least seven characters (two characters Country Code, three characters EVSE Operator ID, one character ID Type, one character Power Outlet ID) and at most thirty-seven characters (two characters Country Code, three characters EVSE Operator ID, one character ID Type, thirty- one characters Power Outlet ID).• While the EVSE Operator ID shall be assigned by a central issuing authority, each operator with an assigned EVSE Operator ID can choose the Power Outlet ID within the above mentioned rules freely.Backward Compatibility EVSE-IDs as defined in DIN SPEC 91286 MAY be used by applying the following mapping:• The two digit country code ”49” in Germany for geographic areas in ITU-T E.164:11/2010 is mapped onto the ISO-3166-1 (Alpha-2-Code).• The three digit of spot operator ID is mapped 1:1 into the new alphanumeric scheme.• All digits are mapped 1:1 into the new alphanumeric scheme. Example: +49*823*1234*5678 is interpreted as DE*823*E1234*5678
+### EVSEIDThe EVSEID must follow the specification of ISO/IEC 15118-2 - Annex H ”Specification of Identifiers”.
+
+The EVSEID must match the following structure (the notation corresponds to the augmented Backus-Naur Form (ABNF) as defined in RFC5234):
+
+    <Country Code> <S> <EVSE Operator ID> <S> <ID Type> <Power Outlet ID>
+
+* \<Country Code\>  2 ALPHA, two character country code according to ISO 3166-1 (Alpha-2-Code) * \<EVSE Operator ID\>  3 (ALPHA | DIGIT) three alphanumeric characters * \<ID Type\>  "E"; one character "E" indicating that this ID represents an "EVSE" * \<Power Outlet ID\>  (ALPHA | DIGIT) * 30 (ALPHA | DIGIT \<S\> ) Sequence of alphanumeric characters or separators, start with alphanumeric character.
+		* ALPHA = %x41-5A / %x61-7A; according to IETF RFC 5234 (7-Bit ASCII) DIGIT = %x30-39; according to IETF RFC 5234 (7-Bit ASCII)
+		* \<S\> = *1 ( "*" | "-" ) Optional separator
+
+An example for a valid EVSEID is FR-A23-E45B-78C with FR indicating France, A23 representing a particular EVSE Operator, E indicating that it is of type EVSE and 45B*78C representing one of its power outlets.
+
+EVSEID SemanticsThe following rules apply: *  Each EVSEID has a variable length with at least seven characters (two characters Country Code, three characters EVSE Operator ID, one character ID Type, one character Power Outlet ID) and at most thirty-seven characters (two characters Country Code, three characters EVSE Operator ID, one character ID Type, thirty- one characters Power Outlet ID). *  While the EVSE Operator ID shall be assigned by a central issuing authority, each operator with an assigned EVSE Operator ID can choose the Power Outlet ID within the above mentioned rules freely.
+ * A Power outlet ID is specified as a single unit that controls the chargesession (the actual EVSE)
+
+Backward Compatibility EVSE-IDs as defined in DIN SPEC 91286 MAY be used by applying the following mapping: *  The two digit country code ”49” in Germany for geographic areas in ITU-T E.164:11/2010 is mapped onto the ISO-3166-1 (Alpha-2-Code). * The three digit of spot operator ID is mapped 1:1 into the new alphanumeric scheme. * All digits are mapped 1:1 into the new alphanumeric scheme. Example: +49*823*1234*5678 is interpreted as DE*823*E1234*5678
+
+### Contract ID 
+The Contract ID is an unique identifier of a contract that is used to enable charging and related services. 
+
+The Contract ID must match the following structure (the notation corresponds to the augmented Backus-Naur Form (ABNF) as defined in RFC5234):
+
+    <Country Code> <S> <Provider ID> <S> <Instance> <S> <Check-Digit>
+    
+* \<Country Code\>  2 ALPHA, two character country code according to ISO 3166-1 (Alpha-2-Code)* \<Provider ID\>  3 (ALPHA | DIGIT) three alphanumeric characters* \<Instance\>  (ALPHA | DIGIT) * 9 (ALPHA | DIGIT \<S\> ) Sequence of alphanumeric characters or separators, start with alphanumeric character.
+		* ALPHA = %x41-5A / %x61-7A; according to IETF RFC 5234 (7-Bit ASCII) DIGIT = %x30-39; according to IETF RFC 5234 (7-Bit ASCII)
+		* \<S\> = *1 ( "*" | "-" ) Optional separator
+* \<Check Digit\> 1 DIGIT; according to computation
+
+#### Backward Compatibility 
+Contract IDs as defined in DIN SPEC 91286 may be used as well by adding two zeros (”00”) at the beginning of the Instance-part and the old check digit at position 14. A second check digit as referenced in this document may be calculated over the resulting ID and may be added on position 15.Example: The DIN-Contract-ID DE-8AA-123A56-3 must be set as EMAID DE- 8AA-00123A563-N.
+
+#### computation of the Check Digit
+**CHECK THIS**
+*A unique value is determined for each of the first 11 characters of the Contract ID. The numbers (DIGIT) keep their value, the letters (ALPHA) are mapped to the values from A = 10 to Z = 35. 
+The optional seperator \<S\> is not taken into account and the mapping is case insensitive, i.e. "D" as well as "d" maps to the value 13.*
+
+In the resulting list of digits, each digit is multiplied with the weight of 2^\<pos\> (2 to the power of \<pos\>) where \<pos\> is the position in the list. The first value in the list is positioned on number 0 (zero)
+The resulting products are summed up to \<checksum\>
+
+Note: There are at least 11 (if only numbers (DIGIT) are used in the Contract ID) and at most 22 (if only letters (ALPHA) are used in the Contract ID) resulting products. 
+
+Finally, \<checksum\> is taken "modulo  11". The result of this modulo-computation is a number between "0" and "10". The numbers between "0" and "9" are taken as Check Digit. For "10" the check digit is "X".
+
+Note: Check digits based on the modulo-11 principle are able to idenitfy single typing errors as well as singled transposed characters. 
+
+**ADD EXAMPLE HERE**
 
 ## OCPI Interface operations
 
@@ -423,6 +468,13 @@ In order to keep it in line with the interface, the subscription mechanism is mo
 
 ### Authorization inteface
 
+The authorization interface is implemented by the provider and deals with real-time authorization requests of operators. 
+
+When a driver wants to make use of a chargepoint and the request for charging is initiated at the operator network (it is also possible that the provider initiates a charge session), the operator is able to verify the given token of identity at the service provider that handed out this token. 
+Thereafter the service provider will issue the Contract ID that should be used to register this charge session on. That Contract ID will become part of the CDR when the session has ended and is used for specifc NDR message delivery. 
+
+NOTE: In the situation of live authorizations, the provider MAY hand out temporary contract Ids that will be mapped to their customers after CDR delivery. When central authorization is used (CIR), the Operator will report based on the contract ID found in the central authorization database. 
+
 ## JSON / HTTP implementation guide
 
 ### A note on variable naming
@@ -685,7 +737,7 @@ REPLY
 
     200 OK // no data, received don't need to send it again. 
     
-#### Provider wants to influence a specific charging profile
+### Provider wants to influence a specific charging profile
 Provider calls Operator
 
     POST /api/chargepoint/<id> BASIC AUTH provider credentials
@@ -708,4 +760,35 @@ Provider calls Operator
 }
 
 REPLY 200 OK / no data (when accepted) (NDR calls will show the result ?)
+
+### Provider / Driver wants to reserve a chargepoint
+Provider calls operator
+
+    POST /api/xxxxxx Basic Auth operator credentials
+    {
+        "contract_id" : "NL-TNM-234234-3",
+        "evse_id" : "NL-ELA-23423"
+        "start_datetime" : "",
+        "expected_duration" : 120 // in minutes
+    }
+    
+    reply 200 OK // need for more information ?
+
+### Operator wants to Authorize a charge session
+Operator calls Provider
+
+    POST /api/xxxxx Basic Auth subscription credentials
+    {
+       "token" : { // OR contract_id (both allowed)
+       
+       }
+    }
+
+	reply 200 OK
+	{
+		"contract_id" : "NL-TNM-273849-X"
+		??? Indications on allowed charging ????
+	}
+	
+
     
