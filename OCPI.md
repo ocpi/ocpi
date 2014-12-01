@@ -10,8 +10,7 @@ Version:  0.98
 
 ## Introduction and background
 The purpose of this standard is to inform EV drivers during their day to day use of charge points. 
-
-**Therefore, this standard is written to accommedate EV drivers .......**
+Therefore, this standard is written to accommodate EV drivers in the way the make use of charge points. 
 
 Starting in 2009, e-laad foundation and the forerunner of the eViolin association specified 2 standards in order to retrieve charge point details and active state. These are called the VAS interface and the Amsterdam interface. 
 In 2011, eViolin combined these 2 interface into the OCPI interface allowing other parties to fetch charge point information and active state. 
