@@ -99,7 +99,7 @@ The BDEW organisation keeps the registry for Germany.
  * [Provider ID Liste](https://bdew-emobility.de/EMobility/ProviderIdList) See https://bdew-emobility.de/EMobility/ProviderIdList
  * [EVSE Operator ID Liste](https://bdew-emobility.de/EMobility/EvseOperatorIdList)  See https://bdew-emobility.de/EMobility/EvseOperatorIdList
 
-In order to keep track of the currently known providers and operators in the Netherlands, a [seperate list](registry.md) is made available with this standard (for now). See http://github.com/thenewmotion/ocpi/registry.md 
+In order to keep track of the currently known providers and operators in the Netherlands, a [seperate list](registry.md) is made available with this standard (for now). See https://github.com/thenewmotion/ocpi/blob/master/registry.md 
 
 ### EVSEIDThe EVSEID must follow the specification of ISO/IEC 15118-2 - Annex H ”Specification of Identifiers”.
 
