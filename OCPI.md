@@ -9,12 +9,15 @@ Version:  0.98
  * **CDR** Charge Detail Record
 
 ## Introduction and background
-The purpose of this standard is to inform EV drivers during their day to day use of charge points. 
-Therefore, this standard is written to accommodate EV drivers in the way the make use of charge points. 
+The Open Charge Point Interface (OCPI) enables a scalable, automated EV-roaming setup between Charge Point Operators and e-Mobility Service Providers. It supports authorisation, charge point information exchange (incl transaction events), charge detail record exchange and finally, the exchange of smart-charging commands between parties.
 
-Starting in 2009, e-laad foundation and the forerunner of the eViolin association specified 2 standards in order to retrieve charge point details and active state. These are called the VAS interface and the Amsterdam interface. 
-In 2011, eViolin combined these 2 interface into the OCPI interface allowing other parties to fetch charge point information and active state. 
-In this same time period, the CDR format for the exchange of charge sessions was defined. This format is currently in use by the majority of the eViolin members. 
+It offers market participants in EV an attractive and scalable solution for (international) roaming between networks, avoiding the costs and innovation-limiting complexities involved with today's non-automated solutions or with central roaming hubs. 
+
+As such it helps to enable EV-drivers to charge everywhere in a fully-informed way, helps the market to develop quickly and helps market players to execute their business models in the best way.
+
+Starting in 2009, e-laad foundation and the forerunner of the eViolin association specified 2 standards in order to retrieve charge point details and active state. These are called the VAS interface and the Amsterdam interface. In this same period, a CDR format for the exchange of charge sessions between eViolin members was defined. This format is currently in use by the majority of the eViolin members. 
+
+Recently, eViolin started combining these interfaces, extending them with, amongst others, pricing information and transaction events (NDR's), resulting in a first version of the OCPI interface. 
 
 This document describes a combined set of standards based on the work done in the past. Next to that, the evolution of these standards and their use is taken into account and some elements have been updated to match nowadays use. 
 
@@ -23,12 +26,12 @@ This document describes a combined set of standards based on the work done in th
 This overview shows the back-offices of the (service) provider and the (charge point) operator, including the role of the driver. 
 OCPI is a stack of interfaces that enable a driver to find and make use of a chargepoint in an informed way. 
 
-It all starts with finding a charge location that has a connector available that fullfills the needs of the driver. The 'Find' interface supports these actions in such a way that the driver is capable to query the operators on it's own or via an aggregator like the provider. 
+It all starts with finding a charge location that has a connector available that fulfills the needs of the driver. The 'Find' interface supports these actions in such a way that the driver is capable to query the operators on it's own or via an aggregator like the provider. 
 
 When an applicable charge location is found, a spot at that location may be reserved - or - the driver is able to keep track of status changes on the availability at that charge location via the Subscription mechanism. 
-Again, this may be done directly at the operator - or - via an aggregating services like the provider. 
+Again, this may be done directly at the operator - or - via an aggregating service provided by the provider. 
 
-The moment a driver start charging the car, there may be smart-charging capabilities available or automatically enabled. The Authorization and Smart Charging interface support several situations to get a charge session started and the Subscription interface delivering notifications (NDR) will keep the driver informed on progress and possible issues during the charge session.
+The moment a driver starts charging the car, there may be smart-charging capabilities available or automatically enabled. The Authorization and Smart Charging interfaces support several situations to get a charge session started and the Subscription interface delivering notifications (NDR) will keep the driver informed on progress and possible issues during the charge session.
 
 Finally at the end of a charge session, a billing record in the form of a CDR provides all details  and enables the complete financial handling of the full session. 
 
@@ -101,25 +104,34 @@ The BDEW organisation keeps the registry for Germany.
 
 In order to keep track of the currently known providers and operators in the Netherlands, a [seperate list](registry.md) is made available with this standard (for now). See https://github.com/thenewmotion/ocpi/blob/master/registry.md 
 
-### EVSEIDThe EVSEID must follow the specification of ISO/IEC 15118-2 - Annex H ”Specification of Identifiers”.
+### EVSEID
+The EVSEID must follow the specification of ISO/IEC 15118-2 - Annex H ”Specification of Identifiers”.
 
 The EVSEID must match the following structure (the notation corresponds to the augmented Backus-Naur Form (ABNF) as defined in RFC5234):
 
     <Country Code> <S> <EVSE Operator ID> <S> <ID Type> <Power Outlet ID>
 
-* \<Country Code\>  2 ALPHA, two character country code according to ISO 3166-1 (Alpha-2-Code) * \<EVSE Operator ID\>  3 (ALPHA | DIGIT) three alphanumeric characters * \<ID Type\>  "E"; one character "E" indicating that this ID represents an "EVSE" * \<Power Outlet ID\>  (ALPHA | DIGIT) * 30 (ALPHA | DIGIT \<S\> ) Sequence of alphanumeric characters or separators, start with alphanumeric character.
+* \<Country Code\>  2 ALPHA, two character country code according to ISO 3166-1 (Alpha-2-Code)
+ * \<EVSE Operator ID\>  3 (ALPHA | DIGIT) three alphanumeric characters
+ * \<ID Type\>  "E"; one character "E" indicating that this ID represents an "EVSE"
+ * \<Power Outlet ID\>  (ALPHA | DIGIT) * 30 (ALPHA | DIGIT \<S\> ) Sequence of alphanumeric characters or separators, start with alphanumeric character.
 		* ALPHA = %x41-5A / %x61-7A; according to IETF RFC 5234 (7-Bit ASCII) DIGIT = %x30-39; according to IETF RFC 5234 (7-Bit ASCII)
 		* \<S\> = *1 ( "*" | "-" ) Optional separator
 
 An example for a valid EVSEID is FR-A23-E45B-78C with FR indicating France, A23 representing a particular EVSE Operator, E indicating that it is of type EVSE and 45B*78C representing one of its power outlets.
 
-EVSEID SemanticsThe following rules apply:
+EVSEID Semantics
+The following rules apply:
  
- *  Each EVSEID has a variable length with at least seven characters (two characters Country Code, three characters EVSE Operator ID, one character ID Type, one character Power Outlet ID) and at most thirty-seven characters (two characters Country Code, three characters EVSE Operator ID, one character ID Type, thirty- one characters Power Outlet ID). *  While the EVSE Operator ID shall be assigned by a central issuing authority, each operator with an assigned EVSE Operator ID can choose the Power Outlet ID within the above mentioned rules freely.
+ *  Each EVSEID has a variable length with at least seven characters (two characters Country Code, three characters EVSE Operator ID, one character ID Type, one character Power Outlet ID) and at most thirty-seven characters (two characters Country Code, three characters EVSE Operator ID, one character ID Type, thirty- one characters Power Outlet ID).
+ *  While the EVSE Operator ID shall be assigned by a central issuing authority, each operator with an assigned EVSE Operator ID can choose the Power Outlet ID within the above mentioned rules freely.
  * A Power outlet ID is specified as a single unit that controls the chargesession (the actual EVSE)
 
-Backward Compatibility EVSE-IDs as defined in DIN SPEC 91286 MAY be used by applying the following mapping: 
- *  The two digit country code ”49” in Germany for geographic areas in ITU-T E.164:11/2010 is mapped onto the ISO-3166-1 (Alpha-2-Code). * The three digit of spot operator ID is mapped 1:1 into the new alphanumeric scheme. * All digits are mapped 1:1 into the new alphanumeric scheme. Example: +49*823*1234*5678 is interpreted as DE*823*E1234*5678
+Backward Compatibility EVSE-IDs as defined in DIN SPEC 91286 MAY be used by applying the following mapping:
+ 
+ *  The two digit country code ”49” in Germany for geographic areas in ITU-T E.164:11/2010 is mapped onto the ISO-3166-1 (Alpha-2-Code).
+ * The three digit of spot operator ID is mapped 1:1 into the new alphanumeric scheme.
+ * All digits are mapped 1:1 into the new alphanumeric scheme. Example: +49*823*1234*5678 is interpreted as DE*823*E1234*5678
 
 ### Contract ID 
 The Contract ID is an unique identifier of a contract that is used to enable charging and related services. 
@@ -128,13 +140,16 @@ The Contract ID must match the following structure (the notation corresponds to 
 
     <Country Code> <S> <Provider ID> <S> <Instance> <S> <Check-Digit>
     
-* \<Country Code\>  2 ALPHA, two character country code according to ISO 3166-1 (Alpha-2-Code)* \<Provider ID\>  3 (ALPHA | DIGIT) three alphanumeric characters* \<Instance\>  (ALPHA | DIGIT) * 9 (ALPHA | DIGIT \<S\> ) Sequence of alphanumeric characters or separators, start with alphanumeric character.
+* \<Country Code\>  2 ALPHA, two character country code according to ISO 3166-1 (Alpha-2-Code)
+* \<Provider ID\>  3 (ALPHA | DIGIT) three alphanumeric characters
+* \<Instance\>  (ALPHA | DIGIT) * 9 (ALPHA | DIGIT \<S\> ) Sequence of alphanumeric characters or separators, start with alphanumeric character.
 		* ALPHA = %x41-5A / %x61-7A; according to IETF RFC 5234 (7-Bit ASCII) DIGIT = %x30-39; according to IETF RFC 5234 (7-Bit ASCII)
 		* \<S\> = *1 ( "*" | "-" ) Optional separator
 * \<Check Digit\> 1 DIGIT; according to computation
 
 #### Backward Compatibility 
-Contract IDs as defined in DIN SPEC 91286 may be used as well by adding two zeros (”00”) at the beginning of the Instance-part and the old check digit at position 14. A second check digit as referenced in this document may be calculated over the resulting ID and may be added on position 15.Example: The DIN-Contract-ID DE-8AA-123A56-3 must be set as EMAID DE- 8AA-00123A563-N.
+Contract IDs as defined in DIN SPEC 91286 may be used as well by adding two zeros (”00”) at the beginning of the Instance-part and the old check digit at position 14. A second check digit as referenced in this document may be calculated over the resulting ID and may be added on position 15.
+Example: The DIN-Contract-ID DE-8AA-123A56-3 must be set as EMAID DE- 8AA-00123A563-N.
 
 #### computation of the Check Digit
 **TODO CHECK THIS**
