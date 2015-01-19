@@ -19,7 +19,9 @@ Starting in 2009, e-laad foundation and the forerunner of the eViolin associatio
 
 Recently, eViolin started combining these interfaces, extending them with, amongst others, pricing information and transaction events (NDR's), resulting in a first version of the OCPI interface. 
 
-This document describes a combined set of standards based on the work done in the past. Next to that, the evolution of these standards and their use is taken into account and some elements have been updated to match nowadays use. 
+This document describes a combined set of standards based on the work done in the past. Next to that, the evolution of these standards and their use is taken into account and some elements have been updated to match nowadays use.
+
+The latest version of this specification can be found here: https://github.com/thenewmotion/ocpi
 
 ## Overview
 ![overview](overview.jpg)
@@ -512,19 +514,19 @@ This interface allows the operator to deliver CDR messages of finished charge se
 	* tariff_type (parkingtime, usagetime, energy, power, servicefee) 
 * total_cost: sum of charging_periods, including VAT (allows calculation check) (? really required ??)
 
-### Authorization inteface
+### Authorization interface
 
 The authorization interface is implemented by the provider and deals with real-time authorization requests of operators. 
 
 When a driver wants to make use of a chargepoint and the request for charging is initiated at the operator network (it is also possible that the provider initiates a charge session), the operator is able to verify the given token of identity at the service provider that handed out this token. 
 Thereafter the service provider will issue the Contract ID that should be used to register this charge session on. That Contract ID will become part of the CDR when the session has ended and is used for specifc NDR message delivery. 
 
-NOTE: In the situation of live authorizations, the provider MAY hand out temporary contract Ids that will be mapped to their customers after CDR delivery. When central authorization is used (CIR), the Operator will report based on the contract ID found in the central authorization database. 
+NOTE: In the situation of live authorizations, the provider MAY hand out temporary contract Ids that will be mapped to their customers after CDR delivery. When central authorization is used (like the 'CIR' in the Netherlands), the Operator will report based on the contract ID found in the central authorization database. 
 
 ## JSON / HTTP implementation guide
 
 ### Interface endpoint locations
-As OCPI contains mulitple interfaces, different endpoints are available for messaging. 
+As OCPI contains multiple interfaces, different endpoints are available for messaging. 
 As the Provider calls the Operator and registers possible callback endpoints, the Operator interfaces need to be on a known location. 
 
 | Operator interface | Endpoint |
@@ -777,7 +779,7 @@ REPLY
 #### Operator calls NDR @ provider
 
 (on myprovider.nl, with basic auth "aGVsbG86d29ybGQ=)"
-subscription_id is uniek in combinatie met de operator
+subscription_id is unique when combined with the operator
 
     POST /api/ndr
     {
