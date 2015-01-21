@@ -772,7 +772,8 @@ REPLY
     200 OK
     {
         "subscription_id" : "JmO6uPb-U=1Kg7",
-        "evse" : [ "evseId1", "evseId2", "evseId12"]
+        "evse" : [ "evseId1", "evseId2", "evseId12"],
+        "expireDate" : "2015-01-21T15:47Z" 
     }
 
 
