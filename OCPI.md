@@ -372,10 +372,11 @@ This interface will receive:
 
  * operator : code of the operator
  * subscription_id : subscription id that matches the one returned in the subscribe response
- * evse-id: unique identifier of the EVSE inside the charge point
- * connector-no: connector no on the given charge point
- * contract-id : Contract Id that makes use of the charge point (be aware of privacy issues)
- * event: specific event types are found in the table below.  
+ * evse_id: unique identifier of the EVSE inside the charge point
+ * connector_no: connector no on the given charge point
+ * contract_id : Contract Id that makes use of the charge point (be aware of privacy issues)
+ * event_type: specific event types are found in the table below. 
+ * event_payload : Json object with the actual payload
 * timestamp (ISO 8601)
 
 The event type will be extended into these child objects, with their additional properties listed
@@ -791,8 +792,8 @@ subscription_id is unique when combined with the operator
         "connector_no": 1,  // note 0 has a specific purpose in OCPP and means ALL
         "contract_id":"NL-TNM-023232-X",
         "timestamp":"2014-11-11T12:56Z",
-        "event" : {
-        	"type" : "session-started",
+        "event_type" : 	"session-started",
+        "event_payload" : {
         	"start_datetime":"2014-11-11T12:55Z"
         }	
      ]
