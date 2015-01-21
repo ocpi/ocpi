@@ -2,7 +2,7 @@ Title:  OCPI, NDR & CDR 1.0
 Date:   December 1st, 2014
 Version:  0.98
 
-# OCPI, NDR & CDR Interface 1.0 (DRAFT v4)
+# OCPI, NDR & CDR Interface 1.0 (IN DEVELOPMENT v5)
 
  * **OCPI** Open Charge point Interface 
  * **NDR** Notification Detail Record
