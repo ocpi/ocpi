@@ -11,7 +11,7 @@ The New Motion |	TNM |X|X|
 ANWB |	ANW |X|X|
 Ballast Nedam (blue corner)|	BCA |X|X| 
 LastMileSolutions |	LMS |X|X|
-AMS	(Allego)| AMS |X|X|
+Allego| ALL |X|X|
 Blue Current |	BCU ||X|
 Travelcard | TCE |X||
 ECOGo | EGO |X||
