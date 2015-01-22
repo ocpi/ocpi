@@ -9,7 +9,7 @@ Version:  0.98
  * **CDR** Charge Detail Record
 
 ## Introduction and background
-The Open Charge Point Interface (OCPI) enables a scalable, automated EV-roaming setup between Charge Point Operators and e-Mobility Service Providers. It supports authorisation, charge point information exchange (incl transaction events), charge detail record exchange and finally, the exchange of smart-charging commands between parties.
+The Open Charge Point Interface (OCPI) enables a scalable, automated EV-froaming setup between Charge Point Operators and e-Mobility Service Providers. It supports authorisation, charge point information exchange (incl transaction events), charge detail record exchange and finally, the exchange of smart-charging commands between parties.
 
 It offers market participants in EV an attractive and scalable solution for (international) roaming between networks, avoiding the costs and innovation-limiting complexities involved with today's non-automated solutions or with central roaming hubs. 
 
@@ -120,7 +120,7 @@ The EVSEID must match the following structure (the notation corresponds to the a
 		* ALPHA = %x41-5A / %x61-7A; according to IETF RFC 5234 (7-Bit ASCII) DIGIT = %x30-39; according to IETF RFC 5234 (7-Bit ASCII)
 		* \<S\> = *1 ( "*" | "-" ) Optional separator
 
-An example for a valid EVSEID is FR-A23-E45B-78C with FR indicating France, A23 representing a particular EVSE Operator, E indicating that it is of type EVSE and 45B*78C representing one of its power outlets.
+An example for a valid EVSEID is FR-A23-E45B-78C with FR indicating France, A23 representing a particular EVSE Operator, E indicating that it is of type EVSE and 45B*78C representing its EVSEID.
 
 EVSEID Semantics
 The following rules apply:
