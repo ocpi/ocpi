@@ -28,7 +28,7 @@ The latest version of this specification can be found here: https://github.com/t
 This overview shows the back-offices of the (service) provider and the (charge point) operator, including the role of the driver. 
 OCPI is a stack of interfaces that enable a driver to find and make use of a chargepoint in an informed way. 
 
-It all starts with finding a charge location that has a connector available that fulfills the needs of the driver. The 'Find' interface supports these actions in such a way that the driver is capable to query the operators on it's own or via an aggregator like the provider. 
+It all starts with finding a charge location that has a connector available that fulfills the needs of the driver. The 'Find' interface supports these actions in such a way that the driver is capable to query the operators on its own or via an aggregator like the provider.
 
 When an applicable charge location is found, a spot at that location may be reserved - or - the driver is able to keep track of status changes on the availability at that charge location via the Subscription mechanism. 
 Again, this may be done directly at the operator - or - via an aggregating service provided by the provider. 
@@ -74,7 +74,7 @@ Some of the interfaces will not be available to the driver, like the CDR interfa
 
 ### Smart charging support
 
-The OCPI interfaces allows for smart charging.  The Provider as representative of the driver / customer is allowed to request a specific Charging Profile. The Operator evaluates this request and MAY change the charging profile provided to the car of the driver. The operator WILL notify the provider of its choice and actions via notifications. 
+The OCPI interfaces allows for smart charging.  The Provider as representative of the driver / customer is allowed to request a specific Charging Profile. The Operator evaluates this request and may change the charging profile provided to the car of the driver. The operator will notify the provider of its choice and actions via notifications.
 
 ![smart charging overview](smart-charging.jpg)
 This illustration shows the full flow for a smart charging situation. The communication between Provider and  Operator is in scope for the interfaces described in this document. 
@@ -129,7 +129,7 @@ The following rules apply:
  *  While the EVSE Operator ID shall be assigned by a central issuing authority, each operator with an assigned EVSE Operator ID can choose the Power Outlet ID within the above mentioned rules freely.
  * A Power outlet ID is specified as a single unit that controls the chargesession (the actual EVSE)
 
-Backward Compatibility EVSE-IDs as defined in DIN SPEC 91286 MAY be used by applying the following mapping:
+Backward Compatibility EVSE-IDs as defined in DIN SPEC 91286 may be used by applying the following mapping:
  
  *  The two digit country code ”49” in Germany for geographic areas in ITU-T E.164:11/2010 is mapped onto the ISO-3166-1 (Alpha-2-Code).
  * The three digit of spot operator ID is mapped 1:1 into the new alphanumeric scheme.
@@ -184,7 +184,7 @@ Many of the details for charge points are defined as enumerations and types used
 
 Subscriptions are initiated by the provider and allows the provider to register callback interfaces for the Notifications, Authorization and CDR messages. 
 
-Subscriptions allows the caller to specify an endpoint address that will receive pushed messages. This endpoint needs to implement the callback specified interface in order to receive messages correctly. Guaranteed message delivery may or may not be implemented, that is a decision up to the parties involved. Guaranteed message delivery SHOULD NOT put additional requirements or changes on the specified NDR, Authorization or CDR format.
+Subscriptions allows the caller to specify an endpoint address that will receive pushed messages. This endpoint needs to implement the callback specified interface in order to receive messages correctly. Guaranteed message delivery may or may not be implemented, that is a decision up to the parties involved. Guaranteed message delivery should not put additional requirements or changes on the specified NDR, Authorization or CDR format.
 
 ### Find Charge location
 #### request
@@ -297,9 +297,9 @@ Available search criteria:
 | identifier(s)              | o | Return status updates for a (list of ) specific charge point (s) |
 |interface_type| |Register for a specific interface type, being (NDR, Authorization or CDR) |
  
-The request must also contain the endpoint URL for delivering the NDR messages.  It MAY include information to authenticate the user (the one that wants to subscribe to updates). When this is provided then the callbacks will contain contractIds for events relating to cards the user has access to.
+The request must also contain the endpoint URL for delivering the NDR messages.  It may include information to authenticate the user (the one that wants to subscribe to updates). When this is provided then the callbacks will contain contractIds for events relating to cards the user has access to.
 
-Please note that the one pushing data to this interface MAY put restrictions on the information that you will receive status updates for.  For the one pushing information - mostly the operator - : It is advised to check the availability of the NDR interface at registration. 
+Please note that the one pushing data to this interface may put restrictions on the information that you will receive status updates for.  For the one pushing information - mostly the operator - : It is advised to check the availability of the NDR interface at registration.
 
 When a subscribe is sent without any of the Criteria, updates of *all* charge points are expected. 
 
@@ -522,7 +522,7 @@ The authorization interface is implemented by the provider and deals with real-t
 When a driver wants to make use of a chargepoint and the request for charging is initiated at the operator network (it is also possible that the provider initiates a charge session), the operator is able to verify the given token of identity at the service provider that handed out this token. 
 Thereafter the service provider will issue the Contract ID that should be used to register this charge session on. That Contract ID will become part of the CDR when the session has ended and is used for specifc NDR message delivery. 
 
-NOTE: In the situation of live authorizations, the provider MAY hand out temporary contract Ids that will be mapped to their customers after CDR delivery. When central authorization is used (like the 'CIR' in the Netherlands), the Operator will report based on the contract ID found in the central authorization database. 
+NOTE: In the situation of live authorizations, the provider may hand out temporary contract Ids that will be mapped to their customers after CDR delivery. When central authorization is used (like the 'CIR' in the Netherlands), the Operator will report based on the contract ID found in the central authorization database.
 
 ## JSON / HTTP implementation guide
 
@@ -569,16 +569,16 @@ Request
 
     POST /api/ocpi/chargepoints
     {
-        "area" : 
-            "nw" : [-45.0, 45.0], // lon, lat
-            "se" : [45.0, -45.0]  // lon, lat   
+        "area" : {
+            "nw" : [4.4887207, 52.379248], // lon, lat
+            "se" : [4.9104182, 52.338280]  // lon, lat
         },
         "operators" : [ "ess", "tnm", "ela" ],
         "vehicle_type" : ["car"],
         "authorization_type" : ["cir", "hubject"]
     }
         
-Coordinates are noted as upper left to lower right corner.
+Coordinates are noted as northwest to southeast corner.
 
 All object fields are optional, when multiple fields are noted, they work in 'AND' mode so it will limit the search results.         
 
@@ -760,8 +760,9 @@ REQUEST
         },
         "search" :  {
            "area" :  { 
-            "nw" : [-45.0, 45.0], // lon, lat
-            "se" : [45.0, -45.0]  // lon, lat   
+              "nw" : [4.4887207, 52.379248], // lon, lat
+              "se" : [4.9104182, 52.338280]  // lon, lat
+           }
         },
         "operators" : [ "ess", "tnm", "ela" ],
         "vehicle_type" : ["car"],
