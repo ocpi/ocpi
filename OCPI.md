@@ -335,9 +335,9 @@ List of charge point Identifiers or an error response
 #### request
 message contains:
  
- * evse-id: Unique identifier of the EVSE that is attached to the session of the user
+ * evse_id: Unique identifier of the EVSE that is attached to the session of the user
  * List of [start-datetime + max-power (in watts)]
- * tariff-type (specified in the  CDR  format, it is a string of 2 characters)
+ * tariff_type (specified in the  CDR  format, it is a string of 2 characters)
 
 The EVSE is part of the message to specify the controller in use by this user. The unique EVSE number is given via the NDR interface the moment a session starts. As long as the session is active, the EVSE id is connected to Contract ID using the charge point. 
 
@@ -348,11 +348,11 @@ max_power is specified in **watts**, to be compatible with the OCPP spec.
 
 **TODO: OCPP allows for the use of Amperage, smart charging group is to decide the final format**
 
-tariffType is a chosen string of 2 characters. The string is free and the specification is currently agreed upon between operator and provider. 
+tariff_type is a chosen string of 2 characters. The string is free and the specification is currently agreed upon between operator and provider.
 
 **expected behaviour**
 
-A charge point will always start charging in it's default mode without waiting for this message as it is not said that this message will be sent / received. Local Load Balancing may be applied according to the operator needs and will be notified via the NDR messages. 
+A charge point will always start charging in its default mode without waiting for this message as it is not said that this message will be sent / received. Local Load Balancing may be applied according to the operator needs and will be notified via the NDR messages.
 
 The RequestChargingProfile message may be sent more than a single time. When a change is applied by the operator, a new section in the chargesession will be registered for billing. (see the CDR format for more information)
 
