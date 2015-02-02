@@ -21,7 +21,7 @@ Recently, eViolin started combining these interfaces, extending them with, among
 
 This document describes a combined set of standards based on the work done in the past. Next to that, the evolution of these standards and their use is taken into account and some elements have been updated to match nowadays use.
 
-The latest version of this specification can be found here: https://github.com/thenewmotion/ocpi
+The latest version of this specification can be found here: https://github.com/ocpi/ocpi
 
 ## Overview
 ![overview](overview.jpg)
