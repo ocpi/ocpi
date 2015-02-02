@@ -374,7 +374,7 @@ This interface will receive:
  * subscription_id : subscription id that matches the one returned in the subscribe response
  * evse_id: unique identifier of the EVSE inside the charge point
  * connector_no: connector no on the given charge point
- * contract_id : Contract Id that makes use of the charge point (be aware of privacy issues)
+ * contract_id : Contract ID that makes use of the charge point (be aware of privacy issues)
  * event_type: specific event types are found in the table below. 
  * event_payload : Json object with the actual payload
 * timestamp (ISO 8601)
@@ -440,7 +440,7 @@ ChargingInfoUpdated is a moment in time that charging is taken place and allows 
 contains:
 
  * chargesession_id
- * watt_hours 
+ * watt_hours
 
 ##### UserMessageCode
 
@@ -485,7 +485,7 @@ When a driver parks the car, swipes a card and chooses for delayed charging, the
  
 #### Privacy note
 
-The party publishing events should be aware that the contract_id is linked to person and it's of importance to provide this field **only** to parties that are allowed to make use of that information. 
+The party publishing events should be aware that the contract ID is linked to person and it is of importance to provide this field **only** to parties that are allowed to make use of that information.
 
 #### CDR interface
 
@@ -522,7 +522,7 @@ The authorization interface is implemented by the provider and deals with real-t
 When a driver wants to make use of a chargepoint and the request for charging is initiated at the operator network (it is also possible that the provider initiates a charge session), the operator is able to verify the given token of identity at the service provider that handed out this token. 
 Thereafter the service provider will issue the Contract ID that should be used to register this charge session on. That Contract ID will become part of the CDR when the session has ended and is used for specifc NDR message delivery. 
 
-NOTE: In the situation of live authorizations, the provider may hand out temporary contract Ids that will be mapped to their customers after CDR delivery. When central authorization is used (like the 'CIR' in the Netherlands), the Operator will report based on the contract ID found in the central authorization database.
+NOTE: In the situation of live authorizations, the provider may hand out temporary contract IDs that will be mapped to their customers after CDR delivery. When central authorization is used (like the 'CIR' in the Netherlands), the Operator will report based on the contract ID found in the central authorization database.
 
 ## JSON / HTTP implementation guide
 
