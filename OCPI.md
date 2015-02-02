@@ -9,11 +9,11 @@ Version:  0.98
  * **CDR** Charge Detail Record
 
 ## Introduction and background
-The Open Charge Point Interface (OCPI) enables a scalable, automated EV-roaming setup between Charge Point Operators and e-Mobility Service Providers. It supports authorisation, charge point information exchange (incl transaction events), charge detail record exchange and finally, the exchange of smart-charging commands between parties.
+The Open Charge Point Interface (OCPI) enables a scalable, automated EV roaming setup between Charge Point Operators and e-Mobility Service Providers. It supports authorisation, charge point information exchange (incl transaction events), charge detail record exchange and finally, the exchange of smart-charging commands between parties.
 
 It offers market participants in EV an attractive and scalable solution for (international) roaming between networks, avoiding the costs and innovation-limiting complexities involved with today's non-automated solutions or with central roaming hubs. 
 
-As such it helps to enable EV-drivers to charge everywhere in a fully-informed way, helps the market to develop quickly and helps market players to execute their business models in the best way.
+As such it helps to enable EV drivers to charge everywhere in a fully-informed way, helps the market to develop quickly and helps market players to execute their business models in the best way.
 
 Starting in 2009, e-laad foundation and the forerunner of the eViolin association specified 2 standards in order to retrieve charge point details and active state. These are called the VAS interface and the Amsterdam interface. In this same period, a CDR format for the exchange of charge sessions between eViolin members was defined. This format is currently in use by the majority of the eViolin members. 
 
@@ -125,7 +125,7 @@ An example for a valid EVSEID is FR-A23-E45B-78C with FR indicating France, A23 
 EVSEID Semantics
 The following rules apply:
  
- *  Each EVSEID has a variable length with at least seven characters (two characters Country Code, three characters EVSE Operator ID, one character ID Type, one character Power Outlet ID) and at most thirty-seven characters (two characters Country Code, three characters EVSE Operator ID, one character ID Type, thirty- one characters Power Outlet ID).
+ *  Each EVSEID has a variable length with at least seven characters (two characters Country Code, three characters EVSE Operator ID, one character ID Type, one character Power Outlet ID) and at most thirty-seven characters (two characters Country Code, three characters EVSE Operator ID, one character ID Type, thirty-one characters Power Outlet ID).
  *  While the EVSE Operator ID shall be assigned by a central issuing authority, each operator with an assigned EVSE Operator ID can choose the Power Outlet ID within the above mentioned rules freely.
  * A Power outlet ID is specified as a single unit that controls the chargesession (the actual EVSE)
 
@@ -151,7 +151,7 @@ The Contract ID must match the following structure (the notation corresponds to 
 
 #### Backward Compatibility 
 Contract IDs as defined in DIN SPEC 91286 may be used as well by adding two zeros (”00”) at the beginning of the Instance-part and the old check digit at position 14. A second check digit as referenced in this document may be calculated over the resulting ID and may be added on position 15.
-Example: The DIN-Contract-ID DE-8AA-123A56-3 must be set as EMAID DE- 8AA-00123A563-N.
+Example: The DIN Contract ID DE-8AA-123A56-3 must be set as EMAID DE-8AA-00123A563-N.
 
 #### computation of the Check Digit
 **TODO CHECK THIS**
@@ -297,7 +297,7 @@ Available search criteria:
 | identifier(s)              | o | Return status updates for a (list of ) specific charge point (s) |
 |interface_type| |Register for a specific interface type, being (NDR, Authorization or CDR) |
  
-The request must also contain the endpoint URL for delivering the NDR messages.  It may include information to authenticate the user (the one that wants to subscribe to updates). When this is provided then the callbacks will contain contractIds for events relating to cards the user has access to.
+The request must also contain the endpoint URL for delivering the NDR messages.  It may include information to authenticate the user (the one that wants to subscribe to updates). When this is provided then the callbacks will contain contract IDs for events relating to cards the user has access to.
 
 Please note that the one pushing data to this interface may put restrictions on the information that you will receive status updates for.  For the one pushing information - mostly the operator - : It is advised to check the availability of the NDR interface at registration.
 
@@ -335,9 +335,9 @@ List of charge point Identifiers or an error response
 #### request
 message contains:
  
- * evse-id: Unique identifier of the EVSE that is attached to the session of the user
- * List of [start-datetime + max-power (in watts)]
- * tariff-type (specified in the  CDR  format, it is a string of 2 characters)
+ * evse_id: Unique identifier of the EVSE that is attached to the session of the user
+ * List of [start_datetime + max_power (in watts)]
+ * tariff_type (specified in the  CDR  format, it is a string of 2 characters)
 
 The EVSE is part of the message to specify the controller in use by this user. The unique EVSE number is given via the NDR interface the moment a session starts. As long as the session is active, the EVSE id is connected to Contract ID using the charge point. 
 
@@ -348,11 +348,11 @@ max_power is specified in **watts**, to be compatible with the OCPP spec.
 
 **TODO: OCPP allows for the use of Amperage, smart charging group is to decide the final format**
 
-tariffType is a chosen string of 2 characters. The string is free and the specification is currently agreed upon between operator and provider. 
+tariff_type is a chosen string of 2 characters. The string is free and the specification is currently agreed upon between operator and provider.
 
 **expected behaviour**
 
-A charge point will always start charging in it's default mode without waiting for this message as it is not said that this message will be sent / received. Local Load Balancing may be applied according to the operator needs and will be notified via the NDR messages. 
+A charge point will always start charging in its default mode without waiting for this message as it is not said that this message will be sent / received. Local Load Balancing may be applied according to the operator needs and will be notified via the NDR messages.
 
 The RequestChargingProfile message may be sent more than a single time. When a change is applied by the operator, a new section in the chargesession will be registered for billing. (see the CDR format for more information)
 
@@ -374,7 +374,7 @@ This interface will receive:
  * subscription_id : subscription id that matches the one returned in the subscribe response
  * evse_id: unique identifier of the EVSE inside the charge point
  * connector_no: connector no on the given charge point
- * contract_id : Contract Id that makes use of the charge point (be aware of privacy issues)
+ * contract_id : Contract ID that makes use of the charge point (be aware of privacy issues)
  * event_type: specific event types are found in the table below. 
  * event_payload : Json object with the actual payload
 * timestamp (ISO 8601)
@@ -393,7 +393,7 @@ SessionStarted is defined as the moment a charge point connector is occupied, th
 
 contains: 
 
- * start-datetime in ISO8601 format
+ * start_datetime in ISO8601 format
 
 ##### SessionEnded
 
@@ -401,7 +401,7 @@ SessionEnded is defined as the moment a charge point connector is available and 
 
 contains: 
 
- * end-datetime in ISO8601 format
+ * end_datetime in ISO8601 format
 
 ##### ChargingStarted
 
@@ -409,8 +409,8 @@ ChargingStarted is defined as the moment that actual charging takes place.
 
 contains:
 
- * start-datetime in ISO8601 format
- * chargesession-id
+ * start_datetime in ISO8601 format
+ * chargesession_id
  * max_power (in watts)
 
 ##### ChargingStopped
@@ -419,9 +419,9 @@ ChargingStopped is defined as the moment that actual charging has stopped.
 
 contains: 
 
- * end-datetime in ISO8601 format
- * chargesession-id
- * watt-hours
+ * end_datetime in ISO8601 format
+ * chargesession_id
+ * watt_hours
 
 ##### ChargingInterrupted
 
@@ -431,7 +431,7 @@ So when a car pauzes charging and continues thereafter, there is no ChargingInte
 
 contains:
 
- * chargesession-id
+ * chargesession_id
 
 ##### ChargingInfoUpdated
 
@@ -439,8 +439,8 @@ ChargingInfoUpdated is a moment in time that charging is taken place and allows 
 
 contains:
 
- * chargesession-id
- * watt-hours 
+ * chargesession_id
+ * watt_hours
 
 ##### UserMessageCode
 
@@ -448,44 +448,44 @@ UserMessageCode can be transferred any given moment. This code is a string that 
 
 contains:
 
- * message-code
- * display-text
+ * message_code
+ * display_text
 
 Known UserMessageCodes
 
-| Code | Purpose | 
+| Code         | Purpose |
 |--------------|-----------------------------------------------------|
-| moveyourcar | The operator likes to ask the driver to move the car currently occupying a parking spot / charge point connector |
-|emergency|Something at the charge location needs the immediate attention of the driver|
+| moveyourcar  | The operator likes to ask the driver to move the car currently occupying a parking spot / charge point connector |
+| emergency    | Something at the charge location needs the immediate attention of the driver |
 
 
 ##### LocalBalancingActive
 
-localbalancing-active indicates that at the operator level it is not possible to deliver the requested maxPower. 
+LoadBalancingActive indicates that at the operator level it is not possible to deliver the requested maxPower.
 
 ##### ChargingProfileAccepted
 
-chargingprofile-accepted indicates that the Requested Charging Profile is accepted and applied by the operator. 
+ChargingProfileAccepted indicates that the Requested Charging Profile is accepted and applied by the operator.
 
 ##### ChargingProfileDenied
 
-chargingprofile-denied indicates that the Requested Charging Profile is denied and will not be applied by the operator. 
+ChargingProfileDenied indicates that the Requested Charging Profile is denied and will not be applied by the operator.
 
 ##### ChargingProfileFailed
 
-chargingprofile-failed indicates that the Requested Charging Profile could not be applied by the operator.
+ChargingProfileFailed indicates that the Requested Charging Profile could not be applied by the operator.
 
 #### Small example:
 When a driver parks the car, swipes a card and chooses for delayed charging, the driver expects to 'see' 
  
- 1. park and swipe: session-started
- 2. the moment charging start (after the delay) : charging-started
- 3. while charging: charginginfo-updated till: 
- 4. charging stops (battery is full) : charging-stopped
+ 1. after park and swipe: SessionStarted
+ 2. the moment charging starts (after the delay) : ChargingStarted
+ 3. while charging: ChargingInfoUpdated till:
+ 4. when charging stops (battery is full) : ChargingStopped
  
 #### Privacy note
 
-The party publishing events should be aware that the contractId is linked to person and it's of importance to provide this field **only** to parties that are allowed to make use of that information. 
+The party publishing events should be aware that the contract ID is linked to person and it is of importance to provide this field **only** to parties that are allowed to make use of that information.
 
 #### CDR interface
 
@@ -522,7 +522,7 @@ The authorization interface is implemented by the provider and deals with real-t
 When a driver wants to make use of a chargepoint and the request for charging is initiated at the operator network (it is also possible that the provider initiates a charge session), the operator is able to verify the given token of identity at the service provider that handed out this token. 
 Thereafter the service provider will issue the Contract ID that should be used to register this charge session on. That Contract ID will become part of the CDR when the session has ended and is used for specifc NDR message delivery. 
 
-NOTE: In the situation of live authorizations, the provider may hand out temporary contract Ids that will be mapped to their customers after CDR delivery. When central authorization is used (like the 'CIR' in the Netherlands), the Operator will report based on the contract ID found in the central authorization database.
+NOTE: In the situation of live authorizations, the provider may hand out temporary contract IDs that will be mapped to their customers after CDR delivery. When central authorization is used (like the 'CIR' in the Netherlands), the Operator will report based on the contract ID found in the central authorization database.
 
 ## JSON / HTTP implementation guide
 
@@ -530,12 +530,12 @@ NOTE: In the situation of live authorizations, the provider may hand out tempora
 As OCPI contains multiple interfaces, different endpoints are available for messaging. 
 As the Provider calls the Operator and registers possible callback endpoints, the Operator interfaces need to be on a known location. 
 
-| Operator interface | Endpoint |
-| -------------------------- | -------------- |
-| Find | /ocpi/find |
-| Reservation | /ocpi/reserve | 
-| Smart Charging | /ocpi/smartcharge |
-| Subscription | /ocpi/subscribe |
+| Operator interface         | Endpoint          |
+| -------------------------- | ----------------- |
+| Find                       | /ocpi/find        |
+| Reservation                | /ocpi/reserve     |
+| Smart Charging             | /ocpi/smartcharge |
+| Subscription               | /ocpi/subscribe   |
 
 The Provider interfaces are dynamically specified during the subscription calls and don't need a standard location
 
@@ -793,7 +793,7 @@ subscription_id is unique when combined with the operator
         "connector_no": 1,  // note 0 has a specific purpose in OCPP and means ALL
         "contract_id":"NL-TNM-023232-X",
         "timestamp":"2014-11-11T12:56Z",
-        "event_type" : 	"session-started",
+        "event_type" : 	"SessionStarted",
         "event_payload" : {
         	"start_datetime":"2014-11-11T12:55Z"
         }	
