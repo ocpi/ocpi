@@ -807,7 +807,7 @@ REPLY
 ### Provider wants to influence a specific charging profile
 Provider calls Operator
 
-    POST /api/chargepoint/<id> BASIC AUTH provider credentials
+    POST /api/ocpi/smartcharge BASIC AUTH provider credentials
     {
     "evse_id": "",
     "subscription_id": "",
