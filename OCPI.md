@@ -116,7 +116,7 @@ The EVSEID must match the following structure (the notation corresponds to the a
 * \<Country Code\>  2 ALPHA, two character country code according to ISO 3166-1 (Alpha-2-Code)
  * \<EVSE Operator ID\>  3 (ALPHA | DIGIT) three alphanumeric characters
  * \<ID Type\>  "E"; one character "E" indicating that this ID represents an "EVSE"
- * \<Power Outlet ID\>  (ALPHA | DIGIT) * 30 (ALPHA | DIGIT \<S\> ) Sequence of alphanumeric characters or separators, start with alphanumeric character.
+ * \<Power Outlet ID\>  (ALPHA | DIGIT) * 30 (ALPHA | DIGIT | \<S\> ) Sequence of alphanumeric characters or separators, start with alphanumeric character.
 		* ALPHA = %x41-5A / %x61-7A; according to IETF RFC 5234 (7-Bit ASCII) DIGIT = %x30-39; according to IETF RFC 5234 (7-Bit ASCII)
 		* \<S\> = *1 ( "*" | "-" ) Optional separator
 
