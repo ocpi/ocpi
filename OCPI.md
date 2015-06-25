@@ -225,36 +225,39 @@ Charge points contain the following information
 	* identifier: unique identifier of the operator
 	* phone (optional)
 	* url (optional)
- * connectors (list)
-	* evse_id: the unique identifier of the EVSE used to provide the power via this connector
-	* type: enumeration (see ConnectorType specification in OCPP2.0)
-	* location: exact location of the connector (optional)
-		* address: address of the entry location in order to reach the charge point 
-		* point: GPS coordinates in order to reach the charge point (e.g. at a parking)
-		* floor: String indication of the floor according to the local situation. 
-	* capabilities: enumeration (charging_profile_capable, reservable)
-	* charge_protocol:  enumeration (unknown, mode3, chademo, iso15118, uncontrolled)
-	* status: enumeration (available, occupied, charging, outofservice)
-	* power (replaces enum of DC50kWh / AC11kWh etc etc)
-		* current (ac_1_phase, ac_2_phase, ac_3_phase, dc)
-		* voltage
-		* amperage
-	* price_schemes (list of available options)
-		* price_schema_id: unique identifier of this schema (at the operator)
-		* display_text: human readable form indicating this scheme (list of)
-			* language: ISO0639-1
-			* text: String
-		* start_date: ISO8601 date from this pricing scheme is valid (inclusive)
-		* expiry_date: ISO8601 date until this pricing scheme is valid (inclusive)
-		* tariff (list of components that build the price)
-			* tariff_id: identifier of this tariff (unique or at least within this schema)
-			* validity_rule: period_type (enum: Charging, Parking), time (iCalendar RRULE)
-			* display_text: human readable form of this part of the tariff 
-			* currency: ISO 4217 code for currency
-			* pricing_unit: enumeration of types of pricing (kwhtoev, occupancyhours, charginghours, idlehours, session see OCPP2)
-			* price_net: amount (in smallest unit for relevant currency with an additional two decimal places, incl. VAT.  e.g. euros = 0.2343, Japanese yen = 45.34)
-			* price_gross: amount (Price of the unit excluding tax. Calculated as 100 * priceNet / (100 + taxPct).
-			* tax_percentage: percentage of tax 
+ * EVSE (list)
+    * evse_id: the unique identifier of the EVSE used to provide the power via this connector
+    * status: enumeration (available, occupied, charging, outofservice)
+    * connectors (list)
+        * type: enumeration (see ConnectorType specification in OCPP2.0)
+        * location: exact location of the connector (optional)
+          * address: address of the entry location in order to reach the charge point
+          * point: GPS coordinates in order to reach the charge point (e.g. at a parking)
+          * floor: String indication of the floor according to the local situation.
+        * capabilities: enumeration (charging_profile_capable, reservable)
+        * charge_protocol: enumeration (unknown, mode3, chademo, iso15118, uncontrolled)
+        * power (replaces enum of DC50kWh / AC11kWh etc etc)
+          * current (ac_1_phase, ac_2_phase, ac_3_phase, dc)
+          * voltage
+          * amperage
+        * price_schemes (list of available options)
+          * price_schema_id: unique identifier of this schema (at the operator)
+          * display_text: human readable form indicating this scheme (list of)
+            * language: ISO0639-1
+            * text: String
+          * start_date: ISO8601 date from this pricing scheme is valid (inclusive)
+          * expiry_date: ISO8601 date until this pricing scheme is valid (inclusive)
+          * tariff (list of components that build the price)
+            * tariff_id: identifier of this tariff (unique or at least within this schema)
+            * validity_rule: period_type (enum: Charging, Parking), time (iCalendar RRULE)
+            * display_text: human readable form of this part of the tariff
+            * currency: ISO 4217 code for currency
+            * pricing_unit: enumeration of types of pricing (kwhtoev, occupancyhours, charginghours, idlehours, session see OCPP2)
+            * price_net: amount (in smallest unit for relevant currency with an additional two decimal places, incl. VAT. e.g. euros = 0.2343, Japanese yen = 45.34)
+            * price_gross: amount (Price of the unit excluding tax. Calculated as 100 * priceNet / (100 + taxPct).
+            * tax_percentage: percentage of tax
+
+
  * vehicle_type enumeration: car, bike, boat (default = car)
  * authorization_types (list)
 	* type: enumeration that described allowed identification (cir, bank, sms, e-clearing, hubject, providerapp, operatorapp, open (always usable)) 
