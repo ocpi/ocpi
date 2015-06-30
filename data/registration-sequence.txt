@@ -1,0 +1,43 @@
+@startuml
+title OCPI Registration process
+
+participant CPO
+participant eMSP
+
+
+activate CPO
+CPO -> CPO: Generate token for eMSP
+CPO -> eMSP: send credentials \n("/ocpi/cpo/", token1)
+deactivate CPO
+
+note right
+    This initial exchange is not
+    a part of the OCPI protocol
+end note
+
+...
+
+CPO <- eMSP: GET /ocpi/cpo/
+CPO --> eMSP: Reponse (endpoint information)
+
+activate eMSP
+eMSP -> eMSP: Store CPO endpoints
+eMSP -> eMSP: Generate token
+CPO <- eMSP: POST /ocpi/cpo/credentials \n("/ocpi/emsp/", token2)
+
+activate CPO
+CPO -> eMSP: GET /ocpi/emsp/
+CPO <-- eMSP: Reponse (endpoint information)
+CPO -> CPO: Store eMSP credentials
+CPO -> CPO: Store eMSP endpoints
+CPO --> eMSP: Response (credentials set)
+deactivate CPO
+
+deactivate eMSP
+
+note right
+    Both parties have now obtained and verified
+    each other's credentials and API information.
+end note
+
+@enduml
