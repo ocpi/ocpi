@@ -3,15 +3,13 @@ This repostory contains the OCPI specification.
 Current work in progress is found in the .md files on the master branch: 
 * [Introduction.md](Introduction.md)
 * [1. Terminology & data.md](1. Terminology & data.md)
-* [2. Supported features.md](2. Supported features.md)
-* [3. Protocol and endpoints.md](3. Protocol and endpoints.md)
-* [4. Charging locations data exchange.md](4. Charging locations data exchange.md)
-* [5. Evse commands.md](5. Evse commands.md)
-* [6. Token broadcast between MSP and CPO.md](6. Token broadcast between MSP and CPO.md)
-* [7. Session information exchange.md](7. Session information exchange.md)
-* [8. Security.md](8. Security.md)
-* [9. Smart charging.md](9. Smart charging.md)
-* [10. Status codes.md](10. Status codes.md)
+* [2. Protocol and endpoints.md](2. Protocol and endpoints.md)
+* [3. Charging locations data exchange.md](3. Charging locations data exchange.md)
+* [4. Evse commands.md](4. Evse commands.md)
+* [5. Token broadcast between MSP and CPO.md](5. Token broadcast between MSP and CPO.md)
+* [6. Session information exchange.md](6. Session information exchange.md)
+* [7. Smart charging.md](7. Smart charging.md)
+* [8. Status codes.md](8. Status codes.md)
 
 
 1 Dec 2014 [Draft v4](releases/OCPI-Draftv4.pdf) is published
