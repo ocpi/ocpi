@@ -7,7 +7,7 @@ participant eMSP
 == Offline ==
 
 CPO -> CPO: Generate token: TOKEN_A
-CPO -> eMSP: send credentials \n("/ocpi/cpo/versions", TOKEN_A)
+CPO -> eMSP: send credentials \n("/ocpi/cpo/versions", TOKEN_A, ...)
 
 ...
 
@@ -23,32 +23,24 @@ end note
 CPO --> eMSP: Available versions
 deactivate CPO
 
-eMSP -> eMSP: Pick latest compatible version (e.g. 2.0)
+eMSP -> eMSP: Pick latest compatible version (e.g. 2.0)\nand store it.
 CPO <- eMSP: GET /ocpi/cpo/2.0/
 activate CPO
 CPO --> eMSP: Available endpoints for v2.0
 deactivate CPO
 
-eMSP -> eMSP: Store endpoints
 eMSP -> eMSP: Generate token: TOKEN_B
-CPO <- eMSP: POST /ocpi/cpo/2.0/credentials \n("/ocpi/emsp/versions", TOKEN_B)
+CPO <- eMSP: POST /ocpi/cpo/2.0/credentials \n("/ocpi/emsp/versions", TOKEN_B, ...)
 
 activate CPO
-CPO -> eMSP: GET /ocpi/emsp/versions
+CPO -> CPO: Store used version: 2.0
 note right
-    The CPO uses TOKEN_B as authentication
-    to fetch information from the eMSP.
+    The CPO knows it's version 2.0 because
+    of the endpoint. The version is stored
+    for PUSH notifications and the like.
 end note
-CPO <-- eMSP: Available versions
-CPO -> eMSP: GET /ocpi/emsp/2.0/
-note right
-    Since the eMSP posted to the CPO's /2.0/credentials,
-    the CPO knows that version 2.0 is used.
-end note
-CPO <-- eMSP: Available endpoints for v2.0
-CPO -> CPO: Store eMSP generated token
-CPO -> CPO: Store eMSP endpoints
-CPO -> CPO: Generate new token: TOKEN_C
+CPO -> CPO: Store TOKEN_B
+CPO -> CPO: Generate TOKEN_C
 CPO --> eMSP: Credentials with TOKEN_C for eMSP
 deactivate CPO
 

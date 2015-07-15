@@ -1,15 +1,19 @@
-This repostory contains the OCPI specification. 
+This repostory contains the OCPI specification.
 
-Current work in progress is found in the .md files on the master branch: 
-* [Introduction.md](Introduction.md)
-* [1. Terminology & data.md](1. Terminology & data.md)
-* [2. Protocol and endpoints.md](2. Protocol and endpoints.md)
-* [3. Charging locations data exchange.md](3. Charging locations data exchange.md)
-* [4. Evse commands.md](4. Evse commands.md)
-* [5. Token broadcast between MSP and CPO.md](5. Token broadcast between MSP and CPO.md)
-* [6. Session information exchange.md](6. Session information exchange.md)
-* [7. Smart charging.md](7. Smart charging.md)
-* [8. Status codes.md](8. Status codes.md)
+Current work in progress is found in the .md files on the master branch:
+* [Introduction](introduction.md)
+* [1. Terminology & data](terminology.md)
+* [2. Protocol and endpoints](protocol.md)
+* [3. Version information endpoints](versions.md)
+* [4. Credentials & registration](credentials.md)
+* [3. Locations & EVSE's](locations.md)
+* [A. Status codes](status_codes.md)
+
+Will be added lated:
+* [4. Evse commands.md](commands.md)
+* [5. Token broadcast between MSP and CPO.md](tokens.md)
+* [6. Session information exchange.md](sessions.md)
+* [7. Smart charging.md](smart_charging.md)
 
 The specification will be finalised module-by-module. Once a module is finalised it will be implemented and tested by the parties cooperating on the specification. The finalisation work for the following module will commence in parellel.
 
@@ -31,7 +35,7 @@ Release 2.1:
 * Spec ready: 31 August 2015
 * Implementation ready: 30 September
 * Testing ready: 15 October
-* Release date (to production): 16 October 
+* Release date (to production): 16 October
 
 Release 2.2 (participants: rel. 2 participants + ?):
 - Chargepoint commands (no authorisation)
