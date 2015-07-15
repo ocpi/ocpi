@@ -4,40 +4,60 @@ title OCPI Registration process
 participant CPO
 participant eMSP
 
+== Offline ==
 
-activate CPO
-CPO -> CPO: Generate token for eMSP
-CPO -> eMSP: send credentials \n("/ocpi/cpo/", token1)
-deactivate CPO
-
-note right
-    This initial exchange is not
-    a part of the OCPI protocol
-end note
+CPO -> CPO: Generate token: TOKEN_A
+CPO -> eMSP: send credentials \n("/ocpi/cpo/versions", TOKEN_A)
 
 ...
 
-CPO <- eMSP: GET /ocpi/cpo/
-CPO --> eMSP: Reponse (endpoint information)
+== OCPI ==
 
+CPO <- eMSP: GET /ocpi/cpo/versions
 activate eMSP
-eMSP -> eMSP: Store CPO endpoints
-eMSP -> eMSP: Generate token
-CPO <- eMSP: POST /ocpi/cpo/credentials \n("/ocpi/emsp/", token2)
+activate CPO
+note right
+    The eMSP uses TOKEN_A as authentication
+    to fetch information from the CPO.
+end note
+CPO --> eMSP: Available versions
+deactivate CPO
+
+eMSP -> eMSP: Pick latest compatible version (e.g. 2.0)
+CPO <- eMSP: GET /ocpi/cpo/2.0/
+activate CPO
+CPO --> eMSP: Available endpoints for v2.0
+deactivate CPO
+
+eMSP -> eMSP: Store endpoints
+eMSP -> eMSP: Generate token: TOKEN_B
+CPO <- eMSP: POST /ocpi/cpo/2.0/credentials \n("/ocpi/emsp/versions", TOKEN_B)
 
 activate CPO
-CPO -> eMSP: GET /ocpi/emsp/
-CPO <-- eMSP: Reponse (endpoint information)
-CPO -> CPO: Store eMSP credentials
+CPO -> eMSP: GET /ocpi/emsp/versions
+note right
+    The CPO uses TOKEN_B as authentication
+    to fetch information from the eMSP.
+end note
+CPO <-- eMSP: Available versions
+CPO -> eMSP: GET /ocpi/emsp/2.0/
+note right
+    Since the eMSP posted to the CPO's /2.0/credentials,
+    the CPO knows that version 2.0 is used.
+end note
+CPO <-- eMSP: Available endpoints for v2.0
+CPO -> CPO: Store eMSP generated token
 CPO -> CPO: Store eMSP endpoints
-CPO --> eMSP: Response (credentials set)
+CPO -> CPO: Generate new token: TOKEN_C
+CPO --> eMSP: Credentials with TOKEN_C for eMSP
 deactivate CPO
 
 deactivate eMSP
 
 note right
-    Both parties have now obtained and verified
-    each other's credentials and API information.
+    By returning new credentials for the eMSP,
+    the initial setup token (TOKEN_A)
+    has now become invalid.
 end note
 
 @enduml
