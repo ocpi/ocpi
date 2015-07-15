@@ -11,7 +11,7 @@ Current work in progress is found in the .md files on the master branch:
 * [7. Smart charging.md](7. Smart charging.md)
 * [8. Status codes.md](8. Status codes.md)
 
-The specification is intended to be finalised module-by-module. Once a  module is finalised, a module will be implemented and tested by the parties cooperating on the specification. The finalisation work for the following module will commence in parellel.
+The specification will be finalised module-by-module. Once a module is finalised it will be implemented and tested by the parties cooperating on the specification. The finalisation work for the following module will commence in parellel.
 
 This is the schedule for finalising all modules:
 
