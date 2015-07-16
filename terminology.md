@@ -39,12 +39,12 @@ When defining the cardinality of a field, the following symbols are used during 
 
 #### Decimals
 
-Decimals are formatted as numbers in JSON. They should be interpreted as decimals and not floating points.
+Decimals are formatted as strings following JSON's number format. They are explicitely expressed as strings to make it clear that they should be interpreted as exact decimals and not as floating points or doubles.
 
 Example:
 
-    0.68
-    3.1415
+    "0.68"
+    "3.1415"
 
 #### DateTime
 
@@ -98,10 +98,10 @@ The category of an image to obtain the correct usage in an user presentation. Ha
 
 | Property         | Type         | Card. | Description                        |
 |------------------|--------------|-------|------------------------------------|
-| latitude         | string(10)   | 1     | Latitude in decimal format.        |
-| longitude        | string(11)   | 1     | Longitude in decimal format.       |
+| latitude         | decimal      | 1     | Latitude in decimal format.        |
+| longitude        | decimal      | 1     | Longitude in decimal format.       |
 
-#### Operator *class*
+#### BusinessDetails *class*
 
 | Property         | Type         | Card. | Description                        |
 |------------------|--------------|-------|------------------------------------|
@@ -344,22 +344,22 @@ The *Location* object describes the location and its properties where a group of
 
 A *Location* without valid *EVSE* objects can be considered as expired and should no longer be displayed.
 
-| Property             | Type         | Card. | Description                                            |
-|----------------------|--------------|-------|--------------------------------------------------------|
-| id                   | string(15)   | 1     | Uniquely identifies the location within the CPO's platform (and suboperator platforms). |
-| type                 | LocationType | 1     | The general type of the charge point location.         |
-| name                 | string(255)  | ?     | Display name of the location.                          |
-| address              | string(45)   | 1     | Street/block name and house number if available.       |
-| city                 | string(45)   | 1     | City or town.                                          |
-| postal_code          | string(10)   | 1     | Postal code of the location.                           |
-| country              | string(3)    | 1     | ISO 3166-1 alpha-3 code for the country of this location. |
-| coordinates          | GeoLocation  | 1     | Coordinates of the location.                           |
-| directions           | string(255)  | ?     | Human-readable directions on how to reach the location. |
-| operator             | Operator     | ?     | Information of the operator. When not specified, the information retreived from the `api_info` endpoint should be used instead. |
-| suboperator          | Operator     | ?     | Information of the suboperator if available.           |
-| opening_times        | Hours        | *     | The times when the EVSE's at the location can be accessed for charging. |
-| charging_when_closed | boolean      | ?     | Indicates if the EVSE's are still charging outside the opening hours of the location. E.g. when the parking garage closes its barriers over night, is it allowed to charge till the next morning?  Default: **true** |
-| images               | Image        | *     | Links to images related to the location such as photos or logos. |
+| Property             | Type            | Card. | Description                                            |
+|----------------------|-----------------|-------|--------------------------------------------------------|
+| id                   | string(15)      | 1     | Uniquely identifies the location within the CPO's platform (and suboperator platforms). |
+| type                 | LocationType    | 1     | The general type of the charge point location.         |
+| name                 | string(255)     | ?     | Display name of the location.                          |
+| address              | string(45)      | 1     | Street/block name and house number if available.       |
+| city                 | string(45)      | 1     | City or town.                                          |
+| postal_code          | string(10)      | 1     | Postal code of the location.                           |
+| country              | string(3)       | 1     | ISO 3166-1 alpha-3 code for the country of this location. |
+| coordinates          | GeoLocation     | 1     | Coordinates of the location.                           |
+| directions           | string(255)     | ?     | Human-readable directions on how to reach the location. |
+| operator             | BusinessDetails | ?     | Information of the operator. When not specified, the information retreived from the `api_info` endpoint should be used instead. |
+| suboperator          | BusinessDetails | ?     | Information of the suboperator if available.           |
+| opening_times        | Hours           | *     | The times when the EVSE's at the location can be accessed for charging. |
+| charging_when_closed | boolean         | ?     | Indicates if the EVSE's are still charging outside the opening hours of the location. E.g. when the parking garage closes its barriers over night, is it allowed to charge till the next morning?  Default: **true** |
+| images               | Image           | *     | Links to images related to the location such as photos or logos. |
 
 
 #### EVSE objects

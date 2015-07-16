@@ -7,42 +7,52 @@ Example: `/ocpi/cpo/2.0/credentials` and `/ocpi/emsp/2.0/credentials`
 
 | Method   | Description                                                              |
 | -------- | ------------------------------------------------------------------------ |
-| POST     | Provide the other party with credentials to your system (i.e. register). |
-| PUT      | Update the other party's credentials to your system.                     |
-| DELETE   | Inform the other party that its credentials to your system are deleted.  |
+| GET      | Retrieves the client's credentials for the server's platform.            |
+| POST     | Provides the server with credentials to the client's system (i.e. register). |
+| PUT      | Updates the server's credentials to the client's system.                 |
+| DELETE   | Informs the server that its credentials to the client's system are now invalid (i.e. unregister).  |
 
 
 ### Data
 
 #### Credentials object
 
-| Property | Type      | Card. | Description                               |
-|----------|-----------|-------|-------------------------------------------|
-| token    | String    | 1     | the token for the other party to authenticate in your system. |
-| url      | String    | 1     | the URL to your API information endpoint (api_info). |
+| Property         | Type             | Card. | Description                               |
+|------------------|------------------|-------|-------------------------------------------|
+| token            | String           | 1     | The token for the other party to authenticate in your system. |
+| url              | String           | 1     | The URL to your API versions endpoint.    |
+| business_details | BusinessDetails  | 1     | Details of the other party.               |
 
 
 ### Example
 
 ```json
 {
-    "token": "IpbJOXxkxOAuKR92z0nEcmVF3Qw09VG7I7d/WCg0koM=",
-    "url": "https://example.com/cpo/2.0/"
+    "url": "https://example.com/ocpi/cpo/",
+    "token": "ebf3b399-779f-4497-9b9d-ac6ad3cc44d2",
+    "business_details": {
+        "name": "Example Operator",
+        "logo": "http://example.com/images/logo.png",
+        "website": "http://example.com"
+    }
 }
 ```
 
+### GET
+
+Retrieves the client's credentials for the server's platform.
 
 ### POST
 
-Provide the other party with credentials to your system, this initiates the registration process.
+Provides the server with credentials to the client's system, this initiates the registration process. If succesful, the server responds with the client's new credentials to the server's system.
 
 ### PUT
 
-Update the other party's credentials to your system.
+Updates the server's credentials to the client's system. If succesful, the server responds with the client's (potentially updated) credentials to the server's system.
 
 ### DELETE
 
-Inform the other party that its credentials to your system are now invalid and can no longer be used. This is the deregistration process.
+Informs the server that its credentials to the client's system are now invalid and can no longer be used. This is the unregistration process.
 
 
 ## Registration
@@ -50,3 +60,5 @@ Inform the other party that its credentials to your system are now invalid and c
 To register a CPO in a eMSP platform (or vice versa), the CPO must create a unique token that can be used for authenticating the eMSP. This token along with the versions endpoint will have to be sent to the eMSP in some secure way that is outside the scope of this protocol.
 
 ![the OCPI registration process](data/registration-sequence.png)
+
+Due to its symmetric nature, the CPO and eMSP can be swapped in the registration sequence.
