@@ -6,14 +6,14 @@ Current work in progress is found in the .md files on the master branch:
 * [2. Protocol and endpoints](protocol.md)
 * [3. Version information endpoints](versions.md)
 * [4. Credentials & registration](credentials.md)
-* [3. Locations & EVSE's](locations.md)
+* [5. Locations & EVSE's](locations.md)
 * [A. Status codes](status_codes.md)
 
 Will be added lated:
-* [4. Evse commands.md](commands.md)
-* [5. Token broadcast between MSP and CPO.md](tokens.md)
-* [6. Session information exchange.md](sessions.md)
-* [7. Smart charging.md](smart_charging.md)
+* [6. Evse commands.md](commands.md)
+* [7. Token broadcast between MSP and CPO.md](tokens.md)
+* [8. Session information exchange.md](sessions.md)
+* [9. Smart charging.md](smart_charging.md)
 
 The specification will be finalised module-by-module. Once a module is finalised it will be implemented and tested by the parties cooperating on the specification. The finalisation work for the following module will commence in parellel.
 
