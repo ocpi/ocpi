@@ -34,20 +34,19 @@ Each object must contain all required fields. Fields that are not specified may 
 {
   "locations": [
     {
-      "location_id": "LOC1",
-      "operator_id": "BC",
-      "operator_name": "BeCharged",
-      "latitude": 51.04759,
-      "longitude": 3.72994,
+      "id": "LOC1",
+      "type": "on_street",
+      "name": "Gent Zuid",
       "address": "F.Rooseveltlaan 3A",
-      "postcode": "9000",
       "city": "Gent",
+      "postal_code": "9000",
       "country": "BE",
-      "name": "Gent Zuid"
+      "coordinates": {"latitude": "3.72994", "longitude": "51.04759"},
+      "operator": {"name": "BeCharged"}
     }
   ],
   "evses": [
-    {
+  {
       "id": "BE-BEC-E041503001",
       "location_id": "LOC1",
       "status": "AVAILABLE",
@@ -59,15 +58,18 @@ Each object must contain all required fields. Fields that are not specified may 
           "id": "1",
           "standard": "IEC-62196-T2",
           "format": "CABLE",
+          "power_type": "AC_3_PHASE",
+          "voltage": 220,
+          "amperage": 16,
           "price_schemes": [
             {
               "default": 1,
-              "expiry_date": "2020-12-31T23:59Z",
-              "start_date": "2010-01-01T00:00Z",
+              "expiry_date": "2020-12-31T23:59:59Z",
+              "start_date": "2010-01-01T00:00:00Z",
               "tariff": [
                 {
                   "currency": "EUR",
-                  "price_gross": 0.1936,
+                  "price_untaxed": 0.1936,
                   "pricing_unit": "kwhtoev",
                   "tariff_id": "kwrate",
                   "display_text": [
@@ -95,12 +97,12 @@ Each object must contain all required fields. Fields that are not specified may 
             },
             {
               "default": 0,
-              "expiry_date": "2020-12-31T23:59Z",
-              "start_date": "2010-01-01T00:00Z",
+              "expiry_date": "2020-12-31T23:59:59Z",
+              "start_date": "2010-01-01T00:00:00Z",
               "tariff": [
                 {
-                  "currency": "eur",
-                  "price_gross": 0.1936,
+                  "currency": "EUR",
+                  "price_untaxed": 0.1536,
                   "pricing_unit": "kwhtoev",
                   "tariff_id": "kwrate",
                   "display_text": [
@@ -132,6 +134,9 @@ Each object must contain all required fields. Fields that are not specified may 
           "id": "2",
           "standard": "IEC-62196-T2",
           "format": "SOCKET",
+          "power_type": "AC_3_PHASE",
+          "voltage": 220,
+          "amperage": 16,
           "price_schemes": [
             {
               "default": 1,
@@ -140,7 +145,7 @@ Each object must contain all required fields. Fields that are not specified may 
               "tariff": [
                 {
                   "currency": "EUR",
-                  "price_gross": 0.1936,
+                  "price_untaxed": 0.1936,
                   "pricing_unit": "kwhtoev",
                   "tariff_id": "kwrate",
                   "display_text": [
@@ -170,11 +175,10 @@ Each object must contain all required fields. Fields that are not specified may 
         }
       ],
       "physical_number": 1,
-      "floor": -1,
-      "valid_from": "2015-04-27T10:00:00+0200"
+      "floor_level": "-1"
     },
     {
-      "evse_id": "BE-BEC-E041503002",
+      "id": "BE-BEC-E041503002",
       "location_id": "LOC1",
       "status": "reserved",
       "capabilities": [
@@ -185,15 +189,18 @@ Each object must contain all required fields. Fields that are not specified may 
           "id": "1",
           "standard": "IEC-62196-T2",
           "format": "SOCKET",
+          "power_type": "AC_3_PHASE",
+          "voltage": 220,
+          "amperage": 16,
           "price_schemes": [
             {
               "default": 1,
-              "expiry_date": "2020-12-31T23:59Z",
-              "start_date": "2010-01-01T00:00Z",
+              "expiry_date": "2020-12-31T23:59:59Z",
+              "start_date": "2010-01-01T00:00:00Z",
               "tariff": [
                 {
                   "currency": "EUR",
-                  "price_gross": 0.1936,
+                  "price_untaxed": 0.1936,
                   "pricing_unit": "kwhtoev",
                   "tariff_id": "kwrate",
                   "display_text": [
@@ -223,7 +230,7 @@ Each object must contain all required fields. Fields that are not specified may 
         }
       ],
       "physical_number": 2,
-      "floor": -2
+      "floor_level": -2
     }
   ]
 }
