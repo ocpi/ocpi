@@ -6,6 +6,29 @@
  * **CPO** Charging Point Operator
  * **eMSP** e-Mobility Service Provider
 
+## Provider and Operator abbreviation
+In this model, the provider and the operator play an important role. In order to target the right provider or operator, they need to be known upfront, at least between the cooperating parties. 
+
+In several standards, an issuing authority is mentioned that will keep a central registry of known Providers and Operators. 
+At this moment, the following countries have an authority that keeps track of the known providers and operators:
+
+### The Netherlands
+
+The dutch foundation, named [eViolin](http://www.eviolin.nl) keeps the registry for The Netherlands. 
+
+ * The list of operator IDs and provider IDs can be viewed on their website [eViolin/Leden](http://www.eviolin.nl/index.php/leden/). 
+
+### Germany
+
+The BDEW organisation keeps the registry for Germany in their general code number service [bdew-codes.de](https://bdew-codes.de/).
+
+ * [Provider ID Liste](https://bdew-codes.de/Codenumbers/EMobilityId/ProviderIdList) See https://bdew-codes.de/Codenumbers/EMobilityId/ProviderIdList
+ * [EVSE Operator ID Liste](https://bdew-codes.de/Codenumbers/EMobilityId/OperatorIdList)  See https://bdew-codes.de/Codenumbers/EMobilityId/OperatorIdList
+
+### Austria
+
+Austrian Mobile Power GmbH maintains a registry for Austria. The list is not public available.
+For more information visit [austrian-mobile-power.at](http://austrian-mobile-power.at/tools/id-vergabe/information/)
 
 ### Charging topology
 
