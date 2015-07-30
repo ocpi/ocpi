@@ -35,11 +35,11 @@ Fetch all supported OCPI versions of this CPO or eMSP.
 ```json
 [
     {
-        "version": 1.9,
+        "version": "1.9",
         "url": "https://example.com/ocpi/cpo/1.9/"
     },
     {
-        "version": 2.0,
+        "version": "2.0",
         "url": "https://example.com/ocpi/cpo/2.0/"
     }
 ]
@@ -86,7 +86,7 @@ Fetch information about the supported endpoints and their URL's for this version
 
 ```json
 {
-    "version": 2.0,
+    "version": "2.0",
     "endpoints": [
         {
             "identifier": "credentials",
