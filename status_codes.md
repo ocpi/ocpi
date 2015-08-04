@@ -6,6 +6,8 @@
 | 2xxx  | Client errors |
 | 3xxx  | Server errors |
 
+When the status code is in the success range (1xxx), the `data` field in the response message should contain the information as specified in the protocol. Otherwise the `data` field is unspecified and may be omitted, `null` or something else that could help to debug the problem from a programmer's perspective. For example, it could specify which fields contain an error or are missing.
+
 
 ### 1xxx: Success
 
