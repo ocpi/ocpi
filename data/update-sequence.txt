@@ -1,25 +1,12 @@
 @startuml
-title OCPI Registration process
+title OCPI Update process
 
 participant CPO
 participant eMSP
 
-== Offline ==
-
-CPO -> CPO: Generate token: TOKEN_A
-CPO -> eMSP: send credentials \n("/ocpi/cpo/versions", TOKEN_A, ...)
-
-...
-
-== OCPI ==
-
 CPO <- eMSP: GET /ocpi/cpo/versions
 activate eMSP
 activate CPO
-note right
-    The eMSP uses TOKEN_A as authentication
-    to fetch information from the CPO.
-end note
 CPO --> eMSP: Available versions
 deactivate CPO
 
@@ -29,8 +16,7 @@ activate CPO
 CPO --> eMSP: Available endpoints for v2.0
 deactivate CPO
 eMSP -> eMSP: Store version and endpoints
-eMSP -> eMSP: Generate token: TOKEN_B
-CPO <- eMSP: POST /ocpi/cpo/2.0/credentials \n("/ocpi/emsp/versions", TOKEN_B, ...)
+CPO <- eMSP: PUT /ocpi/cpo/2.0/credentials
 
 activate CPO
 CPO -> eMSP: GET /ocpi/emsp/versions
@@ -43,17 +29,10 @@ note right
     is retrieved from the available versions.
 end note
 CPO -> CPO: Store version and endpoints
-CPO -> CPO: Store TOKEN_B
-CPO -> CPO: Generate TOKEN_C
-CPO --> eMSP: Credentials with TOKEN_C for eMSP
+CPO --> eMSP: Potentially updated credentials for eMSP
 deactivate CPO
 
-note right
-    By returning new credentials for the eMSP,
-    the initial setup token (TOKEN_A)
-    has now become invalid.
-end note
-eMSP -> eMSP: Store updated credentials with TOKEN_C
+eMSP -> eMSP: Store updated credentials
 
 deactivate eMSP
 

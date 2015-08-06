@@ -50,14 +50,13 @@ Fetch all supported OCPI versions of this CPO or eMSP.
 
 Example: `/ocpi/cpo/2.0/` and `/ocpi/emsp/2.0/`
 
-This endpoint lists the supported endpoints and their URL's for a specific OCPI version.
+This endpoint lists the supported endpoints and their URL's for a specific OCPI version. To notify the other party that the list of endpoints of your current version has changed, you can send a PUT request to the corresponding credentials endpoint (see the credentials chapter).
 
 Both the CPO and the eMSP must have this endpoint.
 
 | Method   | Description                                                             |
 | -------- | ----------------------------------------------------------------------- |
 | GET      | Fetch information about the supported endpoints for this version.       |
-| PUT      | Send your supported endpoints for this version to the other party.      |
 
 
 ### Data
@@ -99,8 +98,3 @@ Fetch information about the supported endpoints and their URL's for this version
     ]
 }
 ```
-
-### PUT
-
-Provide the other party with the updated information about your API for this OCPI version. This can be used when you added a new endpoint or changed a location of an existing endpoint.
-
