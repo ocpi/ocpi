@@ -1,5 +1,13 @@
 ## Status codes
 
+There are two types of status codes:
+- Transport related (HTTP)
+- Content related (OCPI)
+
+The transport layer ends after a message is correctly parsed into a (semantically unvalidated) JSON structure. When a message does not contain a valid JSON string, the HTTP error `400 - Bad request` is returned.
+
+Requests that reach the OCPI layer should return an OCPI response message with a `status_code` field as defined below.
+
 | Range | Description   |
 |-------|---------------|
 | 1xxx  | Success       |
@@ -21,8 +29,7 @@ When the status code is in the success range (1xxx), the `data` field in the res
 | Code | Description                             |
 |------|-----------------------------------------|
 | 2000 | Generic client error                    |
-| 2001 | Invalid message format (not JSON)       |
-| 2002 | Invalid or missing parameters           |
+| 2001 | Invalid or missing parameters           |
 
 
 ### 3xxx: Server errors
