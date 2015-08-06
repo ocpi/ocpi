@@ -14,7 +14,7 @@ Each HTTP request must add a 'Authorization' header. The header looks as followi
     Authorization: Token IpbJOXxkxOAuKR92z0nEcmVF3Qw09VG7I7d/WCg0koM=
 ```
 
-The literal 'Token' indicates that the token based authentication mechanism is used. Its parameter is a string consisting of printable, non-whitespace ASCII characters. The token must uniquely identify the requesting party.
+The literal 'Token' indicates that the token based authentication mechanism is used. Its parameter is a string consisting of printable, non-whitespace ASCII characters. The token must uniquely identify the requesting party. The server can then use this to link data and commands to this party's account.
 
 The request method can be any of GET, POST, PUT, PATCH or DELETE. The OCPI protocol uses them in a similar way as REST API's do.
 
