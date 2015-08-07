@@ -37,5 +37,6 @@ When the status code is in the success range (1xxx), the `data` field in the res
 | Code | Description                             |
 |------|-----------------------------------------|
 | 3000 | Generic server error                    |
-| 3001 | Unsupported version. The client tried to register for a version that is not supported by the client itself. |
+| 3001 | Unable to use the client's API.         |
+| 3002 | Unsupported version.                    |
 
