@@ -56,23 +56,15 @@ For brevity's sake, any further example used in this specification will only con
 	"status_message": "Success",
 	"timestamp": "2015-06-30T21:59:59Z",
 	"data": {
-        "versions": [
+        "version": "2.0",
+        "endpoints": [
             {
-                "version": "2.0",
-                "endpoints": [
-                    {
-                        "identifier": "api_info",
-                        "url": "https://example.com/cpo/2.0/"
-                    },
-                    {
-                        "identifier": "credentials",
-                        "url": "https://example.com/cpo/2.0/credentials"
-                    },
-                    {
-                        "identifier": "locations",
-                        "url": "https://example.com/cpo/2.0/locations"
-                    }
-                ]
+                "identifier": "credentials",
+                "url": "https://example.com/ocpi/cpo/2.0/credentials/"
+            },
+            {
+                "identifier": "locations",
+                "url": "https://example.com/ocpi/cpo/2.0/locations/"
             }
         ]
 	}
