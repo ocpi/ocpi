@@ -33,12 +33,12 @@ e.g. the amount of kWh can be increased, a new charging period started, etc.
 | end_datetime      | DateTime          | 1     |                 |
 | kwh               | int               | 1     |                 |
 | auth_id           | string            | 1     |                 |
-| location          | Location          | 1     |                 |
-| evse              | EVSE              | 1     |                 |
-| connector         | Connector         | 1     |                 |
+| location          | [Location](https://github.com/ocpi/ocpi/blob/master/terminology.md#location-class)          | 1     |                 |
+| evse              | [EVSE](https://github.com/ocpi/ocpi/blob/master/terminology.md#evse-objects)              | 1     |                 |
+| connector         | [Connector](https://github.com/ocpi/ocpi/blob/master/terminology.md#connector-class)         | 1     |                 |
 | meter_id          | string            | 1     |                 |
 | currency          | string            | 1     |                 |
-| charging_periods  | [ChargingPeriod](#ChargingPeriod)    | *     |                 |
+| charging_periods  | [ChargingPeriod](#chargingperiod)    | *     |                 |
 | total_cost        | string        | 1     |                 |
 | status            | string        | ?     | **Filled by the MSP**; one of the following: [PENDING, ACTIVE, COMPLETED, INVALID, DISPUTED] |
 | endpoints         | [Endpoint](https://github.com/ocpi/ocpi/blob/master/versions.md#endpoint-class)      | ?     | **Filled by the MSP in the response to a POST.** Returns endpoints for updating the created sessions                |
