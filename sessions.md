@@ -34,7 +34,7 @@ e.g. the amount of kWh can be increased, a new charging period started, etc.
 | kwh               | int               | 1     |                 |
 | auth_id           | string            | 1     |                 |
 | location          | [Location](https://github.com/ocpi/ocpi/blob/master/terminology.md#location-class)          | 1     |                 |
-| evse              | [EVSE](https://github.com/ocpi/ocpi/blob/master/terminology.md#evse-objects)              | 1     |                 |
+| evse              | [EVSE](https://github.com/ocpi/ocpi/blob/master/terminology.md#evse-class)              | 1     |                 |
 | connector         | [Connector](https://github.com/ocpi/ocpi/blob/master/terminology.md#connector-class)         | 1     |                 |
 | meter_id          | string            | 1     |                 |
 | currency          | string            | 1     |                 |

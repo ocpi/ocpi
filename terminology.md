@@ -385,7 +385,7 @@ A *Location* without valid *EVSE* objects can be considered as expired and shoul
 | images               | Image           | *     | Links to images related to the location such as photos or logos. |
 
 
-#### EVSE objects
+#### EVSE class
 
 The *EVSE* object describes the part that controls the power supply to a single EV in a single session. It always belongs to a *Location* object. It will only contain directions to get from the location to the EVSE (i.e. *floor*, *physical_number* or *directions*). When these properties are insufficient to reach the EVSE from the *Location* point, then it typically indicates that this EVSE should be put in a different *Location* object (sometimes with the same address but with different coordinates/directions).
 
