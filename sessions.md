@@ -3,7 +3,7 @@
 This section details the API calls used to transmit dynamic session updates and full charge detail records (CDRs).
 
 A CDR is regarded as a finalized, immutable instance of a session object.
-The [Session](#Session) data type defined below is thus used for modelling both, session objects and CDRs.
+The [Session](#session) data type defined below is thus used for modelling both, session objects and CDRs.
 
 There are two separate ways of creating a CDR at the provider backoffice:
 
@@ -58,9 +58,9 @@ e.g. the amount of kWh can be increased, a new charging period started, etc.
 
 
 ##### POST to /sessions
-Create a new session in the MSP backoffice by POSTing a **Session** object.
+Create a new session in the MSP backoffice by POSTing a [Session](#session) object.
 
-The response contains a copy of the **Session** object enriched with the **status** and **endpoints** fields and the **id** field filled.
+The response contains a copy of the [Session](#session) object enriched with the **status** and **endpoints** fields and the **id** field filled.
 
 The endpoints field contains the endpoints relevant to the session that was created.
 
@@ -82,9 +82,9 @@ The session detail endpoint is used to send updates for a specific session using
 
 
 ##### PATCH to /sessions/{id}
-Update the **Session** object.
+Update the [Session](#session) object.
 
-The response will contain the updated **Session** object.
+The response will contain the updated [Session](#session) object.
 
 ---
 
@@ -97,11 +97,11 @@ signals to the MSP that the current state of the session should be locked and th
 
 
 ##### POST to /sessions/{id}/create_cdr
-Seals the **Session** object and creates a new CDR from it.
+Seals the [Session](#session) object and creates a new CDR from it.
 
 The request should contain the complete, final session object.
 
-The response will contain a sealed copy of the **Session** object enriched with the **status** set to `COMPLETED`.
+The response will contain a sealed copy of the [Session](#session) object enriched with the **status** set to `COMPLETED`.
 The "endpoints" field will point to the endpoint for handling the CDR.
 
 Example:
