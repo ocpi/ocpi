@@ -18,34 +18,34 @@ Identifier: `sessions`
 
 Example: `/ocpi/msp/2.0/sessions`
 
-This endpoint is used by a CPO to register a new session at the MSP backoffice. Upon successful session registration,
-the MSP returns further endpoints to the CPO where the status of the session object can be updated according to the state of the session,
+This endpoint is used by a CPO to register a new session at the eMSP backoffice. Upon successful session registration,
+the eMSP returns further endpoints to the CPO where the status of the session object can be updated according to the state of the session,
 e.g. the amount of kWh can be increased, a new charging period started, etc.
 
 
 #### Data
 
 ##### Session
-| Property  | Type        | Card. | Description                              |
-|-----------|-------------|-------|------------------------------------------|
-| id                | string            | ?     | **Filled by the MSP in the response to a POST.** |
-| start_datetime    | DateTime          | 1     |                 |
-| end_datetime      | DateTime          | 1     |                 |
-| kwh               | int               | 1     |                 |
-| auth_id           | string            | 1     |                 |
-| location          | [Location](https://github.com/ocpi/ocpi/blob/master/terminology.md#location-class)          | 1     |                 |
-| evse              | [EVSE](https://github.com/ocpi/ocpi/blob/master/terminology.md#evse-class)              | 1     |                 |
-| connector         | [Connector](https://github.com/ocpi/ocpi/blob/master/terminology.md#connector-class)         | 1     |                 |
-| meter_id          | string            | 1     |                 |
-| currency          | string            | 1     |                 |
-| charging_periods  | [ChargingPeriod](#chargingperiod)    | *     |                 |
-| total_cost        | string        | 1     |                 |
-| status            | string        | ?     | **Filled by the MSP**; one of the following: [PENDING, ACTIVE, COMPLETED, INVALID, DISPUTED] |
-| endpoints         | [Endpoint](https://github.com/ocpi/ocpi/blob/master/versions.md#endpoint-class)      | ?     | **Filled by the MSP in the response to a POST.** Returns endpoints for updating the created sessions                |
+| Property          | Type              | Card. | Description                                                    |
+|-------------------|-------------------|-------|----------------------------------------------------------------|
+| id                | string            | 1     | The unique id that identifies the session in the CPO platform. |
+| start_datetime    | DateTime          | 1     | The time when the session became active.     |
+| end_datetime      | DateTime          | ?     | The time when the session is completed.      |
+| kwh               | Decimal           | 1     | How many kWh are charged.                    |
+| auth_id           | string            | 1     | An id provided by the authentication mechanism so that the eMSP knows to which driver the session belongs. |
+| location          | [Location](https://github.com/ocpi/ocpi/blob/master/terminology.md#location-class)      | 1     | The location where this session took place. |
+| evse              | [EVSE](https://github.com/ocpi/ocpi/blob/master/terminology.md#evse-class)              | 1     | The EVSE that was used for this session. |
+| connector_number  | int               | 1     | Zero-based index of the connector used at the EVSE.  |
+| meter_id          | string            | ?     | Optional identification of the kWh meter.            |
+| currency          | string            | 1     | ISO 4217 code of the currency used for this session. |
+| charging_periods  | [ChargingPeriod](#chargingperiod) | *     | An optional list of charging periods that can be used to calculate and verify the total cost. |
+| total_cost        | Decimal           | 1     | The total cost (excluding VAT) of the session in the specified currency. This is the price that the eMSP will have to pay to the CPO. |
+| status            | [SessionStatus](#sessionstatus) | 1     | The status of the session. |
+| endpoints         | [Endpoint](https://github.com/ocpi/ocpi/blob/master/versions.md#endpoint-class) | *     | Lists the related endpoints to the session. These are specific for each party. See below for more information. |
 
 
+##### ChargingPeriod *type*
 
-##### ChargingPeriod
 | Property  | Type        | Card. | Description                              |
 |-----------|-------------|-------|------------------------------------------|
 | start_datetime       | DateTime       | 1     |  |
@@ -56,9 +56,20 @@ e.g. the amount of kWh can be increased, a new charging period started, etc.
 | max_power            | int            | 1     |  |
 
 
+##### SessionStatus *enum*
+
+| Property  | Description                                                                |
+|-----------|----------------------------------------------------------------------------|
+| PENDING   | The session is pending and has not yet started. This is the initial state. |
+| ACTIVE    | The session is accepted and active.                                        |
+| COMPLETED | The session has finished succesfully.                                      |
+| INVALID   | The session is declared invalid and will not be billed.                    |
+| DISPUTED  | The eMSP disputes the validity of the session. This status will have to be resolved manually. |
+
 
 ##### POST to /sessions
-Create a new session in the MSP backoffice by POSTing a [Session](#session) object.
+
+Create a new session in the eMSP backoffice by POSTing a [Session](#session) object.
 
 The response contains a copy of the [Session](#session) object enriched with the **status** and **endpoints** fields and the **id** field filled.
 
@@ -93,10 +104,11 @@ The response will contain the updated [Session](#session) object.
 Example: `/ocpi/msp/2.0/sessions/235/create_cdr`
 
 The CDR creation endpoint is called with a POST method when the CPO wants to "seal" or "finalize" the session, which
-signals to the MSP that the current state of the session should be locked and that a CDR should be created from it.
+signals to the eMSP that the current state of the session should be locked and that a CDR should be created from it.
 
 
 ##### POST to /sessions/{id}/create_cdr
+
 Seals the [Session](#session) object and creates a new CDR from it.
 
 The request should contain the complete, final session object.
