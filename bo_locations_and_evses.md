@@ -1,8 +1,7 @@
 # _Locations and EVSEs_ business object
 
-*General description of the business object*
-
-The location object lives in the operators backend system.
+The location and EVSE objects live in the operators backend system. They
+describe the charging locations of that operator.
 
 
 
@@ -10,20 +9,43 @@ The location object lives in the operators backend system.
 
 ### 1.1 Service Provider Inheritors
 
-*Describe the purpose and singularity of this inheritor.*
-
 Each service provider can hold one inheritance of the locations objects
-their customers have access to.
+their customers have access to. The inheritance gets created and updated
+by either calling the [GET](#311-get-method) method on the operator
+endpoint (pull mode) or by calling [PUT](#321-put-method) and
+[PATCH](#322-patch-method) th the provider endpoint (push mode).
 
+The inheritance might differ from the master object due to different
+needs and capabilities of the provider. However, it should follow all
+updates to the master object as good as possible.
 
 
 
 ## 2. Flow and Lifecycle
 
-*Describe the status of the objects, how it is created and destroyed,
-when and through which action it gets inherited. Name the owner. Explain
-the purpose.*
+When the operator creates locations and EVSEs they push them to the
+subscribed providers by calling [PUT](#321-put-method) on their
+location endpoint. This creates an inheritance (A) of the newly created
+object. Providers who do not support push mode need to call
+[GET](#311-get-method) on the operator's location endpoint to receive
+the new object. This creates also an inheritance (B).
 
+Any changes to the master object in the operator's system are
+forwarded to all inheritances (A) in all subscribed provider systems by
+callung [PATCH](#322-patch-method) on their locations endpoint.
+Providers who do not support push mode need to call
+[GET](#311-get-method) on the operator's location endpoint to receive
+the updates in the master object. This updates their inheritance (B).
+
+When the operator deletes the master object, they must update all
+inheritances (A) in the provider systems by setting the `valid_until`
+field to the deletion timestamp. This marks the inheritance (A) as
+invalid. Providers who do not support push mode need to call
+[GET](#311-get-method) on the operator's location endpoint and filter
+for non-existant master objects. Each of their own valid inheritances
+(B) which do not have a corresponding master object in a later
+GET-request have to be marked as invalid with the timestamp of the
+request.
 
 ![Lifecycle][location-lifecycle]
 
