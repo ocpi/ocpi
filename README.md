@@ -9,7 +9,7 @@ This repostory contains the OCPI specification.
    - [Version information endpoint](version_information_endpoint.md)
    - [Credentials & registration](credentials.md)
  * __Overview of Business Objects__, each section describes one business object.
-   - [Locations & EVSE's](locations.md)
+   - [Locations & EVSEs](bo_locations_and_evses.md)
  * __Generic Types__, describing all data types that are used by multiple objects
    - [Terminology & data](terminology.md)
 
