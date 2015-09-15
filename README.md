@@ -10,6 +10,7 @@ This repostory contains the OCPI specification.
    - [Credentials & registration](credentials.md)
  * __Overview of Business Objects__, each section describes one business object.
    - [Locations & EVSEs](bo_locations_and_evses.md)
+   - [Sessions](bo_sessions.md)
  * __Generic Types__, describing all data types that are used by multiple objects
    - [Terminology & data](terminology.md)
 
@@ -17,7 +18,6 @@ This repostory contains the OCPI specification.
 Will be added lated:
 * [6. Evse commands.md](commands.md)
 * [7. Token broadcast between MSP and CPO.md](tokens.md)
-* [8. Session information exchange.md](sessions.md)
 * [9. Smart charging.md](smart_charging.md)
 -->
 
