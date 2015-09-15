@@ -1,19 +1,25 @@
 This repostory contains the OCPI specification.
 
-Current work in progress is found in the .md files on the master branch:
-* [Introduction](introduction.md)
-* [1. Terminology & data](terminology.md)
-* [2. Protocol and endpoints](protocol.md)
-* [3. Version information endpoints](versions.md)
-* [4. Credentials & registration](credentials.md)
-* [5. Locations & EVSE's](locations.md)
-* [A. Status codes](status_codes.md)
+## Contents
 
+ * [__Introduction__](introduction.md)
+ * __Protocol Meta Information__, describes the connections between the parties
+   - [Transport and Format](transport_and_format.md)
+   - [Status codes](status_codes.md)
+   - [Version information endpoint](version_information_endpoint.md)
+   - [Credentials & registration](credentials.md)
+ * __Overview of Business Objects__, each section describes one business object.
+   - [Locations & EVSE's](locations.md)
+ * __Generic Types__, describing all data types that are used by multiple objects
+   - [Terminology & data](terminology.md)
+
+<!--
 Will be added lated:
 * [6. Evse commands.md](commands.md)
 * [7. Token broadcast between MSP and CPO.md](tokens.md)
 * [8. Session information exchange.md](sessions.md)
 * [9. Smart charging.md](smart_charging.md)
+-->
 
 The specification will be finalised module-by-module. Once a module is finalised it will be implemented and tested by the parties cooperating on the specification. The finalisation work for the following module will commence in parellel.
 

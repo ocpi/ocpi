@@ -1,5 +1,5 @@
 
-## Versions endpoint
+## Version information endpoint
 
 Example: `/ocpi/cpo/versions` and `/ocpi/emsp/versions`
 

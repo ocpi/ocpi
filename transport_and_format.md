@@ -1,12 +1,14 @@
-## JSON / HTTP implementation guide
+## Transport and format
+
+### JSON / HTTP implementation guide
 
 The OCPI protocol is based on HTTP and uses the JSON format. It follows a RESTful architecture for webservices where possible.
 
-### Security and authentication
+#### Security and authentication
 
 The interfaces are protected on HTTP transport level, with SSL and token based authentication. Please note that this mechanism does **not** require client side certificates for authentication, only server side certificates in order to setup a secure SSL connection.
 
-### Request format
+#### Request format
 
 Each HTTP request must add a 'Authorization' header. The header looks as following:
 
@@ -33,7 +35,7 @@ A PATCH request must only specify the object's identifier and the fields to be u
 The mimetype of the request body is `application/json` and may contain the data as documented for each endpoint.
 
 
-### Response format
+#### Response format
 
 When a request cannot be accepted, an HTTP error response code is expected including a JSON object that contains more details. HTTP status codes are described on [w3.org](http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html).
 
@@ -48,7 +50,7 @@ The content that is sent with all the response messages is a 'application/json' 
 
 For brevity's sake, any further example used in this specification will only contain the value of the "data" field. In reality, it will always have to be wrapped in the above response format.
 
-#### Example
+##### Example
 
 ```json
 {
@@ -72,7 +74,7 @@ For brevity's sake, any further example used in this specification will only con
 ```
 
 
-## Interface endpoints
+### Interface endpoints
 
 As OCPI contains multiple interfaces, different endpoints are available for messaging. The protocol is designed such that the exact URL's of the endpoints can be defined by each party. It also supports an interface per version.
 
