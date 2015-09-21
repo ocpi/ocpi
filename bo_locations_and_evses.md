@@ -38,14 +38,13 @@ Providers who do not support push mode need to call
 the updates in the master object. This updates their inheritance (B).
 
 When the operator deletes the master object, they must update all
-inheritances (A) in the provider systems by setting the `valid_until`
-field to the deletion timestamp. This marks the inheritance (A) as
+inheritances (A) in the provider systems by setting the `status`
+field to `INOPERATIVE`. This marks the inheritance (A) as
 invalid. Providers who do not support push mode need to call
 [GET](#311-get-method) on the operator's location endpoint and filter
 for non-existant master objects. Each of their own valid inheritances
 (B) which do not have a corresponding master object in a later
-GET-request have to be marked as invalid with the timestamp of the
-request.
+GET-request have to be marked as invalid by setting `status` to `INOPERATIVE`.
 
 ![Lifecycle][location-lifecycle]
 
@@ -377,14 +376,14 @@ In this example the name of the location is updated and connector 2 of EVSE *BE-
 			"connectors": [
 				{
 					"id": "1",
-                    "standard": "IEC-62196-T2",
-                    "format": "CABLE",
+                                        "standard": "IEC-62196-T2",
+                                        "format": "CABLE",
 					"price": PRICINGSCHEMES
 				},
 				{
 					"id": "2",
-                    "standard": "IEC-62196-T2",
-                    "format": "SOCKET",
+                                        "standard": "IEC-62196-T2",
+                                        "format": "SOCKET",
 					"price": NEW_PRICINGSCHEMES
 				}
 			]
@@ -415,7 +414,6 @@ To add an *EVSE* or a *Location*, simply put the full object in an update messag
 			],
 			"physical_number": 3,
 			"floor": -1,
-			"valid_from": "2015-05-21T10:00:00+0200"
 		}
 	]
 }
@@ -423,14 +421,14 @@ To add an *EVSE* or a *Location*, simply put the full object in an update messag
 
 ##### Example: delete an EVSE
 
-An EVSE can be deleted by updating its *valid_until* property.
+An EVSE can be deleted by updating its *status* property.
 
 ```json
 {
 	"evses": [
 		{
 			"id": "BE-BEC-E041503001",
-			"valid_until": "2015-04-27T13:00:00+0200"
+			"status": "INOPERATIVE",
 		}
 	]
 }
