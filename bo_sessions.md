@@ -1,8 +1,6 @@
 # _Sessions_ Business Object
 
-*General description of the business object*
-
-The session object describes one charging session in a roaning scenario.
+The session object describes one charging session in a roaming scenario.
 The object is virtual and lives between the operator's and provider's
 systems. Each of the two parties hold a inheritance of this virtual
 object.
@@ -10,7 +8,15 @@ object.
 
 ## 1. Inheritances
 
-*List all inheritors.*
+The generic _Session_ object is a virtual object which describes one
+charging session in a roaming case. It inherits into two child
+objects, the _CPOSession_ object in the operator system and the
+_EMSPSession_ in the provider system. The leading instance is the
+_CPOSession_ object. The CPO updates the virtual parent _Session_
+object. The _EMSPSession_ object inherits the updates.
+
+![The Session Object][session-object]
+
 
 ### 1.1 Operator Inheritor
 
@@ -26,19 +32,10 @@ related data.
 
 ## 2. Flow and Lifecycle
 
-*Describe the status of the objects, how it is created and destroyed,
-when and through which action it gets inherited. Name the owner. Explain
-the purpose.*
+The following sequence diagram illustrates the data flow between
+operator an provider:
 
-
-### 2.1 Operator initializes
-
-![Lifecycle Operator initialized][location-lifecycle-1]
-
-
-### 2.2 Provider initializes
-
-![Lifecycle Provider initialized][location-lifecycle-2]
+![Session Sequence Diagram][session-sequence-diagram]
 
 
 ## 3. Interfaces and endpoints
@@ -51,61 +48,133 @@ which one.*
 
 *Describe the interface in detail.*
 
-Endpoint structure /xxx/yyy/
+Endpoint structure `/sessions/`
 
 | Method   | Description                                          |
 | -------- | ---------------------------------------------------- |
-| GET      |                                                      |
-| POST     |                                                      |
-| PUT      |                                                      |
-| PATCH    |                                                      |
-| DELETE   |                                                      |
+| GET      | Returns all _CPOSession_ objects for that provider.  |
+| POST     | n/a                                                  |
+| PUT      | n/a                                                  |
+| PATCH    | n/a                                                  |
+| DELETE   | n/a                                                  |
 
 
 ### 3.2 Provider Interface
 
 *Describe the interface in detail.*
 
-Endpoint structure /xxx/yyy/
+Endpoint structure: `/ocpi/emsp/sessions/` and
+`/ocpi/emsp/sessions/{session-id}/`
 
 | Method   | Description                                          |
 | -------- | ---------------------------------------------------- |
-| GET      |                                                      |
-| POST     |                                                      |
-| PUT      |                                                      |
-| PATCH    |                                                      |
-| DELETE   |                                                      |
+| GET      | n/a                                                  |
+| POST     | Send a new _CPOSession_ object                       |
+| PUT      | n/a                                                  |
+| PATCH    | Update the _CPOSession_ object of id {session-id}.   |
+| DELETE   | Delete the _CPOSession_ object of id {session-id}.   |
 
 
+#### 3.2.1 __POST__ Method
+
+Create a new session in the eMSP backoffice by POSTing a _CPOSession_
+object.
+
+The response contains a _EMSPSession_ object enriched with the
+**status** and **endpoints** fields and the **id** field filled.
+
+The endpoints field contains the endpoints relevant to the session that
+was created.
+
+##### Example:
+
+```
+"endpoints": [
+  {"identifier": "uri", "url": "http://msp/sessions/345/"},
+  {"identifier": "create_cdr", "url": "http://msp/sessions/345/create_cdr"}
+]
+```
+
+##### 3.2.2 __PATCH__ Method
+
+Inform about updates in the _Session_ object.
+
+The response will contain the updated _EMSPSession_ object.
 
 
-## Object description
+## 4. Object description
 
 *Describe the structure of this object.*
 
-### Primary Object
+### 4.1 _Session_ Object
+
+| Property          | Type              | Card. | Description                                                    |
+|-------------------|-------------------|-------|----------------------------------------------------------------|
+| id                | string            | 1     | The unique id that identifies the session in the CPO platform. |
+| start_datetime    | DateTime          | 1     | The time when the session became active.     |
+| end_datetime      | DateTime          | ?     | The time when the session is completed.      |
+| kwh               | Decimal           | 1     | How many kWh are charged.                    |
+| auth_id           | string            | 1     | An id provided by the authentication mechanism so that the eMSP knows to which driver the session belongs. |
+| location          | [Location](bo_locations_and_evses.md#41-location-object) | 1     | The location where this session took place. |
+| evse              | [EVSE](bo_locations_and_evses.md#42-evse-object)        | 1     | The EVSE that was used for this session. |
+| connector_number  | int               | 1     | Zero-based index of the connector used at the EVSE.  |
+| meter_id          | string            | ?     | Optional identification of the kWh meter.            |
+| currency          | string            | 1     | ISO 4217 code of the currency used for this session. |
+| charging_periods  | [ChargingPeriod](#52-chargingperiod-type) | *     | An optional list of charging periods that can be used to calculate and verify the total cost. |
+| total_cost        | Decimal           | 1     | The total cost (excluding VAT) of the session in the specified currency. This is the price that the eMSP will have to pay to the CPO. |
+| status            | [SessionStatus](#51-sessionstatus-enum) | 1     | The status of the session. |
+| endpoints         | [Endpoint](version-information-endpoint.md#endpoint-class) | *     | Lists the related endpoints to the session. These are specific for each party. See below for more information. |
+
+
+
+### 4.2 _CPOSession_ Object
+
+Describes a session in the CPO platform
 
 | Property  | Type        | Card. | Description                    |
 |-----------|-------------|-------|--------------------------------|
+| endpoints | [Endpoint](version-information-endpoint.md#endpoint-class) | * |                                |
 |           |             |       |                                |
-|           |             |       |                                |
 
 
-### Inheritor Object #1
 
-*If different from the primary object*
+### 4.3 _EMSPSession_ Object
+
+Describes a session in the eMSP platform
 
 | Property  | Type        | Card. | Description                    |
 |-----------|-------------|-------|--------------------------------|
+| endpoints | [Endpoint](version-information-endpoint.md#endpoint-class) | * |                                |
 |           |             |       |                                |
-|           |             |       |                                |
 
 
 
 
-## Data types
+
+## 5. Data types
 
 *Describe all datatypes used in this object*
+
+### 5.1 SessionStatus *enum*
+
+| Property  | Description                                                                |
+|-----------|----------------------------------------------------------------------------|
+| PENDING   | The session is pending and has not yet started. This is the initial state. |
+| ACTIVE    | The session is accepted and active.                                        |
+| COMPLETED | The session has finished succesfully.                                      |
+| INVALID   | The session is declared invalid and will not be billed.                    |
+| DISPUTED  | The eMSP disputes the validity of the session. This status will have to be resolved manually. |
+
+### 5.2 ChargingPeriod *type*
+
+| Property  | Type        | Card. | Description                              |
+|-----------|-------------|-------|------------------------------------------|
+| start_datetime       | DateTime       | 1     |  |
+| end_datetime         | DateTime       | 1     |  |
+| tariff_number        | string         | 1     |  |
+| kwh                  | int            | 1     |  |
+| cost                 | string         | 1     |  |
+| max_power            | int            | 1     |  |
 
 ### Object Template
 
@@ -133,42 +202,66 @@ Endpoint structure /xxx/yyy/
 
 ## Appendix: Figures
 
-### Lifecycle Operator initialized
+### Session Object
 
-![Lifecycle][location-lifecycle-1]
-[location-lifecycle-1]: http://plantuml.com:80/plantuml/svg/TKyn3eD03Dll5H4x7q0LEnCCPM9AGwIcKezJ527rzmMn75pO4Zjsx8HgGf8m6bHzOaLR5BhuPXN3I5o5b9yCAb_K7_Il3vCLvBBAp1TzcEgwBPGDF4WPZTk0PB9kK-b-1M0tSbDkTdAikPzVAFWu72cT2WqCu_CKq-qvytsJdFDJdTNUWpy0 "Lifecycle"
-
+![The Session Object][session-object]
+[session-object]: http://plantuml.com/plantuml/svg/hL9DJyCm3BttLrZYrh7jpiS1iI5n02QAk20qfQcx1NL95Rj2QEo_usRjbe4cBdEboebV_LwVdI6HSHQkleT3k9qzPTjpaiNtquTirXT07fKJUwKPTAM8eCUk4v1uDPuRLO7BFr1pk1fAX2HD7mMt-xmqM1K4l5GCoYFGKju5vCYVY1PonqkeAyMbyojAqz1Y916I0PW2Ba1QzKTREhcudJpVI_RoLMDN85RSK8IDzDmSqzBp0jMeJMdqR_vr_niRE0EqHUsCvPPbskLlxyb6pDfwjBUsisc2fBt9aK01THLZXHzRx8x-KE_W2D4bZCVWQfOc1DUmRhmv1orkBenTp6llIbFX9f8JJVH_FIZWKmWYTlMywxqLOnrZEsPsAt1bl7zjyxje9DfPLiQ68VkLuXwZSjTmKDcBtkuTkA0zO68_Hua8XfRtB_t1cf-G_y2_lO0V "The Session Object"
 
 #### Source:
 
 <pre>
 <code>
 @startuml
-participant "Operator Inheritance"
-participant "Primary Object"
-participant "Provider Inheritance"
-
-[--> "Primary Object": <create>
-activate "Primary Object"
-"Primary Object" -> "Operator Inheritance": <inherit>
-activate "Operator Inheritance"
-
-"Operator Inheritance" -> "Provider Inheritance": PUT
-activate "Provider Inheritance"
-
-deactivate "Primary Object"
-deactivate "Operator Inheritance"
-deactivate "Provider Inheritance"
-
+Session <|-- CPOSession
+Session <|-- EMSPSession
+ 
+ 
+abstract class Session {
+    Virtual object
+    ----
+    **Non abstract fields that are shared between both platforms**
+    ....
+    + id : str
+    + info : CDRInfoType
+    + status : str
+    ----
+    **Abstract fields that are platform specific**
+    ....
+    {abstract} # endpoints : Endpoint[]
+}
+ 
+class CPOSession {
+    Describes a session in the CPO platform
+    ----
+    + endpoints : Endpoint[]; // options = {uri, charging_profile}
+}
+ 
+class EMSPSession {
+    Describes a session in the eMSP platform
+    ----
+    + endpoints : Endpoint[]; // options = {uri, stop_session}
+}
+ 
+note bottom of CPOSession
+    Fields that contain information
+    about the session object on the
+    CPO platform.
+end note
+ 
+note bottom of EMSPSession
+    Fields that contain information
+    about the session object on the
+    eMSP platform.
+end note
 @enduml
 </code>
 </pre>
 
 
-### Lifecycle Provider initialized
+### Session Sequence Diagram
 
-![Lifecycle][location-lifecycle-2]
-[location-lifecycle-2]: http://plantuml.com:80/plantuml/svg/TP2_2eD03CRtUuhWxWj8SNVIeOuEQGmqXPv724BVlgBBwSKjoPVlbpy9rOGaOJIe-iIAjYXqySqgXf6u2Ybl6LI-g3_eNnycAyHbbPal_Z3LTLiu6tYGCXgt0SbatQAIVYt00NAcR3WvqZFFNSYlxt3t1GqCupF3-dyACzzVack-_Upszlu3 "Lifecycle"
+![Session Sequence Diagram][session-sequence-diagram]
+[session-sequence-diagram]: http://plantuml.com/plantuml/svg/bP712i8m38RlVOgm-_e0eeBCWWTbW-qeI5aZvb9BstaPlhljtDX46UuIIFxawmSrqdggoKZj8ScAF65cEi5JMIGCcAmzFQH722kX3HNIBSHq1KLULj0wT8xksbrGAtCdxPzdhQINcx1RlhEH4WzPB2EbjXYJ7jEzi4xJFhJe6wj1X6PW0LFuoGF6EV-IsrNP0Th99Hy47MyiBRHiZ5fa-PVZNXn59UOaPvskfCdTPfr-U4mctP--0000 "Session Sequence Diagram"
 
 
 #### Source:
@@ -176,22 +269,36 @@ deactivate "Provider Inheritance"
 <pre>
 <code>
 @startuml
-participant "Operator Inheritance"
-participant "Primary Object"
-participant "Provider Inheritance"
-
-]--> "Primary Object": <create>
-activate "Primary Object"
-"Primary Object" -> "Provider Inheritance": <inherit>
-activate "Provider Inheritance"
-
-"Provider Inheritance" -> "Operator Inheritance": PUT
-activate "Operator Inheritance"
-
-deactivate "Primary Object"
-deactivate "Operator Inheritance"
-deactivate "Provider Inheritance"
-
+participant "CPO"
+participant "eMSP"
+ 
+activate CPO
+ 
+CPO -> eMSP: POST {sessions_endpoint}\ndata=CPOSession
+activate eMSP
+eMSP -> eMSP: create session
+CPO <-- eMSP: return EMSPSession
+ 
+deactivate eMSP
+ 
+...
+ 
+CPO -> eMSP: PATCH {EMSPSession.endpoints.uri}\ndata=CPOSession
+activate eMSP
+eMSP -> eMSP: update session
+CPO <-- eMSP: return EMSPSession
+deactivate eMSP
+ 
+...
+ 
+CPO -> eMSP: DELETE {EMSPSession.endpoints.uri}
+activate eMSP
+eMSP -> eMSP: finish session
+CPO <-- eMSP: return
+deactivate eMSP
+ 
+deactivate CPO
+ 
 @enduml
 </code>
 </pre>

@@ -1,4 +1,0 @@
-## Session information exchange
-### CDRs
-
-### Live information (called in Draft v5 NDR, and it would be just part, since some are smart charging)
