@@ -81,8 +81,8 @@ The endpoint returns an object of two seperate lists: one list of available loca
 
 | Property  | Type        | Card. | Description                              |
 |-----------|-------------|-------|------------------------------------------|
-| locations | Location    | +     | List of all locations with valid EVSE's. |
-| evses     | EVSE        | +     | List of all valid EVSE's.                |
+| locations | Location    | *     | List of all locations with valid EVSE's. |
+| evses     | EVSE        | *     | List of all valid EVSE's.                |
 
 
 
