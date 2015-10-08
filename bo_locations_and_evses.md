@@ -434,6 +434,8 @@ An EVSE can be deleted by updating its *status* property.
 }
 ```
 
+_Note: To inform that an EVSE is scheduled for removal, the
+status_schedule field can be used._
 
 
 ## 4. Object description
