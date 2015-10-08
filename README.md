@@ -11,6 +11,7 @@ This repostory contains the OCPI specification.
  * __Overview of Business Objects__, each section describes one business object.
    - [Locations & EVSEs](bo_locations_and_evses.md)
    - [Sessions](bo_sessions.md)
+   - [CDRs](bo_cdrs.md)
  * __Generic Types__, describing all data types that are used by multiple objects
    - [Terminology & data](terminology.md)
 
