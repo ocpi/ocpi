@@ -45,7 +45,7 @@ A Location is typically the exact location of one or more EVSE's, but it can als
 
 ### Variable names
 
-In order to prevent issues with Capitals in variable names, the naming in JSON is not CamelCase but camel_case. All variables are lowercase and include an underscore for a space.
+In order to prevent issues with Capitals in variable names, the naming in JSON is not CamelCase but snake_case. All variables are lowercase and include an underscore for a space.
 
 
 ### Data types
