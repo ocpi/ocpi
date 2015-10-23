@@ -12,6 +12,7 @@ This repostory contains the OCPI specification.
    - [Locations & EVSEs](bo_locations_and_evses.md)
    - [Sessions](bo_sessions.md)
    - [CDRs](bo_cdrs.md)
+   - [Tariffs](bo_tariffs.md)
  * __Generic Types__, describing all data types that are used by multiple objects
    - [Terminology & data](terminology.md)
 
