@@ -3,12 +3,8 @@ Date:   June 17th, 2015
 
 # OCPI
 
- * **OCPI** Open Charge point Interface 
- * **NDR** Notification Detail Record
- * **CDR** Charge Detail Record
-
 ## Introduction and background
-The Open Charge Point Interface (OCPI) enables a scalable, automated EV roaming setup between Charge Point Operators and e-Mobility Service Providers. It supports authorisation, charge point information exchange (incl transaction events), charge detail record exchange and finally, the exchange of smart-charging commands between parties.
+The Open Charge Point Interface (OCPI) enables a scalable, automated EV roaming setup between Charge Point Operators and e-Mobility Service Providers. It supports authorisation, charge point information exchange (incl transaction events), charge detail record exchange, remote charge point commands and finally, the exchange of smart-charging commands between parties.
 
 It offers market participants in EV an attractive and scalable solution for (international) roaming between networks, avoiding the costs and innovation-limiting complexities involved with today's non-automated solutions or with central roaming hubs. 
 

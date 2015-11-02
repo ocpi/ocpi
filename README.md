@@ -3,6 +3,7 @@ This repostory contains the OCPI specification.
 ## Contents
 
  * [__Introduction__](introduction.md)
+   - [Terminology and Definitions](terminology.md)
  * __Protocol Meta Information__, describes the connections between the parties
    - [Transport and Format](transport_and_format.md)
    - [Status codes](status_codes.md)
@@ -14,7 +15,7 @@ This repostory contains the OCPI specification.
    - [CDRs](bo_cdrs.md)
    - [Tariffs](bo_tariffs.md)
  * __Generic Types__, describing all data types that are used by multiple objects
-   - [Terminology & data](terminology.md)
+   - [Types](types.md)
 
 <!--
 Will be added lated:
