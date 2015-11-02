@@ -24,8 +24,8 @@ The dutch foundation, named [eViolin](http://www.eviolin.nl) keeps the registry 
 
 The BDEW organisation keeps the registry for Germany in their general code number service [bdew-codes.de](https://bdew-codes.de/).
 
- * [Provider ID Liste](https://bdew-codes.de/Codenumbers/EMobilityId/ProviderIdList) See https://bdew-codes.de/Codenumbers/EMobilityId/ProviderIdList
- * [EVSE Operator ID Liste](https://bdew-codes.de/Codenumbers/EMobilityId/OperatorIdList)  See https://bdew-codes.de/Codenumbers/EMobilityId/OperatorIdList
+ * [Provider ID List](https://bdew-codes.de/Codenumbers/EMobilityId/ProviderIdList) See https://bdew-codes.de/Codenumbers/EMobilityId/ProviderIdList
+ * [EVSE Operator ID List](https://bdew-codes.de/Codenumbers/EMobilityId/OperatorIdList)  See https://bdew-codes.de/Codenumbers/EMobilityId/OperatorIdList
 
 #### Austria
 
