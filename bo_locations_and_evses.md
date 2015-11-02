@@ -478,7 +478,7 @@ An *EVSE* object has a list of connectors which can not be used simultaneously: 
 | id                   | string(48)         | 1     | Uniquely identifies the EVSE within the CPO's platform (and suboperator platforms). |
 | location_id          | string(15)         | 1     | The id of the *Location* object that contains this EVSE. If the *Location* object does not exist, this EVSE may be discarded (and it should not have been sent in the first place).   |
 | status               | Status             | 1     | Indicates the current status of the EVSE.              |
-| status_schedule      | StatusSchedule     | 1     | Indicates the current status of the EVSE.              |
+| status_schedule      | StatusSchedule     | *     | Indicates a planned status in the future of the EVSE.  |
 | capabilities         | Capability         | *     | List of functionalities that the EVSE is capable of.   |
 | connectors           | Connector          | +     | List of available connectors on the EVSE.              |
 | floor_level          | string(4)          | ?     | Level on which the charging station is located (in garage buildings) in the locally displayed numbering scheme. |
@@ -488,58 +488,11 @@ An *EVSE* object has a list of connectors which can not be used simultaneously: 
 | parking_restrictions | ParkingRestriction | *     | The restrictions that apply to the parking spot.       |
 | images               | Image              | *     | Links to images related to the EVSE such as photos or logos. |
 
-
-
-
-
 ## 5. Data types
 
 *Describe all datatypes used in this object*
 
-
-#### Image *class*
-
-This class references images related to a EVSE in terms of a file name or uri. According to the roaming connection between one EVSE Operator and one or more Navigation Service Providers the hosting or file exchange of image payload data has to be defined. The exchange of this content data is out of scope of OCHP. However, the recommended setup is a public available web server hosted and updated by the EVSE Operator. Per charge point a unlimited number of images of each type is allowed. Recommended are at least two images where one is a network or provider logo and the second is a station photo. If two images of the same type are defined they should be displayed additionally, not optionally.
-
-##### Photo Dimensions
-
-The recommended dimensions for all photos are minimum 800 pixels wide and 600 pixels height. Thumbnail representations for photos should always have the same orientation than the original with a size of 200 to 200 pixels.
-
-##### Logo Dimensions
-
-The recommended dimensions for logos are exactly 512 pixels wide and 512 pixels height. Thumbnail representations for logos should be exactly 128 pixels in with and height. If not squared, thumbnails should have the same orientation than the original.
-
-| Field Name | Field Type    | Card. | Description                           |
-|------------|---------------|-------|---------------------------------------|
-| url        | string(255)   | 1     | URL from where the image data can be fetched through a web browser. |
-| thumbnail  | string(255)   | ?     | URL from where a thumbnail of the image can be fetched through a webbrowser. |
-| category   | ImageCategory | 1     | Describes what the image is used for. |
-| type       | string(4)     | 1     | Image type like: gif, jpeg, png, svg  |
-| width      | int(5)        | ?     | Width of the full scale image         |
-| height     | int(5)        | ?     | Height of the full scale image        |
-
-
-#### ImageCategory *enum*
-
-The category of an image to obtain the correct usage in an user presentation. Has to be set accordingly to the image content in order to guaranty the right usage.
-
-| Value          | Description |
-|----------------|-------------|
-| charger        | Photo of the physical device that contains one or more EVSE's. |
-| location       | Location overview photo. |
-| entrance       | Location entrance photo. Should show the car entrance to the location from street side. |
-| other          | Other |
-
-
-#### GeoLocation *class*
-
-| Property         | Type         | Card. | Description                        |
-|------------------|--------------|-------|------------------------------------|
-| latitude         | decimal      | 1     | Latitude in decimal format.        |
-| longitude        | decimal      | 1     | Longitude in decimal format.       |
-
-
-#### BusinessDetails *class*
+### BusinessDetails *class* [ClassBusinessDetails]
 
 | Property         | Type         | Card. | Description                        |
 |------------------|--------------|-------|------------------------------------|
@@ -548,7 +501,94 @@ The category of an image to obtain the correct usage in an user presentation. Ha
 | logo             | Image        | ?     | Image link to the operator's logo. |
 
 
-#### Hours *class*
+### Capability *enum*
+
+The capabilities of an EVSE.
+
+| Value                    | Description                          |
+|--------------------------|--------------------------------------|
+| RESERVABLE               | The EVSE can be reserved.            |
+| CHARGING_PROFILE_CAPABLE | The EVSE supports charging profiles. |
+
+
+### Connector *class*
+
+A connector is the socket or cable available for the EV to make use of. A single EVSE may provide multiple connectors but only one of them can be in use at the same time. A connector always belongs to an *EVSE* object.
+
+| Property         | Type            | Card. | Description                                            |
+|------------------|-----------------|-------|--------------------------------------------------------|
+| id               | string(15)      | 1     | Identifier of the connector within the EVSE. Two connectors may have the same id as long as they do not belong to the same *EVSE* object. |
+| standard         | ConnectorType   | 1     | The standard of the installed connector.               |
+| format           | ConnectorFormat | 1     | The format (socket/cable) of the installed connector.  |
+| power_type       | PowerType       | 1     |  |
+| voltage          | int             | 1     | Voltage of the connector (line to neutral for AC_3_PHASE), in volt [V]. |
+| amperage         | int             | 1     | maximum amperage of the connector, in ampere [A]. |
+| price_schemes    | PricingScheme   | *     | List of applicable price schemes (see *PriceScheme* specification in OCPP2.0). |
+| terms_and_conditions | URL         | ?     | URL to the operator's terms and conditions. |
+
+
+### ConnectorFormat *enum*
+
+The format of the connector, whether it is a socket or a plug.
+
+| Value  | Description |
+|--------|-------------|
+| SOCKET | The connector is a socket; the EV user needs to bring a fitting plug. |
+| CABLE  | The connector is a attached cable; the EV users car needs to have a fitting inlet. |
+
+
+### ConnectorType *enum*
+
+The socket or plug standard of the charging point.
+
+| Value | Description |
+|-------|-------------|
+| Chademo | The connector type is CHAdeMO, DC |
+| IEC-62196-T1 | IEC 62196 Type 1 "SAE J1772" |
+| IEC-62196-T1-COMBO | Combo Type 1 based, DC |
+| IEC-62196-T2 | IEC 62196 Type 2 "Mennekes" |
+| IEC-62196-T2-COMBO | Combo Type 2 based, DC |
+| IEC-62196-T3A | IEC 62196 Type 3A |
+| IEC-62196-T3C | IEC 62196 Type 3C "Scame" |
+| DOMESTIC-A | Standard/Domestic household, type "A", NEMA 1-15, 2 pins |
+| DOMESTIC-B | Standard/Domestic household, type "B", NEMA 5-15, 3 pins |
+| DOMESTIC-C | Standard/Domestic household, type "C", CEE 7/17, 2 pins |
+| DOMESTIC-D | Standard/Domestic household, type "D", 3 pin |
+| DOMESTIC-E | Standard/Domestic household, type "E", CEE 7/5 3 pins |
+| DOMESTIC-F | Standard/Domestic household, type "F", CEE 7/4, Schuko, 3 pins |
+| DOMESTIC-G | Standard/Domestic household, type "G", BS 1363, Commonwealth, 3  |pins
+| DOMESTIC-H | Standard/Domestic household, type "H", SI-32, 3 pins |
+| DOMESTIC-I | Standard/Domestic household, type "I", AS 3112, 3 pins |
+| DOMESTIC-J | Standard/Domestic household, type "J", SEV 1011, 3 pins |
+| DOMESTIC-K | Standard/Domestic household, type "K", DS 60884-2-D1, 3 pins |
+| DOMESTIC-L | Standard/Domestic household, type "L", CEI 23-16-VII, 3 pins |
+| TESLA-R | Tesla Connector "Roadster"-type (round, 4 pin) |
+| TESLA-S | Tesla Connector "Model-S"-type (oval, 5 pin) |
+| IEC-60309-2-single-16 | IEC 60309-2 Industrial Connector single phase 16  Amperes (usually blue) |
+| IEC-60309-2-three-16 | IEC 60309-2 Industrial Connector three phase 16  Amperes (usually red) |
+| IEC-60309-2-three-32 | IEC 60309-2 Industrial Connector three phase 32  Amperes (usually red) |
+| IEC-60309-2-three-64 | IEC 60309-2 Industrial Connector three phase 64  Amperes (usually red) |
+
+
+### ExceptionalPeriod *class*
+
+Specifies one exceptional period for opening or access hours.
+
+ Field Name   |  Field Type  |  Card.  |  Description
+:-------------|:-------------|:--------|:------------
+ period_begin |  DateTime    |  1      |  Begin of the exception.
+ period_end   |  DateTime    |  1      |  End of the exception.
+
+
+### GeoLocation *class*
+
+| Property         | Type         | Card. | Description                        |
+|------------------|--------------|-------|------------------------------------|
+| latitude         | decimal      | 1     | Latitude in decimal format.        |
+| longitude        | decimal      | 1     | Longitude in decimal format.       |
+
+
+### Hours *class*
 
 Opening and access hours for the location.
 
@@ -561,7 +601,79 @@ Opening and access hours for the location.
  exceptional_closings   |  ExceptionalPeriod      |  *      |  Exceptions for specified calendar dates, time-range based. Periods the station is not operating/accessible. Overwriting regularHours and exceptionalOpenings. Should not overlap exceptionalOpenings.
 
 
-##### RegularHours *class*
+### Image *class*
+
+This class references images related to a EVSE in terms of a file name or uri. According to the roaming connection between one EVSE Operator and one or more Navigation Service Providers the hosting or file exchange of image payload data has to be defined. The exchange of this content data is out of scope of OCHP. However, the recommended setup is a public available web server hosted and updated by the EVSE Operator. Per charge point a unlimited number of images of each type is allowed. Recommended are at least two images where one is a network or provider logo and the second is a station photo. If two images of the same type are defined they should be displayed additionally, not optionally.
+
+Photo Dimensions: 
+The recommended dimensions for all photos are minimum 800 pixels wide and 600 pixels height. Thumbnail representations for photos should always have the same orientation than the original with a size of 200 to 200 pixels.
+
+Logo Dimensions: 
+The recommended dimensions for logos are exactly 512 pixels wide and 512 pixels height. Thumbnail representations for logos should be exactly 128 pixels in with and height. If not squared, thumbnails should have the same orientation than the original.
+
+| Field Name | Field Type    | Card. | Description                           |
+|------------|---------------|-------|---------------------------------------|
+| url        | string(255)   | 1     | URL from where the image data can be fetched through a web browser. |
+| thumbnail  | string(255)   | ?     | URL from where a thumbnail of the image can be fetched through a webbrowser. |
+| category   | ImageCategory | 1     | Describes what the image is used for. |
+| type       | string(4)     | 1     | Image type like: gif, jpeg, png, svg  |
+| width      | int(5)        | ?     | Width of the full scale image         |
+| height     | int(5)        | ?     | Height of the full scale image        |
+
+
+### ImageCategory *enum*
+
+The category of an image to obtain the correct usage in an user presentation. Has to be set accordingly to the image content in order to guaranty the right usage.
+
+| Value          | Description |
+|----------------|-------------|
+| charger        | Photo of the physical device that contains one or more EVSE's. |
+| location       | Location overview photo. |
+| entrance       | Location entrance photo. Should show the car entrance to the location from street side. |
+| other          | Other |
+
+
+### LocationType *enum*
+
+Reflects the general type of the charge points location. May be used
+for user information.
+
+ Value              |  Description
+:-------------------|:-------------
+ on_street          |  Parking in public space.
+ parking_garage     |  Multistorey car park.
+ underground_garage |  Multistorey car park, mainly underground.
+ parking_lot        |  A cleared area that is intended for parking vehicles, i.e. at super markets, bars, etc.
+ other              |  None of the given possibilities.
+ unknown            |  Parking location type is not known by the operator (default).
+
+
+### ParkingRestriction *enum*
+
+This value, if provided, represents the restriction to the parking spot
+for different purposes.
+
+ Value       |  Description
+:------------|:-------------
+ ev_only     |  Reserved parking spot for electric vehicles.
+ plugged     |  Parking allowed only while plugged in (charging).
+ disabled    |  Reserved parking spot for disabled people with valid ID.
+ customers   |  Parking spot for customers/guests only, for example in case of a hotel or shop.
+ motorcycles |  Parking spot only suitable for (electric) motorcycles or scooters.
+
+
+### PowerType *enum*
+
+The format of the connector, whether it is a socket or a plug.
+
+| Value      | Description     |
+|------------|-----------------|
+| AC_1_PHASE | AC mono phase.  |
+| AC_3_PHASE | AC 3 phase.     |
+| DC         | Direct Current. |
+
+
+### RegularHours *class*
 
 Regular recurring operation or access hours
 
@@ -572,16 +684,8 @@ Regular recurring operation or access hours
  period_end   |  string(5)   |  1      |  End of the regular period, syntax as for period_begin. Must be later than period_begin.
 
 
-##### ExceptionalPeriod *class*
 
-Specifies one exceptional period for opening or access hours.
-
- Field Name   |  Field Type  |  Card.  |  Description
-:-------------|:-------------|:--------|:------------
- period_begin |  DateTime    |  1      |  Begin of the exception.
- period_end   |  DateTime    |  1      |  End of the exception.
-
-##### Example
+#### Example
 
 Operating on weekdays from 8am till 8pm with one exceptional opening on
 22/6/2014 and one exceptional closing the Monday after:
@@ -640,77 +744,7 @@ This represents the following schedule, where ~~stroked out~~ days are without o
 | Open till | 20 | 20 | 20 | 20 | 20 | 12     | -      | 20 | -          | 20 | 20 | 20 | -      | -      |
 
 
-#### Connector *class*
-
-A connector is the socket or cable available for the EV to make use of. A single EVSE may provide multiple connectors but only one of them can be in use at the same time. A connector always belongs to an *EVSE* object.
-
-| Property         | Type            | Card. | Description                                            |
-|------------------|-----------------|-------|--------------------------------------------------------|
-| id               | string(15)      | 1     | Identifier of the connector within the EVSE. Two connectors may have the same id as long as they do not belong to the same *EVSE* object. |
-| standard         | ConnectorType   | 1     | The standard of the installed connector.               |
-| format           | ConnectorFormat | 1     | The format (socket/cable) of the installed connector.  |
-| power_type       | PowerType       | 1     |  |
-| voltage          | int             | 1     | Voltage of the connector (line to neutral for AC_3_PHASE), in volt [V]. |
-| amperage         | int             | 1     | maximum amperage of the connector, in ampere [A]. |
-| price_schemes    | PricingScheme   | *     | List of applicable price schemes (see *PriceScheme* specification in OCPP2.0). |
-| terms_and_conditions | URL         | ?     | URL to the operator's terms and conditions. |
-
-
-##### ConnectorType *enum*
-
-The socket or plug standard of the charging point.
-
-| Value | Description |
-|-------|-------------|
-| Chademo | The connector type is CHAdeMO, DC |
-| IEC-62196-T1 | IEC 62196 Type 1 "SAE J1772" |
-| IEC-62196-T1-COMBO | Combo Type 1 based, DC |
-| IEC-62196-T2 | IEC 62196 Type 2 "Mennekes" |
-| IEC-62196-T2-COMBO | Combo Type 2 based, DC |
-| IEC-62196-T3A | IEC 62196 Type 3A |
-| IEC-62196-T3C | IEC 62196 Type 3C "Scame" |
-| DOMESTIC-A | Standard/Domestic household, type "A", NEMA 1-15, 2 pins |
-| DOMESTIC-B | Standard/Domestic household, type "B", NEMA 5-15, 3 pins |
-| DOMESTIC-C | Standard/Domestic household, type "C", CEE 7/17, 2 pins |
-| DOMESTIC-D | Standard/Domestic household, type "D", 3 pin |
-| DOMESTIC-E | Standard/Domestic household, type "E", CEE 7/5 3 pins |
-| DOMESTIC-F | Standard/Domestic household, type "F", CEE 7/4, Schuko, 3 pins |
-| DOMESTIC-G | Standard/Domestic household, type "G", BS 1363, Commonwealth, 3  |pins
-| DOMESTIC-H | Standard/Domestic household, type "H", SI-32, 3 pins |
-| DOMESTIC-I | Standard/Domestic household, type "I", AS 3112, 3 pins |
-| DOMESTIC-J | Standard/Domestic household, type "J", SEV 1011, 3 pins |
-| DOMESTIC-K | Standard/Domestic household, type "K", DS 60884-2-D1, 3 pins |
-| DOMESTIC-L | Standard/Domestic household, type "L", CEI 23-16-VII, 3 pins |
-| TESLA-R | Tesla Connector "Roadster"-type (round, 4 pin) |
-| TESLA-S | Tesla Connector "Model-S"-type (oval, 5 pin) |
-| IEC-60309-2-single-16 | IEC 60309-2 Industrial Connector single phase 16  Amperes (usually blue) |
-| IEC-60309-2-three-16 | IEC 60309-2 Industrial Connector three phase 16  Amperes (usually red) |
-| IEC-60309-2-three-32 | IEC 60309-2 Industrial Connector three phase 32  Amperes (usually red) |
-| IEC-60309-2-three-64 | IEC 60309-2 Industrial Connector three phase 64  Amperes (usually red) |
-
-
-##### ConnectorFormat *enum*
-
-The format of the connector, whether it is a socket or a plug.
-
-| Value  | Description |
-|--------|-------------|
-| SOCKET | The connector is a socket; the EV user needs to bring a fitting plug. |
-| CABLE  | The connector is a attached cable; the EV users car needs to have a fitting inlet. |
-
-
-##### PowerType *enum*
-
-The format of the connector, whether it is a socket or a plug.
-
-| Value      | Description     |
-|------------|-----------------|
-| AC_1_PHASE | AC mono phase.  |
-| AC_3_PHASE | AC 3 phase.     |
-| DC         | Direct Current. |
-
-
-#### Status *enum*
+### Status *enum*
 
 The status of an EVSE.
 
@@ -724,7 +758,7 @@ The status of an EVSE.
 | INOPERATIVE | The EVSE is not yet active or it is no longer available (deleted). |
 
 
-#### StatusSchedule *class*
+### StatusSchedule *class*
 
 This type is used to schedule status periods in the future. The eMSP can provide this information to the EV user for trip planning purpose. A period MAY have no end. Example: "This station will be running from tomorrow. Today it is still planned and under construction."
 
@@ -737,52 +771,7 @@ This type is used to schedule status periods in the future. The eMSP can provide
 Note that the scheduled status is purely informational. When the status actually changes, the CPO must push an update to the EVSE's `status` field itself.
 
 
-#### Capability *enum*
-
-The capabilities of an EVSE.
-
-| Value                    | Description                          |
-|--------------------------|--------------------------------------|
-| RESERVABLE               | The EVSE can be reserved.            |
-| CHARGING_PROFILE_CAPABLE | The EVSE supports charging profiles. |
-
-
-#### LocationType *enum*
-
-Reflects the general type of the charge points location. May be used
-for user information.
-
- Value              |  Description
-:-------------------|:-------------
- on_street          |  Parking in public space.
- parking_garage     |  Multistorey car park.
- underground_garage |  Multistorey car park, mainly underground.
- parking_lot        |  A cleared area that is intended for parking vehicles, i.e. at super markets, bars, etc.
- other              |  None of the given possibilities.
- unknown            |  Parking location type is not known by the operator (default).
-
-
-#### ParkingRestrictionType *enum*
-
-This value, if provided, represents the restriction to the parking spot
-for different purposes.
-
- Value       |  Description
-:------------|:-------------
- ev_only     |  Reserved parking spot for electric vehicles.
- plugged     |  Parking allowed only while plugged in (charging).
- disabled    |  Reserved parking spot for disabled people with valid ID.
- customers   |  Parking spot for customers/guests only, for example in case of a hotel or shop.
- motorcycles |  Parking spot only suitable for (electric) motorcycles or scooters.
-
-
 ---
-
-
-
-
-
-
 
 ## Appendix: Figures
 
