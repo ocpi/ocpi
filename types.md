@@ -10,9 +10,11 @@
 
 ### 1.2 DimensionType
 
-| Value       | Description                                          |
-| ----------- | ---------------------------------------------------- |
-| energy      | Energy in kWh                                        |
-| max_current | Maximum current in A (Ampere)                        |
-| min_current | Minimum current in A (Ampere)                        |
-| time        | Time in Hours                                        |
+| Value        | Description                                          |
+| ------------ | ---------------------------------------------------- |
+| energy       | defined in kWh, default division is 1 Wh             |
+| flat         | flat fee, no unit                                    |
+| max_current  | defined in A (Ampere), Maximum current               |
+| min_current  | defined in A (Ampere), Minimum current               |
+| parking_time | defined in hours, default division is 1 second       |
+| time         | defined in hours, default division is 1 second       |
