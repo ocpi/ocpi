@@ -112,10 +112,10 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 |------------------|----------------|-------|-------------------------------------------------------------------------------------------------------------------|
 | id               | string(15)     | 1     | Uniquely identifies the CDR within the CPO's platform (and suboperator platforms).                                |
 | start_date_time  | DateTime       | 1     | Start of the charging session                                                                                     | 
-| dimensions       | Dimension      | *     | List of applicable quantities that have impact on total costs.                                                                                        | 
+| dimensions       | Dimension      | *     | List of applicable quantities that have impact on total costs.                                                    | 
 | kwh              | decimal        | 1     | Amount of kWh charged                                                                                             | 
 | location         | Location       | 1     | Location were the charging session took place                                                                     | 
-| evse_id          | string(15)     | 1     | Identifier of the EVSE used, relevant EVSE Object is part of the Location Object provided with this CDR           |
+| evse             | EVSE           | 1     | EVSE used for this charging session                                                                               |
 | connector_id     | string(15)     | 1     | Identifier of the connector used, relevant Connector Object is part of the Location Object provided with this CDR | 
 | meter_id         | string(255)    | ?     | Identification of the Meter inside the Charge Point                                                               | 
 | currency         | string(3)      | 1     | Currency of the CDR in ISO 4217 Code                                                                              | 
