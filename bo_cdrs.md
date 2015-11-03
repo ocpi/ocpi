@@ -111,7 +111,7 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 | Property         | Type           | Card. | Description                                                                                                       |
 |------------------|----------------|-------|-------------------------------------------------------------------------------------------------------------------|
 | id               | string(15)     | 1     | Uniquely identifies the CDR within the CPO's platform (and suboperator platforms).                                |
-| start_date_time  | DateTime       | 1     | Start of the charging session                                                                                     | 
+| start_date_time  | DateTime       | 1     | Start timestamp of the charging session                                                                           | 
 | dimensions       | Dimension      | *     | List of applicable quantities that have impact on total costs.                                                    | 
 | kwh              | decimal        | 1     | Amount of kWh charged                                                                                             | 
 | location         | Location       | 1     | Location were the charging session took place                                                                     | 
@@ -128,13 +128,14 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 
 Datatypes used by CDR that are not described here can be found in [Types](types.md)
 
+
 ### 5.1 ChargingPeriod
 
 A charging period consists of a start timestamp and a list of possible values that influence this period, for example: Amount of energy charged this period, maximum current during this period etc.
 
-| Property        | Type      | Card. | Description                         |
-|-----------------|-----------|-------|-------------------------------------|
-| start_date_time | DateTime  | 1     |                                     |
-| dimension       | Dimension | +     |                                     |
+| Property        | Type      | Card. | Description                                        |
+|-----------------|-----------|-------|----------------------------------------------------|
+| start_date_time | DateTime  | 1     | Start timestamp of the charging period             |
+| dimension       | Dimension | +     | List of relevant values for this charging period   |
 
 
