@@ -13,6 +13,6 @@
 | Value       | Description                                          |
 | ----------- | ---------------------------------------------------- |
 | energy      | Energy in kWh                                        |
-| time        | Time in Hours                                        |
 | max_current | Maximum current in A (Ampere)                        |
 | min_current | Minimum current in A (Ampere)                        |
+| time        | Time in Hours                                        |
