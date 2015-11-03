@@ -46,46 +46,66 @@ Endpoint structure /xxx/yyy/
 
 
 
-## Object description
+## 4. Object description
 
 *Describe the structure of this object.*
 
-### Primary Object
+### 4.1 Tariff
 
-| Property  | Type        | Card. | Description                    |
-|-----------|-------------|-------|--------------------------------|
-|           |             |       |                                |
-|           |             |       |                                |
-
-
-### Inheritor Object #1
-
-*If different from the primary object*
-
-| Property  | Type        | Card. | Description                    |
-|-----------|-------------|-------|--------------------------------|
-|           |             |       |                                |
-|           |             |       |                                |
+| Property        | Type          | Card. | Description                                                                           |
+|-----------------|---------------|-------|---------------------------------------------------------------------------------------|
+| id              | string(15)    | 1     | Uniquely identifies the tariff within the CPO's platform (and suboperator platforms). |
+| currency        | string(3)     | 1     | Currency of this tariff, ISO 4217 Code                                                |
+| elements        | TariffElement | 1     | List of tariff elements                                                               |
 
 
-
-
-## Data types
+## 5. Data types
 
 *Describe all datatypes used in this object*
 
-### Object Template
+### 5.X TariffDimension
 
-| Property  | Type        | Card. | Description                    |
-|-----------|-------------|-------|--------------------------------|
-|           |             |       |                                |
-|           |             |       |                                |
+| Property        | Type          | Card. | Description                                      |
+|-----------------|---------------|-------|--------------------------------------------------|
+| type            | DimensionType | 1     | Type of tariff dimension, see: [Types](types.md) |
+| price           | decimal       | 1     | price per unit for this tariff dimension         |
+| division        | int           | 1     | Duration of this period in seconds               |
 
 
-### Enum Template
+### 5.X TariffElement
 
-| Value     | Description                                          |
-| --------- | ---------------------------------------------------- |
-|           |                                                      |
-|           |                                                      |
+| Property        | Type               | Card. | Description                  |
+|-----------------|--------------------|-------|------------------------------|
+| dimensions      | TariffDimension    | +     | List of dimensions           |
+| restrictions    | TariffRestriction  | +     | List of tariff restrictions  |
+
+
+### 5.X TariffRestriction
+
+| Property        | Type               | Card. | Description                                                                           |
+|-----------------|--------------------|-------|---------------------------------------------------------------------------------------|
+| start_time      | string(5)          | ?     | Start time of day, for example 13:30, valid from this time of the day                 |
+| end_time        | string(5)          | ?     | End time of day, for example 19:45, valid until this time of the day                  |
+| start_date      | string(10)         | ?     | Start date, for example: 2015-12-24, valid from this day                              |
+| end_date        | string(10)         | ?     | End date, for example: 2015-12-27, valid until this day (excluding this day)          |
+| min_kwh         | decimal            | ?     | Minimum used energy in kWh, for example 20, valid from this amount of energy is used  |                             
+| max_kwh         | decimal            | ?     | Maximum used energy in kWh, for example 50, valid until this amount of energy is used |
+| min_power       | decimal            | ?     | Minimum power in kW, for example 0, valid from this charging speed                    |
+| max_power       | decimal            | ?     | Maximum power in kW, for example 20, valid up to this charging speed                  |
+| min_duration    | int                | ?     | Minimum duration in seconds, valid for a duration from x seconds                      |
+| max_duration    | int                | ?     | Maximum duration in seconds, valid for a duration up to x seconds                     |
+| day_of_week     | DayOfWeek          | *     | Which day(s) of the week this tariff is valid                                         |
+
+
+### 5.X DayOfWeek
+
+| Value        | Description                                          |
+| ------------ | ---------------------------------------------------- |
+| MONDAY       | Monday                                               |
+| TUESDAY      | Tuesday                                              |
+| WEDNESDAY    | Wednesday                                            |
+| THURSDAY     | Thursday                                             |
+| FRIDAY       | Friday                                               |
+| SATURDAY     | Saturday                                             |
+| SUNDAY       | Sunday                                               |
 

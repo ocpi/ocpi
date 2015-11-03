@@ -112,30 +112,35 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 |------------------|----------------|-------|-------------------------------------------------------------------------------------------------------------------|
 | id               | string(15)     | 1     | Uniquely identifies the CDR within the CPO's platform (and suboperator platforms).                                |
 | start_date_time  | DateTime       | 1     | Start timestamp of the charging session                                                                           | 
-| dimensions       | Dimension      | *     | List of applicable quantities that have impact on total costs.                                                    | 
+| dimensions       | CdrDimension   | *     | List of applicable quantities that have impact on total costs.                                                    | 
 | kwh              | decimal        | 1     | Amount of kWh charged                                                                                             | 
-| location         | Location       | 1     | Location were the charging session took place                                                                     | 
-| evse             | EVSE           | 1     | EVSE used for this charging session                                                                               |
+| location         | Location       | 1     | Location were the charging session took place, see: [Locations & EVSEs](bo_locations_and_evses.md)                | 
+| evse             | EVSE           | 1     | EVSE used for this charging session, see: [Locations & EVSEs](bo_locations_and_evses.md)                          |
 | connector_id     | string(15)     | 1     | Identifier of the connector used, relevant Connector Object is part of the Location Object provided with this CDR | 
 | meter_id         | string(255)    | ?     | Identification of the Meter inside the Charge Point                                                               | 
 | currency         | string(3)      | 1     | Currency of the CDR in ISO 4217 Code                                                                              | 
-| tariffs          | Tariff         | *     | List of relevant tariff elements                                                                                  | 
+| tariffs          | Tariff         | *     | List of relevant tariff elements, see: [Tariffs](bo_tariffs.md)                                                   | 
 | charging_periods | ChargingPeriod | *     | List of charging periods that make up this charging session. A session consist of 1 or more periodes with, each period has a different relevant Tariff | 
 | total_cost       | decimal        | 1     | Total cost of this transaction                                                                                    | 
 
 
 ## 5. Data types
 
-Datatypes used by CDR that are not described here can be found in [Types](types.md)
+### 5.X CdrDimension
+
+| Property        | Type          | Card. | Description                                   |
+|-----------------|---------------|-------|-----------------------------------------------|
+| type            | DimensionType | 1     | Type of cdr dimension, see: [Types](types.md) |
+| volume          | decimal       | 1     | Duration of this period in seconds            |
 
 
-### 5.1 ChargingPeriod
+### 5.X ChargingPeriod
 
 A charging period consists of a start timestamp and a list of possible values that influence this period, for example: Amount of energy charged this period, maximum current during this period etc.
 
-| Property        | Type      | Card. | Description                                        |
-|-----------------|-----------|-------|----------------------------------------------------|
-| start_date_time | DateTime  | 1     | Start timestamp of the charging period             |
-| dimension       | Dimension | +     | List of relevant values for this charging period   |
+| Property        | Type         | Card. | Description                                        |
+|-----------------|--------------|-------|----------------------------------------------------|
+| start_date_time | DateTime     | 1     | Start timestamp of the charging period             |
+| dimension       | CdrDimension | +     | List of relevant values for this charging period   |
 
 
