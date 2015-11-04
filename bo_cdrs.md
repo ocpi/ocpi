@@ -110,7 +110,7 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 
 | Property         | Type           | Card. | Description                                                                                                       |
 |------------------|----------------|-------|-------------------------------------------------------------------------------------------------------------------|
-| id               | string(15)     | 1     | Uniquely identifies the CDR within the CPO's platform (and suboperator platforms).                                |
+| id               | string(15)     | 1     | Uniquely identifies the CDR within the CPOs platform (and suboperator platforms).                                 |
 | start_date_time  | DateTime       | 1     | Start timestamp of the charging session                                                                           | 
 | dimensions       | CdrDimension   | +     | List of applicable quantities that have impact on total costs.                                                    | 
 | kwh              | decimal        | 1     | Amount of kWh charged                                                                                             | 

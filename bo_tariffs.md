@@ -54,7 +54,7 @@ Endpoint structure /xxx/yyy/
 
 | Property        | Type          | Card. | Description                                                                           |
 |-----------------|---------------|-------|---------------------------------------------------------------------------------------|
-| id              | string(15)    | 1     | Uniquely identifies the tariff within the CPO's platform (and suboperator platforms). |
+| id              | string(15)    | 1     | Uniquely identifies the tariff within the CPOs platform (and suboperator platforms).  |
 | currency        | string(3)     | 1     | Currency of this tariff, ISO 4217 Code                                                |
 | elements        | TariffElement | 1     | List of tariff elements                                                               |
 

@@ -451,7 +451,7 @@ A *Location* without valid *EVSE* objects can be considered as expired and shoul
 
 | Property             | Type            | Card. | Description                                            |
 |----------------------|-----------------|-------|--------------------------------------------------------|
-| id                   | string(15)      | 1     | Uniquely identifies the location within the CPO's platform (and suboperator platforms). |
+| id                   | string(15)      | 1     | Uniquely identifies the location within the CPOs platform (and suboperator platforms). |
 | type                 | LocationType    | 1     | The general type of the charge point location.         |
 | name                 | string(255)     | ?     | Display name of the location.                          |
 | address              | string(45)      | 1     | Street/block name and house number if available.       |
@@ -475,7 +475,7 @@ An *EVSE* object has a list of connectors which can not be used simultaneously: 
 
 | Property             | Type               | Card. | Description                                            |
 |----------------------|--------------------|-------|--------------------------------------------------------|
-| id                   | string(48)         | 1     | Uniquely identifies the EVSE within the CPO's platform (and suboperator platforms). |
+| id                   | string(48)         | 1     | Uniquely identifies the EVSE within the CPOs platform (and suboperator platforms). |
 | location_id          | string(15)         | 1     | The id of the *Location* object that contains this EVSE. If the *Location* object does not exist, this EVSE may be discarded (and it should not have been sent in the first place).   |
 | status               | Status             | 1     | Indicates the current status of the EVSE.              |
 | status_schedule      | StatusSchedule     | *     | Indicates a planned status in the future of the EVSE.  |
