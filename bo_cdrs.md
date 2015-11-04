@@ -112,7 +112,7 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 |------------------|----------------|-------|-------------------------------------------------------------------------------------------------------------------|
 | id               | string(15)     | 1     | Uniquely identifies the CDR within the CPO's platform (and suboperator platforms).                                |
 | start_date_time  | DateTime       | 1     | Start timestamp of the charging session                                                                           | 
-| dimensions       | CdrDimension   | *     | List of applicable quantities that have impact on total costs.                                                    | 
+| dimensions       | CdrDimension   | +     | List of applicable quantities that have impact on total costs.                                                    | 
 | kwh              | decimal        | 1     | Amount of kWh charged                                                                                             | 
 | location         | Location       | 1     | Location were the charging session took place, see: [Locations & EVSEs](bo_locations_and_evses.md)                | 
 | evse             | EVSE           | 1     | EVSE used for this charging session, see: [Locations & EVSEs](bo_locations_and_evses.md)                          |
