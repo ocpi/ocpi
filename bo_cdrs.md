@@ -120,7 +120,7 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 | meter_id         | string(255)    | ?     | Identification of the Meter inside the Charge Point                                                               | 
 | currency         | string(3)      | 1     | Currency of the CDR in ISO 4217 Code                                                                              | 
 | tariffs          | Tariff         | *     | List of relevant tariff elements, see: [Tariffs](bo_tariffs.md)                                                   | 
-| charging_periods | ChargingPeriod | *     | List of charging periods that make up this charging session. A session consist of 1 or more periodes with, each period has a different relevant Tariff | 
+| charging_periods | ChargingPeriod | +     | List of charging periods that make up this charging session. A session consist of 1 or more periodes with, each period has a different relevant Tariff | 
 | total_cost       | decimal        | 1     | Total cost of this transaction                                                                                    | 
 
 
