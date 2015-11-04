@@ -82,6 +82,6 @@ Example:
     2015-06-29T20:39:09Z
     2015-06-29T20:39:09
 
-### URL's
+### URLs
 
 An URL a string(255) type following the [w3.org spec](http://www.w3.org/Addressing/URL/uri-spec.html).
