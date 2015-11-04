@@ -69,7 +69,7 @@ Endpoint structure /xxx/yyy/
 |-----------------|---------------|-------|--------------------------------------------------|
 | type            | DimensionType | 1     | Type of tariff dimension, see: [Types](types.md) |
 | price           | decimal       | 1     | price per unit for this tariff dimension         |
-| division        | int           | 1     | Duration of this period in seconds               |
+| step_size       | int           | 1     | Minimum amount to be billed. This unit will be billed in this step_size blocks. For example: if type is time and  step_size is 300, then time will be billed in blocks of 5 minutes, so if 6 minutes is used, 10 minutes (2 blocks of step_size) will be billed. |
 
 
 ### 5.X TariffElement
