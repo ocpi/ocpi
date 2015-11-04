@@ -524,7 +524,7 @@ A connector is the socket or cable available for the EV to make use of. A single
 | voltage              | int             | 1     | Voltage of the connector (line to neutral for AC_3_PHASE), in volt [V]. |
 | amperage             | int             | 1     | maximum amperage of the connector, in ampere [A].                       |
 | tariff_id            | string(15)      | ?     | Identifier of the current charging tariff structure                     |
-| tariff_alt_text      | string(512)     | ?     | Alternative tariff info text                                            |
+| tariff_alt_text      | string(512)     | ?     | Alternative tariff info text (without any markup, so no HTML or Markdown etc) |
 | tariff_alt_url       | URL             | ?     | Alternative URL to tariff info                                          |
 | terms_and_conditions | URL             | ?     | URL to the operator's terms and conditions.                             |
 
