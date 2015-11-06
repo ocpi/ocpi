@@ -56,17 +56,19 @@ Endpoint structure /xxx/yyy/
 |-----------------|---------------|-------|---------------------------------------------------------------------------------------|
 | uid             | string(15)    | 1     | Identification used by CPO system to identify this token, for example RFID hidden ID  |
 | type            | TokenType     | 1     | Type of the token                                                                     |
-| auth_id         | string(??)    | 1     | Uniquely identifies the token within the eMSPs platform (and suboperator platforms).  |
-| visual_number   | string(??)    | 1     | Visual number of the Token                                                            |
-| issuer          | string(??)    | 1     | Issuing company                                                                       |
+| auth_id         | string(32)    | 1     | Uniquely identifies the EV Driver contract token within the eMSPs platform (and suboperator platforms).  |
+| visual_number   | string(64)    | 1     | Visual readable number/identification of the Token                                    |
+| issuer          | string(64)    | 1     | Issuing company                                                                       |
 | allow_whitelist | boolean       | 1     | It is allowed to whitelist this Token                                                 |
+
+Combination of 'uid' and 'type' should be unique
 
 
 ## 5. Data types
 
 *Describe all datatypes used in this object*
 
-### 5.X TokenType
+### 5.1 TokenType
 
 | Value        | Description                                          |
 | ------------ | ---------------------------------------------------- |
