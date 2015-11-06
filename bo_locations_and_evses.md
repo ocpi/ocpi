@@ -62,9 +62,7 @@ which one.*
 
 *Describe the interface in detail.*
 
-Endpoint structure `/<path>/<role>/<version>/locations`
-
-Example: `/ocpi/cpo/2.0/locations`
+Example endpoint structure: `/ocpi/cpo/2.0/locations`
 
 ##### Methods
 
@@ -310,9 +308,7 @@ Each object must contain all required fields. Fields that are not specified may 
 
 *Describe the interface in detail.*
 
-Endpoint structure `/<path>/<role>/<version>/locations`
-
-Example: `/ocpi/emsp/2.0/locations`
+Example endpoint structure: `/ocpi/emsp/2.0/locations`
 
 ##### Methods
 

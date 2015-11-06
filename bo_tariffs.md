@@ -35,7 +35,7 @@ which one.*
 
 The CPO Tariffs interface give the eMSP the ability to request all tariffs.
 
-Endpoint structure /tariffs/
+Example endpoint structure: `/ocpi/cpo/2.0/tariffs/`
 
 | Method   | Description                                          |
 | -------- | ---------------------------------------------------- |
@@ -50,7 +50,7 @@ Endpoint structure /tariffs/
 
 The Tariff information can also be pushed to the eMSP, for this the following needs to be implemented.
 
-Endpoint structure /tariffs/
+Example endpoint structure: `/ocpi/emsp/2.0/tariffs/`
 
 | Method   | Description                                          |
 | -------- | ---------------------------------------------------- |

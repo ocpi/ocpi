@@ -46,11 +46,11 @@ operator an provider:
 which one.*
 
 
-### 3.1 Operator Interface
+### 3.1 CPO Interface
 
 *Describe the interface in detail.*
 
-Endpoint structure `/sessions/`
+Example endpoint structure: `/ocpi/cpo/2.0/sessions/`
 
 | Method   | Description                                          |
 | -------- | ---------------------------------------------------- |
@@ -61,12 +61,12 @@ Endpoint structure `/sessions/`
 | DELETE   | n/a                                                  |
 
 
-### 3.2 Provider Interface
+### 3.2 eMSP Interface
 
 *Describe the interface in detail.*
 
-Endpoint structure: `/ocpi/emsp/sessions/` and
-`/ocpi/emsp/sessions/{session-id}/`
+Example endpoint structure: `/ocpi/emsp/2.0/sessions/` and
+`/ocpi/emsp/2.0/sessions/{session-id}/`
 
 | Method   | Description                                          |
 | -------- | ---------------------------------------------------- |

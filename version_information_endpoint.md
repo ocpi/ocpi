@@ -1,10 +1,13 @@
 
 ## Version information endpoint
 
-Example: `/ocpi/cpo/versions` and `/ocpi/emsp/versions`
-
 This endpoint lists all the available OCPI versions and the corresponding URL's to
 where version specific details such as the supported endpoints can be found.
+
+Example endpoint structure: `/ocpi/cpo/versions` and `/ocpi/emsp/versions`
+The exact URL to the implemented version endpoint should be given (offline) to parties that interface
+with your OCPI implementation, this endpoint is the starting point for discovering locations
+of the different modules and version of OCPI that have been implemented.
 
 Both the CPO and the eMSP must have this endpoint.
 

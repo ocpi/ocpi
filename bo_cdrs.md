@@ -40,7 +40,7 @@ which one.*
 
 The CDRs endpoint can be used to create or retrieve CDRs.
 
-Endpoint structure `/ocpi/cpo/cdrs/`
+Example endpoint structure: `/ocpi/cpo/2.0/cdrs/`
 
 | Method   | Description                                          |
 | -------- | ---------------------------------------------------- |
@@ -66,7 +66,7 @@ The response should be a list of CDRs matching the query parameters.
 
 The CDRs endpoint can be used to create or retrieve CDRs.
 
-Endpoint structure `/ocpi/msp/cdrs/` and `/ocpi/msp/cdrs/{cdr-id}/`
+Example endpoint structure: `/ocpi/emsp/2.0/cdrs/` and `/ocpi/emsp/2.0/cdrs/{cdr-id}/`
 
 | Method   | Description                                          |
 | -------- | ---------------------------------------------------- |
