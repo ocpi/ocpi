@@ -29,20 +29,34 @@ the purpose.*
 which one.*
 
 
-### 3.1 Interface #1
+### 3.1 CPO Interface
 
-*Describe the interface in detail.*
+The CPO Tariffs interface give the eMSP the ability to request all tariffs.
 
-Endpoint structure /xxx/yyy/
+Endpoint structure /tariffs/
 
 | Method   | Description                                          |
 | -------- | ---------------------------------------------------- |
-| GET      |                                                      |
-| POST     |                                                      |
-| PUT      |                                                      |
-| PATCH    |                                                      |
-| DELETE   |                                                      |
+| GET      | Returns all Tariff Objects from the CPO              |
+| POST     | n/a                                                  |
+| PUT      | n/a                                                  |
+| PATCH    | n/a                                                  |
+| DELETE   | n/a                                                  |
 
+
+### 3.2 eMSP Interface
+
+The Tariff information can also be pushed to the eMSP, for this the following needs to be implemented.
+
+Endpoint structure /tariffs/
+
+| Method   | Description                                          |
+| -------- | ---------------------------------------------------- |
+| GET      | n/a                                                  |
+| POST     | n/a                                                  |
+| PUT      | Push all the Tariff Objects to the eMSP, same as GET on the CPO interface, but then instantiated by the other end-point. |
+| PATCH    | Update a Tariff Object with new information          |
+| DELETE   | Remove a Tariff Object which is no longer used/valid |
 
 
 
