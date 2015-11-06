@@ -1,4 +1,6 @@
-# _Tokens_ Business Object
+# _Tokens_ module
+
+**Identifier: tokens**
 
 *General description of the business object*
 

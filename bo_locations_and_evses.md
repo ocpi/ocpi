@@ -1,4 +1,6 @@
-# _Locations and EVSEs_ business object
+# _Locations and EVSEs_ module
+
+**Module Identifier: locations**
 
 The location and EVSE objects live in the operators backend system. They
 describe the charging locations of that operator.

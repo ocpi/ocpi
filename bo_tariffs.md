@@ -1,4 +1,6 @@
-# _Tariffs_ Business Object
+# _Tariffs_ module
+
+**Module Identifier: tariffs**
 
 *General description of the business object*
 

@@ -1,4 +1,6 @@
-# _Sessions_ Business Object
+# _Sessions_ module
+
+**Module Identifier: sessions**
 
 The session object describes one charging session in a roaming scenario.
 The object is virtual and lives between the operator's and provider's
