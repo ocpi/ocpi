@@ -91,10 +91,10 @@ Endpoint structure /tariffs/
 | Property        | Type               | Card. | Description                  |
 |-----------------|--------------------|-------|------------------------------|
 | dimensions      | TariffDimension    | +     | List of dimensions           |
-| restrictions    | TariffRestriction  | +     | List of tariff restrictions  |
+| restrictions    | TariffRestrictions | ?     | List of tariff restrictions  |
 
 
-### 5.X TariffRestriction
+### 5.X TariffRestrictions
 
 | Property        | Type               | Card. | Description                                                                           |
 |-----------------|--------------------|-------|---------------------------------------------------------------------------------------|
