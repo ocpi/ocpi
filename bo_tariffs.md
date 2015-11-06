@@ -79,7 +79,20 @@ Endpoint structure /tariffs/
 
 *Describe all datatypes used in this object*
 
-### 5.X TariffDimension
+### 5.1 DayOfWeek
+
+| Value        | Description                                          |
+| ------------ | ---------------------------------------------------- |
+| MONDAY       | Monday                                               |
+| TUESDAY      | Tuesday                                              |
+| WEDNESDAY    | Wednesday                                            |
+| THURSDAY     | Thursday                                             |
+| FRIDAY       | Friday                                               |
+| SATURDAY     | Saturday                                             |
+| SUNDAY       | Sunday                                               |
+
+
+### 5.2 PriceComponent
 
 | Property        | Type          | Card. | Description                                      |
 |-----------------|---------------|-------|--------------------------------------------------|
@@ -88,15 +101,15 @@ Endpoint structure /tariffs/
 | step_size       | int           | 1     | Minimum amount to be billed. This unit will be billed in this step_size blocks. For example: if type is time and  step_size is 300, then time will be billed in blocks of 5 minutes, so if 6 minutes is used, 10 minutes (2 blocks of step_size) will be billed. |
 
 
-### 5.X TariffElement
+### 5.3 TariffElement
 
-| Property        | Type               | Card. | Description                  |
-|-----------------|--------------------|-------|------------------------------|
-| dimensions      | TariffDimension    | +     | List of dimensions           |
-| restrictions    | TariffRestrictions | ?     | List of tariff restrictions  |
+| Property         | Type               | Card. | Description                                                      |
+|------------------|--------------------|-------|------------------------------------------------------------------|
+| price_components | PriceComponent     | +     | List of price components that make up the pricing of this tariff |
+| restrictions     | TariffRestrictions | ?     | List of tariff restrictions                                      |
 
 
-### 5.X TariffRestrictions
+### 5.4 TariffRestrictions
 
 | Property        | Type               | Card. | Description                                                                           |
 |-----------------|--------------------|-------|---------------------------------------------------------------------------------------|
@@ -113,15 +126,4 @@ Endpoint structure /tariffs/
 | day_of_week     | DayOfWeek          | *     | Which day(s) of the week this tariff is valid                                         |
 
 
-### 5.X DayOfWeek
-
-| Value        | Description                                          |
-| ------------ | ---------------------------------------------------- |
-| MONDAY       | Monday                                               |
-| TUESDAY      | Tuesday                                              |
-| WEDNESDAY    | Wednesday                                            |
-| THURSDAY     | Thursday                                             |
-| FRIDAY       | Friday                                               |
-| SATURDAY     | Saturday                                             |
-| SUNDAY       | Sunday                                               |
 
