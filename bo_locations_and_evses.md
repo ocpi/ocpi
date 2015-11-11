@@ -492,11 +492,11 @@ An *EVSE* object has a list of connectors which can not be used simultaneously: 
 
 ### 5.1 BusinessDetails *class*
 
-| Property         | Type         | Card. | Description                        |
-|------------------|--------------|-------|------------------------------------|
-| name             | string(100)  | 1     | Name of the operator.              |
-| website          | URL          | ?     | Link to the operator's website.    |
-| logo             | Image        | ?     | Image link to the operator's logo. |
+| Property         | Type                       | Card. | Description                        |
+|------------------|----------------------------|-------|------------------------------------|
+| name             | string(100)                | 1     | Name of the operator.              |
+| website          | [URL](terminology.md#urls) | ?     | Link to the operator's website.    |
+| logo             | [Image](#59-image-class)   | ?     | Image link to the operator's logo. |
 
 
 ### 5.2 Capability *enum*
@@ -513,18 +513,18 @@ The capabilities of an EVSE.
 
 A connector is the socket or cable available for the EV to make use of. A single EVSE may provide multiple connectors but only one of them can be in use at the same time. A connector always belongs to an *EVSE* object.
 
-| Property             | Type            | Card. | Description                                                             |
-|----------------------|-----------------|-------|-------------------------------------------------------------------------|
-| id                   | string(15)      | 1     | Identifier of the connector within the EVSE. Two connectors may have the same id as long as they do not belong to the same *EVSE* object. |
-| standard             | ConnectorType   | 1     | The standard of the installed connector.                                |
-| format               | ConnectorFormat | 1     | The format (socket/cable) of the installed connector.                   |
-| power_type           | PowerType       | 1     |                                                                         |
-| voltage              | int             | 1     | Voltage of the connector (line to neutral for AC_3_PHASE), in volt [V]. |
-| amperage             | int             | 1     | maximum amperage of the connector, in ampere [A].                       |
-| tariff_id            | string(15)      | ?     | Identifier of the current charging tariff structure                     |
-| tariff_alt_text      | string(512)     | ?     | Alternative tariff info text (without any markup, so no HTML or Markdown etc) |
-| tariff_alt_url       | URL             | ?     | Alternative URL to tariff info                                          |
-| terms_and_conditions | URL             | ?     | URL to the operator's terms and conditions.                             |
+| Property             | Type                                        | Card. | Description                                                             |
+|----------------------|---------------------------------------------|-------|-------------------------------------------------------------------------|
+| id                   | string(15)                                  | 1     | Identifier of the connector within the EVSE. Two connectors may have the same id as long as they do not belong to the same *EVSE* object. |
+| standard             | [ConnectorType](#55-connectortype-enum)     | 1     | The standard of the installed connector.                                |
+| format               | [ConnectorFormat](#54-connectorformat-enum) | 1     | The format (socket/cable) of the installed connector.                   |
+| power_type           | [PowerType](#513-powertype-enum)            | 1     |                                                                         |
+| voltage              | int                                         | 1     | Voltage of the connector (line to neutral for AC_3_PHASE), in volt [V]. |
+| amperage             | int                                         | 1     | maximum amperage of the connector, in ampere [A].                       |
+| tariff_id            | string(15)                                  | ?     | Identifier of the current charging tariff structure                     |
+| tariff_alt_text      | string(512)                                 | ?     | Alternative tariff info text (without any markup, so no HTML or Markdown etc) |
+| tariff_alt_url       | [URL](terminology.md#urls)                  | ?     | Alternative URL to tariff info                                          |
+| terms_and_conditions | [URL](terminology.md#urls)                  | ?     | URL to the operator's terms and conditions.                             |
 
 
 ### 5.4 ConnectorFormat *enum*
@@ -574,10 +574,10 @@ The socket or plug standard of the charging point.
 
 Specifies one exceptional period for opening or access hours.
 
- Field Name   |  Field Type  |  Card.  |  Description
-:-------------|:-------------|:--------|:------------
- period_begin |  DateTime    |  1      |  Begin of the exception.
- period_end   |  DateTime    |  1      |  End of the exception.
+ Field Name   |  Field Type                          |  Card.  |  Description
+--------------|--------------------------------------|---------|-------------
+ period_begin | [DateTime](#terminology.md#datetime) |  1      |  Begin of the exception.
+ period_end   | [DateTime](#terminology.md#datetime) |  1      |  End of the exception.
 
 
 ### 5.7 GeoLocation *class*
@@ -592,13 +592,13 @@ Specifies one exceptional period for opening or access hours.
 
 Opening and access hours for the location.
 
- Field Name             |  Field Type             |  Card.  |  Description
-:-----------------------|:------------------------|:--------|:------------
- *Choice: one of two*   |                         |         |
-  > regular_hours       |  RegularHours           |  *      |  Regular hours, weekday based. Should not be set for representing 24/7 as this is the most common case.
-  > twentyfourseven     |  boolean                |  1      |  True to represent 24 hours per day and 7 days per week, except the given exceptions.
- exceptional_openings   |  ExceptionalPeriod      |  *      |  Exceptions for specified calendar dates, time-range based. Periods the station is operating/accessible. Additional to regular hours. May overlap regular rules.
- exceptional_closings   |  ExceptionalPeriod      |  *      |  Exceptions for specified calendar dates, time-range based. Periods the station is not operating/accessible. Overwriting regularHours and exceptionalOpenings. Should not overlap exceptionalOpenings.
+ Field Name             |  Field Type                                       |  Card.  |  Description
+------------------------|---------------------------------------------------|---------|-------------
+ *Choice: one of two*   |                                                   |         |
+  > regular_hours       |  [RegularHours](#514-regularhours-class)          |  *      |  Regular hours, weekday based. Should not be set for representing 24/7 as this is the most common case.
+  > twentyfourseven     |  boolean                                          |  1      |  True to represent 24 hours per day and 7 days per week, except the given exceptions.
+ exceptional_openings   |  [ExceptionalPeriod](#56-exceptionalperiod-class) |  *      |  Exceptions for specified calendar dates, time-range based. Periods the station is operating/accessible. Additional to regular hours. May overlap regular rules.
+ exceptional_closings   |  [ExceptionalPeriod](#56-exceptionalperiod-class) |  *      |  Exceptions for specified calendar dates, time-range based. Periods the station is not operating/accessible. Overwriting regularHours and exceptionalOpenings. Should not overlap exceptionalOpenings.
 
 
 ### 5.9 Image *class*
@@ -611,14 +611,14 @@ The recommended dimensions for all photos are minimum 800 pixels wide and 600 pi
 Logo Dimensions: 
 The recommended dimensions for logos are exactly 512 pixels wide and 512 pixels height. Thumbnail representations for logos should be exactly 128 pixels in with and height. If not squared, thumbnails should have the same orientation than the original.
 
-| Field Name | Field Type    | Card. | Description                           |
-|------------|---------------|-------|---------------------------------------|
-| url        | string(255)   | 1     | URL from where the image data can be fetched through a web browser. |
-| thumbnail  | string(255)   | ?     | URL from where a thumbnail of the image can be fetched through a webbrowser. |
-| category   | ImageCategory | 1     | Describes what the image is used for. |
-| type       | string(4)     | 1     | Image type like: gif, jpeg, png, svg  |
-| width      | int(5)        | ?     | Width of the full scale image         |
-| height     | int(5)        | ?     | Height of the full scale image        |
+| Field Name | Field Type                               | Card. | Description                           |
+|------------|------------------------------------------|-------|---------------------------------------|
+| url        | string(255)                              | 1     | URL from where the image data can be fetched through a web browser. |
+| thumbnail  | string(255)                              | ?     | URL from where a thumbnail of the image can be fetched through a webbrowser. |
+| category   | [ImageCategory](#510-imagecategory-enum) | 1     | Describes what the image is used for. |
+| type       | string(4)                                | 1     | Image type like: gif, jpeg, png, svg  |
+| width      | int(5)                                   | ?     | Width of the full scale image         |
+| height     | int(5)                                   | ?     | Height of the full scale image        |
 
 
 ### 5.10 ImageCategory *enum*
@@ -761,11 +761,11 @@ The status of an EVSE.
 
 This type is used to schedule status periods in the future. The eMSP can provide this information to the EV user for trip planning purpose. A period MAY have no end. Example: "This station will be running from tomorrow. Today it is still planned and under construction."
 
-| Property         | Type            | Card. | Description                                            |
-|------------------|-----------------|-------|--------------------------------------------------------|
-| period_begin     | DateTime        | 1     | Begin of the scheduled period.                         |
-| period_end       | DateTime        | ?     | End of the scheduled period, if known.                 |
-| status           | Status          | 1     | Status value during the scheduled period.              |
+| Property         | Type                                 | Card. | Description                                            |
+|------------------|--------------------------------------|-------|--------------------------------------------------------|
+| period_begin     | [DateTime](#terminology.md#datetime) | 1     | Begin of the scheduled period.                         |
+| period_end       | [DateTime](#terminology.md#datetime) | ?     | End of the scheduled period, if known.                 |
+| status           | [Status](#515-status-enum)           | 1     | Status value during the scheduled period.              |
 
 Note that the scheduled status is purely informational. When the status actually changes, the CPO must push an update to the EVSE's `status` field itself.
 
