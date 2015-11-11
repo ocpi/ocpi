@@ -81,8 +81,8 @@ The endpoint returns an object of two seperate lists: one list of available loca
 
 | Property  | Type                            | Card. | Description                              |
 |-----------|---------------------------------|-------|------------------------------------------|
-| locations | [Location](#41_location_object) | *     | List of all locations with valid EVSE's. |
-| evses     | [EVSE](#42_evse_object)         | *     | List of all valid EVSE's.                |
+| locations | [Location](#41-location-object) | *     | List of all locations with valid EVSE's. |
+| evses     | [EVSE](#42-evse-object)         | *     | List of all valid EVSE's.                |
 
 
 
@@ -324,8 +324,8 @@ Example endpoint structure: `/ocpi/emsp/2.0/locations`
 
 | Property  | Type                            | Card. | Description                    |
 |-----------|---------------------------------|-------|--------------------------------|
-| locations | [Location](#41_location_object) | *     | List of locations.             |
-| evses     | [EVSE](#42_evse_object)         | *     | List of EVSE's.                |
+| locations | [Location](#41-location-object) | *     | List of locations.             |
+| evses     | [EVSE](#42-evse-object)         | *     | List of EVSE's.                |
 
 
 #### 3.2.1 __PUT__ Method
