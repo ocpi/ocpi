@@ -66,13 +66,13 @@ Example endpoint structure: `/ocpi/cpo/2.0/locations`
 
 ##### Methods
 
-| Method   | Description                                          |
-| -------- | ---------------------------------------------------- |
-| GET      | Fetch all available locations and EVSE's.            |
-| POST     | n/a                                                  |
-| PUT      | n/a                                                  |
-| PATCH    | n/a                                                  |
-| DELETE   | n/a                                                  |
+| Method                 | Description                                          |
+| ---------------------- | ---------------------------------------------------- |
+| [GET](#311-get-method) | Fetch all available locations and EVSE's.            |
+| POST                   | n/a                                                  |
+| PUT                    | n/a                                                  |
+| PATCH                  | n/a                                                  |
+| DELETE                 | n/a                                                  |
 
 
 ##### Data
@@ -316,8 +316,8 @@ Example endpoint structure: `/ocpi/emsp/2.0/locations`
 | ----------------------------- | ---------------------------------------------------- |
 | GET                           | n/a                                                  |
 | POST                          | n/a                                                  |
-| [PUT](#3_2_1_PUT_Method)      | Push all available locations and EVSE's to the eMSP, similar to the GET request to the CPO platform but in the other direction. |
-| [PATCH](#3_2_2_PATCH_Method)  | Notify the eMSP of partial updates to locations and EVSE's (such as the status). |
+| [PUT](#321-put-method)        | Push all available locations and EVSE's to the eMSP, similar to the GET request to the CPO platform but in the other direction. |
+| [PATCH](#322-patch-method)    | Notify the eMSP of partial updates to locations and EVSE's (such as the status). |
 | DELETE                        | n/a  _(use PATCH)_                                    |
 
 ##### Data
