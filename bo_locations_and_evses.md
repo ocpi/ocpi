@@ -447,22 +447,22 @@ The *Location* object describes the location and its properties where a group of
 
 A *Location* without valid *EVSE* objects can be considered as expired and should no longer be displayed.
 
-| Property             | Type            | Card. | Description                                            |
-|----------------------|-----------------|-------|--------------------------------------------------------|
-| id                   | string(15)      | 1     | Uniquely identifies the location within the CPOs platform (and suboperator platforms). |
-| type                 | [LocationType](#511-locationtype-enum) | 1     | The general type of the charge point location.         |
-| name                 | string(255)     | ?     | Display name of the location.                          |
-| address              | string(45)      | 1     | Street/block name and house number if available.       |
-| city                 | string(45)      | 1     | City or town.                                          |
-| postal_code          | string(10)      | 1     | Postal code of the location.                           |
-| country              | string(3)       | 1     | ISO 3166-1 alpha-3 code for the country of this location. |
-| coordinates          | [GeoLocation](#57-geolocation-class)     | 1     | Coordinates of the location.                           |
-| directions           | string(255)     | ?     | Human-readable directions on how to reach the location. |
+| Property             | Type                                         | Card. | Description                                            |
+|----------------------|----------------------------------------------|-------|--------------------------------------------------------|
+| id                   | string(15)                                   | 1     | Uniquely identifies the location within the CPOs platform (and suboperator platforms). |
+| type                 | [LocationType](#511-locationtype-enum)       | 1     | The general type of the charge point location.         |
+| name                 | string(255)                                  | ?     | Display name of the location.                          |
+| address              | string(45)                                   | 1     | Street/block name and house number if available.       |
+| city                 | string(45)                                   | 1     | City or town.                                          |
+| postal_code          | string(10)                                   | 1     | Postal code of the location.                           |
+| country              | string(3)                                    | 1     | ISO 3166-1 alpha-3 code for the country of this location. |
+| coordinates          | [GeoLocation](#57-geolocation-class)         | 1     | Coordinates of the location.                           |
+| directions           | string(255)                                  | ?     | Human-readable directions on how to reach the location. |
 | operator             | [BusinessDetails](#51-businessdetails-class) | ?     | Information of the operator. When not specified, the information retreived from the `api_info` endpoint should be used instead. |
 | suboperator          | [BusinessDetails](#51-businessdetails-class) | ?     | Information of the suboperator if available.           |
-| opening_times        | [Hours](#ch_hours)           | *     | The times when the EVSE's at the location can be accessed for charging. |
-| charging_when_closed | boolean         | ?     | Indicates if the EVSE's are still charging outside the opening hours of the location. E.g. when the parking garage closes its barriers over night, is it allowed to charge till the next morning?  Default: **true** |
-| images               | [Image](#ch_image)           | *     | Links to images related to the location such as photos or logos. |
+| opening_times        | [Hours](#58-hours-class)                     | *     | The times when the EVSE's at the location can be accessed for charging. |
+| charging_when_closed | boolean                                      | ?     | Indicates if the EVSE's are still charging outside the opening hours of the location. E.g. when the parking garage closes its barriers over night, is it allowed to charge till the next morning?  Default: **true** |
+| images               | [Image](#59-image-class)                     | *     | Links to images related to the location such as photos or logos. |
 
 
 ### 4.2 EVSE Object
@@ -471,20 +471,20 @@ The *EVSE* object describes the part that controls the power supply to a single 
 
 An *EVSE* object has a list of connectors which can not be used simultaneously: only one connector per EVSE may be used at a time. The list of connectors is seen as atomic. This implies that for any changes or updates to a single connector, the full list of all connectors will have to be specified. Any connector not on that list is considered as deleted.
 
-| Property             | Type               | Card. | Description                                            |
-|----------------------|--------------------|-------|--------------------------------------------------------|
-| id                   | string(48)         | 1     | Uniquely identifies the EVSE within the CPOs platform (and suboperator platforms). |
-| location_id          | string(15)         | 1     | The id of the *Location* object that contains this EVSE. If the *Location* object does not exist, this EVSE may be discarded (and it should not have been sent in the first place).   |
-| status               | [Status](#5)             | 1     | Indicates the current status of the EVSE.              |
-| status_schedule      | [StatusSchedule](#5)     | *     | Indicates a planned status in the future of the EVSE.  |
-| capabilities         | [Capability](#52-capability-enum)         | *     | List of functionalities that the EVSE is capable of.   |
-| connectors           | [Connector](#53-connector-class)          | +     | List of available connectors on the EVSE.              |
-| floor_level          | string(4)          | ?     | Level on which the charging station is located (in garage buildings) in the locally displayed numbering scheme. |
-| coordinates          | [GeoLocation](#57-geolocation-class)        | ?     | Coordinates of the EVSE.                               |
-| physical_number      | int                | ?     | A number on the EVSE for visual identification.        |
-| directions           | string(255)        | ?     | Human-readable directions when more detailed information on how to reach the EVSE from the *Location* is required. |
-| parking_restrictions | [ParkingRestriction](#5) | *     | The restrictions that apply to the parking spot.       |
-| images               | [Image](#ch_image)              | *     | Links to images related to the EVSE such as photos or logos. |
+| Property             | Type                                               | Card. | Description                                            |
+|----------------------|----------------------------------------------------|-------|--------------------------------------------------------|
+| id                   | string(48)                                         | 1     | Uniquely identifies the EVSE within the CPOs platform (and suboperator platforms). |
+| location_id          | string(15)                                         | 1     | The id of the *Location* object that contains this EVSE. If the *Location* object does not exist, this EVSE may be discarded (and it should not have been sent in the first place).   |
+| status               | [Status](#515-status-enum)                         | 1     | Indicates the current status of the EVSE.              |
+| status_schedule      | [StatusSchedule](#516-statusschedule-class)        | *     | Indicates a planned status in the future of the EVSE.  |
+| capabilities         | [Capability](#52-capability-enum)                  | *     | List of functionalities that the EVSE is capable of.   |
+| connectors           | [Connector](#53-connector-class)                   | +     | List of available connectors on the EVSE.              |
+| floor_level          | string(4)                                          | ?     | Level on which the charging station is located (in garage buildings) in the locally displayed numbering scheme. |
+| coordinates          | [GeoLocation](#57-geolocation-class)               | ?     | Coordinates of the EVSE.                               |
+| physical_number      | int                                                | ?     | A number on the EVSE for visual identification.        |
+| directions           | string(255)                                        | ?     | Human-readable directions when more detailed information on how to reach the EVSE from the *Location* is required. |
+| parking_restrictions | [ParkingRestriction](#512-parkingrestriction-enum) | *     | The restrictions that apply to the parking spot.       |
+| images               | [Image](#59-image-class)                           | *     | Links to images related to the EVSE such as photos or logos. |
 
 ## 5. Data types
 
@@ -588,7 +588,6 @@ Specifies one exceptional period for opening or access hours.
 | longitude        | decimal      | 1     | Longitude in decimal format.       |
 
 
-<a name="#ch_hours"></a>
 ### 5.8 Hours *class*
 
 Opening and access hours for the location.
@@ -602,7 +601,6 @@ Opening and access hours for the location.
  exceptional_closings   |  ExceptionalPeriod      |  *      |  Exceptions for specified calendar dates, time-range based. Periods the station is not operating/accessible. Overwriting regularHours and exceptionalOpenings. Should not overlap exceptionalOpenings.
 
 
-<a name="#ch_image"></a>
 ### 5.9 Image *class*
 
 This class references images related to a EVSE in terms of a file name or uri. According to the roaming connection between one EVSE Operator and one or more Navigation Service Providers the hosting or file exchange of image payload data has to be defined. The exchange of this content data is out of scope of OCHP. However, the recommended setup is a public available web server hosted and updated by the EVSE Operator. Per charge point a unlimited number of images of each type is allowed. Recommended are at least two images where one is a network or provider logo and the second is a station photo. If two images of the same type are defined they should be displayed additionally, not optionally.
@@ -674,7 +672,6 @@ The format of the connector, whether it is a socket or a plug.
 | AC_3_PHASE | AC 3 phase.     |
 | DC         | Direct Current. |
 
-<a name="#ch_regularhours"></a>
 ### 5.14 RegularHours *class*
 
 Regular recurring operation or access hours
