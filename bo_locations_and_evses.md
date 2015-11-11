@@ -576,8 +576,8 @@ Specifies one exceptional period for opening or access hours.
 
  Field Name   |  Field Type                          |  Card.  |  Description
 --------------|--------------------------------------|---------|-------------
- period_begin | [DateTime](#terminology.md#datetime) |  1      |  Begin of the exception.
- period_end   | [DateTime](#terminology.md#datetime) |  1      |  End of the exception.
+ period_begin | [DateTime](terminology.md#datetime) |  1      |  Begin of the exception.
+ period_end   | [DateTime](terminology.md#datetime) |  1      |  End of the exception.
 
 
 ### 5.7 GeoLocation *class*
@@ -763,8 +763,8 @@ This type is used to schedule status periods in the future. The eMSP can provide
 
 | Property         | Type                                 | Card. | Description                                            |
 |------------------|--------------------------------------|-------|--------------------------------------------------------|
-| period_begin     | [DateTime](#terminology.md#datetime) | 1     | Begin of the scheduled period.                         |
-| period_end       | [DateTime](#terminology.md#datetime) | ?     | End of the scheduled period, if known.                 |
+| period_begin     | [DateTime](terminology.md#datetime) | 1     | Begin of the scheduled period.                         |
+| period_end       | [DateTime](terminology.md#datetime) | ?     | End of the scheduled period, if known.                 |
 | status           | [Status](#515-status-enum)           | 1     | Status value during the scheduled period.              |
 
 Note that the scheduled status is purely informational. When the status actually changes, the CPO must push an update to the EVSE's `status` field itself.
