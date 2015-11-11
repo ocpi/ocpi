@@ -79,10 +79,10 @@ Example endpoint structure: `/ocpi/cpo/2.0/locations`
 
 The endpoint returns an object of two seperate lists: one list of available locations and one list of available EVSEs.
 
-| Property  | Type        | Card. | Description                              |
-|-----------|-------------|-------|------------------------------------------|
-| locations | Location    | *     | List of all locations with valid EVSE's. |
-| evses     | EVSE        | *     | List of all valid EVSE's.                |
+| Property  | Type                            | Card. | Description                              |
+|-----------|---------------------------------|-------|------------------------------------------|
+| locations | [Location](#41_location_object) | *     | List of all locations with valid EVSE's. |
+| evses     | [EVSE](#42_evse_object)         | *     | List of all valid EVSE's.                |
 
 
 
@@ -322,10 +322,10 @@ Example endpoint structure: `/ocpi/emsp/2.0/locations`
 
 ##### Data
 
-| Property  | Type        | Card. | Description                    |
-|-----------|-------------|-------|--------------------------------|
-| locations | Location    | *     | List of locations.             |
-| evses     | EVSE        | *     | List of EVSE's.                |
+| Property  | Type                            | Card. | Description                    |
+|-----------|---------------------------------|-------|--------------------------------|
+| locations | [Location](#41_location_object) | *     | List of locations.             |
+| evses     | [EVSE](#42_evse_object)         | *     | List of EVSE's.                |
 
 
 #### 3.2.1 __PUT__ Method
