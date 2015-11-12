@@ -10,13 +10,7 @@ They then know to which eMSP they can later send a CDR.
 
 ## 1. Inheritances
 
-*List all inheritors.*
-
-### 1.1 Inheritor #1
-
-*Describe the purpose and singularity of this inheritor.*
-
-
+N/A
 
 ## 2. Flow and Lifecycle
 
@@ -74,11 +68,11 @@ Example endpoint structure: `/ocpi/emsp/2.0/tokens/`
 | Property        | Type          | Card. | Description                                                                           |
 |-----------------|---------------|-------|---------------------------------------------------------------------------------------|
 | uid             | string(15)    | 1     | Identification used by CPO system to identify this token, for example RFID hidden ID  |
-| type            | TokenType     | 1     | Type of the token                                                                     |
+| type            | [TokenType](#5-1-tokentype) | 1     | Type of the token                                                                     |
 | auth_id         | string(32)    | 1     | Uniquely identifies the EV Driver contract token within the eMSPs platform (and suboperator platforms).  |
 | visual_number   | string(64)    | 1     | Visual readable number/identification of the Token                                    |
 | issuer          | string(64)    | 1     | Issuing company                                                                       |
-| allow_whitelist | boolean       | 1     | It is allowed to whitelist this Token                                                 |
+| allow_whitelist | boolean       | ?     | It is allowed to whitelist this Token, default is false                                               |
 
 The combination of _uid_ and _type_ should be unique for every token.
 
@@ -89,8 +83,6 @@ The combination of _uid_ and _type_ should be unique for every token.
 
 | Value        | Description                                          |
 | ------------ | ---------------------------------------------------- |
+| Other        | Other type of token                                  |
 | RFID         | RFID Token                                           |
-|              |                                                      |
-|              |                                                      |
-|              |                                                      |
 
