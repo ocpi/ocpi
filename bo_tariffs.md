@@ -2,33 +2,40 @@
 
 **Module Identifier: tariffs**
 
-*General description of the business object*
-
+The Tariff module gives eMSPs information over the tariffs used by the CPO.
+ 
 
 
 ## 1. Inheritances
 
-*List all inheritors.*
-
-### 1.1 Inheritor #1
-
-*Describe the purpose and singularity of this inheritor.*
-
+N/A
 
 
 ## 2. Flow and Lifecycle
 
-*Describe the status of the objects, how it is created and destroyed,
-when and through which action it gets inherited. Name the owner. Explain
-the purpose.*
+### 2.1 Push model
+
+When the CPO creates Tariff(s) they push them to the eMSPs by calling [PUT](#321-put-method) on the eMSPs
+Tariffs endpoint with the newly create Tariff(s)
+
+Any changes to the Tariff(s) in the CPO system are send to the eMSP system by calling [PATCH](#322-patch-method)
+on the eMSPs Tariffs endpoint with the updated Tariff(s).
+
+When the CPO deletes Tariff(s), they will update the eMSPs systems by calling [DELETE](#323-delete-method)
+on the eMSPs Tariffs endpoint, with a list of IDs of the Tariffs that are deleted.
 
 
+### 2.2 Pull model
+
+eMSPs who do not support the push model need to call
+[GET](#311-get-method) on the CPOs Tariff endpoint to receive
+all Tariffs, replacing the current list of known Tariffs with the newly received list.
 
 
 ## 3. Interfaces and endpoints
 
-*Explain which interfaces are available and which party should implement
-which one.*
+There is both a CPO and an eMSP interface for Tariffs. Advised is to use the push direction from eMSP to CPO during normal operation.
+The eMSP interface is mend to be used when the CPO is not 100% sure the Tariff cache is correct anymore.
 
 
 ### 3.1 CPO Interface
@@ -46,6 +53,21 @@ Example endpoint structure: `/ocpi/cpo/2.0/tariffs/`
 | DELETE   | n/a                                                  |
 
 
+#### 3.1.1 __GET__ Method
+
+Fetch information about all Tariffs.
+Any Tariffs, known in the eMSP system that are not provided in the response, should be removed in the eMSP system.
+
+
+##### Data
+
+The endpoint returns an object with list of valid Tariffs.
+
+| Property  | Type                            | Card. | Description                              |
+|-----------|---------------------------------|-------|------------------------------------------|
+| tariffs   | [Tariff](#41-tariff-object)     | *     | List of all tariffs.                     |
+
+
 ### 3.2 eMSP Interface
 
 The Tariff information can also be pushed to the eMSP, for this the following needs to be implemented.
@@ -61,25 +83,60 @@ Example endpoint structure: `/ocpi/emsp/2.0/tariffs/`
 | DELETE   | Remove a Tariff Object which is no longer used/valid |
 
 
+#### 3.2.1 __PUT__ Method
+
+##### Data
+
+The endpoint returns an object of two seperate lists: one list of available locations and one list of available EVSEs.
+
+| Property  | Type                            | Card. | Description                              |
+|-----------|---------------------------------|-------|------------------------------------------|
+| tariffs   | [Tariff](#41-tariff-object)     | *     | List of all tariffs.                     |
+
+TODO
+
+
+#### 3.2.2 __PATCH__ Method
+
+##### Data
+
+The endpoint returns an object of two seperate lists: one list of available locations and one list of available EVSEs.
+
+| Property  | Type                            | Card. | Description                              |
+|-----------|---------------------------------|-------|------------------------------------------|
+| tariffs   | [Tariff](#41-tariff-object)     | *     | List of all tariffs.                     |
+
+TODO
+
+
+#### 3.2.3 __DELETE__ Method
+
+
+
+##### Data
+
+| Property  | Type            | Card. | Description                                     |
+|-----------|-----------------|-------|-------------------------------------------------|
+| ids       | String(15)      | +     | List of id's of tariffs that should be deleted  |
+
+
 
 ## 4. Object description
 
-*Describe the structure of this object.*
+### 4.1 Tariff Object
 
-### 4.1 Tariff
+A Tariff Object consists of a list of one or more TariffElements, these elements can be used to create complex Tariff structures. 
 
 | Property        | Type          | Card. | Description                                                                           |
 |-----------------|---------------|-------|---------------------------------------------------------------------------------------|
 | id              | string(15)    | 1     | Uniquely identifies the tariff within the CPOs platform (and suboperator platforms).  |
 | currency        | string(3)     | 1     | Currency of this tariff, ISO 4217 Code                                                |
-| elements        | TariffElement | 1     | List of tariff elements                                                               |
+| elements        | TariffElement | +     | List of tariff elements                                                               |
 
 
 ## 5. Data types
 
-*Describe all datatypes used in this object*
-
-### 5.1 DayOfWeek
+### 5.1 DayOfWeek *enum*
 
 | Value        | Description                                          |
 | ------------ | ---------------------------------------------------- |
@@ -92,7 +149,7 @@ Example endpoint structure: `/ocpi/emsp/2.0/tariffs/`
 | SUNDAY       | Sunday                                               |
 
 
-### 5.2 PriceComponent
+### 5.2 PriceComponent *class*
 
 | Property        | Type          | Card. | Description                                      |
 |-----------------|---------------|-------|--------------------------------------------------|
@@ -101,7 +158,7 @@ Example endpoint structure: `/ocpi/emsp/2.0/tariffs/`
 | step_size       | int           | 1     | Minimum amount to be billed. This unit will be billed in this step_size blocks. For example: if type is time and  step_size is 300, then time will be billed in blocks of 5 minutes, so if 6 minutes is used, 10 minutes (2 blocks of step_size) will be billed. |
 
 
-### 5.3 TariffElement
+### 5.3 TariffElement *class*
 
 | Property         | Type               | Card. | Description                                                      |
 |------------------|--------------------|-------|------------------------------------------------------------------|
@@ -109,7 +166,7 @@ Example endpoint structure: `/ocpi/emsp/2.0/tariffs/`
 | restrictions     | TariffRestrictions | ?     | List of tariff restrictions                                      |
 
 
-### 5.4 TariffRestrictions
+### 5.4 TariffRestrictions *class*
 
 | Property        | Type               | Card. | Description                                                                           |
 |-----------------|--------------------|-------|---------------------------------------------------------------------------------------|
