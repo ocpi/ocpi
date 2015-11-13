@@ -78,42 +78,44 @@ Example endpoint structure: `/ocpi/emsp/2.0/tariffs/`
 | -------- | ---------------------------------------------------- |
 | GET      | n/a                                                  |
 | POST     | n/a                                                  |
-| PUT      | Push all the Tariff Objects to the eMSP, same as GET on the CPO interface, but then instantiated by the other end-point. |
-| PATCH    | Update a Tariff Object with new information          |
-| DELETE   | Remove a Tariff Object which is no longer used/valid |
+| PUT      | Push new Tariff Objects to the eMSP                  |
+| PATCH    | Update Tariff Objects with new information           |
+| DELETE   | Remove Tariff Objects which is no longer valid       |
 
 
 #### 3.2.1 __PUT__ Method
 
+New created Tariff Objects are pushed from the CPO to the eMSP. 
+
 ##### Data
 
-The endpoint returns an object of two seperate lists: one list of available locations and one list of available EVSEs.
+In the put request a list of new Tariff Objects is send.
 
 | Property  | Type                            | Card. | Description                              |
 |-----------|---------------------------------|-------|------------------------------------------|
-| tariffs   | [Tariff](#41-tariff-object)     | *     | List of all tariffs.                     |
-
-TODO
+| tariffs   | [Tariff](#41-tariff-object)     | *     | List of new tariffs.                     |
 
 
 #### 3.2.2 __PATCH__ Method
 
+Updated Tariff Objects are pushed from the CPO to the eMSP. 
+
 ##### Data
 
-The endpoint returns an object of two seperate lists: one list of available locations and one list of available EVSEs.
+In the patch request a list of updated Tariff Objects is send.
 
 | Property  | Type                            | Card. | Description                              |
 |-----------|---------------------------------|-------|------------------------------------------|
 | tariffs   | [Tariff](#41-tariff-object)     | *     | List of all tariffs.                     |
 
-TODO
-
 
 #### 3.2.3 __DELETE__ Method
 
-
+Delete no longer valid Tariff Objects. 
 
 ##### Data
+
+In the delete request a list of no longer valid Tariff ids is send.
 
 | Property  | Type            | Card. | Description                                     |
 |-----------|-----------------|-------|-------------------------------------------------|
