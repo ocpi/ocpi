@@ -54,7 +54,7 @@ Example endpoint structure: `/ocpi/cpo/2.0/tokens/`
 | POST     | Resend the full list of tokens, replace the current cache. |
 | PUT      | Send a list of tokens to update existing tokens            |
 | PATCH    | n/a                                                        |
-| DELETE   | n/a (Use PUT, Tokens cannot be removed                     |
+| DELETE   | n/a (Use PUT, Tokens cannot be removed)                    |
 
 
 #### 3.1.1 __POST__ Method
@@ -136,7 +136,7 @@ The combination of _uid_ and _type_ should be unique for every token.
 
 ## 5. Data types
 
-### 5.1 TokenType
+### 5.1 TokenType *enum*
 
 | Value        | Description                                          |
 | ------------ | ---------------------------------------------------- |
