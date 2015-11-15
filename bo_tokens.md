@@ -12,13 +12,28 @@ They then know to which eMSP they can later send a CDR.
 
 N/A
 
+
 ## 2. Flow and Lifecycle
 
-*Describe the status of the objects, how it is created and destroyed,
-when and through which action it gets inherited. Name the owner. Explain
-the purpose.*
+### 2.1 Push model
+
+When the MSP creates Tokens(s) they push them to the CPO by calling [PUT](#311-put-method) on the CPOs
+Tokens endpoint with the newly create Token(s)
+
+Any changes to Token(s) in the eMSP system are send to the CPO system by calling [PATCH](#312-patch-method)
+on the CPOs Tokens endpoint with the updated Token(s).
+
+When the eMSP invalidates a Token (deleting is not possible), 
+the eMSP will send the updated Token (with the field: valid set to False, by calling the [PATCH](#312-patch-method)
+on the CPOs Tokens endpoint with the updated Token. 
 
 
+### 2.2 (RE)loading full list
+
+When a CPO is not sure about the state of the list of known Tokens, or wants to request the full 
+list at startup of there system, the CPO can call the [GET](#321-get-method) on the eMSPs Token endpoint to receive
+all Tokens, updating already known Tokens and adding new received Tokens to it own list of Tokens.
+This method is not for operational flow.
 
 
 ## 3. Interfaces and endpoints
@@ -42,7 +57,33 @@ Example endpoint structure: `/ocpi/cpo/2.0/tokens/`
 | DELETE   | n/a (Use PUT, Tokens cannot be removed                     |
 
 
-### 3.1 eMSP Interface
+#### 3.1.1 __PUT__ Method
+
+New created Token Objects are pushed from the eMSP to the CPO. 
+
+##### Data
+
+In the put request a list of new Token Objects is send.
+
+| Property  | Type                            | Card. | Description                              |
+|-----------|---------------------------------|-------|------------------------------------------|
+| tokens    | [Token](#41-token-object)       | *     | List of all tokens.                      |
+
+
+#### 3.1.2 __PATCH__ Method
+
+Updated Token Objects are pushed from the eMSP to the CPO. 
+
+##### Data
+
+In the patch request a list of updated Tariff Objects is send.
+
+| Property  | Type                            | Card. | Description                              |
+|-----------|---------------------------------|-------|------------------------------------------|
+| tokens    | [Token](#41-token-object)       | *     | List of all tokens.                      |
+
+
+### 3.2 eMSP Interface
 
 This interface enables the CPO to request the current list of all Tokens, when needed.
 It is not possible to validate/request a single token, during normal operation the Token cache of the CPO should always
@@ -59,6 +100,21 @@ Example endpoint structure: `/ocpi/emsp/2.0/tokens/`
 | DELETE   | n/a                                                  |
 
 
+#### 3.2.1 __GET__ Method
+
+Fetch information about all Tokens known in the eMSP systems.
+
+
+##### Data
+
+The endpoint returns an object with list of valid Tariffs.
+
+| Property  | Type                            | Card. | Description                              |
+|-----------|---------------------------------|-------|------------------------------------------|
+| tokens    | [Token](#41-token-object)       | *     | List of all tokens.                      |
+
+
+
 ## 4. Object description
 
 *Describe the structure of this object.*
@@ -68,11 +124,12 @@ Example endpoint structure: `/ocpi/emsp/2.0/tokens/`
 | Property        | Type          | Card. | Description                                                                           |
 |-----------------|---------------|-------|---------------------------------------------------------------------------------------|
 | uid             | string(15)    | 1     | Identification used by CPO system to identify this token, for example RFID hidden ID  |
-| type            | [TokenType](#5-1-tokentype) | 1     | Type of the token                                                                     |
+| type            | [TokenType](#5-1-tokentype) | 1     | Type of the token                                                       |
 | auth_id         | string(32)    | 1     | Uniquely identifies the EV Driver contract token within the eMSPs platform (and suboperator platforms).  |
 | visual_number   | string(64)    | 1     | Visual readable number/identification of the Token                                    |
 | issuer          | string(64)    | 1     | Issuing company                                                                       |
-| allow_whitelist | boolean       | ?     | It is allowed to whitelist this Token, default is false                                               |
+| valid           | boolean       | 1     | Is this Token valid                                                                   |
+| allow_whitelist | boolean       | ?     | It is allowed to whitelist this Token, default is false                               |
 
 The combination of _uid_ and _type_ should be unique for every token.
 
