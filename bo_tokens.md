@@ -17,18 +17,18 @@ N/A
 
 ### 2.1 Push model
 
-When the MSP creates Tokens(s) they push them to the CPO by calling [PUT](#311-put-method) on the CPOs
+When the MSP creates Tokens(s) they push them to the CPO by calling [POST](#311-post-method) on the CPOs
 Tokens endpoint with the newly create Token(s)
 
-Any changes to Token(s) in the eMSP system are send to the CPO system by calling [PATCH](#312-patch-method)
+Any changes to Token(s) in the eMSP system are send to the CPO system by calling [PUT](#312-put-method)
 on the CPOs Tokens endpoint with the updated Token(s).
 
 When the eMSP invalidates a Token (deleting is not possible), 
-the eMSP will send the updated Token (with the field: valid set to False, by calling the [PATCH](#312-patch-method)
+the eMSP will send the updated Token (with the field: valid set to False, by calling the [PUT](#312-put-method)
 on the CPOs Tokens endpoint with the updated Token. 
 
 
-### 2.2 (RE)loading full list
+### 2.2 (Re)loading full list of Tokens
 
 When a CPO is not sure about the state of the list of known Tokens, or wants to request the full 
 list at startup of there system, the CPO can call the [GET](#321-get-method) on the eMSPs Token endpoint to receive
@@ -57,26 +57,26 @@ Example endpoint structure: `/ocpi/cpo/2.0/tokens/`
 | DELETE   | n/a (Use PUT, Tokens cannot be removed                     |
 
 
-#### 3.1.1 __PUT__ Method
+#### 3.1.1 __POST__ Method
 
 New created Token Objects are pushed from the eMSP to the CPO. 
 
 ##### Data
 
-In the put request a list of new Token Objects is send.
+In the post request a list of new Token Objects is send.
 
 | Property  | Type                            | Card. | Description                              |
 |-----------|---------------------------------|-------|------------------------------------------|
 | tokens    | [Token](#41-token-object)       | *     | List of all tokens.                      |
 
 
-#### 3.1.2 __PATCH__ Method
+#### 3.1.2 __PUT__ Method
 
 Updated Token Objects are pushed from the eMSP to the CPO. 
 
 ##### Data
 
-In the patch request a list of updated Tariff Objects is send.
+In the put request a list of updated Tariff Objects is send.
 
 | Property  | Type                            | Card. | Description                              |
 |-----------|---------------------------------|-------|------------------------------------------|
