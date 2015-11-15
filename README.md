@@ -14,13 +14,13 @@ This repostory contains the OCPI specification.
    - [Sessions](bo_sessions.md)
    - [CDRs](bo_cdrs.md)
    - [Tariffs](bo_tariffs.md)
+   - [Tokens](bo_tokens.md)
  * __Generic Types__, describing all data types that are used by multiple objects
    - [Types](types.md)
 
 <!--
 Will be added lated:
 * [6. Evse commands.md](commands.md)
-* [7. Token broadcast between MSP and CPO.md](tokens.md)
 * [9. Smart charging.md](smart_charging.md)
 -->
 
@@ -30,6 +30,9 @@ This is the schedule for finalising all modules:
 
 Release 2.0: 
 - Charge Point Exchange Static & Dynamic (with tariffing covering only start/kWh/time)
+- Authorisation & token data exchange
+- Tariffing
+- Session Info exchange (cdr & ndr)
 - Registration (How to connect) & Security
 
 Release 2.1:
@@ -41,9 +44,6 @@ Release 2.2:
 - Chargepoint commands (no authorisation)
 
 Release 2.3:
-- Authorisation & token data exchange
-
-Release 2.4:
 - Smart Charging
 
 
