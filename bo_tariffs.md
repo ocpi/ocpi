@@ -128,6 +128,10 @@ In the delete request a list of no longer valid Tariff ids is send.
 ### 4.1 Tariff Object
 
 A Tariff Object consists of a list of one or more TariffElements, these elements can be used to create complex Tariff structures. 
+When the list of _elements_ contains more then 1 element, then the first tariff in the list with matching restrictions will be used.
+
+It is advised to always set a "default" tariff, the last tariff in the list of _elements_ with no restriction. This acts as a fallback when
+non the the TariffElements before this matches the current charging period.   
 
 | Property        | Type          | Card. | Description                                                                           |
 |-----------------|---------------|-------|---------------------------------------------------------------------------------------|
