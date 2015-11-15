@@ -337,7 +337,7 @@ Any location or EVSE that is not specified in the message is considered as no lo
 
 #### 3.2.2 __PATCH__ Method
 
-Update messages are similar to synchronisation messages except that only the object id is required. Unlike the PUT method, only the locations and fields that are updated are specified and any fields or objects that are not specified in the update message are considered unchanged.
+Update messages are similar to synchronization messages except that only the object id is required. Unlike the PUT method, only the locations and fields that are updated are specified and any fields or objects that are not specified in the update message are considered unchanged.
 
 ##### Example: a simple status update
 
