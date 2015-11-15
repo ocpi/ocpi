@@ -73,12 +73,12 @@ Both the CPO and the eMSP must have this endpoint.
 
 | Property    | Type       | Card. | Description                               |
 |-------------|------------|-------|-------------------------------------------|
-| identifier  | EndpointID | 1     | Endpoint identifier.                      |
+| identifier  | ModuleID   | 1     | Endpoint identifier.                      |
 | url         | URL        | 1     | URL to the endpoint.                      |
 
-#### EndpointID *enum*
+#### ModuleID *enum*
 
-The identifiers of each endpoint are described in the *Interface endpoints* section of the *Protocol* chapter.
+The Module identifiers of each endpoint are described in each *Module* chapter.
 
 ### GET
 
