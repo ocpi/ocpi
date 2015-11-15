@@ -2,7 +2,7 @@
 
 **Module Identifier: tariffs**
 
-The Tariff module gives eMSPs information over the tariffs used by the CPO.
+The Tariffs module gives eMSPs information over the tariffs used by the CPO.
  
 
 
