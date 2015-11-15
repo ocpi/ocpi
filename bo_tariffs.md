@@ -15,10 +15,10 @@ N/A
 
 ### 2.1 Push model
 
-When the CPO creates Tariff(s) they push them to the eMSPs by calling [PUT](#321-put-method) on the eMSPs
+When the CPO creates Tariff(s) they push them to the eMSPs by calling [POST](#321-post-method) on the eMSPs
 Tariffs endpoint with the newly create Tariff(s)
 
-Any changes to the Tariff(s) in the CPO system are send to the eMSP system by calling [PATCH](#322-patch-method)
+Any changes to the Tariff(s) in the CPO system are send to the eMSP system by calling [PUT](#322-put-method)
 on the eMSPs Tariffs endpoint with the updated Tariff(s).
 
 When the CPO deletes Tariff(s), they will update the eMSPs systems by calling [DELETE](#323-delete-method)
@@ -77,32 +77,32 @@ Example endpoint structure: `/ocpi/emsp/2.0/tariffs/`
 | Method   | Description                                          |
 | -------- | ---------------------------------------------------- |
 | GET      | n/a                                                  |
-| POST     | n/a                                                  |
-| PUT      | Push new Tariff Objects to the eMSP                  |
-| PATCH    | Update Tariff Objects with new information           |
+| POST     | Push new Tariff Objects to the eMSP                  |
+| PUT      | Update Tariff Objects with new information           |
+| PATCH    | n/a                                                  |
 | DELETE   | Remove Tariff Objects which is no longer valid       |
 
 
-#### 3.2.1 __PUT__ Method
+#### 3.2.1 __POST__ Method
 
 New created Tariff Objects are pushed from the CPO to the eMSP. 
 
 ##### Data
 
-In the put request a list of new Tariff Objects is send.
+In the post request a list of new Tariff Objects is send.
 
 | Property  | Type                            | Card. | Description                              |
 |-----------|---------------------------------|-------|------------------------------------------|
 | tariffs   | [Tariff](#41-tariff-object)     | *     | List of new tariffs.                     |
 
 
-#### 3.2.2 __PATCH__ Method
+#### 3.2.2 __PUT__ Method
 
-Updated Tariff Objects are pushed from the CPO to the eMSP. 
+Updated Tariff Objects are pushed from the CPO to the eMSP, to replace the current Tariff in the eMSP. 
 
 ##### Data
 
-In the patch request a list of updated Tariff Objects is send.
+In the put request a list of updated Tariff Objects is send.
 
 | Property  | Type                            | Card. | Description                              |
 |-----------|---------------------------------|-------|------------------------------------------|
