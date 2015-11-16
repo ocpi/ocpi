@@ -36,7 +36,7 @@ Release 2.0:
 - Registration (How to connect) & Security
 
 Release 2.1:
-- Improvements from rel. 1
+- Improvements from rel. 2.0
 - Tariffing (advanced/dynamic)
 - Session Info exchange (cdr & ndr)
 
