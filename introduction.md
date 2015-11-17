@@ -12,7 +12,7 @@ As such it helps to enable EV drivers to charge everywhere in a fully-informed w
 
 Starting in 2009, e-laad foundation and the forerunner of the eViolin association specified 2 standards in order to retrieve charge point details and active state. These are called the VAS interface and the Amsterdam interface. In this same period, a CDR format for the exchange of charge sessions between eViolin members was defined. This format is currently in use by the majority of the eViolin members. 
 
-Recently, eViolin started combining these interfaces, extending them with, amongst others, pricing information and transaction events (NDR's), resulting in a first version of the OCPI interface. 
+Recently, eViolin started combining these interfaces, extending them with, amongst others, pricing information and transaction events (NDRs), resulting in a first version of the OCPI interface. 
 
 This document describes a combined set of standards based on the work done in the past. Next to that, the evolution of these standards and their use is taken into account and some elements have been updated to match nowadays use.
 

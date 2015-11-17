@@ -1,7 +1,7 @@
 
 ## Version information endpoint
 
-This endpoint lists all the available OCPI versions and the corresponding URL's to
+This endpoint lists all the available OCPI versions and the corresponding URLs to
 where version specific details such as the supported endpoints can be found.
 
 Example endpoint structure: `/ocpi/cpo/versions` and `/ocpi/emsp/versions`
@@ -53,7 +53,7 @@ Fetch all supported OCPI versions of this CPO or eMSP.
 
 Example: `/ocpi/cpo/2.0/` and `/ocpi/emsp/2.0/`
 
-This endpoint lists the supported endpoints and their URL's for a specific OCPI version. To notify the other party that the list of endpoints of your current version has changed, you can send a PUT request to the corresponding credentials endpoint (see the credentials chapter).
+This endpoint lists the supported endpoints and their URLs for a specific OCPI version. To notify the other party that the list of endpoints of your current version has changed, you can send a PUT request to the corresponding credentials endpoint (see the credentials chapter).
 
 Both the CPO and the eMSP must have this endpoint.
 
@@ -82,7 +82,7 @@ The Module identifiers of each endpoint are described in each *Module* chapter.
 
 ### GET
 
-Fetch information about the supported endpoints and their URL's for this version.
+Fetch information about the supported endpoints and their URLs for this version.
 
 #### Example
 

@@ -119,7 +119,7 @@ In the delete request a list of no longer valid Tariff ids is send.
 
 | Property  | Type            | Card. | Description                                     |
 |-----------|-----------------|-------|-------------------------------------------------|
-| ids       | String(15)      | +     | List of id's of tariffs that should be deleted  |
+| ids       | String(15)      | +     | List of ids of tariffs that should be deleted  |
 
 
 

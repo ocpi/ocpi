@@ -68,7 +68,7 @@ Example endpoint structure: `/ocpi/cpo/2.0/locations`
 
 | Method                 | Description                                          |
 | ---------------------- | ---------------------------------------------------- |
-| [GET](#311-get-method) | Fetch all available locations and EVSE's.            |
+| [GET](#311-get-method) | Fetch all available locations and EVSEs.             |
 | POST                   | n/a                                                  |
 | PUT                    | n/a                                                  |
 | PATCH                  | n/a                                                  |
@@ -81,14 +81,14 @@ The endpoint returns an object of two seperate lists: one list of available loca
 
 | Property  | Type                            | Card. | Description                              |
 |-----------|---------------------------------|-------|------------------------------------------|
-| locations | [Location](#41-location-object) | *     | List of all locations with valid EVSE's. |
-| evses     | [EVSE](#42-evse-object)         | *     | List of all valid EVSE's.                |
+| locations | [Location](#41-location-object) | *     | List of all locations with valid EVSEs.  |
+| evses     | [EVSE](#42-evse-object)         | *     | List of all valid EVSEs.                 |
 
 
 
 #### 3.1.1 __GET__ Method
 
-Fetch information about all available locations and EVSE's at this CPO.
+Fetch information about all available locations and EVSEs at this CPO.
 
 Any older information that is not specified in the message is considered as no longer valid.
 
@@ -316,8 +316,8 @@ Example endpoint structure: `/ocpi/emsp/2.0/locations`
 | ----------------------------- | ---------------------------------------------------- |
 | GET                           | n/a                                                  |
 | POST                          | n/a                                                  |
-| [PUT](#321-put-method)        | Push all available locations and EVSE's to the eMSP, similar to the GET request to the CPO platform but in the other direction. |
-| [PATCH](#322-patch-method)    | Notify the eMSP of partial updates to locations and EVSE's (such as the status). |
+| [PUT](#321-put-method)        | Push all available locations and EVSEs to the eMSP, similar to the GET request to the CPO platform but in the other direction. |
+| [PATCH](#322-patch-method)    | Notify the eMSP of partial updates to locations and EVSEs (such as the status). |
 | DELETE                        | n/a  _(use PATCH)_                                    |
 
 ##### Data
@@ -325,7 +325,7 @@ Example endpoint structure: `/ocpi/emsp/2.0/locations`
 | Property  | Type                            | Card. | Description                    |
 |-----------|---------------------------------|-------|--------------------------------|
 | locations | [Location](#41-location-object) | *     | List of locations.             |
-| evses     | [EVSE](#42-evse-object)         | *     | List of EVSE's.                |
+| evses     | [EVSE](#42-evse-object)         | *     | List of EVSEs.                 |
 
 
 #### 3.2.1 __PUT__ Method
@@ -341,7 +341,7 @@ Update messages are similar to synchronization messages except that only the obj
 
 ##### Example: a simple status update
 
-This is the most common type of update message to notify eMSP's that an EVSE is now occupied.
+This is the most common type of update message to notify eMSPs that an EVSE is now occupied.
 
 ```json
 {
@@ -443,7 +443,7 @@ The Object for Location and EVSE are used in multiple locations. The description
 
 ### 4.1 Location Object
 
-The *Location* object describes the location and its properties where a group of EVSE's that belong together are installed. Typically the *Location* object is the exact location of the group of EVSE's, but it can also be the entrance of a parking garage which contains these EVSE's. The exact way to reach each EVSE can then be further specified by its own properties.
+The *Location* object describes the location and its properties where a group of EVSEs that belong together are installed. Typically the *Location* object is the exact location of the group of EVSEs, but it can also be the entrance of a parking garage which contains these EVSEs. The exact way to reach each EVSE can then be further specified by its own properties.
 
 A *Location* without valid *EVSE* objects can be considered as expired and should no longer be displayed.
 
@@ -460,8 +460,8 @@ A *Location* without valid *EVSE* objects can be considered as expired and shoul
 | directions           | string(255)                                  | ?     | Human-readable directions on how to reach the location. |
 | operator             | [BusinessDetails](#51-businessdetails-class) | ?     | Information of the operator. When not specified, the information retreived from the `api_info` endpoint should be used instead. |
 | suboperator          | [BusinessDetails](#51-businessdetails-class) | ?     | Information of the suboperator if available.           |
-| opening_times        | [Hours](#58-hours-class)                     | *     | The times when the EVSE's at the location can be accessed for charging. |
-| charging_when_closed | boolean                                      | ?     | Indicates if the EVSE's are still charging outside the opening hours of the location. E.g. when the parking garage closes its barriers over night, is it allowed to charge till the next morning?  Default: **true** |
+| opening_times        | [Hours](#58-hours-class)                     | *     | The times when the EVSEs at the location can be accessed for charging. |
+| charging_when_closed | boolean                                      | ?     | Indicates if the EVSEs are still charging outside the opening hours of the location. E.g. when the parking garage closes its barriers over night, is it allowed to charge till the next morning?  Default: **true** |
 | images               | [Image](#59-image-class)                     | *     | Links to images related to the location such as photos or logos. |
 
 
@@ -627,7 +627,7 @@ The category of an image to obtain the correct usage in an user presentation. Ha
 
 | Value          | Description |
 |----------------|-------------|
-| charger        | Photo of the physical device that contains one or more EVSE's. |
+| charger        | Photo of the physical device that contains one or more EVSEs. |
 | location       | Location overview photo. |
 | entrance       | Location entrance photo. Should show the car entrance to the location from street side. |
 | other          | Other |
@@ -767,7 +767,7 @@ This type is used to schedule status periods in the future. The eMSP can provide
 | period_end       | [DateTime](terminology.md#datetime) | ?     | End of the scheduled period, if known.                 |
 | status           | [Status](#515-status-enum)           | 1     | Status value during the scheduled period.              |
 
-Note that the scheduled status is purely informational. When the status actually changes, the CPO must push an update to the EVSE's `status` field itself.
+Note that the scheduled status is purely informational. When the status actually changes, the CPO must push an update to the EVSEs `status` field itself.
 
 
 ---

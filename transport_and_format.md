@@ -18,7 +18,7 @@ Each HTTP request must add a 'Authorization' header. The header looks as followi
 
 The literal 'Token' indicates that the token based authentication mechanism is used. Its parameter is a string consisting of printable, non-whitespace ASCII characters. The token must uniquely identify the requesting party. The server can then use this to link data and commands to this party's account.
 
-The request method can be any of GET, POST, PUT, PATCH or DELETE. The OCPI protocol uses them in a similar way as REST API's do.
+The request method can be any of GET, POST, PUT, PATCH or DELETE. The OCPI protocol uses them in a similar way as REST APIs do.
 
 | Method | Description
 |--------|----------------------------------------------------|
@@ -76,13 +76,13 @@ For brevity's sake, any further example used in this specification will only con
 
 ### Interface endpoints
 
-As OCPI contains multiple interfaces, different endpoints are available for messaging. The protocol is designed such that the exact URL's of the endpoints can be defined by each party. It also supports an interface per version.
+As OCPI contains multiple interfaces, different endpoints are available for messaging. The protocol is designed such that the exact URLs of the endpoints can be defined by each party. It also supports an interface per version.
 
 The locations of all the version specific endpoints can be retrieved by fetching the API information from the versions endpoint. Each version specific endpoint will then list the available endpoints for that version. It is strongly recommended to insert the protocol version into the URL.
 
 For example: `/ocpi/cpo/2.0/locations` and `/ocpi/emsp/2.0/locations`.
 
-The URL's of the endpoints in this document are descriptive only. The exact URL can be found by fetching the endpoint information from the API info endpoint and looking up the identifier of the endpoint.
+The URLs of the endpoints in this document are descriptive only. The exact URL can be found by fetching the endpoint information from the API info endpoint and looking up the identifier of the endpoint.
 
 | Operator interface         | Identifier  | Example URL                                   |
 | -------------------------- | ----------- | --------------------------------------------- |
