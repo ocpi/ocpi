@@ -45,13 +45,13 @@ The CDRs endpoint can be used to create or retrieve CDRs.
 
 Example endpoint structure: `/ocpi/cpo/2.0/cdrs/`
 
-| Method   | Description                                          |
-| -------- | ---------------------------------------------------- |
-| GET      | Receive all CDRs for the requesting provider.        |
-| POST     | n/a                                                  |
-| PUT      | n/a                                                  |
-| PATCH    | n/a                                                  |
-| DELETE   | n/a                                                  |
+| Method                  | Description                                          |
+|-------------------------|------------------------------------------------------|
+| [GET](#311-get-method)  | Receive all CDRs for the requesting provider.        |
+| POST                    | n/a                                                  |
+| PUT                     | n/a                                                  |
+| PATCH                   | n/a                                                  |
+| DELETE                  | n/a                                                  |
 
 
 #### 3.1.1 __GET__ Method
@@ -76,13 +76,13 @@ The CDRs endpoint can be used to create, update or delete CDRs.
 
 Example endpoint structure: `/ocpi/emsp/2.0/cdrs/` and `/ocpi/emsp/2.0/cdrs/{cdr-id}/`
 
-| Method   | Description                                          |
+| Method                   | Description                                          |
 | -------- | ---------------------------------------------------- |
-| GET      | n/a                                                  |
-| POST     | Create a new CDR.                                    |
-| PUT      | Correct the CDR with id {cdr-id} by replacing it.    |
-| PATCH    | n/a                                                  |
-| DELETE   | n/a (Use PUT, CDRs cannot be removed)                |
+| GET                      | n/a                                                  |
+| [POST](#321-post-method) | Create a new CDR.                                    |
+| [PUT](#322-put-method)   | Correct the CDR with id {cdr-id} by replacing it.    |
+| PATCH                    | n/a                                                  |
+| DELETE                   | n/a (Use PUT, CDRs cannot be removed)                |
 
 
 #### 3.2.1 POST Method
@@ -123,21 +123,21 @@ In the put request a list updated CDR Objects is send.
 
 The *CDR* object describes the Charging Session and its costs. How these costs are build up etc. 
 
-| Property         | Type           | Card. | Description                                                                                                       |
-|------------------|----------------|-------|-----------------------------------------------------------------------------------------------------------|
-| id               | string(15)     | 1     | Uniquely identifies the CDR within the CPOs platform (and suboperator platforms).                                 |
-| start_date_time  | DateTime       | 1     | Start timestamp of the charging session                                                                           | 
-| dimensions       | CdrDimension   | +     | List of applicable quantities that have impact on total costs.                                                    | 
-| kwh              | decimal        | 1     | Amount of kWh charged                                                                                             | 
-| location         | Location       | 1     | Location were the charging session took place, see: [Locations & EVSEs](bo_locations_and_evses.md)                | 
-| evse             | EVSE           | 1     | EVSE used for this charging session, see: [Locations & EVSEs](bo_locations_and_evses.md)                          |
-| connector_id     | string(15)     | 1     | Identifier of the connector used, relevant Connector Object is part of the Location Object provided with this CDR | 
-| meter_id         | string(255)    | ?     | Identification of the Meter inside the Charge Point                                                               | 
-| currency         | string(3)      | 1     | Currency of the CDR in ISO 4217 Code                                                                              | 
-| tariffs          | Tariff         | *     | List of relevant tariff elements, see: [Tariffs](bo_tariffs.md)                                                   | 
-| status           | CdrStatus      | 1     | Status of this CDR                                                   | 
-| charging_periods | ChargingPeriod | +     | List of charging periods that make up this charging session. A session consist of 1 or more periodes with, each period has a different relevant Tariff | 
-| total_cost       | decimal        | 1     | Total cost of this transaction                                                                                    | 
+| Property         | Type                                                     | Card. | Description                                                                                                       |
+|------------------|----------------------------------------------------------|-------|---------------------------------------------------------------------------------------------------------------------|
+| id               | string(15)                                               | 1     | Uniquely identifies the CDR within the CPOs platform (and suboperator platforms).                                  |
+| start_date_time  | DateTime                                                 | 1     | Start timestamp of the charging session                                                                                                                                                                 | 
+| dimensions       | [CdrDimension](51-cdrdimension-class)                    | +     | List of applicable quantities that have impact on total costs.                                                 | 
+| kwh              | decimal                                                  | 1     | Amount of kWh charged                                                                                             | 
+| location         | [Location](bo_locations_and_evses.md#41-location-object) | 1     | Location were the charging session took place, see: [Locations & EVSEs](bo_locations_and_evses.md)             | 
+| evse             | [EVSE](bo_locations_and_evses.md#42-evse-object)         | 1     | EVSE used for this charging session, see: [Locations & EVSEs](bo_locations_and_evses.md)                         |
+| connector_id     | string(15)                                               | 1     | Identifier of the connector used, relevant Connector Object is part of the Location Object provided with this CDR | 
+| meter_id         | string(255)                                              | ?     | Identification of the Meter inside the Charge Point                                                                  | 
+| currency         | string(3)                                                | 1     | Currency of the CDR in ISO 4217 Code                                                                                                                                   | 
+| tariffs          | [Tariff](bo_tariffs.md#41-tariff-object)                 | *     | List of relevant tariff elements, see: [Tariffs](bo_tariffs.md)                                               | 
+| status           | [CdrStatus](#52-cdrstatus-enum)                          | 1     | Status of this CDR                                                   | 
+| charging_periods | [ChargingPeriod](#53-chargingperiod-class)               | +     | List of charging periods that make up this charging session. A session consist of 1 or more periodes with, each period has a different relevant Tariff | 
+| total_cost       | decimal                                                  | 1     | Total cost of this transaction                                                                                    | 
 
 
 ## 5. Data types

@@ -1,6 +1,6 @@
 ## Types
 
-### 1.X DimensionType *enum*
+### 1.1 DimensionType *enum*
 
 | Value        | Description                                          |
 | ------------ | ---------------------------------------------------- |

@@ -48,13 +48,13 @@ With this interface the eMSP can push the full list of tokens, or push an update
 
 Example endpoint structure: `/ocpi/cpo/2.0/tokens/`
 
-| Method   | Description                                                |
-| -------- | ---------------------------------------------------------- |
-| GET      | n/a                                                        |
-| POST     | Resend the full list of tokens, replace the current cache. |
-| PUT      | Send a list of tokens to update existing tokens            |
-| PATCH    | n/a                                                        |
-| DELETE   | n/a (Use PUT, Tokens cannot be removed)                    |
+| Method                       | Description                                                |
+|------------------------------|------------------------------------------------------------|
+| GET                          | n/a                                                        |
+| [POST](#311-post-method)     | Resend the full list of tokens, replace the current cache. |
+| [PUT](#312-put-method)       | Send a list of tokens to update existing tokens            |
+| PATCH                        | n/a                                                        |
+| [DELETE](#313-delete-method) | n/a (Use PUT, Tokens cannot be removed)                    |
 
 
 #### 3.1.1 __POST__ Method
@@ -91,13 +91,13 @@ be kept up to date via the CPO Interface.
 
 Example endpoint structure: `/ocpi/emsp/2.0/tokens/`
 
-| Method   | Description                                          |
-| -------- | ---------------------------------------------------- |
-| GET      | Get the full list of known Tokens                    |
-| POST     | n/a                                                  |
-| PUT      | n/a                                                  |
-| PATCH    | n/a                                                  |
-| DELETE   | n/a                                                  |
+| Method                 | Description                                          |
+|------------------------|----------------------------------------------------- |
+| [GET](#321-get-method) | Get the full list of known Tokens                    |
+| POST                   | n/a                                                  |
+| PUT                    | n/a                                                  |
+| PATCH                  | n/a                                                  |
+| DELETE                 | n/a                                                  |
 
 
 #### 3.2.1 __GET__ Method
