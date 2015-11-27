@@ -129,7 +129,7 @@ The endpoint returns an object with list of valid Tariffs.
 | visual_number   | string(64)    | 1     | Visual readable number/identification of the Token                                    |
 | issuer          | string(64)    | 1     | Issuing company                                                                       |
 | valid           | boolean       | 1     | Is this Token valid                                                                   |
-| allow_whitelist | boolean       | ?     | It is allowed to whitelist this Token, default is false                               |
+| allow_whitelist | boolean       | ?     | It is allowed to validate a charging session with token without requesting and authorization from the eMSP? , default is FALSE. NOTE: For this release this field always needs to be set to TRUE |
 
 The combination of _uid_ and _type_ should be unique for every token.
 
