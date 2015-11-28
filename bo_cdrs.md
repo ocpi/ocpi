@@ -130,23 +130,32 @@ In the put request a list updated CDR Objects is send.
 
 The *CDR* object describes the Charging Session and its costs. How these costs are build up etc. 
 
-| Property         | Type                                                     | Card. | Description                                                                                                       |
+| Property         | Type                                                     | Card. | Description                                                                                                         |
 |------------------|----------------------------------------------------------|-------|---------------------------------------------------------------------------------------------------------------------|
-| id               | [CiString](types.md#11_cistring_type)(15)                | 1     | Uniquely identifies the CDR within the CPOs platform (and suboperator platforms).                                  |
-| start_date_time  | [DateTime](types.md#11_datetime_type)                    | 1     | Start timestamp of the charging session                                                                                                                                                                 | 
-| dimensions       | [CdrDimension](51-cdrdimension-class)                    | +     | List of applicable quantities that have impact on total costs.                                                 | 
-| location         | [Location](bo_locations_and_evses.md#41-location-object) | 1     | Location were the charging session took place, see: [Locations & EVSEs](bo_locations_and_evses.md)             | 
-| evse             | [EVSE](bo_locations_and_evses.md#42-evse-object)         | 1     | EVSE used for this charging session, see: [Locations & EVSEs](bo_locations_and_evses.md)                         |
-| connector_id     | [String](types.md#15_string_type)(15)                    | 1     | Identifier of the connector used, relevant Connector Object is part of the Location Object provided with this CDR | 
-| meter_id         | [String](types.md#15_string_type)(255)                   | ?     | Identification of the Meter inside the Charge Point                                                                  | 
-| currency         | [String](types.md#15_string_type)(3)                     | 1     | Currency of the CDR in ISO 4217 Code                                                                                                                                   | 
-| tariffs          | [Tariff](bo_tariffs.md#41-tariff-object)                 | *     | List of relevant tariff elements, see: [Tariffs](bo_tariffs.md)                                               | 
-| status           | [CdrStatus](#52-cdrstatus-enum)                          | 1     | Status of this CDR                                                   | 
+| id               | [CiString](types.md#11_cistring_type)(15)                | 1     | Uniquely identifies the CDR within the CPOs platform (and suboperator platforms).                                   |
+| start_date_time  | [DateTime](types.md#11_datetime_type)                    | 1     | Start timestamp of the charging session                                                                             |
+| auth_id          | [String](types.md#15_string_type)(32)                    | 1     | Reference to a token, identified by the auth_id field of the [Token](bo_tokens.md#41_token)                         |
+| auth_method      | [AuthMethod](#51_authmethod_enum)                        | 1     | Method used for authentication.                                                                                     |
+| dimensions       | [CdrDimension](51-cdrdimension-class)                    | +     | List of applicable quantities that have impact on total costs.                                                      | 
+| location         | [Location](bo_locations_and_evses.md#41-location-object) | 1     | Location were the charging session took place, see: [Locations & EVSEs](bo_locations_and_evses.md)                  | 
+| evse             | [EVSE](bo_locations_and_evses.md#42-evse-object)         | 1     | EVSE used for this charging session, see: [Locations & EVSEs](bo_locations_and_evses.md)                            |
+| connector_id     | [String](types.md#15_string_type)(15)                    | 1     | Identifier of the connector used, relevant Connector Object is part of the Location Object provided with this CDR   | 
+| meter_id         | [String](types.md#15_string_type)(255)                   | ?     | Identification of the Meter inside the Charge Point                                                                 | 
+| currency         | [String](types.md#15_string_type)(3)                     | 1     | Currency of the CDR in ISO 4217 Code                                                                                |                                                                                                                          
+| tariffs          | [Tariff](bo_tariffs.md#41-tariff-object)                 | *     | List of relevant tariff elements, see: [Tariffs](bo_tariffs.md)                                                     | 
+| status           | [CdrStatus](#52-cdrstatus-enum)                          | 1     | Status of this CDR                                                                                                  | 
 | charging_periods | [ChargingPeriod](#53-chargingperiod-class)               | +     | List of charging periods that make up this charging session. A session consist of 1 or more periodes with, each period has a different relevant Tariff | 
-| total_cost       | [Decimal](types.md#12_decimal_type)                      | 1     | Total cost of this transaction                                                                                    | 
+| total_cost       | [Decimal](types.md#12_decimal_type)                      | 1     | Total cost of this transaction                                                                                      | 
 
 
 ## 5. Data types
+
+### 5.1 AuthMethod *enum*
+
+| Value        | Description                                                                             |
+|--------------|-----------------------------------------------------------------------------------------|
+| auth_request | Authentication request from the eMSP                                                    |
+| whitelist    | Whitelist used to authenticate, no request done to the eMSP                             |
 
 ### 5.1 CdrDimension *class*
 
