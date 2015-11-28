@@ -445,21 +445,21 @@ The *Location* object describes the location and its properties where a group of
 
 A *Location* without valid *EVSE* objects can be considered as expired and should no longer be displayed.
 
-| Property             | Type                                         | Card. | Description                                            |
-|----------------------|----------------------------------------------|-------|--------------------------------------------------------|
+| Property             | Type                                         | Card. | Description                                                      |
+|----------------------|----------------------------------------------|-------|------------------------------------------------------------------|
 | id                   | string(15)                                   | 1     | Uniquely identifies the location within the CPOs platform (and suboperator platforms). |
-| type                 | [LocationType](#511-locationtype-enum)       | 1     | The general type of the charge point location.         |
-| name                 | string(255)                                  | ?     | Display name of the location.                          |
-| address              | string(45)                                   | 1     | Street/block name and house number if available.       |
-| city                 | string(45)                                   | 1     | City or town.                                          |
-| postal_code          | string(10)                                   | 1     | Postal code of the location.                           |
-| country              | string(3)                                    | 1     | ISO 3166-1 alpha-3 code for the country of this location. |
-| coordinates          | [GeoLocation](#57-geolocation-class)         | 1     | Coordinates of the location.                           |
-| directions           | string(255)                                  | ?     | Human-readable directions on how to reach the location. |
+| type                 | [LocationType](#511-locationtype-enum)       | 1     | The general type of the charge point location.                   |
+| name                 | [String](types.md#15-string-type)(255)       | ?     | Display name of the location.                                    |
+| address              | [String](types.md#15-string-type)(45)        | 1     | Street/block name and house number if available.                 |
+| city                 | [String](types.md#15-string-type)(45)        | 1     | City or town.                                                    |
+| postal_code          | [String](types.md#15-string-type)(10)        | 1     | Postal code of the location.                                     |
+| country              | [String](types.md#15-string-type)(3)         | 1     | ISO 3166-1 alpha-3 code for the country of this location.        |
+| coordinates          | [GeoLocation](#57-geolocation-class)         | 1     | Coordinates of the location.                                     |
+| directions           | [DisplayText](types.md#15-displaytext-class) | *     | Human-readable directions on how to reach the location.          |
 | operator             | [BusinessDetails](#51-businessdetails-class) | ?     | Information of the operator. When not specified, the information retreived from the `api_info` endpoint should be used instead. |
-| suboperator          | [BusinessDetails](#51-businessdetails-class) | ?     | Information of the suboperator if available.           |
+| suboperator          | [BusinessDetails](#51-businessdetails-class) | ?     | Information of the suboperator if available.                     |
 | opening_times        | [Hours](#58-hours-class)                     | *     | The times when the EVSEs at the location can be accessed for charging. |
-| charging_when_closed | boolean                                      | ?     | Indicates if the EVSEs are still charging outside the opening hours of the location. E.g. when the parking garage closes its barriers over night, is it allowed to charge till the next morning?  Default: **true** |
+| charging_when_closed | boolean                                      | ?     | Indicates if the EVSEs are still charging outside the opening hours of the location. E.g. when the parking garage closes its barriers over night, is it allowed to charge till the next morning?  Default: **true**     |
 | images               | [Image](#59-image-class)                     | *     | Links to images related to the location such as photos or logos. |
 
 

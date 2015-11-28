@@ -38,12 +38,28 @@ Example:
 | time         | defined in hours, default division is 1 second       |
 
 
+### 1.5 DisplayText *class*
+
+| Property        | Type                           | Card. | Description                                                       |
+|-----------------|--------------------------------|-------|-------------------------------------------------------------------|
+| language        | [String](#15-string-type)(2)   | 1     | Language Code ISO 639-1                                           |
+| text            | [String](#15-string-type)(255) | 1     | Text to be displayed to a end user. No markup, html etc. allowed. |
+
+Example:
+ 
+    {
+      "language": "en",
+      "text": "Standard Tarrif"
+    }
+
+
 ### 1.5 String *type*
 
 Case Sensitive String. Only printable ASCII allowed. All strings in
 messages and enumerations are case sensitive, unless explicitly stated
 otherwise.
     
+
 ### 1.4 URL *type*
 
 An URL a string(255) type following the [w3.org spec](http://www.w3.org/Addressing/URL/uri-spec.html).
