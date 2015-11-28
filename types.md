@@ -18,7 +18,7 @@ Example:
     
 ### 1.2 Decimal *type*
 
-Decimals are formatted as strings following JSON's number format. They are explicitly expressed as strings to make it clear that they should be interpreted as exact decimals and not as floating points or doubles.
+Decimals are formatted as strings following JSONs number format. They are explicitly expressed as strings to make it clear that they should be interpreted as exact decimals and not as floating points or doubles.
 
 Example:
 

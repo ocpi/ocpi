@@ -112,20 +112,20 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 
 | Property         | Type                                                     | Card. | Description                                                                                                         | 
 |------------------|----------------------------------------------------------|-------|---------------------------------------------------------------------------------------------------------------------| 
-| id               | [CiString](types.md#11_cistring_type)(15)                | 1     | Uniquely identifies the CDR within the CPOs platform (and suboperator platforms).                                   | 
-| start_date_time  | [DateTime](types.md#11_datetime_type)                    | 1     | Start timestamp of the charging session                                                                             | 
-| stop_date_time   | [DateTime](types.md#11_datetime_type)                    | ?     | Stop timestamp of the charging session                                                                              | 
-| auth_id          | [String](types.md#15_string_type)(32)                    | 1     | Reference to a token, identified by the auth_id field of the [Token](bo_tokens.md#41_token)                         | 
-| auth_method      | [AuthMethod](#51_authmethod_enum)                        | 1     | Method used for authentication.                                                                                     | 
+| id               | [CiString](types.md#11-cistring-type)(15)                | 1     | Uniquely identifies the CDR within the CPOs platform (and suboperator platforms).                                   | 
+| start_date_time  | [DateTime](types.md#11-datetime-type)                    | 1     | Start timestamp of the charging session                                                                             | 
+| stop_date_time   | [DateTime](types.md#11-datetime-type)                    | ?     | Stop timestamp of the charging session                                                                              | 
+| auth_id          | [String](types.md#15-string-type)(32)                    | 1     | Reference to a token, identified by the auth_id field of the [Token](bo_tokens.md#41_token)                         | 
+| auth_method      | [AuthMethod](#51-authmethod-enum)                        | 1     | Method used for authentication.                                                                                     | 
 | dimensions       | [CdrDimension](52-cdrdimension-class)                    | +     | List of applicable quantities that have impact on total costs.                                                      |  
 | location         | [Location](bo_locations_and_evses.md#41-location-object) | 1     | Location were the charging session took place, see: [Locations & EVSEs](bo_locations_and_evses.md)                  | 
 | evse             | [EVSE](bo_locations_and_evses.md#42-evse-object)         | 1     | EVSE used for this charging session, see: [Locations & EVSEs](bo_locations_and_evses.md)                            | 
-| connector_id     | [String](types.md#15_string_type)(15)                    | 1     | Identifier of the connector used, relevant Connector Object is part of the Location Object provided with this CDR   | 
-| meter_id         | [String](types.md#15_string_type)(255)                   | ?     | Identification of the Meter inside the Charge Point                                                                 | 
-| currency         | [String](types.md#15_string_type)(3)                     | 1     | Currency of the CDR in ISO 4217 Code                                                                                |                                                                                                                          
+| connector_id     | [String](types.md#15-string-type)(15)                    | 1     | Identifier of the connector used, relevant Connector Object is part of the Location Object provided with this CDR   | 
+| meter_id         | [String](types.md#15-string-type)(255)                   | ?     | Identification of the Meter inside the Charge Point                                                                 | 
+| currency         | [String](types.md#15-string-type)(3)                     | 1     | Currency of the CDR in ISO 4217 Code                                                                                |                                                                                                                          
 | tariffs          | [Tariff](bo_tariffs.md#41-tariff-object)                 | *     | List of relevant tariff elements, see: [Tariffs](bo_tariffs.md)                                                     | 
 | charging_periods | [ChargingPeriod](#53-chargingperiod-class)               | +     | List of charging periods that make up this charging session. A session consist of 1 or more periodes with, each period has a different relevant Tariff | 
-| total_cost       | [Decimal](types.md#12_decimal_type)                      | 1     | Total cost of this transaction                                                                                      | 
+| total_cost       | [Decimal](types.md#12-decimal-type)                      | 1     | Total cost of this transaction                                                                                      | 
 
 
 ## 5. Data types
@@ -142,8 +142,8 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 
 | Property        | Type                                            | Card. | Description                                                                 |
 |-----------------|-------------------------------------------------|-------|-----------------------------------------------------------------------------|
-| type            | [DimensionType](types.md#13-dimensiontype-enum) | 1     | Type of cdr dimension, see: [Types](types.md).                              |
-| volume          | [Decimal](types.md#12_decimal_type)             | 1     | Volume of the dimension consumed, measured according to the dimension type. |
+| type            | [DimensionType](types.md#13-dimensiontype-enum) | 1     | Type of cdr dimension                                                       |
+| volume          | [Decimal](types.md#12-decimal-type)             | 1     | Volume of the dimension consumed, measured according to the dimension type. |
 
 
 ### 5.3 ChargingPeriod *class*
@@ -152,7 +152,7 @@ A charging period consists of a start timestamp and a list of possible values th
 
 | Property        | Type                                  | Card. | Description                                                                                                                     |
 |-----------------|---------------------------------------|-------|---------------------------------------------------------------------------------------------------------------------------------|
-| start_date_time | [DateTime](types.md#11_datetime)      | 1     | Start timestamp of the charging period. This period ends when a next period starts, the last period ends when the session ends. |
+| start_date_time | [DateTime](types.md#11-datetime-type) | 1     | Start timestamp of the charging period. This period ends when a next period starts, the last period ends when the session ends. |
 | dimension       | [CdrDimension](52-cdrdimension-class) | +     | List of relevant values for this charging period.                                                                               |
 
 
