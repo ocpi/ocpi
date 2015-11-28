@@ -438,8 +438,6 @@ status_schedule field can be used._
 
 ## 4. Object description
 
-The Object for Location and EVSE are used in multiple locations. The description of these objects can be found in: [Types](types.md)
-
 
 ### 4.1 Location Object
 
