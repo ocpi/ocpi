@@ -125,7 +125,7 @@ The response will contain the updated _EMSPSession_ object.
 | charging_periods  | [ChargingPeriod](#52-chargingperiod-type) | *     | An optional list of charging periods that can be used to calculate and verify the total cost. |
 | total_cost        | Decimal           | 1     | The total cost (excluding VAT) of the session in the specified currency. This is the price that the eMSP will have to pay to the CPO. |
 | status            | [SessionStatus](#51-sessionstatus-enum) | 1     | The status of the session. |
-| endpoints         | [Endpoint](version-information-endpoint.md#endpoint-class) | *     | Lists the related endpoints to the session. These are specific for each party. See below for more information. |
+| endpoints         | [Endpoint](version_information_endpoint.md#endpoint-class) | *     | Lists the related endpoints to the session. These are specific for each party. See below for more information. |
 
 
 
@@ -135,7 +135,7 @@ Describes a session in the CPO platform
 
 | Property  | Type        | Card. | Description                    |
 |-----------|-------------|-------|--------------------------------|
-| endpoints | [Endpoint](version-information-endpoint.md#endpoint-class) | * |                                |
+| endpoints | [Endpoint](version_information_endpoint.md#endpoint-class) | * |                                |
 |           |             |       |                                |
 
 
@@ -146,7 +146,7 @@ Describes a session in the eMSP platform
 
 | Property  | Type        | Card. | Description                    |
 |-----------|-------------|-------|--------------------------------|
-| endpoints | [Endpoint](version-information-endpoint.md#endpoint-class) | * |                                |
+| endpoints | [Endpoint](version_information_endpoint.md#endpoint-class) | * |                                |
 |           |             |       |                                |
 
 
