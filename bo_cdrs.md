@@ -37,7 +37,7 @@ all CDRs.
 
 There is both a CPO and an eMSP interface for CDRs. Depening on business requirements parties can decide to use
 the CPO Interface/Get model, or the eMSP Interface/Push model, or both. 
-Push is mostelikle used to 
+Push is the preferred model to use, the eMSP will receive CDRs when created by the CPO.
 
 ### 3.1 CPO Interface
 
