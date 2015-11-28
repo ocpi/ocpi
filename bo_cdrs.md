@@ -25,6 +25,8 @@ on the eMSPs CDRs endpoint with the complete updated CDR(s).
 
 CDRs cannot be deleted, they can only be made invalid, by setting the status to: invalid, and then resending the same CDR by calling [PUT](#322-put-method)
 
+CDRs should contain enough information (dimensions) to allow the eMSP to validate the total costs. 
+It is advised to send enough information to the eMSP so it might calculate its own costs for billing their customer. An eMSP might have a very different contract/pricing model with the EV driver then the tariff structure from the CPO.
 
 ### 2.2 Pull model
 
@@ -133,7 +135,6 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 | id               | [CiString](types.md#11_cistring_type)(15)                | 1     | Uniquely identifies the CDR within the CPOs platform (and suboperator platforms).                                  |
 | start_date_time  | [DateTime](types.md#11_datetime_type)                    | 1     | Start timestamp of the charging session                                                                                                                                                                 | 
 | dimensions       | [CdrDimension](51-cdrdimension-class)                    | +     | List of applicable quantities that have impact on total costs.                                                 | 
-| kwh              | [Decimal](types.md#12_decimal_type)                      | 1     | Amount of kWh charged                                                                                             | 
 | location         | [Location](bo_locations_and_evses.md#41-location-object) | 1     | Location were the charging session took place, see: [Locations & EVSEs](bo_locations_and_evses.md)             | 
 | evse             | [EVSE](bo_locations_and_evses.md#42-evse-object)         | 1     | EVSE used for this charging session, see: [Locations & EVSEs](bo_locations_and_evses.md)                         |
 | connector_id     | [String](types.md#15_string_type)(15)                    | 1     | Identifier of the connector used, relevant Connector Object is part of the Location Object provided with this CDR | 
