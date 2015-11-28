@@ -178,28 +178,8 @@ Describes a session in the eMSP platform
 | cost                 | string         | 1     |  |
 | max_power            | int            | 1     |  |
 
-### Object Template
-
-| Property  | Type        | Card. | Description                    |
-|-----------|-------------|-------|--------------------------------|
-|           |             |       |                                |
-|           |             |       |                                |
-
-
-### Enum Template
-
-| Value     | Description                                          |
-| --------- | ---------------------------------------------------- |
-|           |                                                      |
-|           |                                                      |
-
 
 ---
-
-
-
-
-
 
 
 ## Appendix: Figures
