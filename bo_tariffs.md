@@ -133,11 +133,13 @@ When the list of _elements_ contains more then 1 element, then the first tariff 
 It is advised to always set a "default" tariff, the last tariff in the list of _elements_ with no restriction. This acts as a fallback when
 non the the TariffElements before this matches the current charging period.   
 
-| Property        | Type                                     | Card. | Description                                                                           |
-|-----------------|------------------------------------------|-------|---------------------------------------------------------------------------------------|
-| id              | string(15)                               | 1     | Uniquely identifies the tariff within the CPOs platform (and suboperator platforms).  |
-| currency        | string(3)                                | 1     | Currency of this tariff, ISO 4217 Code                                                |
-| elements        | [TariffElement](#53-tariffelement-class) | +     | List of tariff elements                                                               |
+| Property        | Type                                         | Card. | Description                                                                           | 
+|-----------------|----------------------------------------------|-------|---------------------------------------------------------------------------------------| 
+| id              | string(15)                                   | 1     | Uniquely identifies the tariff within the CPOs platform (and suboperator platforms).  | 
+| currency        | string(3)                                    | 1     | Currency of this tariff, ISO 4217 Code                                                | 
+| tariff_alt_text | [DisplayText](types.md#15-displaytext-class) | *     | List of multi language alternative tariff info text                                   | 
+| tariff_alt_url  | [URL](types.md#14_url_type)                  | ?     | Alternative URL to tariff info                                                        | 
+| elements        | [TariffElement](#53-tariffelement-class)     | +     | List of tariff elements                                                               | 
 
 
 ## 5. Data types

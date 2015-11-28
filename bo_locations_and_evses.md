@@ -6,7 +6,6 @@ The location and EVSE objects live in the operators backend system. They
 describe the charging locations of that operator.
 
 
-
 ## 1. Inheritances
 
 ### 1.1 Service Provider Inheritors
@@ -20,7 +19,6 @@ endpoint (pull mode) or by calling [PUT](#321-put-method) and
 The inheritance might differ from the master object due to different
 needs and capabilities of the provider. However, it should follow all
 updates to the master object as good as possible.
-
 
 
 ## 2. Flow and Lifecycle
@@ -49,7 +47,6 @@ for non-existant master objects. Each of their own valid inheritances
 GET-request have to be marked as invalid by setting `status` to `INOPERATIVE`.
 
 ![Lifecycle][location-lifecycle]
-
 
 
 ## 3. Interfaces and endpoints
@@ -480,7 +477,7 @@ An *EVSE* object has a list of connectors which can not be used simultaneously: 
 | floor_level          | [String](types.md#15-string-type)(4)               | ?     | Level on which the charging station is located (in garage buildings) in the locally displayed numbering scheme. |
 | coordinates          | [GeoLocation](#57-geolocation-class)               | ?     | Coordinates of the EVSE.                               |
 | physical_number      | [String](types.md#15-string-type)(4)               | ?     | A number on the EVSE for visual identification.        |
-| directions           | [DisplayText](types.md#15-displaytext-class)       | *     | Human-readable directions when more detailed information on how to reach the EVSE from the *Location* is required. |
+| directions           | [DisplayText](types.md#15-displaytext-class)       | *     | Multi-language human-readable directions when more detailed information on how to reach the EVSE from the *Location* is required. |
 | parking_restrictions | [ParkingRestriction](#512-parkingrestriction-enum) | *     | The restrictions that apply to the parking spot.       |
 | images               | [Image](#59-image-class)                           | *     | Links to images related to the EVSE such as photos or logos. |
 
@@ -522,8 +519,6 @@ A connector is the socket or cable available for the EV to make use of. A single
 | voltage              | int                                         | 1     | Voltage of the connector (line to neutral for AC_3_PHASE), in volt [V]. |
 | amperage             | int                                         | 1     | maximum amperage of the connector, in ampere [A].                       |
 | tariff_id            | string(15)                                  | ?     | Identifier of the current charging tariff structure                     |
-| tariff_alt_text      | string(512)                                 | ?     | Alternative tariff info text (without any markup, so no HTML or Markdown etc) |
-| tariff_alt_url       | [URL](types.md#14_url_type)                 | ?     | Alternative URL to tariff info                                          |
 | terms_and_conditions | [URL](types.md#14_url_type)                 | ?     | URL to the operator's terms and conditions.                             |
 
 

@@ -43,7 +43,7 @@ Example:
 | Property        | Type                           | Card. | Description                                                       |
 |-----------------|--------------------------------|-------|-------------------------------------------------------------------|
 | language        | [String](#15-string-type)(2)   | 1     | Language Code ISO 639-1                                           |
-| text            | [String](#15-string-type)(255) | 1     | Text to be displayed to a end user. No markup, html etc. allowed. |
+| text            | [String](#15-string-type)(512) | 1     | Text to be displayed to a end user. No markup, html etc. allowed. |
 
 Example:
  
