@@ -139,10 +139,10 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 
 ### 5.2 CdrDimension *class*
 
-| Property        | Type                                            | Card. | Description                                    |
-|-----------------|-------------------------------------------------|-------|------------------------------------------------|
-| type            | [DimensionType](types.md#13-dimensiontype-enum) | 1     | Type of cdr dimension, see: [Types](types.md). |
-| volume          | [Decimal](types.md#12_decimal_type)             | 1     | Duration of this period in seconds.            |
+| Property        | Type                                            | Card. | Description                                                                 |
+|-----------------|-------------------------------------------------|-------|-----------------------------------------------------------------------------|
+| type            | [DimensionType](types.md#13-dimensiontype-enum) | 1     | Type of cdr dimension, see: [Types](types.md).                              |
+| volume          | [Decimal](types.md#12_decimal_type)             | 1     | Volume of the dimension consumed, measured according to the dimension type. |
 
 
 ### 5.3 ChargingPeriod *class*
