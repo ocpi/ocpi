@@ -503,8 +503,10 @@ The capabilities of an EVSE.
 
 | Value                    | Description                                                                                  |
 |--------------------------|----------------------------------------------------------------------------------------------|
-| RESERVABLE               | The EVSE can be reserved.                                                                    |
 | CHARGING_PROFILE_CAPABLE | The EVSE supports charging profiles. Sending Charging Profiles is not yet supported by OCPI. |
+| CREDIT_CARD_PAYABLE      | Charging at this EVSE can be payed with credit card                                          |
+| RESERVABLE               | The EVSE can be reserved.                                                                    |
+| RFID_READER              | Charging at this EVSE can be authorized with a RFID token                                    |
 
 
 ### 5.3 Connector *class*
