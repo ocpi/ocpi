@@ -623,12 +623,15 @@ The recommended dimensions for logos are exactly 512 pixels wide and 512 pixels 
 
 The category of an image to obtain the correct usage in an user presentation. Has to be set accordingly to the image content in order to guaranty the right usage.
 
-| Value          | Description |
-|----------------|-------------|
-| charger        | Photo of the physical device that contains one or more EVSEs. |
-| location       | Location overview photo. |
-| entrance       | Location entrance photo. Should show the car entrance to the location from street side. |
-| other          | Other |
+| Value          | Description                                                                                                                  |
+|----------------|------------------------------------------------------------------------------------------------------------------------------|
+| charger        | Photo of the physical device that contains one or more EVSEs.                                                                |
+| entrance       | Location entrance photo. Should show the car entrance to the location from street side.                                      |
+| location       | Location overview photo.                                                                                                     |
+| network        |  logo of a associated roaming network to be displayed with the EVSE for example in lists, maps and detailed information view |
+| operator       |  logo of the charge points operator, for example a municipal, to be displayed with the EVSEs detailed information view or in lists and maps, if no networkLogo is present |
+| other          | Other                                                                                                                        |
+| owner          |  logo of the charge points owner, for example a local store, to be displayed with the EVSEs detailed information view        |
 
 
 ### 5.11 LocationType *enum*
