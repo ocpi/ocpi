@@ -34,7 +34,7 @@ the new object. This creates also an inheritance (B).
 
 Any changes to the master object in the operator's system are
 forwarded to all inheritances (A) in all subscribed provider systems by
-callung [PATCH](#322-patch-method) on their locations endpoint.
+calling [PATCH](#322-patch-method) on their locations endpoint.
 Providers who do not support push mode need to call
 [GET](#311-get-method) on the operator's location endpoint to receive
 the updates in the master object. This updates their inheritance (B).
