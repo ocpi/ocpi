@@ -501,10 +501,10 @@ An *EVSE* object has a list of connectors which can not be used simultaneously: 
 
 The capabilities of an EVSE.
 
-| Value                    | Description                          |
-|--------------------------|--------------------------------------|
-| RESERVABLE               | The EVSE can be reserved.            |
-| CHARGING_PROFILE_CAPABLE | The EVSE supports charging profiles. |
+| Value                    | Description                                                                                  |
+|--------------------------|----------------------------------------------------------------------------------------------|
+| RESERVABLE               | The EVSE can be reserved.                                                                    |
+| CHARGING_PROFILE_CAPABLE | The EVSE supports charging profiles. Sending Charging Profiles is not yet supported by OCPI. |
 
 
 ### 5.3 Connector *class*
