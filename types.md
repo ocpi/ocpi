@@ -1,6 +1,17 @@
 ## Types
 
-### 1.1 DimensionType *enum*
+### 1.1 DateTime
+
+All timestamps are formatted as string(25) using the combined date and time format from the ISO 8601 standard. The absence of the timezone designator implies a UTC timestamp.
+
+
+Example:
+
+    2015-06-29T22:39:09+02:00
+    2015-06-29T20:39:09Z
+    2015-06-29T20:39:09
+
+### 1.2 DimensionType *enum*
 
 | Value        | Description                                          |
 | ------------ | ---------------------------------------------------- |
@@ -12,3 +23,16 @@
 | time         | defined in hours, default division is 1 second       |
 
 
+### 1.3 Decimals
+
+Decimals are formatted as strings following JSON's number format. They are explicitely expressed as strings to make it clear that they should be interpreted as exact decimals and not as floating points or doubles.
+
+Example:
+
+    "0.68"
+    "3.1415"
+
+
+### 1.4 URLs
+
+An URL a string(255) type following the [w3.org spec](http://www.w3.org/Addressing/URL/uri-spec.html).
