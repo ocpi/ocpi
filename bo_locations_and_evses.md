@@ -480,7 +480,7 @@ An *EVSE* object has a list of connectors which can not be used simultaneously: 
 | floor_level          | string(4)                                          | ?     | Level on which the charging station is located (in garage buildings) in the locally displayed numbering scheme. |
 | coordinates          | [GeoLocation](#57-geolocation-class)               | ?     | Coordinates of the EVSE.                               |
 | physical_number      | int                                                | ?     | A number on the EVSE for visual identification.        |
-| directions           | string(255)                                        | ?     | Human-readable directions when more detailed information on how to reach the EVSE from the *Location* is required. |
+| directions           | [DisplayText](types.md#15-displaytext-class)       | *     | Human-readable directions when more detailed information on how to reach the EVSE from the *Location* is required. |
 | parking_restrictions | [ParkingRestriction](#512-parkingrestriction-enum) | *     | The restrictions that apply to the parking spot.       |
 | images               | [Image](#59-image-class)                           | *     | Links to images related to the EVSE such as photos or logos. |
 
