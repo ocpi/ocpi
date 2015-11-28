@@ -471,15 +471,15 @@ An *EVSE* object has a list of connectors which can not be used simultaneously: 
 
 | Property             | Type                                               | Card. | Description                                            |
 |----------------------|----------------------------------------------------|-------|--------------------------------------------------------|
-| id                   | string(48)                                         | 1     | Uniquely identifies the EVSE within the CPOs platform (and suboperator platforms). |
-| location_id          | string(15)                                         | 1     | The id of the *Location* object that contains this EVSE. If the *Location* object does not exist, this EVSE may be discarded (and it should not have been sent in the first place).   |
+| id                   | [String](types.md#15-string-type)(48)              | 1     | Uniquely identifies the EVSE within the CPOs platform (and suboperator platforms). |
+| location_id          | [String](types.md#15-string-type)(15)              | 1     | The id of the *Location* object that contains this EVSE. If the *Location* object does not exist, this EVSE may be discarded (and it should not have been sent in the first place).   |
 | status               | [Status](#515-status-enum)                         | 1     | Indicates the current status of the EVSE.              |
 | status_schedule      | [StatusSchedule](#516-statusschedule-class)        | *     | Indicates a planned status in the future of the EVSE.  |
 | capabilities         | [Capability](#52-capability-enum)                  | *     | List of functionalities that the EVSE is capable of.   |
 | connectors           | [Connector](#53-connector-class)                   | +     | List of available connectors on the EVSE.              |
-| floor_level          | string(4)                                          | ?     | Level on which the charging station is located (in garage buildings) in the locally displayed numbering scheme. |
+| floor_level          | [String](types.md#15-string-type)(4)               | ?     | Level on which the charging station is located (in garage buildings) in the locally displayed numbering scheme. |
 | coordinates          | [GeoLocation](#57-geolocation-class)               | ?     | Coordinates of the EVSE.                               |
-| physical_number      | int                                                | ?     | A number on the EVSE for visual identification.        |
+| physical_number      | [String](types.md#15-string-type)(4)               | ?     | A number on the EVSE for visual identification.        |
 | directions           | [DisplayText](types.md#15-displaytext-class)       | *     | Human-readable directions when more detailed information on how to reach the EVSE from the *Location* is required. |
 | parking_restrictions | [ParkingRestriction](#512-parkingrestriction-enum) | *     | The restrictions that apply to the parking spot.       |
 | images               | [Image](#59-image-class)                           | *     | Links to images related to the EVSE such as photos or logos. |
