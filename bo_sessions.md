@@ -110,21 +110,21 @@ The response will contain the updated _EMSPSession_ object.
 
 ### 4.1 _Session_ Object
 
-| Property          | Type              | Card. | Description                                                    |
-|-------------------|-------------------|-------|----------------------------------------------------------------|
-| id                | string            | 1     | The unique id that identifies the session in the CPO platform. |
-| start_datetime    | DateTime          | 1     | The time when the session became active.     |
-| end_datetime      | DateTime          | ?     | The time when the session is completed.      |
-| kwh               | Decimal           | 1     | How many kWh are charged.                    |
-| auth_id           | string            | 1     | An id provided by the authentication mechanism so that the eMSP knows to which driver the session belongs. |
-| location          | [Location](bo_locations_and_evses.md#41-location-object) | 1     | The location where this session took place. |
-| evse              | [EVSE](bo_locations_and_evses.md#42-evse-object)        | 1     | The EVSE that was used for this session. |
-| connector_number  | int               | 1     | Zero-based index of the connector used at the EVSE.  |
-| meter_id          | string            | ?     | Optional identification of the kWh meter.            |
-| currency          | string            | 1     | ISO 4217 code of the currency used for this session. |
-| charging_periods  | [ChargingPeriod](#52-chargingperiod-type) | *     | An optional list of charging periods that can be used to calculate and verify the total cost. |
-| total_cost        | Decimal           | 1     | The total cost (excluding VAT) of the session in the specified currency. This is the price that the eMSP will have to pay to the CPO. |
-| status            | [SessionStatus](#51-sessionstatus-enum) | 1     | The status of the session. |
+| Property          | Type                                                       | Card. | Description                                                                                                    |
+|-------------------|------------------------------------------------------------|-------|----------------------------------------------------------------------------------------------------------------|
+| id                | string                                                     | 1     | The unique id that identifies the session in the CPO platform.                                                 |
+| start_datetime    | [DateTime](types.md#11_datetime_type)                      | 1     | The time when the session became active.                                                                       |
+| end_datetime      | [DateTime](types.md#11_datetime_type)                      | ?     | The time when the session is completed.                                                                        |
+| kwh               | [Decimal](types.md#12_decimal_type)                        | 1     | How many kWh are charged.                                                                                      |
+| auth_id           | string                                                     | 1     | An id provided by the authentication mechanism so that the eMSP knows to which driver the session belongs.     |
+| location          | [Location](bo_locations_and_evses.md#41-location-object)   | 1     | The location where this session took place.                                                                    |
+| evse              | [EVSE](bo_locations_and_evses.md#42-evse-object)           | 1     | The EVSE that was used for this session.                                                                       |
+| connector_number  | int                                                        | 1     | Zero-based index of the connector used at the EVSE.                                                            |
+| meter_id          | string                                                     | ?     | Optional identification of the kWh meter.                                                                      |
+| currency          | string                                                     | 1     | ISO 4217 code of the currency used for this session.                                                           |
+| charging_periods  | [ChargingPeriod](#52-chargingperiod-type)                  | *     | An optional list of charging periods that can be used to calculate and verify the total cost.                  |
+| total_cost        | [Decimal](types.md#12_decimal_type)                        | 1     | The total cost (excluding VAT) of the session in the specified currency. This is the price that the eMSP will have to pay to the CPO. |
+| status            | [SessionStatus](#51-sessionstatus-enum)                    | 1     | The status of the session.                                                                                     |
 | endpoints         | [Endpoint](version_information_endpoint.md#endpoint-class) | *     | Lists the related endpoints to the session. These are specific for each party. See below for more information. |
 
 
@@ -169,14 +169,14 @@ Describes a session in the eMSP platform
 
 ### 5.2 ChargingPeriod *type*
 
-| Property  | Type        | Card. | Description                              |
-|-----------|-------------|-------|------------------------------------------|
-| start_datetime       | DateTime       | 1     |  |
-| end_datetime         | DateTime       | 1     |  |
-| tariff_number        | string         | 1     |  |
-| kwh                  | int            | 1     |  |
-| cost                 | string         | 1     |  |
-| max_power            | int            | 1     |  |
+| Property             | Type                                  | Card. | Description                              |
+|----------------------|---------------------------------------|-------|------------------------------------------|
+| start_datetime       | [DateTime](types.md#11_datetime_type) | 1     |                                          |
+| end_datetime         | [DateTime](types.md#11_datetime_type) | 1     |                                          |
+| tariff_number        | string                                | 1     |                                          |
+| kwh                  | int                                   | 1     |                                          |
+| cost                 | string                                | 1     |                                          |
+| max_power            | int                                   | 1     |                                          |
 
 
 ---

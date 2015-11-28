@@ -495,7 +495,7 @@ An *EVSE* object has a list of connectors which can not be used simultaneously: 
 | Property         | Type                       | Card. | Description                        |
 |------------------|----------------------------|-------|------------------------------------|
 | name             | string(100)                | 1     | Name of the operator.              |
-| website          | [URL](terminology.md#urls) | ?     | Link to the operator's website.    |
+| website          | [URL](types.md#14_url_type)     | ?     | Link to the operator's website.    |
 | logo             | [Image](#59-image-class)   | ?     | Image link to the operator's logo. |
 
 
@@ -523,8 +523,8 @@ A connector is the socket or cable available for the EV to make use of. A single
 | amperage             | int                                         | 1     | maximum amperage of the connector, in ampere [A].                       |
 | tariff_id            | string(15)                                  | ?     | Identifier of the current charging tariff structure                     |
 | tariff_alt_text      | string(512)                                 | ?     | Alternative tariff info text (without any markup, so no HTML or Markdown etc) |
-| tariff_alt_url       | [URL](terminology.md#urls)                  | ?     | Alternative URL to tariff info                                          |
-| terms_and_conditions | [URL](terminology.md#urls)                  | ?     | URL to the operator's terms and conditions.                             |
+| tariff_alt_url       | [URL](types.md#14_url_type)                 | ?     | Alternative URL to tariff info                                          |
+| terms_and_conditions | [URL](types.md#14_url_type)                 | ?     | URL to the operator's terms and conditions.                             |
 
 
 ### 5.4 ConnectorFormat *enum*
@@ -574,18 +574,18 @@ The socket or plug standard of the charging point.
 
 Specifies one exceptional period for opening or access hours.
 
- Field Name   |  Field Type                          |  Card.  |  Description
---------------|--------------------------------------|---------|-------------
- period_begin | [DateTime](terminology.md#datetime) |  1      |  Begin of the exception.
- period_end   | [DateTime](terminology.md#datetime) |  1      |  End of the exception.
+ Field Name   |  Field Type                           |  Card.  |  Description
+--------------|---------------------------------------|---------|-------------
+ period_begin | [DateTime](types.md#11_datetime_type) |  1      |  Begin of the exception.
+ period_end   | [DateTime](types.md#11_datetime_type) |  1      |  End of the exception.
 
 
 ### 5.7 GeoLocation *class*
 
-| Property         | Type         | Card. | Description                        |
-|------------------|--------------|-------|------------------------------------|
-| latitude         | decimal      | 1     | Latitude in decimal format.        |
-| longitude        | decimal      | 1     | Longitude in decimal format.       |
+| Property         | Type                                | Card. | Description                        |
+|------------------|-------------------------------------|-------|------------------------------------|
+| latitude         | [Decimal](types.md#12_decimal_type) | 1     | Latitude in decimal format.        |
+| longitude        | [Decimal](types.md#12_decimal_type) | 1     | Longitude in decimal format.       |
 
 
 ### 5.8 Hours *class*
@@ -613,8 +613,8 @@ The recommended dimensions for logos are exactly 512 pixels wide and 512 pixels 
 
 | Field Name | Field Type                               | Card. | Description                           |
 |------------|------------------------------------------|-------|---------------------------------------|
-| url        | string(255)                              | 1     | URL from where the image data can be fetched through a web browser. |
-| thumbnail  | string(255)                              | ?     | URL from where a thumbnail of the image can be fetched through a webbrowser. |
+| url        | [URL](types.md#14_url_type)              | 1     | URL from where the image data can be fetched through a web browser. |
+| thumbnail  | [URL](types.md#14_url_type)              | ?     | URL from where a thumbnail of the image can be fetched through a webbrowser. |
 | category   | [ImageCategory](#510-imagecategory-enum) | 1     | Describes what the image is used for. |
 | type       | string(4)                                | 1     | Image type like: gif, jpeg, png, svg  |
 | width      | int(5)                                   | ?     | Width of the full scale image         |
@@ -761,11 +761,11 @@ The status of an EVSE.
 
 This type is used to schedule status periods in the future. The eMSP can provide this information to the EV user for trip planning purpose. A period MAY have no end. Example: "This station will be running from tomorrow. Today it is still planned and under construction."
 
-| Property         | Type                                 | Card. | Description                                            |
-|------------------|--------------------------------------|-------|--------------------------------------------------------|
-| period_begin     | [DateTime](terminology.md#datetime) | 1     | Begin of the scheduled period.                         |
-| period_end       | [DateTime](terminology.md#datetime) | ?     | End of the scheduled period, if known.                 |
-| status           | [Status](#515-status-enum)           | 1     | Status value during the scheduled period.              |
+| Property         | Type                                  | Card. | Description                                            |
+|------------------|---------------------------------------|-------|--------------------------------------------------------|
+| period_begin     | [DateTime](types.md#11_datetime_type) | 1     | Begin of the scheduled period.                         |
+| period_end       | [DateTime](types.md#11_datetime_type) | ?     | End of the scheduled period, if known.                 |
+| status           | [Status](#515-status-enum)            | 1     | Status value during the scheduled period.              |
 
 Note that the scheduled status is purely informational. When the status actually changes, the CPO must push an update to the EVSEs `status` field itself.
 

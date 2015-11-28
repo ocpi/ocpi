@@ -24,10 +24,10 @@ Both the CPO and the eMSP must have this endpoint.
 
 #### Version *class*
 
-| Property | Type     | Card. | Description                               |
-|----------|----------|-------|-------------------------------------------|
-| version  | decimal  | 1     | The version number.                       |
-| url      | URL      | 1     | URL to the endpoint containing version specific information. |
+| Property | Type                        | Card. | Description                               |
+|----------|-----------------------------|-------|-------------------------------------------|
+| version  | decimal                     | 1     | The version number.                       |
+| url      | [URL](types.md#14_url_type) | 1     | URL to the endpoint containing version specific information. |
 
 ### GET
 
@@ -64,17 +64,17 @@ Both the CPO and the eMSP must have this endpoint.
 
 ### Data
 
-| Property  | Type     | Card. | Description                                     |
-|-----------|----------|-------|-------------------------------------------------|
-| version   | deciumal | 1     | The version number.                             |
-| endpoints | Endpoint | +     | A list of supported endpoints for this version. |
+| Property  | Type                                | Card. | Description                                     |
+|-----------|-------------------------------------|-------|-------------------------------------------------|
+| version   | [Decimal](types.md#12_decimal_type) | 1     | The version number.                             |
+| endpoints | Endpoint                            | +     | A list of supported endpoints for this version. |
 
 #### Endpoint *class*
 
-| Property    | Type       | Card. | Description                               |
-|-------------|------------|-------|-------------------------------------------|
-| identifier  | ModuleID   | 1     | Endpoint identifier.                      |
-| url         | URL        | 1     | URL to the endpoint.                      |
+| Property    | Type                   | Card. | Description                               |
+|-------------|------------------------|-------|-------------------------------------------|
+| identifier  | ModuleID               | 1     | Endpoint identifier.                      |
+| url         | [URL](types.md#14_url) | 1     | URL to the endpoint.                      |
 
 #### ModuleID *enum*
 

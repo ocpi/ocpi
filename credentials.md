@@ -17,11 +17,11 @@ Example: `/ocpi/cpo/2.0/credentials` and `/ocpi/emsp/2.0/credentials`
 
 #### Credentials object
 
-| Property         | Type             | Card. | Description                               |
-|------------------|------------------|-------|-------------------------------------------|
-| token            | String           | 1     | The token for the other party to authenticate in your system. |
-| url              | String           | 1     | The URL to your API versions endpoint.    |
-| business_details | BusinessDetails  | 1     | Details of the other party.               |
+| Property         | Type                        | Card. | Description                                                   |
+|------------------|-----------------------------|-------|---------------------------------------------------------------|
+| token            | String                      | 1     | The token for the other party to authenticate in your system. |
+| url              | [URL](types.md#14_url_type) | 1     | The URL to your API versions endpoint.                        |
+| business_details | BusinessDetails             | 1     | Details of the other party.                                   |
 
 
 ### Example

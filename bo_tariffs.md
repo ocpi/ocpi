@@ -157,11 +157,11 @@ non the the TariffElements before this matches the current charging period.
 
 ### 5.2 PriceComponent *class*
 
-| Property        | Type          | Card. | Description                                      |
-|-----------------|---------------|-------|--------------------------------------------------|
-| type            | [DimensionType](types.md#11-dimensiontype-enum) | 1     | Type of tariff dimension, see: [Types](types.md) |
-| price           | decimal       | 1     | price per unit for this tariff dimension         |
-| step_size       | int           | 1     | Minimum amount to be billed. This unit will be billed in this step_size blocks. For example: if type is time and  step_size is 300, then time will be billed in blocks of 5 minutes, so if 6 minutes is used, 10 minutes (2 blocks of step_size) will be billed. |
+| Property        | Type                                            | Card. | Description                                      |
+|-----------------|-------------------------------------------------|-------|--------------------------------------------------|
+| type            | [DimensionType](types.md#13-dimensiontype-enum) | 1     | Type of tariff dimension, see: [Types](types.md) |
+| price           | [Decimal](types.md#12_decimal_type)             | 1     | price per unit for this tariff dimension         |
+| step_size       | int                                             | 1     | Minimum amount to be billed. This unit will be billed in this step_size blocks. For example: if type is time and  step_size is 300, then time will be billed in blocks of 5 minutes, so if 6 minutes is used, 10 minutes (2 blocks of step_size) will be billed. |
 
 
 ### 5.3 TariffElement *class*
@@ -174,19 +174,19 @@ non the the TariffElements before this matches the current charging period.
 
 ### 5.4 TariffRestrictions *class*
 
-| Property        | Type                           | Card. | Description                                                                           |
-|-----------------|--------------------------------|-------|---------------------------------------------------------------------------------------|
-| start_time      | string(5)                      | ?     | Start time of day, for example 13:30, valid from this time of the day                 |
-| end_time        | string(5)                      | ?     | End time of day, for example 19:45, valid until this time of the day                  |
-| start_date      | string(10)                     | ?     | Start date, for example: 2015-12-24, valid from this day                              |
-| end_date        | string(10)                     | ?     | End date, for example: 2015-12-27, valid until this day (excluding this day)          |
-| min_kwh         | decimal                        | ?     | Minimum used energy in kWh, for example 20, valid from this amount of energy is used  |                             
-| max_kwh         | decimal                        | ?     | Maximum used energy in kWh, for example 50, valid until this amount of energy is used |
-| min_power       | decimal                        | ?     | Minimum power in kW, for example 0, valid from this charging speed                    |
-| max_power       | decimal                        | ?     | Maximum power in kW, for example 20, valid up to this charging speed                  |
-| min_duration    | int                            | ?     | Minimum duration in seconds, valid for a duration from x seconds                      |
-| max_duration    | int                            | ?     | Maximum duration in seconds, valid for a duration up to x seconds                     |
-| day_of_week     | [DayOfWeek](51-dayofweek-enum) | *     | Which day(s) of the week this tariff is valid                                         |
+| Property        | Type                                | Card. | Description                                                                           |
+|-----------------|-------------------------------------|-------|---------------------------------------------------------------------------------------|
+| start_time      | string(5)                           | ?     | Start time of day, for example 13:30, valid from this time of the day                 |
+| end_time        | string(5)                           | ?     | End time of day, for example 19:45, valid until this time of the day                  |
+| start_date      | string(10)                          | ?     | Start date, for example: 2015-12-24, valid from this day                              |
+| end_date        | string(10)                          | ?     | End date, for example: 2015-12-27, valid until this day (excluding this day)          |
+| min_kwh         | [Decimal](types.md#12_decimal_type) | ?     | Minimum used energy in kWh, for example 20, valid from this amount of energy is used  |                             
+| max_kwh         | [Decimal](types.md#12_decimal_type) | ?     | Maximum used energy in kWh, for example 50, valid until this amount of energy is used |
+| min_power       | [Decimal](types.md#12_decimal_type) | ?     | Minimum power in kW, for example 0, valid from this charging speed                    |
+| max_power       | [Decimal](types.md#12_decimal_type) | ?     | Maximum power in kW, for example 20, valid up to this charging speed                  |
+| min_duration    | int                                 | ?     | Minimum duration in seconds, valid for a duration from x seconds                      |
+| max_duration    | int                                 | ?     | Maximum duration in seconds, valid for a duration up to x seconds                     |
+| day_of_week     | [DayOfWeek](51-dayofweek-enum)      | *     | Which day(s) of the week this tariff is valid                                         |
 
 
 
