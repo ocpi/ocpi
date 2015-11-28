@@ -43,22 +43,27 @@ Push is the preferred model to use, the eMSP will receive CDRs when created by t
 
 The CDRs endpoint can be used to create or retrieve CDRs.
 
-Example endpoint structure: `/ocpi/cpo/2.0/cdrs/`
+Example endpoint structure: `/ocpi/cpo/2.0/cdrs/?date_from=xxx&date_to=yyy`
 
-| Method                  | Description                                          |
-|-------------------------|------------------------------------------------------|
-| [GET](#311-get-method)  | Receive all CDRs for the requesting provider.        |
-| POST                    | n/a                                                  |
-| PUT                     | n/a                                                  |
-| PATCH                   | n/a                                                  |
-| DELETE                  | n/a                                                  |
+| Method                  | Description                                                                      |
+|-------------------------|----------------------------------------------------------------------------------|
+| [GET](#311-get-method)  | Fetch CDRs of charging sessions started between the {date_from} and {date_to}    |
+| POST                    | n/a                                                                              |
+| PUT                     | n/a                                                                              |
+| PATCH                   | n/a                                                                              |
+| DELETE                  | n/a                                                                              |
 
 
 #### 3.1.1 __GET__ Method
 
-Fetch information about all CDRs from the CPO systems.
+Fetch CDRs from the CPO systems. Only CDRs of charging sessions with a start date/time between the given date_from and date_to will be returned.
 
-_NOTE: querying for CDRs with parameters is not yet part of OCPI_
+| Parameter  | Datatype                              | Required | Description                                                                   |
+|------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
+| date_from  | [DateTime](types.md#11_datetime_type) | yes      | Begin charging session start Date/Time of CDRs to fetch.                      |
+| date_to    | [DateTime](types.md#11_datetime_type) | no       | End charging session start Date/Time of CDRs to fetch, if omitted all CDRs up to now are request to be returned. |
+
+_NOTE: The CPO is allowed to return a (not specified) maximum amount of CDRs, to prevent overloading there system. In this version of OCPI it is not possible to detect if the CPO returned not all CDRs that match the filter._  
 
 ##### Data
 
