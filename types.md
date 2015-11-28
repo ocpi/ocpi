@@ -1,5 +1,9 @@
 ## Types
 
+### 1.1 CiString *type*
+
+Case Insensitive String. Only printable ASCII allowed.
+
 ### 1.1 DateTime *type*
  
 All timestamps are formatted as string(25) using the combined date and time format from the ISO 8601 standard. The absence of the timezone designator implies a UTC timestamp.
@@ -34,6 +38,12 @@ Example:
 | time         | defined in hours, default division is 1 second       |
 
 
+### 1.5 String *type*
+
+Case Sensitive String. Only printable ASCII allowed. All strings in
+messages and enumerations are case sensitive, unless explicitly stated
+otherwise.
+    
 ### 1.4 URL *type*
 
 An URL a string(255) type following the [w3.org spec](http://www.w3.org/Addressing/URL/uri-spec.html).

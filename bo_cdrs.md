@@ -130,15 +130,15 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 
 | Property         | Type                                                     | Card. | Description                                                                                                       |
 |------------------|----------------------------------------------------------|-------|---------------------------------------------------------------------------------------------------------------------|
-| id               | string(15)                                               | 1     | Uniquely identifies the CDR within the CPOs platform (and suboperator platforms).                                  |
+| id               | [CiString](types.md#11_cistring_type)(15)                | 1     | Uniquely identifies the CDR within the CPOs platform (and suboperator platforms).                                  |
 | start_date_time  | [DateTime](types.md#11_datetime_type)                    | 1     | Start timestamp of the charging session                                                                                                                                                                 | 
 | dimensions       | [CdrDimension](51-cdrdimension-class)                    | +     | List of applicable quantities that have impact on total costs.                                                 | 
 | kwh              | [Decimal](types.md#12_decimal_type)                      | 1     | Amount of kWh charged                                                                                             | 
 | location         | [Location](bo_locations_and_evses.md#41-location-object) | 1     | Location were the charging session took place, see: [Locations & EVSEs](bo_locations_and_evses.md)             | 
 | evse             | [EVSE](bo_locations_and_evses.md#42-evse-object)         | 1     | EVSE used for this charging session, see: [Locations & EVSEs](bo_locations_and_evses.md)                         |
-| connector_id     | string(15)                                               | 1     | Identifier of the connector used, relevant Connector Object is part of the Location Object provided with this CDR | 
-| meter_id         | string(255)                                              | ?     | Identification of the Meter inside the Charge Point                                                                  | 
-| currency         | string(3)                                                | 1     | Currency of the CDR in ISO 4217 Code                                                                                                                                   | 
+| connector_id     | [String](types.md#15_string_type)(15)                    | 1     | Identifier of the connector used, relevant Connector Object is part of the Location Object provided with this CDR | 
+| meter_id         | [String](types.md#15_string_type)(255)                   | ?     | Identification of the Meter inside the Charge Point                                                                  | 
+| currency         | [String](types.md#15_string_type)(3)                     | 1     | Currency of the CDR in ISO 4217 Code                                                                                                                                   | 
 | tariffs          | [Tariff](bo_tariffs.md#41-tariff-object)                 | *     | List of relevant tariff elements, see: [Tariffs](bo_tariffs.md)                                               | 
 | status           | [CdrStatus](#52-cdrstatus-enum)                          | 1     | Status of this CDR                                                   | 
 | charging_periods | [ChargingPeriod](#53-chargingperiod-class)               | +     | List of charging periods that make up this charging session. A session consist of 1 or more periodes with, each period has a different relevant Tariff | 
