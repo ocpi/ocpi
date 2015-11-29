@@ -122,10 +122,9 @@ The response will contain the updated _EMSPSession_ object.
 | connector_id      | [string](types.md#15-string-type)(15)                      | 1     | Connector ID of the connector used at the EVSE.                                                                |
 | meter_id          | [string](types.md#15-string-type)                          | ?     | Optional identification of the kWh meter.                                                                      |
 | currency          | [string](types.md#15-string-type)(3)                       | 1     | ISO 4217 code of the currency used for this session.                                                            |
-| charging_periods  | [ChargingPeriod](#52-chargingperiod-type)                  | *     | An optional list of charging periods that can be used to calculate and verify the total cost.                  |
+| charging_periods  | [ChargingPeriod](bo_cdrs.md#53-chargingperiod-class)       | *     | An optional list of charging periods that can be used to calculate and verify the total cost. |
 | total_cost        | [decimal](types.md#12_decimal_type)                        | 1     | The total cost (excluding VAT) of the session in the specified currency. This is the price that the eMSP will have to pay to the CPO. |
 | status            | [SessionStatus](#51-sessionstatus-enum)                    | 1     | The status of the session.                                                                                     |
-
 
 
 ### 4.2 _CPOSession_ Object
@@ -138,7 +137,6 @@ Describes a session in the CPO platform
 |           |             |       |                                |
 
 
-
 ### 4.3 _EMSPSession_ Object
 
 Describes a session in the eMSP platform
@@ -147,9 +145,6 @@ Describes a session in the eMSP platform
 |-----------|-------------|-------|--------------------------------|
 | endpoints | [Endpoint](version_information_endpoint.md#endpoint-class) | * |                                |
 |           |             |       |                                |
-
-
-
 
 
 ## 5. Data types
@@ -164,16 +159,6 @@ Describes a session in the eMSP platform
 | ACTIVE    | The session is accepted and active.                                        |
 | COMPLETED | The session has finished succesfully.                                      |
 | INVALID   | The session is declared invalid and will not be billed.                    |
-
-
-### 5.2 ChargingPeriod *type*
-
-| Property             | Type                                  | Card. | Description                                      |
-|----------------------|---------------------------------------|-------|--------------------------------------------------|
-| start_date_time      | [DateTime](types.md#11_datetime_type) | 1     | Start timestamp of the charging period. This period ends when a next period starts, the last period ends when the session ends. |
-| tariff_id            | [string](types.md#15-string-type)(15) | 1     | Tariff used for this period                      |
-| wh                   | int                                   | 1     | Amount of energy, in Wh, used during this period |
-| cost                 | [decimal](types.md#12-decimal-type)   | 1     | Cost                                             |
 
 
 ---
