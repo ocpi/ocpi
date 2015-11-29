@@ -21,8 +21,8 @@ Tariffs endpoint with the newly create Tariff(s)
 Any changes to the Tariff(s) in the CPO system are send to the eMSP system by calling [PUT](#322-put-method)
 on the eMSPs Tariffs endpoint with the updated Tariff(s).
 
-When the CPO deletes Tariff(s), they will update the eMSPs systems by calling [DELETE](#323-delete-method)
-on the eMSPs Tariffs endpoint, with a list of IDs of the Tariffs that are deleted.
+When the CPO deletes a Tariff, they will update the eMSPs systems by calling [DELETE](#323-delete-method)
+on the eMSPs Tariffs endpoint, with the ID of the Tariff that is deleted.
 
 
 ### 2.2 Pull model
@@ -72,7 +72,7 @@ The endpoint returns an object with list of valid Tariffs.
 
 The Tariff information can also be pushed to the eMSP, for this the following needs to be implemented.
 
-Example endpoint structure: `/ocpi/emsp/2.0/tariffs/`
+Example endpoint structure: `/ocpi/emsp/2.0/tariffs/` and `/ocpi/emsp/2.0/tariffs/{tariff_id}` 
 
 | Method                       | Description                                          |
 | ---------------------------- | ---------------------------------------------------- |
@@ -80,7 +80,7 @@ Example endpoint structure: `/ocpi/emsp/2.0/tariffs/`
 | [POST](#321-post-method)     | Push new Tariff Objects to the eMSP                  |
 | [PUT](#322-put-method)       | Update Tariff Objects with new information           |
 | PATCH                        | n/a                                                  |
-| [DELETE](#323-delete-method) | Remove Tariff Objects which is no longer valid       |
+| [DELETE](#323-delete-method) | Remove Tariff Object which is no longer valid        |
 
 
 #### 3.2.1 __POST__ Method
@@ -111,16 +111,13 @@ In the put request a list of updated Tariff Objects is send.
 
 #### 3.2.3 __DELETE__ Method
 
-Delete no longer valid Tariff Objects. 
+Delete no longer valid Tariff Object. 
 
-##### Data
+##### Parameters
 
-In the delete request a list of no longer valid Tariff ids is send.
-
-| Property  | Type                                  | Card. | Description                                     |
-|-----------|---------------------------------------|-------|-------------------------------------------------|
-| ids       | [string](types.md#15-string-type)(15) | +     | List of ids of tariffs that should be deleted  |
-
+| Parameter  | Datatype                              | Required | Description                               |
+|------------|---------------------------------------|----------|-------------------------------------------|
+| tariff_id  | [string](types.md#15-string-type)(15) | yes      | ID of the Tariff to be deleted            |
 
 
 ## 4. Object description
