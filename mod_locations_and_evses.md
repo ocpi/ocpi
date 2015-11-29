@@ -789,7 +789,7 @@ Note that the scheduled status is purely informational. When the status actually
 ### Lifecycle
 
 ![Lifecycle][location-lifecycle]
-[location-lifecycle]: http://plantuml.com:80/plantuml/svg/ZP713e8m44Jl_OeDT_a0OaZ06FKa1pnvMij6Qx0qPJ7uzu94Wr2KMzEPpBx96BIif3Ae6Rp4gXlQ1-nFLvBi2TCNT_f2LZ5gIH3zq69FYECY7AK5i9IMa2aKA5dTczVueXZ-G9lqVJg0v93sCWPW_oFY9cApdefe-S7tVQWqgnmgapMM4j0OGjiAhtg5gr_d3Lq4XQD5bAwsOeRvpTl7oWk9h0eDP-8ICig9AVlGrIwwpkIagwVeCfhUgg_DsA1sbvfAQMPu0W00 "Lifecycle"
+[location-lifecycle]: http://plantuml.com:80/plantuml/png/ZO_D2i8m48JlUOebT_C0HGAjY7goXthojCQ04Kt3kXLyUnD5g6tykIqxmpSp0OcTSG4zWwp9dP5kiDuThM4fGbzS-OCbn-YDXVABLaaXjXCzeXKmDMIHhHPes5tZDKuKmmyaqdjq0VMcwJ46nNuZgeXOp3yXKdzGIa7dsPsW2_jekG26O96Iy9ZNvlOzlJhNeCsiA9lPKlnXVlMz0m00 "Lifecycle"
 
 
 #### Source:
