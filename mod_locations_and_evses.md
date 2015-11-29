@@ -24,7 +24,7 @@ updates to the master object as good as possible.
 ## 2. Flow and Lifecycle
 
 When the operator creates locations and EVSEs they push them to the
-subscribed providers by calling [PUT](#321-put-method) on their
+subscribed providers by calling [PUT](#322-put-method) on their
 location endpoint. This creates an inheritance (A) of the newly created
 object. Providers who do not support push mode need to call
 [GET](#311-get-method) on the operator's location endpoint to receive
@@ -32,7 +32,7 @@ the new object. This creates also an inheritance (B).
 
 Any changes to the master object in the operator's system are
 forwarded to all inheritances (A) in all subscribed provider systems by
-calling [PATCH](#322-patch-method) on their locations endpoint.
+calling [PATCH](#323-patch-method) on their locations endpoint.
 Providers who do not support push mode need to call
 [GET](#311-get-method) on the operator's location endpoint to receive
 the updates in the master object. This updates their inheritance (B).
@@ -51,13 +51,7 @@ GET-request have to be marked as invalid by setting `status` to `INOPERATIVE`.
 
 ## 3. Interfaces and endpoints
 
-*Explain which interfaces are available and which party should implement
-which one.*
-
-
-### 3.1 Charging Platform Operator Interface
-
-*Describe the interface in detail.*
+### 3.1 CPO Interface
 
 Example endpoint structure: `/ocpi/cpo/2.0/locations`
 
@@ -301,23 +295,23 @@ Each object must contain all required fields. Fields that are not specified may 
 ```
 
 
-### 3.2 Service Provider Interface
-
-*Describe the interface in detail.*
+### 3.2 eMS Interface
 
 Example endpoint structure: `/ocpi/emsp/2.0/locations`
 
 ##### Methods
 
-| Method                        | Description                                          |
-| ----------------------------- | ---------------------------------------------------- |
-| GET                           | n/a                                                  |
-| POST                          | n/a                                                  |
-| [PUT](#321-put-method)        | Push all available locations and EVSEs to the eMSP, similar to the GET request to the CPO platform but in the other direction. |
-| [PATCH](#322-patch-method)    | Notify the eMSP of partial updates to locations and EVSEs (such as the status). |
+| Method                        | Description                                                                     |
+| ----------------------------- | ------------------------------------------------------------------------------- |
+| GET                           | n/a                                                                             |
+| [POST](#321-post-method)      | Push new locations and EVSEs to the eMSP.                                       |
+| [PUT](#322-put-method)        | Push updated locations and EVSEs to the eMSP                                    |
+| [PATCH](#323-patch-method)    | Notify the eMSP of partial updates to locations and EVSEs (such as the status). |
 | DELETE                        | n/a  _(use PATCH)_                                    |
 
 ##### Data
+
+For all methods on the eMSP interface this data definition is used.
 
 | Property  | Type                            | Card. | Description                    |
 |-----------|---------------------------------|-------|--------------------------------|
@@ -325,14 +319,21 @@ Example endpoint structure: `/ocpi/emsp/2.0/locations`
 | evses     | [EVSE](#42-evse-object)         | *     | List of EVSEs.                 |
 
 
-#### 3.2.1 __PUT__ Method
+#### 3.2.1 __POST__ Method
 
 Fully synchronize the eMSP by pushing all available locations and EVSEs. This is the exact equivalent to a GET request initiated by the eMSP to the CPO endpoint.
 
 Any location or EVSE that is not specified in the message is considered as no longer valid. Each object must contain all required fields. Fields that are not specified may be considered as null values or their default values if specified in the OCPI protocol.
 
 
-#### 3.2.2 __PATCH__ Method
+#### 3.2.2 __PUT__ Method
+
+Fully synchronize the eMSP by pushing all available locations and EVSEs. This is the exact equivalent to a GET request initiated by the eMSP to the CPO endpoint.
+
+Any location or EVSE that is not specified in the message is considered as no longer valid. Each object must contain all required fields. Fields that are not specified may be considered as null values or their default values if specified in the OCPI protocol.
+
+
+#### 3.2.3 __PATCH__ Method
 
 Update messages are similar to synchronization messages except that only the object id is required. Unlike the PUT method, only the locations and fields that are updated are specified and any fields or objects that are not specified in the update message are considered unchanged.
 
