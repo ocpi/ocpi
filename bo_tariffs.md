@@ -34,8 +34,8 @@ all Tariffs, replacing the current list of known Tariffs with the newly received
 
 ## 3. Interfaces and endpoints
 
-There is both a CPO and an eMSP interface for Tariffs. Advised is to use the push direction from eMSP to CPO during normal operation.
-The eMSP interface is mend to be used when the CPO is not 100% sure the Tariff cache is correct anymore.
+There is both a CPO and an eMSP interface for Tariffs. Advised is to use the push direction from CPO to eMSP during normal operation.
+The CPO interface is mend to be used when the eMSP is not 100% sure the Tariff cache is correct anymore.
 
 
 ### 3.1 CPO Interface
