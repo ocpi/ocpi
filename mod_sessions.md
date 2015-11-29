@@ -50,15 +50,27 @@ which one.*
 
 *Describe the interface in detail.*
 
-Example endpoint structure: `/ocpi/cpo/2.0/sessions/`
+Example endpoint structure: `/ocpi/cpo/2.0/sessions/?date_from=xxx&date_to=yyy`
 
-| Method   | Description                                          |
-| -------- | ---------------------------------------------------- |
-| GET      | Returns all _CPOSession_ objects for that provider.  |
-| POST     | n/a                                                  |
-| PUT      | n/a                                                  |
-| PATCH    | n/a                                                  |
-| DELETE   | n/a                                                  |
+| Method   | Description                                                                             |
+| -------- | --------------------------------------------------------------------------------------- |
+| GET      | Fetch Session object of charging sessions started between the {date_from} and {date_to} |
+| POST     | n/a                                                                                     |
+| PUT      | n/a                                                                                     |
+| PATCH    | n/a                                                                                     |
+| DELETE   | n/a                                                                                     |
+
+
+#### 3.1.1 __GET__ Method
+
+Fetch Sessions from the CPO systems. Only Sessions with a start date/time between the given date_from and date_to will be returned.
+
+| Parameter  | Datatype                              | Required | Description                                                                   |
+|------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
+| date_from  | [DateTime](types.md#11_datetime_type) | yes      | Begin charging session start Date/Time of the Sessions to fetch.                      |
+| date_to    | [DateTime](types.md#11_datetime_type) | no       | End charging session start Date/Time of the Sessons to fetch, if omitted all Sessions up to now are request to be returned. |
+
+_NOTE: The CPO is allowed to return a (not specified) maximum amount of Sessions, to prevent overloading there system. In this version of OCPI it is not possible to detect if the CPO returned not all Sessions that match the filter._  
 
 
 ### 3.2 eMSP Interface
