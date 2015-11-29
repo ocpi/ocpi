@@ -65,9 +65,9 @@ New created Token Objects are pushed from the eMSP to the CPO.
 
 In the post request a list of new Token Objects is send.
 
-| Property  | Type                            | Card. | Description                              |
-|-----------|---------------------------------|-------|------------------------------------------|
-| tokens    | [Token](#41-token-object)       | *     | List of all tokens.                      |
+| Type                      | Card. | Description                              |
+|---------------------------|-------|------------------------------------------|
+| [Token](#41-token-object) | *     | List of all tokens.                      |
 
 
 #### 3.1.2 __PUT__ Method
@@ -76,11 +76,22 @@ Updated Token Objects are pushed from the eMSP to the CPO.
 
 ##### Data
 
-In the put request a list of updated Tariff Objects is send.
+In the put request a list of updated Token objects is send.
 
-| Property  | Type                            | Card. | Description                              |
-|-----------|---------------------------------|-------|------------------------------------------|
-| tokens    | [Token](#41-token-object)       | *     | List of all tokens.                      |
+| Type                            | Card. | Description                              |
+|---------------------------------|-------|------------------------------------------|
+| [Token](#41-token-object)       | *     | List of all tokens.                      |
+
+
+#### 3.1.3 __DELETE__ Method
+
+DeleteUpdated Token Objects are pushed from the eMSP to the CPO. 
+
+##### Parameters
+
+| Parameter  | Datatype                             | Required | Description                               |
+|------------|--------------------------------------|----------|-------------------------------------------|
+| token_id  | [string](types.md#15-string-type)(15) | yes      | ID of the Token to be deleted             |
 
 
 ### 3.2 eMSP Interface
@@ -107,11 +118,11 @@ Fetch information about all Tokens known in the eMSP systems.
 
 ##### Data
 
-The endpoint returns an object with list of valid Tariffs.
+The endpoint response with list of valid Token objects.
 
-| Property  | Type                            | Card. | Description                              |
-|-----------|---------------------------------|-------|------------------------------------------|
-| tokens    | [Token](#41-token-object)       | *     | List of all tokens.                      |
+| Type                            | Card. | Description                              |
+|---------------------------------|-------|------------------------------------------|
+| [Token](#41-token-object)       | *     | List of all tokens.                      |
 
 
 
