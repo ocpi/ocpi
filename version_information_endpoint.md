@@ -66,7 +66,7 @@ Both the CPO and the eMSP must have this endpoint.
 
 | Property  | Type                                | Card. | Description                                     |
 |-----------|-------------------------------------|-------|-------------------------------------------------|
-| version   | [Decimal](types.md#12_decimal_type) | 1     | The version number.                             |
+| version   | [decimal](types.md#12_decimal_type) | 1     | The version number.                             |
 | endpoints | Endpoint                            | +     | A list of supported endpoints for this version. |
 
 #### Endpoint *class*

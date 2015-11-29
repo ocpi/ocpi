@@ -444,13 +444,13 @@ A *Location* without valid *EVSE* objects can be considered as expired and shoul
 
 | Property             | Type                                                     | Card. | Description                                                                            |
 |----------------------|----------------------------------------------------------|-------|----------------------------------------------------------------------------------------|
-| id                   | string(15)                                               | 1     | Uniquely identifies the location within the CPOs platform (and suboperator platforms). |
+| id                   | [string](types.md#15-string-type)(15)                    | 1     | Uniquely identifies the location within the CPOs platform (and suboperator platforms). |
 | type                 | [LocationType](#511-locationtype-enum)                   | 1     | The general type of the charge point location.                                         |
-| name                 | [String](types.md#15-string-type)(255)                   | ?     | Display name of the location.                                                          |
-| address              | [String](types.md#15-string-type)(45)                    | 1     | Street/block name and house number if available.                                       |
-| city                 | [String](types.md#15-string-type)(45)                    | 1     | City or town.                                                                          |
-| postal_code          | [String](types.md#15-string-type)(10)                    | 1     | Postal code of the location.                                                           |
-| country              | [String](types.md#15-string-type)(3)                     | 1     | ISO 3166-1 alpha-3 code for the country of this location.                              |
+| name                 | [string](types.md#15-string-type)(255)                   | ?     | Display name of the location.                                                          |
+| address              | [string](types.md#15-string-type)(45)                    | 1     | Street/block name and house number if available.                                       |
+| city                 | [string](types.md#15-string-type)(45)                    | 1     | City or town.                                                                          |
+| postal_code          | [string](types.md#15-string-type)(10)                    | 1     | Postal code of the location.                                                           |
+| country              | [string](types.md#15-string-type)(3)                     | 1     | ISO 3166-1 alpha-3 code for the country of this location.                              |
 | coordinates          | [GeoLocation](#57-geolocation-class)                     | 1     | Coordinates of the location.                                                           |
 | relatedLocation      | [AdditionalGeoLocation](#51-additionalgeolocation-class) | *     | Geographical location of related points relevant to the user.                          |
 | directions           | [DisplayText](types.md#15-displaytext-class)             | *     | Human-readable directions on how to reach the location.                                |
@@ -469,15 +469,15 @@ An *EVSE* object has a list of connectors which can not be used simultaneously: 
 
 | Property             | Type                                               | Card. | Description                                            |
 |----------------------|----------------------------------------------------|-------|--------------------------------------------------------|
-| id                   | [String](types.md#15-string-type)(48)              | 1     | Uniquely identifies the EVSE within the CPOs platform (and suboperator platforms). |
-| location_id          | [String](types.md#15-string-type)(15)              | 1     | The id of the *Location* object that contains this EVSE. If the *Location* object does not exist, this EVSE may be discarded (and it should not have been sent in the first place).   |
+| id                   | [string](types.md#15-string-type)(48)              | 1     | Uniquely identifies the EVSE within the CPOs platform (and suboperator platforms). |
+| location_id          | [string](types.md#15-string-type)(15)              | 1     | The id of the *Location* object that contains this EVSE. If the *Location* object does not exist, this EVSE may be discarded (and it should not have been sent in the first place).   |
 | status               | [Status](#515-status-enum)                         | 1     | Indicates the current status of the EVSE.              |
 | status_schedule      | [StatusSchedule](#516-statusschedule-class)        | *     | Indicates a planned status in the future of the EVSE.  |
 | capabilities         | [Capability](#52-capability-enum)                  | *     | List of functionalities that the EVSE is capable of.   |
 | connectors           | [Connector](#53-connector-class)                   | +     | List of available connectors on the EVSE.              |
-| floor_level          | [String](types.md#15-string-type)(4)               | ?     | Level on which the charging station is located (in garage buildings) in the locally displayed numbering scheme. |
+| floor_level          | [string](types.md#15-string-type)(4)               | ?     | Level on which the charging station is located (in garage buildings) in the locally displayed numbering scheme. |
 | coordinates          | [GeoLocation](#57-geolocation-class)               | ?     | Coordinates of the EVSE.                               |
-| physical_number      | [String](types.md#15-string-type)(4)               | ?     | A number on the EVSE for visual identification.        |
+| physical_number      | [string](types.md#15-string-type)(4)               | ?     | A number on the EVSE for visual identification.        |
 | directions           | [DisplayText](types.md#15-displaytext-class)       | *     | Multi-language human-readable directions when more detailed information on how to reach the EVSE from the *Location* is required. |
 | parking_restrictions | [ParkingRestriction](#512-parkingrestriction-enum) | *     | The restrictions that apply to the parking spot.       |
 | images               | [Image](#59-image-class)                           | *     | Links to images related to the EVSE such as photos or logos. |
@@ -490,18 +490,18 @@ This class defines a geo location. The geodetic system to be used is WGS 84.
 
 | Property    | Type                                         | Card. | Description                                                                                                                              |
 |-------------|----------------------------------------------|-------|------------------------------------------------------------------------------------------------------------------------------------------| 
-| latitude    | [String](types.md#15-string-type)(10)        | 1     | Latitude of the point in decimal degree. Example: 50.770774. Decimal separator: "." Regex: `-?$[$0-9$]$\{1,2\}$\$.$[$0-9$]$\{6\}`        |
-| longitude   | [String](types.md#15-string-type)(11)        | 1     | Longitude of the point in decimal degree. Example: -126.104965. Decimal separator: "." Regex: `-?$[$0-9$]$\{1,3\}$\$.$[$0-9$]$\{6\}`     |
+| latitude    | [string](types.md#15-string-type)(10)        | 1     | Latitude of the point in decimal degree. Example: 50.770774. Decimal separator: "." Regex: `-?$[$0-9$]$\{1,2\}$\$.$[$0-9$]$\{6\}`        |
+| longitude   | [string](types.md#15-string-type)(11)        | 1     | Longitude of the point in decimal degree. Example: -126.104965. Decimal separator: "." Regex: `-?$[$0-9$]$\{1,3\}$\$.$[$0-9$]$\{6\}`     |
 | name        | [DisplayText](types.md#15-displaytext-class) | ?     | Name of the point in local language or as written at the location. For example the street name of a parking lot entrance or it's number. |
 
 
 ### 5.1 BusinessDetails *class*
 
-| Property         | Type                       | Card. | Description                        |
-|------------------|----------------------------|-------|------------------------------------|
-| name             | string(100)                | 1     | Name of the operator.              |
-| website          | [URL](types.md#14_url_type)     | ?     | Link to the operator's website.    |
-| logo             | [Image](#59-image-class)   | ?     | Image link to the operator's logo. |
+| Property         | Type                                   | Card. | Description                        |
+|------------------|----------------------------------------|-------|------------------------------------|
+| name             | [string](types.md#15-string-type)(100) | 1     | Name of the operator.              |
+| website          | [URL](types.md#14_url_type)            | ?     | Link to the operator's website.    |
+| logo             | [Image](#59-image-class)               | ?     | Image link to the operator's logo. |
 
 
 ### 5.2 Capability *enum*
@@ -522,7 +522,7 @@ A connector is the socket or cable available for the EV to make use of. A single
 
 | Property             | Type                                        | Card. | Description                                                             |
 |----------------------|---------------------------------------------|-------|-------------------------------------------------------------------------|
-| id                   | string(15)                                  | 1     | Identifier of the connector within the EVSE. Two connectors may have the same id as long as they do not belong to the same *EVSE* object. |
+| id                   | [string](types.md#15-string-type)(15)       | 1     | Identifier of the connector within the EVSE. Two connectors may have the same id as long as they do not belong to the same *EVSE* object. |
 | standard             | [ConnectorType](#55-connectortype-enum)     | 1     | The standard of the installed connector.                                |
 | format               | [ConnectorFormat](#54-connectorformat-enum) | 1     | The format (socket/cable) of the installed connector.                   |
 | power_type           | [PowerType](#513-powertype-enum)            | 1     |                                                                         |
@@ -589,8 +589,8 @@ Specifies one exceptional period for opening or access hours.
 
 | Property    | Type                                         | Card. | Description                                                                                                                              |
 |-------------|----------------------------------------------|-------|------------------------------------------------------------------------------------------------------------------------------------------| 
-| latitude    | [String](types.md#15-string-type)(10)        | 1     | Latitude of the point in decimal degree. Example: 50.770774. Decimal separator: "." Regex: `-?$[$0-9$]$\{1,2\}$\$.$[$0-9$]$\{6\}`        |
-| longitude   | [String](types.md#15-string-type)(11)        | 1     | Longitude of the point in decimal degree. Example: -126.104965. Decimal separator: "." Regex: `-?$[$0-9$]$\{1,3\}$\$.$[$0-9$]$\{6\}`     |
+| latitude    | [string](types.md#15-string-type)(10)        | 1     | Latitude of the point in decimal degree. Example: 50.770774. Decimal separator: "." Regex: `-?$[$0-9$]$\{1,2\}$\$.$[$0-9$]$\{6\}`        |
+| longitude   | [string](types.md#15-string-type)(11)        | 1     | Longitude of the point in decimal degree. Example: -126.104965. Decimal separator: "." Regex: `-?$[$0-9$]$\{1,3\}$\$.$[$0-9$]$\{6\}`     |
 
 
 ### 5.8 Hours *class*
