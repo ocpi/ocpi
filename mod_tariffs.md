@@ -63,9 +63,9 @@ Any Tariffs, known in the eMSP system that are not provided in the response, sho
 
 The endpoint returns an object with list of valid Tariffs.
 
-| Property  | Type                            | Card. | Description                              |
-|-----------|---------------------------------|-------|------------------------------------------|
-| tariffs   | [Tariff](#41-tariff-object)     | *     | List of all tariffs.                     |
+| Type                            | Card. | Description                              |
+|---------------------------------|-------|------------------------------------------|
+| [Tariff](#41-tariff-object)     | *     | List of all tariffs.                     |
 
 
 ### 3.2 eMSP Interface
@@ -91,9 +91,9 @@ New created Tariff Objects are pushed from the CPO to the eMSP.
 
 In the post request a list of new Tariff Objects is send.
 
-| Property  | Type                            | Card. | Description                              |
-|-----------|---------------------------------|-------|------------------------------------------|
-| tariffs   | [Tariff](#41-tariff-object)     | *     | List of new tariffs.                     |
+| Type                            | Card. | Description                              |
+|---------------------------------|-------|------------------------------------------|
+| [Tariff](#41-tariff-object)     | *     | List of new tariffs.                     |
 
 
 #### 3.2.2 __PUT__ Method
@@ -104,9 +104,9 @@ Updated Tariff Objects are pushed from the CPO to the eMSP, to replace the curre
 
 In the put request a list of updated Tariff Objects is send.
 
-| Property  | Type                            | Card. | Description                              |
-|-----------|---------------------------------|-------|------------------------------------------|
-| tariffs   | [Tariff](#41-tariff-object)     | *     | List of all tariffs.                     |
+| Type                            | Card. | Description                              |
+|---------------------------------|-------|------------------------------------------|
+| [Tariff](#41-tariff-object)     | *     | List of all tariffs.                     |
 
 
 #### 3.2.3 __DELETE__ Method
