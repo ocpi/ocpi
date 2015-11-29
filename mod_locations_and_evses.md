@@ -24,11 +24,14 @@ updates to the master object as good as possible.
 ## 2. Flow and Lifecycle
 
 When the operator creates locations and EVSEs they push them to the
-subscribed providers by calling [PUT](#322-put-method) on their
+CPOs by calling [POST](#321-post-method) on their
 location endpoint. This creates an inheritance (A) of the newly created
 object. Providers who do not support push mode need to call
 [GET](#311-get-method) on the operator's location endpoint to receive
 the new object. This creates also an inheritance (B).
+
+If the CPO wants to replace a location or EVSE object the push them to the eMSP systems by
+calling [PUT](#322-put-method) on their locations endpoint.
 
 Any changes to the master object in the operator's system are
 forwarded to all inheritances (A) in all subscribed provider systems by
@@ -37,14 +40,8 @@ Providers who do not support push mode need to call
 [GET](#311-get-method) on the operator's location endpoint to receive
 the updates in the master object. This updates their inheritance (B).
 
-When the operator deletes the master object, they must update all
-inheritances (A) in the provider systems by setting the `status`
-field to `INOPERATIVE`. This marks the inheritance (A) as
-invalid. Providers who do not support push mode need to call
-[GET](#311-get-method) on the operator's location endpoint and filter
-for non-existant master objects. Each of their own valid inheritances
-(B) which do not have a corresponding master object in a later
-GET-request have to be marked as invalid by setting `status` to `INOPERATIVE`.
+When the CPO wants to delete a location and/or EVSE, they must update by setting the `status`
+field to `CLOSED` and call the [PUT](#322-put-method) or [PATCH](#323-patch-method) on the eMSP system. 
 
 ![Lifecycle][location-lifecycle]
 
