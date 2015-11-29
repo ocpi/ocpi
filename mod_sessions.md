@@ -52,13 +52,13 @@ which one.*
 
 Example endpoint structure: `/ocpi/cpo/2.0/sessions/?date_from=xxx&date_to=yyy`
 
-| Method   | Description                                                                             |
-| -------- | --------------------------------------------------------------------------------------- |
-| GET      | Fetch Session object of charging sessions started between the {date_from} and {date_to} |
-| POST     | n/a                                                                                     |
-| PUT      | n/a                                                                                     |
-| PATCH    | n/a                                                                                     |
-| DELETE   | n/a                                                                                     |
+| Method                 | Description                                                                             |
+| ---------------------- | --------------------------------------------------------------------------------------- |
+| [GET](#311-get-method) | Fetch Session object of charging sessions started between the {date_from} and {date_to} |
+| POST                   | n/a                                                                                     |
+| PUT                    | n/a                                                                                     |
+| PATCH                  | n/a                                                                                     |
+| DELETE                 | n/a                                                                                     |
 
 
 #### 3.1.1 __GET__ Method
@@ -72,6 +72,14 @@ Fetch Sessions from the CPO systems. Only Sessions with a start date/time betwee
 
 _NOTE: The CPO is allowed to return a (not specified) maximum amount of Sessions, to prevent overloading there system. In this version of OCPI it is not possible to detect if the CPO returned not all Sessions that match the filter._  
 
+##### Response Data
+
+The request contains the new Session Object.
+
+| Type                            | Card. | Description                              |
+|---------------------------------|-------|------------------------------------------|
+| [Session](#41-session-object)   | *     | new Session object.                      |
+
 
 ### 3.2 eMSP Interface
 
@@ -80,19 +88,28 @@ _NOTE: The CPO is allowed to return a (not specified) maximum amount of Sessions
 Example endpoint structure: `/ocpi/emsp/2.0/sessions/` and
 `/ocpi/emsp/2.0/sessions/{session-id}/`
 
-| Method   | Description                                          |
-| -------- | ---------------------------------------------------- |
-| GET      | n/a                                                  |
-| POST     | Send a new _CPOSession_ object                       |
-| PUT      | n/a                                                  |
-| PATCH    | Update the _CPOSession_ object of id {session-id}.   |
-| DELETE   | Delete the _CPOSession_ object of id {session-id}.   |
+| Method                       | Description                                          |
+| ---------------------------- | ---------------------------------------------------- |
+| GET                          | n/a                                                  |
+| [POST](#321-get-method)      | Send a new _CPOSession_ object                       |
+| PUT                          | n/a                                                  |
+| [PATCH](#322-patch-method)   | Update the _CPOSession_ object of id {session-id}.   |
+| [DELETE](#323-delete-method) | Delete the _CPOSession_ object of id {session-id}.   |
 
 
 #### 3.2.1 __POST__ Method
 
 Create a new session in the eMSP backoffice by POSTing a _CPOSession_
 object.
+
+##### Data
+
+The request contains the new Session Object.
+
+| Type                            | Card. | Description                              |
+|---------------------------------|-------|------------------------------------------|
+| [Session](#41-session-object)   | 1     | new Session object.                      |
+
 
 The response contains a _EMSPSession_ object enriched with the
 **status** and **endpoints** fields and the **id** field filled.
@@ -109,11 +126,36 @@ was created.
 ]
 ```
 
-##### 3.2.2 __PATCH__ Method
+#### 3.2.2 __PATCH__ Method
 
 Inform about updates in the _Session_ object.
 
 The response will contain the updated _EMSPSession_ object.
+
+##### Parameters
+
+| Parameter  | Datatype                              | Required | Description                               |
+|------------|---------------------------------------|----------|-------------------------------------------|
+| session-id | [string](types.md#15-string-type)(15) | yes      | ID of the Session to be updated           |
+
+##### Data
+
+The request contains the Session Object to be updated.
+
+| Type                            | Card. | Description                              |
+|---------------------------------|-------|------------------------------------------|
+| [Session](#41-session-object)   | 1     | new Session object.                      |
+
+
+#### 3.2.3 __DELETE__ Method
+
+Inform about a deleted _Session_ object.
+
+##### Parameters
+
+| Parameter  | Datatype                              | Required | Description                               |
+|------------|---------------------------------------|----------|-------------------------------------------|
+| session-id | [string](types.md#15-string-type)(15) | yes      | ID of the Session to be deleted           |
 
 
 ## 4. Object description
@@ -124,7 +166,7 @@ The response will contain the updated _EMSPSession_ object.
 
 | Property          | Type                                                       | Card. | Description                                                                                                    |
 |-------------------|------------------------------------------------------------|-------|----------------------------------------------------------------------------------------------------------------|
-| id                | string                                                     | 1     | The unique id that identifies the session in the CPO platform.                                                 |
+| id                | [string](types.md#15-string-type)(15)                      | 1     | The unique id that identifies the session in the CPO platform.                                                 |
 | start_datetime    | [DateTime](types.md#11_datetime_type)                      | 1     | The time when the session became active.                                                                       |
 | end_datetime      | [DateTime](types.md#11_datetime_type)                      | ?     | The time when the session is completed.                                                                        |
 | kwh               | [decimal](types.md#12_decimal_type)                        | 1     | How many kWh are charged.                                                                                      |
