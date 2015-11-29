@@ -117,7 +117,7 @@ Delete no longer valid Tariff Object.
 
 | Parameter  | Datatype                              | Required | Description                               |
 |------------|---------------------------------------|----------|-------------------------------------------|
-| tariff_id  | [string](types.md#15-string-type)(15) | yes      | ID of the Tariff to be deleted            |
+| tariff_id  | [string](types.md#16-string-type)(15) | yes      | ID of the Tariff to be deleted            |
 
 
 ## 4. Object description
@@ -132,8 +132,8 @@ non the the TariffElements before this matches the current charging period.
 
 | Property        | Type                                         | Card. | Description                                                                           | 
 |-----------------|----------------------------------------------|-------|---------------------------------------------------------------------------------------| 
-| id              | [string](types.md#15-string-type)(15)        | 1     | Uniquely identifies the tariff within the CPOs platform (and suboperator platforms).  | 
-| currency        | [string](types.md#15-string-type)(3)         | 1     | Currency of this tariff, ISO 4217 Code                                                | 
+| id              | [string](types.md#16-string-type)(15)        | 1     | Uniquely identifies the tariff within the CPOs platform (and suboperator platforms).  | 
+| currency        | [string](types.md#16-string-type)(3)         | 1     | Currency of this tariff, ISO 4217 Code                                                | 
 | tariff_alt_text | [DisplayText](types.md#15-displaytext-class) | *     | List of multi language alternative tariff info text                                   | 
 | tariff_alt_url  | [URL](types.md#14_url_type)                  | ?     | Alternative URL to tariff info                                                        | 
 | elements        | [TariffElement](#53-tariffelement-class)     | +     | List of tariff elements                                                               | 
@@ -158,8 +158,8 @@ non the the TariffElements before this matches the current charging period.
 
 | Property        | Type                                            | Card. | Description                                      |
 |-----------------|-------------------------------------------------|-------|--------------------------------------------------|
-| type            | [DimensionType](types.md#13-dimensiontype-enum) | 1     | Type of tariff dimension, see: [Types](types.md) |
-| price           | [decimal](types.md#12-decimal-type)             | 1     | price per unit for this tariff dimension         |
+| type            | [DimensionType](types.md#14-dimensiontype-enum) | 1     | Type of tariff dimension, see: [Types](types.md) |
+| price           | [decimal](types.md#13-decimal-type)             | 1     | price per unit for this tariff dimension         |
 | step_size       | int                                             | 1     | Minimum amount to be billed. This unit will be billed in this step_size blocks. For example: if type is time and  step_size is 300, then time will be billed in blocks of 5 minutes, so if 6 minutes is used, 10 minutes (2 blocks of step_size) will be billed. |
 
 
@@ -175,14 +175,14 @@ non the the TariffElements before this matches the current charging period.
 
 | Property        | Type                                  | Card. | Description                                                                           |
 |-----------------|---------------------------------------|-------|---------------------------------------------------------------------------------------|
-| start_time      | [string](types.md#15-string-type)(5)  | ?     | Start time of day, for example 13:30, valid from this time of the day                 |
-| end_time        | [string](types.md#15-string-type)(5)  | ?     | End time of day, for example 19:45, valid until this time of the day                  |
-| start_date      | [string](types.md#15-string-type)(10) | ?     | Start date, for example: 2015-12-24, valid from this day                              |
-| end_date        | [string](types.md#15-string-type)(10) | ?     | End date, for example: 2015-12-27, valid until this day (excluding this day)          |
-| min_kwh         | [decimal](types.md#12-decimal-type)   | ?     | Minimum used energy in kWh, for example 20, valid from this amount of energy is used  |                             
-| max_kwh         | [decimal](types.md#12-decimal-type)   | ?     | Maximum used energy in kWh, for example 50, valid until this amount of energy is used |
-| min_power       | [decimal](types.md#12-decimal-type)   | ?     | Minimum power in kW, for example 0, valid from this charging speed                    |
-| max_power       | [decimal](types.md#12-decimal-type)   | ?     | Maximum power in kW, for example 20, valid up to this charging speed                  |
+| start_time      | [string](types.md#16-string-type)(5)  | ?     | Start time of day, for example 13:30, valid from this time of the day                 |
+| end_time        | [string](types.md#16-string-type)(5)  | ?     | End time of day, for example 19:45, valid until this time of the day                  |
+| start_date      | [string](types.md#16-string-type)(10) | ?     | Start date, for example: 2015-12-24, valid from this day                              |
+| end_date        | [string](types.md#16-string-type)(10) | ?     | End date, for example: 2015-12-27, valid until this day (excluding this day)          |
+| min_kwh         | [decimal](types.md#13-decimal-type)   | ?     | Minimum used energy in kWh, for example 20, valid from this amount of energy is used  |                             
+| max_kwh         | [decimal](types.md#13-decimal-type)   | ?     | Maximum used energy in kWh, for example 50, valid until this amount of energy is used |
+| min_power       | [decimal](types.md#13-decimal-type)   | ?     | Minimum power in kW, for example 0, valid from this charging speed                    |
+| max_power       | [decimal](types.md#13-decimal-type)   | ?     | Maximum power in kW, for example 20, valid up to this charging speed                  |
 | min_duration    | int                                   | ?     | Minimum duration in seconds, valid for a duration from x seconds                      |
 | max_duration    | int                                   | ?     | Maximum duration in seconds, valid for a duration up to x seconds                     |
 | day_of_week     | [DayOfWeek](51-dayofweek-enum)        | *     | Which day(s) of the week this tariff is valid                                         |

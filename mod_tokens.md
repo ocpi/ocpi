@@ -91,7 +91,7 @@ DeleteUpdated Token Objects are pushed from the eMSP to the CPO.
 
 | Parameter  | Datatype                             | Required | Description                               |
 |------------|--------------------------------------|----------|-------------------------------------------|
-| token_id  | [string](types.md#15-string-type)(15) | yes      | ID of the Token to be deleted             |
+| token_id  | [string](types.md#16-string-type)(15) | yes      | ID of the Token to be deleted             |
 
 
 ### 3.2 eMSP Interface
@@ -127,8 +127,6 @@ The endpoint response with list of valid Token objects.
 
 
 ## 4. Object description
-
-*Describe the structure of this object.*
 
 ### 4.1 Token
 

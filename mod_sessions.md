@@ -42,13 +42,7 @@ operator an provider:
 
 ## 3. Interfaces and endpoints
 
-*Explain which interfaces are available and which party should implement
-which one.*
-
-
 ### 3.1 CPO Interface
-
-*Describe the interface in detail.*
 
 Example endpoint structure: `/ocpi/cpo/2.0/sessions/?date_from=xxx&date_to=yyy`
 
@@ -67,8 +61,8 @@ Fetch Sessions from the CPO systems. Only Sessions with a start date/time betwee
 
 | Parameter  | Datatype                              | Required | Description                                                                   |
 |------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
-| date_from  | [DateTime](types.md#11_datetime_type) | yes      | Begin charging session start Date/Time of the Sessions to fetch.                      |
-| date_to    | [DateTime](types.md#11_datetime_type) | no       | End charging session start Date/Time of the Sessons to fetch, if omitted all Sessions up to now are request to be returned. |
+| date_from  | [DateTime](types.md#12_datetime_type) | yes      | Begin charging session start Date/Time of the Sessions to fetch.                      |
+| date_to    | [DateTime](types.md#12_datetime_type) | no       | End charging session start Date/Time of the Sessons to fetch, if omitted all Sessions up to now are request to be returned. |
 
 _NOTE: The CPO is allowed to return a (not specified) maximum amount of Sessions, to prevent overloading there system. In this version of OCPI it is not possible to detect if the CPO returned not all Sessions that match the filter._  
 
@@ -82,8 +76,6 @@ The request contains the new Session Object.
 
 
 ### 3.2 eMSP Interface
-
-*Describe the interface in detail.*
 
 Example endpoint structure: `/ocpi/emsp/2.0/sessions/` and
 `/ocpi/emsp/2.0/sessions/{session-id}/`
@@ -136,7 +128,7 @@ The response will contain the updated _EMSPSession_ object.
 
 | Parameter  | Datatype                              | Required | Description                               |
 |------------|---------------------------------------|----------|-------------------------------------------|
-| session-id | [string](types.md#15-string-type)(15) | yes      | ID of the Session to be updated           |
+| session-id | [string](types.md#16-string-type)(15) | yes      | ID of the Session to be updated           |
 
 ##### Data
 
@@ -155,29 +147,27 @@ Inform about a deleted _Session_ object.
 
 | Parameter  | Datatype                              | Required | Description                               |
 |------------|---------------------------------------|----------|-------------------------------------------|
-| session-id | [string](types.md#15-string-type)(15) | yes      | ID of the Session to be deleted           |
+| session-id | [string](types.md#16-string-type)(15) | yes      | ID of the Session to be deleted           |
 
 
 ## 4. Object description
-
-*Describe the structure of this object.*
 
 ### 4.1 _Session_ Object
 
 | Property          | Type                                                       | Card. | Description                                                                                                    |
 |-------------------|------------------------------------------------------------|-------|----------------------------------------------------------------------------------------------------------------|
-| id                | [string](types.md#15-string-type)(15)                      | 1     | The unique id that identifies the session in the CPO platform.                                                 |
-| start_datetime    | [DateTime](types.md#11_datetime_type)                      | 1     | The time when the session became active.                                                                       |
-| end_datetime      | [DateTime](types.md#11_datetime_type)                      | ?     | The time when the session is completed.                                                                        |
-| kwh               | [decimal](types.md#12_decimal_type)                        | 1     | How many kWh are charged.                                                                                      |
-| auth_id           | [string](types.md#15-string-type)(15)                      | 1     | An id provided by the authentication mechanism so that the eMSP knows to which driver the session belongs.     |
+| id                | [string](types.md#16-string-type)(15)                      | 1     | The unique id that identifies the session in the CPO platform.                                                 |
+| start_datetime    | [DateTime](types.md#12_datetime_type)                      | 1     | The time when the session became active.                                                                       |
+| end_datetime      | [DateTime](types.md#12_datetime_type)                      | ?     | The time when the session is completed.                                                                        |
+| kwh               | [decimal](types.md#13_decimal_type)                        | 1     | How many kWh are charged.                                                                                      |
+| auth_id           | [string](types.md#16-string-type)(15)                      | 1     | An id provided by the authentication mechanism so that the eMSP knows to which driver the session belongs.     |
 | location          | [Location](mod_locations_and_evses.md#41-location-object)  | 1     | The location where this session took place.                                                                    |
 | evse              | [EVSE](mod_locations_and_evses.md#42-evse-object)          | 1     | The EVSE that was used for this session.                                                                       |
-| connector_id      | [string](types.md#15-string-type)(15)                      | 1     | Connector ID of the connector used at the EVSE.                                                                |
-| meter_id          | [string](types.md#15-string-type)                          | ?     | Optional identification of the kWh meter.                                                                      |
-| currency          | [string](types.md#15-string-type)(3)                       | 1     | ISO 4217 code of the currency used for this session.                                                            |
+| connector_id      | [string](types.md#16-string-type)(15)                      | 1     | Connector ID of the connector used at the EVSE.                                                                |
+| meter_id          | [string](types.md#16-string-type)                          | ?     | Optional identification of the kWh meter.                                                                      |
+| currency          | [string](types.md#16-string-type)(3)                       | 1     | ISO 4217 code of the currency used for this session.                                                            |
 | charging_periods  | [ChargingPeriod](mod_cdrs.md#53-chargingperiod-class)      | *     | An optional list of charging periods that can be used to calculate and verify the total cost. |
-| total_cost        | [decimal](types.md#12_decimal_type)                        | 1     | The total cost (excluding VAT) of the session in the specified currency. This is the price that the eMSP will have to pay to the CPO. |
+| total_cost        | [decimal](types.md#13_decimal_type)                        | 1     | The total cost (excluding VAT) of the session in the specified currency. This is the price that the eMSP will have to pay to the CPO. |
 | status            | [SessionStatus](#51-sessionstatus-enum)                    | 1     | The status of the session.                                                                                     |
 
 
@@ -185,20 +175,20 @@ Inform about a deleted _Session_ object.
 
 Describes a session in the CPO platform
 
-| Property  | Type        | Card. | Description                    |
-|-----------|-------------|-------|--------------------------------|
-| endpoints | [Endpoint](version_information_endpoint.md#endpoint-class) | * |                                |
-|           |             |       |                                |
+| Property  | Type                                                       | Card. | Description                    |
+|-----------|------------------------------------------------------------|-------|--------------------------------|
+| endpoints | [Endpoint](version_information_endpoint.md#endpoint-class) | *     |                                |
+|           |                                                            |       |                                |
 
 
 ### 4.3 _EMSPSession_ Object
 
 Describes a session in the eMSP platform
 
-| Property  | Type        | Card. | Description                    |
-|-----------|-------------|-------|--------------------------------|
-| endpoints | [Endpoint](version_information_endpoint.md#endpoint-class) | * |                                |
-|           |             |       |                                |
+| Property  | Type                                                       | Card. | Description                    |
+|-----------|------------------------------------------------------------|-------|--------------------------------|
+| endpoints | [Endpoint](version_information_endpoint.md#endpoint-class) | *     |                                |
+|           |                                                            |       |                                |
 
 
 ## 5. Data types
