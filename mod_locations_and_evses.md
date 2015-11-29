@@ -41,7 +41,7 @@ Providers who do not support push mode need to call
 the updates in the master object. This updates their inheritance (B).
 
 When the CPO wants to delete a location and/or EVSE, they must update by setting the `status`
-field to `CLOSED` and call the [PUT](#322-put-method) or [PATCH](#323-patch-method) on the eMSP system. 
+field to `REMOVED` and call the [PUT](#322-put-method) or [PATCH](#323-patch-method) on the eMSP system. 
 
 ![Lifecycle][location-lifecycle]
 
@@ -758,7 +758,7 @@ The status of an EVSE.
 | AVAILABLE   | The EVSE is able to start a new charging session.                                     |
 | BLOCKED     | The EVSE not accessible because of a physical barrier, i.e. a car.                    |
 | CHARGING    | The EVSE is in use.                                                                   |
-| CLOSED	  | The EVSE/charge point is discontinued/removed.                                        |
+| REMOVED	  | The EVSE/charge point is discontinued/removed.                                        |
 | INOPERATIVE | The EVSE is not yet active or it is no longer available (deleted).                    |
 | OUTOFORDER  | The EVSE is currently out of order.                                                   |
 | PLANNED	  | The EVSE is planned, will be operating soon                                           |
