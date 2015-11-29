@@ -78,7 +78,7 @@ Both the CPO and the eMSP must have this endpoint.
 
 #### ModuleID *enum*
 
-The Module identifiers of each endpoint are described in each *Module* chapter.
+The Module identifiers for each endpoint are in the beginning of each *Module* chapter.
 
 ### GET
 
