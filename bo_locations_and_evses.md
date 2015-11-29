@@ -442,22 +442,23 @@ The *Location* object describes the location and its properties where a group of
 
 A *Location* without valid *EVSE* objects can be considered as expired and should no longer be displayed.
 
-| Property             | Type                                         | Card. | Description                                                      |
-|----------------------|----------------------------------------------|-------|------------------------------------------------------------------|
-| id                   | string(15)                                   | 1     | Uniquely identifies the location within the CPOs platform (and suboperator platforms). |
-| type                 | [LocationType](#511-locationtype-enum)       | 1     | The general type of the charge point location.                   |
-| name                 | [String](types.md#15-string-type)(255)       | ?     | Display name of the location.                                    |
-| address              | [String](types.md#15-string-type)(45)        | 1     | Street/block name and house number if available.                 |
-| city                 | [String](types.md#15-string-type)(45)        | 1     | City or town.                                                    |
-| postal_code          | [String](types.md#15-string-type)(10)        | 1     | Postal code of the location.                                     |
-| country              | [String](types.md#15-string-type)(3)         | 1     | ISO 3166-1 alpha-3 code for the country of this location.        |
-| coordinates          | [GeoLocation](#57-geolocation-class)         | 1     | Coordinates of the location.                                     |
-| directions           | [DisplayText](types.md#15-displaytext-class) | *     | Human-readable directions on how to reach the location.          |
-| operator             | [BusinessDetails](#51-businessdetails-class) | ?     | Information of the operator. When not specified, the information retreived from the `api_info` endpoint should be used instead. |
-| suboperator          | [BusinessDetails](#51-businessdetails-class) | ?     | Information of the suboperator if available.                     |
-| opening_times        | [Hours](#58-hours-class)                     | *     | The times when the EVSEs at the location can be accessed for charging. |
-| charging_when_closed | boolean                                      | ?     | Indicates if the EVSEs are still charging outside the opening hours of the location. E.g. when the parking garage closes its barriers over night, is it allowed to charge till the next morning?  Default: **true**     |
-| images               | [Image](#59-image-class)                     | *     | Links to images related to the location such as photos or logos. |
+| Property             | Type                                                     | Card. | Description                                                                            |
+|----------------------|----------------------------------------------------------|-------|----------------------------------------------------------------------------------------|
+| id                   | string(15)                                               | 1     | Uniquely identifies the location within the CPOs platform (and suboperator platforms). |
+| type                 | [LocationType](#511-locationtype-enum)                   | 1     | The general type of the charge point location.                                         |
+| name                 | [String](types.md#15-string-type)(255)                   | ?     | Display name of the location.                                                          |
+| address              | [String](types.md#15-string-type)(45)                    | 1     | Street/block name and house number if available.                                       |
+| city                 | [String](types.md#15-string-type)(45)                    | 1     | City or town.                                                                          |
+| postal_code          | [String](types.md#15-string-type)(10)                    | 1     | Postal code of the location.                                                           |
+| country              | [String](types.md#15-string-type)(3)                     | 1     | ISO 3166-1 alpha-3 code for the country of this location.                              |
+| coordinates          | [GeoLocation](#57-geolocation-class)                     | 1     | Coordinates of the location.                                                           |
+| relatedLocation      | [AdditionalGeoLocation](#51-additionalgeolocation-class) | *     | Geographical location of related points relevant to the user.                          |
+| directions           | [DisplayText](types.md#15-displaytext-class)             | *     | Human-readable directions on how to reach the location.                                |
+| operator             | [BusinessDetails](#51-businessdetails-class)             | ?     | Information of the operator. When not specified, the information retreived from the `api_info` endpoint should be used instead. |
+| suboperator          | [BusinessDetails](#51-businessdetails-class)             | ?     | Information of the suboperator if available.                                           |
+| opening_times        | [Hours](#58-hours-class)                                 | *     | The times when the EVSEs at the location can be accessed for charging.                 |
+| charging_when_closed | boolean                                                  | ?     | Indicates if the EVSEs are still charging outside the opening hours of the location. E.g. when the parking garage closes its barriers over night, is it allowed to charge till the next morning?  Default: **true** |
+| images               | [Image](#59-image-class)                                 | *     | Links to images related to the location such as photos or logos.                       |
 
 
 ### 4.2 EVSE Object
@@ -483,7 +484,16 @@ An *EVSE* object has a list of connectors which can not be used simultaneously: 
 
 ## 5. Data types
 
-*Describe all datatypes used in this object*
+### 5.1 AdditionalGeoLocation *class*
+
+This class defines a geo location. The geodetic system to be used is WGS 84.
+
+| Property    | Type                                         | Card. | Description                                                                                                                              |
+|-------------|----------------------------------------------|-------|------------------------------------------------------------------------------------------------------------------------------------------| 
+| latitude    | [String](types.md#15-string-type)(10)        | 1     | Latitude of the point in decimal degree. Example: 50.770774. Decimal separator: "." Regex: `-?$[$0-9$]$\{1,2\}$\$.$[$0-9$]$\{6\}`        |
+| longitude   | [String](types.md#15-string-type)(11)        | 1     | Longitude of the point in decimal degree. Example: -126.104965. Decimal separator: "." Regex: `-?$[$0-9$]$\{1,3\}$\$.$[$0-9$]$\{6\}`     |
+| name        | [DisplayText](types.md#15-displaytext-class) | ?     | Name of the point in local language or as written at the location. For example the street name of a parking lot entrance or it's number. |
+
 
 ### 5.1 BusinessDetails *class*
 
@@ -577,10 +587,10 @@ Specifies one exceptional period for opening or access hours.
 
 ### 5.7 GeoLocation *class*
 
-| Property         | Type                                | Card. | Description                        |
-|------------------|-------------------------------------|-------|------------------------------------|
-| latitude         | [Decimal](types.md#12_decimal_type) | 1     | Latitude in decimal format.        |
-| longitude        | [Decimal](types.md#12_decimal_type) | 1     | Longitude in decimal format.       |
+| Property    | Type                                         | Card. | Description                                                                                                                              |
+|-------------|----------------------------------------------|-------|------------------------------------------------------------------------------------------------------------------------------------------| 
+| latitude    | [String](types.md#15-string-type)(10)        | 1     | Latitude of the point in decimal degree. Example: 50.770774. Decimal separator: "." Regex: `-?$[$0-9$]$\{1,2\}$\$.$[$0-9$]$\{6\}`        |
+| longitude   | [String](types.md#15-string-type)(11)        | 1     | Longitude of the point in decimal degree. Example: -126.104965. Decimal separator: "." Regex: `-?$[$0-9$]$\{1,3\}$\$.$[$0-9$]$\{6\}`     |
 
 
 ### 5.8 Hours *class*
