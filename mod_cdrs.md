@@ -67,9 +67,9 @@ _NOTE: The CPO is allowed to return a (not specified) maximum amount of CDRs, to
 
 The endpoint returns a list of valid CDRs.
 
-| Property  | Type                            | Card. | Description                              |
-|-----------|---------------------------------|-------|------------------------------------------|
-| cdrs      | [CDR](#41-cdr-object)           | *     | List of CDRs.                            |
+| Type                            | Card. | Description                              |
+|---------------------------------|-------|------------------------------------------|
+| [CDR](#41-cdr-object)           | *     | List of CDRs.                            |
 
 
 
@@ -80,7 +80,7 @@ The CDRs endpoint can be used to create, update or delete CDRs.
 Example endpoint structure: `/ocpi/emsp/2.0/cdrs/` and `/ocpi/emsp/2.0/cdrs/{cdr-id}/`
 
 | Method                   | Description                                          |
-| -------- | ---------------------------------------------------- |
+| ------------------------ | ---------------------------------------------------- |
 | GET                      | n/a                                                  |
 | [POST](#321-post-method) | Create a new CDR.                                    |
 | PUT                      | n/a                                                  |
@@ -99,9 +99,9 @@ The post method should contain the full, final CDR object(s).
 
 In the post request a list of new CDR Objects is send.
 
-| Property  | Type                            | Card. | Description                              |
-|-----------|---------------------------------|-------|------------------------------------------|
-| cdrs      | [CDR](#41-cdr-object)           | *     | List of CDRs.                            |
+| Type                            | Card. | Description                              |
+|---------------------------------|-------|------------------------------------------|
+| [CDR](#41-cdr-object)           | *     | List of CDRs.                            |
 
 
 ## 4. Object description
