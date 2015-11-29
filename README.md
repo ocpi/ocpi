@@ -9,12 +9,12 @@ This repostory contains the OCPI specification.
    - [Status codes](status_codes.md)
    - [Version information endpoint](version_information_endpoint.md)
    - [Credentials & registration](credentials.md)
- * __Overview of Business Objects__, each section describes one business object.
-   - [Locations & EVSEs](bo_locations_and_evses.md)
-   - [Sessions](bo_sessions.md)
-   - [CDRs](bo_cdrs.md)
-   - [Tariffs](bo_tariffs.md)
-   - [Tokens](bo_tokens.md)
+ * __Overview of Modules__, each section describes one module.
+   - [Locations & EVSEs](mod_locations_and_evses.md)
+   - [Sessions](mod_sessions.md)
+   - [CDRs](mod_cdrs.md)
+   - [Tariffs](mod_tariffs.md)
+   - [Tokens](mod_tokens.md)
  * __Generic Types__, describing all data types that are used by multiple objects
    - [Types](types.md)
 
