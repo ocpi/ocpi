@@ -121,7 +121,7 @@ The response will contain the updated _EMSPSession_ object.
 | evse              | [EVSE](bo_locations_and_evses.md#42-evse-object)           | 1     | The EVSE that was used for this session.                                                                       |
 | connector_id      | [string](types.md#15-string-type)(15)                      | 1     | Connector ID of the connector used at the EVSE.                                                                |
 | meter_id          | [string](types.md#15-string-type)                          | ?     | Optional identification of the kWh meter.                                                                      |
-| currency          | [string](types.md#15-string-type)()                        | 1     | ISO 4217 code of the currency used for this session.                                                           |
+| currency          | [string](types.md#15-string-type)(3)                       | 1     | ISO 4217 code of the currency used for this session.                                                            |
 | charging_periods  | [ChargingPeriod](#52-chargingperiod-type)                  | *     | An optional list of charging periods that can be used to calculate and verify the total cost.                  |
 | total_cost        | [decimal](types.md#12_decimal_type)                        | 1     | The total cost (excluding VAT) of the session in the specified currency. This is the price that the eMSP will have to pay to the CPO. |
 | status            | [SessionStatus](#51-sessionstatus-enum)                    | 1     | The status of the session.                                                                                     |
@@ -168,14 +168,12 @@ Describes a session in the eMSP platform
 
 ### 5.2 ChargingPeriod *type*
 
-| Property             | Type                                  | Card. | Description                              |
-|----------------------|---------------------------------------|-------|------------------------------------------|
-| start_datetime       | [DateTime](types.md#11_datetime_type) | 1     |                                          |
-| end_datetime         | [DateTime](types.md#11_datetime_type) | 1     |                                          |
-| tariff_id            | [string](types.md#15-string-type)(15) | 1     |                                          |
-| kwh                  | int                                   | 1     |                                          |
-| cost                 | [string](types.md#15-string-type)     | 1     |                                          |
-| max_power            | int                                   | 1     |                                          |
+| Property             | Type                                  | Card. | Description                                      |
+|----------------------|---------------------------------------|-------|--------------------------------------------------|
+| start_date_time      | [DateTime](types.md#11_datetime_type) | 1     | Start timestamp of the charging period. This period ends when a next period starts, the last period ends when the session ends. |
+| tariff_id            | [string](types.md#15-string-type)(15) | 1     | Tariff used for this period                      |
+| wh                   | int                                   | 1     | Amount of energy, in Wh, used during this period |
+| cost                 | [decimal](types.md#12-decimal-type)   | 1     | Cost                                             |
 
 
 ---
