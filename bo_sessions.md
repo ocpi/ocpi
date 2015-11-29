@@ -172,7 +172,7 @@ Describes a session in the eMSP platform
 |----------------------|---------------------------------------|-------|------------------------------------------|
 | start_datetime       | [DateTime](types.md#11_datetime_type) | 1     |                                          |
 | end_datetime         | [DateTime](types.md#11_datetime_type) | 1     |                                          |
-| tariff_number        | [string](types.md#15-string-type)     | 1     |                                          |
+| tariff_id            | [string](types.md#15-string-type)(15) | 1     |                                          |
 | kwh                  | int                                   | 1     |                                          |
 | cost                 | [string](types.md#15-string-type)     | 1     |                                          |
 | max_power            | int                                   | 1     |                                          |
