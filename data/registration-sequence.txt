@@ -7,7 +7,7 @@ participant eMSP
 == Offline ==
 
 CPO -> CPO: Generate token: TOKEN_A
-CPO -> eMSP: send credentials \n("/ocpi/cpo/versions", TOKEN_A, ...)
+CPO -> eMSP: send information via e-mail \n(TOKEN_A, "https://company.com/ocpi/cpo/versions", ...)
 
 ...
 
