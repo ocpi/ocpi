@@ -757,12 +757,15 @@ The status of an EVSE.
 
 | Value       | Description |
 |-------------|-------------|
-| AVAILABLE   | The EVSE is able to start a new charging session. |
+| AVAILABLE   | The EVSE is able to start a new charging session.                                     |
+| BLOCKED     | The EVSE not accessible because of a physical barrier, i.e. a car.                    |
+| CHARGING    | The EVSE is in use.                                                                   |
+| CLOSED	  | The EVSE/charge point is discontinued/removed.                                        |
+| INOPERATIVE | The EVSE is not yet active or it is no longer available (deleted).                    |
+| OUTOFORDER  | The EVSE is currently out of order.                                                   |
+| PLANNED	  | The EVSE is planned, will be operating soon                                           |
 | RESERVED    | The EVSE is reserved for a particular EV driver and is unavailable for other drivers. |
-| CHARGING    | The EVSE is in use. |
-| BLOCKED     | The EVSE not accessible because of a physical barrier, i.e. a car. |
-| OUTOFORDER  | The EVSE is currently out of order. |
-| INOPERATIVE | The EVSE is not yet active or it is no longer available (deleted). |
+| UNKNOWN	  | No status information available                                                       |
 
 
 ### 5.16 StatusSchedule *class*
