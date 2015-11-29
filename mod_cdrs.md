@@ -126,6 +126,7 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 | tariffs          | [Tariff](mod_tariffs.md#41-tariff-object)                | *     | List of relevant tariff elements, see: [Tariffs](mod_tariffs.md)                                                     | 
 | charging_periods | [ChargingPeriod](#53-chargingperiod-class)               | +     | List of charging periods that make up this charging session. A session consist of 1 or more periodes with, each period has a different relevant Tariff | 
 | total_cost       | [decimal](types.md#12-decimal-type)                      | 1     | Total cost of this transaction                                                                                      | 
+| remark           | [string](types.md#15-string-type)(255)                   | ?     | Optional remark, can be used to provide addition human readable information to the CDR, for example: reason why a transaction was stopped.                                                                                       | 
 
 
 ## 5. Data types
