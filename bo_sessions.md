@@ -164,7 +164,7 @@ Describes a session in the eMSP platform
 | ACTIVE    | The session is accepted and active.                                        |
 | COMPLETED | The session has finished succesfully.                                      |
 | INVALID   | The session is declared invalid and will not be billed.                    |
-| DISPUTED  | The eMSP disputes the validity of the session. This status will have to be resolved manually. |
+
 
 ### 5.2 ChargingPeriod *type*
 
