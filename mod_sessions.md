@@ -164,7 +164,7 @@ Inform about a deleted _Session_ object.
 | location          | [Location](mod_locations_and_evses.md#41-location-object)  | 1     | The location where this session took place.                                                                    |
 | evse              | [EVSE](mod_locations_and_evses.md#42-evse-object)          | 1     | The EVSE that was used for this session.                                                                       |
 | connector_id      | [string](types.md#16-string-type)(15)                      | 1     | Connector ID of the connector used at the EVSE.                                                                |
-| meter_id          | [string](types.md#16-string-type)                          | ?     | Optional identification of the kWh meter.                                                                      |
+| meter_id          | [string](types.md#16-string-type)(255)                     | ?     | Optional identification of the kWh meter.                                                                      |
 | currency          | [string](types.md#16-string-type)(3)                       | 1     | ISO 4217 code of the currency used for this session.                                                            |
 | charging_periods  | [ChargingPeriod](mod_cdrs.md#53-chargingperiod-class)      | *     | An optional list of charging periods that can be used to calculate and verify the total cost. |
 | total_cost        | [decimal](types.md#13_decimal_type)                        | 1     | The total cost (excluding VAT) of the session in the specified currency. This is the price that the eMSP will have to pay to the CPO. |
