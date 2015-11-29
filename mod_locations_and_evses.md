@@ -327,7 +327,7 @@ Example endpoint structure: `/ocpi/emsp/2.0/locations`
 
 #### 3.2.1 __PUT__ Method
 
-Fully synchronise the eMSP by pushing all available locations and EVSEs. This is the exact equivalent to a GET request initiated by the eMSP to the CPO endpoint.
+Fully synchronize the eMSP by pushing all available locations and EVSEs. This is the exact equivalent to a GET request initiated by the eMSP to the CPO endpoint.
 
 Any location or EVSE that is not specified in the message is considered as no longer valid. Each object must contain all required fields. Fields that are not specified may be considered as null values or their default values if specified in the OCPI protocol.
 
