@@ -115,15 +115,15 @@ The response will contain the updated _EMSPSession_ object.
 | id                | string                                                     | 1     | The unique id that identifies the session in the CPO platform.                                                 |
 | start_datetime    | [DateTime](types.md#11_datetime_type)                      | 1     | The time when the session became active.                                                                       |
 | end_datetime      | [DateTime](types.md#11_datetime_type)                      | ?     | The time when the session is completed.                                                                        |
-| kwh               | [Decimal](types.md#12_decimal_type)                        | 1     | How many kWh are charged.                                                                                      |
-| auth_id           | string                                                     | 1     | An id provided by the authentication mechanism so that the eMSP knows to which driver the session belongs.     |
+| kwh               | [decimal](types.md#12_decimal_type)                        | 1     | How many kWh are charged.                                                                                      |
+| auth_id           | [string](types.md#15-string-type)(15)                      | 1     | An id provided by the authentication mechanism so that the eMSP knows to which driver the session belongs.     |
 | location          | [Location](bo_locations_and_evses.md#41-location-object)   | 1     | The location where this session took place.                                                                    |
 | evse              | [EVSE](bo_locations_and_evses.md#42-evse-object)           | 1     | The EVSE that was used for this session.                                                                       |
-| connector_number  | int                                                        | 1     | Zero-based index of the connector used at the EVSE.                                                            |
-| meter_id          | string                                                     | ?     | Optional identification of the kWh meter.                                                                      |
-| currency          | string                                                     | 1     | ISO 4217 code of the currency used for this session.                                                           |
+| connector_id      | [string](types.md#15-string-type)(15)                      | 1     | Connector ID of the connector used at the EVSE.                                                                |
+| meter_id          | [string](types.md#15-string-type)                          | ?     | Optional identification of the kWh meter.                                                                      |
+| currency          | [string](types.md#15-string-type)()                        | 1     | ISO 4217 code of the currency used for this session.                                                           |
 | charging_periods  | [ChargingPeriod](#52-chargingperiod-type)                  | *     | An optional list of charging periods that can be used to calculate and verify the total cost.                  |
-| total_cost        | [Decimal](types.md#12_decimal_type)                        | 1     | The total cost (excluding VAT) of the session in the specified currency. This is the price that the eMSP will have to pay to the CPO. |
+| total_cost        | [decimal](types.md#12_decimal_type)                        | 1     | The total cost (excluding VAT) of the session in the specified currency. This is the price that the eMSP will have to pay to the CPO. |
 | status            | [SessionStatus](#51-sessionstatus-enum)                    | 1     | The status of the session.                                                                                     |
 
 
