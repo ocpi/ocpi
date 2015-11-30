@@ -495,13 +495,13 @@ The category of an image to obtain the correct usage in an user presentation. Ha
 
 | Value          | Description                                                                                                                  |
 |----------------|------------------------------------------------------------------------------------------------------------------------------|
-| charger        | Photo of the physical device that contains one or more EVSEs.                                                                |
-| entrance       | Location entrance photo. Should show the car entrance to the location from street side.                                      |
-| location       | Location overview photo.                                                                                                     |
-| network        |  logo of a associated roaming network to be displayed with the EVSE for example in lists, maps and detailed information view |
-| operator       |  logo of the charge points operator, for example a municipal, to be displayed with the EVSEs detailed information view or in lists and maps, if no networkLogo is present |
-| other          | Other                                                                                                                        |
-| owner          |  logo of the charge points owner, for example a local store, to be displayed with the EVSEs detailed information view        |
+| CHARGER        | Photo of the physical device that contains one or more EVSEs.                                                                |
+| ENTRANCE       | Location entrance photo. Should show the car entrance to the location from street side.                                      |
+| LOCATION       | Location overview photo.                                                                                                     |
+| NETWORK        |  logo of a associated roaming network to be displayed with the EVSE for example in lists, maps and detailed information view |
+| OPERATOR       |  logo of the charge points operator, for example a municipal, to be displayed with the EVSEs detailed information view or in lists and maps, if no networkLogo is present |
+| OTHER          | Other                                                                                                                        |
+| OWNER          |  logo of the charge points owner, for example a local store, to be displayed with the EVSEs detailed information view        |
 
 
 ### 5.11 LocationType *enum*
@@ -511,12 +511,12 @@ for user information.
 
  Value              |  Description
 :-------------------|:-------------
- on_street          |  Parking in public space.
- parking_garage     |  Multistorey car park.
- underground_garage |  Multistorey car park, mainly underground.
- parking_lot        |  A cleared area that is intended for parking vehicles, i.e. at super markets, bars, etc.
- other              |  None of the given possibilities.
- unknown            |  Parking location type is not known by the operator (default).
+ ON_STREET          |  Parking in public space.
+ PARKING_GARAGE     |  Multistorey car park.
+ UNDERGROUND_GARAGE |  Multistorey car park, mainly underground.
+ PARKING_LOT        |  A cleared area that is intended for parking vehicles, i.e. at super markets, bars, etc.
+ OTHER              |  None of the given possibilities.
+ UNKNOWN            |  Parking location type is not known by the operator (default).
 
 
 ### 5.12 ParkingRestriction *enum*
@@ -526,11 +526,11 @@ for different purposes.
 
  Value       |  Description
 :------------|:-------------
- ev_only     |  Reserved parking spot for electric vehicles.
- plugged     |  Parking allowed only while plugged in (charging).
- disabled    |  Reserved parking spot for disabled people with valid ID.
- customers   |  Parking spot for customers/guests only, for example in case of a hotel or shop.
- motorcycles |  Parking spot only suitable for (electric) motorcycles or scooters.
+ EV_ONLY     |  Reserved parking spot for electric vehicles.
+ PLUGGED     |  Parking allowed only while plugged in (charging).
+ DISABLED    |  Reserved parking spot for disabled people with valid ID.
+ CUSTOMERS   |  Parking spot for customers/guests only, for example in case of a hotel or shop.
+ MOTORCYCLES |  Parking spot only suitable for (electric) motorcycles or scooters.
 
 
 ### 5.13 PowerType *enum*

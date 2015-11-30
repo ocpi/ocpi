@@ -164,6 +164,6 @@ The combination of _uid_ and _type_ should be unique for every token.
 
 | Value        | Description                                          |
 | ------------ | ---------------------------------------------------- |
-| Other        | Other type of token                                  |
+| OTHER        | Other type of token                                  |
 | RFID         | RFID Token                                           |
 

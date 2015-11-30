@@ -135,8 +135,8 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 
 | Value        | Description                                                                             |
 |--------------|-----------------------------------------------------------------------------------------|
-| auth_request | Authentication request from the eMSP                                                    |
-| whitelist    | Whitelist used to authenticate, no request done to the eMSP                             |
+| AUTH_REQUEST | Authentication request from the eMSP                                                    |
+| WHITELIST    | Whitelist used to authenticate, no request done to the eMSP                             |
 
 
 ### 5.2 CdrDimension *class*
