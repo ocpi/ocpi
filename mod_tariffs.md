@@ -139,6 +139,139 @@ non the the TariffElements before this matches the current charging period.
 | elements        | [TariffElement](#53-tariffelement-class)     | +     | List of tariff elements                                                               | 
 
 
+#### Examples
+
+##### Simple Tariff example 2 euro per hour
+```json
+{
+	"id": "12",
+	"currency": "EUR",
+	"elements": [{
+		"price_components": [{
+			"type": "time",
+			"price": "2.00",
+			"step_size": 300
+		}]
+	}]
+}
+```
+
+##### Simple Tariff example with alternative multi language text
+```json
+{
+	"id": "12",
+	"currency": "EUR",
+	"tariff_alt_text": [{
+		"language": "en",
+		"text": "2 euro p/hour"
+	}, {
+		"language": "nl",
+		"text": "2 euro p/uur"
+	}],
+	"elements": [{
+		"price_components": [{
+			"type": "time",
+			"price": "2.00",
+			"step_size": 300
+		}]
+	}]
+}
+```
+
+
+##### Simple Tariff example with alternative URL
+```json
+{
+	"id": "12",
+	"currency": "EUR",
+	"tariff_alt_url": "https://company.com/tariffs/12",
+	"elements": [{
+		"price_components": [{
+			"type": "time",
+			"price": "2.00",
+			"step_size": 300
+		}]
+	}]
+}
+```
+
+
+##### Complex Tariff example
+2.50 euro start tariff
+1.00 euro per hour charging tariff for less the 32A (paid per 15 minutes)
+2.00 euro per hour charging tariff for more then 32A on weekdays (paid per 10 minutes)
+1.25 euro per hour charging tariff for more then 32A during the weekend (paid per 10 minutes)
+Parking:
+- Weekdays: between 9:00 and 18:00 : 5 euro (paid per 5 minutes) 
+- Saturday:  between 10:00 and 17:00 : 6 euro (paid per 5 minutes)
+
+```json
+{
+	"id": "11",
+	"currency": "EUR",
+	"tariff_alt_url": "https://company.com/tariffs/11",
+	"elements": [{
+		"price_components": [{
+			"type": "flat",
+			"price": "2.50",
+			"step_size": 1
+		}]
+	}, {
+		"price_components": [{
+			"type": "time",
+			"price": "1.00",
+			"step_size": "900"
+		}],
+		"restrictions": [{
+			"max_power": "32.00"
+		}]
+	}, {
+		"price_components": [{
+			"type": "time",
+			"price": "2.00",
+			"step_size": "600"
+		}],
+		"restrictions": [{
+			"min_power": "32.00",
+			"day_of_week": ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY"]
+		}]
+	}, {
+		"price_components": [{
+			"type": "time",
+			"price": "1.25",
+			"step_size": "600"
+		}],
+		"restrictions": [{
+			"min_power": "32.00",
+			"day_of_week": ["SATURDAY", "SUNDAY"]
+		}]
+	}, {
+		"price_components": [{
+			"type": "parking_time",
+			"price": "5.00",
+			"step_size": "300"
+		}],
+		"restrictions": [{
+			"start_time": "90:00",
+			"end_time": "18:00",
+			"day_of_week": ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY"]
+		}]
+	}, {
+		"price_components": [{
+			"type": "parking_time",
+			"price": "6.00",
+			"step_size": "300"
+		}],
+		"restrictions": [{
+			"start_time": "10:00",
+			"end_time": "17:00",
+			"day_of_week": ["SATURDAY"]
+		}]
+	}]
+}
+```
+
+
 ## 5. Data types
 
 ### 5.1 DayOfWeek *enum*
@@ -165,8 +298,8 @@ non the the TariffElements before this matches the current charging period.
 
 ### 5.3 TariffElement *class*
 
-| Property         | Type                                              | Card. | Description                                                      |
-|------------------|---------------------------------------------------|-------|------------------------------------------------------------------|
+| Property         | Type                                               | Card. | Description                                                      |
+|------------------|----------------------------------------------------|-------|------------------------------------------------------------------|
 | price_components | [PriceComponent](#52-pricecomponent-class)         | +     | List of price components that make up the pricing of this tariff |
 | restrictions     | [TariffRestrictions](#54-tariffrestrictions-class) | ?     | List of tariff restrictions                                      |
 
@@ -185,7 +318,7 @@ non the the TariffElements before this matches the current charging period.
 | max_power       | [decimal](types.md#13-decimal-type)   | ?     | Maximum power in kW, for example 20, valid up to this charging speed                  |
 | min_duration    | int                                   | ?     | Minimum duration in seconds, valid for a duration from x seconds                      |
 | max_duration    | int                                   | ?     | Maximum duration in seconds, valid for a duration up to x seconds                     |
-| day_of_week     | [DayOfWeek](#51-dayofweek-enum)        | *     | Which day(s) of the week this tariff is valid                                         |
+| day_of_week     | [DayOfWeek](#51-dayofweek-enum)       | *     | Which day(s) of the week this tariff is valid                                         |
 
 
 

@@ -143,6 +143,21 @@ The endpoint response with list of valid Token objects.
 The combination of _uid_ and _type_ should be unique for every token.
 
 
+#### Example
+
+```
+{
+  "uid": "012345678",
+  "type": "RFID",
+  "auth_id": "FA54320",
+  "visual_number": "DF000-2001-8999",
+  "issuer": "TheNewMotion",
+  "valid": true,
+  "allow_whitelist": true
+}
+```
+
+
 ## 5. Data types
 
 ### 5.1 TokenType *enum*

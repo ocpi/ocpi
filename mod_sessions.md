@@ -171,6 +171,118 @@ Inform about a deleted _Session_ object.
 | total_cost        | [decimal](types.md#13_decimal_type)                        | 1     | The total cost (excluding VAT) of the session in the specified currency. This is the price that the eMSP will have to pay to the CPO. |
 | status            | [SessionStatus](#51-sessionstatus-enum)                    | 1     | The status of the session.                                                                                     |
 
+#### Examples
+
+#### Simple Session example of a just starting session
+
+```json
+{
+	"id": "101",
+	"start_datetime": "2015-06-29T22:39:09+02:00",
+	"kwh": "0.00",
+	"auth_id": "FA54320",
+	"location": {
+		"id": "LOC1",
+		"type": "on_street",
+		"name": "Gent Zuid",
+		"address": "F.Rooseveltlaan 3A",
+		"city": "Gent",
+		"postal_code": "9000",
+		"country": "BE",
+		"coordinates": {
+			"latitude": "3.72994",
+			"longitude": "51.04759"
+		}
+	},
+	"evse": {
+		"evse_id": "BE-BEC-E041503003",
+		"location_id": "LOC1",
+		"STATUS": "AVAILABLE",
+		"connectors": [{
+			"id": "1",
+			"standard": "IEC-62196-T2",
+			"format": "SOCKET",
+			"power_type": "AC_1_PHASE",
+			"voltage": "230",
+			"amperage": "64",
+			"tariff_id": "11"
+		}]
+	},
+	"connector_id": "1",
+	"currency": "EUR",
+	"total_cost": "2.50",
+	"status": "PENDING"
+}
+```
+
+##### Simple Session example of a short finished session
+
+```json
+{
+	"id": "101",
+	"start_datetime": "2015-06-29T22:39:09+02:00",
+	"end_datetime": "2015-06-29T23:50:16+02:00",
+	"kwh": "0.00",
+	"auth_id": "FA54320",
+	"location": {
+		"id": "LOC1",
+		"type": "on_street",
+		"name": "Gent Zuid",
+		"address": "F.Rooseveltlaan 3A",
+		"city": "Gent",
+		"postal_code": "9000",
+		"country": "BE",
+		"coordinates": {
+			"latitude": "3.72994",
+			"longitude": "51.04759"
+		}
+	},
+	"evse": {
+		"evse_id": "BE-BEC-E041503003",
+		"location_id": "LOC1",
+		"STATUS": "AVAILABLE",
+		"connectors": [{
+			"id": "1",
+			"standard": "IEC-62196-T2",
+			"format": "SOCKET",
+			"power_type": "AC_1_PHASE",
+			"voltage": "230",
+			"amperage": "64",
+			"tariff_id": "11"
+		}]
+	},
+	"connector_id": "1",
+	"currency": "EUR",
+	"charging_periods": [{
+		"charging_periods": "2015-06-29T22:39:09+02:00",
+		"dimensions": [{
+			"type": "energy",
+			"volume": "120"
+		}, {
+			"type": "max_current",
+			"volume": "30"
+		}]
+	}, {
+		"charging_periods": "2015-06-29T22:40:54+02:00",
+		"dimensions": [{
+			"type": "energy",
+			"volume": "41000"
+		}, {
+			"type": "min_current",
+			"volume": "34"
+		}]
+	}, {
+		"charging_periods": "2015-06-29T23:07:09+02:00",
+		"dimensions": [{
+			"type": "parking_time",
+			"volume": "2585"
+		}]
+	}],
+	"total_cost": "8.50",
+	"status": "COMPLETED"
+}
+```
+
 
 ### 4.2 _CPOSession_ Object
 

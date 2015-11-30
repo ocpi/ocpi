@@ -116,74 +116,7 @@ Each object must contain all required fields. Fields that are not specified may 
           "power_type": "AC_3_PHASE",
           "voltage": 220,
           "amperage": 16,
-          "price_schemes": [
-            {
-              "default": 1,
-              "expiry_date": "2020-12-31T23:59:59Z",
-              "start_date": "2010-01-01T00:00:00Z",
-              "tariff": [
-                {
-                  "currency": "EUR",
-                  "price_untaxed": 0.1936,
-                  "pricing_unit": "kwhtoev",
-                  "tariff_id": "kwrate",
-                  "display_text": [
-                    {
-                      "language": "nl",
-                      "text": "Standaard Tarief"
-                    },
-                    {
-                      "language": "en",
-                      "text": "Standard Tariff"
-                    }
-                  ]
-                }
-              ],
-              "display_text": [
-                {
-                  "language": "nl",
-                  "text": "Standaard Tarief"
-                },
-                {
-                  "language": "en",
-                  "text": "Standard Tariff"
-                }
-              ]
-            },
-            {
-              "default": 0,
-              "expiry_date": "2020-12-31T23:59:59Z",
-              "start_date": "2010-01-01T00:00:00Z",
-              "tariff": [
-                {
-                  "currency": "EUR",
-                  "price_untaxed": 0.1536,
-                  "pricing_unit": "kwhtoev",
-                  "tariff_id": "kwrate",
-                  "display_text": [
-                    {
-                      "language": "nl",
-                      "text": "eMSP Tarief"
-                    },
-                    {
-                      "language": "en",
-                      "text": "eMSP Tariff"
-                    }
-                  ]
-                }
-              ],
-              "display_text": [
-                {
-                  "language": "nl",
-                  "text": "eMSP Tarief"
-                },
-                {
-                  "language": "en",
-                  "text": "eMSP Tariff"
-                }
-              ]
-            }
-          ]
+          "tariff_id": "11"
         },
         {
           "id": "2",
@@ -192,41 +125,7 @@ Each object must contain all required fields. Fields that are not specified may 
           "power_type": "AC_3_PHASE",
           "voltage": 220,
           "amperage": 16,
-          "price_schemes": [
-            {
-              "default": 1,
-              "expiry_date": "2020-12-31T23:59Z",
-              "start_date": "2010-01-01T00:00Z",
-              "tariff": [
-                {
-                  "currency": "EUR",
-                  "price_untaxed": 0.1936,
-                  "pricing_unit": "kwhtoev",
-                  "tariff_id": "kwrate",
-                  "display_text": [
-                    {
-                      "language": "nl",
-                      "text": "Standaard Tarief"
-                    },
-                    {
-                      "language": "en",
-                      "text": "Standard Tariff"
-                    }
-                  ]
-                }
-              ],
-              "display_text": [
-                {
-                  "language": "nl",
-                  "text": "Standaard Tarief"
-                },
-                {
-                  "language": "en",
-                  "text": "Standard Tariff"
-                }
-              ]
-            }
-          ]
+          "tariff_id": "11"
         }
       ],
       "physical_number": 1,
@@ -247,41 +146,7 @@ Each object must contain all required fields. Fields that are not specified may 
           "power_type": "AC_3_PHASE",
           "voltage": 220,
           "amperage": 16,
-          "price_schemes": [
-            {
-              "default": 1,
-              "expiry_date": "2020-12-31T23:59:59Z",
-              "start_date": "2010-01-01T00:00:00Z",
-              "tariff": [
-                {
-                  "currency": "EUR",
-                  "price_untaxed": 0.1936,
-                  "pricing_unit": "kwhtoev",
-                  "tariff_id": "kwrate",
-                  "display_text": [
-                    {
-                      "language": "nl",
-                      "text": "Standaard Tarief"
-                    },
-                    {
-                      "language": "en",
-                      "text": "Standard Tariff"
-                    }
-                  ]
-                }
-              ],
-              "display_text": [
-                {
-                  "language": "nl",
-                  "text": "Standaard Tarief"
-                },
-                {
-                  "language": "en",
-                  "text": "Standard Tariff"
-                }
-              ]
-            },
-          ]
+          "tariff_id": "12"
         }
       ],
       "physical_number": 2,
@@ -369,15 +234,15 @@ In this example the name of the location is updated and connector 2 of EVSE *BE-
 			"connectors": [
 				{
 					"id": "1",
-                                        "standard": "IEC-62196-T2",
-                                        "format": "CABLE",
-					"price": PRICINGSCHEMES
+                    "standard": "IEC-62196-T2",
+                    "format": "CABLE",
+                    "tariff_id": "15"
 				},
 				{
 					"id": "2",
-                                        "standard": "IEC-62196-T2",
-                                        "format": "SOCKET",
-					"price": NEW_PRICINGSCHEMES
+                    "standard": "IEC-62196-T2",
+                    "format": "SOCKET",
+                    "tariff_id": "15"
 				}
 			]
 		}
@@ -395,14 +260,14 @@ To add an *EVSE* or a *Location*, simply put the full object in an update messag
 		{
 			"evse_id": "BE-BEC-E041503003",
 			"location_id": "LOC1",
-			"STATUS": "AVAILABLE",
+			"status": "AVAILABLE",
 			"capabilities": ["RESERVABLE"],
 			"connectors": [
 				{
 					"id": "1",
                     "standard": "IEC-62196-T2",
                     "format": "SOCKET",
-					"price_schemes": PRICINGSCHEMES
+                    "tariff_id": "14"
 				}
 			],
 			"physical_number": 3,
@@ -421,7 +286,7 @@ An EVSE can be deleted by updating its *status* property.
 	"evses": [
 		{
 			"id": "BE-BEC-E041503001",
-			"status": "INOPERATIVE",
+			"status": "REMOVED",
 		}
 	]
 }
@@ -758,10 +623,10 @@ The status of an EVSE.
 | AVAILABLE   | The EVSE is able to start a new charging session.                                     |
 | BLOCKED     | The EVSE not accessible because of a physical barrier, i.e. a car.                    |
 | CHARGING    | The EVSE is in use.                                                                   |
-| REMOVED	  | The EVSE/charge point is discontinued/removed.                                        |
 | INOPERATIVE | The EVSE is not yet active or it is no longer available (deleted).                    |
 | OUTOFORDER  | The EVSE is currently out of order.                                                   |
 | PLANNED	  | The EVSE is planned, will be operating soon                                           |
+| REMOVED	  | The EVSE/charge point is discontinued/removed.                                        |
 | RESERVED    | The EVSE is reserved for a particular EV driver and is unavailable for other drivers. |
 | UNKNOWN	  | No status information available                                                       |
 
