@@ -117,7 +117,7 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 | stop_date_time   | [DateTime](types.md#12-datetime-type)                    | ?     | Stop timestamp of the charging session                                                                              | 
 | auth_id          | [string](types.md#16-string-type)(32)                    | 1     | Reference to a token, identified by the auth_id field of the [Token](mod_tokens.md#41_token)                         | 
 | auth_method      | [AuthMethod](#51-authmethod-enum)                        | 1     | Method used for authentication.                                                                                     | 
-| dimensions       | [CdrDimension](52-cdrdimension-class)                    | +     | List of applicable quantities that have impact on total costs.                                                      |  
+| dimensions       | [CdrDimension](#52-cdrdimension-class)                   | +     | List of applicable quantities that have impact on total costs.                                                      |  
 | location         | [Location](mod_locations_and_evses.md#41-location-object)| 1     | Location were the charging session took place, see: [Locations & EVSEs](mod_locations_and_evses.md)                  | 
 | evse             | [EVSE](mod_locations_and_evses.md#42-evse-object)        | 1     | EVSE used for this charging session, see: [Locations & EVSEs](mod_locations_and_evses.md)                            | 
 | connector_id     | [string](types.md#16-string-type)(15)                    | 1     | Identifier of the connector used, relevant Connector Object is part of the Location Object provided with this CDR   | 
@@ -151,9 +151,9 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 
 A charging period consists of a start timestamp and a list of possible values that influence this period, for example: Amount of energy charged this period, maximum current during this period etc.
 
-| Property        | Type                                  | Card. | Description                                                                                                                     |
-|-----------------|---------------------------------------|-------|---------------------------------------------------------------------------------------------------------------------------------|
-| start_date_time | [DateTime](types.md#12-datetime-type) | 1     | Start timestamp of the charging period. This period ends when a next period starts, the last period ends when the session ends. |
-| dimension       | [CdrDimension](52-cdrdimension-class) | +     | List of relevant values for this charging period.                                                                               |
+| Property        | Type                                   | Card. | Description                                                                                                                     |
+|-----------------|----------------------------------------|-------|---------------------------------------------------------------------------------------------------------------------------------|
+| start_date_time | [DateTime](types.md#12-datetime-type)  | 1     | Start timestamp of the charging period. This period ends when a next period starts, the last period ends when the session ends. |
+| dimension       | [CdrDimension](#52-cdrdimension-class) | +     | List of relevant values for this charging period.                                                                               |
 
 

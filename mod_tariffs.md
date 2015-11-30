@@ -167,8 +167,8 @@ non the the TariffElements before this matches the current charging period.
 
 | Property         | Type                                              | Card. | Description                                                      |
 |------------------|---------------------------------------------------|-------|------------------------------------------------------------------|
-| price_components | [PriceComponent](52-pricecomponent-class)         | +     | List of price components that make up the pricing of this tariff |
-| restrictions     | [TariffRestrictions](54-tariffrestrictions-class) | ?     | List of tariff restrictions                                      |
+| price_components | [PriceComponent](#52-pricecomponent-class)         | +     | List of price components that make up the pricing of this tariff |
+| restrictions     | [TariffRestrictions](#54-tariffrestrictions-class) | ?     | List of tariff restrictions                                      |
 
 
 ### 5.4 TariffRestrictions *class*
@@ -185,7 +185,7 @@ non the the TariffElements before this matches the current charging period.
 | max_power       | [decimal](types.md#13-decimal-type)   | ?     | Maximum power in kW, for example 20, valid up to this charging speed                  |
 | min_duration    | int                                   | ?     | Minimum duration in seconds, valid for a duration from x seconds                      |
 | max_duration    | int                                   | ?     | Maximum duration in seconds, valid for a duration up to x seconds                     |
-| day_of_week     | [DayOfWeek](51-dayofweek-enum)        | *     | Which day(s) of the week this tariff is valid                                         |
+| day_of_week     | [DayOfWeek](#51-dayofweek-enum)        | *     | Which day(s) of the week this tariff is valid                                         |
 
 
 
