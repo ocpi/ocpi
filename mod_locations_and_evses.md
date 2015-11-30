@@ -813,17 +813,6 @@ activate "Inheritance B"
 "Primary Object" ->o "Inheritance A": PATCH
 
 "Primary Object" ->o "Inheritance B": GET
-
- ... until location gets deleted ...
-
-[->x "Primary Object": <delete>
-"Primary Object" ->x "Inheritance A": PATCH
-deactivate "Primary Object"
-deactivate "Inheritance A"
-
-"Primary Object" ->x "Inheritance B": GET
-deactivate "Inheritance B"
-
 @enduml
 </code>
 </pre>
