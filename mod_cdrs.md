@@ -154,6 +154,6 @@ A charging period consists of a start timestamp and a list of possible values th
 | Property        | Type                                   | Card. | Description                                                                                                                     |
 |-----------------|----------------------------------------|-------|---------------------------------------------------------------------------------------------------------------------------------|
 | start_date_time | [DateTime](types.md#12-datetime-type)  | 1     | Start timestamp of the charging period. This period ends when a next period starts, the last period ends when the session ends. |
-| dimension       | [CdrDimension](#52-cdrdimension-class) | +     | List of relevant values for this charging period.                                                                               |
+| dimensions      | [CdrDimension](#52-cdrdimension-class) | +     | List of relevant values for this charging period.                                                                               |
 
 
