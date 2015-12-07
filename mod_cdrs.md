@@ -63,14 +63,16 @@ Fetch CDRs from the CPO systems. Only CDRs of charging sessions with a start dat
 
 _NOTE: The CPO is allowed to return a (not specified) maximum amount of CDRs, to prevent overloading there system. In this version of OCPI it is not possible to detect if the CPO returned not all CDRs that match the filter._  
 
-##### Data
+##### Response Data
 
-The endpoint returns a list of valid CDRs.
+The endpoint returns a list of CDRs matching the given parameters in the GET request.
+If the CPO returns less CDRs then the amount of CDRs in the system that match the filter, __count__ will be different from __total__ 
 
-| Type                            | Card. | Description                              |
-|---------------------------------|-------|------------------------------------------|
-| [CDR](#41-cdr-object)           | *     | List of CDRs.                            |
-
+| Parameter | Datatype              | Card. | Description                                                         |
+|-----------------------------------|-------|---------------------------------------------------------------------|
+| CDRs      | [CDR](#41-cdr-object) | *     | List of CDRs.                                                       |
+| count     | int                   | 1     | Amount of CDRs returned in this response                            |
+| total     | int                   | 1     | Total amount of CDRs that match the filter given in the GET request |
 
 
 ### 3.2 eMSP Interface
