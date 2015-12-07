@@ -148,7 +148,7 @@ non the the TariffElements before this matches the current charging period.
 	"currency": "EUR",
 	"elements": [{
 		"price_components": [{
-			"type": "time",
+			"type": "TIME",
 			"price": "2.00",
 			"step_size": 300
 		}]
@@ -170,7 +170,7 @@ non the the TariffElements before this matches the current charging period.
 	}],
 	"elements": [{
 		"price_components": [{
-			"type": "time",
+			"type": "TIME",
 			"price": "2.00",
 			"step_size": 300
 		}]
@@ -187,7 +187,7 @@ non the the TariffElements before this matches the current charging period.
 	"tariff_alt_url": "https://company.com/tariffs/12",
 	"elements": [{
 		"price_components": [{
-			"type": "time",
+			"type": "TIME",
 			"price": "2.00",
 			"step_size": 300
 		}]
@@ -198,12 +198,12 @@ non the the TariffElements before this matches the current charging period.
 
 ##### Complex Tariff example
 2.50 euro start tariff
-1.00 euro per hour charging tariff for less the 32A (paid per 15 minutes)
-2.00 euro per hour charging tariff for more then 32A on weekdays (paid per 10 minutes)
-1.25 euro per hour charging tariff for more then 32A during the weekend (paid per 10 minutes)
+1.00 euro per hour charging tariff for less than 32A (paid per 15 minutes)
+2.00 euro per hour charging tariff for more than 32A on weekdays (paid per 10 minutes)
+1.25 euro per hour charging tariff for more than 32A during the weekend (paid per 10 minutes)
 Parking:
-- Weekdays: between 9:00 and 18:00 : 5 euro (paid per 5 minutes) 
-- Saturday:  between 10:00 and 17:00 : 6 euro (paid per 5 minutes)
+- Weekdays: between 09:00 and 18:00 : 5 euro (paid per 5 minutes) 
+- Saturday: between 10:00 and 17:00 : 6 euro (paid per 5 minutes)
 
 ```json
 {
@@ -212,13 +212,13 @@ Parking:
 	"tariff_alt_url": "https://company.com/tariffs/11",
 	"elements": [{
 		"price_components": [{
-			"type": "flat",
+			"type": "FLAT",
 			"price": "2.50",
 			"step_size": 1
 		}]
 	}, {
 		"price_components": [{
-			"type": "time",
+			"type": "TIME",
 			"price": "1.00",
 			"step_size": "900"
 		}],
@@ -227,7 +227,7 @@ Parking:
 		}]
 	}, {
 		"price_components": [{
-			"type": "time",
+			"type": "TIME",
 			"price": "2.00",
 			"step_size": "600"
 		}],
@@ -237,7 +237,7 @@ Parking:
 		}]
 	}, {
 		"price_components": [{
-			"type": "time",
+			"type": "TIME",
 			"price": "1.25",
 			"step_size": "600"
 		}],
@@ -247,18 +247,18 @@ Parking:
 		}]
 	}, {
 		"price_components": [{
-			"type": "parking_time",
+			"type": "PARKING_TIME",
 			"price": "5.00",
 			"step_size": "300"
 		}],
 		"restrictions": [{
-			"start_time": "90:00",
+			"start_time": "09:00",
 			"end_time": "18:00",
 			"day_of_week": ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY"]
 		}]
 	}, {
 		"price_components": [{
-			"type": "parking_time",
+			"type": "PARKING_TIME",
 			"price": "6.00",
 			"step_size": "300"
 		}],
@@ -319,6 +319,4 @@ Parking:
 | min_duration    | int                                   | ?     | Minimum duration in seconds, valid for a duration from x seconds                      |
 | max_duration    | int                                   | ?     | Maximum duration in seconds, valid for a duration up to x seconds                     |
 | day_of_week     | [DayOfWeek](#51-dayofweek-enum)       | *     | Which day(s) of the week this tariff is valid                                         |
-
-
 
