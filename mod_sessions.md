@@ -17,7 +17,7 @@ _EMSPSession_ in the provider system. The leading instance is the
 _CPOSession_ object. The CPO updates the virtual parent _Session_
 object. The _EMSPSession_ object inherits the updates.
 
-![The Session Object][session-object]
+![The Session Object](data/session-object.png)
 
 
 ### 1.1 Operator Inheritor
@@ -37,7 +37,7 @@ related data.
 The following sequence diagram illustrates the data flow between
 operator an provider:
 
-![Session Sequence Diagram][session-sequence-diagram]
+![Session Sequence Diagram](data/session-sequence-diagram.png)
 
 
 ## 3. Interfaces and endpoints
@@ -317,111 +317,3 @@ Describes a session in the eMSP platform
 | COMPLETED | The session has finished succesfully.                                      |
 | INVALID   | The session is declared invalid and will not be billed.                    |
 
-
----
-
-
-## Appendix: Figures
-
-### Session Object
-
-![The Session Object][session-object]
-[session-object]: http://plantuml.com/plantuml/svg/hL9DJyCm3BttLrZYrh7jpiS1iI5n02QAk20qfQcx1NL95Rj2QEo_usRjbe4cBdEboebV_LwVdI6HSHQkleT3k9qzPTjpaiNtquTirXT07fKJUwKPTAM8eCUk4v1uDPuRLO7BFr1pk1fAX2HD7mMt-xmqM1K4l5GCoYFGKju5vCYVY1PonqkeAyMbyojAqz1Y916I0PW2Ba1QzKTREhcudJpVI_RoLMDN85RSK8IDzDmSqzBp0jMeJMdqR_vr_niRE0EqHUsCvPPbskLlxyb6pDfwjBUsisc2fBt9aK01THLZXHzRx8x-KE_W2D4bZCVWQfOc1DUmRhmv1orkBenTp6llIbFX9f8JJVH_FIZWKmWYTlMywxqLOnrZEsPsAt1bl7zjyxje9DfPLiQ68VkLuXwZSjTmKDcBtkuTkA0zO68_Hua8XfRtB_t1cf-G_y2_lO0V "The Session Object"
-
-#### Source:
-
-<pre>
-<code>
-@startuml
-Session <|-- CPOSession
-Session <|-- EMSPSession
- 
- 
-abstract class Session {
-    Virtual object
-    ----
-    **Non abstract fields that are shared between both platforms**
-    ....
-    + id : str
-    + info : CDRInfoType
-    + status : str
-    ----
-    **Abstract fields that are platform specific**
-    ....
-    {abstract} # endpoints : Endpoint[]
-}
- 
-class CPOSession {
-    Describes a session in the CPO platform
-    ----
-    + endpoints : Endpoint[]; // options = {uri, charging_profile}
-}
- 
-class EMSPSession {
-    Describes a session in the eMSP platform
-    ----
-    + endpoints : Endpoint[]; // options = {uri, stop_session}
-}
- 
-note bottom of CPOSession
-    Fields that contain information
-    about the session object on the
-    CPO platform.
-end note
- 
-note bottom of EMSPSession
-    Fields that contain information
-    about the session object on the
-    eMSP platform.
-end note
-@enduml
-</code>
-</pre>
-
-
-### Session Sequence Diagram
-
-![Session Sequence Diagram][session-sequence-diagram]
-[session-sequence-diagram]: http://plantuml.com/plantuml/svg/bP712i8m38RlVOgm-_e0eeBCWWTbW-qeI5aZvb9BstaPlhljtDX46UuIIFxawmSrqdggoKZj8ScAF65cEi5JMIGCcAmzFQH722kX3HNIBSHq1KLULj0wT8xksbrGAtCdxPzdhQINcx1RlhEH4WzPB2EbjXYJ7jEzi4xJFhJe6wj1X6PW0LFuoGF6EV-IsrNP0Th99Hy47MyiBRHiZ5fa-PVZNXn59UOaPvskfCdTPfr-U4mctP--0000 "Session Sequence Diagram"
-
-
-#### Source:
-
-<pre>
-<code>
-@startuml
-participant "CPO"
-participant "eMSP"
- 
-activate CPO
- 
-CPO -> eMSP: POST {sessions_endpoint}\ndata=CPOSession
-activate eMSP
-eMSP -> eMSP: create session
-CPO <-- eMSP: return EMSPSession
- 
-deactivate eMSP
- 
-...
- 
-CPO -> eMSP: PATCH {EMSPSession.endpoints.uri}\ndata=CPOSession
-activate eMSP
-eMSP -> eMSP: update session
-CPO <-- eMSP: return EMSPSession
-deactivate eMSP
- 
-...
- 
-CPO -> eMSP: DELETE {EMSPSession.endpoints.uri}
-activate eMSP
-eMSP -> eMSP: finish session
-CPO <-- eMSP: return
-deactivate eMSP
- 
-deactivate CPO
- 
-@enduml
-</code>
-</pre>
-
----

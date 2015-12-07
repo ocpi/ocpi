@@ -1,0 +1,43 @@
+@startuml
+Session <|-- CPOSession
+Session <|-- EMSPSession
+ 
+ 
+abstract class Session {
+    Virtual object
+    ----
+    **Non abstract fields that are shared between both platforms**
+    ....
+    + id : str
+    + info : CDRInfoType
+    + status : str
+    ----
+    **Abstract fields that are platform specific**
+    ....
+    {abstract} # endpoints : Endpoint[]
+}
+ 
+class CPOSession {
+    Describes a session in the CPO platform
+    ----
+    + endpoints : Endpoint[]; // options = {uri, charging_profile}
+}
+ 
+class EMSPSession {
+    Describes a session in the eMSP platform
+    ----
+    + endpoints : Endpoint[]; // options = {uri, stop_session}
+}
+ 
+note bottom of CPOSession
+    Fields that contain information
+    about the session object on the
+    CPO platform.
+end note
+ 
+note bottom of EMSPSession
+    Fields that contain information
+    about the session object on the
+    eMSP platform.
+end note
+@enduml

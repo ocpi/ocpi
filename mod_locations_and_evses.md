@@ -43,7 +43,7 @@ the updates in the master object. This updates their inheritance (B).
 When the CPO wants to delete a location and/or EVSE, they must update by setting the `status`
 field to `REMOVED` and call the [PUT](#322-put-method) or [PATCH](#323-patch-method) on the eMSP system. 
 
-![Lifecycle][location-lifecycle]
+![Lifecycle](data/location-lifecycle.png)
 
 
 ## 3. Interfaces and endpoints
@@ -643,43 +643,3 @@ This type is used to schedule status periods in the future. The eMSP can provide
 
 Note that the scheduled status is purely informational. When the status actually changes, the CPO must push an update to the EVSEs `status` field itself.
 
-
----
-
-## Appendix: Figures
-
-### Lifecycle
-
-![Lifecycle][location-lifecycle]
-[location-lifecycle]: http://plantuml.com:80/plantuml/png/ZO_D2i8m48JlUOebT_C0HGAjY7goXthojCQ04Kt3kXLyUnD5g6tykIqxmpSp0OcTSG4zWwp9dP5kiDuThM4fGbzS-OCbn-YDXVABLaaXjXCzeXKmDMIHhHPes5tZDKuKmmyaqdjq0VMcwJ46nNuZgeXOp3yXKdzGIa7dsPsW2_jekG26O96Iy9ZNvlOzlJhNeCsiA9lPKlnXVlMz0m00 "Lifecycle"
-
-
-#### Source:
-
-<pre>
-<code>
-@startuml
-participant "Primary Object"
-participant "Inheritance A"
-participant "Inheritance B"
-
-[-> "Primary Object": <create>
-activate "Primary Object"
-
-"Primary Object" -> "Inheritance A": PUT
-activate "Inheritance A"
-
-"Primary Object" -> "Inheritance B": GET
-activate "Inheritance B"
-
- ... until updates appear ...
-
-[->o "Primary Object": <update>
-"Primary Object" ->o "Inheritance A": PATCH
-
-"Primary Object" ->o "Inheritance B": GET
-@enduml
-</code>
-</pre>
-
----

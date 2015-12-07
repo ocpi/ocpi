@@ -1,0 +1,33 @@
+@startuml
+hide footbox
+participant "CPO"
+participant "eMSP"
+ 
+activate CPO
+ 
+CPO -> eMSP: POST {sessions_endpoint}\ndata=CPOSession
+activate eMSP
+eMSP -> eMSP: create session
+CPO <-- eMSP: return EMSPSession
+ 
+deactivate eMSP
+ 
+...
+ 
+CPO -> eMSP: PATCH {EMSPSession.endpoints.uri}\ndata=CPOSession
+activate eMSP
+eMSP -> eMSP: update session
+CPO <-- eMSP: return EMSPSession
+deactivate eMSP
+ 
+...
+ 
+CPO -> eMSP: DELETE {EMSPSession.endpoints.uri}
+activate eMSP
+eMSP -> eMSP: finish session
+CPO <-- eMSP: return
+deactivate eMSP
+ 
+deactivate CPO
+ 
+@enduml
