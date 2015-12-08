@@ -32,7 +32,14 @@ Example: `/ocpi/cpo/2.0/credentials` and `/ocpi/emsp/2.0/credentials`
     "token": "ebf3b399-779f-4497-9b9d-ac6ad3cc44d2",
     "business_details": {
         "name": "Example Operator",
-        "logo": "http://example.com/images/logo.png",
+        "logo": {
+            "url": "https://example.com/img/logo.jpg",
+            "thumbnail": "https://example.com/img/logo_thumb.jpg",
+            "category": "OPERATOR",
+            "type": "jpeg",
+            "width": 512,
+            "height": 512
+        },
         "website": "http://example.com"
     }
 }
