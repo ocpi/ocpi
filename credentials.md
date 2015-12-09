@@ -73,6 +73,8 @@ To register a CPO in a eMSP platform (or vice versa), the CPO must create a uniq
 
 TOKEN_A is given offline, after registration store the TOKEN_C which will be used in future exchanges. 
 
+(In the sequence diagrams below we use relative paths as short resource identifiers to illustrate a point; please note that they should really be absolute URLs in any working implementation of OCPI)
+
 ![the OCPI registration process](data/registration-sequence.png)
 
 Due to its symmetric nature, the CPO and eMSP can be swapped in the registration sequence.
