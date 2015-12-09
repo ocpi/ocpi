@@ -561,7 +561,7 @@ Operating on weekdays from 8am till 8pm with one exceptional opening on
 22/6/2014 and one exceptional closing the Monday after:
 
 ```json
-  "operating_times": {
+  "opening_times": {
     "regular_hours": [
       {
         "weekday": 1,
