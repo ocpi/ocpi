@@ -257,7 +257,7 @@ Inform about a deleted _Session_ object.
 	"connector_id": "1",
 	"currency": "EUR",
 	"charging_periods": [{
-		"charging_periods": "2015-06-29T22:39:09+02:00",
+		"start_date_time": "2015-06-29T22:39:09+02:00",
 		"dimensions": [{
 			"type": "energy",
 			"volume": "120"
@@ -266,7 +266,7 @@ Inform about a deleted _Session_ object.
 			"volume": "30"
 		}]
 	}, {
-		"charging_periods": "2015-06-29T22:40:54+02:00",
+		"start_date_time": "2015-06-29T22:40:54+02:00",
 		"dimensions": [{
 			"type": "energy",
 			"volume": "41000"
@@ -275,7 +275,7 @@ Inform about a deleted _Session_ object.
 			"volume": "34"
 		}]
 	}, {
-		"charging_periods": "2015-06-29T23:07:09+02:00",
+		"start_date_time": "2015-06-29T23:07:09+02:00",
 		"dimensions": [{
 			"type": "parking_time",
 			"volume": "2585"
