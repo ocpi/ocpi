@@ -95,7 +95,7 @@ Each object must contain all required fields. Fields that are not specified may 
       "address": "F.Rooseveltlaan 3A",
       "city": "Gent",
       "postal_code": "9000",
-      "country": "BE",
+      "country": "BEL",
       "coordinates": {"latitude": "3.72994", "longitude": "51.04759"},
       "operator": {"name": "BeCharged"}
     }
