@@ -561,7 +561,7 @@ Operating on weekdays from 8am till 8pm with one exceptional opening on
 22/6/2014 and one exceptional closing the Monday after:
 
 ```json
-  "operating_times": {
+  "opening_times": {
     "regular_hours": [
       {
         "weekday": 1,
@@ -589,6 +589,7 @@ Operating on weekdays from 8am till 8pm with one exceptional opening on
         "period_end": "20:00"
       }
     ],
+    "twentyfourseven": false,
     "exceptional_openings": [
       {
         "period_begin": "2014-06-21T09:00:00+02:00",
