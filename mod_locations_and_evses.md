@@ -424,7 +424,7 @@ The socket or plug standard of the charging point.
 | DOMESTIC-D | Standard/Domestic household, type "D", 3 pin |
 | DOMESTIC-E | Standard/Domestic household, type "E", CEE 7/5 3 pins |
 | DOMESTIC-F | Standard/Domestic household, type "F", CEE 7/4, Schuko, 3 pins |
-| DOMESTIC-G | Standard/Domestic household, type "G", BS 1363, Commonwealth, 3  |pins
+| DOMESTIC-G | Standard/Domestic household, type "G", BS 1363, Commonwealth, 3 pins |
 | DOMESTIC-H | Standard/Domestic household, type "H", SI-32, 3 pins |
 | DOMESTIC-I | Standard/Domestic household, type "I", AS 3112, 3 pins |
 | DOMESTIC-J | Standard/Domestic household, type "J", SEV 1011, 3 pins |
