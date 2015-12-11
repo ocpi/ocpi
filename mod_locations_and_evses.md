@@ -315,7 +315,7 @@ A *Location* without valid *EVSE* objects can be considered as expired and shoul
 | postal_code          | [string](types.md#16-string-type)(10)                    | 1     | Postal code of the location.                                                           |
 | country              | [string](types.md#16-string-type)(3)                     | 1     | ISO 3166-1 alpha-3 code for the country of this location.                              |
 | coordinates          | [GeoLocation](#57-geolocation-class)                     | 1     | Coordinates of the location.                                                           |
-| relatedLocation      | [AdditionalGeoLocation](#51-additionalgeolocation-class) | *     | Geographical location of related points relevant to the user.                          |
+| related_locations    | [AdditionalGeoLocation](#51-additionalgeolocation-class) | *     | Geographical location of related points relevant to the user.                          |
 | directions           | [DisplayText](types.md#15-displaytext-class)             | *     | Human-readable directions on how to reach the location.                                |
 | operator             | [BusinessDetails](#51-businessdetails-class)             | ?     | Information of the operator. When not specified, the information retreived from the `api_info` endpoint should be used instead. |
 | suboperator          | [BusinessDetails](#51-businessdetails-class)             | ?     | Information of the suboperator if available.                                           |
