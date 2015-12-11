@@ -30,7 +30,7 @@ object. Providers who do not support push mode need to call
 [GET](#311-get-method) on the operator's location endpoint to receive
 the new object. This creates also an inheritance (B).
 
-If the CPO wants to replace a location or EVSE object the push them to the eMSP systems by
+If the CPO wants to replace a location or EVSE object they push them to the eMSP systems by
 calling [PUT](#322-put-method) on their locations endpoint.
 
 Any changes to the master object in the operator's system are
@@ -157,7 +157,7 @@ Each object must contain all required fields. Fields that are not specified may 
 ```
 
 
-### 3.2 eMS Interface
+### 3.2 eMSP Interface
 
 Example endpoint structure: `/ocpi/emsp/2.0/locations`
 
