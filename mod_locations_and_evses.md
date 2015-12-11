@@ -23,8 +23,8 @@ updates to the master object as good as possible.
 
 ## 2. Flow and Lifecycle
 
-When the operator creates locations and EVSEs they push them to the
-CPOs by calling [POST](#321-post-method) on their
+When a CPO creates locations and EVSEs they push them to the
+MSPs by calling [POST](#321-post-method) on their
 location endpoint. This creates an inheritance (A) of the newly created
 object. Providers who do not support push mode need to call
 [GET](#311-get-method) on the operator's location endpoint to receive
