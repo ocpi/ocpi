@@ -102,18 +102,19 @@ be kept up to date via the CPO Interface.
 
 Example endpoint structure: `/ocpi/emsp/2.0/tokens/`
 
-| Method                 | Description                                          |
-|------------------------|----------------------------------------------------- |
-| [GET](#321-get-method) | Get the full list of known Tokens                    |
-| POST                   | n/a                                                  |
-| PUT                    | n/a                                                  |
-| PATCH                  | n/a                                                  |
-| DELETE                 | n/a                                                  |
+| Method                 | Description                                                             |
+|------------------------|-------------------------------------------------------------------------|
+| [GET](#321-get-method) | Get the list of known Tokens ([paginated](transpost_and_format.md#get)) |
+| POST                   | n/a                                                                     |
+| PUT                    | n/a                                                                     |
+| PATCH                  | n/a                                                                     |
+| DELETE                 | n/a                                                                     |
 
 
 #### 3.2.1 __GET__ Method
 
 Fetch information about all Tokens known in the eMSP systems.
+This request is [paginated](transpost_and_format.md#get).
 
 
 ##### Data
