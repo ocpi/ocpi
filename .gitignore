@@ -1,4 +1,5 @@
 # Idea
 .idea/
 *~
-
+.DS_Store
+all.md
