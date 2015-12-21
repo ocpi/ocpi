@@ -20,7 +20,7 @@ The literal 'Token' indicates that the token based authentication mechanism is u
 
 The request method can be any of GET, POST, PUT, PATCH or DELETE. The OCPI protocol uses them in a similar way as REST APIs do.
 
-| Method | Description
+| Method | Description                                        |
 |--------|----------------------------------------------------|
 | GET    | Fetches objects or information.                    |
 | POST   | Creates new objects or information.                |
@@ -28,8 +28,37 @@ The request method can be any of GET, POST, PUT, PATCH or DELETE. The OCPI proto
 | PATCH  | Partially updates existing objects or information. |
 | DELETE | Removes existing objects or information.           |
 
+##### GET
+All GET methods that return a list of objects have pagination.
+To enable pagination of the returned list of objects extra URL parameters are allowed for the GET request and extra headers need to be added to the response.
+
+###### Paginated Request
+The following table is a list of all the parameters that have to be supported, but might be omitted by a client request.
+
+| Parameter | Description                                            |
+|-----------|--------------------------------------------------------|
+| offset    | The offset of the first object returned. Default is 0. |
+| limit     | Maximum number of objects to GET. Note that the server might decided to return less objects, because there are no more objects or the server limits the amount to prevent, for example, overload of the system |
+
+
+###### Paginated Response
+HTTP headers that have to be added to any paginated get response.
+
+| HTTP Parameter | Description                                                                 |
+|----------------|-----------------------------------------------------------------------------|
+| link           | Link to the 'next' page should be provided, see example below               |
+| X-Total-Count  | (Custom HTTP Header) Total number of objects available in the server system |
+| X-Limit        | (Custom HTTP Header) Number of objects that are returned. Note that this is an upper limit, if there are not enough remaining objects to return, then less than this number will be returned. |
+
+Example of a required OCPI pagination link header
+```   
+   Link: <https://www.server.com/ocpi/cpo/2.0/cdrs/?offset=5&limit=50>; rel="next"
+```   
+
+##### PUT
 A PUT request must specify all required fields of an object (similar to a POST request). Optional fields that are not included will revert to their default value which is either specified in the protocol or NULL.
 
+##### PATCH
 A PATCH request must only specify the object's identifier and the fields to be updated. Any fields (both required or optional) that are left out remain unchanged.
 
 The mimetype of the request body is `application/json` and may contain the data as documented for each endpoint.
