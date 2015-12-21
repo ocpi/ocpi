@@ -104,7 +104,7 @@ Example endpoint structure: `/ocpi/emsp/2.0/tokens/`
 
 | Method                 | Description                                                             |
 |------------------------|-------------------------------------------------------------------------|
-| [GET](#321-get-method) | Get the list of known Tokens ([paginated](transpost_and_format.md#get)) |
+| [GET](#321-get-method) | Get the list of known Tokens ([paginated](transport_and_format.md#get)) |
 | POST                   | n/a                                                                     |
 | PUT                    | n/a                                                                     |
 | PATCH                  | n/a                                                                     |
@@ -114,12 +114,12 @@ Example endpoint structure: `/ocpi/emsp/2.0/tokens/`
 #### 3.2.1 __GET__ Method
 
 Fetch information about all Tokens known in the eMSP systems.
-This request is [paginated](transpost_and_format.md#get).
+This request is [paginated](transport_and_format.md#get), so supports the [pagination](transport_and_format.md#paginated-request) related URL parameters.
 
 
 ##### Data
 
-The endpoint response with list of valid Token objects.
+The endpoint response with list of valid Token objects, the header will contain the [pagination](transport_and_format.md#paginated-response) related headers. 
 
 | Type                            | Card. | Description                              |
 |---------------------------------|-------|------------------------------------------|
