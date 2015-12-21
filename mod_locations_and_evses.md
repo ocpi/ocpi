@@ -54,6 +54,7 @@ Example endpoint structure: `/ocpi/cpo/2.0/locations`
 
 ##### Methods
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Method                 | Description                                          |
 | ---------------------- | ---------------------------------------------------- |
 | [GET](#311-get-method) | Fetch all available locations and EVSEs.             |
@@ -61,17 +62,18 @@ Example endpoint structure: `/ocpi/cpo/2.0/locations`
 | PUT                    | n/a                                                  |
 | PATCH                  | n/a                                                  |
 | DELETE                 | n/a                                                  |
-
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 ##### Data
 
 The endpoint returns an object of two seperate lists: one list of available locations and one list of available EVSEs.
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Property  | Type                            | Card. | Description                              |
 |-----------|---------------------------------|-------|------------------------------------------|
 | locations | [Location](#41-location-object) | *     | List of all locations with valid EVSEs.  |
 | evses     | [EVSE](#42-evse-object)         | *     | List of all valid EVSEs.                 |
-
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 
 #### 3.1.1 __GET__ Method
@@ -163,6 +165,7 @@ Example endpoint structure: `/ocpi/emsp/2.0/locations`
 
 ##### Methods
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Method                        | Description                                                                     |
 | ----------------------------- | ------------------------------------------------------------------------------- |
 | GET                           | n/a                                                                             |
@@ -170,16 +173,18 @@ Example endpoint structure: `/ocpi/emsp/2.0/locations`
 | [PUT](#322-put-method)        | Push updated locations and EVSEs to the eMSP                                    |
 | [PATCH](#323-patch-method)    | Notify the eMSP of partial updates to locations and EVSEs (such as the status). |
 | DELETE                        | n/a  _(use PATCH)_                                    |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 ##### Data
 
 For all methods on the eMSP interface this data definition is used.
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Property  | Type                            | Card. | Description                    |
 |-----------|---------------------------------|-------|--------------------------------|
 | locations | [Location](#41-location-object) | *     | List of locations.             |
 | evses     | [EVSE](#42-evse-object)         | *     | List of EVSEs.                 |
-
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 #### 3.2.1 __POST__ Method
 
@@ -305,6 +310,7 @@ The *Location* object describes the location and its properties where a group of
 
 A *Location* without valid *EVSE* objects can be considered as expired and should no longer be displayed.
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Property             | Type                                                     | Card. | Description                                                                            |
 |----------------------|----------------------------------------------------------|-------|----------------------------------------------------------------------------------------|
 | id                   | [string](types.md#16-string-type)(15)                    | 1     | Uniquely identifies the location within the CPOs platform (and suboperator platforms). |
@@ -322,7 +328,7 @@ A *Location* without valid *EVSE* objects can be considered as expired and shoul
 | opening_times        | [Hours](#58-hours-class)                                 | *     | The times when the EVSEs at the location can be accessed for charging.                 |
 | charging_when_closed | boolean                                                  | ?     | Indicates if the EVSEs are still charging outside the opening hours of the location. E.g. when the parking garage closes its barriers over night, is it allowed to charge till the next morning?  Default: **true** |
 | images               | [Image](#59-image-class)                                 | *     | Links to images related to the location such as photos or logos.                       |
-
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 ### 4.2 EVSE Object
 
@@ -330,6 +336,7 @@ The *EVSE* object describes the part that controls the power supply to a single 
 
 An *EVSE* object has a list of connectors which can not be used simultaneously: only one connector per EVSE may be used at a time. The list of connectors is seen as atomic. This implies that for any changes or updates to a single connector, the full list of all connectors will have to be specified. Any connector not on that list is considered as deleted.
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Property             | Type                                               | Card. | Description                                            |
 |----------------------|----------------------------------------------------|-------|--------------------------------------------------------|
 | id                   | [string](types.md#16-string-type)(48)              | 1     | Uniquely identifies the EVSE within the CPOs platform (and suboperator platforms). |
@@ -344,6 +351,7 @@ An *EVSE* object has a list of connectors which can not be used simultaneously: 
 | directions           | [DisplayText](types.md#15-displaytext-class)       | *     | Multi-language human-readable directions when more detailed information on how to reach the EVSE from the *Location* is required. |
 | parking_restrictions | [ParkingRestriction](#512-parkingrestriction-enum) | *     | The restrictions that apply to the parking spot.       |
 | images               | [Image](#59-image-class)                           | *     | Links to images related to the EVSE such as photos or logos. |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 ## 5. Data types
 
@@ -351,66 +359,76 @@ An *EVSE* object has a list of connectors which can not be used simultaneously: 
 
 This class defines a geo location. The geodetic system to be used is WGS 84.
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Property    | Type                                         | Card. | Description                                                                                                                              |
 |-------------|----------------------------------------------|-------|------------------------------------------------------------------------------------------------------------------------------------------| 
 | latitude    | [string](types.md#16-string-type)(10)        | 1     | Latitude of the point in decimal degree. Example: 50.770774. Decimal separator: "." Regex: `-?$[$0-9$]$\{1,2\}$\$.$[$0-9$]$\{6\}`        |
 | longitude   | [string](types.md#16-string-type)(11)        | 1     | Longitude of the point in decimal degree. Example: -126.104965. Decimal separator: "." Regex: `-?$[$0-9$]$\{1,3\}$\$.$[$0-9$]$\{6\}`     |
 | name        | [DisplayText](types.md#15-displaytext-class) | ?     | Name of the point in local language or as written at the location. For example the street name of a parking lot entrance or it's number. |
-
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 ### 5.1 BusinessDetails *class*
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Property         | Type                                   | Card. | Description                        |
 |------------------|----------------------------------------|-------|------------------------------------|
 | name             | [string](types.md#16-string-type)(100) | 1     | Name of the operator.              |
 | website          | [URL](types.md#14_url_type)            | ?     | Link to the operator's website.    |
 | logo             | [Image](#59-image-class)               | ?     | Image link to the operator's logo. |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 
 ### 5.2 Capability *enum*
 
 The capabilities of an EVSE.
 
-| Value                    | Description                                                                                  |
-|--------------------------|----------------------------------------------------------------------------------------------|
-| CHARGING_PROFILE_CAPABLE | The EVSE supports charging profiles. Sending Charging Profiles is not yet supported by OCPI. |
-| CREDIT_CARD_PAYABLE      | Charging at this EVSE can be payed with credit card                                          |
-| RESERVABLE               | The EVSE can be reserved.                                                                    |
-| RFID_READER              | Charging at this EVSE can be authorized with a RFID token                                    |
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Value                            | Description                                                                                  |
+|----------------------------------|----------------------------------------------------------------------------------------------|
+| CHARGING_PROFILE_CAPABLE         | The EVSE supports charging profiles. Sending Charging Profiles is not yet supported by OCPI. |
+| CREDIT_CARD_PAYABLE              | Charging at this EVSE can be payed with credit card                                          |
+| RESERVABLE                       | The EVSE can be reserved.                                                                    |
+| RFID_READER                      | Charging at this EVSE can be authorized with a RFID token                                    |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 
 ### 5.3 Connector *class*
 
 A connector is the socket or cable available for the EV to make use of. A single EVSE may provide multiple connectors but only one of them can be in use at the same time. A connector always belongs to an *EVSE* object.
 
-| Property             | Type                                        | Card. | Description                                                             |
-|----------------------|---------------------------------------------|-------|-------------------------------------------------------------------------|
-| id                   | [string](types.md#16-string-type)(15)       | 1     | Identifier of the connector within the EVSE. Two connectors may have the same id as long as they do not belong to the same *EVSE* object. |
-| standard             | [ConnectorType](#55-connectortype-enum)     | 1     | The standard of the installed connector.                                |
-| format               | [ConnectorFormat](#54-connectorformat-enum) | 1     | The format (socket/cable) of the installed connector.                   |
-| power_type           | [PowerType](#513-powertype-enum)            | 1     |                                                                         |
-| voltage              | int                                         | 1     | Voltage of the connector (line to neutral for AC_3_PHASE), in volt [V]. |
-| amperage             | int                                         | 1     | maximum amperage of the connector, in ampere [A].                       |
-| tariff_id            | string(15)                                  | ?     | Identifier of the current charging tariff structure                     |
-| terms_and_conditions | [URL](types.md#14_url_type)                 | ?     | URL to the operator's terms and conditions.                             |
-
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Property               | Type                                        | Card. | Description                                                             |
+|------------------------|---------------------------------------------|-------|-------------------------------------------------------------------------|
+| id                     | [string](types.md#16-string-type)(15)       | 1     | Identifier of the connector within the EVSE. Two connectors may have the same id as long as they do not belong to the same *EVSE* object. |
+| standard               | [ConnectorType](#55-connectortype-enum)     | 1     | The standard of the installed connector.                                |
+| format                 | [ConnectorFormat](#54-connectorformat-enum) | 1     | The format (socket/cable) of the installed connector.                   |
+| power_type             | [PowerType](#513-powertype-enum)            | 1     |                                                                         |
+| voltage                | int                                         | 1     | Voltage of the connector (line to neutral for AC_3_PHASE), in volt [V]. |
+| amperage               | int                                         | 1     | maximum amperage of the connector, in ampere [A].                         |
+| tariff_id              | string(15)                                  | ?     | Identifier of the current charging tariff structure                     |
+| terms_and_conditions   | [URL](types.md#14_url_type)                 | ?     | URL to the operator's terms and conditions.                             |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 ### 5.4 ConnectorFormat *enum*
 
 The format of the connector, whether it is a socket or a plug.
 
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Value  | Description |
-|--------|-------------|
+|--------|------------------------------------------------------------------|
 | SOCKET | The connector is a socket; the EV user needs to bring a fitting plug. |
 | CABLE  | The connector is a attached cable; the EV users car needs to have a fitting inlet. |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 
 ### 5.5 ConnectorType *enum*
 
 The socket or plug standard of the charging point.
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Value | Description |
-|-------|-------------|
+|-------|-------------------------------------------------------------------|
 | Chademo | The connector type is CHAdeMO, DC |
 | IEC-62196-T1 | IEC 62196 Type 1 "SAE J1772" |
 | IEC-62196-T1-COMBO | Combo Type 1 based, DC |
@@ -436,30 +454,36 @@ The socket or plug standard of the charging point.
 | IEC-60309-2-three-16 | IEC 60309-2 Industrial Connector three phase 16  Amperes (usually red) |
 | IEC-60309-2-three-32 | IEC 60309-2 Industrial Connector three phase 32  Amperes (usually red) |
 | IEC-60309-2-three-64 | IEC 60309-2 Industrial Connector three phase 64  Amperes (usually red) |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 
 ### 5.6 ExceptionalPeriod *class*
 
 Specifies one exceptional period for opening or access hours.
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
  Field Name   |  Field Type                           |  Card.  |  Description
 --------------|---------------------------------------|---------|-------------
  period_begin | [DateTime](types.md#12_datetime_type) |  1      |  Begin of the exception.
  period_end   | [DateTime](types.md#12_datetime_type) |  1      |  End of the exception.
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 
 ### 5.7 GeoLocation *class*
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Property    | Type                                         | Card. | Description                                                                                                                              |
 |-------------|----------------------------------------------|-------|------------------------------------------------------------------------------------------------------------------------------------------| 
 | latitude    | [string](types.md#16-string-type)(10)        | 1     | Latitude of the point in decimal degree. Example: 50.770774. Decimal separator: "." Regex: `-?$[$0-9$]$\{1,2\}$\$.$[$0-9$]$\{6\}`        |
 | longitude   | [string](types.md#16-string-type)(11)        | 1     | Longitude of the point in decimal degree. Example: -126.104965. Decimal separator: "." Regex: `-?$[$0-9$]$\{1,3\}$\$.$[$0-9$]$\{6\}`     |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 
 ### 5.8 Hours *class*
 
 Opening and access hours for the location.
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
  Field Name             |  Field Type                                       |  Card.  |  Description
 ------------------------|---------------------------------------------------|---------|-------------
  *Choice: one of two*   |                                                   |         |
@@ -467,7 +491,7 @@ Opening and access hours for the location.
   > twentyfourseven     |  boolean                                          |  1      |  True to represent 24 hours per day and 7 days per week, except the given exceptions.
  exceptional_openings   |  [ExceptionalPeriod](#56-exceptionalperiod-class) |  *      |  Exceptions for specified calendar dates, time-range based. Periods the station is operating/accessible. Additional to regular hours. May overlap regular rules.
  exceptional_closings   |  [ExceptionalPeriod](#56-exceptionalperiod-class) |  *      |  Exceptions for specified calendar dates, time-range based. Periods the station is not operating/accessible. Overwriting regularHours and exceptionalOpenings. Should not overlap exceptionalOpenings.
-
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 ### 5.9 Image *class*
 
@@ -479,6 +503,7 @@ The recommended dimensions for all photos are minimum 800 pixels wide and 600 pi
 Logo Dimensions: 
 The recommended dimensions for logos are exactly 512 pixels wide and 512 pixels height. Thumbnail representations for logos should be exactly 128 pixels in with and height. If not squared, thumbnails should have the same orientation than the original.
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Field Name | Field Type                               | Card. | Description                           |
 |------------|------------------------------------------|-------|---------------------------------------|
 | url        | [URL](types.md#14_url_type)              | 1     | URL from where the image data can be fetched through a web browser. |
@@ -487,12 +512,13 @@ The recommended dimensions for logos are exactly 512 pixels wide and 512 pixels 
 | type       | string(4)                                | 1     | Image type like: gif, jpeg, png, svg  |
 | width      | int(5)                                   | ?     | Width of the full scale image         |
 | height     | int(5)                                   | ?     | Height of the full scale image        |
-
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 ### 5.10 ImageCategory *enum*
 
 The category of an image to obtain the correct usage in an user presentation. Has to be set accordingly to the image content in order to guaranty the right usage.
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Value          | Description                                                                                                                  |
 |----------------|------------------------------------------------------------------------------------------------------------------------------|
 | CHARGER        | Photo of the physical device that contains one or more EVSEs.                                                                |
@@ -502,57 +528,64 @@ The category of an image to obtain the correct usage in an user presentation. Ha
 | OPERATOR       |  logo of the charge points operator, for example a municipal, to be displayed with the EVSEs detailed information view or in lists and maps, if no networkLogo is present |
 | OTHER          | Other                                                                                                                        |
 | OWNER          |  logo of the charge points owner, for example a local store, to be displayed with the EVSEs detailed information view        |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 
 ### 5.11 LocationType *enum*
 
+
 Reflects the general type of the charge points location. May be used
 for user information.
 
- Value              |  Description
-:-------------------|:-------------
- ON_STREET          |  Parking in public space.
- PARKING_GARAGE     |  Multistorey car park.
- UNDERGROUND_GARAGE |  Multistorey car park, mainly underground.
- PARKING_LOT        |  A cleared area that is intended for parking vehicles, i.e. at super markets, bars, etc.
- OTHER              |  None of the given possibilities.
- UNKNOWN            |  Parking location type is not known by the operator (default).
-
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Value              |  Description  |
+|:-------------------|:--------------|
+| ON_STREET          |  Parking in public space.|
+| PARKING_GARAGE     |  Multistorey car park.|
+| UNDERGROUND_GARAGE |  Multistorey car park, mainly underground.|
+| PARKING_LOT        |  A cleared area that is intended for parking vehicles, i.e. at super markets, bars, etc.|
+| OTHER              |  None of the given possibilities.|
+| UNKNOWN            |  Parking location type is not known by the operator (default).|
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 ### 5.12 ParkingRestriction *enum*
 
 This value, if provided, represents the restriction to the parking spot
 for different purposes.
 
- Value       |  Description
-:------------|:-------------
- EV_ONLY     |  Reserved parking spot for electric vehicles.
- PLUGGED     |  Parking allowed only while plugged in (charging).
- DISABLED    |  Reserved parking spot for disabled people with valid ID.
- CUSTOMERS   |  Parking spot for customers/guests only, for example in case of a hotel or shop.
- MOTORCYCLES |  Parking spot only suitable for (electric) motorcycles or scooters.
-
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Value       |  Description|
+|:------------|:-------------|
+| EV_ONLY     |  Reserved parking spot for electric vehicles.|
+| PLUGGED     |  Parking allowed only while plugged in (charging).|
+| DISABLED    |  Reserved parking spot for disabled people with valid ID.|
+| CUSTOMERS   |  Parking spot for customers/guests only, for example in case of a hotel or shop.|
+| MOTORCYCLES |  Parking spot only suitable for (electric) motorcycles or scooters.|
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 ### 5.13 PowerType *enum*
 
 The format of the connector, whether it is a socket or a plug.
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Value      | Description     |
 |------------|-----------------|
 | AC_1_PHASE | AC mono phase.  |
 | AC_3_PHASE | AC 3 phase.     |
 | DC         | Direct Current. |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 ### 5.14 RegularHours *class*
 
 Regular recurring operation or access hours
 
- Field Name   |  Field Type  |  Card.  |  Description
-:-------------|:-------------|:--------|:------------
- weekday      |  int(1)      |  1      |  Number of day in the week, from Monday (1) till Sunday (7)
- period_begin |  string(5)   |  1      |  Begin of the regular period given in hours and minutes. Must be in 24h format with leading zeros. Example: "18:15". Hour/Minute separator: ":" Regex: $[$0-2$]$$[$0-9$]$:$[$0-5$]$$[$0-9$]$
- period_end   |  string(5)   |  1      |  End of the regular period, syntax as for period_begin. Must be later than period_begin.
-
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Field Name   |  Field Type  |  Card.  |  Description|
+|:-------------|:-------------|:--------|:------------|
+| weekday      |  int(1)      |  1      |  Number of day in the week, from Monday (1) till Sunday (7)|
+|period_begin |  string(5)   |  1      |  Begin of the regular period given in hours and minutes. Must be in 24h format with leading zeros. Example: "18:15". Hour/Minute separator: ":" Regex: $[$0-2$]$$[$0-9$]$:$[$0-5$]$$[$0-9$]$|
+| period_end   |  string(5)   |  1      |  End of the regular period, syntax as for period_begin. Must be later than period_begin.|
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 
 #### 5.14.1 Example
@@ -608,17 +641,20 @@ Operating on weekdays from 8am till 8pm with one exceptional opening on
 This represents the following schedule, where ~~stroked out~~ days are without operation hours, **bold** days are where exceptions apply and regular displayed days are where the regular schedule applies.
 
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Weekday   | Mo | Tu | We | Th | Fr | Sa     | Su     | Mo | Tu         | We | Th | Fr | Sa     | Su     |
 |-----------|----|----|----|----|----|--------|--------|----|------------|----|----|----|--------|--------|
 | Date      | 16 | 17 | 18 | 19 | 20 | **21** | ~~22~~ | 23 | **~~24~~** | 25 | 26 | 27 | ~~28~~ | ~~29~~ |
 | Open from | 08 | 08 | 08 | 08 | 08 | 09     | -      | 08 | -          | 08 | 08 | 08 | -      | -      |
 | Open till | 20 | 20 | 20 | 20 | 20 | 12     | -      | 20 | -          | 20 | 20 | 20 | -      | -      |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 
 ### 5.15 Status *enum*
 
 The status of an EVSE.
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Value       | Description |
 |-------------|-------------|
 | AVAILABLE   | The EVSE is able to start a new charging session.                                     |
@@ -630,17 +666,20 @@ The status of an EVSE.
 | REMOVED	  | The EVSE/charge point is discontinued/removed.                                        |
 | RESERVED    | The EVSE is reserved for a particular EV driver and is unavailable for other drivers. |
 | UNKNOWN	  | No status information available                                                       |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 
 ### 5.16 StatusSchedule *class*
 
 This type is used to schedule status periods in the future. The eMSP can provide this information to the EV user for trip planning purpose. A period MAY have no end. Example: "This station will be running from tomorrow. Today it is still planned and under construction."
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Property         | Type                                  | Card. | Description                                            |
 |------------------|---------------------------------------|-------|--------------------------------------------------------|
 | period_begin     | [DateTime](types.md#12_datetime_type) | 1     | Begin of the scheduled period.                         |
 | period_end       | [DateTime](types.md#12_datetime_type) | ?     | End of the scheduled period, if known.                 |
 | status           | [Status](#515-status-enum)            | 1     | Status value during the scheduled period.              |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 Note that the scheduled status is purely informational. When the status actually changes, the CPO must push an update to the EVSEs `status` field itself.
 

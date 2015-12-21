@@ -1,4 +1,4 @@
-## Terminology and Definitions
+# Terminology and Definitions
 
 ### Abbreviations
 
@@ -54,10 +54,12 @@ In order to prevent issues with Capitals in variable names, the naming in JSON i
 
 When defining the cardinality of a field, the following symbols are used during the document:
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Symbol | Description                     | Type     |
 |--------|---------------------------------|----------|
 | ?      | An optional object.             | Object   |
 | 1      | Required object.                | Object   |
 | *      | A list of zero or more objects. | [Object] |
 | +      | A list of at least one object.  | [Object] |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 

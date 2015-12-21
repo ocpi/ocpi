@@ -30,12 +30,12 @@ perl -p -i -e 's/(?<=\(#)(\w+)_(\w+)\)/\1-\2)/g' all.md
 # correct tables
 perl -p -i -e 's/<div><!-- //g' all.md
 perl -p -i -e 's/ --><\/div>//g' all.md
-perl -p -i -e 's/^\|(\s|-)/  /g' all.md
+perl -p -i -e 's/^\|[\s-:]/  /g' all.md
 perl -p -i -e 's/\|\s(?=\w)/  /g' all.md
 perl -p -i -e 's/\|(?=\w)/ /g' all.md
-perl -p -i -e 's/-\|-/-  /g' all.md
+perl -p -i -e 's/[-:]\|[-:]/-  /g' all.md
 perl -p -i -e 's/ \| /   /g' all.md
-perl -i -e '$/ = undef; while($all = <>){ $all =~ s/(?<=[\w.!?:])\s*\|(?=\n\s+\w)/\n\n/g; print $all;}' all.md
+perl -i -e '$/ = undef; while($all = <>){ $all =~ s/(?<=[\w.!?:\]\)\$*])\s*\|(?=\n\s+[\w?1*+])/\n\n/g; print $all;}' all.md
 perl -p -i -e 's/\|(?=\n)//g' all.md
 
 pandoc --number-sections -V geometry:margin=1in --include-in-header ocpi-header.tex --toc -f markdown_github+multiline_tables -t latex all.md -o OCPI_2.0_new.pdf

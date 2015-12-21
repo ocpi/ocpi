@@ -28,6 +28,7 @@ Example:
     
 ### 1.4 DimensionType *enum*
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Value        | Description                                                        |
 | ------------ | ------------------------------------------------------------------ |
 | ENERGY       | defined in kWh, default step_size is 1 Wh                          |
@@ -36,14 +37,17 @@ Example:
 | MIN_CURRENT  | defined in A (Ampere), Minimum current                             |
 | PARKING_TIME | time not charging: defined in hours, default step_size is 1 second |
 | TIME         | time charging: defined in hours, default step_size is 1 second     |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 
 ### 1.5 DisplayText *class*
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Property        | Type                           | Card. | Description                                                       |
 |-----------------|--------------------------------|-------|-------------------------------------------------------------------|
 | language        | [string](#16-string-type)(2)   | 1     | Language Code ISO 639-1                                           |
 | text            | [string](#16-string-type)(512) | 1     | Text to be displayed to a end user. No markup, html etc. allowed. |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 Example:
  
