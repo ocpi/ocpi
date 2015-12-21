@@ -48,6 +48,7 @@ With this interface the eMSP can push the full list of tokens, or push an update
 
 Example endpoint structure: `/ocpi/cpo/2.0/tokens/`
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Method                       | Description                                                |
 |------------------------------|------------------------------------------------------------|
 | GET                          | n/a                                                        |
@@ -55,7 +56,7 @@ Example endpoint structure: `/ocpi/cpo/2.0/tokens/`
 | [PUT](#312-put-method)       | Send a list of tokens to update existing tokens            |
 | PATCH                        | n/a                                                        |
 | [DELETE](#313-delete-method) | n/a (Use PUT, Tokens cannot be removed)                    |
-
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 #### 3.1.1 __POST__ Method
 
@@ -65,9 +66,11 @@ New created Token Objects are pushed from the eMSP to the CPO.
 
 In the post request a list of new Token Objects is send.
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Type                      | Card. | Description                              |
 |---------------------------|-------|------------------------------------------|
 | [Token](#41-token-object) | *     | List of all tokens.                      |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 
 #### 3.1.2 __PUT__ Method
@@ -78,9 +81,11 @@ Updated Token Objects are pushed from the eMSP to the CPO.
 
 In the put request a list of updated Token objects is send.
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Type                            | Card. | Description                              |
 |---------------------------------|-------|------------------------------------------|
 | [Token](#41-token-object)       | *     | List of all tokens.                      |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 
 #### 3.1.3 __DELETE__ Method
@@ -89,9 +94,11 @@ DeleteUpdated Token Objects are pushed from the eMSP to the CPO.
 
 ##### Parameters
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Parameter  | Datatype                              | Required | Description                               |
 |------------|---------------------------------------|----------|-------------------------------------------|
 | token_id   | [string](types.md#16-string-type)(15) | yes      | ID of the Token to be deleted             |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 
 ### 3.2 eMSP Interface
@@ -102,6 +109,8 @@ be kept up to date via the CPO Interface.
 
 Example endpoint structure: `/ocpi/emsp/2.0/tokens/`
 
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Method                 | Description                                                             |
 |------------------------|-------------------------------------------------------------------------|
 | [GET](#321-get-method) | Get the list of known Tokens ([paginated](transport_and_format.md#get)) |
@@ -109,6 +118,8 @@ Example endpoint structure: `/ocpi/emsp/2.0/tokens/`
 | PUT                    | n/a                                                                     |
 | PATCH                  | n/a                                                                     |
 | DELETE                 | n/a                                                                     |
+<div><!-- ---------------------------------------------------------------------------- --></div>
+
 
 
 #### 3.2.1 __GET__ Method
@@ -121,9 +132,11 @@ This request is [paginated](transport_and_format.md#get), so supports the [pagin
 
 The endpoint response with list of valid Token objects, the header will contain the [pagination](transport_and_format.md#paginated-response) related headers. 
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Type                            | Card. | Description                              |
 |---------------------------------|-------|------------------------------------------|
 | [Token](#41-token-object)       | *     | List of all tokens.                      |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 
 
@@ -131,6 +144,7 @@ The endpoint response with list of valid Token objects, the header will contain 
 
 ### 4.1 Token
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Property        | Type                                  | Card. | Description                                                                                             |
 |-----------------|---------------------------------------|-------|---------------------------------------------------------------------------------------------------------|
 | uid             | [string](types.md#16-string-type)(15) | 1     | Identification used by CPO system to identify this token, for example RFID hidden ID                    |
@@ -140,6 +154,7 @@ The endpoint response with list of valid Token objects, the header will contain 
 | issuer          | [string](types.md#16-string-type)(64) | 1     | Issuing company                                                                                         |
 | valid           | boolean                               | 1     | Is this Token valid                                                                                     |
 | allow_whitelist | boolean                               | ?     | It is allowed to validate a charging session with token without requesting and authorization from the eMSP? , default is FALSE. NOTE: For this release this field always needs to be set to TRUE |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 The combination of _uid_ and _type_ should be unique for every token.
 
@@ -163,8 +178,9 @@ The combination of _uid_ and _type_ should be unique for every token.
 
 ### 5.1 TokenType *enum*
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Value        | Description                                          |
 | ------------ | ---------------------------------------------------- |
 | OTHER        | Other type of token                                  |
 | RFID         | RFID Token                                           |
-
+<div><!-- ---------------------------------------------------------------------------- --></div>

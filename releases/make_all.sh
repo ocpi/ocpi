@@ -6,18 +6,32 @@ cat $RELEASE_DIR/introduction.md > all.md
 echo "" >> all.md
 cat $RELEASE_DIR/terminology.md >> all.md
 echo "" >> all.md
+cat $RELEASE_DIR/transport_and_format.md >> all.md
+echo "" >> all.md
+cat $RELEASE_DIR/status_codes.md >> all.md
+echo "" >> all.md
+cat $RELEASE_DIR/version_information_endpoint.md >> all.md
+echo "" >> all.md
+cat $RELEASE_DIR/credentials.md >> all.md
+echo "" >> all.md
 cat $RELEASE_DIR/mod_locations_and_evses.md >> all.md
 echo "" >> all.md
-cat $RELEASE_DIR/types.md >> all.md
+cat $RELEASE_DIR/mod_sessions.md >> all.md
 echo "" >> all.md
 cat $RELEASE_DIR/mod_cdrs.md >> all.md
+echo "" >> all.md
+cat $RELEASE_DIR/mod_tariffs.md >> all.md
+echo "" >> all.md
+cat $RELEASE_DIR/mod_tokens.md >> all.md
+echo "" >> all.md
+cat $RELEASE_DIR/types.md >> all.md
 echo "" >> all.md
 
 # correct references to images, etc.
 perl -p -i -e "s/\(data\//\($RELEASE_DIR\/data\//g" all.md
 
 # remove section numbering
-perl -p -i -e 's/^(#+\s*)(\d\.)*\d\.?\s/\1 /g' all.md
+perl -p -i -e 's/^(#+\s*)(\d+\.)*\d+\.?\s/\1 /g' all.md
 
 # correct internal links: no filenames; with padding!
 perl -p -i -e 's/((\w+\.md)?#\d+(-|_))/" " x (length($1) - 1) . "#"/eg' all.md 

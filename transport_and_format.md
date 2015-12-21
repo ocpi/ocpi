@@ -1,14 +1,14 @@
-## Transport and format
+# Transport and format
 
-### JSON / HTTP implementation guide
+## JSON / HTTP implementation guide
 
 The OCPI protocol is based on HTTP and uses the JSON format. It follows a RESTful architecture for webservices where possible.
 
-#### Security and authentication
+### Security and authentication
 
 The interfaces are protected on HTTP transport level, with SSL and token based authentication. Please note that this mechanism does **not** require client side certificates for authentication, only server side certificates in order to setup a secure SSL connection.
 
-#### Request format
+### Request format
 
 Each HTTP request must add a 'Authorization' header. The header looks as following:
 
@@ -20,6 +20,8 @@ The literal 'Token' indicates that the token based authentication mechanism is u
 
 The request method can be any of [GET](#get), [PUT](#put), [PATCH](#patch) or DELETE. The OCPI protocol uses them in a similar way as REST APIs do.
 
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Method          | Description                                        |
 |-----------------|----------------------------------------------------|
 | [GET](#get)     | Fetches objects or information.                    |
@@ -27,6 +29,8 @@ The request method can be any of [GET](#get), [PUT](#put), [PATCH](#patch) or DE
 | [PUT](#put)     | Updates existing objects or information.           |
 | [PATCH](#patch) | Partially updates existing objects or information. |
 | DELETE          | Removes existing objects or information.           |
+<div><!-- ---------------------------------------------------------------------------- --></div>
+
 
 
 ##### GET
@@ -67,22 +71,24 @@ A PATCH request must only specify the object's identifier and the fields to be u
 The mimetype of the request body is `application/json` and may contain the data as documented for each endpoint.
 
 
-#### Response format
+### Response format
 
 When a request cannot be accepted, an HTTP error response code is expected including a JSON object that contains more details. HTTP status codes are described on [w3.org](http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html).
 
 The content that is sent with all the response messages is a 'application/json' type and contains a JSON object with the following properties:
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Property       | Type                                  | Card. | Description                              |
 |----------------|---------------------------------------|-------|------------------------------------------|
 | data           | object                                | ?     | Contains the actual response data from each request. |
 | status_code    | Integer                               | 1     | Response code, as listed in [Status Codes](status_codes.md), indicates how the request was handled. To avoid confusion with HTTP codes, at least four digits are used. |
 | status_message | String                                | ?     | An optional status message which may help when debugging. |
 | timestamp      | [DateTime](types.md#12_datetime_type) | 1     | When this message was generated, we don't have a use for this yet but might be useful if any party comes offline and sends a bunch of messages at once or even debugging purposes. |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 For brevity's sake, any further example used in this specification will only contain the value of the "data" field. In reality, it will always have to be wrapped in the above response format.
 
-##### Example
+#### Example
 
 ```json
 {
@@ -106,7 +112,7 @@ For brevity's sake, any further example used in this specification will only con
 ```
 
 
-### Interface endpoints
+## Interface endpoints
 
 As OCPI contains multiple interfaces, different endpoints are available for messaging. The protocol is designed such that the exact URLs of the endpoints can be defined by each party. It also supports an interface per version.
 
@@ -116,12 +122,16 @@ For example: `/ocpi/cpo/2.0/locations` and `/ocpi/emsp/2.0/locations`.
 
 The URLs of the endpoints in this document are descriptive only. The exact URL can be found by fetching the endpoint information from the API info endpoint and looking up the identifier of the endpoint.
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Operator interface         | Identifier  | Example URL                                   |
 | -------------------------- | ----------- | --------------------------------------------- |
 | Credentials                | credentials | https://example.com/ocpi/cpo/2.0/credentials  |
 | Charging location details  | locations   | https://example.com/ocpi/cpo/2.0/locations    |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | eMSP interface             | Identifier  | Example URL                                   |
 | -------------------------- | ----------- | --------------------------------------------- |
 | Credentials                | credentials | https://example.com/ocpi/emsp/2.0/credentials |
 | Charging location updates  | locations   | https://example.com/ocpi/emsp/2.0/locations   |
+<div><!-- ---------------------------------------------------------------------------- --></div>

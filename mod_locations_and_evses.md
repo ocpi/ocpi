@@ -52,7 +52,7 @@ field to `REMOVED` and call the [PUT](#322-put-method) or [PATCH](#323-patch-met
 
 Example endpoint structure: `/ocpi/cpo/2.0/locations`
 
-##### Methods
+#### Methods
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Method                 | Description                                          |
@@ -64,7 +64,7 @@ Example endpoint structure: `/ocpi/cpo/2.0/locations`
 | DELETE                 | n/a                                                  |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
-##### Data
+#### Data
 
 The endpoint returns an object of two seperate lists: one list of available locations and one list of available EVSEs.
 
@@ -76,7 +76,7 @@ The endpoint returns an object of two seperate lists: one list of available loca
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-#### 3.1.1 __GET__ Method
+##### 3.1.1 __GET__ Method
 
 Fetch information about all available locations and EVSEs at this CPO.
 
@@ -163,7 +163,7 @@ Each object must contain all required fields. Fields that are not specified may 
 
 Example endpoint structure: `/ocpi/emsp/2.0/locations`
 
-##### Methods
+#### Methods
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Method                        | Description                                                                     |
@@ -175,7 +175,7 @@ Example endpoint structure: `/ocpi/emsp/2.0/locations`
 | DELETE                        | n/a  _(use PATCH)_                                    |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
-##### Data
+#### Data
 
 For all methods on the eMSP interface this data definition is used.
 
@@ -186,21 +186,21 @@ For all methods on the eMSP interface this data definition is used.
 | evses     | [EVSE](#42-evse-object)         | *     | List of EVSEs.                 |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
-#### 3.2.1 __POST__ Method
+##### 3.2.1 __POST__ Method
 
 Fully synchronize the eMSP by pushing all available locations and EVSEs. This is the exact equivalent to a GET request initiated by the eMSP to the CPO endpoint.
 
 Any location or EVSE that is not specified in the message is considered as no longer valid. Each object must contain all required fields. Fields that are not specified may be considered as null values or their default values if specified in the OCPI protocol.
 
 
-#### 3.2.2 __PUT__ Method
+##### 3.2.2 __PUT__ Method
 
 Fully synchronize the eMSP by pushing all available locations and EVSEs. This is the exact equivalent to a GET request initiated by the eMSP to the CPO endpoint.
 
 Any location or EVSE that is not specified in the message is considered as no longer valid. Each object must contain all required fields. Fields that are not specified may be considered as null values or their default values if specified in the OCPI protocol.
 
 
-#### 3.2.3 __PATCH__ Method
+##### 3.2.3 __PATCH__ Method
 
 Update messages are similar to synchronization messages except that only the object id is required. Unlike the PUT method, only the locations and fields that are updated are specified and any fields or objects that are not specified in the update message are considered unchanged.
 

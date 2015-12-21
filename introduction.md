@@ -1,6 +1,3 @@
-Title:  Terminology and data
-Date:   June 17th, 2015
-
 # OCPI
 
 ## Introduction and background

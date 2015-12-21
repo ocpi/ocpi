@@ -46,6 +46,7 @@ operator an provider:
 
 Example endpoint structure: `/ocpi/cpo/2.0/sessions/?date_from=xxx&date_to=yyy`
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Method                 | Description                                                                             |
 | ---------------------- | --------------------------------------------------------------------------------------- |
 | [GET](#311-get-method) | Fetch Session object of charging sessions started between the {date_from} and {date_to} |
@@ -53,16 +54,18 @@ Example endpoint structure: `/ocpi/cpo/2.0/sessions/?date_from=xxx&date_to=yyy`
 | PUT                    | n/a                                                                                     |
 | PATCH                  | n/a                                                                                     |
 | DELETE                 | n/a                                                                                     |
-
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 #### 3.1.1 __GET__ Method
 
 Fetch Sessions from the CPO systems. Only Sessions with a start date/time between the given date_from and date_to will be returned.
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Parameter  | Datatype                              | Required | Description                                                                   |
 |------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
 | date_from  | [DateTime](types.md#12_datetime_type) | yes      | Begin charging session start Date/Time of the Sessions to fetch.                      |
 | date_to    | [DateTime](types.md#12_datetime_type) | no       | End charging session start Date/Time of the Sessons to fetch, if omitted all Sessions up to now are request to be returned. |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 _NOTE: The CPO is allowed to return a (not specified) maximum amount of Sessions, to prevent overloading there system. In this version of OCPI it is not possible to detect if the CPO returned not all Sessions that match the filter._  
 
@@ -71,11 +74,13 @@ _NOTE: The CPO is allowed to return a (not specified) maximum amount of Sessions
 The response contains a list of Session objects that match the given parameters in the request.
 If the CPO returns less Sessions then the amount of Sessions in the system that match the filter, __count__ will be different from __total__ 
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Parameter | Datatype              | Card. | Description                                                                     |
 |-------------------------------------------|-------|-------------------------------------------------------------------------|
 | Sessions  | [Session](#41-session-object) | *     | List of Session objects that match the request parameters               |
 | count     | int                           | 1     | Amount of Sessions returned in this response                            |
 | total     | int                           | 1     | Total amount of Sessions that match the filter given in the GET request |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 
 ### 3.2 eMSP Interface
@@ -83,6 +88,7 @@ If the CPO returns less Sessions then the amount of Sessions in the system that 
 Example endpoint structure: `/ocpi/emsp/2.0/sessions/` and
 `/ocpi/emsp/2.0/sessions/{session-id}/`
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Method                       | Description                                          |
 | ---------------------------- | ---------------------------------------------------- |
 | GET                          | n/a                                                  |
@@ -90,6 +96,7 @@ Example endpoint structure: `/ocpi/emsp/2.0/sessions/` and
 | PUT                          | n/a                                                  |
 | [PATCH](#322-patch-method)   | Update the _CPOSession_ object of id {session-id}.   |
 | [DELETE](#323-delete-method) | Delete the _CPOSession_ object of id {session-id}.   |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 
 #### 3.2.1 __POST__ Method
@@ -101,9 +108,11 @@ object.
 
 The request contains the new Session Object.
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Type                            | Card. | Description                              |
 |---------------------------------|-------|------------------------------------------|
 | [Session](#41-session-object)   | 1     | new Session object.                      |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 
 The response contains a _EMSPSession_ object enriched with the
@@ -129,17 +138,21 @@ The response will contain the updated _EMSPSession_ object.
 
 ##### Parameters
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Parameter  | Datatype                              | Required | Description                               |
 |------------|---------------------------------------|----------|-------------------------------------------|
 | session-id | [string](types.md#16-string-type)(15) | yes      | ID of the Session to be updated           |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 ##### Data
 
 The request contains the Session Object to be updated.
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Type                            | Card. | Description                              |
 |---------------------------------|-------|------------------------------------------|
 | [Session](#41-session-object)   | 1     | new Session object.                      |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 
 #### 3.2.3 __DELETE__ Method
@@ -148,15 +161,17 @@ Inform about a deleted _Session_ object.
 
 ##### Parameters
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Parameter  | Datatype                              | Required | Description                               |
 |------------|---------------------------------------|----------|-------------------------------------------|
 | session-id | [string](types.md#16-string-type)(15) | yes      | ID of the Session to be deleted           |
-
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 ## 4. Object description
 
 ### 4.1 _Session_ Object
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Property          | Type                                                       | Card. | Description                                                                                                    |
 |-------------------|------------------------------------------------------------|-------|----------------------------------------------------------------------------------------------------------------|
 | id                | [string](types.md#16-string-type)(15)                      | 1     | The unique id that identifies the session in the CPO platform.                                                 |
@@ -172,7 +187,9 @@ Inform about a deleted _Session_ object.
 | currency          | [string](types.md#16-string-type)(3)                       | 1     | ISO 4217 code of the currency used for this session.                                                           |
 | charging_periods  | [ChargingPeriod](mod_cdrs.md#53-chargingperiod-class)      | *     | An optional list of charging periods that can be used to calculate and verify the total cost.                  |
 | total_cost        | [decimal](types.md#13_decimal_type)                        | 1     | The total cost (excluding VAT) of the session in the specified currency. This is the price that the eMSP will have to pay to the CPO. |
-| status            | [SessionStatus](#51-sessionstatus-enum)                    | 1     | The status of the session.                                                                                     |
+| status            | [SessionStatus](#51-sessionstatus-enum)                    | 1     | The status of the session.                                                                                  |
+<div><!-- ---------------------------------------------------------------------------- --></div>
+
 
 #### Examples
 
@@ -291,20 +308,24 @@ Inform about a deleted _Session_ object.
 
 Describes a session in the CPO platform
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Property  | Type                                                       | Card. | Description                    |
 |-----------|------------------------------------------------------------|-------|--------------------------------|
 | endpoints | [Endpoint](version_information_endpoint.md#endpoint-class) | *     |                                |
 |           |                                                            |       |                                |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 
 ### 4.3 _EMSPSession_ Object
 
 Describes a session in the eMSP platform
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Property  | Type                                                       | Card. | Description                    |
 |-----------|------------------------------------------------------------|-------|--------------------------------|
 | endpoints | [Endpoint](version_information_endpoint.md#endpoint-class) | *     |                                |
 |           |                                                            |       |                                |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 
 ## 5. Data types
@@ -313,10 +334,12 @@ Describes a session in the eMSP platform
 
 ### 5.1 SessionStatus *enum*
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Property  | Description                                                                |
 |-----------|----------------------------------------------------------------------------|
 | PENDING   | The session is pending and has not yet started. This is the initial state. |
 | ACTIVE    | The session is accepted and active.                                        |
 | COMPLETED | The session has finished succesfully.                                      |
 | INVALID   | The session is declared invalid and will not be billed.                    |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 

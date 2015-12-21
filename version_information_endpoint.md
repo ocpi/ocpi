@@ -1,5 +1,5 @@
 
-## Version information endpoint
+# Version information endpoint
 
 This endpoint lists all the available OCPI versions and the corresponding URLs to
 where version specific details such as the supported endpoints can be found.
@@ -11,29 +11,37 @@ of the different modules and version of OCPI that have been implemented.
 
 Both the CPO and the eMSP must have this endpoint.
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Method   | Description                                                             |
 | -------- | ----------------------------------------------------------------------- |
 | GET      | Fetch information about the supported versions.                         |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-### Data
+## Data
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Property | Type     | Card. | Description                               |
 |----------|----------|-------|-------------------------------------------|
 | versions | Version  | +     | A list of supported OCPI versions.        |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
-#### Version *class*
 
+### Version *class*
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Property | Type                        | Card. | Description                               |
 |----------|-----------------------------|-------|-------------------------------------------|
 | version  | decimal                     | 1     | The version number.                       |
 | url      | [URL](types.md#14_url_type) | 1     | URL to the endpoint containing version specific information. |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
-### GET
+
+## GET
 
 Fetch all supported OCPI versions of this CPO or eMSP.
 
-#### Example
+### Example
 
 ```json
 [
@@ -49,7 +57,7 @@ Fetch all supported OCPI versions of this CPO or eMSP.
 ```
 
 
-## Version details endpoint
+# Version details endpoint
 
 Example: `/ocpi/cpo/2.0/` and `/ocpi/emsp/2.0/`
 
@@ -57,34 +65,42 @@ This endpoint lists the supported endpoints and their URLs for a specific OCPI v
 
 Both the CPO and the eMSP must have this endpoint.
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Method   | Description                                                             |
 | -------- | ----------------------------------------------------------------------- |
 | GET      | Fetch information about the supported endpoints for this version.       |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-### Data
+## Data
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Property  | Type                                | Card. | Description                                     |
 |-----------|-------------------------------------|-------|-------------------------------------------------|
 | version   | [decimal](types.md#13_decimal_type) | 1     | The version number.                             |
 | endpoints | Endpoint                            | +     | A list of supported endpoints for this version. |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
-#### Endpoint *class*
 
+### Endpoint *class*
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Property    | Type                   | Card. | Description                               |
 |-------------|------------------------|-------|-------------------------------------------|
 | identifier  | ModuleID               | 1     | Endpoint identifier.                      |
 | url         | [URL](types.md#14_url) | 1     | URL to the endpoint.                      |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
-#### ModuleID *enum*
+
+### ModuleID *enum*
 
 The Module identifiers for each endpoint are in the beginning of each *Module* chapter.
 
-### GET
+## GET
 
 Fetch information about the supported endpoints and their URLs for this version.
 
-#### Example
+### Example
 
 ```json
 {

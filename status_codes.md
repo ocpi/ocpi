@@ -1,4 +1,4 @@
-## Status codes
+# Status codes
 
 There are two types of status codes:
 - Transport related (HTTP)
@@ -8,35 +8,42 @@ The transport layer ends after a message is correctly parsed into a (semanticall
 
 Requests that reach the OCPI layer should return an OCPI response message with a `status_code` field as defined below.
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Range | Description   |
 |-------|---------------|
 | 1xxx  | Success       |
 | 2xxx  | Client errors |
 | 3xxx  | Server errors |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 When the status code is in the success range (1xxx), the `data` field in the response message should contain the information as specified in the protocol. Otherwise the `data` field is unspecified and may be omitted, `null` or something else that could help to debug the problem from a programmer's perspective. For example, it could specify which fields contain an error or are missing.
 
 
-### 1xxx: Success
+## 1xxx: Success
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Code | Description                             |
 |------|-----------------------------------------|
 | 1000 | Generic success code                    |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-### 2xxx: Client errors
+## 2xxx: Client errors
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Code | Description                             |
 |------|-----------------------------------------|
 | 2000 | Generic client error                    |
 | 2001 | Invalid or missing parameters           |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-### 3xxx: Server errors
+## 3xxx: Server errors
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Code | Description                             |
 |------|-----------------------------------------|
 | 3000 | Generic server error                    |
 | 3001 | Unable to use the client's API.         |
 | 3002 | Unsupported version.                    |
-
+<div><!-- ---------------------------------------------------------------------------- --></div>

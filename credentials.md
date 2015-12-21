@@ -1,27 +1,31 @@
 
-## Credentials endpoint
+# Credentials endpoint
 
 Identifier: credentials
 
 Example: `/ocpi/cpo/2.0/credentials` and `/ocpi/emsp/2.0/credentials`
 
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Method   | Description                                                              |
 | -------- | ------------------------------------------------------------------------ |
 | GET      | Retrieves the client's credentials for the server's platform.            |
 | POST     | Provides the server with credentials to the client's system (i.e. register). |
 | PUT      | Updates the server's credentials to the client's system.                 |
 | DELETE   | Informs the server that its credentials to the client's system are now invalid (i.e. unregister).  |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
+## Data
 
-### Data
+### Credentials object
 
-#### Credentials object
-
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Property         | Type                        | Card. | Description                                                   |
 |------------------|-----------------------------|-------|---------------------------------------------------------------|
 | token            | String                      | 1     | The token for the other party to authenticate in your system. |
 | url              | [URL](types.md#14_url_type) | 1     | The URL to your API versions endpoint.                        |
 | business_details | [BusinessDetails](mod_locations_and_evses.md#51-businessdetails-class)  | 1     | Details of the other party.                                   |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 
 ### Example
@@ -45,21 +49,21 @@ Example: `/ocpi/cpo/2.0/credentials` and `/ocpi/emsp/2.0/credentials`
 }
 ```
 
-### GET
+## GET
 
 Retrieves the client's credentials for the server's platform.
 
-### POST
+## POST
 
 Provides the server with credentials to the client's system, this initiates the registration process. If successful, the server responds with the client's new credentials to the server's system.
 
-### PUT
+## PUT
 
 Updates the server's credentials to the client's system and switch to the version that contains this credentials endpoint. The server should also fetch the client's endpoints for this version.
 
 If successful, the server responds with the client's (potentially updated) credentials to the server's system.
 
-### DELETE
+## DELETE
 
 Informs the server that its credentials to the client's system are now invalid and can no longer be used. This is the unregistration process.
 
