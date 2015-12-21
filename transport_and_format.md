@@ -18,15 +18,16 @@ Each HTTP request must add a 'Authorization' header. The header looks as followi
 
 The literal 'Token' indicates that the token based authentication mechanism is used. Its parameter is a string consisting of printable, non-whitespace ASCII characters. The token must uniquely identify the requesting party. The server can then use this to link data and commands to this party's account.
 
-The request method can be any of GET, POST, PUT, PATCH or DELETE. The OCPI protocol uses them in a similar way as REST APIs do.
+The request method can be any of [GET](#get), [PUT](#put), [PATCH](#patch) or DELETE. The OCPI protocol uses them in a similar way as REST APIs do.
 
-| Method | Description                                        |
-|--------|----------------------------------------------------|
-| GET    | Fetches objects or information.                    |
-| POST   | Creates new objects or information.                |
-| PUT    | Updates existing objects or information.           |
-| PATCH  | Partially updates existing objects or information. |
-| DELETE | Removes existing objects or information.           |
+| Method          | Description                                        |
+|-----------------|----------------------------------------------------|
+| [GET](#get)     | Fetches objects or information.                    |
+| POST            | Creates new objects or information.                |
+| [PUT](#put)     | Updates existing objects or information.           |
+| [PATCH](#patch) | Partially updates existing objects or information. |
+| DELETE          | Removes existing objects or information.           |
+
 
 ##### GET
 All GET methods that return a list of objects have pagination.
@@ -55,8 +56,10 @@ Example of a required OCPI pagination link header
    Link: <https://www.server.com/ocpi/cpo/2.0/cdrs/?offset=5&limit=50>; rel="next"
 ```   
 
+
 ##### PUT
 A PUT request must specify all required fields of an object (similar to a POST request). Optional fields that are not included will revert to their default value which is either specified in the protocol or NULL.
+
 
 ##### PATCH
 A PATCH request must only specify the object's identifier and the fields to be updated. Any fields (both required or optional) that are left out remain unchanged.
