@@ -28,14 +28,14 @@ Example:
     
 ### 1.4 DimensionType *enum*
 
-| Value        | Description                                                       |
-| ------------ | ----------------------------------------------------------------- |
-| ENERGY       | defined in kWh, default division is 1 Wh                          |
-| FLAT         | flat fee, no unit                                                 |
-| MAX_CURRENT  | defined in A (Ampere), Maximum current                            |
-| MIN_CURRENT  | defined in A (Ampere), Minimum current                            |
-| PARKING_TIME | time not charging: defined in hours, default division is 1 second |
-| TIME         | time charging: defined in hours, default division is 1 second     |
+| Value        | Description                                                        |
+| ------------ | ------------------------------------------------------------------ |
+| ENERGY       | defined in kWh, default step_size is 1 Wh                          |
+| FLAT         | flat fee, no unit                                                  |
+| MAX_CURRENT  | defined in A (Ampere), Maximum current                             |
+| MIN_CURRENT  | defined in A (Ampere), Minimum current                             |
+| PARKING_TIME | time not charging: defined in hours, default step_size is 1 second |
+| TIME         | time charging: defined in hours, default step_size is 1 second     |
 
 
 ### 1.5 DisplayText *class*
