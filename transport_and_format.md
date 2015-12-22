@@ -122,6 +122,7 @@ For example: `/ocpi/cpo/2.0/locations` and `/ocpi/emsp/2.0/locations`.
 
 The URLs of the endpoints in this document are descriptive only. The exact URL can be found by fetching the endpoint information from the API info endpoint and looking up the identifier of the endpoint.
 
+
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Operator interface         | Identifier  | Example URL                                   |
 | -------------------------- | ----------- | --------------------------------------------- |
@@ -129,9 +130,11 @@ The URLs of the endpoints in this document are descriptive only. The exact URL c
 | Charging location details  | locations   | https://example.com/ocpi/cpo/2.0/locations    |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
+
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | eMSP interface             | Identifier  | Example URL                                   |
 | -------------------------- | ----------- | --------------------------------------------- |
 | Credentials                | credentials | https://example.com/ocpi/emsp/2.0/credentials |
 | Charging location updates  | locations   | https://example.com/ocpi/emsp/2.0/locations   |
 <div><!-- ---------------------------------------------------------------------------- --></div>
+

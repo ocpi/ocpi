@@ -1,6 +1,6 @@
 # _Tariffs_ module
 
-**Module Identifier: tariffs**
+**Module Identifier: `tariffs`**
 
 The Tariffs module gives eMSPs information over the tariffs used by the CPO.
  

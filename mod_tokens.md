@@ -1,6 +1,6 @@
 # _Tokens_ module
 
-**Module Identifier: tokens**
+**Module Identifier: `tokens`**
 
 The tokens module gives CPOs knowledge of the token information of an eMSP.
 eMSPs can push Token information to CPOs, CPOs can build a cache of known Tokens.

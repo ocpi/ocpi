@@ -1,7 +1,7 @@
 
 # Credentials endpoint
 
-Identifier: credentials
+Identifier: `credentials`
 
 Example: `/ocpi/cpo/2.0/credentials` and `/ocpi/emsp/2.0/credentials`
 

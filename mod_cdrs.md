@@ -1,6 +1,6 @@
 # _CDRs_ module
 
-**Module Identifier: cdrs**
+**Module Identifier: `cdrs`**
 
 A **Charge Detail Record** is the description of a concluded charging
 session. The CDR is the only billing-relevant object.
