@@ -23,10 +23,10 @@ the eMSP will send the updated Token (with the field: valid set to False, by cal
 on the CPOs Tokens endpoint with the updated Token. 
 
 
-### 1.2 (Re)loading full list of Tokens
+### 1.2 Pull model
 
 When a CPO is not sure about the state of the list of known Tokens, or wants to request the full 
-list at startup of there system, the CPO can call the [GET](#221-get-method) on the eMSPs Token endpoint to receive
+list at start-up of their system, the CPO can call the [GET](#221-get-method) on the eMSPs Token endpoint to receive
 all Tokens, updating already known Tokens and adding new received Tokens to it own list of Tokens.
 This method is not for operational flow.
 
