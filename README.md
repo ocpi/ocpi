@@ -10,7 +10,7 @@ This repostory contains the OCPI specification.
    - [Version information endpoint](version_information_endpoint.md)
    - [Credentials & registration](credentials.md)
  * __Overview of Modules__, each section describes one module.
-   - [Locations & EVSEs](mod_locations.md)
+   - [Locations](mod_locations.md)
    - [Sessions](mod_sessions.md)
    - [CDRs](mod_cdrs.md)
    - [Tariffs](mod_tariffs.md)
