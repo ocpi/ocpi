@@ -46,7 +46,7 @@ Example endpoint structure: `/ocpi/cpo/2.0/cdrs/?date_from=xxx&date_to=yyy`
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Method                  | Description                                                                      |
 |-------------------------|----------------------------------------------------------------------------------|
-| [GET](#311-get-method)  | Fetch CDRs of charging sessions started between the {date_from} and {date_to}    |
+| [GET](#311-get-method)  | Fetch CDRs of charging sessions started between the {date_from} and {date_to} ([paginated](transport_and_format.md#get))    |
 | POST                    | n/a                                                                              |
 | PUT                     | n/a                                                                              |
 | PATCH                   | n/a                                                                              |
@@ -55,28 +55,30 @@ Example endpoint structure: `/ocpi/cpo/2.0/cdrs/?date_from=xxx&date_to=yyy`
 
 #### 3.1.1 __GET__ Method
 
-Fetch CDRs from the CPO systems. Only CDRs of charging sessions with a start date/time between the given date_from and date_to will be returned.
+Fetch CDRs from the CPO systems. If additional parameters: {date_from} and/or {date_to} are provided, only CDRs of charging sessions with a start date/time between the given date_from and date_to will be returned.
+
+This request is [paginated](transport_and_format.md#get), so also supports the [pagination](transport_and_format.md#paginated-request) related URL parameters.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Parameter  | Datatype                              | Required | Description                                                                   |
 |------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
-| date_from  | [DateTime](types.md#12_datetime_type) | yes      | Begin charging session start Date/Time of CDRs to fetch.                      |
+| date_from  | [DateTime](types.md#12_datetime_type) | no       | Begin charging session start Date/Time of CDRs to fetch.                      |
 | date_to    | [DateTime](types.md#12_datetime_type) | no       | End charging session start Date/Time of CDRs to fetch, if omitted all CDRs up to now are request to be returned. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
-_NOTE: The CPO is allowed to return a (not specified) maximum amount of CDRs, to prevent overloading there system. In this version of OCPI it is not possible to detect if the CPO returned not all CDRs that match the filter._  
 
 ##### Response Data
 
-The endpoint returns a list of CDRs matching the given parameters in the GET request.
-If the CPO returns less CDRs then the amount of CDRs in the system that match the filter, __count__ will be different from __total__ 
+The endpoint returns a list of CDRs matching the given parameters in the GET request, the header will contain the [pagination](transport_and_format.md#paginated-response) related headers. 
+
+Any older information that is not specified in the response is considered as no longer valid.
+Each object must contain all required fields. Fields that are not specified may be considered as null values.
+
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Parameter | Datatype              | Card. | Description                                                         |
-|-----------------------------------|-------|---------------------------------------------------------------------|
+|-----------|-----------------------|-------|---------------------------------------------------------------------|
 | CDRs      | [CDR](#41-cdr-object) | *     | List of CDRs.                                                       |
-| count     | int                   | 1     | Amount of CDRs returned in this response                            |
-| total     | int                   | 1     | Total amount of CDRs that match the filter given in the GET request |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 ### 3.2 eMSP Interface

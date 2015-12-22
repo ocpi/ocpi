@@ -49,7 +49,7 @@ Example endpoint structure: `/ocpi/cpo/2.0/sessions/?date_from=xxx&date_to=yyy`
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Method                 | Description                                                                             |
 | ---------------------- | --------------------------------------------------------------------------------------- |
-| [GET](#311-get-method) | Fetch Session object of charging sessions started between the {date_from} and {date_to} |
+| [GET](#311-get-method) | Fetch Session object of charging sessions started between the {date_from} and {date_to} ([paginated](transport_and_format.md#get)) |
 | POST                   | n/a                                                                                     |
 | PUT                    | n/a                                                                                     |
 | PATCH                  | n/a                                                                                     |
@@ -58,7 +58,10 @@ Example endpoint structure: `/ocpi/cpo/2.0/sessions/?date_from=xxx&date_to=yyy`
 
 #### 3.1.1 __GET__ Method
 
-Fetch Sessions from the CPO systems. Only Sessions with a start date/time between the given date_from and date_to will be returned.
+Fetch Sessions from the CPO systems. Only Sessions with a start date/time between the given {date_from} and {date_to} will be returned.
+
+This request is [paginated](transport_and_format.md#get), so also supports the [pagination](transport_and_format.md#paginated-request) related URL parameters.
+
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Parameter  | Datatype                              | Required | Description                                                                   |
@@ -71,15 +74,15 @@ _NOTE: The CPO is allowed to return a (not specified) maximum amount of Sessions
 
 ##### Response Data
 
-The response contains a list of Session objects that match the given parameters in the request.
-If the CPO returns less Sessions then the amount of Sessions in the system that match the filter, __count__ will be different from __total__ 
+The response contains a list of Session objects that match the given parameters in the request, the header will contain the [pagination](transport_and_format.md#paginated-response) related headers.  
+
+Any older information that is not specified in the response is considered as no longer valid.
+Each object must contain all required fields. Fields that are not specified may be considered as null values.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Parameter | Datatype                      | Card. | Description                                                             |
 |-----------|-------------------------------|-------|-------------------------------------------------------------------------|
 | Sessions  | [Session](#41-session-object) | *     | List of Session objects that match the request parameters               |
-| count     | int                           | 1     | Amount of Sessions returned in this response                            |
-| total     | int                           | 1     | Total amount of Sessions that match the filter given in the GET request |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 

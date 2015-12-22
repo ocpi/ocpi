@@ -128,9 +128,13 @@ Fetch information about all Tokens known in the eMSP systems.
 This request is [paginated](transport_and_format.md#get), so supports the [pagination](transport_and_format.md#paginated-request) related URL parameters.
 
 
-##### Data
+##### Response Data
 
 The endpoint response with list of valid Token objects, the header will contain the [pagination](transport_and_format.md#paginated-response) related headers. 
+
+Any older information that is not specified in the response is considered as no longer valid.
+Each object must contain all required fields. Fields that are not specified may be considered as null values.
+
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Type                            | Card. | Description                              |

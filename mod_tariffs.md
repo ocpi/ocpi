@@ -46,8 +46,8 @@ Example endpoint structure: `/ocpi/cpo/2.0/tariffs/`
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Method                 | Description                                          |
-| ---------------------- | ---------------------------------------------------- |
-| [GET](#311-get-method) | Returns all Tariff Objects from the CPO              |
+|------------------------|------------------------------------------------------|
+| [GET](#311-get-method) | Returns all Tariff Objects from the CPO ([paginated](transport_and_format.md#get)) |
 | POST                   | n/a                                                  |
 | PUT                    | n/a                                                  |
 | PATCH                  | n/a                                                  |
@@ -58,12 +58,15 @@ Example endpoint structure: `/ocpi/cpo/2.0/tariffs/`
 #### 3.1.1 __GET__ Method
 
 Fetch information about all Tariffs.
-Any Tariffs, known in the eMSP system that are not provided in the response, should be removed in the eMSP system.
+This request is [paginated](transport_and_format.md#get), so supports the [pagination](transport_and_format.md#paginated-request) related URL parameters.
 
+##### Response Data
 
-##### Data
+The endpoint returns an object with list of valid Tariffs, the header will contain the [pagination](transport_and_format.md#paginated-response) related headers.
 
-The endpoint returns an object with list of valid Tariffs.
+Any older information that is not specified in the response is considered as no longer valid.
+Each object must contain all required fields. Fields that are not specified may be considered as null values.
+
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Type                            | Card. | Description                              |

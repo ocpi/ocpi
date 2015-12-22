@@ -52,21 +52,31 @@ field to `REMOVED` and call the [PUT](#322-put-method) or [PATCH](#323-patch-met
 
 Example endpoint structure: `/ocpi/cpo/2.0/locations`
 
-#### Methods
-
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Method                 | Description                                          |
 | ---------------------- | ---------------------------------------------------- |
-| [GET](#311-get-method) | Fetch all available locations and EVSEs.             |
+| [GET](#311-get-method) | Fetch all available locations and EVSEs. ([paginated](transport_and_format.md#get)) |
 | POST                   | n/a                                                  |
 | PUT                    | n/a                                                  |
 | PATCH                  | n/a                                                  |
 | DELETE                 | n/a                                                  |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
-#### Data
+
+#### 3.1.1 __GET__ Method
+
+Fetch information about all available locations and EVSEs at this CPO.
+
+This request is [paginated](transport_and_format.md#get), so also supports the [pagination](transport_and_format.md#paginated-request) related URL parameters.
+
+##### Response Data
 
 The endpoint returns an object of two seperate lists: one list of available locations and one list of available EVSEs.
+The header will contain the [pagination](transport_and_format.md#paginated-response) related headers.
+
+Any older information that is not specified in the response is considered as no longer valid.
+Each object must contain all required fields. Fields that are not specified may be considered as null values.
+ 
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property  | Type                            | Card. | Description                              |
@@ -75,14 +85,6 @@ The endpoint returns an object of two seperate lists: one list of available loca
 | evses     | [EVSE](#42-evse-object)         | *     | List of all valid EVSEs.                 |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
-
-##### 3.1.1 __GET__ Method
-
-Fetch information about all available locations and EVSEs at this CPO.
-
-Any older information that is not specified in the message is considered as no longer valid.
-
-Each object must contain all required fields. Fields that are not specified may be considered as null values.
 
 
 ##### Example
