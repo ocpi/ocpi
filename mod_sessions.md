@@ -11,7 +11,17 @@ or push by the CPO to another system.
 
 ### 1.1 Push model
 
-TODO GET/PUT/PATCH/DELETE
+When the CPO creates a Session object they push it to the eMSPs by calling [PUT](#222-put-method) on the eMSPs
+Sessions endpoint with the newly created Session object
+
+Any changes to a Session in the CPO system are send to the eMSP system by calling [PATCH](#223-patch-method)
+on the eMSPs Sessions endpoint with the updated Session object
+
+When the CPO deletes a Session, they will update the eMSPs systems by calling [DELETE](#224-delete-method)
+on the eMSPs Sessions endpoint, on the Sessions unique URI.
+
+When the CPO is not sure about the state or existence of a Session object in the eMSPs system the 
+CPO can call the [GET](#221-get-method) to validate the Session object in the eMSP system.   
 
 ### 1.2 Pull model
 
@@ -71,20 +81,25 @@ Example endpoint structure: `/ocpi/emsp/2.0/sessions/` and
 `/ocpi/emsp/2.0/sessions/{session-id}/`
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Method                       | Description                                          |
-| ---------------------------- | ---------------------------------------------------- |
-| GET                          | n/a                                                  |
-| [POST](#221-get-method)      | Send a new _CPOSession_ object                       |
-| PUT                          | n/a                                                  |
-| [PATCH](#222-patch-method)   | Update the _CPOSession_ object of id {session-id}.   |
-| [DELETE](#223-delete-method) | Delete the _CPOSession_ object of id {session-id}.   |
+| Method                       | Description                                                         |
+|------------------------------|---------------------------------------------------------------------|
+| [GET](#221-get-method)       | Get the Session object from the eMSP system by its id {session-id}. |
+| POST                         | n/a                                                                 |
+| [PUT](#222-put-method)       | Send a new/updated Session object                                   |
+| [PATCH](#223-patch-method)   | Update the Session object of id {session-id}.                       |
+| [DELETE](#224-delete-method) | Delete the Session object of id {session-id}.                       |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-#### 2.2.1 __POST__ Method
+#### 2.2.1 __GET__ Method
 
-Create a new session in the eMSP backoffice by POSTing a _CPOSession_
-object.
+TODO
+
+
+
+#### 2.2.2 __PUT__ Method
+
+Inform the system about a new/updated session in the eMSP backoffice by PUTing a _Session_ object.
 
 ##### Data
 
@@ -97,26 +112,9 @@ The request contains the new Session Object.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-The response contains a _EMSPSession_ object enriched with the
-**status** and **endpoints** fields and the **id** field filled.
-
-The endpoints field contains the endpoints relevant to the session that
-was created.
-
-##### Example:
-
-```
-"endpoints": [
-  {"identifier": "uri", "url": "http://msp/sessions/345/"},
-  {"identifier": "create_cdr", "url": "http://msp/sessions/345/create_cdr"}
-]
-```
-
-#### 2.2.2 __PATCH__ Method
+#### 2.2.3 __PATCH__ Method
 
 Inform about updates in the _Session_ object.
-
-The response will contain the updated _EMSPSession_ object.
 
 ##### Parameters
 
@@ -137,7 +135,7 @@ The request contains the Session Object to be updated.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-#### 2.2.3 __DELETE__ Method
+#### 2.2.4 __DELETE__ Method
 
 Inform about a deleted _Session_ object.
 
@@ -148,6 +146,7 @@ Inform about a deleted _Session_ object.
 |------------|---------------------------------------|----------|-------------------------------------------|
 | session-id | [string](types.md#16-string-type)(15) | yes      | ID of the Session to be deleted           |
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 
 ## 3. Object description
 
