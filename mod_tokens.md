@@ -8,41 +8,36 @@ When a request to authorize comes from a Charge Point, the CPO can check against
 They then know to which eMSP they can later send a CDR. 
 
 
-## 1. Inheritances
+## 1. Flow and Lifecycle
 
-N/A
+### 1.1 Push model
 
-
-## 2. Flow and Lifecycle
-
-### 2.1 Push model
-
-When the MSP creates Tokens(s) they push them to the CPO by calling [POST](#311-post-method) on the CPOs
+When the MSP creates Tokens(s) they push them to the CPO by calling [POST](#211-post-method) on the CPOs
 Tokens endpoint with the newly create Token(s)
 
-Any changes to Token(s) in the eMSP system are send to the CPO system by calling [PUT](#312-put-method)
+Any changes to Token(s) in the eMSP system are send to the CPO system by calling [PUT](#212-put-method)
 on the CPOs Tokens endpoint with the updated Token(s).
 
 When the eMSP invalidates a Token (deleting is not possible), 
-the eMSP will send the updated Token (with the field: valid set to False, by calling the [PUT](#312-put-method)
+the eMSP will send the updated Token (with the field: valid set to False, by calling the [PUT](#212-put-method)
 on the CPOs Tokens endpoint with the updated Token. 
 
 
-### 2.2 (Re)loading full list of Tokens
+### 1.2 (Re)loading full list of Tokens
 
 When a CPO is not sure about the state of the list of known Tokens, or wants to request the full 
-list at startup of there system, the CPO can call the [GET](#321-get-method) on the eMSPs Token endpoint to receive
+list at startup of there system, the CPO can call the [GET](#221-get-method) on the eMSPs Token endpoint to receive
 all Tokens, updating already known Tokens and adding new received Tokens to it own list of Tokens.
 This method is not for operational flow.
 
 
-## 3. Interfaces and endpoints
+## 2. Interfaces and endpoints
 
 There is both a CPO and an eMSP interface for Tokens. Advised is to use the push direction from eMSP to CPO during normal operation.
 The eMSP interface is mend to be used when the CPO is not 100% sure the Token cache is correct anymore.
 
 
-### 3.1 CPO Interface
+### 2.1 CPO Interface
 
 With this interface the eMSP can push the full list of tokens, or push an update with updated Tokens to the CPO.
 
@@ -52,13 +47,13 @@ Example endpoint structure: `/ocpi/cpo/2.0/tokens/`
 | Method                       | Description                                                |
 |------------------------------|------------------------------------------------------------|
 | GET                          | n/a                                                        |
-| [POST](#311-post-method)     | Resend the full list of tokens, replace the current cache. |
-| [PUT](#312-put-method)       | Send a list of tokens to update existing tokens            |
+| [POST](#211-post-method)     | Resend the full list of tokens, replace the current cache. |
+| [PUT](#212-put-method)       | Send a list of tokens to update existing tokens            |
 | PATCH                        | n/a                                                        |
-| [DELETE](#313-delete-method) | n/a (Use PUT, Tokens cannot be removed)                    |
+| [DELETE](#213-delete-method) | n/a (Use PUT, Tokens cannot be removed)                    |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
-#### 3.1.1 __POST__ Method
+#### 2.1.1 __POST__ Method
 
 New created Token Objects are pushed from the eMSP to the CPO. 
 
@@ -69,11 +64,11 @@ In the post request a list of new Token Objects is send.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Type                      | Card. | Description                              |
 |---------------------------|-------|------------------------------------------|
-| [Token](#41-token-object) | *     | List of all tokens.                      |
+| [Token](#31-token-object) | *     | List of all tokens.                      |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-#### 3.1.2 __PUT__ Method
+#### 2.1.2 __PUT__ Method
 
 Updated Token Objects are pushed from the eMSP to the CPO. 
 
@@ -84,11 +79,11 @@ In the put request a list of updated Token objects is send.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Type                            | Card. | Description                              |
 |---------------------------------|-------|------------------------------------------|
-| [Token](#41-token-object)       | *     | List of all tokens.                      |
+| [Token](#31-token-object)       | *     | List of all tokens.                      |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-#### 3.1.3 __DELETE__ Method
+#### 2.1.3 __DELETE__ Method
 
 DeleteUpdated Token Objects are pushed from the eMSP to the CPO. 
 
@@ -101,7 +96,7 @@ DeleteUpdated Token Objects are pushed from the eMSP to the CPO.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-### 3.2 eMSP Interface
+### 2.2 eMSP Interface
 
 This interface enables the CPO to request the current list of all Tokens, when needed.
 It is not possible to validate/request a single token, during normal operation the Token cache of the CPO should always
@@ -113,7 +108,7 @@ Example endpoint structure: `/ocpi/emsp/2.0/tokens/`
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Method                 | Description                                                             |
 |------------------------|-------------------------------------------------------------------------|
-| [GET](#321-get-method) | Get the list of known Tokens ([paginated](transport_and_format.md#get)) |
+| [GET](#221-get-method) | Get the list of known Tokens ([paginated](transport_and_format.md#get)) |
 | POST                   | n/a                                                                     |
 | PUT                    | n/a                                                                     |
 | PATCH                  | n/a                                                                     |
@@ -121,8 +116,7 @@ Example endpoint structure: `/ocpi/emsp/2.0/tokens/`
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-
-#### 3.2.1 __GET__ Method
+#### 2.2.1 __GET__ Method
 
 Fetch information about all Tokens known in the eMSP systems.
 This request is [paginated](transport_and_format.md#get), so supports the [pagination](transport_and_format.md#paginated-request) related URL parameters.
@@ -139,20 +133,19 @@ Each object must contain all required fields. Fields that are not specified may 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Type                            | Card. | Description                              |
 |---------------------------------|-------|------------------------------------------|
-| [Token](#41-token-object)       | *     | List of all tokens.                      |
+| [Token](#31-token-object)       | *     | List of all tokens.                      |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
+## 3. Object description
 
-## 4. Object description
-
-### 4.1 Token
+### 3.1 _Token_ Object
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property                | Type                                  | Card. | Description                                                                                             |
 |-------------------------|---------------------------------------|-------|---------------------------------------------------------------------------------------------------------|
 | uid                     | [string](types.md#16-string-type)(15) | 1     | Identification used by CPO system to identify this token, for example RFID hidden ID                    |
-| type                    | [TokenType](#5-1-tokentype)           | 1     | Type of the token                                                                                       |
+| type                    | [TokenType](#41-tokentype)            | 1     | Type of the token                                                                                       |
 | auth_id                 | [string](types.md#16-string-type)(32) | 1     | Uniquely identifies the EV Driver contract token within the eMSPs platform (and suboperator platforms). |
 | visual_number           | [string](types.md#16-string-type)(64) | 1     | Visual readable number/identification of the Token                                                      |
 | issuer                  | [string](types.md#16-string-type)(64) | 1     | Issuing company                                                                                         |
@@ -178,9 +171,9 @@ The combination of _uid_ and _type_ should be unique for every token.
 ```
 
 
-## 5. Data types
+## 4. Data types
 
-### 5.1 TokenType *enum*
+### 4.1 TokenType *enum*
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Value        | Description                                          |

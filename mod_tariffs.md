@@ -3,42 +3,36 @@
 **Module Identifier: `tariffs`**
 
 The Tariffs module gives eMSPs information over the tariffs used by the CPO.
- 
 
 
-## 1. Inheritances
+## 1. Flow and Lifecycle
 
-N/A
+### 1.1 Push model
 
-
-## 2. Flow and Lifecycle
-
-### 2.1 Push model
-
-When the CPO creates Tariff(s) they push them to the eMSPs by calling [POST](#321-post-method) on the eMSPs
+When the CPO creates Tariff(s) they push them to the eMSPs by calling [POST](#221-post-method) on the eMSPs
 Tariffs endpoint with the newly create Tariff(s)
 
-Any changes to the Tariff(s) in the CPO system are send to the eMSP system by calling [PUT](#322-put-method)
+Any changes to the Tariff(s) in the CPO system are send to the eMSP system by calling [PUT](#222-put-method)
 on the eMSPs Tariffs endpoint with the updated Tariff(s).
 
-When the CPO deletes a Tariff, they will update the eMSPs systems by calling [DELETE](#323-delete-method)
+When the CPO deletes a Tariff, they will update the eMSPs systems by calling [DELETE](#223-delete-method)
 on the eMSPs Tariffs endpoint, with the ID of the Tariff that is deleted.
 
 
-### 2.2 Pull model
+### 1.2 Pull model
 
 eMSPs who do not support the push model need to call
-[GET](#311-get-method) on the CPOs Tariff endpoint to receive
+[GET](#211-get-method) on the CPOs Tariff endpoint to receive
 all Tariffs, replacing the current list of known Tariffs with the newly received list.
 
 
-## 3. Interfaces and endpoints
+## 2. Interfaces and endpoints
 
 There is both a CPO and an eMSP interface for Tariffs. Advised is to use the push direction from CPO to eMSP during normal operation.
 The CPO interface is mend to be used when the eMSP is not 100% sure the Tariff cache is correct anymore.
 
 
-### 3.1 CPO Interface
+### 2.1 CPO Interface
 
 The CPO Tariffs interface give the eMSP the ability to request all tariffs.
 
@@ -47,7 +41,7 @@ Example endpoint structure: `/ocpi/cpo/2.0/tariffs/`
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Method                 | Description                                          |
 |------------------------|------------------------------------------------------|
-| [GET](#311-get-method) | Returns all Tariff Objects from the CPO ([paginated](transport_and_format.md#get)) |
+| [GET](#211-get-method) | Returns all Tariff Objects from the CPO ([paginated](transport_and_format.md#get)) |
 | POST                   | n/a                                                  |
 | PUT                    | n/a                                                  |
 | PATCH                  | n/a                                                  |
@@ -55,7 +49,7 @@ Example endpoint structure: `/ocpi/cpo/2.0/tariffs/`
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-#### 3.1.1 __GET__ Method
+#### 2.1.1 __GET__ Method
 
 Fetch information about all Tariffs.
 This request is [paginated](transport_and_format.md#get), so supports the [pagination](transport_and_format.md#paginated-request) related URL parameters.
@@ -71,11 +65,11 @@ Each object must contain all required fields. Fields that are not specified may 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Type                            | Card. | Description                              |
 |---------------------------------|-------|------------------------------------------|
-| [Tariff](#41-tariff-object)     | *     | List of all tariffs.                     |
+| [Tariff](#31-tariff-object)     | *     | List of all tariffs.                     |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-### 3.2 eMSP Interface
+### 2.2 eMSP Interface
 
 The Tariff information can also be pushed to the eMSP, for this the following needs to be implemented.
 
@@ -85,14 +79,14 @@ Example endpoint structure: `/ocpi/emsp/2.0/tariffs/` and `/ocpi/emsp/2.0/tariff
 | Method                       | Description                                          |
 | ---------------------------- | ---------------------------------------------------- |
 | GET                          | n/a                                                  |
-| [POST](#321-post-method)     | Push new Tariff Objects to the eMSP                  |
-| [PUT](#322-put-method)       | Update Tariff Objects with new information           |
+| [POST](#221-post-method)     | Push new Tariff Objects to the eMSP                  |
+| [PUT](#222-put-method)       | Update Tariff Objects with new information           |
 | PATCH                        | n/a                                                  |
-| [DELETE](#323-delete-method) | Remove Tariff Object which is no longer valid        |
+| [DELETE](#223-delete-method) | Remove Tariff Object which is no longer valid        |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-#### 3.2.1 __POST__ Method
+#### 2.2.1 __POST__ Method
 
 New created Tariff Objects are pushed from the CPO to the eMSP. 
 
@@ -103,11 +97,11 @@ In the post request a list of new Tariff Objects is send.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Type                            | Card. | Description                              |
 |---------------------------------|-------|------------------------------------------|
-| [Tariff](#41-tariff-object)     | *     | List of new tariffs.                     |
+| [Tariff](#31-tariff-object)     | *     | List of new tariffs.                     |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-#### 3.2.2 __PUT__ Method
+#### 2.2.2 __PUT__ Method
 
 Updated Tariff Objects are pushed from the CPO to the eMSP, to replace the current Tariff in the eMSP. 
 
@@ -118,11 +112,11 @@ In the put request a list of updated Tariff Objects is send.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Type                            | Card. | Description                              |
 |---------------------------------|-------|------------------------------------------|
-| [Tariff](#41-tariff-object)     | *     | List of all tariffs.                     |
+| [Tariff](#31-tariff-object)     | *     | List of all tariffs.                     |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-#### 3.2.3 __DELETE__ Method
+#### 2.2.3 __DELETE__ Method
 
 Delete no longer valid Tariff Object. 
 
@@ -135,9 +129,9 @@ Delete no longer valid Tariff Object.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-## 4. Object description
+## 3. Object description
 
-### 4.1 Tariff Object
+### 3.1 _Tariff_ Object
 
 A Tariff Object consists of a list of one or more TariffElements, these elements can be used to create complex Tariff structures. 
 When the list of _elements_ contains more then 1 element, then the first tariff in the list with matching restrictions will be used.
@@ -152,7 +146,7 @@ non the the TariffElements before this matches the current charging period.
 | currency            | [string](types.md#16-string-type)(3)         | 1     | Currency of this tariff, ISO 4217 Code                                                |
 | tariff_alt_text     | [DisplayText](types.md#15-displaytext-class) | *     | List of multi language alternative tariff info text                                   |
 | tariff_alt_url      | [URL](types.md#14_url_type)                  | ?     | Alternative URL to tariff info                                                        |
-| elements            | [TariffElement](#53-tariffelement-class)     | +     | List of tariff elements                                                               |
+| elements            | [TariffElement](#43-tariffelement-class)     | +     | List of tariff elements                                                               |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -289,9 +283,9 @@ Parking:
 ```
 
 
-## 5. Data types
+## 4. Data types
 
-### 5.1 DayOfWeek *enum*
+### 4.1 DayOfWeek *enum*
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Value        | Description                                          |
@@ -306,7 +300,7 @@ Parking:
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-### 5.2 PriceComponent *class*
+### 4.2 PriceComponent *class*
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property        | Type                                            | Card. | Description                                      |
@@ -316,17 +310,17 @@ Parking:
 | step_size       | int                                             | 1     | Minimum amount to be billed. This unit will be billed in this step_size blocks. For example: if type is time and  step_size is 300, then time will be billed in blocks of 5 minutes, so if 6 minutes is used, 10 minutes (2 blocks of step_size) will be billed. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
-### 5.3 TariffElement *class*
+### 4.3 TariffElement *class*
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property                 | Type                                               | Card. | Description                                                      |
 |--------------------------|----------------------------------------------------|-------|------------------------------------------------------------------|
-| price_components         | [PriceComponent](#52-pricecomponent-class)         | +     | List of price components that make up the pricing of this tariff |
-| restrictions             | [TariffRestrictions](#54-tariffrestrictions-class) | ?     | List of tariff restrictions                                      |
+| price_components         | [PriceComponent](#42-pricecomponent-class)         | +     | List of price components that make up the pricing of this tariff |
+| restrictions             | [TariffRestrictions](#44-tariffrestrictions-class) | ?     | List of tariff restrictions                                      |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-### 5.4 TariffRestrictions *class*
+### 4.4 TariffRestrictions *class*
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property                | Type                                  | Card. | Description                                                                           |
@@ -341,6 +335,6 @@ Parking:
 | max_power               | [decimal](types.md#13-decimal-type)   | ?     | Maximum power in kW, for example 20, valid up to this charging speed                  |
 | min_duration            | int                                   | ?     | Minimum duration in seconds, valid for a duration from x seconds                      |
 | max_duration            | int                                   | ?     | Maximum duration in seconds, valid for a duration up to x seconds                     |
-| day_of_week             | [DayOfWeek](#51-dayofweek-enum)       | *     | Which day(s) of the week this tariff is valid                                         |
+| day_of_week             | [DayOfWeek](#41-dayofweek-enum)       | *     | Which day(s) of the week this tariff is valid                                         |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 

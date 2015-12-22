@@ -2,61 +2,40 @@
 
 **Module Identifier: `sessions`**
 
-The session object describes one charging session in a roaming scenario.
-The object is virtual and lives between the operator's and provider's
-systems. Each of the two parties hold a inheritance of this virtual
-object.
+The Session object describes one charging session. 
+The Session object is owned by the CPO back-end system, and can be GET from the CPO system, 
+or push by the CPO to another system.
 
 
-## 1. Inheritances
+## 1. Flow and Lifecycle
 
-The generic _Session_ object is a virtual object which describes one
-charging session in a roaming case. It inherits into two child
-objects, the _CPOSession_ object in the operator system and the
-_EMSPSession_ in the provider system. The leading instance is the
-_CPOSession_ object. The CPO updates the virtual parent _Session_
-object. The _EMSPSession_ object inherits the updates.
+### 1.1 Push model
 
-![The Session Object](data/session-object.png)
+TODO GET/PUT/PATCH/DELETE
 
+### 1.2 Pull model
 
-### 1.1 Operator Inheritor
-
-The operator inheritance of the session object contains charging station
-related data.
+TODO GET
 
 
-### 1.2 Provider Inheritor
 
-The provider inheritance of the session object contains user and billing
-related data.
+## 2. Interfaces and endpoints
 
-
-## 2. Flow and Lifecycle
-
-The following sequence diagram illustrates the data flow between
-operator an provider:
-
-![Session Sequence Diagram](data/session-sequence-diagram.png)
-
-
-## 3. Interfaces and endpoints
-
-### 3.1 CPO Interface
+### 2.1 CPO Interface
 
 Example endpoint structure: `/ocpi/cpo/2.0/sessions/?date_from=xxx&date_to=yyy`
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Method                 | Description                                                                             |
 | ---------------------- | --------------------------------------------------------------------------------------- |
-| [GET](#311-get-method) | Fetch Session object of charging sessions started between the {date_from} and {date_to} ([paginated](transport_and_format.md#get)) |
+| [GET](#211-get-method) | Fetch Session object of charging sessions started between the {date_from} and {date_to} ([paginated](transport_and_format.md#get)) |
 | POST                   | n/a                                                                                     |
 | PUT                    | n/a                                                                                     |
 | PATCH                  | n/a                                                                                     |
 | DELETE                 | n/a                                                                                     |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
-#### 3.1.1 __GET__ Method
+#### 2.1.1 __GET__ Method
 
 Fetch Sessions from the CPO systems. Only Sessions with a start date/time between the given {date_from} and {date_to} will be returned.
 
@@ -82,11 +61,11 @@ Each object must contain all required fields. Fields that are not specified may 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Parameter | Datatype                      | Card. | Description                                                             |
 |-----------|-------------------------------|-------|-------------------------------------------------------------------------|
-| Sessions  | [Session](#41-session-object) | *     | List of Session objects that match the request parameters               |
+| Sessions  | [Session](#31-session-object) | *     | List of Session objects that match the request parameters               |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-### 3.2 eMSP Interface
+### 2.2 eMSP Interface
 
 Example endpoint structure: `/ocpi/emsp/2.0/sessions/` and
 `/ocpi/emsp/2.0/sessions/{session-id}/`
@@ -95,14 +74,14 @@ Example endpoint structure: `/ocpi/emsp/2.0/sessions/` and
 | Method                       | Description                                          |
 | ---------------------------- | ---------------------------------------------------- |
 | GET                          | n/a                                                  |
-| [POST](#321-get-method)      | Send a new _CPOSession_ object                       |
+| [POST](#221-get-method)      | Send a new _CPOSession_ object                       |
 | PUT                          | n/a                                                  |
-| [PATCH](#322-patch-method)   | Update the _CPOSession_ object of id {session-id}.   |
-| [DELETE](#323-delete-method) | Delete the _CPOSession_ object of id {session-id}.   |
+| [PATCH](#222-patch-method)   | Update the _CPOSession_ object of id {session-id}.   |
+| [DELETE](#223-delete-method) | Delete the _CPOSession_ object of id {session-id}.   |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-#### 3.2.1 __POST__ Method
+#### 2.2.1 __POST__ Method
 
 Create a new session in the eMSP backoffice by POSTing a _CPOSession_
 object.
@@ -114,7 +93,7 @@ The request contains the new Session Object.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Type                            | Card. | Description                              |
 |---------------------------------|-------|------------------------------------------|
-| [Session](#41-session-object)   | 1     | new Session object.                      |
+| [Session](#31-session-object)   | 1     | new Session object.                      |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -133,7 +112,7 @@ was created.
 ]
 ```
 
-#### 3.2.2 __PATCH__ Method
+#### 2.2.2 __PATCH__ Method
 
 Inform about updates in the _Session_ object.
 
@@ -154,11 +133,11 @@ The request contains the Session Object to be updated.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Type                            | Card. | Description                              |
 |---------------------------------|-------|------------------------------------------|
-| [Session](#41-session-object)   | 1     | new Session object.                      |
+| [Session](#31-session-object)   | 1     | new Session object.                      |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-#### 3.2.3 __DELETE__ Method
+#### 2.2.3 __DELETE__ Method
 
 Inform about a deleted _Session_ object.
 
@@ -170,9 +149,9 @@ Inform about a deleted _Session_ object.
 | session-id | [string](types.md#16-string-type)(15) | yes      | ID of the Session to be deleted           |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
-## 4. Object description
+## 3. Object description
 
-### 4.1 _Session_ Object
+### 3.1 _Session_ Object
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property                       | Type                                                       | Card. | Description                                                                                                    |
@@ -182,13 +161,13 @@ Inform about a deleted _Session_ object.
 | end_datetime                   | [DateTime](types.md#12_datetime_type)                      | ?     | The time when the session is completed.                                                                        |
 | kwh                            | [decimal](types.md#13_decimal_type)                        | 1     | How many kWh are charged.                                                                                      |
 | auth_id                        | [string](types.md#16-string-type)(15)                      | 1     | An id provided by the authentication used, so that the eMSP knows to which driver the session belongs.         |
-| auth_method                    | [AuthMethod](mod_cdrs.md#51-authmethod-enum)               | 1     | Method used for authentication.                                                                                |
-| location                       | [Location](mod_locations.md#41-location-object)            | 1     | The location where this session took place, including only the relevant EVSE and connector                |
+| auth_method                    | [AuthMethod](mod_cdrs.md#41-authmethod-enum)               | 1     | Method used for authentication.                                                                                |
+| location                       | [Location](mod_locations.md#31-location-object)            | 1     | The location where this session took place, including only the relevant EVSE and connector                |
 | meter_id                       | [string](types.md#16-string-type)(255)                     | ?     | Optional identification of the kWh meter.                                                                      |
 | currency                       | [string](types.md#16-string-type)(3)                       | 1     | ISO 4217 code of the currency used for this session.                                                           |
-| charging_periods               | [ChargingPeriod](mod_cdrs.md#53-chargingperiod-class)      | *     | An optional list of charging periods that can be used to calculate and verify the total cost.                  |
+| charging_periods               | [ChargingPeriod](mod_cdrs.md#43-chargingperiod-class)      | *     | An optional list of charging periods that can be used to calculate and verify the total cost.                  |
 | total_cost                     | [decimal](types.md#13_decimal_type)                        | 1     | The total cost (excluding VAT) of the session in the specified currency. This is the price that the eMSP will have to pay to the CPO. |
-| status                         | [SessionStatus](#51-sessionstatus-enum)                    | 1     | The status of the session.                                                                                  |
+| status                         | [SessionStatus](#41-sessionstatus-enum)                    | 1     | The status of the session.                                                                                  |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -304,42 +283,18 @@ Inform about a deleted _Session_ object.
 ```
 
 
-### 4.2 _CPOSession_ Object
-
-Describes a session in the CPO platform
-
-<div><!-- ---------------------------------------------------------------------------- --></div>
-| Property  | Type                                                       | Card. | Description                    |
-|-----------|------------------------------------------------------------|-------|--------------------------------|
-| endpoints | [Endpoint](version_information_endpoint.md#endpoint-class) | *     |                                |
-|           |                                                            |       |                                |
-<div><!-- ---------------------------------------------------------------------------- --></div>
-
-
-### 4.3 _EMSPSession_ Object
-
-Describes a session in the eMSP platform
-
-<div><!-- ---------------------------------------------------------------------------- --></div>
-| Property  | Type                                                       | Card. | Description                    |
-|-----------|------------------------------------------------------------|-------|--------------------------------|
-| endpoints | [Endpoint](version_information_endpoint.md#endpoint-class) | *     |                                |
-|           |                                                            |       |                                |
-<div><!-- ---------------------------------------------------------------------------- --></div>
-
-
-## 5. Data types
+## 4. Data types
 
 *Describe all datatypes used in this object*
 
-### 5.1 SessionStatus *enum*
+### 4.1 SessionStatus *enum*
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property  | Description                                                                |
 |-----------|----------------------------------------------------------------------------|
-| PENDING   | The session is pending and has not yet started. This is the initial state. |
 | ACTIVE    | The session is accepted and active.                                        |
 | COMPLETED | The session has finished succesfully.                                      |
 | INVALID   | The session is declared invalid and will not be billed.                    |
+| PENDING   | The session is pending and has not yet started. This is the initial state. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 

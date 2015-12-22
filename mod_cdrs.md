@@ -9,15 +9,11 @@ There is no requirement to send CDRs semi-realtime, it is seen as good practice 
 ASAP. But if there is an agreement between parties to send then for example once a month, that is also allowed by OCPI.
 
 
-## 1. Inheritances
+## 1. Flow and Lifecycle
 
-N/A
+### 1.1 Push model
 
-## 2. Flow and Lifecycle
-
-### 2.1 Push model
-
-When the CPO creates CDR(s) they push them to the eMSPs by calling [POST](#321-post-method) on the eMSPs
+When the CPO creates CDR(s) they push them to the eMSPs by calling [POST](#221-post-method) on the eMSPs
 CDRs endpoint with the newly create CDRs(s)
 
 CDRs should contain enough information (dimensions) to allow the eMSP to validate the total costs. 
@@ -25,19 +21,19 @@ It is advised to send enough information to the eMSP so it might calculate its o
 
 _NOTE: CDRs cannot not yet be updated or removed. This might be added in a future version of OCPI._
 
-### 2.2 Pull model
+### 1.2 Pull model
 
 eMSPs who do not support the push model need to call
-[GET](#311-get-method) on the CPOs CDRs endpoint to receive a list of CDRs.
+[GET](#211-get-method) on the CPOs CDRs endpoint to receive a list of CDRs.
 
 
-## 3. Interfaces and endpoints
+## 2. Interfaces and endpoints
 
 There is both a CPO and an eMSP interface for CDRs. Depening on business requirements parties can decide to use
 the CPO Interface/Get model, or the eMSP Interface/Push model, or both. 
 Push is the preferred model to use, the eMSP will receive CDRs when created by the CPO.
 
-### 3.1 CPO Interface
+### 2.1 CPO Interface
 
 The CDRs endpoint can be used to create or retrieve CDRs.
 
@@ -46,14 +42,14 @@ Example endpoint structure: `/ocpi/cpo/2.0/cdrs/?date_from=xxx&date_to=yyy`
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Method                  | Description                                                                      |
 |-------------------------|----------------------------------------------------------------------------------|
-| [GET](#311-get-method)  | Fetch CDRs of charging sessions started between the {date_from} and {date_to} ([paginated](transport_and_format.md#get))    |
+| [GET](#211-get-method)  | Fetch CDRs of charging sessions started between the {date_from} and {date_to} ([paginated](transport_and_format.md#get))    |
 | POST                    | n/a                                                                              |
 | PUT                     | n/a                                                                              |
 | PATCH                   | n/a                                                                              |
 | DELETE                  | n/a                                                                              |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
-#### 3.1.1 __GET__ Method
+#### 2.1.1 __GET__ Method
 
 Fetch CDRs from the CPO systems. If additional parameters: {date_from} and/or {date_to} are provided, only CDRs of charging sessions with a start date/time between the given date_from and date_to will be returned.
 
@@ -78,10 +74,10 @@ Each object must contain all required fields. Fields that are not specified may 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Parameter | Datatype              | Card. | Description                                                         |
 |-----------|-----------------------|-------|---------------------------------------------------------------------|
-| CDRs      | [CDR](#41-cdr-object) | *     | List of CDRs.                                                       |
+| CDRs      | [CDR](#31-cdr-object) | *     | List of CDRs.                                                       |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
-### 3.2 eMSP Interface
+### 2.2 eMSP Interface
 
 The CDRs endpoint can be used to create, update or delete CDRs.
 
@@ -91,13 +87,13 @@ Example endpoint structure: `/ocpi/emsp/2.0/cdrs/` and `/ocpi/emsp/2.0/cdrs/{cdr
 | Method                   | Description                                          |
 | ------------------------ | ---------------------------------------------------- |
 | GET                      | n/a                                                  |
-| [POST](#321-post-method) | Create a new CDR.                                    |
+| [POST](#221-post-method) | Create a new CDR.                                    |
 | PUT                      | n/a                                                  |
 | PATCH                    | n/a                                                  |
 | DELETE                   | n/a (Use PUT, CDRs cannot be removed)                |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
-#### 3.2.1 POST Method
+#### 2.2.1 POST Method
 
 Creates a new CDR.
 
@@ -111,12 +107,12 @@ In the post request a list of new CDR Objects is send.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Type                            | Card. | Description                              |
 |---------------------------------|-------|------------------------------------------|
-| [CDR](#41-cdr-object)           | *     | List of CDRs.                            |
+| [CDR](#31-cdr-object)           | *     | List of CDRs.                            |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
-## 4. Object description
+## 3. Object description
 
-### 4.1 CDR Object
+### 3.1 _CDR_ Object
 
 The *CDR* object describes the Charging Session and its costs. How these costs are build up etc. 
 
@@ -126,21 +122,21 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 | id                                   | [CiString](types.md#12-cistring-type)(15)                | 1     | Uniquely identifies the CDR within the CPOs platform (and suboperator platforms).                                              |
 | start_date_time                      | [DateTime](types.md#12-datetime-type)                    | 1     | Start timestamp of the charging session                                                                                        |
 | stop_date_time                       | [DateTime](types.md#12-datetime-type)                    | ?     | Stop timestamp of the charging session                                                                                         |
-| auth_id                              | [string](types.md#16-string-type)(32)                    | 1     | Reference to a token, identified by the auth_id field of the [Token](mod_tokens.md#41_token)                                   |
-| auth_method                          | [AuthMethod](#51-authmethod-enum)                        | 1     | Method used for authentication.                                                                                                |
+| auth_id                              | [string](types.md#16-string-type)(32)                    | 1     | Reference to a token, identified by the auth_id field of the [Token](mod_tokens.md#31_token_object)                            |
+| auth_method                          | [AuthMethod](#41-authmethod-enum)                        | 1     | Method used for authentication.                                                                                                |
 | location                             | [Location](mod_locations.md#41-location-object)          | 1     | Location were the charging session took place, including only the relevant EVSE and Connector. See: [Locations](mod_locations.md#41-location-object) |
 | meter_id                             | [string](types.md#16-string-type)(255)                   | ?     | Identification of the Meter inside the Charge Point                                                                            |
 | currency                             | [string](types.md#16-string-type)(3)                     | 1     | Currency of the CDR in ISO 4217 Code                                                                                           |
-| tariffs                              | [Tariff](mod_tariffs.md#41-tariff-object)                | *     | List of relevant tariff elements, see: [Tariffs](mod_tariffs.md#tariffs-module)                                                |
-| charging_periods                     | [ChargingPeriod](#53-chargingperiod-class)               | +     | List of charging periods that make up this charging session. A session consist of 1 or more periodes with, each period has a different relevant Tariff |
+| tariffs                              | [Tariff](mod_tariffs.md#31-tariff-object)                | *     | List of relevant tariff elements, see: [Tariffs](mod_tariffs.md#31-tariff-object)                                              |
+| charging_periods                     | [ChargingPeriod](#43-chargingperiod-class)               | +     | List of charging periods that make up this charging session. A session consist of 1 or more periodes with, each period has a different relevant Tariff |
 | total_cost                           | [decimal](types.md#13-decimal-type)                      | 1     | Total cost of this transaction                                                                                                 |
-| total_usage                          | [CdrDimension](#52-cdrdimension-class)                   | *     | List of total usage elements, for example: total parking time and total energy charged                                         |
+| total_usage                          | [CdrDimension](#42-cdrdimension-class)                   | *     | List of total usage elements, for example: total parking time and total energy charged                                         |
 | remark                               | [string](types.md#16-string-type)(255)                   | ?     | Optional remark, can be used to provide addition human readable information to the CDR, for example: reason why a transaction was stopped.|
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
-## 5. Data types
+## 4. Data types
 
-### 5.1 AuthMethod *enum*
+### 4.1 AuthMethod *enum*
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Value            | Description                                                                             |
@@ -149,7 +145,7 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 | WHITELIST        | Whitelist used to authenticate, no request done to the eMSP                             |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
-### 5.2 CdrDimension *class*
+### 4.2 CdrDimension *class*
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property        | Type                                            | Card. | Description                                                                 |
@@ -158,7 +154,7 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 | volume          | [decimal](types.md#13-decimal-type)             | 1     | Volume of the dimension consumed, measured according to the dimension type. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
-### 5.3 ChargingPeriod *class*
+### 4.3 ChargingPeriod *class*
 
 A charging period consists of a start timestamp and a list of possible values that influence this period, for example: Amount of energy charged this period, maximum current during this period etc.
 
@@ -166,6 +162,6 @@ A charging period consists of a start timestamp and a list of possible values th
 | Property               | Type                                   | Card. | Description                                                                  |
 |------------------------|----------------------------------------|-------|------------------------------------------------------------------------------|
 | start_date_time        | [DateTime](types.md#12-datetime-type)  | 1     | Start timestamp of the charging period. This period ends when a next period starts, the last period ends when the session ends. |
-| dimensions             | [CdrDimension](#52-cdrdimension-class) | +     | List of relevant values for this charging period.                                                                               |
+| dimensions             | [CdrDimension](#42-cdrdimension-class) | +     | List of relevant values for this charging period.                                                                               |
 <div><!-- -------------------------------------------------------------------------------- --></div>
 

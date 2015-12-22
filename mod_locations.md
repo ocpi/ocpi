@@ -283,7 +283,7 @@ status_schedule field can be used._
 
 ## 4. Object description
 
-### 4.1 Location Object
+### 4.1 _Location_ Object
 
 The *Location* object describes the location and its properties where a group of EVSEs that belong together are installed. Typically the *Location* object is the exact location of the group of EVSEs, but it can also be the entrance of a parking garage which contains these EVSEs. The exact way to reach each EVSE can then be further specified by its own properties.
 
