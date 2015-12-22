@@ -213,23 +213,22 @@ Inform about a deleted _Session_ object.
 		"coordinates": {
 			"latitude": "3.72994",
 			"longitude": "51.04759"
+		},
+		"evse": {
+			"uid": "3256",
+			"evse_id": "BE-BEC-E041503003",
+			"STATUS": "AVAILABLE",
+			"connectors": [{
+				"id": "1",
+				"standard": "IEC-62196-T2",
+				"format": "SOCKET",
+				"power_type": "AC_1_PHASE",
+				"voltage": "230",
+				"amperage": "64",
+				"tariff_id": "11"
+			}]
 		}
 	},
-	"evse": {
-		"evse_id": "BE-BEC-E041503003",
-		"location_id": "LOC1",
-		"STATUS": "AVAILABLE",
-		"connectors": [{
-			"id": "1",
-			"standard": "IEC-62196-T2",
-			"format": "SOCKET",
-			"power_type": "AC_1_PHASE",
-			"voltage": "230",
-			"amperage": "64",
-			"tariff_id": "11"
-		}]
-	},
-	"connector_id": "1",
 	"currency": "EUR",
 	"total_cost": "2.50",
 	"status": "PENDING"
@@ -256,21 +255,21 @@ Inform about a deleted _Session_ object.
 		"coordinates": {
 			"latitude": "3.72994",
 			"longitude": "51.04759"
+		},
+		"evse": {
+			"uid": "3256",
+			"evse_id": "BE-BEC-E041503003",
+			"STATUS": "AVAILABLE",
+			"connectors": [{
+				"id": "1",
+				"standard": "IEC-62196-T2",
+				"format": "SOCKET",
+				"power_type": "AC_1_PHASE",
+				"voltage": "230",
+				"amperage": "64",
+				"tariff_id": "11"
+			}]
 		}
-	},
-	"evse": {
-		"evse_id": "BE-BEC-E041503003",
-		"location_id": "LOC1",
-		"STATUS": "AVAILABLE",
-		"connectors": [{
-			"id": "1",
-			"standard": "IEC-62196-T2",
-			"format": "SOCKET",
-			"power_type": "AC_1_PHASE",
-			"voltage": "230",
-			"amperage": "64",
-			"tariff_id": "11"
-		}]
 	},
 	"connector_id": "1",
 	"currency": "EUR",

@@ -89,8 +89,8 @@ Each object must contain all required fields. Fields that are not specified may 
 			"longitude": "51.04759"
 		},
 		"evses": [{
+            "uid": "3256",
 			"id": "BE-BEC-E041503001",
-			"location_id": "LOC1",
 			"status": "AVAILABLE",
 			"capabilities": [
 				"RESERVABLE"
@@ -115,8 +115,8 @@ Each object must contain all required fields. Fields that are not specified may 
 			"physical_number": 1,
 			"floor_level": "-1"
 		}, {
+            "uid": "3257",
 			"id": "BE-BEC-E041503002",
-			"location_id": "LOC1",
 			"status": "reserved",
 			"capabilities": [
 				"RESERVABLE"
@@ -193,7 +193,7 @@ This is the most common type of update message to notify eMSPs that an EVSE is n
 {
 	"evses": [
 		{
-			"id": "BE-BEC-E041503001",
+            "uid": "3256",
 			"status": "CHARGING",
 		}
 	]
@@ -213,7 +213,7 @@ In this example the name of the location is updated and connector 2 of EVSE *BE-
 			"name": "Interparking Gent Zuid",
             "evses": [
                 {
-                    "id": "BE-BEC-E041503001",
+                    "uid": "3256",
                     "status": "AVAILABLE",
                     "connectors": [
                         {
@@ -243,8 +243,8 @@ To add an *EVSE*, simply put the full object in an update message, including all
 {
 	"evses": [
 		{
+			"uid": "3256",
 			"evse_id": "BE-BEC-E041503003",
-			"location_id": "LOC1",
 			"status": "AVAILABLE",
 			"capabilities": ["RESERVABLE"],
 			"connectors": [
@@ -270,7 +270,7 @@ An EVSE can be deleted by updating its *status* property.
 {
 	"evses": [
 		{
-			"id": "BE-BEC-E041503001",
+			"uid": "3256",
 			"status": "REMOVED",
 		}
 	]
