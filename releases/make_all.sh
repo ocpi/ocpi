@@ -1,7 +1,15 @@
 command -v perl >/dev/null 2>&1 || { echo >&2 "I require perl but it's not installed.  Aborting."; exit 1; }
 command -v pandoc >/dev/null 2>&1 || { echo >&2 "I require pandoc >1.9.2 but it's not installed. Visit http://pandoc.org/.  Aborting."; exit 1; }
 
+#############################################
+#############################################
+# adjust these before you release
+RELEASE_NAME="2.0"
+OUTFILE="OCPI_${RELEASE_NAME}.pdf"
 RELEASE_DIR=".."
+#############################################
+#############################################
+
 cat $RELEASE_DIR/introduction.md > all.md
 echo "" >> all.md
 cat $RELEASE_DIR/terminology.md >> all.md
@@ -52,4 +60,4 @@ perl -p -i -e 's/ \| /   /g' all.md
 perl -i -e '$/ = undef; while($all = <>){ $all =~ s/(?<=[\w.!?:\]\)\$*])\s*\|(?=\n\s+[\w?1*+])/\n\n/g; print $all;}' all.md
 perl -p -i -e 's/\|(?=\n)//g' all.md
 
-pandoc --number-sections -V geometry:margin=1in --include-in-header ocpi-header.tex --toc -f markdown_github+multiline_tables -t latex all.md -o OCPI_2.0_new.pdf
+pandoc --number-sections -V geometry:margin=1in --include-in-header ocpi-header.tex --toc -f markdown_github+multiline_tables -t latex all.md -o "$OUTFILE"
