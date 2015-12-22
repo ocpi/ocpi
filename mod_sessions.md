@@ -75,8 +75,8 @@ The response contains a list of Session objects that match the given parameters 
 If the CPO returns less Sessions then the amount of Sessions in the system that match the filter, __count__ will be different from __total__ 
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Parameter | Datatype              | Card. | Description                                                                     |
-|-------------------------------------------|-------|-------------------------------------------------------------------------|
+| Parameter | Datatype                      | Card. | Description                                                             |
+|-----------|-------------------------------|-------|-------------------------------------------------------------------------|
 | Sessions  | [Session](#41-session-object) | *     | List of Session objects that match the request parameters               |
 | count     | int                           | 1     | Amount of Sessions returned in this response                            |
 | total     | int                           | 1     | Total amount of Sessions that match the filter given in the GET request |
