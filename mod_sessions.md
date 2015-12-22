@@ -172,22 +172,22 @@ Inform about a deleted _Session_ object.
 ### 4.1 _Session_ Object
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Property          | Type                                                       | Card. | Description                                                                                                    |
-|-------------------|------------------------------------------------------------|-------|----------------------------------------------------------------------------------------------------------------|
-| id                | [string](types.md#16-string-type)(15)                      | 1     | The unique id that identifies the session in the CPO platform.                                                 |
-| start_datetime    | [DateTime](types.md#12_datetime_type)                      | 1     | The time when the session became active.                                                                       |
-| end_datetime      | [DateTime](types.md#12_datetime_type)                      | ?     | The time when the session is completed.                                                                        |
-| kwh               | [decimal](types.md#13_decimal_type)                        | 1     | How many kWh are charged.                                                                                      |
-| auth_id           | [string](types.md#16-string-type)(15)                      | 1     | An id provided by the authentication used, so that the eMSP knows to which driver the session belongs.         |
-| auth_method       | [AuthMethod](mod_cdrs.md#51-authmethod-enum)               | 1     | Method used for authentication.                                                                                |
-| location          | [Location](mod_locations_and_evses.md#41-location-object)  | 1     | The location where this session took place.                                                                    |
-| evse              | [EVSE](mod_locations_and_evses.md#42-evse-object)          | 1     | The EVSE that was used for this session.                                                                       |
-| connector_id      | [string](types.md#16-string-type)(15)                      | 1     | Connector ID of the connector used at the EVSE.                                                                |
-| meter_id          | [string](types.md#16-string-type)(255)                     | ?     | Optional identification of the kWh meter.                                                                      |
-| currency          | [string](types.md#16-string-type)(3)                       | 1     | ISO 4217 code of the currency used for this session.                                                           |
-| charging_periods  | [ChargingPeriod](mod_cdrs.md#53-chargingperiod-class)      | *     | An optional list of charging periods that can be used to calculate and verify the total cost.                  |
-| total_cost        | [decimal](types.md#13_decimal_type)                        | 1     | The total cost (excluding VAT) of the session in the specified currency. This is the price that the eMSP will have to pay to the CPO. |
-| status            | [SessionStatus](#51-sessionstatus-enum)                    | 1     | The status of the session.                                                                                  |
+| Property                       | Type                                                       | Card. | Description                                                                                                    |
+|--------------------------------|------------------------------------------------------------|-------|----------------------------------------------------------------------------------------------------------------|
+| id                             | [string](types.md#16-string-type)(15)                      | 1     | The unique id that identifies the session in the CPO platform.                                                 |
+| start_datetime                 | [DateTime](types.md#12_datetime_type)                      | 1     | The time when the session became active.                                                                       |
+| end_datetime                   | [DateTime](types.md#12_datetime_type)                      | ?     | The time when the session is completed.                                                                        |
+| kwh                            | [decimal](types.md#13_decimal_type)                        | 1     | How many kWh are charged.                                                                                      |
+| auth_id                        | [string](types.md#16-string-type)(15)                      | 1     | An id provided by the authentication used, so that the eMSP knows to which driver the session belongs.         |
+| auth_method                    | [AuthMethod](mod_cdrs.md#51-authmethod-enum)               | 1     | Method used for authentication.                                                                                |
+| location                       | [Location](mod_locations_and_evses.md#41-location-object)  | 1     | The location where this session took place.                                                                    |
+| evse                           | [EVSE](mod_locations_and_evses.md#42-evse-object)          | 1     | The EVSE that was used for this session.                                                                       |
+| connector_id                   | [string](types.md#16-string-type)(15)                      | 1     | Connector ID of the connector used at the EVSE.                                                                |
+| meter_id                       | [string](types.md#16-string-type)(255)                     | ?     | Optional identification of the kWh meter.                                                                      |
+| currency                       | [string](types.md#16-string-type)(3)                       | 1     | ISO 4217 code of the currency used for this session.                                                           |
+| charging_periods               | [ChargingPeriod](mod_cdrs.md#53-chargingperiod-class)      | *     | An optional list of charging periods that can be used to calculate and verify the total cost.                  |
+| total_cost                     | [decimal](types.md#13_decimal_type)                        | 1     | The total cost (excluding VAT) of the session in the specified currency. This is the price that the eMSP will have to pay to the CPO. |
+| status                         | [SessionStatus](#51-sessionstatus-enum)                    | 1     | The status of the session.                                                                                  |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 

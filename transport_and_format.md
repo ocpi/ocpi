@@ -81,7 +81,7 @@ The content that is sent with all the response messages is a 'application/json' 
 | Property       | Type                                  | Card. | Description                              |
 |----------------|---------------------------------------|-------|------------------------------------------|
 | data           | object                                | ?     | Contains the actual response data from each request. |
-| status_code    | Integer                               | 1     | Response code, as listed in [Status Codes](status_codes.md), indicates how the request was handled. To avoid confusion with HTTP codes, at least four digits are used. |
+| status_code    | Integer                               | 1     | Response code, as listed in [Status Codes](status_codes.md#status-codes), indicates how the request was handled. To avoid confusion with HTTP codes, at least four digits are used. |
 | status_message | String                                | ?     | An optional status message which may help when debugging. |
 | timestamp      | [DateTime](types.md#12_datetime_type) | 1     | When this message was generated, we don't have a use for this yet but might be useful if any party comes offline and sends a bunch of messages at once or even debugging purposes. |
 <div><!-- ---------------------------------------------------------------------------- --></div>

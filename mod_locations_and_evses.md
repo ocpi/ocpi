@@ -311,23 +311,23 @@ The *Location* object describes the location and its properties where a group of
 A *Location* without valid *EVSE* objects can be considered as expired and should no longer be displayed.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Property             | Type                                                     | Card. | Description                                                                            |
-|----------------------|----------------------------------------------------------|-------|----------------------------------------------------------------------------------------|
-| id                   | [string](types.md#16-string-type)(15)                    | 1     | Uniquely identifies the location within the CPOs platform (and suboperator platforms). |
-| type                 | [LocationType](#511-locationtype-enum)                   | 1     | The general type of the charge point location.                                         |
-| name                 | [string](types.md#16-string-type)(255)                   | ?     | Display name of the location.                                                          |
-| address              | [string](types.md#16-string-type)(45)                    | 1     | Street/block name and house number if available.                                       |
-| city                 | [string](types.md#16-string-type)(45)                    | 1     | City or town.                                                                          |
-| postal_code          | [string](types.md#16-string-type)(10)                    | 1     | Postal code of the location.                                                           |
-| country              | [string](types.md#16-string-type)(3)                     | 1     | ISO 3166-1 alpha-3 code for the country of this location.                              |
-| coordinates          | [GeoLocation](#57-geolocation-class)                     | 1     | Coordinates of the location.                                                           |
-| related_locations    | [AdditionalGeoLocation](#51-additionalgeolocation-class) | *     | Geographical location of related points relevant to the user.                          |
-| directions           | [DisplayText](types.md#15-displaytext-class)             | *     | Human-readable directions on how to reach the location.                                |
-| operator             | [BusinessDetails](#51-businessdetails-class)             | ?     | Information of the operator. When not specified, the information retreived from the `api_info` endpoint should be used instead. |
-| suboperator          | [BusinessDetails](#51-businessdetails-class)             | ?     | Information of the suboperator if available.                                           |
-| opening_times        | [Hours](#58-hours-class)                                 | *     | The times when the EVSEs at the location can be accessed for charging.                 |
-| charging_when_closed | boolean                                                  | ?     | Indicates if the EVSEs are still charging outside the opening hours of the location. E.g. when the parking garage closes its barriers over night, is it allowed to charge till the next morning?  Default: **true** |
-| images               | [Image](#59-image-class)                                 | *     | Links to images related to the location such as photos or logos.                       |
+| Property                                     | Type                                                     | Card. | Description                                                                            |
+|----------------------------------------------|----------------------------------------------------------|-------|----------------------------------------------------------------------------------------|
+| id                                           | [string](types.md#16-string-type)(15)                    | 1     | Uniquely identifies the location within the CPOs platform (and suboperator platforms). |
+| type                                         | [LocationType](#511-locationtype-enum)                   | 1     | The general type of the charge point location.                                         |
+| name                                         | [string](types.md#16-string-type)(255)                   | ?     | Display name of the location.                                                          |
+| address                                      | [string](types.md#16-string-type)(45)                    | 1     | Street/block name and house number if available.                                       |
+| city                                         | [string](types.md#16-string-type)(45)                    | 1     | City or town.                                                                          |
+| postal_code                                  | [string](types.md#16-string-type)(10)                    | 1     | Postal code of the location.                                                           |
+| country                                      | [string](types.md#16-string-type)(3)                     | 1     | ISO 3166-1 alpha-3 code for the country of this location.                              |
+| coordinates                                  | [GeoLocation](#57-geolocation-class)                     | 1     | Coordinates of the location.                                                           |
+| related_locations                            | [AdditionalGeoLocation](#51-additionalgeolocation-class) | *     | Geographical location of related points relevant to the user.                          |
+| directions                                   | [DisplayText](types.md#15-displaytext-class)             | *     | Human-readable directions on how to reach the location.                                |
+| operator                                     | [BusinessDetails](#51-businessdetails-class)             | ?     | Information of the operator. When not specified, the information retreived from the `api_info` endpoint should be used instead. |
+| suboperator                                  | [BusinessDetails](#51-businessdetails-class)             | ?     | Information of the suboperator if available.                                           |
+| opening_times                                | [Hours](#58-hours-class)                                 | *     | The times when the EVSEs at the location can be accessed for charging.                         |
+| charging_when_closed                         | boolean                                                  | ?     | Indicates if the EVSEs are still charging outside the opening hours of the location. E.g. when the parking garage closes its barriers over night, is it allowed to charge till the next morning?  Default: **true** |
+| images                                       | [Image](#59-image-class)                                 | *     | Links to images related to the location such as photos or logos.                       |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 ### 4.2 EVSE Object
@@ -337,20 +337,20 @@ The *EVSE* object describes the part that controls the power supply to a single 
 An *EVSE* object has a list of connectors which can not be used simultaneously: only one connector per EVSE may be used at a time. The list of connectors is seen as atomic. This implies that for any changes or updates to a single connector, the full list of all connectors will have to be specified. Any connector not on that list is considered as deleted.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Property             | Type                                               | Card. | Description                                            |
-|----------------------|----------------------------------------------------|-------|--------------------------------------------------------|
-| id                   | [string](types.md#16-string-type)(48)              | 1     | Uniquely identifies the EVSE within the CPOs platform (and suboperator platforms). |
-| location_id          | [string](types.md#16-string-type)(15)              | 1     | The id of the *Location* object that contains this EVSE. If the *Location* object does not exist, this EVSE may be discarded (and it should not have been sent in the first place).   |
-| status               | [Status](#515-status-enum)                         | 1     | Indicates the current status of the EVSE.              |
-| status_schedule      | [StatusSchedule](#516-statusschedule-class)        | *     | Indicates a planned status in the future of the EVSE.  |
-| capabilities         | [Capability](#52-capability-enum)                  | *     | List of functionalities that the EVSE is capable of.   |
-| connectors           | [Connector](#53-connector-class)                   | +     | List of available connectors on the EVSE.              |
-| floor_level          | [string](types.md#16-string-type)(4)               | ?     | Level on which the charging station is located (in garage buildings) in the locally displayed numbering scheme. |
-| coordinates          | [GeoLocation](#57-geolocation-class)               | ?     | Coordinates of the EVSE.                               |
-| physical_number      | [string](types.md#16-string-type)(4)               | ?     | A number on the EVSE for visual identification.        |
-| directions           | [DisplayText](types.md#15-displaytext-class)       | *     | Multi-language human-readable directions when more detailed information on how to reach the EVSE from the *Location* is required. |
-| parking_restrictions | [ParkingRestriction](#512-parkingrestriction-enum) | *     | The restrictions that apply to the parking spot.       |
-| images               | [Image](#59-image-class)                           | *     | Links to images related to the EVSE such as photos or logos. |
+| Property                         | Type                                               | Card. | Description                                                        |
+|----------------------------------|----------------------------------------------------|-------|--------------------------------------------------------------------|
+| id                               | [string](types.md#16-string-type)(48)              | 1     | Uniquely identifies the EVSE within the CPOs platform (and suboperator platforms).         |
+| location_id                      | [string](types.md#16-string-type)(15)              | 1     | The id of the *Location* object that contains this EVSE. If the *Location* object does not exist, this EVSE may be discarded (and it should not have been sent in the first place).   |
+| status                           | [Status](#515-status-enum)                         | 1     | Indicates the current status of the EVSE.                          |
+| status_schedule                  | [StatusSchedule](#516-statusschedule-class)        | *     | Indicates a planned status in the future of the EVSE.              |
+| capabilities                     | [Capability](#52-capability-enum)                  | *     | List of functionalities that the EVSE is capable of.               |
+| connectors                       | [Connector](#53-connector-class)                   | +     | List of available connectors on the EVSE.                          |
+| floor_level                      | [string](types.md#16-string-type)(4)               | ?     | Level on which the charging station is located (in garage buildings) in the locally displayed numbering scheme. |
+| coordinates                      | [GeoLocation](#57-geolocation-class)               | ?     | Coordinates of the EVSE.                                           |
+| physical_number                  | [string](types.md#16-string-type)(4)               | ?     | A number on the EVSE for visual identification.                    |
+| directions                       | [DisplayText](types.md#15-displaytext-class)       | *     | Multi-language human-readable directions when more detailed information on how to reach the EVSE from the *Location* is required. |
+| parking_restrictions             | [ParkingRestriction](#512-parkingrestriction-enum) | *     | The restrictions that apply to the parking spot.                   |
+| images                           | [Image](#59-image-class)                           | *     | Links to images related to the EVSE such as photos or logos.|
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 ## 5. Data types
@@ -361,7 +361,7 @@ This class defines a geo location. The geodetic system to be used is WGS 84.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property    | Type                                         | Card. | Description                                                                                                                              |
-|-------------|----------------------------------------------|-------|------------------------------------------------------------------------------------------------------------------------------------------| 
+|-------------|----------------------------------------------|-------|-------------------------------------------------------------------|
 | latitude    | [string](types.md#16-string-type)(10)        | 1     | Latitude of the point in decimal degree. Example: 50.770774. Decimal separator: "." Regex: `-?$[$0-9$]$\{1,2\}$\$.$[$0-9$]$\{6\}`        |
 | longitude   | [string](types.md#16-string-type)(11)        | 1     | Longitude of the point in decimal degree. Example: -126.104965. Decimal separator: "." Regex: `-?$[$0-9$]$\{1,3\}$\$.$[$0-9$]$\{6\}`     |
 | name        | [DisplayText](types.md#15-displaytext-class) | ?     | Name of the point in local language or as written at the location. For example the street name of a parking lot entrance or it's number. |
@@ -383,12 +383,12 @@ This class defines a geo location. The geodetic system to be used is WGS 84.
 The capabilities of an EVSE.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Value                            | Description                                                                                  |
-|----------------------------------|----------------------------------------------------------------------------------------------|
+| Value                            | Description                                                |
+|----------------------------------|------------------------------------------------------------|
 | CHARGING_PROFILE_CAPABLE         | The EVSE supports charging profiles. Sending Charging Profiles is not yet supported by OCPI. |
-| CREDIT_CARD_PAYABLE              | Charging at this EVSE can be payed with credit card                                          |
-| RESERVABLE                       | The EVSE can be reserved.                                                                    |
-| RFID_READER                      | Charging at this EVSE can be authorized with a RFID token                                    |
+| CREDIT_CARD_PAYABLE              | Charging at this EVSE can be payed with credit card        |
+| RESERVABLE                       | The EVSE can be reserved.                                  |
+| RFID_READER                      | Charging at this EVSE can be authorized with a RFID token  |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -397,16 +397,16 @@ The capabilities of an EVSE.
 A connector is the socket or cable available for the EV to make use of. A single EVSE may provide multiple connectors but only one of them can be in use at the same time. A connector always belongs to an *EVSE* object.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Property               | Type                                        | Card. | Description                                                             |
-|------------------------|---------------------------------------------|-------|-------------------------------------------------------------------------|
-| id                     | [string](types.md#16-string-type)(15)       | 1     | Identifier of the connector within the EVSE. Two connectors may have the same id as long as they do not belong to the same *EVSE* object. |
-| standard               | [ConnectorType](#55-connectortype-enum)     | 1     | The standard of the installed connector.                                |
-| format                 | [ConnectorFormat](#54-connectorformat-enum) | 1     | The format (socket/cable) of the installed connector.                   |
-| power_type             | [PowerType](#513-powertype-enum)            | 1     |                                                                         |
-| voltage                | int                                         | 1     | Voltage of the connector (line to neutral for AC_3_PHASE), in volt [V]. |
-| amperage               | int                                         | 1     | maximum amperage of the connector, in ampere [A].                         |
-| tariff_id              | string(15)                                  | ?     | Identifier of the current charging tariff structure                     |
-| terms_and_conditions   | [URL](types.md#14_url_type)                 | ?     | URL to the operator's terms and conditions.                             |
+| Property                         | Type                                     | Card. | Description                                                             |
+|----------------------------------|------------------------------------------|-------|-------------------------------------------------------------------------|
+| id                               | [string](types.md#16-string-type)(15)    | 1     | Identifier of the connector within the EVSE. Two connectors may have the same id as long as they do not belong to the same *EVSE* object. |
+| standard                         | [ConnectorType](#55-connectortype-enum)  | 1     | The standard of the installed connector.                                |
+| format                           | [ConnectorFormat](#54-connectorformat-enum) | 1     | The format (socket/cable) of the installed connector.                   |
+| power_type                       | [PowerType](#513-powertype-enum)         | 1     |                                                                         |
+| voltage                          | int                                      | 1     | Voltage of the connector (line to neutral for AC_3_PHASE), in volt [V]. |
+| amperage                         | int                                      | 1     | maximum amperage of the connector, in ampere [A].                         |
+| tariff_id                        | string(15)                               | ?     | Identifier of the current charging tariff structure                     |
+| terms_and_conditions             | [URL](types.md#14_url_type)              | ?     | URL to the operator's terms and conditions.                             |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 ### 5.4 ConnectorFormat *enum*
@@ -427,33 +427,33 @@ The format of the connector, whether it is a socket or a plug.
 The socket or plug standard of the charging point.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Value | Description |
-|-------|-------------------------------------------------------------------|
-| Chademo | The connector type is CHAdeMO, DC |
-| IEC-62196-T1 | IEC 62196 Type 1 "SAE J1772" |
-| IEC-62196-T1-COMBO | Combo Type 1 based, DC |
-| IEC-62196-T2 | IEC 62196 Type 2 "Mennekes" |
-| IEC-62196-T2-COMBO | Combo Type 2 based, DC |
-| IEC-62196-T3A | IEC 62196 Type 3A |
-| IEC-62196-T3C | IEC 62196 Type 3C "Scame" |
-| DOMESTIC-A | Standard/Domestic household, type "A", NEMA 1-15, 2 pins |
-| DOMESTIC-B | Standard/Domestic household, type "B", NEMA 5-15, 3 pins |
-| DOMESTIC-C | Standard/Domestic household, type "C", CEE 7/17, 2 pins |
-| DOMESTIC-D | Standard/Domestic household, type "D", 3 pin |
-| DOMESTIC-E | Standard/Domestic household, type "E", CEE 7/5 3 pins |
-| DOMESTIC-F | Standard/Domestic household, type "F", CEE 7/4, Schuko, 3 pins |
-| DOMESTIC-G | Standard/Domestic household, type "G", BS 1363, Commonwealth, 3 pins |
-| DOMESTIC-H | Standard/Domestic household, type "H", SI-32, 3 pins |
-| DOMESTIC-I | Standard/Domestic household, type "I", AS 3112, 3 pins |
-| DOMESTIC-J | Standard/Domestic household, type "J", SEV 1011, 3 pins |
-| DOMESTIC-K | Standard/Domestic household, type "K", DS 60884-2-D1, 3 pins |
-| DOMESTIC-L | Standard/Domestic household, type "L", CEI 23-16-VII, 3 pins |
-| TESLA-R | Tesla Connector "Roadster"-type (round, 4 pin) |
-| TESLA-S | Tesla Connector "Model-S"-type (oval, 5 pin) |
+| Value               | Description |
+|---------------------|-------------------------------------------------------------------|
+| Chademo             | The connector type is CHAdeMO, DC |
+| IEC-62196-T1        | IEC 62196 Type 1 "SAE J1772" |
+| IEC-62196-T1-COMBO  | Combo Type 1 based, DC |
+| IEC-62196-T2        | IEC 62196 Type 2 "Mennekes" |
+| IEC-62196-T2-COMBO  | Combo Type 2 based, DC |
+| IEC-62196-T3A       | IEC 62196 Type 3A |
+| IEC-62196-T3C       | IEC 62196 Type 3C "Scame" |
+| DOMESTIC-A          | Standard/Domestic household, type "A", NEMA 1-15, 2 pins |
+| DOMESTIC-B          | Standard/Domestic household, type "B", NEMA 5-15, 3 pins |
+| DOMESTIC-C          | Standard/Domestic household, type "C", CEE 7/17, 2 pins |
+| DOMESTIC-D          | Standard/Domestic household, type "D", 3 pin |
+| DOMESTIC-E          | Standard/Domestic household, type "E", CEE 7/5 3 pins |
+| DOMESTIC-F          | Standard/Domestic household, type "F", CEE 7/4, Schuko, 3 pins |
+| DOMESTIC-G          | Standard/Domestic household, type "G", BS 1363, Commonwealth, 3 pins |
+| DOMESTIC-H          | Standard/Domestic household, type "H", SI-32, 3 pins |
+| DOMESTIC-I          | Standard/Domestic household, type "I", AS 3112, 3 pins |
+| DOMESTIC-J          | Standard/Domestic household, type "J", SEV 1011, 3 pins |
+| DOMESTIC-K          | Standard/Domestic household, type "K", DS 60884-2-D1, 3 pins |
+| DOMESTIC-L          | Standard/Domestic household, type "L", CEI 23-16-VII, 3 pins |
+| TESLA-R             | Tesla Connector "Roadster"-type (round, 4 pin) |
+| TESLA-S             | Tesla Connector "Model-S"-type (oval, 5 pin) |
 | IEC-60309-2-single-16 | IEC 60309-2 Industrial Connector single phase 16  Amperes (usually blue) |
-| IEC-60309-2-three-16 | IEC 60309-2 Industrial Connector three phase 16  Amperes (usually red) |
-| IEC-60309-2-three-32 | IEC 60309-2 Industrial Connector three phase 32  Amperes (usually red) |
-| IEC-60309-2-three-64 | IEC 60309-2 Industrial Connector three phase 64  Amperes (usually red) |
+| IEC-60309-2-three-16| IEC 60309-2 Industrial Connector three phase 16  Amperes (usually red) |
+| IEC-60309-2-three-32| IEC 60309-2 Industrial Connector three phase 32  Amperes (usually red) |
+| IEC-60309-2-three-64| IEC 60309-2 Industrial Connector three phase 64  Amperes (usually red) |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -462,20 +462,20 @@ The socket or plug standard of the charging point.
 Specifies one exceptional period for opening or access hours.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
- Field Name   |  Field Type                           |  Card.  |  Description
---------------|---------------------------------------|---------|-------------
- period_begin | [DateTime](types.md#12_datetime_type) |  1      |  Begin of the exception.
- period_end   | [DateTime](types.md#12_datetime_type) |  1      |  End of the exception.
+| Field Name   | Field Type                            | Card.   | Description |
+|--------------|---------------------------------------|---------|-------------|
+| period_begin | [DateTime](types.md#12_datetime_type) | 1       | Begin of the exception.|
+| period_end   | [DateTime](types.md#12_datetime_type) | 1       | End of the exception.|
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
 ### 5.7 GeoLocation *class*
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Property    | Type                                         | Card. | Description                                                                                                                              |
-|-------------|----------------------------------------------|-------|------------------------------------------------------------------------------------------------------------------------------------------| 
-| latitude    | [string](types.md#16-string-type)(10)        | 1     | Latitude of the point in decimal degree. Example: 50.770774. Decimal separator: "." Regex: `-?$[$0-9$]$\{1,2\}$\$.$[$0-9$]$\{6\}`        |
-| longitude   | [string](types.md#16-string-type)(11)        | 1     | Longitude of the point in decimal degree. Example: -126.104965. Decimal separator: "." Regex: `-?$[$0-9$]$\{1,3\}$\$.$[$0-9$]$\{6\}`     |
+| Property    | Type                                | Card. | Description                                                                                       |
+|-------------|-------------------------------------|-------|---------------------------------------------------------------------------------------------------|
+| latitude    | [string](types.md#16-string-type)(10)| 1     | Latitude of the point in decimal degree. Example: 50.770774. Decimal separator: "." Regex: `-?$[$0-9$]$\{1,2\}$\$.$[$0-9$]$\{6\}`        |
+| longitude   | [string](types.md#16-string-type)(11)| 1     | Longitude of the point in decimal degree. Example: -126.104965. Decimal separator: "." Regex: `-?$[$0-9$]$\{1,3\}$\$.$[$0-9$]$\{6\}`     |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -484,13 +484,13 @@ Specifies one exceptional period for opening or access hours.
 Opening and access hours for the location.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
- Field Name             |  Field Type                                       |  Card.  |  Description
-------------------------|---------------------------------------------------|---------|-------------
- *Choice: one of two*   |                                                   |         |
-  > regular_hours       |  [RegularHours](#514-regularhours-class)          |  *      |  Regular hours, weekday based. Should not be set for representing 24/7 as this is the most common case.
-  > twentyfourseven     |  boolean                                          |  1      |  True to represent 24 hours per day and 7 days per week, except the given exceptions.
- exceptional_openings   |  [ExceptionalPeriod](#56-exceptionalperiod-class) |  *      |  Exceptions for specified calendar dates, time-range based. Periods the station is operating/accessible. Additional to regular hours. May overlap regular rules.
- exceptional_closings   |  [ExceptionalPeriod](#56-exceptionalperiod-class) |  *      |  Exceptions for specified calendar dates, time-range based. Periods the station is not operating/accessible. Overwriting regularHours and exceptionalOpenings. Should not overlap exceptionalOpenings.
+| Field Name                     | Field Type                                     | Card.   | Description                                                         |
+|--------------------------------|------------------------------------------------|---------|---------------------------------------------------------------------|
+| *Choice: one of two*           |                                                |         |                                                                     |
+|  > regular_hours               |  [RegularHours](#514-regularhours-class)       |  *      |  Regular hours, weekday based. Should not be set for representing 24/7 as this is the most common case. |
+|  > twentyfourseven             |  boolean                                       |  1      |  True to represent 24 hours per day and 7 days per week, except the given exceptions. |
+| exceptional_openings           |  [ExceptionalPeriod](#56-exceptionalperiod-class) |  *      |  Exceptions for specified calendar dates, time-range based. Periods the station is operating/accessible. Additional to regular hours. May overlap regular rules. |
+| exceptional_closings           |  [ExceptionalPeriod](#56-exceptionalperiod-class) |  *      |  Exceptions for specified calendar dates, time-range based. Periods the station is not operating/accessible. Overwriting regularHours and exceptionalOpenings. Should not overlap exceptionalOpenings. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 ### 5.9 Image *class*
@@ -538,14 +538,14 @@ Reflects the general type of the charge points location. May be used
 for user information.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Value              |  Description  |
-|:-------------------|:--------------|
-| ON_STREET          |  Parking in public space.|
-| PARKING_GARAGE     |  Multistorey car park.|
-| UNDERGROUND_GARAGE |  Multistorey car park, mainly underground.|
-| PARKING_LOT        |  A cleared area that is intended for parking vehicles, i.e. at super markets, bars, etc.|
-| OTHER              |  None of the given possibilities.|
-| UNKNOWN            |  Parking location type is not known by the operator (default).|
+| Value                    | Description                                                        |
+|:-------------------------|:-------------------------------------------------------------------|
+| ON_STREET                |  Parking in public space.                                          |
+| PARKING_GARAGE           |  Multistorey car park.                                             |
+| UNDERGROUND_GARAGE       |  Multistorey car park, mainly underground.                         |
+| PARKING_LOT              |  A cleared area that is intended for parking vehicles, i.e. at super markets, bars, etc.|
+| OTHER                    |  None of the given possibilities.                                  |
+| UNKNOWN                  |  Parking location type is not known by the operator (default).     |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 ### 5.12 ParkingRestriction *enum*
@@ -554,13 +554,13 @@ This value, if provided, represents the restriction to the parking spot
 for different purposes.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Value       |  Description|
-|:------------|:-------------|
-| EV_ONLY     |  Reserved parking spot for electric vehicles.|
-| PLUGGED     |  Parking allowed only while plugged in (charging).|
-| DISABLED    |  Reserved parking spot for disabled people with valid ID.|
-| CUSTOMERS   |  Parking spot for customers/guests only, for example in case of a hotel or shop.|
-| MOTORCYCLES |  Parking spot only suitable for (electric) motorcycles or scooters.|
+| Value             | Description                                                              |
+|:------------------|:-------------------------------------------------------------------------|
+| EV_ONLY           |  Reserved parking spot for electric vehicles.                            |
+| PLUGGED           |  Parking allowed only while plugged in (charging).                       |
+| DISABLED          |  Reserved parking spot for disabled people with valid ID.                |
+| CUSTOMERS         |  Parking spot for customers/guests only, for example in case of a hotel or shop.|
+| MOTORCYCLES       |  Parking spot only suitable for (electric) motorcycles or scooters.      |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 ### 5.13 PowerType *enum*
@@ -568,11 +568,11 @@ for different purposes.
 The format of the connector, whether it is a socket or a plug.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Value      | Description     |
-|------------|-----------------|
-| AC_1_PHASE | AC mono phase.  |
-| AC_3_PHASE | AC 3 phase.     |
-| DC         | Direct Current. |
+| Value             | Description                                                              |
+|-------------------|--------------------------------------------------------------------------|
+| AC_1_PHASE        | AC mono phase.                                                           |
+| AC_3_PHASE        | AC 3 phase.                                                              |
+| DC                | Direct Current.                                                          |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 ### 5.14 RegularHours *class*
@@ -580,8 +580,8 @@ The format of the connector, whether it is a socket or a plug.
 Regular recurring operation or access hours
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Field Name   |  Field Type  |  Card.  |  Description|
-|:-------------|:-------------|:--------|:------------|
+| Field Name   | Field Type   | Card.   | Description                                                |
+|:-------------|:-------------|:--------|:-----------------------------------------------------------|
 | weekday      |  int(1)      |  1      |  Number of day in the week, from Monday (1) till Sunday (7)|
 |period_begin |  string(5)   |  1      |  Begin of the regular period given in hours and minutes. Must be in 24h format with leading zeros. Example: "18:15". Hour/Minute separator: ":" Regex: $[$0-2$]$$[$0-9$]$:$[$0-5$]$$[$0-9$]$|
 | period_end   |  string(5)   |  1      |  End of the regular period, syntax as for period_begin. Must be later than period_begin.|
@@ -645,8 +645,8 @@ This represents the following schedule, where ~~stroked out~~ days are without o
 | Weekday   | Mo | Tu | We | Th | Fr | Sa     | Su     | Mo | Tu         | We | Th | Fr | Sa     | Su     |
 |-----------|----|----|----|----|----|--------|--------|----|------------|----|----|----|--------|--------|
 | Date      | 16 | 17 | 18 | 19 | 20 | **21** | ~~22~~ | 23 | **~~24~~** | 25 | 26 | 27 | ~~28~~ | ~~29~~ |
-| Open from | 08 | 08 | 08 | 08 | 08 | 09     | -      | 08 | -          | 08 | 08 | 08 | -      | -      |
-| Open till | 20 | 20 | 20 | 20 | 20 | 12     | -      | 20 | -          | 20 | 20 | 20 | -      | -      |
+| Open from | 08 | 08 | 08 | 08 | 08 | 09     | `-`    | 08 | `-`        | 08 | 08 | 08 | `-`    | `-`    |
+| Open till | 20 | 20 | 20 | 20 | 20 | 12     | `-`    | 20 | `-`        | 20 | 20 | 20 | `-`    | `-`    |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -655,17 +655,17 @@ This represents the following schedule, where ~~stroked out~~ days are without o
 The status of an EVSE.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Value       | Description |
-|-------------|-------------|
-| AVAILABLE   | The EVSE is able to start a new charging session.                                     |
-| BLOCKED     | The EVSE not accessible because of a physical barrier, i.e. a car.                    |
-| CHARGING    | The EVSE is in use.                                                                   |
-| INOPERATIVE | The EVSE is not yet active or it is no longer available (deleted).                    |
-| OUTOFORDER  | The EVSE is currently out of order.                                                   |
-| PLANNED	  | The EVSE is planned, will be operating soon                                           |
-| REMOVED	  | The EVSE/charge point is discontinued/removed.                                        |
-| RESERVED    | The EVSE is reserved for a particular EV driver and is unavailable for other drivers. |
-| UNKNOWN	  | No status information available                                                       |
+| Value              | Description                                                                           |
+|--------------------|---------------------------------------------------------------------------------------|
+| AVAILABLE          | The EVSE is able to start a new charging session.                                     |
+| BLOCKED            | The EVSE not accessible because of a physical barrier, i.e. a car.                    |
+| CHARGING           | The EVSE is in use.                                                                   |
+| INOPERATIVE        | The EVSE is not yet active or it is no longer available (deleted).                    |
+| OUTOFORDER         | The EVSE is currently out of order.                                                   |
+| PLANNED	           | The EVSE is planned, will be operating soon                                           |
+| REMOVED	           | The EVSE/charge point is discontinued/removed.                                        |
+| RESERVED           | The EVSE is reserved for a particular EV driver and is unavailable for other drivers. |
+| UNKNOWN	           | No status information available                                                       |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 

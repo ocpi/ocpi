@@ -42,7 +42,7 @@ perl -p -i -e "s/\(data\//\($RELEASE_DIR\/data\//g" all.md
 perl -p -i -e 's/^(#+\s*)(\d+\.)*\d+\.?\s/\1 /g' all.md
 
 # correct internal links: no filenames; with padding!
-perl -p -i -e 's/((\w+\.md)?#\d+(-|_))/" " x (length($1) - 1) . "#"/eg' all.md 
+perl -p -i -e 's/((\w+\.md)?#(\d+(-|_))?)(?=\w)/" " x (length($1) - 1) . "#"/eg' all.md 
 
 # correct internal links: use dashes instead of underscores
 perl -p -i -e 's/(?<=\(#)(\w+)_(\w+)_(\w+)_(\w+)\)/\1-\2-\3-\4)/g' all.md
@@ -57,7 +57,7 @@ perl -p -i -e 's/\|\s(?=\w)/  /g' all.md
 perl -p -i -e 's/\|(?=\w)/ /g' all.md
 perl -p -i -e 's/[-:]\|[-:]/-  /g' all.md
 perl -p -i -e 's/ \| /   /g' all.md
-perl -i -e '$/ = undef; while($all = <>){ $all =~ s/(?<=[\w.!?:\]\)\$*])\s*\|(?=\n\s+[\w?1*+])/\n\n/g; print $all;}' all.md
+perl -i -e '$/ = undef; while($all = <>){ $all =~ s/(?<=[\w.!?:\]\)\$*"`~])\s*\|(?=\n\s+[\w?1*+>])/\n\n/g; print $all;}' all.md
 perl -p -i -e 's/\|(?=\n)//g' all.md
 
 pandoc --number-sections -V geometry:margin=1in --include-in-header ocpi-header.tex --toc -f markdown_github+multiline_tables -t latex all.md -o "$OUTFILE"

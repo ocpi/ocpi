@@ -145,15 +145,15 @@ The endpoint response with list of valid Token objects, the header will contain 
 ### 4.1 Token
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Property        | Type                                  | Card. | Description                                                                                             |
-|-----------------|---------------------------------------|-------|---------------------------------------------------------------------------------------------------------|
-| uid             | [string](types.md#16-string-type)(15) | 1     | Identification used by CPO system to identify this token, for example RFID hidden ID                    |
-| type            | [TokenType](#5-1-tokentype)           | 1     | Type of the token                                                                                       |
-| auth_id         | [string](types.md#16-string-type)(32) | 1     | Uniquely identifies the EV Driver contract token within the eMSPs platform (and suboperator platforms). |
-| visual_number   | [string](types.md#16-string-type)(64) | 1     | Visual readable number/identification of the Token                                                      |
-| issuer          | [string](types.md#16-string-type)(64) | 1     | Issuing company                                                                                         |
-| valid           | boolean                               | 1     | Is this Token valid                                                                                     |
-| allow_whitelist | boolean                               | ?     | It is allowed to validate a charging session with token without requesting and authorization from the eMSP? , default is FALSE. NOTE: For this release this field always needs to be set to TRUE |
+| Property                | Type                                  | Card. | Description                                                                                             |
+|-------------------------|---------------------------------------|-------|---------------------------------------------------------------------------------------------------------|
+| uid                     | [string](types.md#16-string-type)(15) | 1     | Identification used by CPO system to identify this token, for example RFID hidden ID                    |
+| type                    | [TokenType](#5-1-tokentype)           | 1     | Type of the token                                                                                       |
+| auth_id                 | [string](types.md#16-string-type)(32) | 1     | Uniquely identifies the EV Driver contract token within the eMSPs platform (and suboperator platforms). |
+| visual_number           | [string](types.md#16-string-type)(64) | 1     | Visual readable number/identification of the Token                                                      |
+| issuer                  | [string](types.md#16-string-type)(64) | 1     | Issuing company                                                                                         |
+| valid                   | boolean                               | 1     | Is this Token valid                                                                                     |
+| allow_whitelist         | boolean                               | ?     | It is allowed to validate a charging session with token without requesting and authorization from the eMSP? , default is FALSE. NOTE: For this release this field always needs to be set to TRUE |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 The combination of _uid_ and _type_ should be unique for every token.
