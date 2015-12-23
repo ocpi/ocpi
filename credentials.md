@@ -94,3 +94,14 @@ At some point both parties will have implemented a newer OCPI version. To start 
 ### Changing endpoints for the current version
 
 This can be done by following the update procedure for the same version. By sending a PUT request to the credentials endpoint of this version, the other party will fetch and store the corresponding set of endpoints.
+
+
+### Required endpoints not available
+
+When two patries connect, it might happen that one of the parties expects a certain endpoint to be available at the other party. 
+
+For example: a CPO could only want to connect when the CDRs endpoint is available in a eMSP system. 
+
+In case the client starting the credentials exchange process, cannot find the endpoints it expects. It is expected to NOT send the POST request with credentials to the server. Log a message/notify the administrator to contact the administrator of the server system.
+
+In case the server, receiving the request from a client, cannot find the endpoints it expects. It is expected to respond to the request with a status code: [3003](status_codes.md#3xxx-server-errors).

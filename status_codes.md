@@ -41,9 +41,10 @@ When the status code is in the success range (1xxx), the `data` field in the res
 ## 3xxx: Server errors
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Code | Description                             |
-|------|-----------------------------------------|
-| 3000 | Generic server error                    |
-| 3001 | Unable to use the client's API.         |
-| 3002 | Unsupported version.                    |
+| Code | Description                                                          |
+|------|----------------------------------------------------------------------|
+| 3000 | Generic server error                                                 |
+| 3001 | Unable to use the client's API.                                      |
+| 3002 | Unsupported version.                                                 |
+| 3003 | No matching endpoints or expected endpoints missing between parties. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
