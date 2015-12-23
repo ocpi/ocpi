@@ -25,8 +25,8 @@ CPO can call the [GET](#221-get-method) to validate the Session object in the eM
 
 ### 1.2 Pull model
 
-TODO GET
-
+eMSPs who do not support the push model need to call
+[GET](#211-get-method) on the CPOs Sessions endpoint to receive a list of Sessions.
 
 
 ## 2. Interfaces and endpoints
