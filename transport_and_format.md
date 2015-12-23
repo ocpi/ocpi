@@ -78,12 +78,12 @@ When a request cannot be accepted, an HTTP error response code is expected inclu
 The content that is sent with all the response messages is a 'application/json' type and contains a JSON object with the following properties:
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Property       | Type                                  | Card. | Description                              |
-|----------------|---------------------------------------|-------|------------------------------------------|
-| data           | object                                | ?     | Contains the actual response data from each request. |
-| status_code    | Integer                               | 1     | Response code, as listed in [Status Codes](status_codes.md#status-codes), indicates how the request was handled. To avoid confusion with HTTP codes, at least four digits are used. |
+| Property       | Type                                  | Card. | Description                                               |
+|----------------|---------------------------------------|-------|-----------------------------------------------------------|
+| data           | object                                | ?     | Contains the actual response data from each request.      |
+| status_code    | Integer                               | 1     | Response code, as listed in [Status Codes](status_codes.md#status-codes), indicates how the request was handled. To avoid confusion with HTTP codes, at least four digits are used.                              |
 | status_message | String                                | ?     | An optional status message which may help when debugging. |
-| timestamp      | [DateTime](types.md#12_datetime_type) | 1     | When this message was generated, we don't have a use for this yet but might be useful if any party comes offline and sends a bunch of messages at once or even debugging purposes. |
+| timestamp      | [DateTime](types.md#12_datetime_type) | 1     | The time this message was generated.                      |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 For brevity's sake, any further example used in this specification will only contain the value of the "data" field. In reality, it will always have to be wrapped in the above response format.
