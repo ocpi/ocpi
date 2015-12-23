@@ -30,6 +30,8 @@ When the status code is in the success range (1xxx), the `data` field in the res
 
 ## 2xxx: Client errors
 
+Errors a server detected: client did something wrong
+
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Code | Description                             |
 |------|-----------------------------------------|
@@ -39,6 +41,8 @@ When the status code is in the success range (1xxx), the `data` field in the res
 
 
 ## 3xxx: Server errors
+
+Error during processing in the server
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Code | Description                                                          |
