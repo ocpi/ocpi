@@ -20,13 +20,13 @@ Example: `/ocpi/cpo/2.0/credentials` and `/ocpi/emsp/2.0/credentials`
 ### Credentials object
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Property                 | Type                                                                   | Card. | Description                                                   |
-|--------------------------|------------------------------------------------------------------------|-------|---------------------------------------------------------------|
-| token                    | String                                                                 | 1     | The token for the other party to authenticate in your system. |
-| url                      | [URL](types.md#14_url_type)                                            | 1     | The URL to your API versions endpoint.                        |
-| business_details         | [BusinessDetails](mod_locations.md#41-businessdetails-class)           | 1     | Details of the other party.                                   |
-| party_id                 | [string](types.md#16-string-type)(16)                                  | 1     | CPO or eMSP ID of this party.                                 |
-| country_code             | [string](types.md#16-string-type)(3)                                   | 1     | Country code of the country this party is operating in.       |
+| Property                 | Type                                                                   | Card. | Description                                                       |
+|--------------------------|------------------------------------------------------------------------|-------|-------------------------------------------------------------------|
+| token                    | String                                                                 | 1     | The token for the other party to authenticate in your system.     |
+| url                      | [URL](types.md#14_url_type)                                            | 1     | The URL to your API versions endpoint.                            |
+| business_details         | [BusinessDetails](mod_locations.md#41-businessdetails-class)           | 1     | Details of the other party.                                       |
+| party_id                 | [string](types.md#16-string-type)(3)                                   | 1     | CPO or eMSP ID of this party. (following the 15118 ISO standard). |
+| country_code             | [string](types.md#16-string-type)(2)                                   | 1     | Country code of the country this party is operating in.           |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
