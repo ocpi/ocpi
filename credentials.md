@@ -77,7 +77,7 @@ If successful, the server responds with an empty OCPI response message (i.e. `da
 
 To register a CPO in a eMSP platform (or vice versa), the CPO must create a unique token that can be used for authenticating the eMSP. This token along with the versions endpoint will have to be sent to the eMSP in some secure way that is outside the scope of this protocol.
 
-TOKEN_A is given offline, after registration store the TOKEN_C which will be used in future exchanges. 
+`TOKEN_A` is given offline, after registration store the `TOKEN_C` which will be used in future exchanges. 
 
 (In the sequence diagrams below we use relative paths as short resource identifiers to illustrate a point; please note that they should really be absolute URLs in any working implementation of OCPI)
 

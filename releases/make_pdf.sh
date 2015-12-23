@@ -7,7 +7,7 @@ command -v pandoc >/dev/null 2>&1 || { echo >&2 "I require pandoc >1.9.2 but it'
 RELEASE_NAME="2.0"
 OUTFILE="OCPI_${RELEASE_NAME}.pdf"
 RELEASE_DIR=".."
-LATEX_ENGINE="xelatex"
+LATEX_ENGINE="pdflatex"
 #############################################
 #############################################
 

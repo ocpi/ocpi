@@ -193,7 +193,7 @@ This is the most common type of update message to notify eMSPs that an EVSE is n
 {
 	"evses": [
 		{
-            "uid": "3256",
+			"uid": "3256",
 			"status": "CHARGING",
 		}
 	]
@@ -211,29 +211,30 @@ In this example the name of the location is updated and connector 2 of EVSE *BE-
 		{
 			"id": "LOC1",
 			"name": "Interparking Gent Zuid",
-            "evses": [
-                {
-                    "uid": "3256",
-                    "status": "AVAILABLE",
-                    "connectors": [
-                        {
-                            "id": "1",
-                            "standard": "IEC-62196-T2",
-                            "format": "CABLE",
-                            "tariff_id": "15"
-                        },
-                        {
-                            "id": "2",
-                            "standard": "IEC-62196-T2",
-                            "format": "SOCKET",
-                            "tariff_id": "15"
-                        }
-                    ]
-                }
-            ]
+			"evses": [
+				{
+				    "uid": "3256",
+				    "status": "AVAILABLE",
+				    "connectors": [
+					{
+					    "id": "1",
+					    "standard": "IEC-62196-T2",
+					    "format": "CABLE",
+					    "tariff_id": "15"
+					},
+					{
+					    "id": "2",
+					    "standard": "IEC-62196-T2",
+					    "format": "SOCKET",
+					    "tariff_id": "15"
+					}
+				    ]
+				}
+			]
 		}
 	]
-}```
+}
+```
 
 ##### Example: add an EVSE
 
@@ -250,9 +251,9 @@ To add an *EVSE*, simply put the full object in an update message, including all
 			"connectors": [
 				{
 					"id": "1",
-                    "standard": "IEC-62196-T2",
-                    "format": "SOCKET",
-                    "tariff_id": "14"
+					"standard": "IEC-62196-T2",
+					"format": "SOCKET",
+					"tariff_id": "14"
 				}
 			],
 			"physical_number": 3,
@@ -320,8 +321,8 @@ This class defines a geo location. The geodetic system to be used is WGS 84.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property    | Type                                         | Card. | Description                                                                                                                              |
 |-------------|----------------------------------------------|-------|-------------------------------------------------------------------|
-| latitude    | [string](types.md#16-string-type)(10)        | 1     | Latitude of the point in decimal degree. Example: 50.770774. Decimal separator: "." Regex: `-?$[$0-9$]$\{1,2\}$\$.$[$0-9$]$\{6\}`        |
-| longitude   | [string](types.md#16-string-type)(11)        | 1     | Longitude of the point in decimal degree. Example: -126.104965. Decimal separator: "." Regex: `-?$[$0-9$]$\{1,3\}$\$.$[$0-9$]$\{6\}`     |
+| latitude    | [string](types.md#16-string-type)(10)        | 1     | Latitude of the point in decimal degree. Example: 50.770774. Decimal separator: "." Regex: `-?[0-9]\{1,2\}\.[0-9]\{6\}`        |
+| longitude   | [string](types.md#16-string-type)(11)        | 1     | Longitude of the point in decimal degree. Example: -126.104965. Decimal separator: "." Regex: `-?[0-9]\{1,3\}\.[0-9]\{6\}`     |
 | name        | [DisplayText](types.md#15-displaytext-class) | ?     | Name of the point in local language or as written at the location. For example the street name of a parking lot entrance or it's number. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
@@ -456,8 +457,8 @@ Specifies one exceptional period for opening or access hours.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property    | Type                                | Card. | Description                                                                                       |
 |-------------|-------------------------------------|-------|---------------------------------------------------------------------------------------------------|
-| latitude    | [string](types.md#16-string-type)(10)| 1     | Latitude of the point in decimal degree. Example: 50.770774. Decimal separator: "." Regex: `-?$[$0-9$]$\{1,2\}$\$.$[$0-9$]$\{6\}`        |
-| longitude   | [string](types.md#16-string-type)(11)| 1     | Longitude of the point in decimal degree. Example: -126.104965. Decimal separator: "." Regex: `-?$[$0-9$]$\{1,3\}$\$.$[$0-9$]$\{6\}`     |
+| latitude    | [string](types.md#16-string-type)(10)| 1     | Latitude of the point in decimal degree. Example: 50.770774. Decimal separator: "." Regex: `-?[0-9]\{1,2\}\.[0-9]\{6\}`        |
+| longitude   | [string](types.md#16-string-type)(11)| 1     | Longitude of the point in decimal degree. Example: -126.104965. Decimal separator: "." Regex: `-?[0-9]\{1,3\}\.[0-9]\{6\}`     |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -565,7 +566,7 @@ Regular recurring operation or access hours
 | Field Name    | Field Type   | Card.   | Description                                                                             |
 |---------------|--------------|---------|-----------------------------------------------------------------------------------------|
 | weekday       |  int(1)      |  1      |  Number of day in the week, from Monday (1) till Sunday (7)                             |
-| period_begin  |  string(5)   |  1      |  Begin of the regular period given in hours and minutes. Must be in 24h format with leading zeros. Example: "18:15". Hour/Minute separator: ":" Regex: $[$0-2$]$$[$0-9$]$:$[$0-5$]$$[$0-9$]$|
+| period_begin  |  string(5)   |  1      |  Begin of the regular period given in hours and minutes. Must be in 24h format with leading zeros. Example: "18:15". Hour/Minute separator: ":" Regex: [0-2][0-9]:[0-5][0-9]|
 | period_end    |  string(5)   |  1      |  End of the regular period, syntax as for period_begin. Must be later than period_begin.|
 <div><!-- ---------------------------------------------------------------------------- --></div>
 

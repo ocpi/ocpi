@@ -40,20 +40,24 @@ To enable pagination of the returned list of objects extra URL parameters are al
 ###### Paginated Request
 The following table is a list of all the parameters that have to be supported, but might be omitted by a client request.
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | Parameter | Description                                            |
 |-----------|--------------------------------------------------------|
 | offset    | The offset of the first object returned. Default is 0. |
 | limit     | Maximum number of objects to GET. Note that the server might decided to return less objects, because there are no more objects or the server limits the amount to prevent, for example, overload of the system |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 
 ###### Paginated Response
 HTTP headers that have to be added to any paginated get response.
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
 | HTTP Parameter | Description                                                                 |
 |----------------|-----------------------------------------------------------------------------|
 | link           | Link to the 'next' page should be provided, see example below               |
 | X-Total-Count  | (Custom HTTP Header) Total number of objects available in the server system |
 | X-Limit        | (Custom HTTP Header) Number of objects that are returned. Note that this is an upper limit, if there are not enough remaining objects to return, then less than this number will be returned. |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 Example of a required OCPI pagination link header
 ```   
