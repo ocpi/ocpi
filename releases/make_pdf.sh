@@ -7,6 +7,7 @@ command -v pandoc >/dev/null 2>&1 || { echo >&2 "I require pandoc >1.9.2 but it'
 RELEASE_NAME="2.0"
 OUTFILE="OCPI_${RELEASE_NAME}.pdf"
 RELEASE_DIR=".."
+LATEX_ENGINE="xelatex"
 #############################################
 #############################################
 
@@ -60,4 +61,4 @@ perl -p -i -e 's/ \| /   /g' all.md
 perl -i -e '$/ = undef; while($all = <>){ $all =~ s/(?<=[\w.!?:\]\)\$*"`~])\s*\|(?=\n\s+[\w?1*+>])/\n\n/g; print $all;}' all.md
 perl -p -i -e 's/\|(?=\n)//g' all.md
 
-pandoc --variable mainfont="Times"  --variable fontsize=10pt --number-sections -V geometry:margin=1in --include-in-header ocpi-header.tex --toc -f markdown_github+multiline_tables -t latex all.md -o "$OUTFILE" --latex-engine=xelatex
+pandoc --variable mainfont="Times"  --variable fontsize=10pt --number-sections -V geometry:margin=1in --include-in-header ocpi-header.tex --toc -f markdown_github+multiline_tables -t latex all.md -o "$OUTFILE" --latex-engine="$LATEX_ENGINE"
