@@ -45,10 +45,10 @@ Errors a server detected: client did something wrong
 Error during processing in the server
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Code | Description                                                          |
-|------|----------------------------------------------------------------------|
-| 3000 | Generic server error                                                 |
-| 3001 | Unable to use the client's API.                                      |
-| 3002 | Unsupported version.                                                 |
-| 3003 | No matching endpoints or expected endpoints missing between parties. |
+| Code | Description                                                                |
+|------|----------------------------------------------------------------------------|
+| 3000 | Generic server error                                                       |
+| 3001 | Unable to use the client's API. For example: during credentials handshake. |
+| 3002 | Unsupported version.                                                       |
+| 3003 | No matching endpoints or expected endpoints missing between parties.       |
 <div><!-- ---------------------------------------------------------------------------- --></div>
