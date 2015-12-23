@@ -93,8 +93,25 @@ Example endpoint structure: `/ocpi/emsp/2.0/sessions/` and
 
 #### 2.2.1 __GET__ Method
 
-TODO
+The CPO system might request the current version of a Session object from the eMSP system for, 
+for example validation purposes, or the CPO system might have received a error on a PATCH.
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Parameter    | Datatype                              | Required | Description                                                                   |
+|--------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
+| {session-id} | [string](types.md#16-string-type)(15) | yes      | id of the Session object to get from the eMSP system                          |
+<div><!-- ---------------------------------------------------------------------------- --></div>
+
+
+##### Response Data
+
+The response contains the request Session object, if available.
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Datatype                      | Card. | Description                                                   |
+|-------------------------------|-------|---------------------------------------------------------------|
+| [Session](#31-session-object) | ?     | Session object requested.                                     |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 
 #### 2.2.2 __PUT__ Method
