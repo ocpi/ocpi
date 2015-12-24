@@ -11,15 +11,21 @@ ASAP. But if there is an agreement between parties to send then for example once
 
 ## 1. Flow and Lifecycle
 
+CDRs are created by the CPO. They are probably only send to the eMSP that will be paying the bill of a charging session. Because a CDR is for billing purposes, it cannot be changed/replaced, once send to the eMSP, changes are not allowed in a CDR.
+ 
+
 ### 1.1 Push model
 
-When the CPO creates CDR(s) they push them to the eMSPs by calling [POST](#221-post-method) on the eMSPs
+When the CPO creates CDR(s) they push them to the relvant eMSP by calling [POST](#222-post-method) on the eMSPs
 CDRs endpoint with the newly create CDRs(s)
 
 CDRs should contain enough information (dimensions) to allow the eMSP to validate the total costs. 
 It is advised to send enough information to the eMSP so it might calculate its own costs for billing their customer. An eMSP might have a very different contract/pricing model with the EV driver then the tariff structure from the CPO.
 
 _NOTE: CDRs cannot not yet be updated or removed. This might be added in a future version of OCPI._
+
+If the CPO, for any reason wants to view a CDR it has posted to a eMSP system, the CPO can retrieve the CDR by calling the [GET](#221-get-method) on the eMSPs CDRs endpoint at the URL returned in the response to the [POST](#222-post-method).
+
 
 ### 1.2 Pull model
 
@@ -32,6 +38,7 @@ eMSPs who do not support the push model need to call
 There is both a CPO and an eMSP interface for CDRs. Depening on business requirements parties can decide to use
 the CPO Interface/Get model, or the eMSP Interface/Push model, or both. 
 Push is the preferred model to use, the eMSP will receive CDRs when created by the CPO.
+
 
 ### 2.1 CPO Interface
 
@@ -49,9 +56,15 @@ Example endpoint structure: `/ocpi/cpo/2.0/cdrs/?date_from=xxx&date_to=yyy`
 | DELETE                  | n/a                                                                              |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
+
 #### 2.1.1 __GET__ Method
 
-Fetch CDRs from the CPO systems. If additional parameters: {date_from} and/or {date_to} are provided, only CDRs of charging sessions with a start date/time between the given date_from and date_to will be returned.
+Fetch CDRs from the CPO systems. 
+
+
+##### Request Parameters
+
+If additional parameters: {date_from} and/or {date_to} are provided, only CDRs of charging sessions with a start date/time between the given date_from and date_to will be returned.
 
 This request is [paginated](transport_and_format.md#get), so also supports the [pagination](transport_and_format.md#paginated-request) related URL parameters.
 
@@ -70,45 +83,81 @@ The endpoint returns a list of CDRs matching the given parameters in the GET req
 Any older information that is not specified in the response is considered as no longer valid.
 Each object must contain all required fields. Fields that are not specified may be considered as null values.
 
-
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Parameter | Datatype              | Card. | Description                                                         |
 |-----------|-----------------------|-------|---------------------------------------------------------------------|
 | CDRs      | [CDR](#31-cdr-object) | *     | List of CDRs.                                                       |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
+
 ### 2.2 eMSP Interface
 
-The CDRs endpoint can be used to create, update or delete CDRs.
+The CDRs endpoint can be used to create, or get CDRs.
 
-Example endpoint structure: `/ocpi/emsp/2.0/cdrs/` and `/ocpi/emsp/2.0/cdrs/{cdr-id}/`
+Example endpoint structure: `/ocpi/emsp/2.0/cdrs`
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Method                   | Description                                          |
 | ------------------------ | ---------------------------------------------------- |
-| GET                      | n/a                                                  |
-| [POST](#221-post-method) | Create a new CDR.                                    |
-| PUT                      | n/a                                                  |
-| PATCH                    | n/a                                                  |
-| DELETE                   | n/a (Use PUT, CDRs cannot be removed)                |
+| [GET](#221-get-method)   | Retrieve an existing CDR                             |
+| [POST](#222-post-method) | Send a new CDR.                                      |
+| PUT                      | n/a (CDRs cannot be replaced)                        |
+| PATCH                    | n/a (CDRs cannot be updated)                         |
+| DELETE                   | n/a (CDRs cannot be removed)                         |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
-#### 2.2.1 POST Method
+
+#### 2.2.1 GET Method
+
+Fetch CDRs from the eMSP system. 
+
+
+##### Response URL
+
+To retrieve an existing URL from the eMSP system, the URL, returned in the reponse to a POST of a new CDR, has to be used.
+
+
+##### Response Data
+
+The endpoint returns the requested CDR, if it exists
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Parameter | Datatype              | Card. | Description                                  |
+|-----------|-----------------------|-------|----------------------------------------------|
+| CDRs      | [CDR](#31-cdr-object) | 1     | Requested CDR object.                        |
+<div><!-- ---------------------------------------------------------------------------- --></div>
+
+
+#### 2.2.2 POST Method
 
 Creates a new CDR.
 
-The post method should contain the full, final CDR object(s).
+The post method should contain the full, final CDR object.
 
 
-##### Data
+##### Request Data
 
-In the post request a list of new CDR Objects is send.
+In the post request the new CDR object is send.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Type                            | Card. | Description                              |
-|---------------------------------|-------|------------------------------------------|
-| [CDR](#31-cdr-object)           | *     | List of CDRs.                            |
+| Type                            | Card. | Description                             |
+|---------------------------------|-------|-----------------------------------------|
+| [CDR](#31-cdr-object)           | 1     | New CDR object.                         |
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
+
+##### Response Headers
+
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Parameter  | Datatype                    | Required | Description                               |
+|------------|-----------------------------|----------|-------------------------------------------|
+| Location   | [URL](types.md#14_url_type) | yes      | URL to the newly created CDR in the eMSP system, can be used by the CPO system to do a GET on of the same CDR |
+<div><!-- ---------------------------------------------------------------------------- --></div>
+
+Example: Location: /ocpi/emsp/2.0/cdrs/123456
+
+
 
 ## 3. Object description
 
