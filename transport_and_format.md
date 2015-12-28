@@ -44,7 +44,7 @@ The following table is a list of all the parameters that have to be supported, b
 | Parameter | Description                                            |
 |-----------|--------------------------------------------------------|
 | offset    | The offset of the first object returned. Default is 0. |
-| limit     | Maximum number of objects to GET. Note that the server might decided to return less objects, because there are no more objects or the server limits the amount to prevent, for example, overload of the system |
+| limit     | Maximum number of objects to GET. Note: the server might decided to return less objects, because there are no more objects or the server limits the maximum amount of object to return to prevent, for example, overloading the system |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 

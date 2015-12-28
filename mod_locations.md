@@ -53,7 +53,17 @@ Example endpoint structure: `/ocpi/cpo/2.0/locations`
 
 Fetch information about all available locations and EVSEs at this CPO.
 
-This request is [paginated](transport_and_format.md#get), so also supports the [pagination](transport_and_format.md#paginated-request) related URL parameters.
+##### Request Parameters
+
+This request is [paginated](transport_and_format.md#get), it supports the [pagination](transport_and_format.md#paginated-request) related URL parameters.
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Parameter  | Datatype                              | Required | Description                                                                   |
+|------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
+| offset     | int                                   | no       | The offset of the first object returned. Default is 0.                        |
+| limit      | int                                   | no       | Maximum number of objects to GET.                                             |
+<div><!-- ---------------------------------------------------------------------------- --></div>
+
 
 ##### Response Data
 

@@ -51,12 +51,13 @@ Fetch Sessions from the CPO systems. Only Sessions with a start date/time betwee
 
 This request is [paginated](transport_and_format.md#get), so also supports the [pagination](transport_and_format.md#paginated-request) related URL parameters.
 
-
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Parameter  | Datatype                              | Required | Description                                                                   |
 |------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
-| date_from  | [DateTime](types.md#12_datetime_type) | yes      | Begin charging session start Date/Time of the Sessions to fetch.                      |
+| date_from  | [DateTime](types.md#12_datetime_type) | yes      | Begin charging session start Date/Time of the Sessions to fetch.              |
 | date_to    | [DateTime](types.md#12_datetime_type) | no       | End charging session start Date/Time of the Sessons to fetch, if omitted all Sessions up to now are request to be returned. |
+| offset     | int                                   | no       | The offset of the first object returned. Default is 0.                        |
+| limit      | int                                   | no       | Maximum number of objects to GET.                                             |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 _NOTE: The CPO is allowed to return a (not specified) maximum amount of Sessions, to prevent overloading there system. In this version of OCPI it is not possible to detect if the CPO returned not all Sessions that match the filter._  

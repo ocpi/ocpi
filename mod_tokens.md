@@ -119,7 +119,17 @@ Example endpoint structure: `/ocpi/emsp/2.0/tokens/`
 #### 2.2.1 __GET__ Method
 
 Fetch information about all Tokens known in the eMSP systems.
-This request is [paginated](transport_and_format.md#get), so supports the [pagination](transport_and_format.md#paginated-request) related URL parameters.
+
+##### Request Parameters
+
+This request is [paginated](transport_and_format.md#get), it supports the [pagination](transport_and_format.md#paginated-request) related URL parameters.
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Parameter  | Datatype                              | Required | Description                                                                   |
+|------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
+| offset     | int                                   | no       | The offset of the first object returned. Default is 0.                        |
+| limit      | int                                   | no       | Maximum number of objects to GET.                                             |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 
 ##### Response Data
