@@ -6,42 +6,37 @@ The Location objects live in the CPO back-end system. They
 describe the charging locations of that operator.
 
 
-## 1. Inheritances
-
-N/A
-
-
-## 2. Flow and Lifecycle
+## 1. Flow and Lifecycle
 
 When a CPO creates Locations they push them to the
-eMSPs by calling [PUT](#322-put-method) on the eMSPs Location endpoint. 
+eMSPs by calling [PUT](#222-put-method) on the eMSPs Location endpoint. 
 Providers who do not support push mode need to call
-[GET](#311-get-method) on the CPOs Location endpoint to receive
+[GET](#211-get-method) on the CPOs Location endpoint to receive
 the new object.
 
 If the CPO wants to replace a Location object they push it to the eMSP systems by
-calling [PUT](#322-put-method) on their Locations endpoint.
+calling [PUT](#222-put-method) on their Locations endpoint.
 
-Any changes to the Location can also be pushed to the eMSP by calling the [PATCH](#323-patch-method) 
+Any changes to the Location can also be pushed to the eMSP by calling the [PATCH](#223-patch-method) 
 on the eMSPs Locations endpoint.
 Providers who do not support push mode need to call
-[GET](#311-get-method) on the CPOs location endpoint to receive
+[GET](#211-get-method) on the CPOs location endpoint to receive
 the updates in the master object.
 
-When the CPO wants to delete a location and/or EVSE, they must update by setting the `status`
-field to `REMOVED` and call the [PUT](#322-put-method) or [PATCH](#323-patch-method) on the eMSP system. 
+When the CPO wants to delete a Location, EVSE or Connector, they must update by setting the `status`
+field to `REMOVED` and call the [PUT](#222-put-method) or [PATCH](#223-patch-method) on the eMSP system. 
 
 
-## 3. Interfaces and endpoints
+## 2. Interfaces and endpoints
 
-### 3.1 CPO Interface
+### 2.1 CPO Interface
 
 Example endpoint structure: `/ocpi/cpo/2.0/locations`
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Method                 | Description                                          |
 | ---------------------- | ---------------------------------------------------- |
-| [GET](#311-get-method) | Fetch all available locations and EVSEs. ([paginated](transport_and_format.md#get)) |
+| [GET](#211-get-method) | Fetch all available locations and EVSEs. ([paginated](transport_and_format.md#get)) |
 | POST                   | n/a                                                  |
 | PUT                    | n/a                                                  |
 | PATCH                  | n/a                                                  |
@@ -49,7 +44,7 @@ Example endpoint structure: `/ocpi/cpo/2.0/locations`
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-#### 3.1.1 __GET__ Method
+#### 2.1.1 __GET__ Method
 
 Fetch information about all available locations and EVSEs at this CPO.
 
@@ -67,19 +62,17 @@ This request is [paginated](transport_and_format.md#get), it supports the [pagin
 
 ##### Response Data
 
-The endpoint returns an object of two seperate lists: one list of available locations and one list of available EVSEs.
+The endpoint returns a list of Location objects
 The header will contain the [pagination](transport_and_format.md#paginated-response) related headers.
 
 Any older information that is not specified in the response is considered as no longer valid.
 Each object must contain all required fields. Fields that are not specified may be considered as null values.
  
-
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property  | Type                            | Card. | Description                              |
 |-----------|---------------------------------|-------|------------------------------------------|
-| locations | [Location](#41-location-object) | *     | List of all locations with valid EVSEs.  |
+| locations | [Location](#31-location-object) | *     | List of all locations with valid EVSEs.  |
 <div><!-- ---------------------------------------------------------------------------- --></div>
-
 
 
 ##### Example
@@ -151,140 +144,165 @@ Each object must contain all required fields. Fields that are not specified may 
 ```
 
 
-### 3.2 eMSP Interface
+### 2.2 eMSP Interface
 
-Example endpoint structure: `/ocpi/emsp/2.0/locations`
-
-#### Methods
-
-<div><!-- ---------------------------------------------------------------------------- --></div>
-| Method                        | Description                                                                     |
-| ----------------------------- | ------------------------------------------------------------------------------- |
-| GET                           | n/a                                                                             |
-| [POST](#321-post-method)      | Push new locations and EVSEs to the eMSP.                                       |
-| [PUT](#322-put-method)        | Push updated locations and EVSEs to the eMSP                                    |
-| [PATCH](#323-patch-method)    | Notify the eMSP of partial updates to locations and EVSEs (such as the status). |
-| DELETE                        | n/a  _(use PATCH)_                                    |
-<div><!-- ---------------------------------------------------------------------------- --></div>
-
-#### Data
-
-For all methods on the eMSP interface this data definition is used.
+Locations is a [client owned object](transport_and_format.md#client-owned-object-push), so the end-points need to contain the required extra fields: {[party_id](credentials.md#credentials-object)} and {[country_code](credentials.md#credentials-object)}.
+Example endpoint structures: 
+`/ocpi/emsp/2.0/locations/{country_code}/{party_id}/{location_id}`
+`/ocpi/emsp/2.0/locations/{country_code}/{party_id}/{location_id}/{evse_uid}`
+`/ocpi/emsp/2.0/locations/{country_code}/{party_id}/{location_id}/{evse_uid}/{connector_id}`
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Property  | Type                            | Card. | Description                    |
-|-----------|---------------------------------|-------|--------------------------------|
-| locations | [Location](#41-location-object) | *     | List of locations.             |
+| Method                        | Description                                                                                |
+|-------------------------------|--------------------------------------------------------------------------------------------|
+| [GET](#221-get-method)        | Retrieve a Location as it is stored in the eMSP system                                     |
+| POST                          | n/a _(use [PUT](#222-put-method))_                                                         |
+| [PUT](#222-put-method)        | Push new/updated Location, EVSE and or Connectors to the eMSP                              |
+| [PATCH](#223-patch-method)    | Notify the eMSP of partial updates to a Location, EVSEs or Connector (such as the status). |
+| DELETE                        | n/a _(use [PATCH](#223-patch-method))_                                                     |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
-##### 3.2.1 __POST__ Method
 
-Fully synchronize the eMSP by pushing all available locations and EVSEs. This is the exact equivalent to a GET request initiated by the eMSP to the CPO endpoint.
+#### 2.2.1 __GET__ Method
 
-Any location or EVSE that is not specified in the message is considered as no longer valid. Each object must contain all required fields. Fields that are not specified may be considered as null values or their default values if specified in the OCPI protocol.
+If the CPO wants to check the status of a Location, EVSE or Connector object in the eMSP system it might GET the object from the eMSP system for validation purposes. The CPO is the owner of the objects, so it would be illogical if the eMSP system had a different status of was missing an object.
+
+##### Request Parameters
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Parameter     | Datatype                              | Required | Description                                                                   |
+|---------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
+| country_code  | [string](types.md#16-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
+| party_id      | [string](types.md#16-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
+| location_id   | int                                   | yes      | Location.id of the Location object to retrieve.                               |
+| evse_uid      | int                                   | no       | Evse.uid, required when requesting an Evse or Connector object.               |
+| connector_id  | int                                   | no       | Connector.id, required when requesting a Connector object.                    |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-##### 3.2.2 __PUT__ Method
+##### Response Data
 
-Fully synchronize the eMSP by pushing all available locations and EVSEs. This is the exact equivalent to a GET request initiated by the eMSP to the CPO endpoint.
+The response contains the requested object. 
 
-Any location or EVSE that is not specified in the message is considered as no longer valid. Each object must contain all required fields. Fields that are not specified may be considered as null values or their default values if specified in the OCPI protocol.
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Type                                | Card. | Description                                                |
+|-------------------------------------|-------|------------------------------------------------------------|
+| *Choice: one of three*              |       |                                                            |
+| > [Location](#31-location-object)   | 1     | If a Location object was requested: the Location object.   |
+| > [EVSE](#32-evse-object)           | 1     | If an EVSE object was requested: the EVSE object.          |
+| > [Connector](#33-connector-object) | 1     | If a Connector object was requested: the Connector object. |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-##### 3.2.3 __PATCH__ Method
+#### 2.2.2 __PUT__ Method
 
-Update messages are similar to synchronization messages except that only the object id is required. Unlike the PUT method, only the locations and fields that are updated are specified and any fields or objects that are not specified in the update message are considered unchanged.
+The CPO pushes available Location/EVSE or Connector objects to the eMSP. PUT is used to send new Location objects to the eMSP, or to replace existing Locations.
+
+##### Request Parameters
+
+This is an information push message, the objects pushed will not be owned by the eMSP, to make distinctions between objects being pushed to to a eMSP from different CPOs, the {[party_id](credentials.md#credentials-object)} and {[country_code](credentials.md#credentials-object)} have to be included in the URL.
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Parameter     | Datatype                              | Required | Description                                                                   |
+|---------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
+| country_code  | [string](types.md#16-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
+| party_id      | [string](types.md#16-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
+| location_id   | int                                   | yes      | Location.id of the new Location object, or the Location of which an EVSE or Location object is send |
+| evse_uid      | int                                   | no       | Evse.uid, required when an Evse or Connector object is send/replaced.         |
+| connector_id  | int                                   | no       | Connector.id, required when a Connector object is send/replaced.              |
+<div><!-- ---------------------------------------------------------------------------- --></div>
+
+#### Request Body
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Type                                | Card. | Description                                            |
+|-------------------------------------|-------|--------------------------------------------------------|
+| *Choice: one of three*              |       |                                                        |
+| > [Location](#31-location-object)   | 1     | New Location object, or Location object to replace.    |
+| > [EVSE](#32-evse-object)           | 1     | New EVSE object, or EVSE object to replace.            |
+| > [Connector](#33-connector-object) | 1     | New Connector object, or Connector object to replace.  |
+<div><!-- ---------------------------------------------------------------------------- --></div>
+
+
+#### 2.2.3 __PATCH__ Method
+
+Same as the [PUT](#222-put-method) method, but only the fields/objects that have to be updated have to be present, other fields/objects that are not specified are considered unchanged.
+
 
 ##### Example: a simple status update
 
-This is the most common type of update message to notify eMSPs that an EVSE is now occupied.
+This is the most common type of update message to notify eMSPs that an EVSE (EVSE with uid 3255 of Charge Point 1012) is now occupied.
 
 ```json
+PATCH To URL: https://www.server.com/ocpi/cpo/2.0/locations/NL/TNM/1012/3255
+
 {
-	"evses": [
-		{
-			"uid": "3256",
-			"status": "CHARGING",
-		}
-	]
+	"status": "CHARGING",
 }
 ```
 
 
-##### Example: advanced update
+##### Example: change the location name
 
-In this example the name of the location is updated and connector 2 of EVSE *BE-BEC-E041503001* receives a new pricing scheme. Note that since the connectors property is atomic, we also have to specify the information for connector 1.
+In this example the name of location 1012 is updated.
 
 ```json
+PATCH To URL: https://www.server.com/ocpi/cpo/2.0/locations/NL/TNM/1012
+
 {
-	"locations": [
-		{
-			"id": "LOC1",
-			"name": "Interparking Gent Zuid",
-			"evses": [
-				{
-				    "uid": "3256",
-				    "status": "AVAILABLE",
-				    "connectors": [
-					{
-					    "id": "1",
-					    "standard": "IEC-62196-T2",
-					    "format": "CABLE",
-					    "tariff_id": "15"
-					},
-					{
-					    "id": "2",
-					    "standard": "IEC-62196-T2",
-					    "format": "SOCKET",
-					    "tariff_id": "15"
-					}
-				    ]
-				}
-			]
-		}
-	]
+	"name": "Interparking Gent Zuid",
 }
 ```
+
+
+##### Example: set tariff update
+
+In this example connector 2 of EVSE 1 of Charge Point 1012, receives a new pricing scheme.
+
+```json
+PATCH To URL: https://www.server.com/ocpi/cpo/2.0/locations/NL/TNM/1012/3255/2
+
+{
+    "tariff_id": "15"
+}
+```
+
 
 ##### Example: add an EVSE
 
-To add an *EVSE*, simply put the full object in an update message, including all its required fields. Since the id is new, the receiving party will know that it is a new object. The new object should be processed in the same way as in a synchronisation message. When not all required fields are specified, the object may be discarded.
+To add an *EVSE*, simply put the full object in an update message, including all its required fields. Since the id is new, the receiving party will know that it is a new object. When not all required fields are specified, the object may be discarded.
 
 ```json
+PUT To URL: https://www.server.com/ocpi/cpo/2.0/locations/NL/TNM/1012/3256
+
 {
-	"evses": [
+	"uid": "3256",
+	"evse_id": "BE-BEC-E041503003",
+	"status": "AVAILABLE",
+	"capabilities": ["RESERVABLE"],
+	"connectors": [
 		{
-			"uid": "3256",
-			"evse_id": "BE-BEC-E041503003",
-			"status": "AVAILABLE",
-			"capabilities": ["RESERVABLE"],
-			"connectors": [
-				{
-					"id": "1",
-					"standard": "IEC-62196-T2",
-					"format": "SOCKET",
-					"tariff_id": "14"
-				}
-			],
-			"physical_number": 3,
-			"floor": -1,
+			"id": "1",
+			"standard": "IEC-62196-T2",
+			"format": "SOCKET",
+			"tariff_id": "14"
 		}
-	]
+	],
+	"physical_number": 3,
+	"floor": -1,
 }
 ```
+
 
 ##### Example: delete an EVSE
 
 An EVSE can be deleted by updating its *status* property.
 
 ```json
+PATCH To URL: https://www.server.com/ocpi/cpo/2.0/locations/NL/TNM/1012/3256
+
 {
-	"evses": [
-		{
-			"uid": "3256",
-			"status": "REMOVED",
-		}
-	]
+	"status": "REMOVED",
 }
 ```
 
@@ -292,9 +310,9 @@ _Note: To inform that an EVSE is scheduled for removal, the
 status_schedule field can be used._
 
 
-## 4. Object description
+## 3. Object description
 
-### 4.1 _Location_ Object
+### 3.1 _Location_ Object
 
 The *Location* object describes the location and its properties where a group of EVSEs that belong together are installed. Typically the *Location* object is the exact location of the group of EVSEs, but it can also be the entrance of a parking garage which contains these EVSEs. The exact way to reach each EVSE can then be further specified by its own properties.
 
@@ -304,27 +322,69 @@ A *Location* without valid *EVSE* objects can be considered as expired and shoul
 | Property                                     | Type                                                     | Card. | Description                                                                            |
 |----------------------------------------------|----------------------------------------------------------|-------|----------------------------------------------------------------------------------------|
 | id                                           | [string](types.md#16-string-type)(15)                    | 1     | Uniquely identifies the location within the CPOs platform (and suboperator platforms). |
-| type                                         | [LocationType](#512-locationtype-enum)                   | 1     | The general type of the charge point location.                                         |
+| type                                         | [LocationType](#410-locationtype-enum)                   | 1     | The general type of the charge point location.                                         |
 | name                                         | [string](types.md#16-string-type)(255)                   | ?     | Display name of the location.                                                          |
 | address                                      | [string](types.md#16-string-type)(45)                    | 1     | Street/block name and house number if available.                                       |
 | city                                         | [string](types.md#16-string-type)(45)                    | 1     | City or town.                                                                          |
 | postal_code                                  | [string](types.md#16-string-type)(10)                    | 1     | Postal code of the location.                                                           |
 | country                                      | [string](types.md#16-string-type)(3)                     | 1     | ISO 3166-1 alpha-3 code for the country of this location.                              |
-| coordinates                                  | [GeoLocation](#58-geolocation-class)                     | 1     | Coordinates of the location.                                                           |
-| related_locations                            | [AdditionalGeoLocation](#51-additionalgeolocation-class) | *     | Geographical location of related points relevant to the user.                          |
-| evses                                        | [EVSE](#56-evse-class)                                   | *     | List of EVSEs that belong to this Location.                                            |
+| coordinates                                  | [GeoLocation](#46-geolocation-class)                     | 1     | Coordinates of the location.                                                           |
+| related_locations                            | [AdditionalGeoLocation](#41-additionalgeolocation-class) | *     | Geographical location of related points relevant to the user.                          |
+| evses                                        | [EVSE](#32-evse-object)                                  | *     | List of EVSEs that belong to this Location.                                            |
 | directions                                   | [DisplayText](types.md#15-displaytext-class)             | *     | Human-readable directions on how to reach the location.                                |
-| operator                                     | [BusinessDetails](#51-businessdetails-class)             | ?     | Information of the operator. When not specified, the information retreived from the `api_info` endpoint should be used instead. |
-| suboperator                                  | [BusinessDetails](#51-businessdetails-class)             | ?     | Information of the suboperator if available.                                           |
-| opening_times                                | [Hours](#59-hours-class)                                 | *     | The times when the EVSEs at the location can be accessed for charging.                         |
+| operator                                     | [BusinessDetails](#41-businessdetails-class)             | ?     | Information of the operator. When not specified, the information retreived from the `api_info` endpoint should be used instead. |
+| suboperator                                  | [BusinessDetails](#41-businessdetails-class)             | ?     | Information of the suboperator if available.                                           |
+| opening_times                                | [Hours](#47-hours-class)                                 | *     | The times when the EVSEs at the location can be accessed for charging.                         |
 | charging_when_closed                         | boolean                                                  | ?     | Indicates if the EVSEs are still charging outside the opening hours of the location. E.g. when the parking garage closes its barriers over night, is it allowed to charge till the next morning?  Default: **true** |
-| images                                       | [Image](#510-image-class)                                | *     | Links to images related to the location such as photos or logos.                       |
+| images                                       | [Image](#48-image-class)                                 | *     | Links to images related to the location such as photos or logos.                       |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-## 5. Data types
+### 3.2 _EVSE_ Object
 
-### 5.1 AdditionalGeoLocation *class*
+The *EVSE* object describes the part that controls the power supply to a single EV in a single session. It always belongs to a *Location* object. It will only contain directions to get from the location to the EVSE (i.e. *floor*, *physical_number* or *directions*). When these properties are insufficient to reach the EVSE from the *Location* point, then it typically indicates that this EVSE should be put in a different *Location* object (sometimes with the same address but with different coordinates/directions).
+
+An *EVSE* object has a list of connectors which can not be used simultaneously: only one connector per EVSE may be used at a time. The list of connectors is seen as atomic. This implies that for any changes or updates to a single connector, the full list of all connectors will have to be specified. Any connector not on that list is considered as deleted.
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Property                         | Type                                               | Card. | Description                                                        |
+|----------------------------------|----------------------------------------------------|-------|--------------------------------------------------------------------|
+| uid                              | [string](types.md#16-string-type)(15)              | 1     | Uniquely identifies the EVSE within the CPOs platform (and suboperator platforms). For example a database unique ID |
+| evse_id                          | [string](types.md#16-string-type)(48)              | ?     | ISO 15118 Compliant EVSE ID. Optional because: if an EVSE ID is to be re-used the EVSE ID can be removed from an EVSE that is removed (status: REMOVED) |
+| status                           | [Status](#414-status-enum)                         | 1     | Indicates the current status of the EVSE.                          |
+| status_schedule                  | [StatusSchedule](#415-statusschedule-class)        | *     | Indicates a planned status in the future of the EVSE.              |
+| capabilities                     | [Capability](#42-capability-enum)                  | *     | List of functionalities that the EVSE is capable of.               |
+| connectors                       | [Connector](#33-connector-object)                  | +     | List of available connectors on the EVSE.                          |
+| floor_level                      | [string](types.md#16-string-type)(4)               | ?     | Level on which the charging station is located (in garage buildings) in the locally displayed numbering scheme. |
+| coordinates                      | [GeoLocation](#46-geolocation-class)               | ?     | Coordinates of the EVSE.                                           |
+| physical_number                  | [string](types.md#16-string-type)(4)               | ?     | A number on the EVSE for visual identification.                    |
+| directions                       | [DisplayText](types.md#15-displaytext-class)       | *     | Multi-language human-readable directions when more detailed information on how to reach the EVSE from the *Location* is required. |
+| parking_restrictions             | [ParkingRestriction](#411-parkingrestriction-enum) | *     | The restrictions that apply to the parking spot.                   |
+| images                           | [Image](#48-image-class)                           | *     | Links to images related to the EVSE such as photos or logos.|
+<div><!-- ---------------------------------------------------------------------------- --></div>
+
+
+### 3.3 _Connector_ Object
+
+A connector is the socket or cable available for the EV to make use of. A single EVSE may provide multiple connectors but only one of them can be in use at the same time. A connector always belongs to an *EVSE* object.
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Property                         | Type                                     | Card. | Description                                                             |
+|----------------------------------|------------------------------------------|-------|-------------------------------------------------------------------------|
+| id                               | [string](types.md#16-string-type)(15)    | 1     | Identifier of the connector within the EVSE. Two connectors may have the same id as long as they do not belong to the same *EVSE* object. |
+| status                           | [Status](#414-status-enum)               | 1     | Indicates the current status of this connector.                          | standard                         | [ConnectorType](#44-connectortype-enum)  | 1     | The standard of the installed connector.                                |
+| format                           | [ConnectorFormat](#43-connectorformat-enum) | 1     | The format (socket/cable) of the installed connector.                   |
+| power_type                       | [PowerType](#412-powertype-enum)         | 1     |                                                                         |
+| voltage                          | int                                      | 1     | Voltage of the connector (line to neutral for AC_3_PHASE), in volt [V]. |
+| amperage                         | int                                      | 1     | maximum amperage of the connector, in ampere [A].                         |
+| tariff_id                        | string(15)                               | ?     | Identifier of the current charging tariff structure                     |
+| terms_and_conditions             | [URL](types.md#14_url_type)              | ?     | URL to the operator's terms and conditions.                             |
+<div><!-- ---------------------------------------------------------------------------- --></div>
+
+
+## 4. Data types
+
+### 4.1 AdditionalGeoLocation *class*
 
 This class defines a geo location. The geodetic system to be used is WGS 84.
 
@@ -336,18 +396,19 @@ This class defines a geo location. The geodetic system to be used is WGS 84.
 | name        | [DisplayText](types.md#15-displaytext-class) | ?     | Name of the point in local language or as written at the location. For example the street name of a parking lot entrance or it's number. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
-### 5.1 BusinessDetails *class*
+
+### 4.1 BusinessDetails *class*
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property         | Type                                   | Card. | Description                        |
 |------------------|----------------------------------------|-------|------------------------------------|
 | name             | [string](types.md#16-string-type)(100) | 1     | Name of the operator.              |
 | website          | [URL](types.md#14_url_type)            | ?     | Link to the operator's website.    |
-| logo             | [Image](#510-image-class)              | ?     | Image link to the operator's logo. |
+| logo             | [Image](#48-image-class)               | ?     | Image link to the operator's logo. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-### 5.2 Capability *enum*
+### 4.2 Capability *enum*
 
 The capabilities of an EVSE.
 
@@ -361,24 +422,7 @@ The capabilities of an EVSE.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-### 5.3 Connector *class*
-
-A connector is the socket or cable available for the EV to make use of. A single EVSE may provide multiple connectors but only one of them can be in use at the same time. A connector always belongs to an *EVSE* object.
-
-<div><!-- ---------------------------------------------------------------------------- --></div>
-| Property                         | Type                                     | Card. | Description                                                             |
-|----------------------------------|------------------------------------------|-------|-------------------------------------------------------------------------|
-| id                               | [string](types.md#16-string-type)(15)    | 1     | Identifier of the connector within the EVSE. Two connectors may have the same id as long as they do not belong to the same *EVSE* object. |
-| standard                         | [ConnectorType](#55-connectortype-enum)  | 1     | The standard of the installed connector.                                |
-| format                           | [ConnectorFormat](#54-connectorformat-enum) | 1     | The format (socket/cable) of the installed connector.                   |
-| power_type                       | [PowerType](#514-powertype-enum)         | 1     |                                                                         |
-| voltage                          | int                                      | 1     | Voltage of the connector (line to neutral for AC_3_PHASE), in volt [V]. |
-| amperage                         | int                                      | 1     | maximum amperage of the connector, in ampere [A].                         |
-| tariff_id                        | string(15)                               | ?     | Identifier of the current charging tariff structure                     |
-| terms_and_conditions             | [URL](types.md#14_url_type)              | ?     | URL to the operator's terms and conditions.                             |
-<div><!-- ---------------------------------------------------------------------------- --></div>
-
-### 5.4 ConnectorFormat *enum*
+### 4.3 ConnectorFormat *enum*
 
 The format of the connector, whether it is a socket or a plug.
 
@@ -391,7 +435,7 @@ The format of the connector, whether it is a socket or a plug.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-### 5.5 ConnectorType *enum*
+### 4.4 ConnectorType *enum*
 
 The socket or plug standard of the charging point.
 
@@ -426,31 +470,7 @@ The socket or plug standard of the charging point.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-### 5.6 EVSE Class
-
-The *EVSE* object describes the part that controls the power supply to a single EV in a single session. It always belongs to a *Location* object. It will only contain directions to get from the location to the EVSE (i.e. *floor*, *physical_number* or *directions*). When these properties are insufficient to reach the EVSE from the *Location* point, then it typically indicates that this EVSE should be put in a different *Location* object (sometimes with the same address but with different coordinates/directions).
-
-An *EVSE* object has a list of connectors which can not be used simultaneously: only one connector per EVSE may be used at a time. The list of connectors is seen as atomic. This implies that for any changes or updates to a single connector, the full list of all connectors will have to be specified. Any connector not on that list is considered as deleted.
-
-<div><!-- ---------------------------------------------------------------------------- --></div>
-| Property                         | Type                                               | Card. | Description                                                        |
-|----------------------------------|----------------------------------------------------|-------|--------------------------------------------------------------------|
-| uid                              | [string](types.md#16-string-type)(15)              | 1     | Uniquely identifies the EVSE within the CPOs platform (and suboperator platforms). For example a database unique ID |
-| evse_id                          | [string](types.md#16-string-type)(48)              | ?     | ISO 15118 Compliant EVSE ID. Optional because: if an EVSE ID is to be re-used the EVSE ID can be removed from an EVSE that is removed (status: REMOVED) |
-| status                           | [Status](#516-status-enum)                         | 1     | Indicates the current status of the EVSE.                          |
-| status_schedule                  | [StatusSchedule](#517-statusschedule-class)        | *     | Indicates a planned status in the future of the EVSE.              |
-| capabilities                     | [Capability](#52-capability-enum)                  | *     | List of functionalities that the EVSE is capable of.               |
-| connectors                       | [Connector](#53-connector-class)                   | +     | List of available connectors on the EVSE.                          |
-| floor_level                      | [string](types.md#16-string-type)(4)               | ?     | Level on which the charging station is located (in garage buildings) in the locally displayed numbering scheme. |
-| coordinates                      | [GeoLocation](#58-geolocation-class)               | ?     | Coordinates of the EVSE.                                           |
-| physical_number                  | [string](types.md#16-string-type)(4)               | ?     | A number on the EVSE for visual identification.                    |
-| directions                       | [DisplayText](types.md#15-displaytext-class)       | *     | Multi-language human-readable directions when more detailed information on how to reach the EVSE from the *Location* is required. |
-| parking_restrictions             | [ParkingRestriction](#513-parkingrestriction-enum) | *     | The restrictions that apply to the parking spot.                   |
-| images                           | [Image](#510-image-class)                          | *     | Links to images related to the EVSE such as photos or logos.|
-<div><!-- ---------------------------------------------------------------------------- --></div>
-
-
-### 5.7 ExceptionalPeriod *class*
+### 4.5 ExceptionalPeriod *class*
 
 Specifies one exceptional period for opening or access hours.
 
@@ -462,7 +482,7 @@ Specifies one exceptional period for opening or access hours.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-### 5.8 GeoLocation *class*
+### 4.6 GeoLocation *class*
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property    | Type                                | Card. | Description                                                                                       |
@@ -472,7 +492,7 @@ Specifies one exceptional period for opening or access hours.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-### 5.9 Hours *class*
+### 4.7 Hours *class*
 
 Opening and access hours for the location.
 
@@ -480,13 +500,14 @@ Opening and access hours for the location.
 | Field Name                     | Field Type                                     | Card.   | Description                                                         |
 |--------------------------------|------------------------------------------------|---------|---------------------------------------------------------------------|
 | *Choice: one of two*           |                                                |         |                                                                     |
-|  > regular_hours               |  [RegularHours](#515-regularhours-class)       |  *      |  Regular hours, weekday based. Should not be set for representing 24/7 as this is the most common case. |
+|  > regular_hours               |  [RegularHours](#413-regularhours-class)       |  *      |  Regular hours, weekday based. Should not be set for representing 24/7 as this is the most common case. |
 |  > twentyfourseven             |  boolean                                       |  1      |  True to represent 24 hours per day and 7 days per week, except the given exceptions. |
-| exceptional_openings           |  [ExceptionalPeriod](#57-exceptionalperiod-class) |  *      |  Exceptions for specified calendar dates, time-range based. Periods the station is operating/accessible. Additional to regular hours. May overlap regular rules. |
-| exceptional_closings           |  [ExceptionalPeriod](#57-exceptionalperiod-class) |  *      |  Exceptions for specified calendar dates, time-range based. Periods the station is not operating/accessible. Overwriting regularHours and exceptionalOpenings. Should not overlap exceptionalOpenings. |
+| exceptional_openings           |  [ExceptionalPeriod](#45-exceptionalperiod-class) |  *      |  Exceptions for specified calendar dates, time-range based. Periods the station is operating/accessible. Additional to regular hours. May overlap regular rules. |
+| exceptional_closings           |  [ExceptionalPeriod](#45-exceptionalperiod-class) |  *      |  Exceptions for specified calendar dates, time-range based. Periods the station is not operating/accessible. Overwriting regularHours and exceptionalOpenings. Should not overlap exceptionalOpenings. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
-### 5.10 Image *class*
+
+### 4.8 Image *class*
 
 This class references images related to a EVSE in terms of a file name or uri. According to the roaming connection between one EVSE Operator and one or more Navigation Service Providers the hosting or file exchange of image payload data has to be defined. The exchange of this content data is out of scope of OCHP. However, the recommended setup is a public available web server hosted and updated by the EVSE Operator. Per charge point a unlimited number of images of each type is allowed. Recommended are at least two images where one is a network or provider logo and the second is a station photo. If two images of the same type are defined they should be displayed additionally, not optionally.
 
@@ -501,13 +522,14 @@ The recommended dimensions for logos are exactly 512 pixels wide and 512 pixels 
 |------------|------------------------------------------|-------|---------------------------------------|
 | url        | [URL](types.md#14_url_type)              | 1     | URL from where the image data can be fetched through a web browser. |
 | thumbnail  | [URL](types.md#14_url_type)              | ?     | URL from where a thumbnail of the image can be fetched through a webbrowser. |
-| category   | [ImageCategory](#511-imagecategory-enum) | 1     | Describes what the image is used for. |
+| category   | [ImageCategory](#49-imagecategory-enum)  | 1     | Describes what the image is used for. |
 | type       | string(4)                                | 1     | Image type like: gif, jpeg, png, svg  |
 | width      | int(5)                                   | ?     | Width of the full scale image         |
 | height     | int(5)                                   | ?     | Height of the full scale image        |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
-### 5.11 ImageCategory *enum*
+
+### 4.9 ImageCategory *enum*
 
 The category of an image to obtain the correct usage in an user presentation. Has to be set accordingly to the image content in order to guaranty the right usage.
 
@@ -524,8 +546,7 @@ The category of an image to obtain the correct usage in an user presentation. Ha
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-### 5.12 LocationType *enum*
-
+### 4.10 LocationType *enum*
 
 Reflects the general type of the charge points location. May be used
 for user information.
@@ -541,7 +562,8 @@ for user information.
 | UNKNOWN                  |  Parking location type is not known by the operator (default).     |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
-### 5.13 ParkingRestriction *enum*
+
+### 4.11 ParkingRestriction *enum*
 
 This value, if provided, represents the restriction to the parking spot
 for different purposes.
@@ -556,7 +578,8 @@ for different purposes.
 | MOTORCYCLES       |  Parking spot only suitable for (electric) motorcycles or scooters.      |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
-### 5.14 PowerType *enum*
+
+### 4.12 PowerType *enum*
 
 The format of the connector, whether it is a socket or a plug.
 
@@ -568,7 +591,8 @@ The format of the connector, whether it is a socket or a plug.
 | DC                | Direct Current.                                                          |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
-### 5.15 RegularHours *class*
+
+### 4.13 RegularHours *class*
 
 Regular recurring operation or access hours
 
@@ -581,7 +605,7 @@ Regular recurring operation or access hours
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-#### 5.15.1 Example
+#### 4.13.1 Example
 
 Operating on weekdays from 8am till 8pm with one exceptional opening on
 22/6/2014 and one exceptional closing the Monday after:
@@ -643,7 +667,7 @@ This represents the following schedule, where ~~stroked out~~ days are without o
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-### 5.16 Status *enum*
+### 4.14 Status *enum*
 
 The status of an EVSE.
 
@@ -662,7 +686,7 @@ The status of an EVSE.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-### 5.17 StatusSchedule *class*
+### 4.15 StatusSchedule *class*
 
 This type is used to schedule status periods in the future. The eMSP can provide this information to the EV user for trip planning purpose. A period MAY have no end. Example: "This station will be running from tomorrow. Today it is still planned and under construction."
 
@@ -671,7 +695,7 @@ This type is used to schedule status periods in the future. The eMSP can provide
 |------------------|---------------------------------------|-------|--------------------------------------------------------|
 | period_begin     | [DateTime](types.md#12_datetime_type) | 1     | Begin of the scheduled period.                         |
 | period_end       | [DateTime](types.md#12_datetime_type) | ?     | End of the scheduled period, if known.                 |
-| status           | [Status](#516-status-enum)            | 1     | Status value during the scheduled period.              |
+| status           | [Status](#414-status-enum)            | 1     | Status value during the scheduled period.              |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 Note that the scheduled status is purely informational. When the status actually changes, the CPO must push an update to the EVSEs `status` field itself.

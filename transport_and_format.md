@@ -33,11 +33,11 @@ The request method can be any of [GET](#get), [PUT](#put), [PATCH](#patch) or DE
 
 
 
-##### GET
+#### GET
 All GET methods that return a list of objects have pagination.
 To enable pagination of the returned list of objects extra URL parameters are allowed for the GET request and extra headers need to be added to the response.
 
-###### Paginated Request
+##### Paginated Request
 The following table is a list of all the parameters that have to be supported, but might be omitted by a client request.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
@@ -48,7 +48,7 @@ The following table is a list of all the parameters that have to be supported, b
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-###### Paginated Response
+##### Paginated Response
 HTTP headers that have to be added to any paginated get response.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
@@ -65,15 +65,32 @@ Example of a required OCPI pagination link header
 ```   
 
 
-##### PUT
+#### PUT
 A PUT request must specify all required fields of an object (similar to a POST request). Optional fields that are not included will revert to their default value which is either specified in the protocol or NULL.
 
 
-##### PATCH
+#### PATCH
 A PATCH request must only specify the object's identifier and the fields to be updated. Any fields (both required or optional) that are left out remain unchanged.
 
 The mimetype of the request body is `application/json` and may contain the data as documented for each endpoint.
 
+
+### Client owned object push
+Normal client/server RESTful services work in a way that the Server is the owner of objects that are created. The client request a POST method with an object to the end-point URL. The response send by the server will contain the URL to the new object. The client will only request 1 server to create a new object, not multiple servers.
+ 
+Many OCPI modules work differently: The client is the owner of the object and only pushes the information to 1 or more servers for information sharing purposes.   
+For Example: The CPO owns the Tariff objects, and pushes them to a couple of eMSPs, so the eMSPs gains knowledge of the tariffs that the CPO chargers customers. eMSP might receive Tariff objects from multiple CPOs. They need to be able to make a distiction between the different tariffs from different CPOs. 
+POST is not supported for these kind of modules.
+PUT is used to send new objects to the servers. 
+The distinction between objects from different CPOs/eMSPs is made, based on a {[country-code(credentials.md#credentials-object)]} and {[party-id](credentials.md#credentials-object)}.
+Client owned object URL definition: {base-ocpi-url}/{end-point}/{country-code}/{party-id}/{object-id}
+
+
+Example of a URL to a client owned object
+```   
+   https://www.server.com/ocpi/cpo/2.0/tariffs/NL/TNM/14
+```   
+ 
 
 ### Response format
 

@@ -137,7 +137,7 @@ Creates a new CDR.
 The post method should contain the full, final CDR object.
 
 
-##### Request Data
+##### Request Body
 
 In the post request the new CDR object is send.
 
@@ -171,17 +171,17 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 | Property                             | Type                                                     | Card. | Description                                                                                                                    |
 |--------------------------------------|----------------------------------------------------------|-------|--------------------------------------------------------------------------------------------------------------------------------|
 | id                                   | [CiString](types.md#12-cistring-type)(15)                | 1     | Uniquely identifies the CDR within the CPOs platform (and suboperator platforms).                                              |
-| start_date_time                      | [DateTime](types.md#12-datetime-type)                    | 1     | Start timestamp of the charging session                                                                                        |
-| stop_date_time                       | [DateTime](types.md#12-datetime-type)                    | ?     | Stop timestamp of the charging session                                                                                         |
-| auth_id                              | [string](types.md#16-string-type)(32)                    | 1     | Reference to a token, identified by the auth_id field of the [Token](mod_tokens.md#31_token_object)                            |
+| start_date_time                      | [DateTime](types.md#12-datetime-type)                    | 1     | Start timestamp of the charging session.                                                                                       |
+| stop_date_time                       | [DateTime](types.md#12-datetime-type)                    | ?     | Stop timestamp of the charging session.                                                                                        |
+| auth_id                              | [string](types.md#16-string-type)(32)                    | 1     | Reference to a token, identified by the auth_id field of the [Token](mod_tokens.md#31_token_object).                           |
 | auth_method                          | [AuthMethod](#41-authmethod-enum)                        | 1     | Method used for authentication.                                                                                                |
-| location                             | [Location](mod_locations.md#41-location-object)          | 1     | Location were the charging session took place, including only the relevant EVSE and Connector. See: [Locations](mod_locations.md#41-location-object) |
-| meter_id                             | [string](types.md#16-string-type)(255)                   | ?     | Identification of the Meter inside the Charge Point                                                                            |
-| currency                             | [string](types.md#16-string-type)(3)                     | 1     | Currency of the CDR in ISO 4217 Code                                                                                           |
-| tariffs                              | [Tariff](mod_tariffs.md#31-tariff-object)                | *     | List of relevant tariff elements, see: [Tariffs](mod_tariffs.md#31-tariff-object)                                              |
-| charging_periods                     | [ChargingPeriod](#43-chargingperiod-class)               | +     | List of charging periods that make up this charging session. A session consist of 1 or more periodes with, each period has a different relevant Tariff |
-| total_cost                           | [decimal](types.md#13-decimal-type)                      | 1     | Total cost of this transaction                                                                                                 |
-| total_usage                          | [CdrDimension](#42-cdrdimension-class)                   | *     | List of total usage elements, for example: total parking time and total energy charged                                         |
+| location                             | [Location](mod_locations.md#31-location-object)          | 1     | Location were the charging session took place, including only the relevant [EVSE](mod_locations.md#32-evse-object) and [Connector](mod_locations.md#33-connector-object). |
+| meter_id                             | [string](types.md#16-string-type)(255)                   | ?     | Identification of the Meter inside the Charge Point.                                                                           |
+| currency                             | [string](types.md#16-string-type)(3)                     | 1     | Currency of the CDR in ISO 4217 Code.                                                                                          |
+| tariffs                              | [Tariff](mod_tariffs.md#31-tariff-object)                | *     | List of relevant tariff elements, see: [Tariffs](mod_tariffs.md#31-tariff-object).                                             |
+| charging_periods                     | [ChargingPeriod](#43-chargingperiod-class)               | +     | List of charging periods that make up this charging session. A session consist of 1 or more periodes with, each period has a different relevant Tariff. |
+| total_cost                           | [decimal](types.md#13-decimal-type)                      | 1     | Total cost of this transaction.                                                                                                |
+| total_usage                          | [CdrDimension](#42-cdrdimension-class)                   | *     | List of total usage elements, for example: total parking time and total energy charged.                                        |
 | remark                               | [string](types.md#16-string-type)(255)                   | ?     | Optional remark, can be used to provide addition human readable information to the CDR, for example: reason why a transaction was stopped.|
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
