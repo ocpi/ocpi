@@ -12,15 +12,11 @@ They then know to which eMSP they can later send a CDR.
 
 ### 1.1 Push model
 
-When the MSP creates Tokens(s) they push them to the CPO by calling [POST](#211-post-method) on the CPOs
-Tokens endpoint with the newly create Token(s)
+When the MSP creates a new Token object they push it to the CPO by calling [PUT](#212-put-method) on the CPOs Tokens endpoint with the newly create Token object.
 
-Any changes to Token(s) in the eMSP system are send to the CPO system by calling [PUT](#212-put-method)
-on the CPOs Tokens endpoint with the updated Token(s).
+Any changes to Token in the eMSP system are send to the CPO system by calling, either the [PUT](#212-put-method) or the [PATCH](#213-patch-method) on the CPOs Tokens endpoint with the updated Token(s).
 
-When the eMSP invalidates a Token (deleting is not possible), 
-the eMSP will send the updated Token (with the field: valid set to False, by calling the [PUT](#212-put-method)
-on the CPOs Tokens endpoint with the updated Token. 
+When the eMSP invalidates a Token (deleting is not possible), the eMSP will send the updated Token (with the field: valid set to False, by calling, either the [PUT](#212-put-method) or the [PATCH](#213-patch-method) on the CPOs Tokens endpoint with the updated Token. 
 
 
 ### 1.2 Pull model
@@ -39,61 +35,78 @@ The eMSP interface is mend to be used when the CPO is not 100% sure the Token ca
 
 ### 2.1 CPO Interface
 
-With this interface the eMSP can push the full list of tokens, or push an update with updated Tokens to the CPO.
-
-Example endpoint structure: `/ocpi/cpo/2.0/tokens/`
-
-<div><!-- ---------------------------------------------------------------------------- --></div>
-| Method                       | Description                                                |
-|------------------------------|------------------------------------------------------------|
-| GET                          | n/a                                                        |
-| [POST](#211-post-method)     | Resend the full list of tokens, replace the current cache. |
-| [PUT](#212-put-method)       | Send a list of tokens to update existing tokens            |
-| PATCH                        | n/a                                                        |
-| [DELETE](#213-delete-method) | n/a (Use PUT, Tokens cannot be removed)                    |
-<div><!-- ---------------------------------------------------------------------------- --></div>
-
-#### 2.1.1 __POST__ Method
-
-New created Token Objects are pushed from the eMSP to the CPO. 
-
-##### Data
-
-In the post request a list of new Token Objects is send.
+With this interface the eMSP can push the Token information to the CPO.
+Tokens is a [client owned object](transport_and_format.md#client-owned-object-push), so the end-points need to contain the required extra fields: {[party_id](credentials.md#credentials-object)} and {[country_code](credentials.md#credentials-object)}.
+Example endpoint structure: 
+`/ocpi/cpo/2.0/tokens/{country_code}/{party_id}/{token_uid}` 
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Type                      | Card. | Description                              |
-|---------------------------|-------|------------------------------------------|
-| [Token](#31-token-object) | *     | List of all tokens.                      |
+| Method                       | Description                                                  |
+|------------------------------|--------------------------------------------------------------|
+| [GET](#211-post-method)      | Retrieve a Token as it is stored in the CPO system.          |
+| POST                         | n/a                                                          |
+| [PUT](#212-put-method)       | Push new/updated Token object to the CPO.                    |
+| [PATCH](#213-put-method)     | Notify the CPO of partial updates to a Token.                |
+| DELETE                       | n/a, (Use [PUT](#212-put-method), Tokens cannot be removed). |
+<div><!-- ---------------------------------------------------------------------------- --></div>
+
+
+#### 2.1.1 __GET__ Method
+
+If the eMSP wants to check the status of a Token in the CPO system it might GET the object from the CPO system for validation purposes. The eMSP is the owner of the objects, so it would be illogical if the CPO system had a different status of was missing an object.
+
+
+##### Request Parameters
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Parameter     | Datatype                              | Required | Description                                                                   |
+|---------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
+| country_code  | [string](types.md#16-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
+| party_id      | [string](types.md#16-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
+| token_uid     | [string](types.md#16-string-type)(15) | yes      | Token.uid of the Token object to retrieve.                                    |
+<div><!-- ---------------------------------------------------------------------------- --></div>
+
+
+##### Response Data
+
+The response contains the requested object. 
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Type                                | Card. | Description                                                |
+|-------------------------------------|-------|------------------------------------------------------------|
+| [Token](#31-token-object)           | 1     | The requested Token object.                                |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
 #### 2.1.2 __PUT__ Method
 
-Updated Token Objects are pushed from the eMSP to the CPO. 
+New or updated Token objects are pushed from the CPO to the eMSP. 
 
-##### Data
+##### Request Body
 
-In the put request a list of updated Token objects is send.
+In the put request a the new or updated Token object is send.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Type                            | Card. | Description                              |
 |---------------------------------|-------|------------------------------------------|
-| [Token](#31-token-object)       | *     | List of all tokens.                      |
+| [Token](#31-token-object)       | 1     | New or updated Tariff object.            |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-#### 2.1.3 __DELETE__ Method
-
-DeleteUpdated Token Objects are pushed from the eMSP to the CPO. 
-
-##### Parameters
+##### Request Parameters
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Parameter  | Datatype                              | Required | Description                               |
-|------------|---------------------------------------|----------|-------------------------------------------|
-| token_id   | [string](types.md#16-string-type)(15) | yes      | ID of the Token to be deleted             |
+| Parameter     | Datatype                              | Required | Description                                                                   |
+|---------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
+| country_code  | [string](types.md#16-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
+| party_id      | [string](types.md#16-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
+| token_uid     | [string](types.md#16-string-type)(15) | yes      | Token.uid of the (new) Token object (to replace).                             |
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
+
+#### 2.1.2 __PATCH__ Method
+
+Same as the [PUT](#212-put-method) method, but only the fields/objects that have to be updated have to be present, other fields/objects that are not specified are considered unchanged.
 
 
 ### 2.2 eMSP Interface
