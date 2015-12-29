@@ -21,6 +21,9 @@ When the CPO wants to delete a Location, EVSE or Connector, they must update by 
 
 ## 2. Interfaces and endpoints
 
+There is both a CPO and an eMSP interface for Locatiosn. Advised is to use the push direction from CPO to eMSP during normal operation.
+The CPO interface is mend to be used when the connection between 2 parties is established to retrieve the current list of Location objects with the current status, and when the eMSP is not 100% sure the Locations cache is correct anymore.
+
 ### 2.1 CPO Interface
 
 Example endpoint structure: `/ocpi/cpo/2.0/locations`
@@ -147,7 +150,7 @@ Example endpoint structures:
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Method                        | Description                                                                                |
 |-------------------------------|--------------------------------------------------------------------------------------------|
-| [GET](#221-get-method)        | Retrieve a Location as it is stored in the eMSP system                                     |
+| [GET](#221-get-method)        | Retrieve a Location as it is stored in the eMSP system.                                    |
 | POST                          | n/a _(use [PUT](#222-put-method))_                                                         |
 | [PUT](#222-put-method)        | Push new/updated Location, EVSE and or Connectors to the eMSP                              |
 | [PATCH](#223-patch-method)    | Notify the eMSP of partial updates to a Location, EVSEs or Connector (such as the status). |
