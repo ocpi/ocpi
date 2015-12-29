@@ -9,15 +9,14 @@ The Tariffs module gives eMSPs information over the tariffs used by the CPO.
 
 ### 1.1 Push model
 
-When the CPO creates Tariff(s) they push them to the eMSPs by calling [POST](#221-post-method) on the eMSPs
-Tariffs endpoint with the newly create Tariff(s)
+When the CPO creates a new Tariff they push them to the eMSPs by calling the [PUT](#222-put-method) on the eMSPs
+Tariffs endpoint with the newly create Tariff object
 
-Any changes to the Tariff(s) in the CPO system are send to the eMSP system by calling [PUT](#222-put-method)
-on the eMSPs Tariffs endpoint with the updated Tariff(s).
+Any changes to the Tariff(s) in the CPO system can be send to the eMSP system by calling either [PUT](#222-put-method)
+or [PATCH](#223-patch-method) on the eMSPs Tariffs endpoint with the updated Tariff obejct.
 
-When the CPO deletes a Tariff, they will update the eMSPs systems by calling [DELETE](#223-delete-method)
+When the CPO deletes a Tariff, they will update the eMSPs systems by calling [DELETE](#224-delete-method)
 on the eMSPs Tariffs endpoint, with the ID of the Tariff that is deleted.
-
 
 ### 1.2 Pull model
 
@@ -29,7 +28,7 @@ all Tariffs, replacing the current list of known Tariffs with the newly received
 ## 2. Interfaces and endpoints
 
 There is both a CPO and an eMSP interface for Tariffs. Advised is to use the push direction from CPO to eMSP during normal operation.
-The CPO interface is mend to be used when the eMSP is not 100% sure the Tariff cache is correct anymore.
+The CPO interface is mend to be used when the connection between 2 parties is established to retrieve the current list of Tariffs objects, and when the eMSP is not 100% sure the Tariff cache is correct anymore.
 
 
 ### 2.1 CPO Interface
@@ -82,61 +81,88 @@ Each object must contain all required fields. Fields that are not specified may 
 
 ### 2.2 eMSP Interface
 
-The Tariff information can also be pushed to the eMSP, for this the following needs to be implemented.
-
-Example endpoint structure: `/ocpi/emsp/2.0/tariffs/` and `/ocpi/emsp/2.0/tariffs/{tariff_id}` 
-
-<div><!-- ---------------------------------------------------------------------------- --></div>
-| Method                       | Description                                          |
-| ---------------------------- | ---------------------------------------------------- |
-| GET                          | n/a                                                  |
-| [POST](#221-post-method)     | Push new Tariff Objects to the eMSP                  |
-| [PUT](#222-put-method)       | Update Tariff Objects with new information           |
-| PATCH                        | n/a                                                  |
-| [DELETE](#223-delete-method) | Remove Tariff Object which is no longer valid        |
-<div><!-- ---------------------------------------------------------------------------- --></div>
-
-
-#### 2.2.1 __POST__ Method
-
-New created Tariff Objects are pushed from the CPO to the eMSP. 
-
-##### Data
-
-In the post request a list of new Tariff Objects is send.
+Tariffs is a [client owned object](transport_and_format.md#client-owned-object-push), so the end-points need to contain the required extra fields: {[party_id](credentials.md#credentials-object)} and {[country_code](credentials.md#credentials-object)}.
+Example endpoint structure: 
+`/ocpi/emsp/2.0/tariffs/{country_code}/{party_id}/{tariff_id}` 
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Type                            | Card. | Description                              |
-|---------------------------------|-------|------------------------------------------|
-| [Tariff](#31-tariff-object)     | *     | List of new tariffs.                     |
+| Method                       | Description                                            |
+|------------------------------|--------------------------------------------------------|
+| [GET](#221-get-method)       | Retrieve a Location as it is stored in the eMSP system.|
+| POST                         | n/a                                                    |
+| [PUT](#222-put-method)       | Push new/updated Tariff object to the eMSP.            |
+| [PATCH](#223-patch-method)   | Notify the eMSP of partial updates to a Tariff.        |
+| [DELETE](#224-delete-method) | Remove Tariff object which is no longer valid          |
+<div><!-- ---------------------------------------------------------------------------- --></div>
+
+
+#### 2.2.1 __GET__ Method
+
+If the CPO wants to check the status of a Tariff in the eMSP system it might GET the object from the eMSP system for validation purposes. The CPO is the owner of the objects, so it would be illogical if the eMSP system had a different status of was missing an object.
+
+##### Request Parameters
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Parameter     | Datatype                              | Required | Description                                                                   |
+|---------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
+| country_code  | [string](types.md#16-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
+| party_id      | [string](types.md#16-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
+| tariff_id     | [string](types.md#16-string-type)(15) | yes      | Tariff.id of the Tariff object to retrieve.                                   |
+<div><!-- ---------------------------------------------------------------------------- --></div>
+
+
+##### Response Data
+
+The response contains the requested object. 
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Type                                | Card. | Description                                                |
+|-------------------------------------|-------|------------------------------------------------------------|
+| [Tariff](#31-tariff-object)         | 1     | The requested Tariff object.                               |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
 #### 2.2.2 __PUT__ Method
 
-Updated Tariff Objects are pushed from the CPO to the eMSP, to replace the current Tariff in the eMSP. 
+New or updated Tariff objects are pushed from the CPO to the eMSP. 
 
-##### Data
+##### Request Body
 
-In the put request a list of updated Tariff Objects is send.
+In the put request the new or updated Tariff object is send.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Type                            | Card. | Description                              |
 |---------------------------------|-------|------------------------------------------|
-| [Tariff](#31-tariff-object)     | *     | List of all tariffs.                     |
+| [Tariff](#31-tariff-object)     | 1     | New or updated tariff.                   |
+<div><!-- ---------------------------------------------------------------------------- --></div>
+
+##### Request Parameters
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Parameter     | Datatype                              | Required | Description                                                                   |
+|---------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
+| country_code  | [string](types.md#16-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
+| party_id      | [string](types.md#16-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
+| tariff_id     | [string](types.md#16-string-type)(15) | yes      | Tariff.id of the new Tariff object (to replace).                              |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-#### 2.2.3 __DELETE__ Method
+#### 2.2.3 __PATCH__ Method
 
-Delete no longer valid Tariff Object. 
+Same as the [PUT](#222-put-method) method, but only the fields/objects that have to be updated have to be present, other fields/objects that are not specified are considered unchanged.
 
-##### Parameters
+
+#### 2.2.4 __DELETE__ Method
+Delete a no longer valid Tariff object. 
+
+##### Request Parameters
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Parameter  | Datatype                              | Required | Description                               |
-|------------|---------------------------------------|----------|-------------------------------------------|
-| tariff_id  | [string](types.md#16-string-type)(15) | yes      | ID of the Tariff to be deleted            |
+| Parameter     | Datatype                              | Required | Description                                                                   |
+|---------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
+| country_code  | [string](types.md#16-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
+| party_id      | [string](types.md#16-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
+| tariff_id     | [string](types.md#16-string-type)(15) | yes      | Tariff.id of the Tariff object to delete.                                     |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
