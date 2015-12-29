@@ -2,29 +2,21 @@
 
 **Module Identifier: `locations`**
 
-The Location objects live in the CPO back-end system. They
-describe the charging locations of that operator.
+The Location objects live in the CPO back-end system. They describe the charging locations of that operator.
 
 
 ## 1. Flow and Lifecycle
 
-When a CPO creates Locations they push them to the
-eMSPs by calling [PUT](#222-put-method) on the eMSPs Location endpoint. 
-Providers who do not support push mode need to call
-[GET](#211-get-method) on the CPOs Location endpoint to receive
-the new object.
+The Location module has Locations as base object, Locations have EVSEs, EVSEs have Connectors. With the methods in the [eMSP interface](#22-emsp-interface), Location information/statuses can be shared with the eMSP. Updates can be done to the Location, but also to only an EVSE or a Connector.
 
-If the CPO wants to replace a Location object they push it to the eMSP systems by
-calling [PUT](#222-put-method) on their Locations endpoint.
+When a CPO creates Locations they push them to the eMSPs by calling [PUT](#222-put-method) on the eMSPs Location endpoint. Providers who do not support push mode need to call [GET](#211-get-method) on the CPOs Location endpoint to receive the new object.
 
-Any changes to the Location can also be pushed to the eMSP by calling the [PATCH](#223-patch-method) 
-on the eMSPs Locations endpoint.
-Providers who do not support push mode need to call
-[GET](#211-get-method) on the CPOs location endpoint to receive
-the updates in the master object.
+If the CPO wants to replace a Location object they push it to the eMSP systems by calling [PUT](#222-put-method) on their Locations endpoint.
 
-When the CPO wants to delete a Location, EVSE or Connector, they must update by setting the `status`
-field to `REMOVED` and call the [PUT](#222-put-method) or [PATCH](#223-patch-method) on the eMSP system. 
+Any changes to the Location can also be pushed to the eMSP by calling the [PATCH](#223-patch-method) on the eMSPs Locations endpoint.
+Providers who do not support push mode need to call [GET](#211-get-method) on the CPOs location endpoint to receive the updates in the master object.
+
+When the CPO wants to delete a Location, EVSE or Connector, they must update by setting the `status` field to `REMOVED` and call the [PUT](#222-put-method) or [PATCH](#223-patch-method) on the eMSP system. 
 
 
 ## 2. Interfaces and endpoints
@@ -36,7 +28,7 @@ Example endpoint structure: `/ocpi/cpo/2.0/locations`
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Method                 | Description                                          |
 | ---------------------- | ---------------------------------------------------- |
-| [GET](#211-get-method) | Fetch all available locations and EVSEs. ([paginated](transport_and_format.md#get)) |
+| [GET](#211-get-method) | Fetch all available locations. ([paginated](transport_and_format.md#get)) |
 | POST                   | n/a                                                  |
 | PUT                    | n/a                                                  |
 | PATCH                  | n/a                                                  |
@@ -311,6 +303,10 @@ status_schedule field can be used._
 
 
 ## 3. Object description
+
+Location, EVSE and Connector have to following relation.
+
+![Location class diagram](data/locations-class-diagram.png)
 
 ### 3.1 _Location_ Object
 
