@@ -18,6 +18,7 @@ or [PATCH](#223-patch-method) on the eMSPs Tariffs endpoint with the updated Tar
 When the CPO deletes a Tariff, they will update the eMSPs systems by calling [DELETE](#224-delete-method)
 on the eMSPs Tariffs endpoint, with the ID of the Tariff that is deleted.
 
+
 ### 1.2 Pull model
 
 eMSPs who do not support the push model need to call
@@ -133,7 +134,7 @@ In the put request the new or updated Tariff object is send.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Type                            | Card. | Description                              |
 |---------------------------------|-------|------------------------------------------|
-| [Tariff](#31-tariff-object)     | 1     | New or updated tariff.                   |
+| [Tariff](#31-tariff-object)     | 1     | New or updated Tariff object             |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 ##### Request Parameters
@@ -143,7 +144,7 @@ In the put request the new or updated Tariff object is send.
 |---------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
 | country_code  | [string](types.md#16-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
 | party_id      | [string](types.md#16-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
-| tariff_id     | [string](types.md#16-string-type)(15) | yes      | Tariff.id of the new Tariff object (to replace).                              |
+| tariff_id     | [string](types.md#16-string-type)(15) | yes      | Tariff.id of the (new) Tariff object (to replace).                            |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
