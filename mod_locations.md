@@ -442,33 +442,33 @@ The format of the connector, whether it is a socket or a plug.
 The socket or plug standard of the charging point.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Value               | Description |
-|---------------------|-------------------------------------------------------------------|
-| Chademo             | The connector type is CHAdeMO, DC |
-| IEC-62196-T1        | IEC 62196 Type 1 "SAE J1772" |
-| IEC-62196-T1-COMBO  | Combo Type 1 based, DC |
-| IEC-62196-T2        | IEC 62196 Type 2 "Mennekes" |
-| IEC-62196-T2-COMBO  | Combo Type 2 based, DC |
-| IEC-62196-T3A       | IEC 62196 Type 3A |
-| IEC-62196-T3C       | IEC 62196 Type 3C "Scame" |
-| DOMESTIC-A          | Standard/Domestic household, type "A", NEMA 1-15, 2 pins |
-| DOMESTIC-B          | Standard/Domestic household, type "B", NEMA 5-15, 3 pins |
-| DOMESTIC-C          | Standard/Domestic household, type "C", CEE 7/17, 2 pins |
-| DOMESTIC-D          | Standard/Domestic household, type "D", 3 pin |
-| DOMESTIC-E          | Standard/Domestic household, type "E", CEE 7/5 3 pins |
-| DOMESTIC-F          | Standard/Domestic household, type "F", CEE 7/4, Schuko, 3 pins |
-| DOMESTIC-G          | Standard/Domestic household, type "G", BS 1363, Commonwealth, 3 pins |
-| DOMESTIC-H          | Standard/Domestic household, type "H", SI-32, 3 pins |
-| DOMESTIC-I          | Standard/Domestic household, type "I", AS 3112, 3 pins |
-| DOMESTIC-J          | Standard/Domestic household, type "J", SEV 1011, 3 pins |
-| DOMESTIC-K          | Standard/Domestic household, type "K", DS 60884-2-D1, 3 pins |
-| DOMESTIC-L          | Standard/Domestic household, type "L", CEI 23-16-VII, 3 pins |
-| TESLA-R             | Tesla Connector "Roadster"-type (round, 4 pin) |
-| TESLA-S             | Tesla Connector "Model-S"-type (oval, 5 pin) |
-| IEC-60309-2-single-16 | IEC 60309-2 Industrial Connector single phase 16  Amperes (usually blue) |
-| IEC-60309-2-three-16| IEC 60309-2 Industrial Connector three phase 16  Amperes (usually red) |
-| IEC-60309-2-three-32| IEC 60309-2 Industrial Connector three phase 32  Amperes (usually red) |
-| IEC-60309-2-three-64| IEC 60309-2 Industrial Connector three phase 64  Amperes (usually red) |
+| Value                 | Description |
+|-----------------------|-------------------------------------------------------------------|
+| CHADEMO               | The connector type is CHAdeMO, DC |
+| DOMESTIC_A            | Standard/Domestic household, type "A", NEMA 1-15, 2 pins |
+| DOMESTIC_B            | Standard/Domestic household, type "B", NEMA 5-15, 3 pins |
+| DOMESTIC_C            | Standard/Domestic household, type "C", CEE 7/17, 2 pins |
+| DOMESTIC_D            | Standard/Domestic household, type "D", 3 pin |
+| DOMESTIC_E            | Standard/Domestic household, type "E", CEE 7/5 3 pins |
+| DOMESTIC_F            | Standard/Domestic household, type "F", CEE 7/4, Schuko, 3 pins |
+| DOMESTIC_G            | Standard/Domestic household, type "G", BS 1363, Commonwealth, 3 pins |
+| DOMESTIC_H            | Standard/Domestic household, type "H", SI-32, 3 pins |
+| DOMESTIC_I            | Standard/Domestic household, type "I", AS 3112, 3 pins |
+| DOMESTIC_J            | Standard/Domestic household, type "J", SEV 1011, 3 pins |
+| DOMESTIC_K            | Standard/Domestic household, type "K", DS 60884-2-D1, 3 pins |
+| DOMESTIC_L            | Standard/Domestic household, type "L", CEI 23-16-VII, 3 pins |
+| IEC_60309_2_single_16 | IEC 60309-2 Industrial Connector single phase 16  Amperes (usually blue) |
+| IEC_60309_2_three_16  | IEC 60309-2 Industrial Connector three phase 16  Amperes (usually red) |
+| IEC_60309_2_three_32  | IEC 60309-2 Industrial Connector three phase 32  Amperes (usually red) |
+| IEC_60309_2_three_64  | IEC 60309-2 Industrial Connector three phase 64  Amperes (usually red) |
+| IEC_62196_T1          | IEC 62196 Type 1 "SAE J1772" |
+| IEC_62196_T1_COMBO    | Combo Type 1 based, DC |
+| IEC_62196_T2          | IEC 62196 Type 2 "Mennekes" |
+| IEC_62196_T2_COMBO    | Combo Type 2 based, DC |
+| IEC_62196_T3A         | IEC 62196 Type 3A |
+| IEC_62196_T3C         | IEC 62196 Type 3C "Scame" |
+| TESLA_R               | Tesla Connector "Roadster"-type (round, 4 pin) |
+| TESLA_S               | Tesla Connector "Model-S"-type (oval, 5 pin) |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
