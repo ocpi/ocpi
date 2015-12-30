@@ -20,7 +20,6 @@ The literal 'Token' indicates that the token based authentication mechanism is u
 
 The request method can be any of [GET](#get), [PUT](#put), [PATCH](#patch) or DELETE. The OCPI protocol uses them in a similar way as REST APIs do.
 
-
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Method          | Description                                        |
 |-----------------|----------------------------------------------------|
@@ -31,11 +30,13 @@ The request method can be any of [GET](#get), [PUT](#put), [PATCH](#patch) or DE
 | DELETE          | Removes existing objects or information.           |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
+The mimetype of the request body is `application/json` and may contain the data as documented for each endpoint.
 
 
 #### GET
 All GET methods that return a list of objects have pagination.
 To enable pagination of the returned list of objects extra URL parameters are allowed for the GET request and extra headers need to be added to the response.
+
 
 ##### Paginated Request
 The following table is a list of all the parameters that have to be supported, but might be omitted by a client request.
@@ -73,6 +74,8 @@ A PUT request must specify all required fields of an object (similar to a POST r
 A PATCH request must only specify the object's identifier and the fields to be updated. Any fields (both required or optional) that are left out remain unchanged.
 
 The mimetype of the request body is `application/json` and may contain the data as documented for each endpoint.
+
+In case a fails, the client is expected to call the GET method to check the state of the object in the other patries system. If the object doesn't exist, the client should do a [PUT](#put). 
 
 
 ### Client owned object push
