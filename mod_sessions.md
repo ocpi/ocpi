@@ -55,7 +55,7 @@ This request is [paginated](transport_and_format.md#get), so also supports the [
 | Parameter  | Datatype                              | Required | Description                                                                   |
 |------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
 | date_from  | [DateTime](types.md#12_datetime_type) | yes      | Begin charging session start Date/Time of the Sessions to fetch.              |
-| date_to    | [DateTime](types.md#12_datetime_type) | no       | End charging session start Date/Time of the Sessons to fetch, if omitted all Sessions up to now are request to be returned. |
+| date_to    | [DateTime](types.md#12_datetime_type) | no       | End charging session start Date/Time of the Sessions to fetch, if omitted all Sessions up to now are request to be returned. |
 | offset     | int                                   | no       | The offset of the first object returned. Default is 0.                        |
 | limit      | int                                   | no       | Maximum number of objects to GET.                                             |
 <div><!-- ---------------------------------------------------------------------------- --></div>
@@ -319,7 +319,7 @@ Inform the eMSP about a deleted Session object.
 | Property  | Description                                                                |
 |-----------|----------------------------------------------------------------------------|
 | ACTIVE    | The session is accepted and active.                                        |
-| COMPLETED | The session has finished succesfully.                                      |
+| COMPLETED | The session has finished successfully.                                      |
 | INVALID   | The session is declared invalid and will not be billed.                    |
 | PENDING   | The session is pending and has not yet started. This is the initial state. |
 <div><!-- ---------------------------------------------------------------------------- --></div>

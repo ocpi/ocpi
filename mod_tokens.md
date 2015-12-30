@@ -33,7 +33,7 @@ This method is not for operational flow.
 ## 2. Interfaces and endpoints
 
 There is both a CPO and an eMSP interface for Tokens. Advised is to use the push direction from eMSP to CPO during normal operation.
-The eMSP interface is mend to be used when the CPO is not 100% sure the Token cache is correct anymore.
+The eMSP interface is mend to be used when the CPO is not 100% sure the Token cache is correct any more.
 
 
 ### 2.1 CPO Interface

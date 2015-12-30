@@ -25,7 +25,7 @@ CPO can call the [GET](#221-get-method) to validate the object in the eMSP syste
 ## 2. Interfaces and endpoints
 
 There is both a CPO and an eMSP interface for Locations. Advised is to use the push direction from CPO to eMSP during normal operation.
-The CPO interface is mend to be used when the connection between 2 parties is established to retrieve the current list of Location objects with the current status, and when the eMSP is not 100% sure the Locations cache is correct anymore.
+The CPO interface is mend to be used when the connection between 2 parties is established to retrieve the current list of Location objects with the current status, and when the eMSP is not 100% sure the Locations cache is correct any more.
 
 ### 2.1 CPO Interface
 
@@ -677,10 +677,10 @@ The status of an EVSE.
 | CHARGING           | The EVSE is in use.                                                                   |
 | INOPERATIVE        | The EVSE is not yet active or it is no longer available (deleted).                    |
 | OUTOFORDER         | The EVSE is currently out of order.                                                   |
-| PLANNED	         | The EVSE is planned, will be operating soon                                           |
-| REMOVED	         | The EVSE/charge point is discontinued/removed.                                        |
+| PLANNED            | The EVSE is planned, will be operating soon                                           |
+| REMOVED            | The EVSE/charge point is discontinued/removed.                                        |
 | RESERVED           | The EVSE is reserved for a particular EV driver and is unavailable for other drivers. |
-| UNKNOWN	         | No status information available. (Also used when offline)                             |
+| UNKNOWN            | No status information available. (Also used when offline)                             |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 

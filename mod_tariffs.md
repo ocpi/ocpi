@@ -13,7 +13,7 @@ When the CPO creates a new Tariff they push them to the eMSPs by calling the [PU
 Tariffs endpoint with the newly create Tariff object
 
 Any changes to the Tariff(s) in the CPO system can be send to the eMSP system by calling either [PUT](#222-put-method)
-or [PATCH](#223-patch-method) on the eMSPs Tariffs endpoint with the updated Tariff obejct.
+or [PATCH](#223-patch-method) on the eMSPs Tariffs endpoint with the updated Tariff object.
 
 When the CPO deletes a Tariff, they will update the eMSPs systems by calling [DELETE](#224-delete-method)
 on the eMSPs Tariffs endpoint, with the ID of the Tariff that is deleted.

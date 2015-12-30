@@ -75,14 +75,14 @@ A PATCH request must only specify the object's identifier and the fields to be u
 
 The mimetype of the request body is `application/json` and may contain the data as documented for each endpoint.
 
-In case a fails, the client is expected to call the GET method to check the state of the object in the other patries system. If the object doesn't exist, the client should do a [PUT](#put). 
+In case a fails, the client is expected to call the GET method to check the state of the object in the other parties system. If the object doesn't exist, the client should do a [PUT](#put). 
 
 
 ### Client owned object push
 Normal client/server RESTful services work in a way that the Server is the owner of objects that are created. The client request a POST method with an object to the end-point URL. The response send by the server will contain the URL to the new object. The client will only request 1 server to create a new object, not multiple servers.
  
 Many OCPI modules work differently: The client is the owner of the object and only pushes the information to 1 or more servers for information sharing purposes.   
-For Example: The CPO owns the Tariff objects, and pushes them to a couple of eMSPs, so the eMSPs gains knowledge of the tariffs that the CPO chargers customers. eMSP might receive Tariff objects from multiple CPOs. They need to be able to make a distiction between the different tariffs from different CPOs. 
+For Example: The CPO owns the Tariff objects, and pushes them to a couple of eMSPs, so the eMSPs gains knowledge of the tariffs that the CPO chargers customers. eMSP might receive Tariff objects from multiple CPOs. They need to be able to make a distinction between the different tariffs from different CPOs. 
 POST is not supported for these kind of modules.
 PUT is used to send new objects to the servers. 
 The distinction between objects from different CPOs/eMSPs is made, based on a {[country-code(credentials.md#credentials-object)]} and {[party-id](credentials.md#credentials-object)}.

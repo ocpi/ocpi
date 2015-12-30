@@ -16,7 +16,7 @@ CDRs are created by the CPO. They are probably only send to the eMSP that will b
 
 ### 1.1 Push model
 
-When the CPO creates CDR(s) they push them to the relvant eMSP by calling [POST](#222-post-method) on the eMSPs
+When the CPO creates CDR(s) they push them to the relevant eMSP by calling [POST](#222-post-method) on the eMSPs
 CDRs endpoint with the newly create CDRs(s)
 
 CDRs should contain enough information (dimensions) to allow the eMSP to validate the total costs. 
@@ -35,7 +35,7 @@ eMSPs who do not support the push model need to call
 
 ## 2. Interfaces and endpoints
 
-There is both a CPO and an eMSP interface for CDRs. Depening on business requirements parties can decide to use
+There is both a CPO and an eMSP interface for CDRs. Depending on business requirements parties can decide to use
 the CPO Interface/Get model, or the eMSP Interface/Push model, or both. 
 Push is the preferred model to use, the eMSP will receive CDRs when created by the CPO.
 
@@ -116,7 +116,7 @@ Fetch CDRs from the eMSP system.
 
 ##### Response URL
 
-To retrieve an existing URL from the eMSP system, the URL, returned in the reponse to a POST of a new CDR, has to be used.
+To retrieve an existing URL from the eMSP system, the URL, returned in the response to a POST of a new CDR, has to be used.
 
 
 ##### Response Data

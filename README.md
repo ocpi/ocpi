@@ -1,4 +1,4 @@
-This repostory contains the OCPI specification.
+This repository contains the OCPI specification.
 
 ## Contents
 

@@ -53,7 +53,7 @@ Example:
  
     {
       "language": "en",
-      "text": "Standard Tarrif"
+      "text": "Standard Tariff"
     }
 
 

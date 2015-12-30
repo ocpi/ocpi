@@ -16,7 +16,7 @@ At this moment, the following countries have an authority that keeps track of th
 
 ### The Netherlands
 
-The dutch foundation, named [eViolin](http://www.eviolin.nl) keeps the registry for The Netherlands. 
+The Dutch foundation, named [eViolin](http://www.eviolin.nl) keeps the registry for The Netherlands. 
 
  * The list of operator IDs and provider IDs can be viewed on their website [eViolin/Leden](http://www.eviolin.nl/index.php/leden/). 
 
