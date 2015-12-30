@@ -112,26 +112,78 @@ The content that is sent with all the response messages is a 'application/json' 
 
 For brevity's sake, any further example used in this specification will only contain the value of the "data" field. In reality, it will always have to be wrapped in the above response format.
 
-#### Example
+#### Example: Version details response
 
 ```json
 {
+	"data": [{
+		"version": "2.0",
+		"endpoints": [{
+			"identifier": "credentials",
+			"url": "https://example.com/ocpi/cpo/2.0/credentials/"
+		}, {
+			"identifier": "locations",
+			"url": "https://example.com/ocpi/cpo/2.0/locations/"
+		}]
+	}],
 	"status_code": 1000,
 	"status_message": "Success",
-	"timestamp": "2015-06-30T21:59:59Z",
-	"data": {
-        "version": "2.0",
-        "endpoints": [
-            {
-                "identifier": "credentials",
-                "url": "https://example.com/ocpi/cpo/2.0/credentials/"
-            },
-            {
-                "identifier": "locations",
-                "url": "https://example.com/ocpi/cpo/2.0/locations/"
-            }
-        ]
-	}
+	"timestamp": "2015-06-30T21:59:59Z"
+}
+```
+
+#### Example: Tokens GET Response with one Token object. (CPO end-point)
+
+```json
+{
+	"data": [{
+		"uid": "012345678",
+		"type": "RFID",
+		"auth_id": "FA54320",
+		"visual_number": "DF000-2001-8999",
+		"issuer": "TheNewMotion",
+		"valid": true,
+		"allow_whitelist": true
+	}],
+	"status_code": 1000,
+	"status_message": "Success",
+	"timestamp": "2015-06-30T21:59:59Z"
+}
+```
+
+
+#### Example: Tokens GET Response with list of Token objects. (eMSP end-point)
+
+```json
+{
+	"data": [{
+		"uid": "100012",
+		"type": "RFID",
+		"auth_id": "FA54320",
+		"visual_number": "DF000-2001-8999",
+		"issuer": "TheNewMotion",
+		"valid": true,
+		"allow_whitelist": true
+	}, {
+		"uid": "100013",
+		"type": "RFID",
+		"auth_id": "FA543A5",
+		"visual_number": "DF000-2001-9000",
+		"issuer": "TheNewMotion",
+		"valid": true,
+		"allow_whitelist": true
+	}, {
+		"uid": "100014",
+		"type": "RFID",
+		"auth_id": "FA543BB",
+		"visual_number": "DF000-2001-9010",
+		"issuer": "TheNewMotion",
+		"valid": false,
+		"allow_whitelist": true
+	}],
+	"status_code": 1000,
+	"status_message": "Success",
+	"timestamp": "2015-06-30T21:59:59Z"
 }
 ```
 
