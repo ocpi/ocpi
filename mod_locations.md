@@ -73,75 +73,6 @@ Each object must contain all required fields. Fields that are not specified may 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-##### Example
-
-```json
-{
-	"locations": [{
-		"id": "LOC1",
-		"type": "on_street",
-		"name": "Gent Zuid",
-		"address": "F.Rooseveltlaan 3A",
-		"city": "Gent",
-		"postal_code": "9000",
-		"country": "BEL",
-		"coordinates": {
-			"latitude": "3.72994",
-			"longitude": "51.04759"
-		},
-		"evses": [{
-            "uid": "3256",
-			"id": "BE-BEC-E041503001",
-			"status": "AVAILABLE",
-			"capabilities": [
-				"RESERVABLE"
-			],
-			"connectors": [{
-				"id": "1",
-				"standard": "IEC-62196-T2",
-				"format": "CABLE",
-				"power_type": "AC_3_PHASE",
-				"voltage": 220,
-				"amperage": 16,
-				"tariff_id": "11"
-			}, {
-				"id": "2",
-				"standard": "IEC-62196-T2",
-				"format": "SOCKET",
-				"power_type": "AC_3_PHASE",
-				"voltage": 220,
-				"amperage": 16,
-				"tariff_id": "11"
-			}],
-			"physical_number": 1,
-			"floor_level": "-1"
-		}, {
-            "uid": "3257",
-			"id": "BE-BEC-E041503002",
-			"status": "reserved",
-			"capabilities": [
-				"RESERVABLE"
-			],
-			"connectors": [{
-				"id": "1",
-				"standard": "IEC-62196-T2",
-				"format": "SOCKET",
-				"power_type": "AC_3_PHASE",
-				"voltage": 220,
-				"amperage": 16,
-				"tariff_id": "12"
-			}],
-			"physical_number": 2,
-			"floor_level": -2
-		}],
-		"operator": {
-			"name": "BeCharged"
-		}
-	}]
-}
-```
-
-
 ### 2.2 eMSP Interface
 
 Locations is a [client owned object](transport_and_format.md#client-owned-object-push), so the end-points need to contain the required extra fields: {[party_id](credentials.md#credentials-object)} and {[country_code](credentials.md#credentials-object)}.
@@ -232,7 +163,7 @@ Same as the [PUT](#222-put-method) method, but only the fields/objects that have
 This is the most common type of update message to notify eMSPs that an EVSE (EVSE with uid 3255 of Charge Point 1012) is now occupied.
 
 ```json
-PATCH To URL: https://www.server.com/ocpi/cpo/2.0/locations/NL/TNM/1012/3255
+PATCH To URL: https://www.server.com/ocpi/emsp/2.0/locations/NL/TNM/1012/3255
 
 {
 	"status": "CHARGING",
@@ -245,7 +176,7 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/locations/NL/TNM/1012/3255
 In this example the name of location 1012 is updated.
 
 ```json
-PATCH To URL: https://www.server.com/ocpi/cpo/2.0/locations/NL/TNM/1012
+PATCH To URL: https://www.server.com/ocpi/emsp/2.0/locations/NL/TNM/1012
 
 {
 	"name": "Interparking Gent Zuid",
@@ -258,7 +189,7 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/locations/NL/TNM/1012
 In this example connector 2 of EVSE 1 of Charge Point 1012, receives a new pricing scheme.
 
 ```json
-PATCH To URL: https://www.server.com/ocpi/cpo/2.0/locations/NL/TNM/1012/3255/2
+PATCH To URL: https://www.server.com/ocpi/emsp/2.0/locations/NL/TNM/1012/3255/2
 
 {
     "tariff_id": "15"
@@ -271,7 +202,7 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/locations/NL/TNM/1012/3255/2
 To add an *EVSE*, simply put the full object in an update message, including all its required fields. Since the id is new, the receiving party will know that it is a new object. When not all required fields are specified, the object may be discarded.
 
 ```json
-PUT To URL: https://www.server.com/ocpi/cpo/2.0/locations/NL/TNM/1012/3256
+PUT To URL: https://www.server.com/ocpi/emsp/2.0/locations/NL/TNM/1012/3256
 
 {
 	"uid": "3256",
@@ -281,7 +212,7 @@ PUT To URL: https://www.server.com/ocpi/cpo/2.0/locations/NL/TNM/1012/3256
 	"connectors": [
 		{
 			"id": "1",
-			"standard": "IEC-62196-T2",
+			"standard": "IEC_62196_T2",
 			"format": "SOCKET",
 			"tariff_id": "14"
 		}
@@ -297,7 +228,7 @@ PUT To URL: https://www.server.com/ocpi/cpo/2.0/locations/NL/TNM/1012/3256
 An EVSE can be deleted by updating its *status* property.
 
 ```json
-PATCH To URL: https://www.server.com/ocpi/cpo/2.0/locations/NL/TNM/1012/3256
+PATCH To URL: https://www.server.com/ocpi/emsp/2.0/locations/NL/TNM/1012/3256
 
 {
 	"status": "REMOVED",
@@ -341,6 +272,71 @@ A *Location* without valid *EVSE* objects can be considered as expired and shoul
 | images                                       | [Image](#48-image-class)                                 | *     | Links to images related to the location such as photos or logos.                       |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
+#### Example
+
+```json
+{
+	"id": "LOC1",
+	"type": "on_street",
+	"name": "Gent Zuid",
+	"address": "F.Rooseveltlaan 3A",
+	"city": "Gent",
+	"postal_code": "9000",
+	"country": "BEL",
+	"coordinates": {
+		"latitude": "3.72994",
+		"longitude": "51.04759"
+	},
+	"evses": [{
+        "uid": "3256",
+		"id": "BE-BEC-E041503001",
+		"status": "AVAILABLE",
+		"capabilities": [
+			"RESERVABLE"
+		],
+		"connectors": [{
+			"id": "1",
+			"standard": "IEC_62196_T2",
+			"format": "CABLE",
+			"power_type": "AC_3_PHASE",
+			"voltage": 220,
+			"amperage": 16,
+			"tariff_id": "11"
+		}, {
+			"id": "2",
+			"standard": "IEC_62196_T2",
+			"format": "SOCKET",
+			"power_type": "AC_3_PHASE",
+			"voltage": 220,
+			"amperage": 16,
+			"tariff_id": "11"
+		}],
+		"physical_number": 1,
+		"floor_level": "-1"
+	}, {
+        "uid": "3257",
+		"id": "BE-BEC-E041503002",
+		"status": "reserved",
+		"capabilities": [
+			"RESERVABLE"
+		],
+		"connectors": [{
+			"id": "1",
+			"standard": "IEC_62196_T2",
+			"format": "SOCKET",
+			"power_type": "AC_3_PHASE",
+			"voltage": 220,
+			"amperage": 16,
+			"tariff_id": "12"
+		}],
+		"physical_number": 2,
+		"floor_level": -2
+	}],
+	"operator": {
+		"name": "BeCharged"
+	}
+}
+```
 
 ### 3.2 _EVSE_ Object
 

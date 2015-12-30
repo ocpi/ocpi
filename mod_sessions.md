@@ -149,6 +149,16 @@ The request contains the new or updated Session object.
 
 Same as the [PUT](#222-put-method) method, but only the fields/objects that have to be updated have to be present, other fields/objects that are not specified are considered unchanged.
 
+##### Example: update the total cost
+
+```json
+PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
+
+{
+  	"total_cost": "0.60"
+}
+```
+
 
 #### 2.2.4 __DELETE__ Method
 
@@ -215,7 +225,7 @@ Inform the eMSP about a deleted Session object.
 			"STATUS": "AVAILABLE",
 			"connectors": [{
 				"id": "1",
-				"standard": "IEC-62196-T2",
+				"standard": "IEC_62196_T2",
 				"format": "SOCKET",
 				"power_type": "AC_1_PHASE",
 				"voltage": "230",
@@ -257,7 +267,7 @@ Inform the eMSP about a deleted Session object.
 			"STATUS": "AVAILABLE",
 			"connectors": [{
 				"id": "1",
-				"standard": "IEC-62196-T2",
+				"standard": "IEC_62196_T2",
 				"format": "SOCKET",
 				"power_type": "AC_1_PHASE",
 				"voltage": "230",
@@ -271,26 +281,26 @@ Inform the eMSP about a deleted Session object.
 	"charging_periods": [{
 		"start_date_time": "2015-06-29T22:39:09+02:00",
 		"dimensions": [{
-			"type": "energy",
-			"volume": "120"
+			"type": "ENERGY",
+			"volume": 120
 		}, {
-			"type": "max_current",
-			"volume": "30"
+			"type": "MAX_CURRENT",
+			"volume": 30
 		}]
 	}, {
 		"start_date_time": "2015-06-29T22:40:54+02:00",
 		"dimensions": [{
 			"type": "energy",
-			"volume": "41000"
+			"volume": 41000
 		}, {
-			"type": "min_current",
-			"volume": "34"
+			"type": "MIN_CURRENT",
+			"volume": 34
 		}]
 	}, {
 		"start_date_time": "2015-06-29T23:07:09+02:00",
 		"dimensions": [{
-			"type": "parking_time",
-			"volume": "2585"
+			"type": "PARKING_TIME",
+			"volume": 0.718
 		}]
 	}],
 	"total_cost": "8.50",

@@ -106,10 +106,36 @@ In the put request a the new or updated Token object is send.
 | token_uid     | [string](types.md#16-string-type)(15) | yes      | Token.uid of the (new) Token object (to replace).                             |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
+##### Example: put a new Token
+
+```json
+PUT To URL: https://www.server.com/ocpi/cpo/2.0/tokens/NL/TNM/012345678
+
+{
+  "uid": "012345678",
+  "type": "RFID",
+  "auth_id": "FA54320",
+  "visual_number": "DF000-2001-8999",
+  "issuer": "TheNewMotion",
+  "valid": true,
+  "allow_whitelist": true
+}
+```
+
 
 #### 2.1.2 __PATCH__ Method
 
 Same as the [PUT](#212-put-method) method, but only the fields/objects that have to be updated have to be present, other fields/objects that are not specified are considered unchanged.
+
+##### Example: invalidate a Token
+
+```json
+PATCH To URL: https://www.server.com/ocpi/cpo/2.0/tokens/NL/TNM/012345678
+
+{
+  "valid": false
+}
+```
 
 
 ### 2.2 eMSP Interface
@@ -184,7 +210,7 @@ The combination of _uid_ and _type_ should be unique for every token.
 
 #### Example
 
-```
+```json
 {
   "uid": "012345678",
   "type": "RFID",

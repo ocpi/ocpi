@@ -150,10 +150,42 @@ In the put request the new or updated Tariff object is send.
 | tariff_id     | [string](types.md#16-string-type)(15) | yes      | Tariff.id of the (new) Tariff object (to replace).                            |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
+##### Example: New Tariff 2 euro per hour
+```json
+PUT To URL: https://www.server.com/ocpi/emsp/2.0/tariffs/NL/TNM/12
+
+{
+	"id": "12",
+	"currency": "EUR",
+	"elements": [{
+		"price_components": [{
+			"type": "TIME",
+			"price": "2.00",
+			"step_size": 300
+		}]
+	}]
+}
+```
+
 
 #### 2.2.3 __PATCH__ Method
 
 Same as the [PUT](#222-put-method) method, but only the fields/objects that have to be updated have to be present, other fields/objects that are not specified are considered unchanged.
+
+##### Example: Change Tariff to 2,50 
+```json
+PUT To URL: https://www.server.com/ocpi/emsp/2.0/tariffs/NL/TNM/12
+
+{
+	"elements": [{
+		"price_components": [{
+			"type": "TIME",
+			"price": "2.50",
+			"step_size": 300
+		}]
+	}]
+}
+```
 
 
 #### 2.2.4 __DELETE__ Method

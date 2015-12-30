@@ -185,6 +185,74 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 | remark                               | [string](types.md#16-string-type)(255)                   | ?     | Optional remark, can be used to provide addition human readable information to the CDR, for example: reason why a transaction was stopped.|
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
+
+#### Example of a CDR
+
+```json
+{
+	"id": "12345",
+	"start_date_time": "2015-06-29T21:39:09+02:00",
+	"stop_date_time": "2015-06-29T23:37:32+02:00",
+	"auth_id": "FA54320",
+	"auth_method": "WHITELIST",
+	"location": {
+		"id": "LOC1",
+		"type": "on_street",
+		"name": "Gent Zuid",
+		"address": "F.Rooseveltlaan 3A",
+		"city": "Gent",
+		"postal_code": "9000",
+		"country": "BE",
+		"coordinates": {
+			"latitude": "3.72994",
+			"longitude": "51.04759"
+		},
+		"evse": {
+			"uid": "3256",
+			"evse_id": "BE-BEC-E041503003",
+			"STATUS": "AVAILABLE",
+			"connectors": [{
+				"id": "1",
+				"standard": "IEC-62196-T2",
+				"format": "SOCKET",
+				"power_type": "AC_1_PHASE",
+				"voltage": "230",
+				"amperage": "64",
+				"tariff_id": "11"
+			}]
+		}
+	},
+	"currency": "EUR",
+	"tariffs": [{
+		"id": "12",
+		"currency": "EUR",
+		"elements": [{
+			"price_components": [{
+				"type": "TIME",
+				"price": "2.00",
+				"step_size": 300
+			}]
+		}]
+	}],
+	"charging_periods": [{
+		"start_date_time": "2015-06-29T21:39:09+02:00",
+		"dimensions": [{
+			"type": "TIME",
+			"volume": 1.973
+		}]
+	}],
+	"total_cost": "4,00",
+	"total_usage": [{
+		"type": "TIME",
+		"volume": "1.973"
+	}, {
+		"type": "ENERGY",
+		"volume": 15.342
+	}]
+}
+```
+
+
 ## 4. Data types
 
 ### 4.1 AuthMethod *enum*
