@@ -217,7 +217,7 @@ PUT To URL: https://www.server.com/ocpi/emsp/2.0/locations/NL/TNM/1012/3256
 			"tariff_id": "14"
 		}
 	],
-	"physical_number": 3,
+	"physical_reference": 3,
 	"floor": -1,
 }
 ```
@@ -311,7 +311,7 @@ A *Location* without valid *EVSE* objects can be considered as expired and shoul
 			"amperage": 16,
 			"tariff_id": "11"
 		}],
-		"physical_number": 1,
+		"physical_reference": 1,
 		"floor_level": "-1"
 	}, {
         "uid": "3257",
@@ -329,7 +329,7 @@ A *Location* without valid *EVSE* objects can be considered as expired and shoul
 			"amperage": 16,
 			"tariff_id": "12"
 		}],
-		"physical_number": 2,
+		"physical_reference": 2,
 		"floor_level": -2
 	}],
 	"operator": {
@@ -340,7 +340,7 @@ A *Location* without valid *EVSE* objects can be considered as expired and shoul
 
 ### 3.2 _EVSE_ Object
 
-The *EVSE* object describes the part that controls the power supply to a single EV in a single session. It always belongs to a *Location* object. It will only contain directions to get from the location to the EVSE (i.e. *floor*, *physical_number* or *directions*). When these properties are insufficient to reach the EVSE from the *Location* point, then it typically indicates that this EVSE should be put in a different *Location* object (sometimes with the same address but with different coordinates/directions).
+The *EVSE* object describes the part that controls the power supply to a single EV in a single session. It always belongs to a *Location* object. It will only contain directions to get from the location to the EVSE (i.e. *floor*, *physical_reference* or *directions*). When these properties are insufficient to reach the EVSE from the *Location* point, then it typically indicates that this EVSE should be put in a different *Location* object (sometimes with the same address but with different coordinates/directions).
 
 An *EVSE* object has a list of connectors which can not be used simultaneously: only one connector per EVSE may be used at a time. The list of connectors is seen as atomic. This implies that for any changes or updates to a single connector, the full list of all connectors will have to be specified. Any connector not on that list is considered as deleted.
 
