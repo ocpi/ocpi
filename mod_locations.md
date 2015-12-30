@@ -684,7 +684,7 @@ The status of an EVSE.
 | PLANNED	         | The EVSE is planned, will be operating soon                                           |
 | REMOVED	         | The EVSE/charge point is discontinued/removed.                                        |
 | RESERVED           | The EVSE is reserved for a particular EV driver and is unavailable for other drivers. |
-| UNKNOWN	         | No status information available                                                       |
+| UNKNOWN	         | No status information available. (Also used when offline)                             |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
