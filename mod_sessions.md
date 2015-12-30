@@ -78,8 +78,9 @@ Each object must contain all required fields. Fields that are not specified may 
 
 ### 2.2 eMSP Interface
 
-Example endpoint structure: `/ocpi/emsp/2.0/sessions/` and
-`/ocpi/emsp/2.0/sessions/{session-id}/`
+Sessions is a [client owned object](transport_and_format.md#client-owned-object-push), so the end-points need to contain the required extra fields: {[party_id](credentials.md#credentials-object)} and {[country_code](credentials.md#credentials-object)}.
+Example endpoint structure: 
+`/ocpi/emsp/2.0/sessions/{country_code}/{party_id}/{tariff_id}` 
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Method                       | Description                                                         |
@@ -97,10 +98,14 @@ Example endpoint structure: `/ocpi/emsp/2.0/sessions/` and
 The CPO system might request the current version of a Session object from the eMSP system for, 
 for example validation purposes, or the CPO system might have received a error on a PATCH.
 
+##### Request Parameters
+
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Parameter    | Datatype                              | Required | Description                                                                   |
 |--------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
-| {session-id} | [string](types.md#16-string-type)(15) | yes      | id of the Session object to get from the eMSP system                          |
+| country_code | [string](types.md#16-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
+| party_id     | [string](types.md#16-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
+| session-id   | [string](types.md#16-string-type)(15) | yes      | id of the Session object to get from the eMSP system.                         |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -111,7 +116,7 @@ The response contains the request Session object, if available.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Datatype                      | Card. | Description                                                   |
 |-------------------------------|-------|---------------------------------------------------------------|
-| [Session](#31-session-object) | ?     | Session object requested.                                     |
+| [Session](#31-session-object) | 1     | Session object requested.                                     |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -119,50 +124,44 @@ The response contains the request Session object, if available.
 
 Inform the system about a new/updated session in the eMSP backoffice by PUTing a _Session_ object.
 
-##### Data
+##### Request Body
 
-The request contains the new Session Object.
+The request contains the new or updated Session object.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Type                            | Card. | Description                              |
 |---------------------------------|-------|------------------------------------------|
 | [Session](#31-session-object)   | 1     | new Session object.                      |
+<div><!-- ---------------------------------------------------------------------------- --></div>
+
+##### Request Parameters
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Parameter    | Datatype                              | Required | Description                                                                   |
+|--------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
+| country_code | [string](types.md#16-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
+| party_id     | [string](types.md#16-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
+| session-id   | [string](types.md#16-string-type)(15) | yes      | id of the new or updated Session object.                                      |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
 #### 2.2.3 __PATCH__ Method
 
-Inform about updates in the _Session_ object.
-
-##### Parameters
-
-<div><!-- ---------------------------------------------------------------------------- --></div>
-| Parameter  | Datatype                              | Required | Description                               |
-|------------|---------------------------------------|----------|-------------------------------------------|
-| session-id | [string](types.md#16-string-type)(15) | yes      | ID of the Session to be updated           |
-<div><!-- ---------------------------------------------------------------------------- --></div>
-
-##### Data
-
-The request contains the Session Object to be updated.
-
-<div><!-- ---------------------------------------------------------------------------- --></div>
-| Type                            | Card. | Description                              |
-|---------------------------------|-------|------------------------------------------|
-| [Session](#31-session-object)   | 1     | new Session object.                      |
-<div><!-- ---------------------------------------------------------------------------- --></div>
+Same as the [PUT](#222-put-method) method, but only the fields/objects that have to be updated have to be present, other fields/objects that are not specified are considered unchanged.
 
 
 #### 2.2.4 __DELETE__ Method
 
-Inform about a deleted _Session_ object.
+Inform the eMSP about a deleted Session object.
 
-##### Parameters
+##### Request Parameters
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Parameter  | Datatype                              | Required | Description                               |
-|------------|---------------------------------------|----------|-------------------------------------------|
-| session-id | [string](types.md#16-string-type)(15) | yes      | ID of the Session to be deleted           |
+| Parameter    | Datatype                              | Required | Description                                                                   |
+|--------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
+| country_code | [string](types.md#16-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
+| party_id     | [string](types.md#16-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
+| session-id   | [string](types.md#16-string-type)(15) | yes      | ID of the Session to be deleted                                               |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
