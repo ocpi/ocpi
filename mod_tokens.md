@@ -18,6 +18,9 @@ Any changes to Token in the eMSP system are send to the CPO system by calling, e
 
 When the eMSP invalidates a Token (deleting is not possible), the eMSP will send the updated Token (with the field: valid set to False, by calling, either the [PUT](#212-put-method) or the [PATCH](#213-patch-method) on the CPOs Tokens endpoint with the updated Token. 
 
+When the eMSP not sure about the state or existence of a Token object in the CPO system, the 
+eMSP can call the [GET](#221-get-method) to validate the Token object in the CPO system.   
+
 
 ### 1.2 Pull model
 

@@ -20,7 +20,7 @@ on the eMSPs Sessions endpoint with the updated Session object
 When the CPO deletes a Session, they will update the eMSPs systems by calling [DELETE](#224-delete-method)
 on the eMSPs Sessions endpoint, on the Sessions unique URL.
 
-When the CPO is not sure about the state or existence of a Session object in the eMSPs system the 
+When the CPO is not sure about the state or existence of a Session object in the eMSPs system, the 
 CPO can call the [GET](#221-get-method) to validate the Session object in the eMSP system.   
 
 ### 1.2 Pull model

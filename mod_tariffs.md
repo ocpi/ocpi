@@ -18,6 +18,9 @@ or [PATCH](#223-patch-method) on the eMSPs Tariffs endpoint with the updated Tar
 When the CPO deletes a Tariff, they will update the eMSPs systems by calling [DELETE](#224-delete-method)
 on the eMSPs Tariffs endpoint, with the ID of the Tariff that is deleted.
 
+When the CPO is not sure about the state or existence of a Tariff object in the eMSPs system, the 
+CPO can call the [GET](#221-get-method) to validate the Tariff object in the eMSP system.   
+
 
 ### 1.2 Pull model
 
@@ -154,6 +157,7 @@ Same as the [PUT](#222-put-method) method, but only the fields/objects that have
 
 
 #### 2.2.4 __DELETE__ Method
+
 Delete a no longer valid Tariff object. 
 
 ##### Request Parameters
