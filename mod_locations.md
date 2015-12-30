@@ -67,9 +67,9 @@ Any older information that is not specified in the response is considered as no 
 Each object must contain all required fields. Fields that are not specified may be considered as null values.
  
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Property  | Type                            | Card. | Description                              |
-|-----------|---------------------------------|-------|------------------------------------------|
-| locations | [Location](#31-location-object) | *     | List of all locations with valid EVSEs.  |
+| Type                            | Card. | Description                              |
+|---------------------------------|-------|------------------------------------------|
+| [Location](#31-location-object) | *     | List of all locations with valid EVSEs.  |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 

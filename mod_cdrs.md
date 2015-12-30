@@ -86,9 +86,9 @@ Any older information that is not specified in the response is considered as no 
 Each object must contain all required fields. Fields that are not specified may be considered as null values.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Parameter | Datatype              | Card. | Description                                                         |
-|-----------|-----------------------|-------|---------------------------------------------------------------------|
-| CDRs      | [CDR](#31-cdr-object) | *     | List of CDRs.                                                       |
+| Datatype              | Card. | Description                                                         |
+|-----------------------|-------|---------------------------------------------------------------------|
+| [CDR](#31-cdr-object) | *     | List of CDRs.                                                       |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -124,9 +124,9 @@ To retrieve an existing URL from the eMSP system, the URL, returned in the repon
 The endpoint returns the requested CDR, if it exists
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Parameter | Datatype              | Card. | Description                                  |
-|-----------|-----------------------|-------|----------------------------------------------|
-| CDRs      | [CDR](#31-cdr-object) | 1     | Requested CDR object.                        |
+| Datatype              | Card. | Description                                  |
+|-----------------------|-------|----------------------------------------------|
+| [CDR](#31-cdr-object) | 1     | Requested CDR object.                        |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 

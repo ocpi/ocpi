@@ -70,9 +70,9 @@ Any older information that is not specified in the response is considered as no 
 Each object must contain all required fields. Fields that are not specified may be considered as null values.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Parameter | Datatype                      | Card. | Description                                                             |
-|-----------|-------------------------------|-------|-------------------------------------------------------------------------|
-| Sessions  | [Session](#31-session-object) | *     | List of Session objects that match the request parameters               |
+| Datatype                      | Card. | Description                                                             |
+|-------------------------------|-------|-------------------------------------------------------------------------|
+| [Session](#31-session-object) | *     | List of Session objects that match the request parameters               |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 

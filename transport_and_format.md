@@ -104,7 +104,7 @@ The content that is sent with all the response messages is a 'application/json' 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property       | Type                                  | Card. | Description                                               |
 |----------------|---------------------------------------|-------|-----------------------------------------------------------|
-| data           | object                                | ?     | Contains the actual response data from each request.      |
+| data           | object                                | *     | Contains the actual response data object or list of objects from each request. |
 | status_code    | Integer                               | 1     | Response code, as listed in [Status Codes](status_codes.md#status-codes), indicates how the request was handled. To avoid confusion with HTTP codes, at least four digits are used.                              |
 | status_message | String                                | ?     | An optional status message which may help when debugging. |
 | timestamp      | [DateTime](types.md#12_datetime_type) | 1     | The time this message was generated.                      |
