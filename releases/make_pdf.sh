@@ -51,7 +51,7 @@ perl -p -i -e 's/(?<=\(#)(\w+)_(\w+)_(\w+)_(\w+)\)/\1-\2-\3-\4)/g' all.md
 perl -p -i -e 's/(?<=\(#)(\w+)_(\w+)_(\w+)\)/\1-\2-\3)/g' all.md
 perl -p -i -e 's/(?<=\(#)(\w+)_(\w+)\)/\1-\2)/g' all.md
 
-# correct tables
+# translate MD tables to pandoc 'multiline' tables
 perl -p -i -e 's/<div><!-- //g' all.md
 perl -p -i -e 's/ --><\/div>//g' all.md
 perl -p -i -e 's/^\|[\s-:]/  /g' all.md
