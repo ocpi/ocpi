@@ -82,10 +82,10 @@ In case a fails, the client is expected to call the GET method to check the stat
 Normal client/server RESTful services work in a way that the Server is the owner of objects that are created. The client request a POST method with an object to the end-point URL. The response send by the server will contain the URL to the new object. The client will only request 1 server to create a new object, not multiple servers.
  
 Many OCPI modules work differently: The client is the owner of the object and only pushes the information to 1 or more servers for information sharing purposes.   
-For Example: The CPO owns the Tariff objects, and pushes them to a couple of eMSPs, so the eMSPs gains knowledge of the tariffs that the CPO chargers customers. eMSP might receive Tariff objects from multiple CPOs. They need to be able to make a distinction between the different tariffs from different CPOs. 
+For Example: The CPO owns the Tariff objects, and pushes them to a couple of eMSPs, so each eMSP gains knowledge of the tariffs that the CPO will charge them for their customers' sessions. eMSP might receive Tariff objects from multiple CPOs. They need to be able to make a distinction between the different tariffs from different CPOs. 
 POST is not supported for these kind of modules.
 PUT is used to send new objects to the servers. 
-The distinction between objects from different CPOs/eMSPs is made, based on a {[country-code(credentials.md#credentials-object)]} and {[party-id](credentials.md#credentials-object)}.
+The distinction between objects from different CPOs/eMSPs is made, based on a {[country-code](credentials.md#credentials-object)} and {[party-id](credentials.md#credentials-object)}.
 Client owned object URL definition: {base-ocpi-url}/{end-point}/{country-code}/{party-id}/{object-id}
 
 
