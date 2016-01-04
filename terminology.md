@@ -3,7 +3,6 @@
 ## Abbreviations
 
  * **OCPI** Open Charge Point Interface
- * **NDR** Notification Detail Record
  * **CDR** Charge Detail Record
  * **CPO** Charging Point Operator
  * **eMSP** e-Mobility Service Provider
