@@ -37,7 +37,7 @@ Example: `/ocpi/cpo/2.0/credentials` and `/ocpi/emsp/2.0/credentials`
     "url": "https://example.com/ocpi/cpo/",
     "token": "ebf3b399-779f-4497-9b9d-ac6ad3cc44d2",
     "party_id": "EXA",
-    "country_code": "NL,"
+    "country_code": "NL",
     "business_details": {
         "name": "Example Operator",
         "logo": {
