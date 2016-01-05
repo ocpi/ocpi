@@ -216,8 +216,8 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 				"standard": "IEC-62196-T2",
 				"format": "SOCKET",
 				"power_type": "AC_1_PHASE",
-				"voltage": "230",
-				"amperage": "64",
+				"voltage": 230,
+				"amperage": 64,
 				"tariff_id": "11"
 			}]
 		}
@@ -238,7 +238,7 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 		"start_date_time": "2015-06-29T21:39:09+02:00",
 		"dimensions": [{
 			"type": "TIME",
-			"volume": 1.973
+			"volume": "1.973"
 		}]
 	}],
 	"total_cost": "4,00",
@@ -247,7 +247,7 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 		"volume": "1.973"
 	}, {
 		"type": "ENERGY",
-		"volume": 15.342
+		"volume": "15.342"
 	}]
 }
 ```
