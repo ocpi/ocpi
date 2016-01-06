@@ -75,7 +75,7 @@ A PATCH request must only specify the object's identifier and the fields to be u
 
 The mimetype of the request body is `application/json` and may contain the data as documented for each endpoint.
 
-In case a fails, the client is expected to call the GET method to check the state of the object in the other parties system. If the object doesn't exist, the client should do a [PUT](#put). 
+In case a PATCH request fails, the client is expected to call the GET method to check the state of the object in the other parties system. If the object doesn't exist, the client should do a [PUT](#put). 
 
 
 ### Client owned object push
