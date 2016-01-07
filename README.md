@@ -2,6 +2,7 @@ This repository contains the OCPI specification.
 
 ## Contents
 
+ * [__Version History__](version_history.md)
  * [__Introduction__](introduction.md)
    - [Terminology and Definitions](terminology.md)
  * __Protocol Meta Information__, describes the connections between the parties

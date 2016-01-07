@@ -12,7 +12,9 @@ LATEX_ENGINE="pdflatex"
 #############################################
 #############################################
 
-cat $RELEASE_DIR/introduction.md > all.md
+cat $RELEASE_DIR/version_history.md > all.md
+echo "" >> all.md
+cat $RELEASE_DIR/introduction.md >> all.md
 echo "" >> all.md
 cat $RELEASE_DIR/terminology.md >> all.md
 echo "" >> all.md
