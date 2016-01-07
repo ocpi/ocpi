@@ -1,4 +1,4 @@
-Copyright © 2014 – 2015 ????. All rights reserved.
+Copyright © 2014 – 2015 NKL. All rights reserved.
 This document is made available under the *Creative Commons Attribution-
 NoDerivatives 4.0 International Public License*
 (https://creativecommons.org/licenses/by-nd/4.0/legalcode).
