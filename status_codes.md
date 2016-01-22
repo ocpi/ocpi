@@ -32,7 +32,7 @@ When the status code is in the success range (1xxx), the `data` field in the res
 
 ## 2xxx: Client errors
 
-Errors a server detected in the message sent by an client: The client did something wrong
+Errors a server detected in the message sent by a client: The client did something wrong
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Code | Description                             |

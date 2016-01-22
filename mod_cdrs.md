@@ -6,23 +6,22 @@ A **Charge Detail Record** is the description of a concluded charging
 session. The CDR is the only billing-relevant object.
 CDRs are send from the CPO to the eMSP after the charging session has ended.
 There is no requirement to send CDRs semi-realtime, it is seen as good practice to send them
-ASAP. But if there is an agreement between parties to send then for example once a month, that is also allowed by OCPI.
+ASAP. But if there is an agreement between parties to send them for example once a month, that is also allowed by OCPI.
 
 
 ## 1. Flow and Lifecycle
 
-CDRs are created by the CPO. They are probably only send to the eMSP that will be paying the bill of a charging session. Because a CDR is for billing purposes, it cannot be changed/replaced, once send to the eMSP, changes are not allowed in a CDR.
+CDRs are created by the CPO. They probably only will be sent to the eMSP that will be paying the bill of a charging session. Because a CDR is for billing purposes, it cannot be changed/replaced, once sent to the eMSP, changes are not allowed in a CDR.
  
 
 ### 1.1 Push model
 
-When the CPO creates CDR(s) they push them to the relevant eMSP by calling [POST](#222-post-method) on the eMSPs
-CDRs endpoint with the newly create CDRs(s)
+When the CPO creates CDR(s) they push them to the relevant eMSP by calling [POST](#222-post-method) on the eMSPs CDRs endpoint with the newly created CDR(s).
 
 CDRs should contain enough information (dimensions) to allow the eMSP to validate the total costs. 
-It is advised to send enough information to the eMSP so it might calculate its own costs for billing their customer. An eMSP might have a very different contract/pricing model with the EV driver then the tariff structure from the CPO.
+It is advised to send enough information to the eMSP so it can calculate its own costs for billing their customer. An eMSP might have a very different contract/pricing model with the EV driver than the tariff structure from the CPO.
 
-_NOTE: CDRs cannot not yet be updated or removed. This might be added in a future version of OCPI._
+_NOTE: CDRs can not yet be updated or removed. This might be added in a future version of OCPI._
 
 If the CPO, for any reason wants to view a CDR it has posted to a eMSP system, the CPO can retrieve the CDR by calling the [GET](#221-get-method) on the eMSPs CDRs endpoint at the URL returned in the response to the [POST](#222-post-method).
 
@@ -139,7 +138,7 @@ The post method should contain the full, final CDR object.
 
 ##### Request Body
 
-In the post request the new CDR object is send.
+In the post request the new CDR object is sent.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Type                            | Card. | Description                             |
@@ -175,11 +174,11 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 | stop_date_time                       | [DateTime](types.md#12-datetime-type)                    | ?     | Stop timestamp of the charging session.                                                                                        |
 | auth_id                              | [string](types.md#16-string-type)(32)                    | 1     | Reference to a token, identified by the auth_id field of the [Token](mod_tokens.md#31_token_object).                           |
 | auth_method                          | [AuthMethod](#41-authmethod-enum)                        | 1     | Method used for authentication.                                                                                                |
-| location                             | [Location](mod_locations.md#31-location-object)          | 1     | Location were the charging session took place, including only the relevant [EVSE](mod_locations.md#32-evse-object) and [Connector](mod_locations.md#33-connector-object). |
+| location                             | [Location](mod_locations.md#31-location-object)          | 1     | Location where the charging session took place, including only the relevant [EVSE](mod_locations.md#32-evse-object) and [Connector](mod_locations.md#33-connector-object). |
 | meter_id                             | [string](types.md#16-string-type)(255)                   | ?     | Identification of the Meter inside the Charge Point.                                                                           |
 | currency                             | [string](types.md#16-string-type)(3)                     | 1     | Currency of the CDR in ISO 4217 Code.                                                                                          |
 | tariffs                              | [Tariff](mod_tariffs.md#31-tariff-object)                | *     | List of relevant tariff elements, see: [Tariffs](mod_tariffs.md#31-tariff-object).                                             |
-| charging_periods                     | [ChargingPeriod](#43-chargingperiod-class)               | +     | List of charging periods that make up this charging session. A session consist of 1 or more periodes with, each period has a different relevant Tariff. |
+| charging_periods                     | [ChargingPeriod](#43-chargingperiod-class)               | +     | List of charging periods that make up this charging session. A session consists of 1 or more periods, where each period has a different relevant Tariff. |
 | total_cost                           | [decimal](types.md#13-decimal-type)                      | 1     | Total cost of this transaction.                                                                                                |
 | total_usage                          | [CdrDimension](#42-cdrdimension-class)                   | *     | List of total usage elements, for example: total parking time and total energy charged.                                        |
 | remark                               | [string](types.md#16-string-type)(255)                   | ?     | Optional remark, can be used to provide addition human readable information to the CDR, for example: reason why a transaction was stopped.|

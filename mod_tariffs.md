@@ -2,7 +2,7 @@
 
 **Module Identifier: `tariffs`**
 
-The Tariffs module gives eMSPs information over the tariffs used by the CPO.
+The Tariffs module gives eMSPs information about the tariffs used by the CPO.
 
 
 ## 1. Flow and Lifecycle
@@ -10,7 +10,7 @@ The Tariffs module gives eMSPs information over the tariffs used by the CPO.
 ### 1.1 Push model
 
 When the CPO creates a new Tariff they push them to the eMSPs by calling the [PUT](#222-put-method) on the eMSPs
-Tariffs endpoint with the newly create Tariff object
+Tariffs endpoint with the newly created Tariff object.
 
 Any changes to the Tariff(s) in the CPO system can be send to the eMSP system by calling either [PUT](#222-put-method)
 or [PATCH](#223-patch-method) on the eMSPs Tariffs endpoint with the updated Tariff object.
@@ -32,12 +32,12 @@ all Tariffs, replacing the current list of known Tariffs with the newly received
 ## 2. Interfaces and endpoints
 
 There is both a CPO and an eMSP interface for Tariffs. Advised is to use the push direction from CPO to eMSP during normal operation.
-The CPO interface is mend to be used when the connection between 2 parties is established to retrieve the current list of Tariffs objects, and when the eMSP is not 100% sure the Tariff cache is correct anymore.
+The CPO interface is meant to be used when the connection between 2 parties is established to retrieve the current list of Tariffs objects, and when the eMSP is not 100% sure the Tariff cache is still correct.
 
 
 ### 2.1 CPO Interface
 
-The CPO Tariffs interface give the eMSP the ability to request all tariffs.
+The CPO Tariffs interface gives the eMSP the ability to request all tariffs.
 
 Example endpoint structure: `/ocpi/cpo/2.0/tariffs/`
 
@@ -70,7 +70,7 @@ This request is [paginated](transport_and_format.md#get), it supports the [pagin
 
 ##### Response Data
 
-The endpoint returns an object with list of valid Tariffs, the header will contain the [pagination](transport_and_format.md#paginated-response) related headers.
+The endpoint returns an object with a list of valid Tariffs, the header will contain the [pagination](transport_and_format.md#paginated-response) related headers.
 
 Any older information that is not specified in the response is considered as no longer valid.
 Each object must contain all required fields. Fields that are not specified may be considered as null values.
@@ -102,7 +102,6 @@ Example endpoint structure:
 
 #### 2.2.1 __GET__ Method
 
-If the CPO wants to check the status of a Tariff in the eMSP system it might GET the object from the eMSP system for validation purposes. The CPO is the owner of the objects, so it would be illogical if the eMSP system had a different status of was missing an object.
 
 ##### Request Parameters
 
@@ -132,7 +131,7 @@ New or updated Tariff objects are pushed from the CPO to the eMSP.
 
 ##### Request Body
 
-In the put request the new or updated Tariff object is send.
+In the put request the new or updated Tariff object is sent.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Type                            | Card. | Description                              |
@@ -208,10 +207,10 @@ Delete a no longer valid Tariff object.
 ### 3.1 _Tariff_ Object
 
 A Tariff Object consists of a list of one or more TariffElements, these elements can be used to create complex Tariff structures. 
-When the list of _elements_ contains more then 1 element, then the first tariff in the list with matching restrictions will be used.
+When the list of _elements_ contains more then 1 element, than the first tariff in the list with matching restrictions will be used.
 
 It is advised to always set a "default" tariff, the last tariff in the list of _elements_ with no restriction. This acts as a fallback when
-non the the TariffElements before this matches the current charging period.   
+non of the TariffElements before this matches the current charging period.   
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property            | Type                                         | Card. | Description                                                                           |
@@ -286,7 +285,7 @@ non the the TariffElements before this matches the current charging period.
 1.00 euro per hour charging tariff for less than 32A (paid per 15 minutes)
 2.00 euro per hour charging tariff for more than 32A on weekdays (paid per 10 minutes)
 1.25 euro per hour charging tariff for more than 32A during the weekend (paid per 10 minutes)
-Parking:
+Parking costs:
 - Weekdays: between 09:00 and 18:00 : 5 euro (paid per 5 minutes) 
 - Saturday: between 10:00 and 17:00 : 6 euro (paid per 5 minutes)
 

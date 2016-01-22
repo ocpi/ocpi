@@ -28,7 +28,7 @@ The BDEW organisation keeps the registry for Germany in their general code numbe
 
 ### Austria
 
-Austrian Mobile Power GmbH maintains a registry for Austria. The list is not public available.
+Austrian Mobile Power GmbH maintains a registry for Austria. This list is not publicly available.
 For more information visit [austrian-mobile-power.at](http://austrian-mobile-power.at/tools/id-vergabe/information/)
 
 ## Charging topology

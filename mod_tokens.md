@@ -5,35 +5,35 @@
 The tokens module gives CPOs knowledge of the token information of an eMSP.
 eMSPs can push Token information to CPOs, CPOs can build a cache of known Tokens.
 When a request to authorize comes from a Charge Point, the CPO can check against this cache. 
-They then know to which eMSP they can later send a CDR. 
+With this cached information they know to which eMSP they can later send a CDR. 
 
 
 ## 1. Flow and Lifecycle
 
 ### 1.1 Push model
 
-When the MSP creates a new Token object they push it to the CPO by calling [PUT](#212-put-method) on the CPOs Tokens endpoint with the newly create Token object.
+When the MSP creates a new Token object they push it to the CPO by calling [PUT](#212-put-method) on the CPOs Tokens endpoint with the newly created Token object.
 
 Any changes to Token in the eMSP system are send to the CPO system by calling, either the [PUT](#212-put-method) or the [PATCH](#213-patch-method) on the CPOs Tokens endpoint with the updated Token(s).
 
 When the eMSP invalidates a Token (deleting is not possible), the eMSP will send the updated Token (with the field: valid set to False, by calling, either the [PUT](#212-put-method) or the [PATCH](#213-patch-method) on the CPOs Tokens endpoint with the updated Token. 
 
-When the eMSP not sure about the state or existence of a Token object in the CPO system, the 
+When the eMSP is not sure about the state or existence of a Token object in the CPO system, the 
 eMSP can call the [GET](#221-get-method) to validate the Token object in the CPO system.   
 
 
 ### 1.2 Pull model
 
 When a CPO is not sure about the state of the list of known Tokens, or wants to request the full 
-list at start-up of their system, the CPO can call the [GET](#221-get-method) on the eMSPs Token endpoint to receive
+list as a start-up of their system, the CPO can call the [GET](#221-get-method) on the eMSPs Token endpoint to receive
 all Tokens, updating already known Tokens and adding new received Tokens to it own list of Tokens.
 This method is not for operational flow.
 
 
 ## 2. Interfaces and endpoints
 
-There is both a CPO and an eMSP interface for Tokens. Advised is to use the push direction from eMSP to CPO during normal operation.
-The eMSP interface is mend to be used when the CPO is not 100% sure the Token cache is correct any more.
+There is both a CPO and an eMSP interface for Tokens. It is advised to use the push direction from eMSP to CPO during normal operation.
+The eMSP interface is meant to be used when the CPO is not 100% sure the Token cache is still correct.
 
 
 ### 2.1 CPO Interface

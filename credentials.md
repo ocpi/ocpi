@@ -63,7 +63,7 @@ Provides the server with credentials to the client's system, this initiates the 
 
 ## PUT
 
-Updates the server's credentials to the client's system and switch to the version that contains this credentials endpoint. The server should also fetch the client's endpoints for this version.
+Updates the server's credentials to the client's system and switches to the version that contains this credentials endpoint. The server should also fetch the client's endpoints for this version.
 
 If successful, the server responds with the client's (potentially updated) credentials to the server's system.
 
@@ -77,7 +77,7 @@ If successful, the server responds with an empty OCPI response message (i.e. `da
 
 ### Registration
 
-To register a CPO in a eMSP platform (or vice versa), the CPO must create a unique token that can be used for authenticating the eMSP. This token along with the versions endpoint will have to be sent to the eMSP in some secure way that is outside the scope of this protocol.
+To register a CPO in an eMSP platform (or vice versa), the CPO must create a unique token that can be used for authenticating the eMSP. This token along with the versions endpoint should be sent to the eMSP in a secure way that is outside the scope of this protocol.
 
 `TOKEN_A` is given offline, after registration store the `TOKEN_C` which will be used in future exchanges. 
 
@@ -109,8 +109,8 @@ When the Server connects back to the client during the credentials handshake, it
 
 When two parties connect, it might happen that one of the parties expects a certain endpoint to be available at the other party. 
 
-For example: a CPO could only want to connect when the CDRs endpoint is available in a eMSP system. 
+For example: a CPO could only want to connect when the CDRs endpoint is available in an eMSP system. 
 
-In case the client starting the credentials exchange process, cannot find the endpoints it expects. It is expected to NOT send the POST request with credentials to the server. Log a message/notify the administrator to contact the administrator of the server system.
+In case the client is starting the credentials exchange process and cannot find the endpoints it expects. Then, it is expected NOT to send the POST request with credentials to the server. Log a message/notify the administrator to contact the administrator of the server system.
 
-In case the server, receiving the request from a client, cannot find the endpoints it expects. It is expected to respond to the request with a status code: [3003](status_codes.md#3xxx-server-errors).
+In case the server, receiving the request from a client, cannot find the endpoints it expects, then it is expected to respond to the request with a status code: [3003](status_codes.md#3xxx-server-errors).

@@ -11,7 +11,7 @@ The Location module has Locations as base object, Locations have EVSEs, EVSEs ha
 
 When a CPO creates Location objects they push them to the eMSPs by calling [PUT](#222-put-method) on the eMSPs Locations endpoint. Providers who do not support push mode need to call [GET](#211-get-method) on the CPOs Locations endpoint to receive the new object.
 
-If the CPO wants to replace a Location related object they push it to the eMSP systems by calling [PUT](#222-put-method) on their Locations endpoint.
+If the CPO wants to replace a Location related object, they push it to the eMSP systems by calling [PUT](#222-put-method) on their Locations endpoint.
 
 Any changes to a Location related object can also be pushed to the eMSP by calling the [PATCH](#223-patch-method) on the eMSPs Locations endpoint.
 Providers who do not support push mode need to call [GET](#211-get-method) on the CPOs Locations endpoint to receive the updates.
@@ -25,7 +25,7 @@ CPO can call the [GET](#221-get-method) to validate the object in the eMSP syste
 ## 2. Interfaces and endpoints
 
 There is both a CPO and an eMSP interface for Locations. Advised is to use the push direction from CPO to eMSP during normal operation.
-The CPO interface is mend to be used when the connection between 2 parties is established to retrieve the current list of Location objects with the current status, and when the eMSP is not 100% sure the Locations cache is correct any more.
+The CPO interface is meant to be used when the connection between 2 parties is established, to retrieve the current list of Location objects with the current status, and when the eMSP is not 100% sure the Locations cache is completely correct.
 
 ### 2.1 CPO Interface
 
@@ -86,7 +86,7 @@ Example endpoint structures:
 |-------------------------------|--------------------------------------------------------------------------------------------|
 | [GET](#221-get-method)        | Retrieve a Location as it is stored in the eMSP system.                                    |
 | POST                          | n/a _(use [PUT](#222-put-method))_                                                         |
-| [PUT](#222-put-method)        | Push new/updated Location, EVSE and or Connectors to the eMSP                              |
+| [PUT](#222-put-method)        | Push new/updated Location, EVSE and/or Connectors to the eMSP                              |
 | [PATCH](#223-patch-method)    | Notify the eMSP of partial updates to a Location, EVSEs or Connector (such as the status). |
 | DELETE                        | n/a _(use [PATCH](#223-patch-method))_                                                     |
 <div><!-- ---------------------------------------------------------------------------- --></div>
@@ -104,7 +104,7 @@ If the CPO wants to check the status of a Location, EVSE or Connector object in 
 | country_code  | [string](types.md#16-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
 | party_id      | [string](types.md#16-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
 | location_id   | int                                   | yes      | Location.id of the Location object to retrieve.                               |
-| evse_uid      | int                                   | no       | Evse.uid, required when requesting an Evse or Connector object.               |
+| evse_uid      | int                                   | no       | Evse.uid, required when requesting an EVSE or Connector object.               |
 | connector_id  | int                                   | no       | Connector.id, required when requesting a Connector object.                    |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
@@ -129,7 +129,7 @@ The CPO pushes available Location/EVSE or Connector objects to the eMSP. PUT is 
 
 ##### Request Parameters
 
-This is an information push message, the objects pushed will not be owned by the eMSP, to make distinctions between objects being pushed to to a eMSP from different CPOs, the {[party_id](credentials.md#credentials-object)} and {[country_code](credentials.md#credentials-object)} have to be included in the URL.
+This is an information push message, the objects pushed will not be owned by the eMSP. To make distinctions between objects being pushed to an eMSP from different CPOs, the {[party_id](credentials.md#credentials-object)} and {[country_code](credentials.md#credentials-object)} have to be included in the URL.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Parameter     | Datatype                              | Required | Description                                                                   |
@@ -137,7 +137,7 @@ This is an information push message, the objects pushed will not be owned by the
 | country_code  | [string](types.md#16-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
 | party_id      | [string](types.md#16-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
 | location_id   | int                                   | yes      | Location.id of the new Location object, or the Location of which an EVSE or Location object is send |
-| evse_uid      | int                                   | no       | Evse.uid, required when an Evse or Connector object is send/replaced.         |
+| evse_uid      | int                                   | no       | Evse.uid, required when an EVSE or Connector object is send/replaced.         |
 | connector_id  | int                                   | no       | Connector.id, required when a Connector object is send/replaced.              |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
@@ -241,13 +241,13 @@ status_schedule field can be used._
 
 ## 3. Object description
 
-Location, EVSE and Connector have to following relation.
+Location, EVSE and Connector have the following relation.
 
 ![Location class diagram](data/locations-class-diagram.png)
 
 ### 3.1 _Location_ Object
 
-The *Location* object describes the location and its properties where a group of EVSEs that belong together are installed. Typically the *Location* object is the exact location of the group of EVSEs, but it can also be the entrance of a parking garage which contains these EVSEs. The exact way to reach each EVSE can then be further specified by its own properties.
+The *Location* object describes the location and its properties where a group of EVSEs that belong together are installed. Typically the *Location* object is the exact location of the group of EVSEs, but it can also be the entrance of a parking garage which contains these EVSEs. The exact way to reach each EVSE can be further specified by its own properties.
 
 A *Location* without valid *EVSE* objects can be considered as expired and should no longer be displayed.
 
@@ -342,7 +342,7 @@ A *Location* without valid *EVSE* objects can be considered as expired and shoul
 
 The *EVSE* object describes the part that controls the power supply to a single EV in a single session. It always belongs to a *Location* object. It will only contain directions to get from the location to the EVSE (i.e. *floor*, *physical_reference* or *directions*). When these properties are insufficient to reach the EVSE from the *Location* point, then it typically indicates that this EVSE should be put in a different *Location* object (sometimes with the same address but with different coordinates/directions).
 
-An *EVSE* object has a list of connectors which can not be used simultaneously: only one connector per EVSE may be used at a time. The list of connectors is seen as atomic. This implies that for any changes or updates to a single connector, the full list of all connectors will have to be specified. Any connector not on that list is considered as deleted.
+An *EVSE* object has a list of connectors which can not be used simultaneously: only one connector per EVSE can be used at the time. The list of connectors is seen as atomic. This implies that for any changes or updates to a single connector, the full list of all connectors will have to be specified. Any connector that is not on the list of all connectors, is considered as deleted.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property                         | Type                                               | Card. | Description                                                        |
@@ -364,7 +364,7 @@ An *EVSE* object has a list of connectors which can not be used simultaneously: 
 
 ### 3.3 _Connector_ Object
 
-A connector is the socket or cable available for the EV to make use of. A single EVSE may provide multiple connectors but only one of them can be in use at the same time. A connector always belongs to an *EVSE* object.
+A connector is the socket or cable available for the EV to use. A single EVSE may provide multiple connectors but only one of them can be in use at the same time. A connector always belongs to an *EVSE* object.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property                         | Type                                     | Card. | Description                                                             |
@@ -429,7 +429,7 @@ The format of the connector, whether it is a socket or a plug.
 | Value  | Description |
 |--------|------------------------------------------------------------------|
 | SOCKET | The connector is a socket; the EV user needs to bring a fitting plug. |
-| CABLE  | The connector is a attached cable; the EV users car needs to have a fitting inlet. |
+| CABLE  | The connector is an attached cable; the EV users car needs to have a fitting inlet. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -492,14 +492,14 @@ Specifies one exceptional period for opening or access hours.
 
 ### 4.7 Hours *class*
 
-Opening and access hours for the location.
+Opening and access hours of the location.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Field Name                     | Field Type                                     | Card.   | Description                                                         |
 |--------------------------------|------------------------------------------------|---------|---------------------------------------------------------------------|
 | *Choice: one of two*           |                                                |         |                                                                     |
 |  > regular_hours               |  [RegularHours](#413-regularhours-class)       |  *      |  Regular hours, weekday based. Should not be set for representing 24/7 as this is the most common case. |
-|  > twentyfourseven             |  boolean                                       |  1      |  True to represent 24 hours per day and 7 days per week, except the given exceptions. |
+|  > twentyfourseven             |  boolean                                       |  1      |  True to represent 24 hours a day and 7 days a week, except the given exceptions. |
 | exceptional_openings           |  [ExceptionalPeriod](#45-exceptionalperiod-class) |  *      |  Exceptions for specified calendar dates, time-range based. Periods the station is operating/accessible. Additional to regular hours. May overlap regular rules. |
 | exceptional_closings           |  [ExceptionalPeriod](#45-exceptionalperiod-class) |  *      |  Exceptions for specified calendar dates, time-range based. Periods the station is not operating/accessible. Overwriting regularHours and exceptionalOpenings. Should not overlap exceptionalOpenings. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
@@ -507,13 +507,13 @@ Opening and access hours for the location.
 
 ### 4.8 Image *class*
 
-This class references images related to a EVSE in terms of a file name or uri. According to the roaming connection between one EVSE Operator and one or more Navigation Service Providers the hosting or file exchange of image payload data has to be defined. The exchange of this content data is out of scope of OCHP. However, the recommended setup is a public available web server hosted and updated by the EVSE Operator. Per charge point a unlimited number of images of each type is allowed. Recommended are at least two images where one is a network or provider logo and the second is a station photo. If two images of the same type are defined they should be displayed additionally, not optionally.
+This class references images related to a EVSE in terms of a file name or url. According to the roaming connection between one EVSE Operator and one or more Navigation Service Providers the hosting or file exchange of image payload data has to be defined. The exchange of this content data is out of scope of OCHP. However, the recommended setup is a public available web server hosted and updated by the EVSE Operator. Per charge point an unlimited number of images of each type is allowed. Recommended are at least two images where one is a network or provider logo and the second is a station photo. If two images of the same type are defined they should be displayed additionally, not optionally.
 
 Photo Dimensions: 
-The recommended dimensions for all photos are minimum 800 pixels wide and 600 pixels height. Thumbnail representations for photos should always have the same orientation than the original with a size of 200 to 200 pixels.
+The recommended dimensions for all photos is a minimum of 800 pixels wide and 600 pixels height. Thumbnail representations for photos should always have the same orientation as the original with a size of 200 to 200 pixels.
 
 Logo Dimensions: 
-The recommended dimensions for logos are exactly 512 pixels wide and 512 pixels height. Thumbnail representations for logos should be exactly 128 pixels in with and height. If not squared, thumbnails should have the same orientation than the original.
+The recommended dimensions for logos are exactly 512 pixels wide and 512 pixels height. Thumbnail representations for logos should be exactly 128 pixels in width and height. If not squared, thumbnails should have the same orientation as the original.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Field Name | Field Type                               | Card. | Description                           |
@@ -529,7 +529,7 @@ The recommended dimensions for logos are exactly 512 pixels wide and 512 pixels 
 
 ### 4.9 ImageCategory *enum*
 
-The category of an image to obtain the correct usage in an user presentation. Has to be set accordingly to the image content in order to guaranty the right usage.
+The category of an image to obtain the correct usage in a user presentation. The category has to be set accordingly to the image content in order to guarantee the right usage.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Value          | Description                                                                                                                  |
@@ -537,8 +537,8 @@ The category of an image to obtain the correct usage in an user presentation. Ha
 | CHARGER        | Photo of the physical device that contains one or more EVSEs.                                                                |
 | ENTRANCE       | Location entrance photo. Should show the car entrance to the location from street side.                                      |
 | LOCATION       | Location overview photo.                                                                                                     |
-| NETWORK        |  logo of a associated roaming network to be displayed with the EVSE for example in lists, maps and detailed information view |
-| OPERATOR       |  logo of the charge points operator, for example a municipal, to be displayed with the EVSEs detailed information view or in lists and maps, if no networkLogo is present |
+| NETWORK        |  logo of an associated roaming network to be displayed with the EVSE for example in lists, maps and detailed information view |
+| OPERATOR       |  logo of the charge points operator, for example a municipality, to be displayed with the EVSEs detailed information view or in lists and maps, if no networkLogo is present |
 | OTHER          | Other                                                                                                                        |
 | OWNER          |  logo of the charge points owner, for example a local store, to be displayed with the EVSEs detailed information view        |
 <div><!-- ---------------------------------------------------------------------------- --></div>
@@ -570,7 +570,7 @@ for different purposes.
 | Value             | Description                                                              |
 |:------------------|:-------------------------------------------------------------------------|
 | EV_ONLY           |  Reserved parking spot for electric vehicles.                            |
-| PLUGGED           |  Parking allowed only while plugged in (charging).                       |
+| PLUGGED           |  Parking is only allowed while plugged in (charging).                       |
 | DISABLED          |  Reserved parking spot for disabled people with valid ID.                |
 | CUSTOMERS         |  Parking spot for customers/guests only, for example in case of a hotel or shop.|
 | MOTORCYCLES       |  Parking spot only suitable for (electric) motorcycles or scooters.      |
@@ -673,7 +673,7 @@ The status of an EVSE.
 | Value              | Description                                                                           |
 |--------------------|---------------------------------------------------------------------------------------|
 | AVAILABLE          | The EVSE is able to start a new charging session.                                     |
-| BLOCKED            | The EVSE not accessible because of a physical barrier, i.e. a car.                    |
+| BLOCKED            | The EVSE is not accessible because of a physical barrier, i.e. a car.                    |
 | CHARGING           | The EVSE is in use.                                                                   |
 | INOPERATIVE        | The EVSE is not yet active or it is no longer available (deleted).                    |
 | OUTOFORDER         | The EVSE is currently out of order.                                                   |
@@ -686,7 +686,7 @@ The status of an EVSE.
 
 ### 4.15 StatusSchedule *class*
 
-This type is used to schedule status periods in the future. The eMSP can provide this information to the EV user for trip planning purpose. A period MAY have no end. Example: "This station will be running from tomorrow. Today it is still planned and under construction."
+This type is used to schedule status periods in the future. The eMSP can provide this information to the EV user for trip planning purpose. A period MAY have no end. Example: "This station will be running as of tomorrow. Today it is still planned and under construction."
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property         | Type                                  | Card. | Description                                            |

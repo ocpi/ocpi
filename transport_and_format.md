@@ -16,7 +16,7 @@ Each HTTP request must add a 'Authorization' header. The header looks as followi
     Authorization: Token IpbJOXxkxOAuKR92z0nEcmVF3Qw09VG7I7d/WCg0koM=
 ```
 
-The literal 'Token' indicates that the token based authentication mechanism is used. Its parameter is a string consisting of printable, non-whitespace ASCII characters. The token must uniquely identify the requesting party. The server can then use this to link data and commands to this party's account.
+The literal 'Token' indicates that the token based authentication mechanism is used. Its parameter is a string consisting of printable, non-whitespace ASCII characters. The token must uniquely identify the requesting party. Than, the server can use this to link data and commands to this party's account.
 
 The request method can be any of [GET](#get), [PUT](#put), [PATCH](#patch) or DELETE. The OCPI protocol uses them in a similar way as REST APIs do.
 
@@ -45,7 +45,7 @@ The following table is a list of all the parameters that have to be supported, b
 | Parameter | Description                                            |
 |-----------|--------------------------------------------------------|
 | offset    | The offset of the first object returned. Default is 0. |
-| limit     | Maximum number of objects to GET. Note: the server might decided to return less objects, because there are no more objects or the server limits the maximum amount of object to return to prevent, for example, overloading the system |
+| limit     | Maximum number of objects to GET. Note: the server might decide to return less objects, because there are no more objects or the server limits the maximum amount of objects to return. This is to prevent, for example, overloading the system. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -57,7 +57,7 @@ HTTP headers that have to be added to any paginated get response.
 |----------------|-----------------------------------------------------------------------------|
 | link           | Link to the 'next' page should be provided, see example below               |
 | X-Total-Count  | (Custom HTTP Header) Total number of objects available in the server system |
-| X-Limit        | (Custom HTTP Header) Number of objects that are returned. Note that this is an upper limit, if there are not enough remaining objects to return, then less than this number will be returned. |
+| X-Limit        | (Custom HTTP Header) Number of objects that are returned. Note that this is an upper limit, if there are not enough remaining objects to return, fewer objects than this upper limit number will be returned. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 Example of a required OCPI pagination link header
@@ -79,7 +79,7 @@ In case a PATCH request fails, the client is expected to call the GET method to 
 
 
 ### Client owned object push
-Normal client/server RESTful services work in a way that the Server is the owner of objects that are created. The client request a POST method with an object to the end-point URL. The response send by the server will contain the URL to the new object. The client will only request 1 server to create a new object, not multiple servers.
+Normal client/server RESTful services work in a way that the Server is the owner of the objects that are created. The client requests a POST method with an object to the end-point URL. The response send by the server will contain the URL to the new object. The client will only request 1 server to create a new object, not multiple servers.
  
 Many OCPI modules work differently: The client is the owner of the object and only pushes the information to 1 or more servers for information sharing purposes.   
 For Example: The CPO owns the Tariff objects, and pushes them to a couple of eMSPs, so each eMSP gains knowledge of the tariffs that the CPO will charge them for their customers' sessions. eMSP might receive Tariff objects from multiple CPOs. They need to be able to make a distinction between the different tariffs from different CPOs. 
@@ -99,7 +99,7 @@ Example of a URL to a client owned object
 
 When a request cannot be accepted, an HTTP error response code is expected including a JSON object that contains more details. HTTP status codes are described on [w3.org](http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html).
 
-The content that is sent with all the response messages is a 'application/json' type and contains a JSON object with the following properties:
+The content that is sent with all the response messages is an 'application/json' type and contains a JSON object with the following properties:
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property       | Type                                  | Card. | Description                                               |
@@ -110,7 +110,7 @@ The content that is sent with all the response messages is a 'application/json' 
 | timestamp      | [DateTime](types.md#12_datetime_type) | 1     | The time this message was generated.                      |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
-For brevity's sake, any further example used in this specification will only contain the value of the "data" field. In reality, it will always have to be wrapped in the above response format.
+For brevity's sake, any further examples used in this specification will only contain the value of the "data" field. In reality, it will always have to be wrapped in the above response format.
 
 #### Example: Version details response
 

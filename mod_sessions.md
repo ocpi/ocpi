@@ -3,8 +3,7 @@
 **Module Identifier: `sessions`**
 
 The Session object describes one charging session. 
-The Session object is owned by the CPO back-end system, and can be GET from the CPO system, 
-or push by the CPO to another system.
+The Session object is owned by the CPO back-end system, and can be GET from the CPO system, or pushed by the CPO to another system.
 
 
 ## 1. Flow and Lifecycle
@@ -12,10 +11,10 @@ or push by the CPO to another system.
 ### 1.1 Push model
 
 When the CPO creates a Session object they push it to the eMSPs by calling [PUT](#222-put-method) on the eMSPs
-Sessions endpoint with the newly created Session object
+Sessions endpoint with the newly created Session object.
 
-Any changes to a Session in the CPO system are send to the eMSP system by calling [PATCH](#223-patch-method)
-on the eMSPs Sessions endpoint with the updated Session object
+Any changes to a Session in the CPO system are sent to the eMSP system by calling [PATCH](#223-patch-method)
+on the eMSPs Sessions endpoint with the updated Session object.
 
 When the CPO deletes a Session, they will update the eMSPs systems by calling [DELETE](#224-delete-method)
 on the eMSPs Sessions endpoint, on the Sessions unique URL.
@@ -319,7 +318,7 @@ Inform the eMSP about a deleted Session object.
 | Property  | Description                                                                |
 |-----------|----------------------------------------------------------------------------|
 | ACTIVE    | The session is accepted and active.                                        |
-| COMPLETED | The session has finished successfully.                                      |
+| COMPLETED | The session is finished successfully.                                      |
 | INVALID   | The session is declared invalid and will not be billed.                    |
 | PENDING   | The session is pending and has not yet started. This is the initial state. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
