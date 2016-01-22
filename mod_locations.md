@@ -2,7 +2,7 @@
 
 **Module Identifier: `locations`**
 
-The Location objects live in the CPO back-end system. They describe the charging locations of that operator.
+The Location objects life in the CPO back-end system. They describe the charging locations of that operator.
 
 
 ## 1. Flow and Lifecycle
