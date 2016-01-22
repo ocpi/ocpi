@@ -59,8 +59,6 @@ This request is [paginated](transport_and_format.md#get), so also supports the [
 | limit      | int                                   | no       | Maximum number of objects to GET.                                             |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
-_NOTE: The CPO is allowed to return a (not specified) maximum amount of Sessions, to prevent overloading there system. In this version of OCPI it is not possible to detect if the CPO returned not all Sessions that match the filter._  
-
 ##### Response Data
 
 The response contains a list of Session objects that match the given parameters in the request, the header will contain the [pagination](transport_and_format.md#paginated-response) related headers.  
