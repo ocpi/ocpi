@@ -102,6 +102,7 @@ Example endpoint structure:
 
 #### 2.2.1 __GET__ Method
 
+If the CPO wants to check the status of a Tariff in the eMSP system it might GET the object from the eMSP system for validation purposes. The CPO is the owner of the objects, so it would be illogical if the eMSP system had a different status or was missing an object.
 
 ##### Request Parameters
 
@@ -169,7 +170,7 @@ PUT To URL: https://www.server.com/ocpi/emsp/2.0/tariffs/NL/TNM/12
 
 #### 2.2.3 __PATCH__ Method
 
-Same as the [PUT](#222-put-method) method, but only the fields/objects that have to be updated have to be present, other fields/objects that are not specified are considered unchanged.
+The PATCH method works the same as the [PUT](#222-put-method) method, except that the fields/objects that have to be updated have to be present, other fields/objects that are not specified are considered unchanged.
 
 ##### Example: Change Tariff to 2,50 
 ```json
