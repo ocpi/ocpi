@@ -15,3 +15,8 @@ NoDerivatives 4.0 International Public License*
 | 0.3     | 06-05-2014 | Olger Warnier (The New Motion) <br /> Dan Brooke (The New Motion) | First draft of OCPI. (Also known as Draft v3) |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
+**Document revisions**
+There can be multiple documentation revisions of the same version of the OCPI protocol.
+The newer revisions of the same protocol version can never change the content of the messages: no new fields or renaming of fields. A new revision can only clarify/fix texts/descriptions and fix typos etc.
+
+These revisions (not the first) will be named: d2, d3, d4 etc. 
