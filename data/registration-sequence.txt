@@ -39,7 +39,7 @@ CPO -> eMSP: GET /ocpi/emsp/2.0/
 CPO <-- eMSP: Available endpoints for v2.0
 note right
     The CPO knows it's version 2.0 because
-    of the endpoint the eMSP had used. The URL
+    of the endpoint the eMSP has used. The URL
     is retrieved from the available versions.
 end note
 CPO -> CPO: Store version and endpoints
