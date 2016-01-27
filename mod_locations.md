@@ -98,6 +98,8 @@ If the CPO wants to check the status of a Location, EVSE or Connector object in 
 
 ##### Request Parameters
 
+The following parameters can be provided as URL segments.
+
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Parameter     | Datatype                              | Required | Description                                                                   |
 |---------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
@@ -129,7 +131,7 @@ The CPO pushes available Location/EVSE or Connector objects to the eMSP. PUT is 
 
 ##### Request Parameters
 
-This is an information push message, the objects pushed will not be owned by the eMSP. To make distinctions between objects being pushed to an eMSP from different CPOs, the {[party_id](credentials.md#credentials-object)} and {[country_code](credentials.md#credentials-object)} have to be included in the URL.
+This is an information push message, the objects pushed will not be owned by the eMSP. To make distinctions between objects being pushed to an eMSP from different CPOs, the {[party_id](credentials.md#credentials-object)} and {[country_code](credentials.md#credentials-object)} have to be included in the URL, as URL segments.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Parameter     | Datatype                              | Required | Description                                                                   |

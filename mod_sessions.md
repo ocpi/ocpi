@@ -46,7 +46,11 @@ Example endpoint structure: `/ocpi/cpo/2.0/sessions/?date_from=xxx&date_to=yyy`
 
 #### 2.1.1 __GET__ Method
 
-Fetch Sessions from the CPO systems. Only Sessions with a start date/time between the given {date_from} and {date_to} will be returned.
+Fetch Sessions from the CPO systems. 
+
+##### Request Parameters
+
+Only Sessions with a start date/time between the given {date_from} and {date_to} will be returned.
 
 This request is [paginated](transport_and_format.md#get), so also supports the [pagination](transport_and_format.md#paginated-request) related URL parameters.
 
@@ -77,16 +81,16 @@ Each object must contain all required fields. Fields that are not specified may 
 
 Sessions is a [client owned object](transport_and_format.md#client-owned-object-push), so the end-points need to contain the required extra fields: {[party_id](credentials.md#credentials-object)} and {[country_code](credentials.md#credentials-object)}.
 Example endpoint structure: 
-`/ocpi/emsp/2.0/sessions/{country_code}/{party_id}/{tariff_id}` 
+`/ocpi/emsp/2.0/sessions/{country_code}/{party_id}/{session_id}` 
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Method                       | Description                                                         |
 |------------------------------|---------------------------------------------------------------------|
-| [GET](#221-get-method)       | Get the Session object from the eMSP system by its id {session-id}. |
+| [GET](#221-get-method)       | Get the Session object from the eMSP system by its id {session_id}. |
 | POST                         | n/a                                                                 |
 | [PUT](#222-put-method)       | Send a new/updated Session object                                   |
-| [PATCH](#223-patch-method)   | Update the Session object of id {session-id}.                       |
-| [DELETE](#224-delete-method) | Delete the Session object of id {session-id}.                       |
+| [PATCH](#223-patch-method)   | Update the Session object of id {session_id}.                       |
+| [DELETE](#224-delete-method) | Delete the Session object of id {session_id}.                       |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -97,12 +101,14 @@ for example validation purposes, or the CPO system might have received a error o
 
 ##### Request Parameters
 
+The following parameters can be provided as URL segments.
+
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Parameter    | Datatype                              | Required | Description                                                                   |
 |--------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
 | country_code | [string](types.md#16-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
 | party_id     | [string](types.md#16-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
-| session-id   | [string](types.md#16-string-type)(15) | yes      | id of the Session object to get from the eMSP system.                         |
+| session_id   | [string](types.md#16-string-type)(15) | yes      | id of the Session object to get from the eMSP system.                         |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -133,12 +139,14 @@ The request contains the new or updated Session object.
 
 ##### Request Parameters
 
+The following parameters can be provided as URL segments.
+
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Parameter    | Datatype                              | Required | Description                                                                   |
 |--------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
 | country_code | [string](types.md#16-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
 | party_id     | [string](types.md#16-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
-| session-id   | [string](types.md#16-string-type)(15) | yes      | id of the new or updated Session object.                                      |
+| session_id   | [string](types.md#16-string-type)(15) | yes      | id of the new or updated Session object.                                      |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -163,12 +171,14 @@ Inform the eMSP about a deleted Session object.
 
 ##### Request Parameters
 
+The following parameters can be provided as URL segments.
+
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Parameter    | Datatype                              | Required | Description                                                                   |
 |--------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
 | country_code | [string](types.md#16-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
 | party_id     | [string](types.md#16-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
-| session-id   | [string](types.md#16-string-type)(15) | yes      | ID of the Session to be deleted                                               |
+| session_id   | [string](types.md#16-string-type)(15) | yes      | ID of the Session to be deleted                                               |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 

@@ -106,6 +106,8 @@ If the CPO wants to check the status of a Tariff in the eMSP system it might GET
 
 ##### Request Parameters
 
+The following parameters can be provided as URL segments.
+
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Parameter     | Datatype                              | Required | Description                                                                   |
 |---------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
@@ -141,6 +143,8 @@ In the put request the new or updated Tariff object is sent.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 ##### Request Parameters
+
+The following parameters can be provided as URL segments.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Parameter     | Datatype                              | Required | Description                                                                   |
@@ -193,6 +197,8 @@ PUT To URL: https://www.server.com/ocpi/emsp/2.0/tariffs/NL/TNM/12
 Delete a no longer valid Tariff object. 
 
 ##### Request Parameters
+
+The following parameters can be provided as URL segments.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Parameter     | Datatype                              | Required | Description                                                                   |

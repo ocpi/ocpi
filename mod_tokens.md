@@ -61,6 +61,8 @@ If the eMSP wants to check the status of a Token in the CPO system it might GET 
 
 ##### Request Parameters
 
+The following parameters can be provided as URL segments.
+
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Parameter     | Datatype                              | Required | Description                                                                   |
 |---------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
@@ -97,6 +99,8 @@ In the put request a the new or updated Token object is send.
 
 
 ##### Request Parameters
+
+The following parameters can be provided as URL segments.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Parameter     | Datatype                              | Required | Description                                                                   |
