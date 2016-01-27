@@ -100,9 +100,9 @@ At some point both parties will have implemented a newer OCPI version. To start 
 This can be done by following the update procedure for the same version. By sending a PUT request to the credentials endpoint of this version, the other party will fetch and store the corresponding set of endpoints.
 
 
-### Errors during handshake
+### Errors during registration
 
-When the Server connects back to the client during the credentials handshake, it might encounter problems. When this happens, the Server should add the status code: [3001](status_codes.md#3xxx-server-errors) in the response to the POST from the client. 
+When the Server connects back to the client during the credentials registration, it might encounter problems. When this happens, the Server should add the status code: [3001](status_codes.md#3xxx-server-errors) in the response to the POST from the client. 
 
 
 ### Required endpoints not available
