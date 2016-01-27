@@ -105,9 +105,9 @@ The following parameters can be provided as URL segments.
 |---------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
 | country_code  | [string](types.md#16-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
 | party_id      | [string](types.md#16-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
-| location_id   | int                                   | yes      | Location.id of the Location object to retrieve.                               |
-| evse_uid      | int                                   | no       | Evse.uid, required when requesting an EVSE or Connector object.               |
-| connector_id  | int                                   | no       | Connector.id, required when requesting a Connector object.                    |
+| location_id   | [string](types.md#16-string-type)(15) | yes      | Location.id of the Location object to retrieve.                               |
+| evse_uid      | [string](types.md#16-string-type)(15) | no       | Evse.uid, required when requesting an EVSE or Connector object.               |
+| connector_id  | [string](types.md#16-string-type)(15) | no       | Connector.id, required when requesting a Connector object.                    |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -138,9 +138,9 @@ This is an information push message, the objects pushed will not be owned by the
 |---------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
 | country_code  | [string](types.md#16-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
 | party_id      | [string](types.md#16-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
-| location_id   | int                                   | yes      | Location.id of the new Location object, or the Location of which an EVSE or Location object is send |
-| evse_uid      | int                                   | no       | Evse.uid, required when an EVSE or Connector object is send/replaced.         |
-| connector_id  | int                                   | no       | Connector.id, required when a Connector object is send/replaced.              |
+| location_id   | [string](types.md#16-string-type)(15) | yes      | Location.id of the new Location object, or the Location of which an EVSE or Location object is send |
+| evse_uid      | [string](types.md#16-string-type)(15) | no       | Evse.uid, required when an EVSE or Connector object is send/replaced.         |
+| connector_id  | [string](types.md#16-string-type)(15) | no       | Connector.id, required when a Connector object is send/replaced.              |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 #### Request Body
