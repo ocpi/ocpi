@@ -15,6 +15,7 @@ Example:
     2015-06-29T20:39:09Z
     2015-06-29T20:39:09
 
+Note: +00:00 is not the same as UTC.
     
 ### 1.3 decimal *type*
 
