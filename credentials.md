@@ -65,7 +65,7 @@ Provides the server with credentials to the client's system, this initiates the 
 
 Updates the server's credentials to the client's system and switches to the version that contains this credentials endpoint. The server should also fetch the client's endpoints for this version.
 
-If successful, the server responds with the client's (potentially updated) credentials to the server's system.
+If successful, the server generates a new token for the client and responds with the client's updated credentials to the server's system.
 
 ## DELETE
 
@@ -99,11 +99,13 @@ At some point both parties will have implemented a newer OCPI version. To start 
 
 This can be done by following the update procedure for the same version. By sending a PUT request to the credentials endpoint of this version, the other party will fetch and store the corresponding set of endpoints.
 
+### Updating the credentials and resetting the token
+
+The credentials (or parts theirof, such as the token) can be updated by sending the new credentials via a PUT request to the credentials endpoint of the current version, similar to the update procedure described above.
 
 ### Errors during registration
 
 When the Server connects back to the client during the credentials registration, it might encounter problems. When this happens, the Server should add the status code: [3001](status_codes.md#3xxx-server-errors) in the response to the POST from the client. 
-
 
 ### Required endpoints not available
 
