@@ -202,7 +202,7 @@ Each object must contain all required fields. Fields that are not specified may 
 |-------------------------|---------------------------------------|-------|---------------------------------------------------------------------------------------------------------|
 | uid                     | [string](types.md#16-string-type)(15) | 1     | Identification used by CPO system to identify this token, for example RFID hidden ID                    |
 | type                    | [TokenType](#41-tokentype)            | 1     | Type of the token                                                                                       |
-| auth_id                 | [string](types.md#16-string-type)(32) | 1     | Uniquely identifies the EV Driver contract token within the eMSPs platform (and suboperator platforms). |
+| auth_id                 | [string](types.md#16-string-type)(32) | 1     | Uniquely identifies the EV Driver contract token within the eMSPs platform (and suboperator platforms). Recommended to follow the specification for EMAID in ISO/IEC 15118-2 - Annex H "Specification of Identifiers". |
 | visual_number           | [string](types.md#16-string-type)(64) | 1     | Visual readable number/identification of the Token                                                      |
 | issuer                  | [string](types.md#16-string-type)(64) | 1     | Issuing company                                                                                         |
 | valid                   | boolean                               | 1     | Is this Token valid                                                                                     |

@@ -350,7 +350,7 @@ An *EVSE* object has a list of connectors which can not be used simultaneously: 
 | Property                         | Type                                               | Card. | Description                                                        |
 |----------------------------------|----------------------------------------------------|-------|--------------------------------------------------------------------|
 | uid                              | [string](types.md#16-string-type)(15)              | 1     | Uniquely identifies the EVSE within the CPOs platform (and suboperator platforms). For example a database unique ID |
-| evse_id                          | [string](types.md#16-string-type)(48)              | ?     | ISO 15118 Compliant EVSE ID. Optional because: if an EVSE ID is to be re-used the EVSE ID can be removed from an EVSE that is removed (status: REMOVED) |
+| evse_id                          | [string](types.md#16-string-type)(48)              | ?     | Compliant with ISO/IEC 15118-2 - Annex H "Specification of Identifiers". Optional because: if an EVSE ID is to be re-used the EVSE ID can be removed from an EVSE that is removed (status: REMOVED) |
 | status                           | [Status](#414-status-enum)                         | 1     | Indicates the current status of the EVSE.                          |
 | status_schedule                  | [StatusSchedule](#415-statusschedule-class)        | *     | Indicates a planned status in the future of the EVSE.              |
 | capabilities                     | [Capability](#42-capability-enum)                  | *     | List of functionalities that the EVSE is capable of.               |
