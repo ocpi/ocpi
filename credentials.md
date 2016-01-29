@@ -1,23 +1,50 @@
 
 # Credentials endpoint
 
-Identifier: `credentials`
+**Module Identifier: `credentials`**
+
+## 1. Interfaces and endpoints
 
 Example: `/ocpi/cpo/2.0/credentials` and `/ocpi/emsp/2.0/credentials`
 
-
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Method   | Description                                                              |
-| -------- | ------------------------------------------------------------------------ |
-| GET      | Retrieves the client's credentials for the server's platform.            |
-| POST     | Provides the server with credentials to the client's system (i.e. register). |
-| PUT      | Updates the server's credentials to the client's system.                 |
-| DELETE   | Informs the server that its credentials to the client's system are now invalid (i.e. unregister).  |
+| Method                      | Description                                                                                       |
+|-----------------------------|---------------------------------------------------------------------------------------------------|
+| [GET](#11-get-method)       | Retrieves the client's credentials for the server's platform.                                     |
+| [POST](#12-post-method)     | Provides the server with credentials to the client's system (i.e. register).                      |
+| [PUT](#13-put-method)       | Updates the server's credentials to the client's system.                                          |
+| PATCH                       | n/a                                                                                               |
+| [DELETE](#14-delete-method) | Informs the server that its credentials to the client's system are now invalid (i.e. unregister). |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
-## Data
 
-### Credentials object
+### 1.1 __GET__ Method
+
+Retrieves the client's credentials for the server's platform. The response is the same as a response to a POST or PUT, but without generating a new token. The Request body is empty, the response contains the credentials for the server's platform.
+
+
+### 1.2 __POST__ Method
+
+Provides the server with credentials to the client's system, this initiates the registration process. If successful, the server responds with the client's new credentials to the server's system.
+
+
+### 1.3 __PUT__ Method
+
+Updates the server's credentials to the client's system and switches to the version that contains this credentials endpoint. The server should also fetch the client's endpoints for this version.
+
+If successful, the server generates a new token for the client and responds with the client's updated credentials to the server's system.
+
+
+### 1.4 __DELETE__ Method
+
+Informs the server that its credentials to the client's system are now invalid and can no longer be used. This is the unregistration process.
+
+If successful, the server responds with an empty OCPI response message (i.e. `data` is null).
+
+
+## 2. Object description
+
+### 2.1 Credentials object
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property                 | Type                                                                   | Card. | Description                                                       |
@@ -53,29 +80,9 @@ Example: `/ocpi/cpo/2.0/credentials` and `/ocpi/emsp/2.0/credentials`
 }
 ```
 
-## GET
+## 3 Use cases
 
-Retrieves the client's credentials for the server's platform.
-
-## POST
-
-Provides the server with credentials to the client's system, this initiates the registration process. If successful, the server responds with the client's new credentials to the server's system.
-
-## PUT
-
-Updates the server's credentials to the client's system and switches to the version that contains this credentials endpoint. The server should also fetch the client's endpoints for this version.
-
-If successful, the server generates a new token for the client and responds with the client's updated credentials to the server's system.
-
-## DELETE
-
-Informs the server that its credentials to the client's system are now invalid and can no longer be used. This is the unregistration process.
-
-If successful, the server responds with an empty OCPI response message (i.e. `data` is null).
-
-## Use cases
-
-### Registration
+### 3.1 Registration
 
 To register a CPO in an eMSP platform (or vice versa), the CPO must create a unique token that can be used for authenticating the eMSP. This token along with the versions endpoint should be sent to the eMSP in a secure way that is outside the scope of this protocol.
 
@@ -88,26 +95,26 @@ To register a CPO in an eMSP platform (or vice versa), the CPO must create a uni
 Due to its symmetric nature, the CPO and eMSP can be swapped in the registration sequence.
 
 
-### Updating to a newer version
+### 3.2 Updating to a newer version
 
 At some point both parties will have implemented a newer OCPI version. To start using the newer version, one party has to send a PUT request to the credentials endpoint of the other party.
 
 ![the OCPI update process](data/update-sequence.png)
 
 
-### Changing endpoints for the current version
+### 3.3 Changing endpoints for the current version
 
 This can be done by following the update procedure for the same version. By sending a PUT request to the credentials endpoint of this version, the other party will fetch and store the corresponding set of endpoints.
 
-### Updating the credentials and resetting the token
+### 3.4 Updating the credentials and resetting the token
 
 The credentials (or parts theirof, such as the token) can be updated by sending the new credentials via a PUT request to the credentials endpoint of the current version, similar to the update procedure described above.
 
-### Errors during registration
+### 3.5 Errors during registration
 
 When the Server connects back to the client during the credentials registration, it might encounter problems. When this happens, the Server should add the status code: [3001](status_codes.md#3xxx-server-errors) in the response to the POST from the client. 
 
-### Required endpoints not available
+### 3.6 Required endpoints not available
 
 When two parties connect, it might happen that one of the parties expects a certain endpoint to be available at the other party. 
 
