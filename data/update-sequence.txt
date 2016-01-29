@@ -29,7 +29,7 @@ note right
     is retrieved from the available versions.
 end note
 CPO -> CPO: Store version and endpoints
-CPO --> eMSP: Potentially updated credentials for eMSP
+CPO --> eMSP: Return updated credentials for eMSP
 deactivate CPO
 
 eMSP -> eMSP: Store updated credentials
