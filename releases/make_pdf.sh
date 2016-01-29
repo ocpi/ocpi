@@ -4,9 +4,10 @@ command -v pandoc >/dev/null 2>&1 || { echo >&2 "I require pandoc >1.9.2 but it'
 #############################################
 #############################################
 # adjust these before you release
-RELEASE_NAME="2.0"
-OUTFILE="OCPI_${RELEASE_NAME}.pdf"
-RELEASE_DATE="24.12.2015"
+PROTOCOL_VERSION="2.0"
+DOCUMENT_VERSION="d2"
+OUTFILE="OCPI_${PROTOCOL_VERSION}_${DOCUMENT_VERSION}.pdf"
+RELEASE_DATE=$(date +%d.%m.%Y)
 RELEASE_DIR=".."
 LATEX_ENGINE="pdflatex"
 #############################################
@@ -67,7 +68,7 @@ perl -p -i -e 's/\|(?=\n)//g' all.md
 pandoc \
   --variable mainfont="Times"  --variable fontsize=10pt --number-sections \
   -V geometry:margin=1in -V papersize:"a4paper" \
-  -V title-meta:"Open Charge Point Interface $RELEASE_NAME" -V title:"OCPI $RELEASE_NAME" -V subtitle:"Open Charge Point Interface $RELEASE_NAME"\
+  -V title-meta:"Open Charge Point Interface $PROTOCOL_VERSION" -V title:"OCPI $PROTOCOL_VERSION" -V subtitle:"Open Charge Point Interface $PROTOCOL_VERSION, document version: $DOCUMENT_VERSION"\
   -V author:"https://github.com/ocpi" \
   -V author-meta:"OCPI group" -V date:"$RELEASE_DATE" \
   --include-in-header ocpi-header.tex --toc -f markdown_github+multiline_tables -t latex all.md -o "$OUTFILE" --latex-engine="$LATEX_ENGINE"
