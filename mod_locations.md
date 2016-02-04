@@ -286,8 +286,8 @@ A *Location* without valid *EVSE* objects can be considered as expired and shoul
 	"postal_code": "9000",
 	"country": "BEL",
 	"coordinates": {
-		"latitude": "3.72994",
-		"longitude": "51.04759"
+		"latitude": "51.04759",
+		"longitude": "3.72994"
 	},
 	"evses": [{
         "uid": "3256",
@@ -318,7 +318,7 @@ A *Location* without valid *EVSE* objects can be considered as expired and shoul
 	}, {
         "uid": "3257",
 		"id": "BE-BEC-E041503002",
-		"status": "reserved",
+		"status": "RESERVED",
 		"capabilities": [
 			"RESERVABLE"
 		],
