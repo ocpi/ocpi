@@ -279,7 +279,7 @@ A *Location* without valid *EVSE* objects can be considered as expired and shoul
 ```json
 {
 	"id": "LOC1",
-	"type": "on_street",
+	"type": "ON_STREET",
 	"name": "Gent Zuid",
 	"address": "F.Rooseveltlaan 3A",
 	"city": "Gent",
@@ -293,11 +293,13 @@ A *Location* without valid *EVSE* objects can be considered as expired and shoul
         "uid": "3256",
 		"id": "BE-BEC-E041503001",
 		"status": "AVAILABLE",
+		"status_schedule": [],
 		"capabilities": [
 			"RESERVABLE"
 		],
 		"connectors": [{
 			"id": "1",
+			"status": "AVAILABLE",
 			"standard": "IEC_62196_T2",
 			"format": "CABLE",
 			"power_type": "AC_3_PHASE",
@@ -306,6 +308,7 @@ A *Location* without valid *EVSE* objects can be considered as expired and shoul
 			"tariff_id": "11"
 		}, {
 			"id": "2",
+			"status": "AVAILABLE",
 			"standard": "IEC_62196_T2",
 			"format": "SOCKET",
 			"power_type": "AC_3_PHASE",
@@ -313,7 +316,7 @@ A *Location* without valid *EVSE* objects can be considered as expired and shoul
 			"amperage": 16,
 			"tariff_id": "11"
 		}],
-		"physical_reference": 1,
+		"physical_reference": "1",
 		"floor_level": "-1"
 	}, {
         "uid": "3257",
@@ -324,6 +327,7 @@ A *Location* without valid *EVSE* objects can be considered as expired and shoul
 		],
 		"connectors": [{
 			"id": "1",
+			"status": "RESERVED",
 			"standard": "IEC_62196_T2",
 			"format": "SOCKET",
 			"power_type": "AC_3_PHASE",
@@ -331,8 +335,8 @@ A *Location* without valid *EVSE* objects can be considered as expired and shoul
 			"amperage": 16,
 			"tariff_id": "12"
 		}],
-		"physical_reference": 2,
-		"floor_level": -2
+		"physical_reference": "2",
+		"floor_level": "-2"
 	}],
 	"operator": {
 		"name": "BeCharged"
