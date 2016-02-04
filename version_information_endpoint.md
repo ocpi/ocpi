@@ -94,7 +94,19 @@ Both the CPO and the eMSP must have this endpoint.
 
 ### ModuleID *enum*
 
-The Module identifiers for each endpoint are in the beginning of each *Module* chapter.
+The Module identifiers for each endpoint are in the beginning of each *Module* chapter. The following table contains the list of modules in this version of OCPI
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Module                                       | ModuleID    | Remark                            |
+|----------------------------------------------|-------------|-----------------------------------|
+| [CDRs](mod_cdrs.md)                          | cdrs        |                                   |
+| [Credentials & registration](credentials.md) | credentials | Required for all implementations  |
+| [Locations](mod_locations.md)                | locations   |                                   |
+| [Sessions](mod_sessions.md)                  | sessions    |                                   |
+| [Tariffs](mod_tariffs.md)                    | tariffs     |                                   |
+| [Tokens](mod_tokens.md)                      | tokens      |                                   |
+<div><!-- ---------------------------------------------------------------------------- --></div>
+
 
 ## GET
 
