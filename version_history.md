@@ -10,6 +10,7 @@ NoDerivatives 4.0 International Public License*
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Version | Date       | Authors          | Description          |
 |---------|------------|------------------|----------------------|
+| 2.0 d2  | 05-05-2016 | Christoph Zwirello (The New Motion) <br /> Cristina Rivera (The New Motion ) <br /> Michel Bayings (EV Box) <br /> Michiel Kramer (GreenFlux / ICT) <br /> Razvan Turtoi (EV Box) <br /> Robert de Leeuw (IHomer) <br /> Rutger Plantenga (The New Motion) <br /> Simon Philips (BeCharged) <br /> Simon Schilling (ElaadNL) |Documentation update of the 2.0 specification. Lots of textual fixes. |
 | 2.0     | 30-12-2015 | Christoph Zwirello (The New Motion) <br /> Cristina Rivera (The New Motion ) <br /> Léon Huijsdens (GreenFlux / ICT) <br> Michel Bayings (EV Box) <br /> Michiel Kramer (GreenFlux / ICT) <br /> Razvan Turtoi (EV Box) <br /> Robert de Leeuw (IHomer) <br /> Rutger Plantenga (The New Motion) <br /> Simon Philips (BeCharged) <br /> Simon Schilling (ElaadNL) |First official release of OCPI. |
 | 0.4     | 04-11-2014 | Olger Warnier (The New Motion) | First draft of OCPI. (Also known as Draft v4) |
 | 0.3     | 06-05-2014 | Olger Warnier (The New Motion) <br /> Dan Brooke (The New Motion) | First draft of OCPI. (Also known as Draft v3) |
