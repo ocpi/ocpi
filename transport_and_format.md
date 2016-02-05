@@ -205,6 +205,16 @@ For brevity's sake, any further examples used in this specification will only co
 ```
 
 
+#### Example: Response with an error (not data)
+
+```json
+{
+	"status_code": 2001,
+	"status_message": "Missing required field: type",
+	"timestamp": "2015-06-30T21:59:59Z"
+}
+```
+
 ## Interface endpoints
 
 As OCPI contains multiple interfaces, different endpoints are available for messaging. The protocol is designed such that the exact URLs of the endpoints can be defined by each party. It also supports an interface per version.
