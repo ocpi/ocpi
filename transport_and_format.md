@@ -104,7 +104,7 @@ The content that is sent with all the response messages is an 'application/json'
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property       | Type                                  | Card. | Description                                               |
 |----------------|---------------------------------------|-------|-----------------------------------------------------------|
-| data           | object                                | *     | Contains the actual response data object or list of objects from each request. |
+| data           | object                                | *     | Contains the actual response data object or list of objects from each request, depending on the cardinology of the response data, this is an array (card. * or +), or a single object (card. 1 or ?) |
 | status_code    | Integer                               | 1     | Response code, as listed in [Status Codes](status_codes.md#status-codes), indicates how the request was handled. To avoid confusion with HTTP codes, at least four digits are used.                              |
 | status_message | String                                | ?     | An optional status message which may help when debugging. |
 | timestamp      | [DateTime](types.md#12_datetime_type) | 1     | The time this message was generated.                      |
@@ -112,11 +112,28 @@ The content that is sent with all the response messages is an 'application/json'
 
 For brevity's sake, any further examples used in this specification will only contain the value of the "data" field. In reality, it will always have to be wrapped in the above response format.
 
-#### Example: Version details response
+#### Example: Version information response (list of objects)
 
 ```json
 {
 	"data": [{
+        "version": "1.9",
+        "url": "https://example.com/ocpi/cpo/1.9/"
+    }, {
+        "version": "2.0",
+        "url": "https://example.com/ocpi/cpo/2.0/"
+    }],
+	"status_code": 1000,
+	"status_message": "Success",
+	"timestamp": "2015-06-30T21:59:59Z"
+}
+```
+
+#### Example: Version details response (one object)
+
+```json
+{
+	"data": {
 		"version": "2.0",
 		"endpoints": [{
 			"identifier": "credentials",
@@ -125,18 +142,18 @@ For brevity's sake, any further examples used in this specification will only co
 			"identifier": "locations",
 			"url": "https://example.com/ocpi/cpo/2.0/locations/"
 		}]
-	}],
+	},
 	"status_code": 1000,
 	"status_message": "Success",
 	"timestamp": "2015-06-30T21:59:59Z"
 }
 ```
 
-#### Example: Tokens GET Response with one Token object. (CPO end-point)
+#### Example: Tokens GET Response with one Token object. (CPO end-point) (one object)
 
 ```json
 {
-	"data": [{
+	"data": {
 		"uid": "012345678",
 		"type": "RFID",
 		"auth_id": "FA54320",
@@ -144,7 +161,7 @@ For brevity's sake, any further examples used in this specification will only co
 		"issuer": "TheNewMotion",
 		"valid": true,
 		"allow_whitelist": true
-	}],
+	},
 	"status_code": 1000,
 	"status_message": "Success",
 	"timestamp": "2015-06-30T21:59:59Z"
@@ -152,7 +169,7 @@ For brevity's sake, any further examples used in this specification will only co
 ```
 
 
-#### Example: Tokens GET Response with list of Token objects. (eMSP end-point)
+#### Example: Tokens GET Response with list of Token objects. (eMSP end-point) (list of objects)
 
 ```json
 {
