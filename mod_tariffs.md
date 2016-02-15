@@ -405,8 +405,8 @@ Parking costs:
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property                | Type                                  | Card. | Description                                                                           |
 |-------------------------|---------------------------------------|-------|---------------------------------------------------------------------------------------|
-| start_time              | [string](types.md#16-string-type)(5)  | ?     | Start time of day, for example 13:30, valid from this time of the day                 |
-| end_time                | [string](types.md#16-string-type)(5)  | ?     | End time of day, for example 19:45, valid until this time of the day                  |
+| start_time              | [string](types.md#16-string-type)(5)  | ?     | Start time of day, for example 13:30, valid from this time of the day. Must be in 24h format with leading zeros. Hour/Minute separator: ":" Regex: [0-2][0-9]:[0-5][0-9] |
+| end_time                | [string](types.md#16-string-type)(5)  | ?     | End time of day, for example 19:45, valid until this time of the day. Same syntax as start_time |
 | start_date              | [string](types.md#16-string-type)(10) | ?     | Start date, for example: 2015-12-24, valid from this day                              |
 | end_date                | [string](types.md#16-string-type)(10) | ?     | End date, for example: 2015-12-27, valid until this day (excluding this day)          |
 | min_kwh                 | [decimal](types.md#13-decimal-type)   | ?     | Minimum used energy in kWh, for example 20, valid from this amount of energy is used  |                             
