@@ -61,9 +61,9 @@ perl -p -i -e 's/^\|[\s-:]/  /g' all.md
 perl -p -i -e 's/\|\s(?=\w)/  /g' all.md
 perl -p -i -e 's/\|(?=\w)/ /g' all.md
 perl -p -i -e 's/[-:]\|[-:]/-  /g' all.md
-perl -p -i -e 's/ \| /   /g' all.md
+perl -p -i -e "s/ \| (?=[^\n])/   /g" all.md
 perl -i -e '$/ = undef; while($all = <>){ $all =~ s/(?<=[\w.!?:\]\)\$*"`~])\s*\|\s*(?=\n\s+[\w?1*+>])/\n\n/g; print $all;}' all.md
-perl -p -i -e 's/\|(?=\n)//g' all.md
+perl -p -i -e 's/\|\s*(?=\n)//g' all.md
 
 pandoc \
   --variable mainfont="Times"  --variable fontsize=10pt --number-sections \
