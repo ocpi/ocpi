@@ -5,10 +5,10 @@ command -v pandoc >/dev/null 2>&1 || { echo >&2 "I require pandoc >1.9.2 but it'
 #############################################
 # adjust these before you release
 PROTOCOL_VERSION="2.0"
-DOCUMENT_VERSION="d2"
-OUTFILE="OCPI_${PROTOCOL_VERSION}_${DOCUMENT_VERSION}.pdf"
+DOCUMENT_VERSION="${PROTOCOL_VERSION}-d2"
+OUTFILE="OCPI_${DOCUMENT_VERSION}.pdf"
 RELEASE_DATE=$(date +%d.%m.%Y)
-RELEASE_DIR=".."
+RELEASE_DIR=${DOCUMENT_VERSION}
 LATEX_ENGINE="pdflatex"
 #############################################
 #############################################
@@ -62,7 +62,7 @@ perl -p -i -e 's/\|\s(?=\w)/  /g' all.md
 perl -p -i -e 's/\|(?=\w)/ /g' all.md
 perl -p -i -e 's/[-:]\|[-:]/-  /g' all.md
 perl -p -i -e 's/ \| /   /g' all.md
-perl -i -e '$/ = undef; while($all = <>){ $all =~ s/(?<=[\w.!?:\]\)\$*"`~])\s*\|(?=\n\s+[\w?1*+>])/\n\n/g; print $all;}' all.md
+perl -i -e '$/ = undef; while($all = <>){ $all =~ s/(?<=[\w.!?:\]\)\$*"`~])\s*\|\s*(?=\n\s+[\w?1*+>])/\n\n/g; print $all;}' all.md
 perl -p -i -e 's/\|(?=\n)//g' all.md
 
 pandoc \
