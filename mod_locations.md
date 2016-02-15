@@ -373,16 +373,17 @@ An *EVSE* object has a list of connectors which can not be used simultaneously: 
 A connector is the socket or cable available for the EV to use. A single EVSE may provide multiple connectors but only one of them can be in use at the same time. A connector always belongs to an *EVSE* object.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Property                         | Type                                     | Card. | Description                                                             |
-|----------------------------------|------------------------------------------|-------|-------------------------------------------------------------------------|
-| id                               | [string](types.md#16-string-type)(15)    | 1     | Identifier of the connector within the EVSE. Two connectors may have the same id as long as they do not belong to the same *EVSE* object. |
-| status                           | [Status](#414-status-enum)               | 1     | Indicates the current status of this connector.                          | standard                         | [ConnectorType](#44-connectortype-enum)  | 1     | The standard of the installed connector.                                |
+| Property                         | Type                                        | Card. | Description                                                             |
+|----------------------------------|---------------------------------------------|-------|-------------------------------------------------------------------------|
+| id                               | [string](types.md#16-string-type)(15)       | 1     | Identifier of the connector within the EVSE. Two connectors may have the same id as long as they do not belong to the same *EVSE* object. |
+| status                           | [Status](#414-status-enum)                  | 1     | Indicates the current status of this connector.                         | 
+| standard                         | [ConnectorType](#44-connectortype-enum)     | 1     | The standard of the installed connector.                                |
 | format                           | [ConnectorFormat](#43-connectorformat-enum) | 1     | The format (socket/cable) of the installed connector.                   |
-| power_type                       | [PowerType](#412-powertype-enum)         | 1     |                                                                         |
-| voltage                          | int                                      | 1     | Voltage of the connector (line to neutral for AC_3_PHASE), in volt [V]. |
-| amperage                         | int                                      | 1     | maximum amperage of the connector, in ampere [A].                         |
-| tariff_id                        | string(15)                               | ?     | Identifier of the current charging tariff structure                     |
-| terms_and_conditions             | [URL](types.md#14_url_type)              | ?     | URL to the operator's terms and conditions.                             |
+| power_type                       | [PowerType](#412-powertype-enum)            | 1     |                                                                         |
+| voltage                          | int                                         | 1     | Voltage of the connector (line to neutral for AC_3_PHASE), in volt [V]. |
+| amperage                         | int                                         | 1     | maximum amperage of the connector, in ampere [A].                       |
+| tariff_id                        | string(15)                                  | ?     | Identifier of the current charging tariff structure                     |
+| terms_and_conditions             | [URL](types.md#14_url_type)                 | ?     | URL to the operator's terms and conditions.                             |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
