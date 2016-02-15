@@ -66,9 +66,11 @@ perl -i -e '$/ = undef; while($all = <>){ $all =~ s/(?<=[\w.!?:\]\)\$*"`~])\s*\|
 perl -p -i -e 's/\|\s*(?=\n)//g' all.md
 
 pandoc \
-  --variable mainfont="Times"  --variable fontsize=10pt --number-sections \
+  --template=ocpi.latex \
+  -V mainfont="Times"  -V fontsize=10pt --number-sections \
   -V geometry:margin=1in -V papersize:"a4paper" \
-  -V title-meta:"Open Charge Point Interface $PROTOCOL_VERSION" -V title:"OCPI $PROTOCOL_VERSION" -V subtitle:"Open Charge Point Interface $PROTOCOL_VERSION, document version: $DOCUMENT_VERSION"\
+  -V title-meta:"Open Charge Point Interface $PROTOCOL_VERSION" -V title:"OCPI $PROTOCOL_VERSION" \
+  -V subtitle:"Open Charge Point Interface $PROTOCOL_VERSION, document version: $DOCUMENT_VERSION"\
   -V author:"https://github.com/ocpi" \
   -V author-meta:"OCPI group" -V date:"$RELEASE_DATE" \
   --include-in-header ocpi-header.tex --toc -f markdown_github+multiline_tables -t latex all.md -o "$OUTFILE" --latex-engine="$LATEX_ENGINE"

@@ -1,20 +1,25 @@
-Copyright © 2014 – 2016 NKL. All rights reserved.
-This document is made available under the *Creative Commons Attribution-
-NoDerivatives 4.0 International Public License*
+Copyright © 2014 – 2016 NKL. All rights reserved.<br/>
+This document is made available under the *Creative Commons Attribution-<br/>
+NoDerivatives 4.0 International Public License*<br/>
 (https://creativecommons.org/licenses/by-nd/4.0/legalcode).
-
-<br />
-
+<br/>
+<br/>
+<br/>
+<br/> 
+<br/>
+<br/>
 **Version History**
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Version | Date       | Authors          | Description          |
-|---------|------------|------------------|----------------------|
-| 2.0-d2  | 15-02-2016 | Christoph Zwirello (The New Motion) <br /> Cristina Rivera (The New Motion ) <br /> Michel Bayings (EV Box) <br /> Michiel Kramer (GreenFlux / ICT) <br /> Razvan Turtoi (EV Box) <br /> Robert de Leeuw (IHomer) <br /> Simon Philips (BeCharged) <br /> Simon Schilling (ElaadNL) | 2de documentation revision of the OCPI 2.0 spec. Only documentation updated: ConnectorType of Connector was not visible, credentials clarified, location URL segments incorrect (now string, was int), minor textual updates. DateTime with timezones is still an issue 
-| 2.0     | 30-12-2015 | Christoph Zwirello (The New Motion) <br /> Cristina Rivera (The New Motion ) <br /> Léon Huijsdens (GreenFlux / ICT) <br> Michel Bayings (EV Box) <br /> Michiel Kramer (GreenFlux / ICT) <br /> Razvan Turtoi (EV Box) <br /> Robert de Leeuw (IHomer) <br /> Rutger Plantenga (The New Motion) <br /> Simon Philips (BeCharged) <br /> Simon Schilling (ElaadNL) |First official release of OCPI. |
-| 0.4     | 04-11-2014 | Olger Warnier (The New Motion) | First draft of OCPI. (Also known as Draft v4) |
-| 0.3     | 06-05-2014 | Olger Warnier (The New Motion) <br /> Dan Brooke (The New Motion) | First draft of OCPI. (Also known as Draft v3) |
+| Version | Date       | Description                                      |
+|---------|------------|--------------------------------------------------|
+| 2.0-d2  | 15-02-2016 | 2nd documentation revision of the OCPI 2.0 spec. <br/> Only documentation updated: ConnectorType of Connector<br/> was not visible, credentials clarified, location URL<br/> segments incorrect (now string, was int), <br/>minor textual updates.<br/> DateTime with timezones is still an issue |
+| 2.0     | 30-12-2015 | First official release of OCPI. |
+| 0.4     | 04-11-2014 | First draft of OCPI. (Also known as Draft v4) |
+| 0.3     | 06-05-2014 | First draft of OCPI. (Also known as Draft v3) |
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
+
 
 **Document revisions**
 There can be multiple documentation revisions of the same version of the OCPI protocol.
