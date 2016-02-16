@@ -104,11 +104,11 @@ for example validation purposes, or the CPO system might have received a error o
 The following parameters can be provided as URL segments.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Parameter    | Datatype                              | Required | Description                                                                   |
-|--------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
-| country_code | [string](types.md#16-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
-| party_id     | [string](types.md#16-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
-| session_id   | [string](types.md#16-string-type)(15) | yes      | id of the Session object to get from the eMSP system.                         |
+| Parameter        | Datatype                              | Required | Description                                                                   |
+|------------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
+| country_code     | [string](types.md#16-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
+| party_id         | [string](types.md#16-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
+| session_id       | [string](types.md#16-string-type)(15) | yes      | id of the Session object to get from the eMSP system.                         |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -142,11 +142,11 @@ The request contains the new or updated Session object.
 The following parameters can be provided as URL segments.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Parameter    | Datatype                              | Required | Description                                                                   |
-|--------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
-| country_code | [string](types.md#16-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
-| party_id     | [string](types.md#16-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
-| session_id   | [string](types.md#16-string-type)(15) | yes      | id of the new or updated Session object.                                      |
+| Parameter        | Datatype                              | Required | Description                                                                   |
+|------------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
+| country_code     | [string](types.md#16-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
+| party_id         | [string](types.md#16-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
+| session_id       | [string](types.md#16-string-type)(15) | yes      | id of the new or updated Session object.                                      |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -174,11 +174,11 @@ Inform the eMSP about a deleted Session object.
 The following parameters can be provided as URL segments.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Parameter    | Datatype                              | Required | Description                                                                   |
-|--------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
-| country_code | [string](types.md#16-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
-| party_id     | [string](types.md#16-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
-| session_id   | [string](types.md#16-string-type)(15) | yes      | ID of the Session to be deleted                                               |
+| Parameter        | Datatype                              | Required | Description                                                                   |
+|------------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
+| country_code     | [string](types.md#16-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
+| party_id         | [string](types.md#16-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
+| session_id       | [string](types.md#16-string-type)(15) | yes      | ID of the Session to be deleted                                               |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -187,20 +187,20 @@ The following parameters can be provided as URL segments.
 ### 3.1 _Session_ Object
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Property                       | Type                                                       | Card. | Description                                                                                                    |
-|--------------------------------|------------------------------------------------------------|-------|----------------------------------------------------------------------------------------------------------------|
-| id                             | [string](types.md#16-string-type)(15)                      | 1     | The unique id that identifies the session in the CPO platform.                                                 |
-| start_datetime                 | [DateTime](types.md#12_datetime_type)                      | 1     | The time when the session became active.                                                                       |
-| end_datetime                   | [DateTime](types.md#12_datetime_type)                      | ?     | The time when the session is completed.                                                                        |
-| kwh                            | [decimal](types.md#13_decimal_type)                        | 1     | How many kWh are charged.                                                                                      |
-| auth_id                        | [string](types.md#16-string-type)(15)                      | 1     | An id provided by the authentication used, so that the eMSP knows to which driver the session belongs.         |
-| auth_method                    | [AuthMethod](mod_cdrs.md#41-authmethod-enum)               | 1     | Method used for authentication.                                                                                |
-| location                       | [Location](mod_locations.md#31-location-object)            | 1     | The location where this session took place, including only the relevant EVSE and connector                |
-| meter_id                       | [string](types.md#16-string-type)(255)                     | ?     | Optional identification of the kWh meter.                                                                      |
-| currency                       | [string](types.md#16-string-type)(3)                       | 1     | ISO 4217 code of the currency used for this session.                                                           |
-| charging_periods               | [ChargingPeriod](mod_cdrs.md#43-chargingperiod-class)      | *     | An optional list of charging periods that can be used to calculate and verify the total cost.                  |
-| total_cost                     | [decimal](types.md#13_decimal_type)                        | 1     | The total cost (excluding VAT) of the session in the specified currency. This is the price that the eMSP will have to pay to the CPO. |
-| status                         | [SessionStatus](#41-sessionstatus-enum)                    | 1     | The status of the session.                                                                                  |
+| Property                          | Type                                                       | Card. | Description                                                                                                    |
+|-----------------------------------|------------------------------------------------------------|-------|----------------------------------------------------------------------------------------------------------------|
+| id                                | [string](types.md#16-string-type)(15)                      | 1     | The unique id that identifies the session in the CPO platform.                                                 |
+| start_datetime                    | [DateTime](types.md#12_datetime_type)                      | 1     | The time when the session became active.                                                                       |
+| end_datetime                      | [DateTime](types.md#12_datetime_type)                      | ?     | The time when the session is completed.                                                                        |
+| kwh                               | [decimal](types.md#13_decimal_type)                        | 1     | How many kWh are charged.                                                                                      |
+| auth_id                           | [string](types.md#16-string-type)(15)                      | 1     | An id provided by the authentication used, so that the eMSP knows to which driver the session belongs.         |
+| auth_method                       | [AuthMethod](mod_cdrs.md#41-authmethod-enum)               | 1     | Method used for authentication.                                                                                |
+| location                          | [Location](mod_locations.md#31-location-object)            | 1     | The location where this session took place, including only the relevant EVSE and connector                |
+| meter_id                          | [string](types.md#16-string-type)(255)                     | ?     | Optional identification of the kWh meter.                                                                      |
+| currency                          | [string](types.md#16-string-type)(3)                       | 1     | ISO 4217 code of the currency used for this session.                                                           |
+| charging_periods                  | [ChargingPeriod](mod_cdrs.md#43-chargingperiod-class)      | *     | An optional list of charging periods that can be used to calculate and verify the total cost.                  |
+| total_cost                        | [decimal](types.md#13_decimal_type)                        | 1     | The total cost (excluding VAT) of the session in the specified currency. This is the price that the eMSP will have to pay to the CPO. |
+| status                            | [SessionStatus](#41-sessionstatus-enum)                    | 1     | The status of the session.                                                                                  |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 

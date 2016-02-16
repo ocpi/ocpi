@@ -64,11 +64,11 @@ If the eMSP wants to check the status of a Token in the CPO system it might GET 
 The following parameters can be provided as URL segments.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Parameter     | Datatype                              | Required | Description                                                                   |
-|---------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
-| country_code  | [string](types.md#16-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
-| party_id      | [string](types.md#16-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
-| token_uid     | [string](types.md#16-string-type)(15) | yes      | Token.uid of the Token object to retrieve.                                    |
+| Parameter         | Datatype                              | Required | Description                                                                   |
+|-------------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
+| country_code      | [string](types.md#16-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
+| party_id          | [string](types.md#16-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
+| token_uid         | [string](types.md#16-string-type)(15) | yes      | Token.uid of the Token object to retrieve.                                    |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -103,11 +103,11 @@ In the put request a the new or updated Token object is send.
 The following parameters can be provided as URL segments.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Parameter     | Datatype                              | Required | Description                                                                   |
-|---------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
-| country_code  | [string](types.md#16-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
-| party_id      | [string](types.md#16-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
-| token_uid     | [string](types.md#16-string-type)(15) | yes      | Token.uid of the (new) Token object (to replace).                             |
+| Parameter         | Datatype                              | Required | Description                                                                   |
+|-------------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
+| country_code      | [string](types.md#16-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
+| party_id          | [string](types.md#16-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
+| token_uid         | [string](types.md#16-string-type)(15) | yes      | Token.uid of the (new) Token object (to replace).                             |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 ##### Example: put a new Token

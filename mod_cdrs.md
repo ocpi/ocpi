@@ -68,12 +68,12 @@ If additional parameters: {date_from} and/or {date_to} are provided, only CDRs o
 This request is [paginated](transport_and_format.md#get), it supports the [pagination](transport_and_format.md#paginated-request) related URL parameters.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Parameter  | Datatype                              | Required | Description                                                                   |
-|------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
-| date_from  | [DateTime](types.md#12_datetime_type) | no       | Begin charging session start Date/Time of CDRs to fetch.                      |
-| date_to    | [DateTime](types.md#12_datetime_type) | no       | End charging session start Date/Time of CDRs to fetch, if omitted all CDRs up to now are request to be returned. |
-| offset     | int                                   | no       | The offset of the first object returned. Default is 0.                        |
-| limit      | int                                   | no       | Maximum number of objects to GET.                                             |
+| Parameter     | Datatype                             | Required    | Description                                                               |
+|---------------|--------------------------------------|-------------|---------------------------------------------------------------------------|
+| date_from     | [DateTime](types.md#12_datetime_type)| no          | Begin charging session start Date/Time of CDRs to fetch.                  |
+| date_to       | [DateTime](types.md#12_datetime_type)| no          | End charging session start Date/Time of CDRs to fetch, if omitted all CDRs up to now are request to be returned. |
+| offset        | int                                  | no          | The offset of the first object returned. Default is 0.                    |
+| limit         | int                                  | no          | Maximum number of objects to GET.                                         |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 

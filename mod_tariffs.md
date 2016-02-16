@@ -109,11 +109,11 @@ If the CPO wants to check the status of a Tariff in the eMSP system it might GET
 The following parameters can be provided as URL segments.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Parameter     | Datatype                              | Required | Description                                                                   |
-|---------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
-| country_code  | [string](types.md#16-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
-| party_id      | [string](types.md#16-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
-| tariff_id     | [string](types.md#16-string-type)(15) | yes      | Tariff.id of the Tariff object to retrieve.                                   |
+| Parameter         | Datatype                              | Required | Description                                                                   |
+|-------------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
+| country_code      | [string](types.md#16-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
+| party_id          | [string](types.md#16-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
+| tariff_id         | [string](types.md#16-string-type)(15) | yes      | Tariff.id of the Tariff object to retrieve.                                   |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -147,11 +147,11 @@ In the put request the new or updated Tariff object is sent.
 The following parameters can be provided as URL segments.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Parameter     | Datatype                              | Required | Description                                                                   |
-|---------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
-| country_code  | [string](types.md#16-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
-| party_id      | [string](types.md#16-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
-| tariff_id     | [string](types.md#16-string-type)(15) | yes      | Tariff.id of the (new) Tariff object (to replace).                            |
+| Parameter         | Datatype                              | Required | Description                                                                   |
+|-------------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
+| country_code      | [string](types.md#16-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
+| party_id          | [string](types.md#16-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
+| tariff_id         | [string](types.md#16-string-type)(15) | yes      | Tariff.id of the (new) Tariff object (to replace).                            |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 ##### Example: New Tariff 2 euro per hour
@@ -201,11 +201,11 @@ Delete a no longer valid Tariff object.
 The following parameters can be provided as URL segments.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Parameter     | Datatype                              | Required | Description                                                                   |
-|---------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
-| country_code  | [string](types.md#16-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
-| party_id      | [string](types.md#16-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
-| tariff_id     | [string](types.md#16-string-type)(15) | yes      | Tariff.id of the Tariff object to delete.                                     |
+| Parameter         | Datatype                              | Required | Description                                                                   |
+|-------------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
+| country_code      | [string](types.md#16-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
+| party_id          | [string](types.md#16-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
+| tariff_id         | [string](types.md#16-string-type)(15) | yes      | Tariff.id of the Tariff object to delete.                                     |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
