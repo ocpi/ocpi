@@ -376,7 +376,6 @@ A connector is the socket or cable available for the EV to use. A single EVSE ma
 | Property                           | Type                                        | Card. | Description                                                             |
 |------------------------------------|---------------------------------------------|-------|-------------------------------------------------------------------------|
 | id                                 | [string](types.md#16-string-type)(15)       | 1     | Identifier of the connector within the EVSE. Two connectors may have the same id as long as they do not belong to the same *EVSE* object. |
-| status                             | [Status](#414-status-enum)                  | 1     | Indicates the current status of this connector.                         | 
 | standard                           | [ConnectorType](#44-connectortype-enum)     | 1     | The standard of the installed connector.                                |
 | format                             | [ConnectorFormat](#43-connectorformat-enum) | 1     | The format (socket/cable) of the installed connector.                   |
 | power_type                         | [PowerType](#412-powertype-enum)            | 1     |                                                                         |
