@@ -16,7 +16,7 @@ If the CPO wants to replace a Location related object, they push it to the eMSP 
 Any changes to a Location related object can also be pushed to the eMSP by calling the [PATCH](#223-patch-method) on the eMSPs Locations endpoint.
 Providers who do not support push mode need to call [GET](#211-get-method) on the CPOs Locations endpoint to receive the updates.
 
-When the CPO wants to delete a Location, EVSE or Connector, they must update by setting the `status` field to `REMOVED` and call the [PUT](#222-put-method) or [PATCH](#223-patch-method) on the eMSP system.
+When the CPO wants to delete an EVSE they must update by setting the `status` field to `REMOVED` and call the [PUT](#222-put-method) or [PATCH](#223-patch-method) on the eMSP system. A *Location* without valid *EVSE* objects can be considered as expired and should no longer be displayed. There is no direct way to delete a location.
 
 When the CPO is not sure about the state or existence of a Location, EVSE or Connector object in the eMSPs system, the 
 CPO can call the [GET](#221-get-method) to validate the object in the eMSP system.   
@@ -251,7 +251,7 @@ Location, EVSE and Connector have the following relation.
 
 The *Location* object describes the location and its properties where a group of EVSEs that belong together are installed. Typically the *Location* object is the exact location of the group of EVSEs, but it can also be the entrance of a parking garage which contains these EVSEs. The exact way to reach each EVSE can be further specified by its own properties.
 
-A *Location* without valid *EVSE* objects can be considered as expired and should no longer be displayed.
+
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property                                     | Type                                                     | Card. | Description                                                                            |
