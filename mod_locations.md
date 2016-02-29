@@ -270,6 +270,7 @@ A *Location* without valid *EVSE* objects can be considered as expired and shoul
 | opening_times                                | [Hours](#47-hours-class)                                 | ?     | The times when the EVSEs at the location can be accessed for charging.                         |
 | charging_when_closed                         | boolean                                                  | ?     | Indicates if the EVSEs are still charging outside the opening hours of the location. E.g. when the parking garage closes its barriers over night, is it allowed to charge till the next morning?  Default: **true** |
 | images                                       | [Image](#48-image-class)                                 | *     | Links to images related to the location such as photos or logos.                       |
+| energy_mix                                   | [EnergyMix](#416-energymix-class)                        | ?     | Details on the energy supplied at this location.                                       |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 #### Example
@@ -699,3 +700,134 @@ This type is used to schedule status periods in the future. The eMSP can provide
 
 Note that the scheduled status is purely informational. When the status actually changes, the CPO must push an update to the EVSEs `status` field itself.
 
+
+### 4.16 EnergyMix *class*
+
+This type is used to specify the energy mix and environmental impact of the supplied energy at a location or in a tariff.
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Property         | Type                                  | Card. | Description                                            |
+|------------------|---------------------------------------|-------|--------------------------------------------------------|
+| is_green_energy  | Boolean                               | 1     | True if 100% from regenerative sources. (CO2 and nuclear waste is zero) |
+| energy_sources   | EnergySource                          | *     | Key-value pairs (enum + percentage) of energy sources of this location's tariff. |
+| environ_impact   | EnvironmentalImpact                   | *     | Key-value pairs (enum + percentage) of nuclear waste and CO2 exhaust of this location's tariff. |
+| supplier_name    | String                                | ?     | Name of the energy supplier, delivering the energy for this location or tariff.* |
+| energy_tariff    | String                                | ?     | Name of the supplier's tariff name used at this location.*  |
+<div><!-- ---------------------------------------------------------------------------- --></div>
+
+_* These fields can be used to look-up energy qualification or to show it directly to the customer (for well-known brands like Greenpeace Energy, etc.)_
+
+
+#### Examples
+
+##### Simple:
+
+```json
+"energy_mix": {
+	is_green_energy: true
+    }
+```
+
+##### Tariff name based:
+
+```json
+"energy_mix": {
+	is_green_energy: true,
+	supplier_name: "Greenpeace Energy eG",
+	energy_tariff: "Ökostrom"
+    }
+```
+
+##### Complete:
+
+```json
+"energy_mix": {
+	is_green_energy: true,
+	energy_sources: [
+			{ "source": "GENERAL_GREEN",  "percentage": 35.9, "category": "SUPPLIER"},
+			{ "source": "GAS",            "percentage": 6.3,  "category": "SUPPLIER"},
+			{ "source": "COAL",           "percentage": 33.2, "category": "SUPPLIER"},
+			{ "source": "GENERAL_FOSSIL", "percentage": 2.9,  "category": "SUPPLIER"},
+			{ "source": "NUCLEAR",        "percentage": 21.7, "category": "SUPPLIER"},
+			{ "source": "GENERAL_GREEN",  "percentage": 100, "category": "TARIFF"}
+		],
+	environ_impact: [
+			{ "source": "NUCLEAR_WASTE",  "amount": 0,00006, "category": "SUPPLIER"},
+			{ "source": "CARBON_DIOXIDE", "amount": 372,     "category": "SUPPLIER"},
+			{ "source": "NUCLEAR_WASTE",  "amount": 0, "category": "TARIFF"}
+			{ "source": "CARBON_DIOXIDE", "amount": 0, "category": "TARIFF"}
+		],
+	supplier_name: "E.ON Energy Deutschland",
+	energy_tariff: "E.ON DirektStrom öko"
+    }
+```
+
+
+### 4.17 EnergySource *class*
+
+Key-value pairs (enum + percentage) of energy sources. All given values should add up to 100 percent per category.
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Property         | Type                                  | Card. | Description                                            |
+|------------------|---------------------------------------|-------|--------------------------------------------------------|
+| source           | EnergySourceCategory                  | 1     | The category of this portion.                          |
+| percentage       | Float                                 | 1     | Percentage of this source (0-100) in the mix.          |
+| category         | MixDisclosureCategory                 | 1     | The category of this source.                           |
+<div><!-- ---------------------------------------------------------------------------- --></div>
+
+
+### 4.18 MixDisclosureCategory *enum*
+
+Categories of portions: Caused by the tariff or caused by the respective product, the remaining products or the supplier in total.
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Value              | Description                                                                           |
+|--------------------|---------------------------------------------------------------------------------------|
+| TARIFF             | Portion of this product.                                                              |
+| REMAINING          | Portion of the remaining products of the supplier.                                    |
+| SUPPLIER           | Portion of the supplier in total.                                                     |
+<div><!-- ---------------------------------------------------------------------------- --></div>
+
+
+### 4.19 EnergySourceCategory *enum*
+
+Categories of energy sources.
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Value              | Description                                                                           |
+|--------------------|---------------------------------------------------------------------------------------|
+| NUCLEAR            | Nuclear power sources.                                                                |
+| GENERAL_FOSSIL     | All kinds of fossil power sources.                                                    |
+| COAL               | Fossil power from coal.                                                               |
+| GAS                | Fossil power from gas.                                                                |
+| GENERAL_GREEN      | All kinds of regenerative power sources.                                              |
+| SOLAR              | Regenerative power from PV.                                                           |
+| WIND               | Regenerative power from wind turbines.                                                |
+| WATER              | Regenerative power from water turbines.                                               |
+<div><!-- ---------------------------------------------------------------------------- --></div>
+
+
+
+### 4.20 EnvironmentalImpact *class*
+
+Key-value pairs (enum + amount) of waste and carbon dioxide emittion per kWh.
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Property         | Type                                  | Card. | Description                                            |
+|------------------|---------------------------------------|-------|--------------------------------------------------------|
+| source           | EnvironmentalImpactCategory           | 1     | The category of this value.                            |
+| amount           | Float                                 | 1     | Amount of this portion in g/kWh.                       |
+| category         | MixDisclosureCategory                 | 1     | The category of this source.                           |
+<div><!-- ---------------------------------------------------------------------------- --></div>
+
+
+### 4.21 EnergySourceCategory *enum*
+
+Categories of environmental impact values.
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Value              | Description                                                                           |
+|--------------------|---------------------------------------------------------------------------------------|
+| NUCLEAR_WASTE      | Produced nuclear waste in gramms per kilowatthour.                                    |
+| CARBON_DIOXIDE     | Exhausted carbon dioxide in gramms per kilowarrhour.                                  |
+<div><!-- ---------------------------------------------------------------------------- --></div>

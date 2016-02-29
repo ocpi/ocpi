@@ -221,6 +221,7 @@ non the the TariffElements before this matches the current charging period.
 | tariff_alt_text     | [DisplayText](types.md#15-displaytext-class) | *     | List of multi language alternative tariff info text                                   |
 | tariff_alt_url      | [URL](types.md#14_url_type)                  | ?     | Alternative URL to tariff info                                                        |
 | elements            | [TariffElement](#43-tariffelement-class)     | +     | List of tariff elements                                                               |
+| energy_mix          | [EnergyMix](mod_locations.md#416-energymix-class) | ? | Details on the energy supplied with this tariff.                                     |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
