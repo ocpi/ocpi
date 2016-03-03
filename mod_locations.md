@@ -272,6 +272,7 @@ The *Location* object describes the location and its properties where a group of
 | opening_times                                | [Hours](#47-hours-class)                                 | ?     | The times when the EVSEs at the location can be accessed for charging.                         |
 | charging_when_closed                         | boolean                                                  | ?     | Indicates if the EVSEs are still charging outside the opening hours of the location. E.g. when the parking garage closes its barriers over night, is it allowed to charge till the next morning?  Default: **true** |
 | images                                       | [Image](#48-image-class)                                 | *     | Links to images related to the location such as photos or logos.                       |
+| facilities                                   | [FacilityType](#416-facilitytype-enum)                   | *     | A list of available facilities at this location. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 #### Example
@@ -340,7 +341,8 @@ The *Location* object describes the location and its properties where a group of
 	}],
 	"operator": {
 		"name": "BeCharged"
-	}
+	},
+	"facilities": ["RESTAURANT", "WIFI"]
 }
 ```
 
@@ -704,3 +706,31 @@ This type is used to schedule status periods in the future. The eMSP can provide
 
 Note that the scheduled status is purely informational. When the status actually changes, the CPO must push an update to the EVSEs `status` field itself.
 
+
+### 4.16 FacilityType *enum*
+
+An available facility at a location.
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Value                 | Description |
+|-----------------------|-------------------------------------------------------------------|
+| RESTAURANT            | Restaurant |
+| CAFE                  | Cafe |
+| HOTEL                 | Hotel |
+| MALL                  | A shopping mall |
+| SUPERMARKET           | Supermarket |
+| SPORT                 | Sport |
+| RECREATION            | Recreation area |
+| NATURE                | Nature |
+| MUSEUM                | Museum |
+| THEATER               | Theater |
+| MOVIE                 | Movie theater |
+| BUSINESS              | Business centre |
+| BIKE                  | Bicycle sharing |
+| BUS                   | Bus stop |
+| TAXI                  | Taxi stand |
+| TRAIN                 | Train station |
+| AIRPORT               | Airport |
+| CARPOOL               | Carpool parking |
+| WIFI                  | Wifi hotspot  |
+<div><!-- ---------------------------------------------------------------------------- --></div>
