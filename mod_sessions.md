@@ -283,7 +283,6 @@ The following parameters can be provided as URL segments.
 			}]
 		}
 	},
-	"connector_id": "1",
 	"currency": "EUR",
 	"charging_periods": [{
 		"start_date_time": "2015-06-29T22:39:09+02:00",
