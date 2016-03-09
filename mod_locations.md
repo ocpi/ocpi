@@ -821,7 +821,7 @@ Key-value pairs (enum + amount) of waste and carbon dioxide emittion per kWh.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-### 4.21 EnergySourceCategory *enum*
+### 4.21 EnvironmentalImpactCategory *enum*
 
 Categories of environmental impact values.
 
