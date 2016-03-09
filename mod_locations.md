@@ -742,7 +742,7 @@ _* These fields can be used to look-up energy qualification or to show it direct
 
 ```json
 "energy_mix": {
-	"is_green_energy": true,
+	"is_green_energy": false,
 	"energy_sources": [
 			{ "source": "GENERAL_GREEN",  "percentage": 35.9, "category": "SUPPLIER"},
 			{ "source": "GAS",            "percentage": 6.3,  "category": "SUPPLIER"},
