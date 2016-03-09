@@ -733,8 +733,8 @@ _* These fields can be used to look-up energy qualification or to show it direct
 ```json
 "energy_mix": {
 	"is_green_energy": true,
-	"supplier_name": "Greenpeace Energy eG",
-	"energy_tariff": "Ökostrom"
+	"supplier_name":  "Greenpeace Energy eG",
+	"energy_tariff":  "Ökostrom"
     }
 ```
 
@@ -749,13 +749,13 @@ _* These fields can be used to look-up energy qualification or to show it direct
 			{ "source": "COAL",           "percentage": 33.2, "category": "SUPPLIER"},
 			{ "source": "GENERAL_FOSSIL", "percentage": 2.9,  "category": "SUPPLIER"},
 			{ "source": "NUCLEAR",        "percentage": 21.7, "category": "SUPPLIER"},
-			{ "source": "GENERAL_GREEN",  "percentage": 100, "category": "TARIFF"}
+			{ "source": "GENERAL_GREEN",  "percentage": 100,  "category": "TARIFF"}
 		],
 	"environ_impact": [
 			{ "source": "NUCLEAR_WASTE",  "amount": 0.00006, "category": "SUPPLIER"},
 			{ "source": "CARBON_DIOXIDE", "amount": 372,     "category": "SUPPLIER"},
-			{ "source": "NUCLEAR_WASTE",  "amount": 0, "category": "TARIFF"}
-			{ "source": "CARBON_DIOXIDE", "amount": 0, "category": "TARIFF"}
+			{ "source": "NUCLEAR_WASTE",  "amount": 0,       "category": "TARIFF"}
+			{ "source": "CARBON_DIOXIDE", "amount": 0,       "category": "TARIFF"}
 		],
 	"supplier_name": "E.ON Energy Deutschland",
 	"energy_tariff": "E.ON DirektStrom öko"
