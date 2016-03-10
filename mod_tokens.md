@@ -206,7 +206,7 @@ Each object must contain all required fields. Fields that are not specified may 
 | visual_number           | [string](types.md#16-string-type)(64) | 1     | Visual readable number/identification of the Token                                                      |
 | issuer                  | [string](types.md#16-string-type)(64) | 1     | Issuing company                                                                                         |
 | valid                   | boolean                               | 1     | Is this Token valid                                                                                     |
-| allow_whitelist         | boolean                               | ?     | It is allowed to validate a charging session with token without requesting and authorization from the eMSP? , default is FALSE. NOTE: For this release this field always needs to be set to TRUE |
+| allow_whitelist         | boolean                               | ?     | Indicates whether it is allowed to authorize a charging session for this token without requesting live authorization from the eMSP. Default is FALSE. NOTE: For this release this field always needs to be set to TRUE. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 The combination of _uid_ and _type_ should be unique for every token.
