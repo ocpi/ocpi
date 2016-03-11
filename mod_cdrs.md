@@ -180,7 +180,9 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 | tariffs                              | [Tariff](mod_tariffs.md#31-tariff-object)                | *     | List of relevant tariff elements, see: [Tariffs](mod_tariffs.md#31-tariff-object).                                             |
 | charging_periods                     | [ChargingPeriod](#43-chargingperiod-class)               | +     | List of charging periods that make up this charging session. A session consists of 1 or more periods, where each period has a different relevant Tariff. |
 | total_cost                           | [decimal](types.md#13-decimal-type)                      | 1     | Total cost of this transaction.                                                                                                |
-| total_usage                          | [CdrDimension](#42-cdrdimension-class)                   | *     | List of total usage elements, for example: total parking time and total energy charged.                                        |
+| total_energy                         | [decimal](types.md#13-decimal-type)                      | 1     | Total energy charged, in kWh.                                        |
+| total_time                           | [decimal](types.md#13-decimal-type)                      | 1     | Total time charging, in hours.                                        |
+| total_parking_time                   | [decimal](types.md#13-decimal-type)                      | ?     | Total time not charging, in hours.                                            |
 | remark                               | [string](types.md#16-string-type)(255)                   | ?     | Optional remark, can be used to provide addition human readable information to the CDR, for example: reason why a transaction was stopped.|
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
