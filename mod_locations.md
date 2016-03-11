@@ -270,6 +270,7 @@ The *Location* object describes the location and its properties where a group of
 | operator                                     | [BusinessDetails](#41-businessdetails-class)             | ?     | Information of the operator. When not specified, the information retrieved from the `api_info` endpoint should be used instead. |
 | suboperator                                  | [BusinessDetails](#41-businessdetails-class)             | ?     | Information of the suboperator if available.                                           |
 | owner                                        | [BusinessDetails](#41-businessdetails-class)             | ?     | Information of the owner if available.                                           |
+| facilities                                   | [Facility](#xx-facility-enum)                            | *     | Optional list of facilities this charge location directly belongs to.                        |
 | opening_times                                | [Hours](#47-hours-class)                                 | ?     | The times when the EVSEs at the location can be accessed for charging.                         |
 | charging_when_closed                         | boolean                                                  | ?     | Indicates if the EVSEs are still charging outside the opening hours of the location. E.g. when the parking garage closes its barriers over night, is it allowed to charge till the next morning?  Default: **true** |
 | images                                       | [Image](#48-image-class)                                 | *     | Links to images related to the location such as photos or logos.                       |
@@ -485,6 +486,33 @@ Specifies one exceptional period for opening or access hours.
 | period_begin | [DateTime](types.md#12_datetime_type) | 1       | Begin of the exception.|
 | period_end   | [DateTime](types.md#12_datetime_type) | 1       | End of the exception.|
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
+
+### X.X Facility *enum*
+TODO renumber chapters
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Value           | Description                                               |
+|-----------------|--------------------------------------------------------- -|
+| HOTEL           | A hotel nearby.                                           |
+| RESTAURANT      | A restaurant nearby.                                      |
+| CAFE            | A cafe nearby.                                            |
+| MALL            | A mall or shopping center nearby.                         |
+| SUPERMARKET     | A supermarket nearby.                                     |
+| SPORT           | Sport facilities nearby: gym, field etc.                  |
+| RECREATION_AREA | A Recreation area nearby.                                 |
+| NATURE          | Located in, or close to, a park, nature reserve/park etc. |
+| MUSEUM          | A museum nearby.                                          |
+| BUS_STOP        | A bus stop nearby.                                        |
+| TAXI_STAND      | A taxi stand nearby.                                      |
+| TRAIN_STATION   | A train station nearby.                                   |
+| AIRPORT         | An airport nearby.                                        |
+| CARPOOL_PARKING | A carpool parking nearby.                                 |
+| FUEL_STATION    | A Fuel station nearby.                                    |
+| WIFI            | Wifi or other type of internet available.                 |
+<div><!-- ---------------------------------------------------------------------------- --></div>
+
+
 
 
 ### 4.6 GeoLocation *class*
