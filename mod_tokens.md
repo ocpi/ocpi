@@ -105,8 +105,8 @@ The following parameters can be provided as URL segments.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Parameter         | Datatype                              | Required | Description                                                                   |
 |-------------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
-| country_code      | [string](types.md#16-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
-| party_id          | [string](types.md#16-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
+| country_code      | [string](types.md#16-string-type)(2)  | yes      | Country code of the eMSP sending this PUT request to the CPO system.               |
+| party_id          | [string](types.md#16-string-type)(3)  | yes      | Party ID (Provider ID) of the eMSP sending this PUT request to the CPO system.     |
 | token_uid         | [string](types.md#16-string-type)(15) | yes      | Token.uid of the (new) Token object (to replace).                             |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
