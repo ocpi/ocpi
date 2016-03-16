@@ -85,7 +85,7 @@ The response contains the requested object.
 
 #### 2.1.2 __PUT__ Method
 
-New or updated Token objects are pushed from the CPO to the eMSP. 
+New or updated Token objects are pushed from the eMSP to the CPO. 
 
 ##### Request Body
 
