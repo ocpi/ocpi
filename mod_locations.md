@@ -26,6 +26,7 @@ CPO can call the [GET](#221-get-method) to validate the object in the eMSP syste
 
 There is both a CPO and an eMSP interface for Locations. Advised is to use the push direction from CPO to eMSP during normal operation.
 The CPO interface is meant to be used when the connection between 2 parties is established, to retrieve the current list of Location objects with the current status, and when the eMSP is not 100% sure the Locations cache is completely correct.
+The eMSP can use the CPO GET Object interface to retrieve a specific Location, EVSE or Connector, this might be used by a eMSP that wants information about a specific Location, but has not implemented the eMSP Locations interface (cannot receive push).
 
 ### 2.1 CPO Interface
 
@@ -34,7 +35,7 @@ Example endpoint structure: `/ocpi/cpo/2.0/locations`
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Method                 | Description                                          |
 | ---------------------- | ---------------------------------------------------- |
-| [GET](#211-get-method) | Fetch all available locations. ([paginated](transport_and_format.md#get)) |
+| [GET](#211-get-method) | Fetch all available locations ([paginated](transport_and_format.md#get)), or get a specific location, EVSE or Connector. |
 | POST                   | n/a                                                  |
 | PUT                    | n/a                                                  |
 | PATCH                  | n/a                                                  |
@@ -44,9 +45,17 @@ Example endpoint structure: `/ocpi/cpo/2.0/locations`
 
 #### 2.1.1 __GET__ Method
 
-Fetch information about all available locations and EVSEs at this CPO.
+Depending on the URL Segments provided, the GET request can either be used to retrieve 
+information about a list or all available locations and EVSEs at this CPO: [GET List](get-list-request-parameters)
+Or it can be used to get information about a specific Location, EVSE or Connector: [GET Object](get-object-request-parameters)
 
-##### Request Parameters
+##### GET List Request Parameters 
+
+Example endpoint structures for retrieving a list of Locations: 
+`/ocpi/cpo/2.0/locations/`
+`/ocpi/cpo/2.0/locations/offset=50`
+`/ocpi/cpo/2.0/locations/limit=100`
+`/ocpi/cpo/2.0/locations/offset=50&limit=100`
 
 This request is [paginated](transport_and_format.md#get), it supports the [pagination](transport_and_format.md#paginated-request) related URL parameters.
 
@@ -58,7 +67,7 @@ This request is [paginated](transport_and_format.md#get), it supports the [pagin
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-##### Response Data
+##### GET List Response Data
 
 The endpoint returns a list of Location objects
 The header will contain the [pagination](transport_and_format.md#paginated-response) related headers.
@@ -70,6 +79,38 @@ Each object must contain all required fields. Fields that are not specified may 
 | Type                            | Card. | Description                              |
 |---------------------------------|-------|------------------------------------------|
 | [Location](#31-location-object) | *     | List of all locations with valid EVSEs.  |
+<div><!-- ---------------------------------------------------------------------------- --></div>
+
+
+##### GET Object Request Parameters 
+
+Example endpoint structures for a specific Location, EVSE or Connector: 
+`/ocpi/cpo/2.0/locations/{location_id}`
+`/ocpi/cpo/2.0/locations/{location_id}/{evse_uid}`
+`/ocpi/cpo/2.0/locations/{location_id}/{evse_uid}/{connector_id}`
+
+The following parameters can be provided as URL segments.
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Parameter         | Datatype                              | Required | Description                                                                   |
+|-------------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
+| location_id       | [string](types.md#16-string-type)(15) | yes      | Location.id of the Location object to retrieve.                               |
+| evse_uid          | [string](types.md#16-string-type)(15) | no       | Evse.uid, required when requesting an EVSE or Connector object.               |
+| connector_id      | [string](types.md#16-string-type)(15) | no       | Connector.id, required when requesting a Connector object.                    |
+<div><!-- ---------------------------------------------------------------------------- --></div>
+
+
+##### GET Object Response Data
+
+The response contains the requested object. 
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Type                                | Card. | Description                                                |
+|-------------------------------------|-------|------------------------------------------------------------|
+| *Choice: one of three*              |       |                                                            |
+| > [Location](#31-location-object)   | 1     | If a Location object was requested: the Location object.   |
+| > [EVSE](#32-evse-object)           | 1     | If an EVSE object was requested: the EVSE object.          |
+| > [Connector](#33-connector-object) | 1     | If a Connector object was requested: the Connector object. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
