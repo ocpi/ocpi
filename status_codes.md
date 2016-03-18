@@ -39,6 +39,7 @@ Errors a server detected in the message sent by a client: The client did somethi
 |------|-----------------------------------------|
 | 2000 | Generic client error                    |
 | 2001 | Invalid or missing parameters           |
+| 2002 | Not enough information, for example: Authorization request with to little information. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 

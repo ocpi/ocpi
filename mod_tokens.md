@@ -30,6 +30,13 @@ all Tokens, updating already known Tokens and adding new received Tokens to it o
 This method is not for operational flow.
 
 
+### 1.3 Real-time checking
+
+An eMSP might want their Tokens to be checked 'real-time', not white-listed. For this the eMSP has to implement the [POST Authorize request](#222-post-method) and set the Token.allow_whitelist field to FALSE for Tokens they want to have checked 'real-time'.
+
+If an eMSP doesn't want real-time checking, the GET Authorize method doesn't have to be implemented as long as all their Tokens have Token.allow_whitelist set to TRUE.  
+
+
 ## 2. Interfaces and endpoints
 
 There is both a CPO and an eMSP interface for Tokens. It is advised to use the push direction from eMSP to CPO during normal operation.
@@ -145,20 +152,19 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/tokens/NL/TNM/012345678
 ### 2.2 eMSP Interface
 
 This interface enables the CPO to request the current list of all Tokens, when needed.
-It is not possible to validate/request a single token, during normal operation the Token cache of the CPO should always
-be kept up to date via the CPO Interface.
+Via the POST method it is possible to validate a single token.
 
 Example endpoint structure: `/ocpi/emsp/2.0/tokens/`
 
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Method                 | Description                                                             |
-|------------------------|-------------------------------------------------------------------------|
-| [GET](#221-get-method) | Get the list of known Tokens ([paginated](transport_and_format.md#get)) |
-| POST                   | n/a                                                                     |
-| PUT                    | n/a                                                                     |
-| PATCH                  | n/a                                                                     |
-| DELETE                 | n/a                                                                     |
+| Method                   | Description                                                             |
+|--------------------------|-------------------------------------------------------------------------|
+| [GET](#221-get-method)   | Get the list of known Tokens ([paginated](transport_and_format.md#get)) |
+| [POST](#222-post-method) | Real-time authorization request                                         |
+| PUT                      | n/a                                                                     |
+| PATCH                    | n/a                                                                     |
+| DELETE                   | n/a                                                                     |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -193,7 +199,62 @@ Each object must contain all required fields. Fields that are not specified may 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
+#### 2.2.2 __POST__ Method
+
+Do a 'real-time' authorization request to the eMSP system, validating if a Token might be used (at the optionally given Location). 
+
+Example endpoint structure: 
+`/ocpi/emsp/2.0/tokens/{token_uid}/authorize`
+The `/authorize` is required for the real-time authorize request.
+
+When the eMSP receives a 'real-time' authorization request from a CPO that contains to little information (no LocationReferences provided) to determine if the Token might be used, the eMSP SHOULD respond with the OCPI status: [2002](status_codes.md#2xxx-client-errors) 
+
+##### Request Parameters
+
+The following parameter has to be provided as URL segments.
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Parameter         | Datatype                              | Required | Description                                               |
+|-------------------|---------------------------------------|----------|-----------------------------------------------------------|
+| token_uid         | [string](types.md#16-string-type)(15) | yes      | Token.uid of the Token for which this authorization is.   |
+<div><!-- ---------------------------------------------------------------------------- --></div>
+
+
+##### Request Body
+
+In the body an optional [LocationReferences](#4x-locationreferences-class) object can be given. The eMSP SHALL then validate if the Token is allowed to be used at this Location, and if applicable: which of the Locations EVSEs/Connectors.
+The object with valid Location and EVSEs/Connectors will be returned in the response.
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Type                                                | Card. | Description                                                                     |
+|-----------------------------------------------------|-------|---------------------------------------------------------------------------------|
+| [LocationReferences](#4x-locationreferences-class)  | ?     | Location and EVSEs/Connectos for which the Token is requested to be authorized. |
+<div><!-- ---------------------------------------------------------------------------- --></div>
+
+
+##### Response Data
+
+The endpoint response contains a [AuthorizationInfo](#3x-authorizationinfo-object) object.
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Type                                              | Card. | Description                              |
+|---------------------------------------------------|-------|------------------------------------------|
+| [AuthorizationInfo](#3x-authorizationinfo-object) | 1     | Contains information about the authorization, if the Token is allowed to charge and optionally which EVSEs/Connectors are allowed to be used. |
+<div><!-- ---------------------------------------------------------------------------- --></div>
+
+
 ## 3. Object description
+
+### 3.X _AuthorizationInfo_ Object
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Property  | Type                                               | Card. | Description                                                                           |
+|-----------|----------------------------------------------------|-------|---------------------------------------------------------------------------------------|
+| allowed   | [Allowed](#4x-allowed-enum)                        | 1     | Status of the Token, and if it is allowed to charge at the optionally given location. |
+| location  | [LocationReferences](#4x-locationreferences-class) | ?     | Optional reference to the location if it was request in the request, and if the EV driver is allowed to charge at that location. Only the EVSEs/Connectors the EV driver is allowed to charge at are returned.                                                                     |
+| info      | [DisplayText](types.md#15-displaytext-class)       | ?     | Optional display text, additional information to the EV driver.                       |
+<div><!-- ---------------------------------------------------------------------------- --></div>
+
 
 ### 3.1 _Token_ Object
 
@@ -206,7 +267,7 @@ Each object must contain all required fields. Fields that are not specified may 
 | visual_number           | [string](types.md#16-string-type)(64) | 1     | Visual readable number/identification of the Token                                                      |
 | issuer                  | [string](types.md#16-string-type)(64) | 1     | Issuing company                                                                                         |
 | valid                   | boolean                               | 1     | Is this Token valid                                                                                     |
-| allow_whitelist         | boolean                               | ?     | Indicates whether it is allowed to authorize a charging session for this token without requesting live authorization from the eMSP. Default is FALSE. NOTE: For this release this field always needs to be set to TRUE. |
+| allow_whitelist         | boolean                               | ?     | Indicates whether it is allowed to authorize a charging session for this token without requesting live authorization from the eMSP. Default is FALSE. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 The combination of _uid_ and _type_ should be unique for every token.
@@ -228,6 +289,32 @@ The combination of _uid_ and _type_ should be unique for every token.
 
 
 ## 4. Data types
+
+### 4.X Allowed *enum*
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Value        | Description                                                                                   |
+|--------------|-----------------------------------------------------------------------------------------------|
+| ALLOWED      | This Token is allowed to charge at this location.                                             |
+| BLOCKED      | This Token is blocked.                                                                        |
+| EXPIRED      | This Token has expired.                                                                       |
+| NO_CREDIT    | This Token belongs to an account that has not enough credits to charge at the given location. |
+| NOT_ALLOWED  | Token is valid, but is not allowed to charge at the given location.                           |
+<div><!-- ---------------------------------------------------------------------------- --></div>
+
+
+### 4.X LocationReferences *class* 
+
+References to location details.
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Field Name       | Field Type                               | Card. | Description                                                         |
+|------------------|------------------------------------------|-------|---------------------------------------------------------------------|
+| location_id      | [string](types.md#16-string-type)(15)    | 1     | Uniquely identifier for the location. 
+| evse_uids        | [string](types.md#16-string-type)(15)    | *     | Uniquely identifier for EVSEs within the CPOs platform for the EVSE within the the given location. |
+| connector_ids    | [string](types.md#16-string-type)(15)    | *     | Identifies the connectors within the given EVSEs.                                                                                       |
+<div><!-- ---------------------------------------------------------------------------- --></div>
+
 
 ### 4.1 TokenType *enum*
 
