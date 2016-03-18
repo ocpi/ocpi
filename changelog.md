@@ -10,4 +10,5 @@
 |[Locations](mod_locations.md) / [Location](mod_locations.md#31-location-object)              | Minor / Optional             | Average / Average          | new field added: "facilities", a list of new type: [Facility](mod_locations.md#xx-facility-enum) |
 |[Locations](mod_locations.md) / [GET object](mod_locations.md#get-object-request-parameters) | Optional / Average           | Average / Average          | added functionality to retrieve information about a specific Location, EVSE or Connector from a CPO. This can be useful for eMSPs that require 'real-time' authorization of Tokens. |
 |[Tokens](mod_tokens.md) / [eMSP POST](mod_tokens.md#222-post-method)                         | Optional / Major             | Large / Large              | added functionality for 'real-time' authorization of Tokens. |
+|[Version information](version_information_endpoint.md) / [Custom Modules](version_information_endpoint.md#custom-modules) | Optional / Optional          | Average / Average          | added description on how to add custom/customized modules to OCPI. |
 <div><!-- ---------------------------------------------------------------------------- --></div>

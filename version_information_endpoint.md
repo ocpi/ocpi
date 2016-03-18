@@ -94,7 +94,7 @@ Both the CPO and the eMSP must have this endpoint.
 
 ### ModuleID *enum*
 
-The Module identifiers for each endpoint are in the beginning of each *Module* chapter. The following table contains the list of modules in this version of OCPI
+The Module identifiers for each endpoint are in the beginning of each *Module* chapter. The following table contains the list of modules in this version of OCPI.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Module                                       | ModuleID    | Remark                            |
@@ -106,6 +106,17 @@ The Module identifiers for each endpoint are in the beginning of each *Module* c
 | [Tariffs](mod_tariffs.md)                    | tariffs     |                                   |
 | [Tokens](mod_tokens.md)                      | tokens      |                                   |
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
+
+#### Custom Modules
+
+Parties are allowed to create custom modules or customized version of the existing modules.
+For this the [ModuleID enum](#moduleid-enum) can be extended with additional custom moduleIDs.
+These custom moduleIDs MAY only be send to parties with which there is an agreement to use a custom module. Do NOT send custom moduleIDs to parties your are not 100% sure understand the custom moduleIDs.
+It is advised to use a prefix (country_code + party_id) for any custom moduleID, this ensures that the moduleID will not be used for any future module of OCPI.
+ 
+For example:
+`nltnm-tokens`
 
 
 ## GET
