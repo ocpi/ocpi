@@ -30,11 +30,11 @@ all Tokens, updating already known Tokens and adding new received Tokens to it o
 This method is not for operational flow.
 
 
-### 1.3 Real-time checking
+### 1.3 Real-time authorization
 
-An eMSP might want their Tokens to be checked 'real-time', not white-listed. For this the eMSP has to implement the [POST Authorize request](#222-post-method) and set the Token.allow_whitelist field to FALSE for Tokens they want to have checked 'real-time'.
+An eMSP might want their Tokens to be authorization 'real-time', not white-listed. For this the eMSP has to implement the [POST Authorize request](#222-post-method) and set the Token.allow_whitelist field to FALSE for Tokens they want to have authorized 'real-time'.
 
-If an eMSP doesn't want real-time checking, the GET Authorize method doesn't have to be implemented as long as all their Tokens have Token.allow_whitelist set to TRUE.  
+If an eMSP doesn't want real-time authorization, the GET Authorize method doesn't have to be implemented as long as all their Tokens have Token.allow_whitelist set to TRUE.  
 
 
 ## 2. Interfaces and endpoints
@@ -152,7 +152,7 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/tokens/NL/TNM/012345678
 ### 2.2 eMSP Interface
 
 This interface enables the CPO to request the current list of all Tokens, when needed.
-Via the POST method it is possible to validate a single token.
+Via the POST method it is possible to authorize a single token.
 
 Example endpoint structure: `/ocpi/emsp/2.0/tokens/`
 
