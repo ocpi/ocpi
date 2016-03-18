@@ -34,7 +34,7 @@ This method is not for operational flow.
 
 An eMSP might want their Tokens to be authorization 'real-time', not white-listed. For this the eMSP has to implement the [POST Authorize request](#222-post-method) and set the Token.allow_whitelist field to FALSE for Tokens they want to have authorized 'real-time'.
 
-If an eMSP doesn't want real-time authorization, the GET Authorize method doesn't have to be implemented as long as all their Tokens have Token.allow_whitelist set to TRUE.  
+If an eMSP doesn't want real-time authorization, the [POST Authorize request](#222-post-method) doesn't have to be implemented as long as all their Tokens have Token.allow_whitelist set to TRUE.  
 
 
 ## 2. Interfaces and endpoints
