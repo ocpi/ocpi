@@ -1,0 +1,15 @@
+@startuml
+title OCPI Command UNLOCK_CONNECTOR -> UNKOWN_LOCATION
+hide footbox
+
+participant eMSP
+participant CPO
+
+
+eMSP ->  CPO:  Command(UNLOCK_CONNECTOR, location_id=1234, evse_uid=1234, connector=1)
+activate eMSP
+activate CPO
+CPO  --> eMSP: Response(UNKOWN_LOCATION)
+
+deactivate CPO
+deactivate eMSP

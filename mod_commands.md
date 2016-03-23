@@ -9,7 +9,16 @@ The Commands module enables remote commands to be sent to a Location/EVSE.
 
 TODO Describe asynchronous nature of this interface/module
 Response URL might contain an UID to 
- 
+
+Example of a UNLOCK_CONNECTOR that fails because the Location is not known by the CPO.
+![UNLOCK_CONNECTOR unkown Location](data/command_unlock_unknow_location.png)
+
+Example of a RESERVE_NOW that is rejected by the Charge Point.
+![RESERVE_NEW rejected by Charge Point](data/command_reservenow_rejected.png)
+
+Example of a START_SESSION that is successful and results in a new Session.
+![START_SESSION successful](data/command_start_session_succesful.png)
+
 
 ## 2. Interfaces and endpoints
 
