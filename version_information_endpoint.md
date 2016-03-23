@@ -100,6 +100,7 @@ The Module identifiers for each endpoint are in the beginning of each *Module* c
 | Module                                       | ModuleID    | Remark                            |
 |----------------------------------------------|-------------|-----------------------------------|
 | [CDRs](mod_cdrs.md)                          | cdrs        |                                   |
+| [Commands](mod_commands.md)                  | comamnds    |                                   |
 | [Credentials & registration](credentials.md) | credentials | Required for all implementations  |
 | [Locations](mod_locations.md)                | locations   |                                   |
 | [Sessions](mod_sessions.md)                  | sessions    |                                   |
