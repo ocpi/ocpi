@@ -8,6 +8,7 @@ The Commands module enables remote commands to be sent to a Location/EVSE.
 ## 1. Flow
 
 TODO Describe asynchronous nature of this interface/module
+Response URL might contain an UID to 
  
 
 ## 2. Interfaces and endpoints
@@ -36,9 +37,9 @@ Example endpoint structure: `/ocpi/cpo/2.0/commands/{command}`
 The following parameters can be provided as URL segments.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Parameter   | Datatype                          | Required | Description                                                                   |
-|-------------|-----------------------------------|----------|-------------------------------------------------------------------------------|
-| command     | [CommandType](#4xx-command-enum)  | yes      | TODO                                                                          |
+| Parameter   | Datatype                                    | Required | Description                                                                   |
+|-------------|---------------------------------------------|----------|-------------------------------------------------------------------------------|
+| command     | [CommandType](#41-commandresponsetype-enum) | yes      | Type of command that is requested.                                            |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 #### Request Body
@@ -49,77 +50,156 @@ Depending on the `command` parameter the body SHALL contain the applicable objec
 | Type                                            | Card. | Description                                            |
 |-------------------------------------------------|-------|--------------------------------------------------------|
 | *Choice: one of four*                           |       |                                                        |
-| > [ReserveNow](#3x-reservenow-object)           | 1     | ReserveNow object, for the `RESERVE_NOW` command, with information needed to reserve a (specific) connector of a Charge Point for a given Token. |
-| > [StartSession](#3x-startsession-object)       | 1     | StartSession object, for the `START_SESSION` command, with information needed to start a sessions.                                               |
-| > [StopSession](#3x-stopsession-object)         | 1     | StopSession object, for the `STOP_SESSION` command, with information needed to stop a sessions.                                                  |
-| > [UnlockConnector](#31-unlockconnector-object) | 1     | UnlockConnector object, for the `UNLOCK_CONNECTOR` command, with information needed to unlock a connector of a Charge Point.                     |
+| > [ReserveNow](#32-reservenow-object)           | 1     | ReserveNow object, for the `RESERVE_NOW` command, with information needed to reserve a (specific) connector of a Charge Point for a given Token. |
+| > [StartSession](#33-startsession-object)       | 1     | StartSession object, for the `START_SESSION` command, with information needed to start a sessions.                                               |
+| > [StopSession](#34-stopsession-object)         | 1     | StopSession object, for the `STOP_SESSION` command, with information needed to stop a sessions.                                                  |
+| > [UnlockConnector](#35-unlockconnector-object) | 1     | UnlockConnector object, for the `UNLOCK_CONNECTOR` command, with information needed to unlock a connector of a Charge Point.                     |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
+##### Response Data
+
+The response contains the direct response from the CPO, not the response from the Charge Point itself, that will be send via a asynchronous POST on the eMSP interface if this response is `SUCCESSFUL`
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Datatype                                            | Card. | Description                                                              |
+|-----------------------------------------------------|-------|--------------------------------------------------------------------------|
+| [CommandResponseType](#42-commandresponsetype-enum) | 1     | Result of the command request by the CPO (not the Charge Point).         |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 
 ### 2.2 eMSP Interface
 
 The eMSP interface receives the asynchronous responses.
 
-Example endpoint structure: `/ocpi/emsp/2.0/commands/{command}`
+Example endpoint structure: 
+`/ocpi/emsp/2.0/commands/{command}`
+`/ocpi/emsp/2.0/commands/{command}/{uid}`
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Method                   | Description                                          |
-|--------------------------| -----------------------------------------------------|
-| GET                      | n/a                                                  |
-| [POST](#221-post-method) | Receive the response from the Charge Point           |
-| PUT                      | n/a                                                  |
-| PATCH                    | n/a                                                  |
-| DELETE                   | n/a                                                  |
+| Method                   | Description                                              |
+|--------------------------| ---------------------------------------------------------|
+| GET                      | n/a                                                      |
+| [POST](#221-post-method) | Receive the asynchronous response from the Charge Point. |
+| PUT                      | n/a                                                      |
+| PATCH                    | n/a                                                      |
+| DELETE                   | n/a                                                      |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
 #### 2.2.1 __POST__ Method
 
-TODO
-
-
 ##### Request Parameters
 
-TODO
+There are no URL segment parameters required by OCPI. 
+It is up to implementation of the eMSP what parameters are put in the URL. The eMSP sends a URL in the POST method body to the CPO. The CPO is required to use this URL for the asynchronous response by the Charge Point. It is advised to make this URL unique for every request, for example by adding a unique id as a URL segment.  
 
+Example: 
+`/ocpi/emsp/2.0/commands/RESERVE_NOW/1234`
+`/ocpi/emsp/2.0/commands/UNLOCK_CONNECTOR/2`
 
-##### Response Data
+#### Request Body
 
-TODO
-
-
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Datatype                                            | Card. | Description                                                              |
+|-----------------------------------------------------|-------|--------------------------------------------------------------------------|
+| [CommandResponseType](#42-commandresponsetype-enum) | 1     | Result of the command request by the CPO (not the Charge Point).         |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 
 ## 3. Object description
 
-TODO
+### 3.1 _CommandResponse_ Object
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Property         | Type                                                | Card. | Description                                                           |
+|------------------|-----------------------------------------------------|-------|-----------------------------------------------------------------------|
+| result           | [CommandResponseType](#42-commandresponsetype-enum) | 1     | Result of the command request as send by the Charge Point to the CPO. |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-### 3.1 xx Object
+### 3.2 _ReserveNow_ Object
 
-TODO 
+The `evse_uid` is optional. If no EVSE is specified, the Charge Point should keep 1 EVSE available for the EV Driver identified by the given Token. (This might not be supported by all Charge Points)
 
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Property         | Type                                   | Card. | Description                                                                                                                                     |
+|------------------|----------------------------------------|-------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| response_url     | [URL](types.md#14_url_type)            | 1     | URL that the CommandResponse POST should be send to. This URL might contain an unique ID to be able to distinguish between ReserveNow requests. |
+| token            | [Token](mod_tokens.md#31_token_object) | 1     | Token object for how to reserve this Charge Point (and specific EVSE).                                                                          |
+| expiryDate       | [DateTime](types.md#12_datetime_type)  | 1     | The Date/Time when this reservation ends.                                                                                                       |
+| location_id      | [string](types.md#16-string-type)(15)  | 1     | Location.id of the Location (belonging to the CPO this request is send to) for which to reserve an EVSE.                                        |
+| evse_uid         | [string](types.md#16-string-type)(15)  | ?     | Optional EVSE.uid of the EVSE of this Location if a specific EVSE has to be reserved.                                                           |
+<div><!-- ---------------------------------------------------------------------------- --></div>
+
+
+### 3.3 _StartSession_ Object
+
+The `evse_uid` is optional. If no EVSE is specified, the Charge Point can itself decide on which EVSE to start a new session. (this might not be supported by all Charge Points).
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Property         | Type                                   | Card. | Description                                                                                                                                       |
+|------------------|----------------------------------------|-------|---------------------------------------------------------------------------------------------------------------------------------------------------|
+| response_url     | [URL](types.md#14_url_type)            | 1     | URL that the CommandResponse POST should be send to. This URL might contain an unique ID to be able to distinguish between StartSession requests. |
+| token            | [Token](mod_tokens.md#31_token_object) | 1     | Token object the Charge Point has to use to start a new session.                                                                                  |
+| location_id      | [string](types.md#16-string-type)(15)  | 1     | Location.id of the Location (belonging to the CPO this request is send to) on which a session is to be started.                                   |
+| evse_uid         | [string](types.md#16-string-type)(15)  | ?     | Optional EVSE.uid of the EVSE of this Location on which a session is to be started.                                                               |
+<div><!-- ---------------------------------------------------------------------------- --></div>
+
+
+
+### 3.4 _StopSession_ Object
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Property         | Type                                   | Card. | Description                                                                                                                                      |
+|------------------|----------------------------------------|-------|--------------------------------------------------------------------------------------------------------------------------------------------------|
+| response_url     | [URL](types.md#14_url_type)            | 1     | URL that the CommandResponse POST should be send to. This URL might contain an unique ID to be able to distinguish between StopSession requests. |
+| session_id       | [string](types.md#16-string-type)(15)  | 1     | Session.id of the Session that is requested to be stopped.                                                                                       |         
+<div><!-- ---------------------------------------------------------------------------- --></div>
+
+
+### 3.5 _UnlockConnector_ Object
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Property         | Type                                   | Card. | Description                                                                                                                                          |
+|------------------|----------------------------------------|-------|------------------------------------------------------------------------------------------------------------------------------------------------------|
+| response_url     | [URL](types.md#14_url_type)            | 1     | URL that the CommandResponse POST should be send to. This URL might contain an unique ID to be able to distinguish between UnlockConnector requests. |
+| location_id      | [string](types.md#16-string-type)(15)  | 1     | Location.id of the Location (belonging to the CPO this request is send to) of which it is requested to unlock the connector.                         |
+| evse_uid         | [string](types.md#16-string-type)(15)  | 1     | EVSE.uid of the EVSE of this Location of which it is requested to unlock the connector.                                                              |
+| connector_id     | [string](types.md#16-string-type)(15)  | 1     | Connector.id of the Connector of this Location of which it is requested to unlock.                                                                   |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 
 ## 4. Data types
 
-### 4.1 xx *class*
+### 4.1 CommandResponseType *enum*
+
+The command requested.
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Value           | Description                                                                                |
+|-----------------|--------------------------------------------------------------------------------------------|
+| NOT_SUPPORTED   | The requested command is not supported by this CPO, Charge Point, EVSE etc.                |
+| REJECTED        | Command request rejected by the CPO or Charge Point.                                       |
+| SUCCESSFUL      | Command request accepted by the CPO or Charge Point.                                       |
+| TIMEOUT         | Command request timeout, no response received from the Charge Point in an reasonable time. |
+| UNKOWN_LOCATION | The Location, EVSE or Location in the requested command is not known by this CPO.          |
+| UNKOWN_SESSION  | The Session in the requested command is not known by this CPO.                             |
+<div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-### 4.XX CommandType *enum*
+### 4.2 CommandType *enum*
 
 The command requested.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Value                 | Description |
 |-----------------------|-------------------------------------------------------------------|
-| RESERVE_NOW           | Request the Charge Point to request a (specific) connector for a Token for a certain time.                           |
+| RESERVE_NOW           | Request the Charge Point to request a (specific) EVSE for a Token for a certain time.                                |
 | START_SESSION         | Request the Charge Point to start a transaction on the given EVSE/Connector.                                         |
 | STOP_SESSION          | Request the Charge Point to stop an ongoing session.                                                                  |
 | UNLOCK_CONNECTOR      | Request the Charge Point to unlock the connector (if applicable). This functionality is for help desk operators only! |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 **The command `UNLOCK_CONNECTOR` may only be used by an operator of the eMSP. This command SHALL never be allowed to be sent directly by the EV-Driver. 
-The `UNLOCK_CONNECTOR` is intended to be used in the rare situation that the connector is not unlocked successfully after a transaction is stopped. The mechanical unlock of the lock mechanism might get stuck, for example fail when there is tension on the charging cable when the Charge Point tries to unlock the connector.
+The `UNLOCK_CONNECTOR` is intended to be used in the rare situation that the connector is not unlocked successfully after a transaction is stopped. The mechanical unlock of the lock mechanism might get stuck, for example: fail when there is tension on the charging cable when the Charge Point tries to unlock the connector.
 In such a situation the EV-Driver can call either the CPO or the eMSP to retry the unlocking.** 
