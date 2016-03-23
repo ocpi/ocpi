@@ -19,6 +19,7 @@ Example of a RESERVE_NOW that is rejected by the Charge Point.
 Example of a START_SESSION that is successful and results in a new Session.
 ![START_SESSION successful](data/command_start_session_succesful.png)
 
+_These examples use OCPP 1.6 based commands between CPO and Charge Point, but that is not a requirement for OCPI._
 
 ## 2. Interfaces and endpoints
 
