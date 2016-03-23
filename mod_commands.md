@@ -2,7 +2,7 @@
 
 **Module Identifier: `commands`**
 
-The Commands module enables remote commands to be send to an Location/EVSE.
+The Commands module enables remote commands to be sent to a Location/EVSE.
 
 
 ## 1. Flow
@@ -116,10 +116,10 @@ The command requested.
 |-----------------------|-------------------------------------------------------------------|
 | RESERVE_NOW           | Request the Charge Point to request a (specific) connector for a Token for a certain time.                           |
 | START_SESSION         | Request the Charge Point to start a transaction on the given EVSE/Connector.                                         |
-| STOP_SESSION          | Request the Charge Point to stop a ongoing session.                                                                  |
-| UNLOCK_CONNECTOR      | Request the Charge Point to unlock the connector (if applicable) this functionality is for help desk operators only! |
+| STOP_SESSION          | Request the Charge Point to stop an ongoing session.                                                                  |
+| UNLOCK_CONNECTOR      | Request the Charge Point to unlock the connector (if applicable). This functionality is for help desk operators only! |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
-**The command `UNLOCK_CONNECTOR` may only be used by an operator of the eMSP. This command SHALL never be allowed to be send directly by the EV-Driver. 
-The `UNLOCK_CONNECTOR` is intended to be used in the rare situation that the connector is not unlock successfully after a transaction is stopped. The mechanical unlock of the lock mechanism might, for example fail when there is tension on the charging cable when the Charge Point tries to unlock the connector.
+**The command `UNLOCK_CONNECTOR` may only be used by an operator of the eMSP. This command SHALL never be allowed to be sent directly by the EV-Driver. 
+The `UNLOCK_CONNECTOR` is intended to be used in the rare situation that the connector is not unlocked successfully after a transaction is stopped. The mechanical unlock of the lock mechanism might get stuck, for example fail when there is tension on the charging cable when the Charge Point tries to unlock the connector.
 In such a situation the EV-Driver can call either the CPO or the eMSP to retry the unlocking.** 
