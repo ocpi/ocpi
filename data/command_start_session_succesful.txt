@@ -29,7 +29,7 @@ CP   ->  CPO:  StartTransaction.req(Token=200)
 activate CPO
 CPO  ->  CP:   StartTransaction.conf(TransactionId=15)
 deactivate CP
-CPO  ->  eMSP: Session(id=15)
+CPO  ->  eMSP: Session(id=15, token=200, location_id=1234)
 activate eMSP
 eMSP --> CPO: 
 deactivate CPO
