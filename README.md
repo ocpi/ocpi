@@ -16,12 +16,12 @@ This repository contains the OCPI specification.
    - [CDRs](mod_cdrs.md)
    - [Tariffs](mod_tariffs.md)
    - [Tokens](mod_tokens.md)
+   - [Commands](mod_commands.md)
  * __Generic Types__, describing all data types that are used by multiple objects
    - [Types](types.md)
 
 <!--
 Will be added lated:
-* [6. Evse commands.md](commands.md)
 * [9. Smart charging.md](smart_charging.md)
 -->
 
