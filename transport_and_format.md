@@ -71,7 +71,7 @@ A PUT request must specify all required fields of an object (similar to a POST r
 
 
 #### PATCH
-A PATCH request must only specify the object's identifier and the fields to be updated. Any fields (both required or optional) that are left out remain unchanged.
+A PATCH request must only specify the object's identifier (if needed to identify this object) and the fields to be updated. Any fields (both required or optional) that are left out remain unchanged.
 
 The mimetype of the request body is `application/json` and may contain the data as documented for each endpoint.
 
