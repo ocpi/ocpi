@@ -6,9 +6,7 @@ Case Insensitive String. Only printable ASCII allowed.
 
 ### 1.2 DateTime *type*
  
-All timestamps are formatted as string(25) using the combined date and time format from the ISO 8601 standard. The absence of the timezone designator implies a UTC timestamp.
-
-__Known issue in OCPI 2.0: time zones and the use of time zones is not defined strictly enough in OCPI 2.0, and therefor can not be guaranteed to work correctly between parties. It is advised to have additional agreements between parties when using OCPI 2.0 over different times zones, or to use OCPI 2.0 only within the same time zone.__ This will be fixed in the next version of OCPI. 
+All timestamps are formatted as string(25) using the combined date and time format from the ISO 8601 standard. All timestamps SHALL be in UTC. The absence of the timezone designator implies a UTC timestamp.
 
 Example:
 
