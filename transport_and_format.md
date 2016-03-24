@@ -55,7 +55,7 @@ HTTP headers that have to be added to any paginated get response.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | HTTP Parameter | Description                                                                 |
 |----------------|-----------------------------------------------------------------------------|
-| link           | Link to the 'next' page should be provided, see example below               |
+| link           | Link to the 'next' page should be provided, if this is NOT the last page. See example below. |
 | X-Total-Count  | (Custom HTTP Header) Total number of objects available in the server system |
 | X-Limit        | (Custom HTTP Header) Number of objects that are returned. Note that this is an upper limit, if there are not enough remaining objects to return, fewer objects than this upper limit number will be returned. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
