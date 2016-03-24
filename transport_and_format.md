@@ -215,6 +215,7 @@ For brevity's sake, any further examples used in this specification will only co
 }
 ```
 
+
 ## Interface endpoints
 
 As OCPI contains multiple interfaces, different endpoints are available for messaging. The protocol is designed such that the exact URLs of the endpoints can be defined by each party. It also supports an interface per version.
@@ -241,3 +242,15 @@ The URLs of the endpoints in this document are descriptive only. The exact URL c
 | Charging location updates  | locations   | https://example.com/ocpi/emsp/2.0/locations   |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
+
+## Offline behaviour
+
+During communication over OCPI, it might happen that one of the communication parties is unreachable for an amount of time. 
+OCPI works event bases, new messages and status are push from one party to another. When communication is lost, updates cannot be delivered.
+
+OCPI messages should not be queued.
+
+When the connection is re-established, it is up the the client of a connection the GET the current status, get back in-sync. 
+For example: 
+- CDRs of the period of communication loss can be rerieved with a GET command on the CDRs module, with filters to retrieve only CDRs of the period since the last CDR was receive.
+- Status of EVSEs (Of Locations) can be retrieved by calling a GET on the Locations module.
