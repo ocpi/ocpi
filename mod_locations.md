@@ -706,13 +706,13 @@ Note that the scheduled status is purely informational. When the status actually
 This type is used to specify the energy mix and environmental impact of the supplied energy at a location or in a tariff.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Property         | Type                                  | Card. | Description                                            |
-|------------------|---------------------------------------|-------|--------------------------------------------------------|
-| is_green_energy  | Boolean                               | 1     | True if 100% from regenerative sources. (CO2 and nuclear waste is zero) |
-| energy_sources   | EnergySource                          | *     | Key-value pairs (enum + percentage) of energy sources of this location's tariff. |
-| environ_impact   | EnvironmentalImpact                   | *     | Key-value pairs (enum + percentage) of nuclear waste and CO2 exhaust of this location's tariff. |
-| supplier_name    | String                                | ?     | Name of the energy supplier, delivering the energy for this location or tariff.* |
-| energy_tariff    | String                                | ?     | Name of the supplier's tariff name used at this location.*  |
+| Property            | Type                                  | Card. | Description                                                                                     |
+|---------------------|---------------------------------------|-------|-------------------------------------------------------------------------------------------------|
+| is_green_energy     | Boolean                               | 1     | True if 100% from regenerative sources. (CO2 and nuclear waste is zero)                         |
+| energy_sources      | EnergySource                          | *     | Key-value pairs (enum + percentage) of energy sources of this location's tariff.                |
+| environ_impact      | EnvironmentalImpact                   | *     | Key-value pairs (enum + percentage) of nuclear waste and CO2 exhaust of this location's tariff. |
+| supplier_name       | String                                | ?     | Name of the energy supplier, delivering the energy for this location or tariff.*                |
+| energy_product_name | String                                | ?     | Name of the energy suppliers product/tariff plan used at this location.*                        |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 _* These fields can be used to look-up energy qualification or to show it directly to the customer (for well-known brands like Greenpeace Energy, etc.)_
@@ -732,9 +732,9 @@ _* These fields can be used to look-up energy qualification or to show it direct
 
 ```json
 "energy_mix": {
-	"is_green_energy": true,
-	"supplier_name":  "Greenpeace Energy eG",
-	"energy_tariff":  "Ökostrom"
+	"is_green_energy":     true,
+	"supplier_name":       "Greenpeace Energy eG",
+	"energy_product_name": "eco-power"
     }
 ```
 
@@ -744,21 +744,18 @@ _* These fields can be used to look-up energy qualification or to show it direct
 "energy_mix": {
 	"is_green_energy": false,
 	"energy_sources": [
-			{ "source": "GENERAL_GREEN",  "percentage": 35.9, "category": "SUPPLIER"},
-			{ "source": "GAS",            "percentage": 6.3,  "category": "SUPPLIER"},
-			{ "source": "COAL",           "percentage": 33.2, "category": "SUPPLIER"},
-			{ "source": "GENERAL_FOSSIL", "percentage": 2.9,  "category": "SUPPLIER"},
-			{ "source": "NUCLEAR",        "percentage": 21.7, "category": "SUPPLIER"},
-			{ "source": "GENERAL_GREEN",  "percentage": 100,  "category": "TARIFF"}
+			{ "source": "GENERAL_GREEN",  "percentage": 35.9 },
+			{ "source": "GAS",            "percentage": 6.3  },
+			{ "source": "COAL",           "percentage": 33.2 },
+			{ "source": "GENERAL_FOSSIL", "percentage": 2.9, },
+			{ "source": "NUCLEAR",        "percentage": 21.7 }
 		],
 	"environ_impact": [
-			{ "source": "NUCLEAR_WASTE",  "amount": 0.00006, "category": "SUPPLIER"},
-			{ "source": "CARBON_DIOXIDE", "amount": 372,     "category": "SUPPLIER"},
-			{ "source": "NUCLEAR_WASTE",  "amount": 0,       "category": "TARIFF"}
-			{ "source": "CARBON_DIOXIDE", "amount": 0,       "category": "TARIFF"}
+			{ "source": "NUCLEAR_WASTE",  "amount": 0.00006, },
+			{ "source": "CARBON_DIOXIDE", "amount": 372,     }
 		],
-	"supplier_name": "E.ON Energy Deutschland",
-	"energy_tariff": "E.ON DirektStrom öko"
+	"supplier_name":       "E.ON Energy Deutschland",
+	"energy_product_name": "E.ON DirektStrom eco"
     }
 ```
 
@@ -770,22 +767,8 @@ Key-value pairs (enum + percentage) of energy sources. All given values should a
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property         | Type                                  | Card. | Description                                            |
 |------------------|---------------------------------------|-------|--------------------------------------------------------|
-| source           | EnergySourceCategory                  | 1     | The category of this portion.                          |
-| percentage       | Float                                 | 1     | Percentage of this source (0-100) in the mix.          |
-| category         | MixDisclosureCategory                 | 1     | The category of this source.                           |
-<div><!-- ---------------------------------------------------------------------------- --></div>
-
-
-### 4.18 MixDisclosureCategory *enum*
-
-Categories of portions: Caused by the tariff or caused by the respective product, the remaining products or the supplier in total.
-
-<div><!-- ---------------------------------------------------------------------------- --></div>
-| Value              | Description                                                                           |
-|--------------------|---------------------------------------------------------------------------------------|
-| TARIFF             | Portion of this product.                                                              |
-| REMAINING          | Portion of the remaining products of the supplier.                                    |
-| SUPPLIER           | Portion of the supplier in total.                                                     |
+| source           | EnergySourceCategory                  | 1     | The type of energy source.                             |
+| percentage       | number                                | 1     | Percentage of this source (0-100) in the mix.          |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -816,8 +799,7 @@ Key-value pairs (enum + amount) of waste and carbon dioxide emittion per kWh.
 | Property         | Type                                  | Card. | Description                                            |
 |------------------|---------------------------------------|-------|--------------------------------------------------------|
 | source           | EnvironmentalImpactCategory           | 1     | The category of this value.                            |
-| amount           | Float                                 | 1     | Amount of this portion in g/kWh.                       |
-| category         | MixDisclosureCategory                 | 1     | The category of this source.                           |
+| amount           | number                                | 1     | Amount of this portion in g/kWh.                       |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
