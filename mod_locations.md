@@ -298,24 +298,25 @@ The *Location* object describes the location and its properties where a group of
 | Property                                     | Type                                                     | Card. | Description                                                                            |
 |----------------------------------------------|----------------------------------------------------------|-------|----------------------------------------------------------------------------------------|
 | id                                           | [string](types.md#15-string-type)(15)                    | 1     | Uniquely identifies the location within the CPOs platform (and suboperator platforms). |
-| type                                         | [LocationType](#410-locationtype-enum)                   | 1     | The general type of the charge point location.                                         |
+| type                                         | [LocationType](#416-locationtype-enum)                   | 1     | The general type of the charge point location.                                         |
 | name                                         | [string](types.md#15-string-type)(255)                   | ?     | Display name of the location.                                                          |
 | address                                      | [string](types.md#15-string-type)(45)                    | 1     | Street/block name and house number if available.                                       |
 | city                                         | [string](types.md#15-string-type)(45)                    | 1     | City or town.                                                                          |
 | postal_code                                  | [string](types.md#15-string-type)(10)                    | 1     | Postal code of the location.                                                           |
 | country                                      | [string](types.md#15-string-type)(3)                     | 1     | ISO 3166-1 alpha-3 code for the country of this location.                              |
-| coordinates                                  | [GeoLocation](#46-geolocation-class)                     | 1     | Coordinates of the location.                                                           |
+| coordinates                                  | [GeoLocation](#412-geolocation-class)                     | 1     | Coordinates of the location.                                                           |
 | related_locations                            | [AdditionalGeoLocation](#41-additionalgeolocation-class) | *     | Geographical location of related points relevant to the user.                          |
 | evses                                        | [EVSE](#32-evse-object)                                  | *     | List of EVSEs that belong to this Location.                                            |
 | directions                                   | [DisplayText](types.md#14-displaytext-class)             | *     | Human-readable directions on how to reach the location.                                |
 | operator                                     | [BusinessDetails](#41-businessdetails-class)             | ?     | Information of the operator. When not specified, the information retrieved from the `api_info` endpoint should be used instead. |
 | suboperator                                  | [BusinessDetails](#41-businessdetails-class)             | ?     | Information of the suboperator if available.                                           |
 | owner                                        | [BusinessDetails](#41-businessdetails-class)             | ?     | Information of the owner if available.                                           |
-| facilities                                   | [Facility](#xx-facility-enum)                            | *     | Optional list of facilities this charge location directly belongs to.                        |
+| facilities                                   | [Facility](#411-facility-enum)                            | *     | Optional list of facilities this charge location directly belongs to.                        |
 | time_zone                                    | string(255)                                              | ?     | One of IANA tzdata's TZ-values representing the time zone of the location. Examples: "Europe/Oslo", "Europe/Zurich". (http://www.iana.org/time-zones) |
-| opening_times                                | [Hours](#47-hours-class)                                 | ?     | The times when the EVSEs at the location can be accessed for charging.                         |
+| opening_times                                | [Hours](#413-hours-class)                                | ?     | The times when the EVSEs at the location can be accessed for charging.                         |
 | charging_when_closed                         | boolean                                                  | ?     | Indicates if the EVSEs are still charging outside the opening hours of the location. E.g. when the parking garage closes its barriers over night, is it allowed to charge till the next morning?  Default: **true** |
-| images                                       | [Image](#48-image-class)                                 | *     | Links to images related to the location such as photos or logos.                       |
+| images                                       | [Image](#414-image-class)                                | *     | Links to images related to the location such as photos or logos.                       |
+| energy_mix                                   | [EnergyMix](#45-energymix-class)                         | ?     | Details on the energy supplied at this location.                                       |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 #### Example
@@ -399,15 +400,15 @@ An *EVSE* object has a list of connectors which can not be used simultaneously: 
 |--------------------------------------|----------------------------------------------------|-------|------------------------------------------------------------------------|
 | uid                                  | [string](types.md#15-string-type)(15)              | 1     | Uniquely identifies the EVSE within the CPOs platform (and suboperator platforms). For example a database unique ID     |
 | evse_id                              | [string](types.md#15-string-type)(48)              | ?     | Compliant with ISO/IEC 15118-2 - Annex H "Specification of Identifiers". Optional because: if an EVSE ID is to be re-used the EVSE ID can be removed from an EVSE that is removed (status: REMOVED)     |
-| status                               | [Status](#414-status-enum)                         | 1     | Indicates the current status of the EVSE.                              |
-| status_schedule                      | [StatusSchedule](#415-statusschedule-class)        | *     | Indicates a planned status in the future of the EVSE.                  |
+| status                               | [Status](#420-status-enum)                         | 1     | Indicates the current status of the EVSE.                              |
+| status_schedule                      | [StatusSchedule](#421-statusschedule-class)        | *     | Indicates a planned status in the future of the EVSE.                  |
 | capabilities                         | [Capability](#42-capability-enum)                  | *     | List of functionalities that the EVSE is capable of.                   |
 | connectors                           | [Connector](#33-connector-object)                  | +     | List of available connectors on the EVSE.                              |
 | floor_level                          | [string](types.md#15-string-type)(4)               | ?     | Level on which the charging station is located (in garage buildings) in the locally displayed numbering scheme.     |
-| coordinates                          | [GeoLocation](#46-geolocation-class)               | ?     | Coordinates of the EVSE.                                               |
+| coordinates                          | [GeoLocation](#412-geolocation-class)               | ?     | Coordinates of the EVSE.                                               |
 | physical_reference                   | [string](types.md#15-string-type)(16)              | ?     | A number/string printed on the outside of the EVSE for visual identification.     |
 | directions                           | [DisplayText](types.md#14-displaytext-class)       | *     | Multi-language human-readable directions when more detailed information on how to reach the EVSE from the *Location* is required.     |
-| parking_restrictions                 | [ParkingRestriction](#411-parkingrestriction-enum) | *     | The restrictions that apply to the parking spot.                       |
+| parking_restrictions                 | [ParkingRestriction](#417-parkingrestriction-enum) | *     | The restrictions that apply to the parking spot.                       |
 | images                               | [Image](#48-image-class)                           | *     | Links to images related to the EVSE such as photos or logos.           |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
@@ -422,7 +423,7 @@ A connector is the socket or cable available for the EV to use. A single EVSE ma
 | id                                 | [string](types.md#15-string-type)(15)       | 1     | Identifier of the connector within the EVSE. Two connectors may have the same id as long as they do not belong to the same *EVSE* object. |
 | standard                           | [ConnectorType](#44-connectortype-enum)     | 1     | The standard of the installed connector.                                |
 | format                             | [ConnectorFormat](#43-connectorformat-enum) | 1     | The format (socket/cable) of the installed connector.                   |
-| power_type                         | [PowerType](#412-powertype-enum)            | 1     |                                                                         |
+| power_type                         | [PowerType](#418-powertype-enum)            | 1     |                                                                         |
 | voltage                            | int                                         | 1     | Voltage of the connector (line to neutral for AC_3_PHASE), in volt [V]. |
 | amperage                           | int                                         | 1     | maximum amperage of the connector, in ampere [A].                       |
 | tariff_id                          | [string](types.md#15-string-type)(15)       | ?     | Identifier of the current charging tariff structure                     |
@@ -452,7 +453,7 @@ This class defines a geo location. The geodetic system to be used is WGS 84.
 |------------------|----------------------------------------|-------|------------------------------------|
 | name             | [string](types.md#15-string-type)(100) | 1     | Name of the operator.              |
 | website          | [URL](types.md#16-url-type)            | ?     | Link to the operator's website.    |
-| logo             | [Image](#48-image-class)               | ?     | Image link to the operator's logo. |
+| logo             | [Image](#414-image-class)              | ?     | Image link to the operator's logo. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -520,7 +521,120 @@ The socket or plug standard of the charging point.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-### 4.5 ExceptionalPeriod *class*
+### 4.5 EnergyMix *class*
+
+This type is used to specify the energy mix and environmental impact of the supplied energy at a location or in a tariff.
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Property            | Type                                  | Card. | Description                                                                                     |
+|---------------------|---------------------------------------|-------|-------------------------------------------------------------------------------------------------|
+| is_green_energy     | Boolean                               | 1     | True if 100% from regenerative sources. (CO2 and nuclear waste is zero)                         |
+| energy_sources      | [EnergySource](#46-energy-source)     | *     | Key-value pairs (enum + percentage) of energy sources of this location's tariff.                |
+| environ_impact      | EnvironmentalImpact                   | *     | Key-value pairs (enum + percentage) of nuclear waste and CO2 exhaust of this location's tariff. |
+| supplier_name       | String                                | ?     | Name of the energy supplier, delivering the energy for this location or tariff.*                |
+| energy_product_name | String                                | ?     | Name of the energy suppliers product/tariff plan used at this location.*                        |
+<div><!-- ---------------------------------------------------------------------------- --></div>
+
+_* These fields can be used to look-up energy qualification or to show it directly to the customer (for well-known brands like Greenpeace Energy, etc.)_
+
+
+#### Examples
+
+##### Simple:
+
+```json
+"energy_mix": {
+	"is_green_energy": true
+    }
+```
+
+##### Tariff name based:
+
+```json
+"energy_mix": {
+	"is_green_energy":     true,
+	"supplier_name":       "Greenpeace Energy eG",
+	"energy_product_name": "eco-power"
+    }
+```
+
+##### Complete:
+
+```json
+"energy_mix": {
+	"is_green_energy": false,
+	"energy_sources": [
+			{ "source": "GENERAL_GREEN",  "percentage": 35.9 },
+			{ "source": "GAS",            "percentage": 6.3  },
+			{ "source": "COAL",           "percentage": 33.2 },
+			{ "source": "GENERAL_FOSSIL", "percentage": 2.9, },
+			{ "source": "NUCLEAR",        "percentage": 21.7 }
+		],
+	"environ_impact": [
+			{ "source": "NUCLEAR_WASTE",  "amount": 0.00006, },
+			{ "source": "CARBON_DIOXIDE", "amount": 372,     }
+		],
+	"supplier_name":       "E.ON Energy Deutschland",
+	"energy_product_name": "E.ON DirektStrom eco"
+    }
+```
+
+
+### 4.6 EnergySource *class*
+
+Key-value pairs (enum + percentage) of energy sources. All given values should add up to 100 percent per category.
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Property         | Type                                  | Card. | Description                                            |
+|------------------|---------------------------------------|-------|--------------------------------------------------------|
+| source           | EnergySourceCategory                  | 1     | The type of energy source.                             |
+| percentage       | number                                | 1     | Percentage of this source (0-100) in the mix.          |
+<div><!-- ---------------------------------------------------------------------------- --></div>
+
+
+### 4.7 EnergySourceCategory *enum*
+
+Categories of energy sources.
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Value              | Description                                                                           |
+|--------------------|---------------------------------------------------------------------------------------|
+| NUCLEAR            | Nuclear power sources.                                                                |
+| GENERAL_FOSSIL     | All kinds of fossil power sources.                                                    |
+| COAL               | Fossil power from coal.                                                               |
+| GAS                | Fossil power from gas.                                                                |
+| GENERAL_GREEN      | All kinds of regenerative power sources.                                              |
+| SOLAR              | Regenerative power from PV.                                                           |
+| WIND               | Regenerative power from wind turbines.                                                |
+| WATER              | Regenerative power from water turbines.                                               |
+<div><!-- ---------------------------------------------------------------------------- --></div>
+
+
+### 4.8 EnvironmentalImpact *class*
+
+Key-value pairs (enum + amount) of waste and carbon dioxide emittion per kWh.
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Property         | Type                                  | Card. | Description                                            |
+|------------------|---------------------------------------|-------|--------------------------------------------------------|
+| source           | EnvironmentalImpactCategory           | 1     | The category of this value.                            |
+| amount           | number                                | 1     | Amount of this portion in g/kWh.                       |
+<div><!-- ---------------------------------------------------------------------------- --></div>
+
+
+### 4.9 EnvironmentalImpactCategory *enum*
+
+Categories of environmental impact values.
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Value              | Description                                                                           |
+|--------------------|---------------------------------------------------------------------------------------|
+| NUCLEAR_WASTE      | Produced nuclear waste in gramms per kilowatthour.                                    |
+| CARBON_DIOXIDE     | Exhausted carbon dioxide in gramms per kilowarrhour.                                  |
+<div><!-- ---------------------------------------------------------------------------- --></div>
+
+
+### 4.10 ExceptionalPeriod *class*
 
 Specifies one exceptional period for opening or access hours.
 
@@ -532,8 +646,7 @@ Specifies one exceptional period for opening or access hours.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-### X.X Facility *enum*
-TODO renumber chapters
+### 4.11 Facility *enum*
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Value           | Description                                               |
@@ -557,9 +670,7 @@ TODO renumber chapters
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-
-
-### 4.6 GeoLocation *class*
+### 4.12 GeoLocation *class*
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property    | Type                                | Card. | Description                                                                                       |
@@ -569,7 +680,7 @@ TODO renumber chapters
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-### 4.7 Hours *class*
+### 4.13 Hours *class*
 
 Opening and access hours of the location.
 
@@ -577,14 +688,14 @@ Opening and access hours of the location.
 | Field Name                       | Field Type                                     | Card.   | Description                                                         |
 |----------------------------------|------------------------------------------------|---------|---------------------------------------------------------------------|
 | *Choice: one of two*             |                                                |         |                                                                     |
-|  > regular_hours                 |  [RegularHours](#413-regularhours-class)       |  *      |  Regular hours, weekday based. Should not be set for representing 24/7 as this is the most common case. |
+|  > regular_hours                 |  [RegularHours](#419-regularhours-class)       |  *      |  Regular hours, weekday based. Should not be set for representing 24/7 as this is the most common case. |
 |  > twentyfourseven               |  boolean                                       |  1      |  True to represent 24 hours a day and 7 days a week, except the given exceptions. |
-| exceptional_openings             |  [ExceptionalPeriod](#45-exceptionalperiod-class) |  *      |  Exceptions for specified calendar dates, time-range based. Periods the station is operating/accessible. Additional to regular hours. May overlap regular rules. |
-| exceptional_closings             |  [ExceptionalPeriod](#45-exceptionalperiod-class) |  *      |  Exceptions for specified calendar dates, time-range based. Periods the station is not operating/accessible. Overwriting regularHours and exceptionalOpenings. Should not overlap exceptionalOpenings. |
+| exceptional_openings             | [ExceptionalPeriod](#410-exceptionalperiod-class)| *     |  Exceptions for specified calendar dates, time-range based. Periods the station is operating/accessible. Additional to regular hours. May overlap regular rules. |
+| exceptional_closings             | [ExceptionalPeriod](#410-exceptionalperiod-class)| *     |  Exceptions for specified calendar dates, time-range based. Periods the station is not operating/accessible. Overwriting regularHours and exceptionalOpenings. Should not overlap exceptionalOpenings. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-### 4.8 Image *class*
+### 4.14 Image *class*
 
 This class references images related to a EVSE in terms of a file name or url. According to the roaming connection between one EVSE Operator and one or more Navigation Service Providers the hosting or file exchange of image payload data has to be defined. The exchange of this content data is out of scope of OCHP. However, the recommended setup is a public available web server hosted and updated by the EVSE Operator. Per charge point an unlimited number of images of each type is allowed. Recommended are at least two images where one is a network or provider logo and the second is a station photo. If two images of the same type are defined they should be displayed additionally, not optionally.
 
@@ -599,14 +710,14 @@ The recommended dimensions for logos are exactly 512 pixels wide and 512 pixels 
 |------------|------------------------------------------|-------|---------------------------------------|
 | url        | [URL](types.md#16-url-type)              | 1     | URL from where the image data can be fetched through a web browser. |
 | thumbnail  | [URL](types.md#16-url-type)              | ?     | URL from where a thumbnail of the image can be fetched through a webbrowser. |
-| category   | [ImageCategory](#49-imagecategory-enum)  | 1     | Describes what the image is used for. |
+| category   | [ImageCategory](#415-imagecategory-enum) | 1     | Describes what the image is used for. |
 | type       | string(4)                                | 1     | Image type like: gif, jpeg, png, svg  |
 | width      | int(5)                                   | ?     | Width of the full scale image         |
 | height     | int(5)                                   | ?     | Height of the full scale image        |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-### 4.9 ImageCategory *enum*
+### 4.15 ImageCategory *enum*
 
 The category of an image to obtain the correct usage in a user presentation. The category has to be set accordingly to the image content in order to guarantee the right usage.
 
@@ -623,7 +734,7 @@ The category of an image to obtain the correct usage in a user presentation. The
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-### 4.10 LocationType *enum*
+### 4.16 LocationType *enum*
 
 Reflects the general type of the charge points location. May be used
 for user information.
@@ -640,7 +751,7 @@ for user information.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-### 4.11 ParkingRestriction *enum*
+### 4.17 ParkingRestriction *enum*
 
 This value, if provided, represents the restriction to the parking spot
 for different purposes.
@@ -656,7 +767,7 @@ for different purposes.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-### 4.12 PowerType *enum*
+### 4.18 PowerType *enum*
 
 The format of the connector, whether it is a socket or a plug.
 
@@ -669,7 +780,7 @@ The format of the connector, whether it is a socket or a plug.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-### 4.13 RegularHours *class*
+### 4.19 RegularHours *class*
 
 Regular recurring operation or access hours
 
@@ -682,7 +793,7 @@ Regular recurring operation or access hours
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-#### 4.13.1 Example
+#### 4.19.1 Example
 
 Operating on weekdays from 8am till 8pm with one exceptional opening on
 22/6/2014 and one exceptional closing the Monday after:
@@ -744,7 +855,7 @@ This represents the following schedule, where ~~stroked out~~ days are without o
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-### 4.14 Status *enum*
+### 4.20 Status *enum*
 
 The status of an EVSE.
 
@@ -763,7 +874,7 @@ The status of an EVSE.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-### 4.15 StatusSchedule *class*
+### 4.21 StatusSchedule *class*
 
 This type is used to schedule status periods in the future. The eMSP can provide this information to the EV user for trip planning purpose. A period MAY have no end. Example: "This station will be running as of tomorrow. Today it is still planned and under construction."
 
@@ -772,8 +883,7 @@ This type is used to schedule status periods in the future. The eMSP can provide
 |------------------|---------------------------------------|-------|--------------------------------------------------------|
 | period_begin     | [DateTime](types.md#12_datetime_type) | 1     | Begin of the scheduled period.                         |
 | period_end       | [DateTime](types.md#12_datetime_type) | ?     | End of the scheduled period, if known.                 |
-| status           | [Status](#414-status-enum)            | 1     | Status value during the scheduled period.              |
+| status           | [Status](#420-status-enum)            | 1     | Status value during the scheduled period.              |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 Note that the scheduled status is purely informational. When the status actually changes, the CPO must push an update to the EVSEs `status` field itself.
-
