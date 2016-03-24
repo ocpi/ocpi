@@ -93,6 +93,10 @@ Example of a URL to a client owned object
 ```   
    https://www.server.com/ocpi/cpo/2.0/tariffs/NL/TNM/14
 ```   
+
+#### Errors
+When a client pushes a client owned object, but the {object-id} in the URL is different from the id in the object being pushed. A Server implementation is advised to return an [OCPI status code](transport_and_format.md): [2001](transport_and_format.md#2xxx-client-errors).
+
  
 
 ### Response format
