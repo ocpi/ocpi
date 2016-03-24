@@ -32,7 +32,7 @@ Both the CPO and the eMSP must have this endpoint.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property | Type                        | Card. | Description                               |
 |----------|-----------------------------|-------|-------------------------------------------|
-| version  | decimal                     | 1     | The version number.                       |
+| version  | [VersionNumber](#versionnumber-enum) | 1     | The version number.                       |
 | url      | [URL](types.md#16-url-type) | 1     | URL to the endpoint containing version specific information. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
@@ -77,7 +77,7 @@ Both the CPO and the eMSP must have this endpoint.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property  | Type                                | Card. | Description                                     |
 |-----------|-------------------------------------|-------|-------------------------------------------------|
-| version   | [decimal](types.md#13_decimal_type) | 1     | The version number.                             |
+| version   | [VersionNumber](#versionnumber-enum)| 1     | The version number.                             |
 | endpoints | Endpoint                            | +     | A list of supported endpoints for this version. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
@@ -106,6 +106,18 @@ The Module identifiers for each endpoint are in the beginning of each *Module* c
 | [Sessions](mod_sessions.md)                  | sessions    |                                   |
 | [Tariffs](mod_tariffs.md)                    | tariffs     |                                   |
 | [Tokens](mod_tokens.md)                      | tokens      |                                   |
+<div><!-- ---------------------------------------------------------------------------- --></div>
+
+
+### VersionNumber *enum*
+
+List of known versions.
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Property | Description                         |
+|----------|-------------------------------------|
+| 2.0      | OCPI version 2.0.                   |
+| 2.1      | OCPI version 2.1. (this version)    |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
