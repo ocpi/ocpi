@@ -3,23 +3,40 @@
 **Module Identifier: `commands`**
 
 The Commands module enables remote commands to be sent to a Location/EVSE.
+The following commands are supported: 
+`RESERVE_NOW`
+`START_SESSION`
+`STOP_SESSION`
+`UNLOCK_CONNECTOR`
+
+See [CommandType](#42-commandtype-enum) for a description of the different commands.
+_Use the `UNLOCK_CONNECTOR` command with care, please read the note at [CommandType](#42-commandtype-enum)._ 
 
 
 ## 1. Flow
 
-TODO Describe asynchronous nature of this interface/module
-Response URL might contain an UID to 
+With the Commands module, commands can be send from the eMSP, via the CPO to a Charge Point.
+Most Charge Point are hooked up to the internet via a relative slow wireless connection. To prevent long blocking calls, the commands module is designed to work asynchronous.
+ 
+The eMSP send a request to a CPO, via the CPO Commands interface. The CPO check if it can send the request to a Charge Point. It will response to the request with a status, indicating if the request can be send to a Charge Point. 
 
-Example of a UNLOCK_CONNECTOR that fails because the Location is not known by the CPO.
+The CPO sends the requested command (via another protocol, for example: OCPP) to a Charge Point. The Charge Point will respond, if it understand the command and will try to execute the command. This response doesn't mean the command was executed successful. The CPO will forward this command in a new POST request to the eMSP Commands interface.  
+
+The following examples try to give insight into the message flow and asynchronous nature of the OCPI Commands.
+Example of a `UNLOCK_CONNECTOR` that fails because the Location is not known by the CPO.
 ![UNLOCK_CONNECTOR unkown Location](data/command_unlock_unknow_location.png)
 
-Example of a RESERVE_NOW that is rejected by the Charge Point.
+Example of a `RESERVE_NOW` that is rejected by the Charge Point.
 ![RESERVE_NEW rejected by Charge Point](data/command_reservenow_rejected.png)
 
-Example of a START_SESSION that is successful and results in a new Session.
+Example of a `START_SESSION` that is accepted, but no new Session is started because EV not plugged in before end of time-out.
+![START_SESSION failed](data/command_start_session_timeout.png)
+
+Example of a `START_SESSION` that is accepted and results in a new Session.
 ![START_SESSION successful](data/command_start_session_succesful.png)
 
 _These examples use OCPP 1.6 based commands between CPO and Charge Point, but that is not a requirement for OCPI._
+
 
 ## 2. Interfaces and endpoints
 
@@ -68,7 +85,7 @@ Depending on the `command` parameter the body SHALL contain the applicable objec
 
 ##### Response Data
 
-The response contains the direct response from the CPO, not the response from the Charge Point itself, that will be send via a asynchronous POST on the eMSP interface if this response is `SUCCESSFUL`
+The response contains the direct response from the CPO, not the response from the Charge Point itself, that will be send via a asynchronous POST on the eMSP interface if this response is `ACCEPTED`
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Datatype                                            | Card. | Description                                                              |
@@ -192,7 +209,7 @@ The command requested.
 |-----------------|--------------------------------------------------------------------------------------------|
 | NOT_SUPPORTED   | The requested command is not supported by this CPO, Charge Point, EVSE etc.                |
 | REJECTED        | Command request rejected by the CPO or Charge Point.                                       |
-| SUCCESSFUL      | Command request accepted by the CPO or Charge Point.                                       |
+| ACCEPTED        | Command request accepted by the CPO or Charge Point.                                       |
 | TIMEOUT         | Command request timeout, no response received from the Charge Point in an reasonable time. |
 | UNKOWN_LOCATION | The Location, EVSE or Location in the requested command is not known by this CPO.          |
 | UNKOWN_SESSION  | The Session in the requested command is not known by this CPO.                             |

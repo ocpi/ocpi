@@ -1,5 +1,5 @@
 @startuml
-title OCPI Command START_SESSION -> ACCEPTED and Session started
+title OCPI Command START_SESSION -> ACCEPTED but EV never plugged in
 hide footbox
 
 participant eMSP
@@ -23,15 +23,6 @@ eMSP --> CPO:
 deactivate CPO
 deactivate eMSP
 
-CP   --> CP: EV Plugged in
+CP   --> CP: EV NOT Plugged in before time-out
 
-
-CP   ->  CPO:  StartTransaction.req(Token=200)
-activate CPO
-CPO  ->  CP:   StartTransaction.conf(TransactionId=15)
 deactivate CP
-CPO  ->  eMSP: Session(id=15, token=200, location_id=1234)
-activate eMSP
-eMSP --> CPO: 
-deactivate CPO
-deactivate eMSP
