@@ -19,6 +19,7 @@ This repository contains the OCPI specification.
    - [Commands](mod_commands.md)
  * __Generic Types__, describing all data types that are used by multiple objects
    - [Types](types.md)
+ * [__Changelog__](changelog.md)
 
 <!--
 Will be added lated:
@@ -31,21 +32,19 @@ This is the schedule for finalising all modules:
 
 Release 2.0: 
 - Charge Point Exchange Static & Dynamic (with tariffing covering only start/kWh/time)
-- Authorisation & token data exchange
+- Authorization & token data exchange
 - Tariffing
 - Session Info exchange (cdr & ndr)
 - Registration (How to connect) & Security
 
 Release 2.1:
 - Improvements from rel. 2.0
-- Tariffing (advanced/dynamic)
-- Session Info exchange (cdr & ndr)
+- Chargepoint commands
+- realtime authorization
 
 Release 2.2:
-- Chargepoint commands (no authorisation)
-
-Release 2.3:
 - Smart Charging
+- Tariffing (advanced/dynamic)
 
 
 ----
