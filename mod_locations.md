@@ -641,8 +641,8 @@ Specifies one exceptional period for opening or access hours.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Field Name   | Field Type                            | Card.   | Description |
 |--------------|---------------------------------------|---------|-------------|
-| period_begin | [DateTime](types.md#12_datetime_type) | 1       | Begin of the exception.|
-| period_end   | [DateTime](types.md#12_datetime_type) | 1       | End of the exception.|
+| period_begin | [DateTime](types.md#12-datetime-type) | 1       | Begin of the exception.|
+| period_end   | [DateTime](types.md#12-datetime-type) | 1       | End of the exception.|
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 

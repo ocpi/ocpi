@@ -86,7 +86,7 @@ The response contains the requested object.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Type                                | Card. | Description                                                |
 |-------------------------------------|-------|------------------------------------------------------------|
-| [Token](#31-token-object)           | 1     | The requested Token object.                                |
+| [Token](#32-token-object)           | 1     | The requested Token object.                                |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -101,7 +101,7 @@ In the put request a the new or updated Token object is send.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Type                            | Card. | Description                              |
 |---------------------------------|-------|------------------------------------------|
-| [Token](#31-token-object)       | 1     | New or updated Tariff object.            |
+| [Token](#32-token-object)       | 1     | New or updated Tariff object.            |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -195,7 +195,7 @@ Each object must contain all required fields. Fields that are not specified may 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Type                            | Card. | Description                              |
 |---------------------------------|-------|------------------------------------------|
-| [Token](#31-token-object)       | *     | List of all tokens.                      |
+| [Token](#32-token-object)       | *     | List of all tokens.                      |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -222,47 +222,47 @@ The following parameter has to be provided as URL segments.
 
 ##### Request Body
 
-In the body an optional [LocationReferences](#4x-locationreferences-class) object can be given. The eMSP SHALL then validate if the Token is allowed to be used at this Location, and if applicable: which of the Locations EVSEs/Connectors.
+In the body an optional [LocationReferences](#42-locationreferences-class) object can be given. The eMSP SHALL then validate if the Token is allowed to be used at this Location, and if applicable: which of the Locations EVSEs/Connectors.
 The object with valid Location and EVSEs/Connectors will be returned in the response.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Type                                                | Card. | Description                                                                     |
 |-----------------------------------------------------|-------|---------------------------------------------------------------------------------|
-| [LocationReferences](#4x-locationreferences-class)  | ?     | Location and EVSEs/Connectos for which the Token is requested to be authorized. |
+| [LocationReferences](#42-locationreferences-class)  | ?     | Location and EVSEs/Connectos for which the Token is requested to be authorized. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
 ##### Response Data
 
-The endpoint response contains a [AuthorizationInfo](#3x-authorizationinfo-object) object.
+The endpoint response contains a [AuthorizationInfo](#31-authorizationinfo-object) object.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Type                                              | Card. | Description                              |
 |---------------------------------------------------|-------|------------------------------------------|
-| [AuthorizationInfo](#3x-authorizationinfo-object) | 1     | Contains information about the authorization, if the Token is allowed to charge and optionally which EVSEs/Connectors are allowed to be used. |
+| [AuthorizationInfo](#31-authorizationinfo-object) | 1     | Contains information about the authorization, if the Token is allowed to charge and optionally which EVSEs/Connectors are allowed to be used. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
 ## 3. Object description
 
-### 3.X _AuthorizationInfo_ Object
+### 3.1 _AuthorizationInfo_ Object
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property  | Type                                               | Card. | Description                                                                           |
 |-----------|----------------------------------------------------|-------|---------------------------------------------------------------------------------------|
-| allowed   | [Allowed](#4x-allowed-enum)                        | 1     | Status of the Token, and if it is allowed to charge at the optionally given location. |
-| location  | [LocationReferences](#4x-locationreferences-class) | ?     | Optional reference to the location if it was request in the request, and if the EV driver is allowed to charge at that location. Only the EVSEs/Connectors the EV driver is allowed to charge at are returned.                                                                     |
+| allowed   | [Allowed](#41-allowed-enum)                        | 1     | Status of the Token, and if it is allowed to charge at the optionally given location. |
+| location  | [LocationReferences](#42-locationreferences-class) | ?     | Optional reference to the location if it was request in the request, and if the EV driver is allowed to charge at that location. Only the EVSEs/Connectors the EV driver is allowed to charge at are returned.                                                                     |
 | info      | [DisplayText](types.md#14-displaytext-class)       | ?     | Optional display text, additional information to the EV driver.                       |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-### 3.1 _Token_ Object
+### 3.2 _Token_ Object
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property                | Type                                  | Card. | Description                                                                                             |
 |-------------------------|---------------------------------------|-------|---------------------------------------------------------------------------------------------------------|
 | uid                     | [string](types.md#15-string-type)(15) | 1     | Identification used by CPO system to identify this token, for example RFID hidden ID                    |
-| type                    | [TokenType](#41-tokentype)            | 1     | Type of the token                                                                                       |
+| type                    | [TokenType](#43-tokentype)            | 1     | Type of the token                                                                                       |
 | auth_id                 | [string](types.md#15-string-type)(32) | 1     | Uniquely identifies the EV Driver contract token within the eMSPs platform (and suboperator platforms). Recommended to follow the specification for eMA ID from "eMI3 standard version V1.0" (http://emi3group.com/documents-links/) "Part 2: business objects." |
 | visual_number           | [string](types.md#15-string-type)(64) | 1     | Visual readable number/identification of the Token                                                      |
 | issuer                  | [string](types.md#15-string-type)(64) | 1     | Issuing company                                                                                         |
@@ -290,7 +290,7 @@ The combination of _uid_ and _type_ should be unique for every token.
 
 ## 4. Data types
 
-### 4.X Allowed *enum*
+### 4.1 Allowed *enum*
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Value        | Description                                                                                   |
@@ -303,7 +303,7 @@ The combination of _uid_ and _type_ should be unique for every token.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-### 4.X LocationReferences *class* 
+### 4.2 LocationReferences *class* 
 
 References to location details.
 
@@ -316,7 +316,7 @@ References to location details.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-### 4.1 TokenType *enum*
+### 4.3 TokenType *enum*
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Value        | Description                                          |

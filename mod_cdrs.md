@@ -70,8 +70,8 @@ This request is [paginated](transport_and_format.md#get), it supports the [pagin
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Parameter     | Datatype                             | Required    | Description                                                               |
 |---------------|--------------------------------------|-------------|---------------------------------------------------------------------------|
-| date_from     | [DateTime](types.md#12_datetime_type)| no          | Begin charging session start Date/Time of CDRs to fetch.                  |
-| date_to       | [DateTime](types.md#12_datetime_type)| no          | End charging session start Date/Time of CDRs to fetch, if omitted all CDRs up to now are request to be returned. |
+| date_from     | [DateTime](types.md#12-datetime-type)| no          | Begin charging session start Date/Time of CDRs to fetch.                  |
+| date_to       | [DateTime](types.md#12-datetime-type)| no          | End charging session start Date/Time of CDRs to fetch, if omitted all CDRs up to now are request to be returned. |
 | offset        | int                                  | no          | The offset of the first object returned. Default is 0.                    |
 | limit         | int                                  | no          | Maximum number of objects to GET.                                         |
 <div><!-- ---------------------------------------------------------------------------- --></div>
@@ -172,7 +172,7 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 | id                                   | [CiString](types.md#12-cistring-type)(15)                | 1     | Uniquely identifies the CDR within the CPOs platform (and suboperator platforms).                                              |
 | start_date_time                      | [DateTime](types.md#12-datetime-type)                    | 1     | Start timestamp of the charging session.                                                                                       |
 | stop_date_time                       | [DateTime](types.md#12-datetime-type)                    | ?     | Stop timestamp of the charging session.                                                                                        |
-| auth_id                              | [string](types.md#15-string-type)(32)                    | 1     | Reference to a token, identified by the auth_id field of the [Token](mod_tokens.md#31_token_object).                           |
+| auth_id                              | [string](types.md#15-string-type)(32)                    | 1     | Reference to a token, identified by the auth_id field of the [Token](mod_tokens.md#32-token-object).                           |
 | auth_method                          | [AuthMethod](#41-authmethod-enum)                        | 1     | Method used for authentication.                                                                                                |
 | location                             | [Location](mod_locations.md#31-location-object)          | 1     | Location where the charging session took place, including only the relevant [EVSE](mod_locations.md#32-evse-object) and [Connector](mod_locations.md#33-connector-object). |
 | meter_id                             | [string](types.md#15-string-type)(255)                   | ?     | Identification of the Meter inside the Charge Point.                                                                           |

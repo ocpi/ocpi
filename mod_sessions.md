@@ -57,8 +57,8 @@ This request is [paginated](transport_and_format.md#get), so also supports the [
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Parameter  | Datatype                              | Required | Description                                                                   |
 |------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
-| date_from  | [DateTime](types.md#12_datetime_type) | yes      | Begin charging session start Date/Time of the Sessions to fetch.              |
-| date_to    | [DateTime](types.md#12_datetime_type) | no       | End charging session start Date/Time of the Sessions to fetch, if omitted all Sessions up to now are request to be returned. |
+| date_from  | [DateTime](types.md#12-datetime-type) | yes      | Begin charging session start Date/Time of the Sessions to fetch.              |
+| date_to    | [DateTime](types.md#12-datetime-type) | no       | End charging session start Date/Time of the Sessions to fetch, if omitted all Sessions up to now are request to be returned. |
 | offset     | int                                   | no       | The offset of the first object returned. Default is 0.                        |
 | limit      | int                                   | no       | Maximum number of objects to GET.                                             |
 <div><!-- ---------------------------------------------------------------------------- --></div>
@@ -190,8 +190,8 @@ The following parameters can be provided as URL segments.
 | Property                          | Type                                                       | Card. | Description                                                                                                    |
 |-----------------------------------|------------------------------------------------------------|-------|----------------------------------------------------------------------------------------------------------------|
 | id                                | [string](types.md#15-string-type)(15)                      | 1     | The unique id that identifies the session in the CPO platform.                                                 |
-| start_datetime                    | [DateTime](types.md#12_datetime_type)                      | 1     | The time when the session became active.                                                                       |
-| end_datetime                      | [DateTime](types.md#12_datetime_type)                      | ?     | The time when the session is completed.                                                                        |
+| start_datetime                    | [DateTime](types.md#12-datetime-type)                      | 1     | The time when the session became active.                                                                       |
+| end_datetime                      | [DateTime](types.md#12-datetime-type)                      | ?     | The time when the session is completed.                                                                        |
 | kwh                               | number                                                     | 1     | How many kWh are charged.                                                                                      |
 | auth_id                           | [string](types.md#15-string-type)(15)                      | 1     | An id provided by the authentication used, so that the eMSP knows to which driver the session belongs.         |
 | auth_method                       | [AuthMethod](mod_cdrs.md#41-authmethod-enum)               | 1     | Method used for authentication.                                                                                |
