@@ -15,14 +15,14 @@ _Use the `UNLOCK_CONNECTOR` command with care, please read the note at [CommandT
 
 ## 1. Flow
 
-With the Commands module, commands can be send from the eMSP, via the CPO to a Charge Point.
-Most Charge Point are hooked up to the internet via a relative slow wireless connection. To prevent long blocking calls, the commands module is designed to work asynchronous.
+With the Commands module, commands can be sent from the eMSP, via the CPO to a Charge Point.
+Most Charge Point are hooked up to the internet via a relative slow wireless connection. To prevent long blocking calls, the commands module is designed to work asynchronously.
  
-The eMSP send a request to a CPO, via the CPO Commands interface. The CPO check if it can send the request to a Charge Point. It will response to the request with a status, indicating if the request can be send to a Charge Point. 
+The eMSP send a request to a CPO, via the CPO Commands interface. The CPO checks if it can send the request to a Charge Point and will respond to the request with a status, indicating if the request can be sent to a Charge Point. 
 
-The CPO sends the requested command (via another protocol, for example: OCPP) to a Charge Point. The Charge Point will respond, if it understand the command and will try to execute the command. This response doesn't mean the command was executed successful. The CPO will forward this command in a new POST request to the eMSP Commands interface.  
+The CPO sends the requested command (via another protocol, for example: OCPP) to a Charge Point. The Charge Point will respond if it understands the command and will try to execute the command. This response doesn't mean that the command was executed successfully. The CPO will forward this command in a new POST request to the eMSP Commands interface.  
 
-The following examples try to give insight into the message flow and asynchronous nature of the OCPI Commands.
+The following examples try to give insight into the message flow and the asynchronous nature of the OCPI Commands.
 Example of a `UNLOCK_CONNECTOR` that fails because the Location is not known by the CPO.
 ![UNLOCK_CONNECTOR unkown Location](data/command_unlock_unknow_location.png)
 
@@ -40,7 +40,7 @@ _These examples use OCPP 1.6 based commands between CPO and Charge Point, but th
 
 ## 2. Interfaces and endpoints
 
-The commands module consists of 2 interfaces, a CPO interface that enables a eMSP (and its clients) to send commands to a Charge Point and an eMSP interface to receive the response from the Charge Point asynchronous.
+The commands module consists of two interfaces: a CPO interface that enables a eMSP (and its clients) to send commands to a Charge Point and an eMSP interface to receive the response from the Charge Point asynchronously.
 
 ### 2.1 CPO Interface
 
@@ -85,7 +85,7 @@ Depending on the `command` parameter the body SHALL contain the applicable objec
 
 ##### Response Data
 
-The response contains the direct response from the CPO, not the response from the Charge Point itself, that will be send via a asynchronous POST on the eMSP interface if this response is `ACCEPTED`
+The response contains the direct response from the CPO, not the response from the Charge Point itself, that will be sent via an asynchronous POST on the eMSP interface if this response is `ACCEPTED`.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Datatype                                            | Card. | Description                                                              |
@@ -118,7 +118,7 @@ Example endpoint structure:
 ##### Request Parameters
 
 There are no URL segment parameters required by OCPI. 
-It is up to implementation of the eMSP what parameters are put in the URL. The eMSP sends a URL in the POST method body to the CPO. The CPO is required to use this URL for the asynchronous response by the Charge Point. It is advised to make this URL unique for every request, for example by adding a unique id as a URL segment.  
+It is up to the implementation of the eMSP  to determine what parameters are put in the URL. The eMSP sends a URL in the POST method body to the CPO. The CPO is required to use this URL for the asynchronous response by the Charge Point. It is advised to make this URL unique for every request to differentiate simultanous commands, for example by adding a unique id as a URL segment.  
 
 Example: 
 `/ocpi/emsp/2.0/commands/RESERVE_NOW/1234`
@@ -140,13 +140,13 @@ Example:
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property         | Type                                                | Card. | Description                                                           |
 |------------------|-----------------------------------------------------|-------|-----------------------------------------------------------------------|
-| result           | [CommandResponseType](#42-commandresponsetype-enum) | 1     | Result of the command request as send by the Charge Point to the CPO. |
+| result           | [CommandResponseType](#42-commandresponsetype-enum) | 1     | Result of the command request as sent by the Charge Point to the CPO. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
 ### 3.2 _ReserveNow_ Object
 
-The `evse_uid` is optional. If no EVSE is specified, the Charge Point should keep 1 EVSE available for the EV Driver identified by the given Token. (This might not be supported by all Charge Points)
+The `evse_uid` is optional. If no EVSE is specified, the Charge Point should keep one EVSE available for the EV Driver identified by the given Token. (This might not be supported by all Charge Points).
 A reservation can be replaced/updated by sending a `RESERVE_NOW` request with the same Location (Charge Point) and the same `reservation_id`. 
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
@@ -168,7 +168,7 @@ The `evse_uid` is optional. If no EVSE is specified, the Charge Point can itself
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property         | Type                                   | Card. | Description                                                                                                                                       |
 |------------------|----------------------------------------|-------|---------------------------------------------------------------------------------------------------------------------------------------------------|
-| response_url     | [URL](types.md#14_url_type)            | 1     | URL that the CommandResponse POST should be send to. This URL might contain an unique ID to be able to distinguish between StartSession requests. |
+| response_url     | [URL](types.md#14_url_type)            | 1     | URL that the CommandResponse POST should be sent to. This URL might contain an unique ID to be able to distinguish between StartSession requests. |
 | token            | [Token](mod_tokens.md#31_token_object) | 1     | Token object the Charge Point has to use to start a new session.                                                                                  |
 | location_id      | [string](types.md#16-string-type)(15)  | 1     | Location.id of the Location (belonging to the CPO this request is send to) on which a session is to be started.                                   |
 | evse_uid         | [string](types.md#16-string-type)(15)  | ?     | Optional EVSE.uid of the EVSE of this Location on which a session is to be started.                                                               |
@@ -181,7 +181,7 @@ The `evse_uid` is optional. If no EVSE is specified, the Charge Point can itself
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property         | Type                                   | Card. | Description                                                                                                                                      |
 |------------------|----------------------------------------|-------|--------------------------------------------------------------------------------------------------------------------------------------------------|
-| response_url     | [URL](types.md#14_url_type)            | 1     | URL that the CommandResponse POST should be send to. This URL might contain an unique ID to be able to distinguish between StopSession requests. |
+| response_url     | [URL](types.md#14_url_type)            | 1     | URL that the CommandResponse POST should be sent to. This URL might contain an unique ID to be able to distinguish between StopSession requests. |
 | session_id       | [string](types.md#16-string-type)(15)  | 1     | Session.id of the Session that is requested to be stopped.                                                                                       |         
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
@@ -191,7 +191,7 @@ The `evse_uid` is optional. If no EVSE is specified, the Charge Point can itself
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property         | Type                                   | Card. | Description                                                                                                                                          |
 |------------------|----------------------------------------|-------|------------------------------------------------------------------------------------------------------------------------------------------------------|
-| response_url     | [URL](types.md#14_url_type)            | 1     | URL that the CommandResponse POST should be send to. This URL might contain an unique ID to be able to distinguish between UnlockConnector requests. |
+| response_url     | [URL](types.md#14_url_type)            | 1     | URL that the CommandResponse POST should be sent to. This URL might contain an unique ID to be able to distinguish between UnlockConnector requests. |
 | location_id      | [string](types.md#16-string-type)(15)  | 1     | Location.id of the Location (belonging to the CPO this request is send to) of which it is requested to unlock the connector.                         |
 | evse_uid         | [string](types.md#16-string-type)(15)  | 1     | EVSE.uid of the EVSE of this Location of which it is requested to unlock the connector.                                                              |
 | connector_id     | [string](types.md#16-string-type)(15)  | 1     | Connector.id of the Connector of this Location of which it is requested to unlock.                                                                   |
@@ -223,7 +223,7 @@ The command requested.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Value                 | Description |
 |-----------------------|-------------------------------------------------------------------|
-| RESERVE_NOW           | Request the Charge Point to request a (specific) EVSE for a Token for a certain time.                                |
+| RESERVE_NOW           | Request the Charge Point to reserve a (specific) EVSE for a Token for a certain time, starting now.                                |
 | START_SESSION         | Request the Charge Point to start a transaction on the given EVSE/Connector.                                         |
 | STOP_SESSION          | Request the Charge Point to stop an ongoing session.                                                                  |
 | UNLOCK_CONNECTOR      | Request the Charge Point to unlock the connector (if applicable). This functionality is for help desk operators only! |
