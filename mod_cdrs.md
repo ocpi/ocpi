@@ -153,7 +153,7 @@ In the post request the new CDR object is sent.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Parameter  | Datatype                    | Required | Description                               |
 |------------|-----------------------------|----------|-------------------------------------------|
-| Location   | [URL](types.md#14_url_type) | yes      | URL to the newly created CDR in the eMSP system, can be used by the CPO system to do a GET on of the same CDR |
+| Location   | [URL](types.md#16-url-type) | yes      | URL to the newly created CDR in the eMSP system, can be used by the CPO system to do a GET on of the same CDR |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 Example: Location: /ocpi/emsp/2.0/cdrs/123456
@@ -172,18 +172,18 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 | id                                   | [CiString](types.md#12-cistring-type)(15)                | 1     | Uniquely identifies the CDR within the CPOs platform (and suboperator platforms).                                              |
 | start_date_time                      | [DateTime](types.md#12-datetime-type)                    | 1     | Start timestamp of the charging session.                                                                                       |
 | stop_date_time                       | [DateTime](types.md#12-datetime-type)                    | ?     | Stop timestamp of the charging session.                                                                                        |
-| auth_id                              | [string](types.md#16-string-type)(32)                    | 1     | Reference to a token, identified by the auth_id field of the [Token](mod_tokens.md#31_token_object).                           |
+| auth_id                              | [string](types.md#15-string-type)(32)                    | 1     | Reference to a token, identified by the auth_id field of the [Token](mod_tokens.md#31_token_object).                           |
 | auth_method                          | [AuthMethod](#41-authmethod-enum)                        | 1     | Method used for authentication.                                                                                                |
 | location                             | [Location](mod_locations.md#31-location-object)          | 1     | Location where the charging session took place, including only the relevant [EVSE](mod_locations.md#32-evse-object) and [Connector](mod_locations.md#33-connector-object). |
-| meter_id                             | [string](types.md#16-string-type)(255)                   | ?     | Identification of the Meter inside the Charge Point.                                                                           |
-| currency                             | [string](types.md#16-string-type)(3)                     | 1     | Currency of the CDR in ISO 4217 Code.                                                                                          |
+| meter_id                             | [string](types.md#15-string-type)(255)                   | ?     | Identification of the Meter inside the Charge Point.                                                                           |
+| currency                             | [string](types.md#15-string-type)(3)                     | 1     | Currency of the CDR in ISO 4217 Code.                                                                                          |
 | tariffs                              | [Tariff](mod_tariffs.md#31-tariff-object)                | *     | List of relevant tariff elements, see: [Tariffs](mod_tariffs.md#31-tariff-object).                                             |
 | charging_periods                     | [ChargingPeriod](#43-chargingperiod-class)               | +     | List of charging periods that make up this charging session. A session consists of 1 or more periods, where each period has a different relevant Tariff. |
-| total_cost                           | [decimal](types.md#13-decimal-type)                      | 1     | Total cost of this transaction.                                                                                                |
-| total_energy                         | [decimal](types.md#13-decimal-type)                      | 1     | Total energy charged, in kWh.                                        |
-| total_time                           | [decimal](types.md#13-decimal-type)                      | 1     | Total time charging, in hours.                                        |
-| total_parking_time                   | [decimal](types.md#13-decimal-type)                      | ?     | Total time not charging, in hours.                                            |
-| remark                               | [string](types.md#16-string-type)(255)                   | ?     | Optional remark, can be used to provide addition human readable information to the CDR, for example: reason why a transaction was stopped.|
+| total_cost                           | number                                                   | 1     | Total cost of this transaction.                                                                                                |
+| total_energy                         | number                                                   | 1     | Total energy charged, in kWh.                                        |
+| total_time                           | number                                                   | 1     | Total time charging, in hours.                                        |
+| total_parking_time                   | number                                                   | ?     | Total time not charging, in hours.                                            |
+| remark                               | [string](types.md#15-string-type)(255)                   | ?     | Optional remark, can be used to provide addition human readable information to the CDR, for example: reason why a transaction was stopped.|
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -270,8 +270,8 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property        | Type                                            | Card. | Description                                                                 |
 |-----------------|-------------------------------------------------|-------|-----------------------------------------------------------------------------|
-| type            | [DimensionType](types.md#14-dimensiontype-enum) | 1     | Type of cdr dimension                                                       |
-| volume          | [decimal](types.md#13-decimal-type)             | 1     | Volume of the dimension consumed, measured according to the dimension type. |
+| type            | [DimensionType](types.md#13-dimensiontype-enum) | 1     | Type of cdr dimension                                                       |
+| volume          | number                                          | 1     | Volume of the dimension consumed, measured according to the dimension type. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 ### 4.3 ChargingPeriod *class*

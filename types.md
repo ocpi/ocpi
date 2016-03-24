@@ -16,18 +16,8 @@ Example:
 
 Note: +00:00 is not the same as UTC.
 
-   
-### 1.3 decimal *type*
-
-Decimals are formatted as strings following JSONs number format. They are explicitly expressed as strings to make it clear that they should be interpreted as exact decimals and not as floating points or doubles.
-
-Example:
-
-    "0.68"
-    "3.1415"
-
     
-### 1.4 DimensionType *enum*
+### 1.3 DimensionType *enum*
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Value        | Description                                                        |
@@ -41,13 +31,13 @@ Example:
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-### 1.5 DisplayText *class*
+### 1.4 DisplayText *class*
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property        | Type                           | Card. | Description                                                       |
 |-----------------|--------------------------------|-------|-------------------------------------------------------------------|
-| language        | [string](#16-string-type)(2)   | 1     | Language Code ISO 639-1                                           |
-| text            | [string](#16-string-type)(512) | 1     | Text to be displayed to a end user. No markup, html etc. allowed. |
+| language        | [string](#15-string-type)(2)   | 1     | Language Code ISO 639-1                                           |
+| text            | [string](#15-string-type)(512) | 1     | Text to be displayed to a end user. No markup, html etc. allowed. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 Example:
@@ -58,13 +48,13 @@ Example:
     }
 
 
-### 1.6 string *type*
+### 1.5 string *type*
 
 Case Sensitive String. Only printable ASCII allowed. All strings in
 messages and enumerations are case sensitive, unless explicitly stated
 otherwise.
     
 
-### 1.7 URL *type*
+### 1.6 URL *type*
 
 An URL a string(255) type following the [w3.org spec](http://www.w3.org/Addressing/URL/uri-spec.html).

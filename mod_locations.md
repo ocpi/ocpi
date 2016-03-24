@@ -94,9 +94,9 @@ The following parameters can be provided as URL segments.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Parameter         | Datatype                              | Required | Description                                                                   |
 |-------------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
-| location_id       | [string](types.md#16-string-type)(15) | yes      | Location.id of the Location object to retrieve.                               |
-| evse_uid          | [string](types.md#16-string-type)(15) | no       | Evse.uid, required when requesting an EVSE or Connector object.               |
-| connector_id      | [string](types.md#16-string-type)(15) | no       | Connector.id, required when requesting a Connector object.                    |
+| location_id       | [string](types.md#15-string-type)(15) | yes      | Location.id of the Location object to retrieve.                               |
+| evse_uid          | [string](types.md#15-string-type)(15) | no       | Evse.uid, required when requesting an EVSE or Connector object.               |
+| connector_id      | [string](types.md#15-string-type)(15) | no       | Connector.id, required when requesting a Connector object.                    |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -144,11 +144,11 @@ The following parameters can be provided as URL segments.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Parameter         | Datatype                              | Required | Description                                                                   |
 |-------------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
-| country_code      | [string](types.md#16-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
-| party_id          | [string](types.md#16-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
-| location_id       | [string](types.md#16-string-type)(15) | yes      | Location.id of the Location object to retrieve.                               |
-| evse_uid          | [string](types.md#16-string-type)(15) | no       | Evse.uid, required when requesting an EVSE or Connector object.               |
-| connector_id      | [string](types.md#16-string-type)(15) | no       | Connector.id, required when requesting a Connector object.                    |
+| country_code      | [string](types.md#15-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
+| party_id          | [string](types.md#15-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
+| location_id       | [string](types.md#15-string-type)(15) | yes      | Location.id of the Location object to retrieve.                               |
+| evse_uid          | [string](types.md#15-string-type)(15) | no       | Evse.uid, required when requesting an EVSE or Connector object.               |
+| connector_id      | [string](types.md#15-string-type)(15) | no       | Connector.id, required when requesting a Connector object.                    |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -177,11 +177,11 @@ This is an information push message, the objects pushed will not be owned by the
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Parameter         | Datatype                              | Required | Description                                                                   |
 |-------------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
-| country_code      | [string](types.md#16-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
-| party_id          | [string](types.md#16-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
-| location_id       | [string](types.md#16-string-type)(15) | yes      | Location.id of the new Location object, or the Location of which an EVSE or Location object is send |
-| evse_uid          | [string](types.md#16-string-type)(15) | no       | Evse.uid, required when an EVSE or Connector object is send/replaced.         |
-| connector_id      | [string](types.md#16-string-type)(15) | no       | Connector.id, required when a Connector object is send/replaced.              |
+| country_code      | [string](types.md#15-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
+| party_id          | [string](types.md#15-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
+| location_id       | [string](types.md#15-string-type)(15) | yes      | Location.id of the new Location object, or the Location of which an EVSE or Location object is send |
+| evse_uid          | [string](types.md#15-string-type)(15) | no       | Evse.uid, required when an EVSE or Connector object is send/replaced.         |
+| connector_id      | [string](types.md#15-string-type)(15) | no       | Connector.id, required when a Connector object is send/replaced.              |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 #### Request Body
@@ -297,17 +297,17 @@ The *Location* object describes the location and its properties where a group of
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property                                     | Type                                                     | Card. | Description                                                                            |
 |----------------------------------------------|----------------------------------------------------------|-------|----------------------------------------------------------------------------------------|
-| id                                           | [string](types.md#16-string-type)(15)                    | 1     | Uniquely identifies the location within the CPOs platform (and suboperator platforms). |
+| id                                           | [string](types.md#15-string-type)(15)                    | 1     | Uniquely identifies the location within the CPOs platform (and suboperator platforms). |
 | type                                         | [LocationType](#410-locationtype-enum)                   | 1     | The general type of the charge point location.                                         |
-| name                                         | [string](types.md#16-string-type)(255)                   | ?     | Display name of the location.                                                          |
-| address                                      | [string](types.md#16-string-type)(45)                    | 1     | Street/block name and house number if available.                                       |
-| city                                         | [string](types.md#16-string-type)(45)                    | 1     | City or town.                                                                          |
-| postal_code                                  | [string](types.md#16-string-type)(10)                    | 1     | Postal code of the location.                                                           |
-| country                                      | [string](types.md#16-string-type)(3)                     | 1     | ISO 3166-1 alpha-3 code for the country of this location.                              |
+| name                                         | [string](types.md#15-string-type)(255)                   | ?     | Display name of the location.                                                          |
+| address                                      | [string](types.md#15-string-type)(45)                    | 1     | Street/block name and house number if available.                                       |
+| city                                         | [string](types.md#15-string-type)(45)                    | 1     | City or town.                                                                          |
+| postal_code                                  | [string](types.md#15-string-type)(10)                    | 1     | Postal code of the location.                                                           |
+| country                                      | [string](types.md#15-string-type)(3)                     | 1     | ISO 3166-1 alpha-3 code for the country of this location.                              |
 | coordinates                                  | [GeoLocation](#46-geolocation-class)                     | 1     | Coordinates of the location.                                                           |
 | related_locations                            | [AdditionalGeoLocation](#41-additionalgeolocation-class) | *     | Geographical location of related points relevant to the user.                          |
 | evses                                        | [EVSE](#32-evse-object)                                  | *     | List of EVSEs that belong to this Location.                                            |
-| directions                                   | [DisplayText](types.md#15-displaytext-class)             | *     | Human-readable directions on how to reach the location.                                |
+| directions                                   | [DisplayText](types.md#14-displaytext-class)             | *     | Human-readable directions on how to reach the location.                                |
 | operator                                     | [BusinessDetails](#41-businessdetails-class)             | ?     | Information of the operator. When not specified, the information retrieved from the `api_info` endpoint should be used instead. |
 | suboperator                                  | [BusinessDetails](#41-businessdetails-class)             | ?     | Information of the suboperator if available.                                           |
 | owner                                        | [BusinessDetails](#41-businessdetails-class)             | ?     | Information of the owner if available.                                           |
@@ -397,16 +397,16 @@ An *EVSE* object has a list of connectors which can not be used simultaneously: 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property                             | Type                                               | Card. | Description                                                            |
 |--------------------------------------|----------------------------------------------------|-------|------------------------------------------------------------------------|
-| uid                                  | [string](types.md#16-string-type)(15)              | 1     | Uniquely identifies the EVSE within the CPOs platform (and suboperator platforms). For example a database unique ID     |
-| evse_id                              | [string](types.md#16-string-type)(48)              | ?     | Compliant with ISO/IEC 15118-2 - Annex H "Specification of Identifiers". Optional because: if an EVSE ID is to be re-used the EVSE ID can be removed from an EVSE that is removed (status: REMOVED)     |
+| uid                                  | [string](types.md#15-string-type)(15)              | 1     | Uniquely identifies the EVSE within the CPOs platform (and suboperator platforms). For example a database unique ID     |
+| evse_id                              | [string](types.md#15-string-type)(48)              | ?     | Compliant with ISO/IEC 15118-2 - Annex H "Specification of Identifiers". Optional because: if an EVSE ID is to be re-used the EVSE ID can be removed from an EVSE that is removed (status: REMOVED)     |
 | status                               | [Status](#414-status-enum)                         | 1     | Indicates the current status of the EVSE.                              |
 | status_schedule                      | [StatusSchedule](#415-statusschedule-class)        | *     | Indicates a planned status in the future of the EVSE.                  |
 | capabilities                         | [Capability](#42-capability-enum)                  | *     | List of functionalities that the EVSE is capable of.                   |
 | connectors                           | [Connector](#33-connector-object)                  | +     | List of available connectors on the EVSE.                              |
-| floor_level                          | [string](types.md#16-string-type)(4)               | ?     | Level on which the charging station is located (in garage buildings) in the locally displayed numbering scheme.     |
+| floor_level                          | [string](types.md#15-string-type)(4)               | ?     | Level on which the charging station is located (in garage buildings) in the locally displayed numbering scheme.     |
 | coordinates                          | [GeoLocation](#46-geolocation-class)               | ?     | Coordinates of the EVSE.                                               |
-| physical_reference                   | [string](types.md#16-string-type)(16)              | ?     | A number/string printed on the outside of the EVSE for visual identification.     |
-| directions                           | [DisplayText](types.md#15-displaytext-class)       | *     | Multi-language human-readable directions when more detailed information on how to reach the EVSE from the *Location* is required.     |
+| physical_reference                   | [string](types.md#15-string-type)(16)              | ?     | A number/string printed on the outside of the EVSE for visual identification.     |
+| directions                           | [DisplayText](types.md#14-displaytext-class)       | *     | Multi-language human-readable directions when more detailed information on how to reach the EVSE from the *Location* is required.     |
 | parking_restrictions                 | [ParkingRestriction](#411-parkingrestriction-enum) | *     | The restrictions that apply to the parking spot.                       |
 | images                               | [Image](#48-image-class)                           | *     | Links to images related to the EVSE such as photos or logos.           |
 <div><!-- ---------------------------------------------------------------------------- --></div>
@@ -419,14 +419,14 @@ A connector is the socket or cable available for the EV to use. A single EVSE ma
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property                           | Type                                        | Card. | Description                                                             |
 |------------------------------------|---------------------------------------------|-------|-------------------------------------------------------------------------|
-| id                                 | [string](types.md#16-string-type)(15)       | 1     | Identifier of the connector within the EVSE. Two connectors may have the same id as long as they do not belong to the same *EVSE* object. |
+| id                                 | [string](types.md#15-string-type)(15)       | 1     | Identifier of the connector within the EVSE. Two connectors may have the same id as long as they do not belong to the same *EVSE* object. |
 | standard                           | [ConnectorType](#44-connectortype-enum)     | 1     | The standard of the installed connector.                                |
 | format                             | [ConnectorFormat](#43-connectorformat-enum) | 1     | The format (socket/cable) of the installed connector.                   |
 | power_type                         | [PowerType](#412-powertype-enum)            | 1     |                                                                         |
 | voltage                            | int                                         | 1     | Voltage of the connector (line to neutral for AC_3_PHASE), in volt [V]. |
 | amperage                           | int                                         | 1     | maximum amperage of the connector, in ampere [A].                       |
-| tariff_id                          | string(15)                                  | ?     | Identifier of the current charging tariff structure                     |
-| terms_and_conditions               | [URL](types.md#14_url_type)                 | ?     | URL to the operator's terms and conditions.                             |
+| tariff_id                          | [string](types.md#15-string-type)(15)       | ?     | Identifier of the current charging tariff structure                     |
+| terms_and_conditions               | [URL](types.md#16-url-type)                 | ?     | URL to the operator's terms and conditions.                             |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -439,9 +439,9 @@ This class defines a geo location. The geodetic system to be used is WGS 84.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property    | Type                                         | Card. | Description                                                                                                                              |
 |-------------|----------------------------------------------|-------|-------------------------------------------------------------------|
-| latitude    | [string](types.md#16-string-type)(10)        | 1     | Latitude of the point in decimal degree. Example: 50.770774. Decimal separator: "." Regex: `-?[0-9]\{1,2\}\.[0-9]\{6\}`        |
-| longitude   | [string](types.md#16-string-type)(11)        | 1     | Longitude of the point in decimal degree. Example: -126.104965. Decimal separator: "." Regex: `-?[0-9]\{1,3\}\.[0-9]\{6\}`     |
-| name        | [DisplayText](types.md#15-displaytext-class) | ?     | Name of the point in local language or as written at the location. For example the street name of a parking lot entrance or it's number. |
+| latitude    | [string](types.md#15-string-type)(10)        | 1     | Latitude of the point in decimal degree. Example: 50.770774. Decimal separator: "." Regex: `-?[0-9]\{1,2\}\.[0-9]\{6\}`        |
+| longitude   | [string](types.md#15-string-type)(11)        | 1     | Longitude of the point in decimal degree. Example: -126.104965. Decimal separator: "." Regex: `-?[0-9]\{1,3\}\.[0-9]\{6\}`     |
+| name        | [DisplayText](types.md#14-displaytext-class) | ?     | Name of the point in local language or as written at the location. For example the street name of a parking lot entrance or it's number. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -450,8 +450,8 @@ This class defines a geo location. The geodetic system to be used is WGS 84.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property         | Type                                   | Card. | Description                        |
 |------------------|----------------------------------------|-------|------------------------------------|
-| name             | [string](types.md#16-string-type)(100) | 1     | Name of the operator.              |
-| website          | [URL](types.md#14_url_type)            | ?     | Link to the operator's website.    |
+| name             | [string](types.md#15-string-type)(100) | 1     | Name of the operator.              |
+| website          | [URL](types.md#16-url-type)            | ?     | Link to the operator's website.    |
 | logo             | [Image](#48-image-class)               | ?     | Image link to the operator's logo. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
@@ -564,8 +564,8 @@ TODO renumber chapters
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property    | Type                                | Card. | Description                                                                                       |
 |-------------|-------------------------------------|-------|---------------------------------------------------------------------------------------------------|
-| latitude    | [string](types.md#16-string-type)(10)| 1     | Latitude of the point in decimal degree. Example: 50.770774. Decimal separator: "." Regex: `-?[0-9]\{1,2\}\.[0-9]\{6\}`        |
-| longitude   | [string](types.md#16-string-type)(11)| 1     | Longitude of the point in decimal degree. Example: -126.104965. Decimal separator: "." Regex: `-?[0-9]\{1,3\}\.[0-9]\{6\}`     |
+| latitude    | [string](types.md#15-string-type)(10)| 1     | Latitude of the point in decimal degree. Example: 50.770774. Decimal separator: "." Regex: `-?[0-9]\{1,2\}\.[0-9]\{6\}`        |
+| longitude   | [string](types.md#15-string-type)(11)| 1     | Longitude of the point in decimal degree. Example: -126.104965. Decimal separator: "." Regex: `-?[0-9]\{1,3\}\.[0-9]\{6\}`     |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -597,8 +597,8 @@ The recommended dimensions for logos are exactly 512 pixels wide and 512 pixels 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Field Name | Field Type                               | Card. | Description                           |
 |------------|------------------------------------------|-------|---------------------------------------|
-| url        | [URL](types.md#14_url_type)              | 1     | URL from where the image data can be fetched through a web browser. |
-| thumbnail  | [URL](types.md#14_url_type)              | ?     | URL from where a thumbnail of the image can be fetched through a webbrowser. |
+| url        | [URL](types.md#16-url-type)              | 1     | URL from where the image data can be fetched through a web browser. |
+| thumbnail  | [URL](types.md#16-url-type)              | ?     | URL from where a thumbnail of the image can be fetched through a webbrowser. |
 | category   | [ImageCategory](#49-imagecategory-enum)  | 1     | Describes what the image is used for. |
 | type       | string(4)                                | 1     | Image type like: gif, jpeg, png, svg  |
 | width      | int(5)                                   | ?     | Width of the full scale image         |

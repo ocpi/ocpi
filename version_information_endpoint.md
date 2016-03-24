@@ -33,7 +33,7 @@ Both the CPO and the eMSP must have this endpoint.
 | Property | Type                        | Card. | Description                               |
 |----------|-----------------------------|-------|-------------------------------------------|
 | version  | decimal                     | 1     | The version number.                       |
-| url      | [URL](types.md#14_url_type) | 1     | URL to the endpoint containing version specific information. |
+| url      | [URL](types.md#16-url-type) | 1     | URL to the endpoint containing version specific information. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 

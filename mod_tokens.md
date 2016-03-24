@@ -73,9 +73,9 @@ The following parameters can be provided as URL segments.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Parameter         | Datatype                              | Required | Description                                                                   |
 |-------------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
-| country_code      | [string](types.md#16-string-type)(2)  | yes      | Country code of the eMSP requesting this GET from the CPO system.             |
-| party_id          | [string](types.md#16-string-type)(3)  | yes      | Party ID (Provider ID) of the eMSP requesting this GET from the CPO system.   |
-| token_uid         | [string](types.md#16-string-type)(15) | yes      | Token.uid of the Token object to retrieve.                                    |
+| country_code      | [string](types.md#15-string-type)(2)  | yes      | Country code of the eMSP requesting this GET from the CPO system.             |
+| party_id          | [string](types.md#15-string-type)(3)  | yes      | Party ID (Provider ID) of the eMSP requesting this GET from the CPO system.   |
+| token_uid         | [string](types.md#15-string-type)(15) | yes      | Token.uid of the Token object to retrieve.                                    |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -112,9 +112,9 @@ The following parameters can be provided as URL segments.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Parameter         | Datatype                              | Required | Description                                                                   |
 |-------------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
-| country_code      | [string](types.md#16-string-type)(2)  | yes      | Country code of the eMSP sending this PUT request to the CPO system.               |
-| party_id          | [string](types.md#16-string-type)(3)  | yes      | Party ID (Provider ID) of the eMSP sending this PUT request to the CPO system.     |
-| token_uid         | [string](types.md#16-string-type)(15) | yes      | Token.uid of the (new) Token object (to replace).                             |
+| country_code      | [string](types.md#15-string-type)(2)  | yes      | Country code of the eMSP sending this PUT request to the CPO system.               |
+| party_id          | [string](types.md#15-string-type)(3)  | yes      | Party ID (Provider ID) of the eMSP sending this PUT request to the CPO system.     |
+| token_uid         | [string](types.md#15-string-type)(15) | yes      | Token.uid of the (new) Token object (to replace).                             |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 ##### Example: put a new Token
@@ -216,7 +216,7 @@ The following parameter has to be provided as URL segments.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Parameter         | Datatype                              | Required | Description                                               |
 |-------------------|---------------------------------------|----------|-----------------------------------------------------------|
-| token_uid         | [string](types.md#16-string-type)(15) | yes      | Token.uid of the Token for which this authorization is.   |
+| token_uid         | [string](types.md#15-string-type)(15) | yes      | Token.uid of the Token for which this authorization is.   |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -252,7 +252,7 @@ The endpoint response contains a [AuthorizationInfo](#3x-authorizationinfo-objec
 |-----------|----------------------------------------------------|-------|---------------------------------------------------------------------------------------|
 | allowed   | [Allowed](#4x-allowed-enum)                        | 1     | Status of the Token, and if it is allowed to charge at the optionally given location. |
 | location  | [LocationReferences](#4x-locationreferences-class) | ?     | Optional reference to the location if it was request in the request, and if the EV driver is allowed to charge at that location. Only the EVSEs/Connectors the EV driver is allowed to charge at are returned.                                                                     |
-| info      | [DisplayText](types.md#15-displaytext-class)       | ?     | Optional display text, additional information to the EV driver.                       |
+| info      | [DisplayText](types.md#14-displaytext-class)       | ?     | Optional display text, additional information to the EV driver.                       |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -261,11 +261,11 @@ The endpoint response contains a [AuthorizationInfo](#3x-authorizationinfo-objec
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property                | Type                                  | Card. | Description                                                                                             |
 |-------------------------|---------------------------------------|-------|---------------------------------------------------------------------------------------------------------|
-| uid                     | [string](types.md#16-string-type)(15) | 1     | Identification used by CPO system to identify this token, for example RFID hidden ID                    |
+| uid                     | [string](types.md#15-string-type)(15) | 1     | Identification used by CPO system to identify this token, for example RFID hidden ID                    |
 | type                    | [TokenType](#41-tokentype)            | 1     | Type of the token                                                                                       |
-| auth_id                 | [string](types.md#16-string-type)(32) | 1     | Uniquely identifies the EV Driver contract token within the eMSPs platform (and suboperator platforms). Recommended to follow the specification for eMA ID from "eMI3 standard version V1.0" (http://emi3group.com/documents-links/) "Part 2: business objects." |
-| visual_number           | [string](types.md#16-string-type)(64) | 1     | Visual readable number/identification of the Token                                                      |
-| issuer                  | [string](types.md#16-string-type)(64) | 1     | Issuing company                                                                                         |
+| auth_id                 | [string](types.md#15-string-type)(32) | 1     | Uniquely identifies the EV Driver contract token within the eMSPs platform (and suboperator platforms). Recommended to follow the specification for eMA ID from "eMI3 standard version V1.0" (http://emi3group.com/documents-links/) "Part 2: business objects." |
+| visual_number           | [string](types.md#15-string-type)(64) | 1     | Visual readable number/identification of the Token                                                      |
+| issuer                  | [string](types.md#15-string-type)(64) | 1     | Issuing company                                                                                         |
 | valid                   | boolean                               | 1     | Is this Token valid                                                                                     |
 | allow_whitelist         | boolean                               | ?     | Indicates whether it is allowed to authorize a charging session for this token without requesting live authorization from the eMSP. Default is FALSE. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
@@ -310,9 +310,9 @@ References to location details.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Field Name       | Field Type                               | Card. | Description                                                         |
 |------------------|------------------------------------------|-------|---------------------------------------------------------------------|
-| location_id      | [string](types.md#16-string-type)(15)    | 1     | Uniquely identifier for the location. 
-| evse_uids        | [string](types.md#16-string-type)(15)    | *     | Uniquely identifier for EVSEs within the CPOs platform for the EVSE within the the given location. |
-| connector_ids    | [string](types.md#16-string-type)(15)    | *     | Identifies the connectors within the given EVSEs.                                                                                       |
+| location_id      | [string](types.md#15-string-type)(15)    | 1     | Uniquely identifier for the location. 
+| evse_uids        | [string](types.md#15-string-type)(15)    | *     | Uniquely identifier for EVSEs within the CPOs platform for the EVSE within the the given location. |
+| connector_ids    | [string](types.md#15-string-type)(15)    | *     | Identifies the connectors within the given EVSEs.                                                                                       |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
