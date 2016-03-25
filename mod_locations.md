@@ -526,13 +526,13 @@ The socket or plug standard of the charging point.
 This type is used to specify the energy mix and environmental impact of the supplied energy at a location or in a tariff.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Property            | Type                                  | Card. | Description                                                                                     |
-|---------------------|---------------------------------------|-------|-------------------------------------------------------------------------------------------------|
-| is_green_energy     | Boolean                               | 1     | True if 100% from regenerative sources. (CO2 and nuclear waste is zero)                         |
-| energy_sources      | [EnergySource](#46-energy-source)     | *     | Key-value pairs (enum + percentage) of energy sources of this location's tariff.                |
-| environ_impact      | EnvironmentalImpact                   | *     | Key-value pairs (enum + percentage) of nuclear waste and CO2 exhaust of this location's tariff. |
-| supplier_name       | String                                | ?     | Name of the energy supplier, delivering the energy for this location or tariff.*                |
-| energy_product_name | String                                | ?     | Name of the energy suppliers product/tariff plan used at this location.*                        |
+| Property            | Type                                                 | Card. | Description                                                                                     |
+|---------------------|------------------------------------------------------|-------|-------------------------------------------------------------------------------------------------|
+| is_green_energy     | boolean                                              | 1     | True if 100% from regenerative sources. (CO2 and nuclear waste is zero)                         |
+| energy_sources      | [EnergySource](#46-energysource-class)               | *     | Key-value pairs (enum + percentage) of energy sources of this location's tariff.                |
+| environ_impact      | [EnvironmentalImpact](#48-environmentalimpact-class) | *     | Key-value pairs (enum + percentage) of nuclear waste and CO2 exhaust of this location's tariff. |
+| supplier_name       | [string](types.md#15-string-type)(64)                | ?     | Name of the energy supplier, delivering the energy for this location or tariff.*                |
+| energy_product_name | [string](types.md#15-string-type)(64)                | ?     | Name of the energy suppliers product/tariff plan used at this location.*                        |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 _* These fields can be used to look-up energy qualification or to show it directly to the customer (for well-known brands like Greenpeace Energy, etc.)_
@@ -585,10 +585,10 @@ _* These fields can be used to look-up energy qualification or to show it direct
 Key-value pairs (enum + percentage) of energy sources. All given values should add up to 100 percent per category.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Property         | Type                                  | Card. | Description                                            |
-|------------------|---------------------------------------|-------|--------------------------------------------------------|
-| source           | EnergySourceCategory                  | 1     | The type of energy source.                             |
-| percentage       | number                                | 1     | Percentage of this source (0-100) in the mix.          |
+| Property         | Type                                                  | Card. | Description                                            |
+|------------------|-------------------------------------------------------|-------|--------------------------------------------------------|
+| source           | [EnergySourceCategory](#47-energysourcecategory-enum) | 1     | The type of energy source.                             |
+| percentage       | number                                                | 1     | Percentage of this source (0-100) in the mix.          |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -615,10 +615,10 @@ Categories of energy sources.
 Key-value pairs (enum + amount) of waste and carbon dioxide emittion per kWh.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Property         | Type                                  | Card. | Description                                            |
-|------------------|---------------------------------------|-------|--------------------------------------------------------|
-| source           | EnvironmentalImpactCategory           | 1     | The category of this value.                            |
-| amount           | number                                | 1     | Amount of this portion in g/kWh.                       |
+| Property         | Type                                                                | Card. | Description                                            |
+|------------------|---------------------------------------------------------------------|-------|--------------------------------------------------------|
+| source           | [EnvironmentalImpactCategory](#49-environmentalimpactcategory-enum) | 1     | The category of this value.                            |
+| amount           | number                                                              | 1     | Amount of this portion in g/kWh.                       |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
