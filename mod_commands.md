@@ -150,14 +150,14 @@ The `evse_uid` is optional. If no EVSE is specified, the Charge Point should kee
 A reservation can be replaced/updated by sending a `RESERVE_NOW` request with the same Location (Charge Point) and the same `reservation_id`. 
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Property                 | Type                                   | Card. | Description                                                                                                                                     |
-|--------------------------|----------------------------------------|-------|-------------------------------------------------------------------------------------------------------------------------------------------------|
-| response_url             | [URL](types.md#16-url-type)            | 1     | URL that the CommandResponse POST should be send to. This URL might contain an unique ID to be able to distinguish between ReserveNow requests. |
-| token                    | [Token](mod_tokens.md#32-token-object) | 1     | Token object for how to reserve this Charge Point (and specific EVSE).                                                                          |
-| expiry_date              | [DateTime](types.md#12-datetime-type)  | 1     | The Date/Time when this reservation ends.                                                                                                       |
-| reservation_id           | int                                    | 1     | Reservation id, unique for this reservation. If the Charge Point allready has                                                                                                       |
-| location_id              | [string](types.md#15-string-type)(15)  | 1     | Location.id of the Location (belonging to the CPO this request is send to) for which to reserve an EVSE.                                        |
-| evse_uid                 | [string](types.md#15-string-type)(15)  | ?     | Optional EVSE.uid of the EVSE of this Location if a specific EVSE has to be reserved.                                                           |
+| Property                     | Type                                   | Card. | Description                                                                                                                                     |
+|------------------------------|----------------------------------------|-------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| response_url                 | [URL](types.md#16-url-type)            | 1     | URL that the CommandResponse POST should be send to. This URL might contain an unique ID to be able to distinguish between ReserveNow requests. |
+| token                        | [Token](mod_tokens.md#32-token-object) | 1     | Token object for how to reserve this Charge Point (and specific EVSE).                                                                          |
+| expiry_date                  | [DateTime](types.md#12-datetime-type)  | 1     | The Date/Time when this reservation ends.                                                                                                       |
+| reservation_id               | int                                    | 1     | Reservation id, unique for this reservation. If the Charge Point allready has                                                                                                       |
+| location_id                  | [string](types.md#15-string-type)(15)  | 1     | Location.id of the Location (belonging to the CPO this request is send to) for which to reserve an EVSE.                                        |
+| evse_uid                     | [string](types.md#15-string-type)(15)  | ?     | Optional EVSE.uid of the EVSE of this Location if a specific EVSE has to be reserved.                                                           |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -205,14 +205,14 @@ The `evse_uid` is optional. If no EVSE is specified, the Charge Point can itself
 The command requested.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Value                   | Description                                                                                |
-|-------------------------|--------------------------------------------------------------------------------------------|
-| NOT_SUPPORTED           | The requested command is not supported by this CPO, Charge Point, EVSE etc.                |
-| REJECTED                | Command request rejected by the CPO or Charge Point.                                       |
-| ACCEPTED                | Command request accepted by the CPO or Charge Point.                                       |
-| TIMEOUT                 | Command request timeout, no response received from the Charge Point in an reasonable time. |
-| UNKOWN_LOCATION         | The Location, EVSE or Location in the requested command is not known by this CPO.          |
-| UNKOWN_SESSION          | The Session in the requested command is not known by this CPO.                             |
+| Value                       | Description                                                                                |
+|-----------------------------|--------------------------------------------------------------------------------------------|
+| NOT_SUPPORTED               | The requested command is not supported by this CPO, Charge Point, EVSE etc.                |
+| REJECTED                    | Command request rejected by the CPO or Charge Point.                                       |
+| ACCEPTED                    | Command request accepted by the CPO or Charge Point.                                       |
+| TIMEOUT                     | Command request timeout, no response received from the Charge Point in an reasonable time. |
+| UNKOWN_LOCATION             | The Location, EVSE or Location in the requested command is not known by this CPO.          |
+| UNKOWN_SESSION              | The Session in the requested command is not known by this CPO.                             |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
