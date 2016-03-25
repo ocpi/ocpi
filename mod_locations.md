@@ -35,7 +35,7 @@ Example endpoint structure: `/ocpi/cpo/2.0/locations`
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Method                 | Description                                          |
 | ---------------------- | ---------------------------------------------------- |
-| [GET](#211-get-method) | Fetch all available locations ([paginated](transport_and_format.md#get)), or get a specific location, EVSE or Connector. |
+| [GET](#211-get-method) | Fetch a list locations, last updated between the {date_from} and {date_to} ([paginated](transport_and_format.md#get)), or get a specific location, EVSE or Connector. |
 | POST                   | n/a                                                  |
 | PUT                    | n/a                                                  |
 | PATCH                  | n/a                                                  |
@@ -46,22 +46,27 @@ Example endpoint structure: `/ocpi/cpo/2.0/locations`
 #### 2.1.1 __GET__ Method
 
 Depending on the URL Segments provided, the GET request can either be used to retrieve 
-information about a list or all available locations and EVSEs at this CPO: [GET List](get-list-request-parameters)
+information about a list of available locations and EVSEs at this CPO: [GET List](get-list-request-parameters)
 Or it can be used to get information about a specific Location, EVSE or Connector: [GET Object](get-object-request-parameters)
 
 ##### GET List Request Parameters 
 
 Example endpoint structures for retrieving a list of Locations: 
-`/ocpi/cpo/2.0/locations/`
-`/ocpi/cpo/2.0/locations/offset=50`
-`/ocpi/cpo/2.0/locations/limit=100`
-`/ocpi/cpo/2.0/locations/offset=50&limit=100`
+`/ocpi/cpo/2.0/locations/?date_from=xxx&date_to=yyy`
+`/ocpi/cpo/2.0/locations/?offset=50`
+`/ocpi/cpo/2.0/locations/?limit=100`
+`/ocpi/cpo/2.0/locations/?offset=50&limit=100`
+
+If additional parameters: {date_from} and/or {date_to} are provided, only Locations with (`last_updated`) between the given date_from and date_to will be returned. 
+If an EVSE is updated, also the 'parent' Location's `last_updated` fields is updated. If a Connector is updated, the EVSE's `last_updated` and the Location's `last_updated` field are updated.
 
 This request is [paginated](transport_and_format.md#get), it supports the [pagination](transport_and_format.md#paginated-request) related URL parameters.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Parameter  | Datatype                              | Required | Description                                                                   |
 |------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
+| date_from  | [DateTime](types.md#12-datetime-type) | no       | Only return Locations that have `last_updated` after this Date/Time.          |
+| date_to    | [DateTime](types.md#12-datetime-type) | no       | Only return Locations that have `last_updated` before this Date/Time.         |
 | offset     | int                                   | no       | The offset of the first object returned. Default is 0.                        |
 | limit      | int                                   | no       | Maximum number of objects to GET.                                             |
 <div><!-- ---------------------------------------------------------------------------- --></div>
@@ -317,6 +322,7 @@ The *Location* object describes the location and its properties where a group of
 | charging_when_closed                         | boolean                                                  | ?     | Indicates if the EVSEs are still charging outside the opening hours of the location. E.g. when the parking garage closes its barriers over night, is it allowed to charge till the next morning?  Default: **true** |
 | images                                       | [Image](#414-image-class)                                | *     | Links to images related to the location such as photos or logos.                       |
 | energy_mix                                   | [EnergyMix](#45-energymix-class)                         | ?     | Details on the energy supplied at this location.                                       |
+| last_updated                                 | [DateTime](types.md#12-datetime-type)                    | 1     | Timestamp when this Location or one of its EVSEs or Connectors were last updated.                                                             |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 #### Example
@@ -410,6 +416,7 @@ An *EVSE* object has a list of connectors which can not be used simultaneously: 
 | directions                           | [DisplayText](types.md#14-displaytext-class)       | *     | Multi-language human-readable directions when more detailed information on how to reach the EVSE from the *Location* is required.     |
 | parking_restrictions                 | [ParkingRestriction](#417-parkingrestriction-enum) | *     | The restrictions that apply to the parking spot.                       |
 | images                               | [Image](#48-image-class)                           | *     | Links to images related to the EVSE such as photos or logos.           |
+| last_updated                         | [DateTime](types.md#12-datetime-type)              | 1     | Timestamp when this EVSE or one of its Connectors was last updated.                                                             |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -428,6 +435,7 @@ A connector is the socket or cable available for the EV to use. A single EVSE ma
 | amperage                           | int                                         | 1     | maximum amperage of the connector, in ampere [A].                       |
 | tariff_id                          | [string](types.md#15-string-type)(15)       | ?     | Identifier of the current charging tariff structure                     |
 | terms_and_conditions               | [URL](types.md#16-url-type)                 | ?     | URL to the operator's terms and conditions.                             |
+| last_updated                       | [DateTime](types.md#12-datetime-type)       | 1     | Timestamp when this Connectors was last updated.                                                             |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
