@@ -41,6 +41,8 @@ cat $RELEASE_DIR/mod_commands.md >> all.md
 echo "" >> all.md
 cat $RELEASE_DIR/types.md >> all.md
 echo "" >> all.md
+cat $RELEASE_DIR/changelog.md >> all.md
+echo "" >> all.md
 
 # correct references to images, etc.
 perl -p -i -e "s/\(data\//\($RELEASE_DIR\/data\//g" all.md
