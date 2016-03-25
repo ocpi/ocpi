@@ -50,7 +50,7 @@ The following table is a list of all the parameters that have to be supported, b
 
 
 ##### Paginated Response
-HTTP headers that have to be added to any paginated get response.
+HTTP headers that have to be added to any paginated GET response.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | HTTP Parameter | Description                                                                 |
@@ -81,11 +81,11 @@ In case a PATCH request fails, the client is expected to call the GET method to 
 ### Client owned object push
 Normal client/server RESTful services work in a way that the Server is the owner of the objects that are created. The client requests a POST method with an object to the end-point URL. The response send by the server will contain the URL to the new object. The client will only request 1 server to create a new object, not multiple servers.
  
-Many OCPI modules work differently: The client is the owner of the object and only pushes the information to 1 or more servers for information sharing purposes.   
-For Example: The CPO owns the Tariff objects, and pushes them to a couple of eMSPs, so each eMSP gains knowledge of the tariffs that the CPO will charge them for their customers' sessions. eMSP might receive Tariff objects from multiple CPOs. They need to be able to make a distinction between the different tariffs from different CPOs. 
+Many OCPI modules work differently: the client is the owner of the object and only pushes the information to one or more servers for information sharing purposes.   
+For example: the CPO owns the Tariff objects and pushes them to a couple of eMSPs, so each eMSP gains knowledge of the tariffs that the CPO will charge them for their customers' sessions. eMSP might receive Tariff objects from multiple CPOs. They need to be able to make a distinction between the different tariffs from different CPOs. 
 POST is not supported for these kind of modules.
 PUT is used to send new objects to the servers. 
-The distinction between objects from different CPOs/eMSPs is made, based on a {[country-code](credentials.md#credentials-object)} and {[party-id](credentials.md#credentials-object)}.
+The distinction between objects from different CPOs/eMSPs is made based on a {[country-code](credentials.md#credentials-object)} and {[party-id](credentials.md#credentials-object)}.
 Client owned object URL definition: {base-ocpi-url}/{end-point}/{country-code}/{party-id}/{object-id}
 
 
@@ -121,12 +121,12 @@ For brevity's sake, any further examples used in this specification will only co
 ```json
 {
 	"data": [{
-        "version": "1.9",
-        "url": "https://example.com/ocpi/cpo/1.9/"
-    }, {
-        "version": "2.0",
-        "url": "https://example.com/ocpi/cpo/2.0/"
-    }],
+		"version": "1.9",
+		"url": "https://example.com/ocpi/cpo/1.9/"
+	}, {
+		"version": "2.0",
+		"url": "https://example.com/ocpi/cpo/2.0/"
+	}],
 	"status_code": 1000,
 	"status_message": "Success",
 	"timestamp": "2015-06-30T21:59:59Z"
@@ -257,4 +257,4 @@ OCPI messages should not be queued.
 When the connection is re-established, it is up the the client of a connection the GET the current status, get back in-sync. 
 For example: 
 - CDRs of the period of communication loss can be rerieved with a GET command on the CDRs module, with filters to retrieve only CDRs of the period since the last CDR was receive.
-- Status of EVSEs (Of Locations) can be retrieved by calling a GET on the Locations module.
+- Status of EVSEs (or Locations) can be retrieved by calling a GET on the Locations module.
