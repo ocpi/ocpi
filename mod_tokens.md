@@ -151,16 +151,16 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/tokens/NL/TNM/012345678
 
 ### 2.2 eMSP Interface
 
-This interface enables the CPO to request the current list of all Tokens, when needed.
+This interface enables the CPO to request the current list of Tokens, when needed.
 Via the POST method it is possible to authorize a single token.
 
-Example endpoint structure: `/ocpi/emsp/2.0/tokens/`
+Example endpoint structure: `/ocpi/emsp/2.0/tokens/?date_from=xxx&date_to=yyy`
 
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Method                   | Description                                                             |
 |--------------------------|-------------------------------------------------------------------------|
-| [GET](#221-get-method)   | Get the list of known Tokens ([paginated](transport_and_format.md#get)) |
+| [GET](#221-get-method)   | Get the list of known Tokens, last updated between the {date_from} and {date_to} ([paginated](transport_and_format.md#get)) |
 | [POST](#222-post-method) | Real-time authorization request                                         |
 | PUT                      | n/a                                                                     |
 | PATCH                    | n/a                                                                     |
@@ -170,17 +170,21 @@ Example endpoint structure: `/ocpi/emsp/2.0/tokens/`
 
 #### 2.2.1 __GET__ Method
 
-Fetch information about all Tokens known in the eMSP systems.
+Fetch information about Tokens known in the eMSP systems.
 
 ##### Request Parameters
+
+If additional parameters: {date_from} and/or {date_to} are provided, only Tokens with (`last_updated`) between the given date_from and date_to will be returned.
 
 This request is [paginated](transport_and_format.md#get), it supports the [pagination](transport_and_format.md#paginated-request) related URL parameters.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Parameter  | Datatype                              | Required | Description                                                                   |
-|------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
-| offset     | int                                   | no       | The offset of the first object returned. Default is 0.                        |
-| limit      | int                                   | no       | Maximum number of objects to GET.                                             |
+| Parameter     | Datatype                              | Required | Description                                                                   |
+|---------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
+| date_from     | [DateTime](types.md#12-datetime-type) | no       | Only return Tokens that have `last_updated` after this Date/Time.             |
+| date_to       | [DateTime](types.md#12-datetime-type) | no       | Only return Tokens that have `last_updated` before this Date/Time.            |
+| offset        | int                                   | no       | The offset of the first object returned. Default is 0.                        |
+| limit         | int                                   | no       | Maximum number of objects to GET.                                             |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -267,8 +271,9 @@ The endpoint response contains a [AuthorizationInfo](#31-authorizationinfo-objec
 | visual_number           | [string](types.md#15-string-type)(64) | 1     | Visual readable number/identification of the Token                                                      |
 | issuer                  | [string](types.md#15-string-type)(64) | 1     | Issuing company                                                                                         |
 | valid                   | boolean                               | 1     | Is this Token valid                                                                                     |
-| whitelist               | [WhitelistType](#45-whitelisttype-enum) | 1     | Indicates what type of white-listing is allowed.             |
-| language                | [string](types.md#15-string-type)(2)  | ?     | Language Code ISO 639-1. This optional field indicates the Token owner's preferred interface language. If the language is not provided or not supported then the CPO is free to choose its own language.                                                                                     |
+| whitelist               | [WhitelistType](#45-whitelisttype-enum) | 1     | Indicates what type of white-listing is allowed.                                                      |
+| language                | [string](types.md#15-string-type)(2)  | ?     | Language Code ISO 639-1. This optional field indicates the Token owner's preferred interface language. If the language is not provided or not supported then the CPO is free to choose its own language.      |
+| last_updated            | [DateTime](types.md#12-datetime-type) | 1     | Timestamp when this Token was last updated.                                                             |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 The combination of _uid_ and _type_ should be unique for every token.
