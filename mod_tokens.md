@@ -34,7 +34,7 @@ This method is not for operational flow.
 
 An eMSP might want their Tokens to be authorization 'real-time', not white-listed. For this the eMSP has to implement the [POST Authorize request](#222-post-method) and set the Token.allow_whitelist field to FALSE for Tokens they want to have authorized 'real-time'.
 
-If an eMSP doesn't want real-time authorization, the [POST Authorize request](#222-post-method) doesn't have to be implemented as long as all their Tokens have Token.allow_whitelist set to TRUE.  
+If an eMSP doesn't want real-time authorization, the [POST Authorize request](#222-post-method) doesn't have to be implemented as long as all their Tokens have Token.whitelist set to `ALWAYS`.  
 
 
 ## 2. Interfaces and endpoints
@@ -267,7 +267,7 @@ The endpoint response contains a [AuthorizationInfo](#31-authorizationinfo-objec
 | visual_number           | [string](types.md#15-string-type)(64) | 1     | Visual readable number/identification of the Token                                                      |
 | issuer                  | [string](types.md#15-string-type)(64) | 1     | Issuing company                                                                                         |
 | valid                   | boolean                               | 1     | Is this Token valid                                                                                     |
-| allow_whitelist         | boolean                               | ?     | Indicates whether it is allowed to authorize a charging session for this token without requesting live authorization from the eMSP. Default is FALSE. |
+| whitelist               | [WhitelistType](#45-whitelisttype-enum) | 1     | Indicates what type of white-listing is allowed.             |
 | language                | [string](types.md#15-string-type)(2)  | ?     | Language Code ISO 639-1. This optional field indicates the Token owner's preferred interface language. If the language is not provided or not supported then the CPO is free to choose its own language.                                                                                     |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
@@ -324,4 +324,18 @@ References to location details.
 | ------------ | ---------------------------------------------------- |
 | OTHER        | Other type of token                                  |
 | RFID         | RFID Token                                           |
+<div><!-- ---------------------------------------------------------------------------- --></div>
+
+
+### 4.5 WhitelistType *enum*
+
+Defines when authorization of a Token by the CPO is allowed. 
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Value           | Description                                                                                                                  |
+|-----------------|------------------------------------------------------------------------------------------------------------------------------|
+| ALWAYS          | Token always has to whitelisted, realtime authorization is not possible/allowed.                                             |
+| ALLOWED         | It is allowed to whitelist the token, realtime checking is also allowed.                                                     |
+| ALLOWED_OFFLINE | Whitelisting is only allowed when CPO cannot reach the eMSP (communication between CPO and eMSP is offline)                  |
+| NEVER           | Whitelisting is never allowed/forbidden, only realtime authorization allowed. Token should always be authorized by the eMSP. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
