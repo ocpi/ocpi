@@ -99,13 +99,13 @@ The Module identifiers for each endpoint are in the beginning of each *Module* c
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Module                                         | ModuleID      | Remark                            |
 |------------------------------------------------|---------------|-----------------------------------|
-| [CDRs](mod_cdrs.md)                            | cdrs          |                                   |
-| [Commands](mod_commands.md)                    | comamnds      |                                   |
+| [CDRs](mod_cdrs.md)                            | cdrs          | &nbsp;                            |
+| [Commands](mod_commands.md)                    | commands      | &nbsp;                            |
 | [Credentials & registration](credentials.md)   | credentials   | Required for all implementations  |
-| [Locations](mod_locations.md)                  | locations     |                                   |
-| [Sessions](mod_sessions.md)                    | sessions      |                                   |
-| [Tariffs](mod_tariffs.md)                      | tariffs       |                                   |
-| [Tokens](mod_tokens.md)                        | tokens        |                                   |
+| [Locations](mod_locations.md)                  | locations     | &nbsp;                            |
+| [Sessions](mod_sessions.md)                    | sessions      | &nbsp;                            |
+| [Tariffs](mod_tariffs.md)                      | tariffs       | &nbsp;                            |
+| [Tokens](mod_tokens.md)                        | tokens        | &nbsp;                            |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
