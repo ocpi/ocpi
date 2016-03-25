@@ -27,6 +27,7 @@ CPO can call the [GET](#221-get-method) to validate the Session object in the eM
 eMSPs who do not support the push model need to call
 [GET](#211-get-method) on the CPOs Sessions endpoint to receive a list of Sessions.
 
+This [GET](#211-get-method) can also be used, combined with the Push model to retrieve Sessions after the system (re)connects to a CPO, to get a list Sessions 'mist' during a time offline.
 
 ## 2. Interfaces and endpoints
 
@@ -37,7 +38,7 @@ Example endpoint structure: `/ocpi/cpo/2.0/sessions/?date_from=xxx&date_to=yyy`
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Method                 | Description                                                                             |
 | ---------------------- | --------------------------------------------------------------------------------------- |
-| [GET](#211-get-method) | Fetch Session object of charging sessions started between the {date_from} and {date_to} ([paginated](transport_and_format.md#get)) |
+| [GET](#211-get-method) | Fetch Session objects of charging sessions last updated between the {date_from} and {date_to} ([paginated](transport_and_format.md#get)) |
 | POST                   | n/a                                                                                     |
 | PUT                    | n/a                                                                                     |
 | PATCH                  | n/a                                                                                     |
@@ -50,15 +51,15 @@ Fetch Sessions from the CPO systems.
 
 ##### Request Parameters
 
-Only Sessions with a start date/time between the given {date_from} and {date_to} will be returned.
+Only Sessions with `last_update` between the given {date_from} and {date_to} will be returned.
 
 This request is [paginated](transport_and_format.md#get), so also supports the [pagination](transport_and_format.md#paginated-request) related URL parameters.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Parameter  | Datatype                              | Required | Description                                                                   |
 |------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
-| date_from  | [DateTime](types.md#12-datetime-type) | yes      | Begin charging session start Date/Time of the Sessions to fetch.              |
-| date_to    | [DateTime](types.md#12-datetime-type) | no       | End charging session start Date/Time of the Sessions to fetch, if omitted all Sessions up to now are request to be returned. |
+| date_from  | [DateTime](types.md#12-datetime-type) | yes      | Only return Sessions that have `last_updated` after this Date/Time.           |
+| date_to    | [DateTime](types.md#12-datetime-type) | no       | Only return Sessions that have `last_updated` before this Date/Time.          |
 | offset     | int                                   | no       | The offset of the first object returned. Default is 0.                        |
 | limit      | int                                   | no       | Maximum number of objects to GET.                                             |
 <div><!-- ---------------------------------------------------------------------------- --></div>
@@ -201,6 +202,7 @@ The following parameters can be provided as URL segments.
 | charging_periods                  | [ChargingPeriod](mod_cdrs.md#43-chargingperiod-class)      | *     | An optional list of charging periods that can be used to calculate and verify the total cost.                  |
 | total_cost                        | number                                                     | 1     | The total cost (excluding VAT) of the session in the specified currency. This is the price that the eMSP will have to pay to the CPO. |
 | status                            | [SessionStatus](#41-sessionstatus-enum)                    | 1     | The status of the session.                                                                                  |
+| last_updated                      | [DateTime](types.md#12-datetime-type)                      | 1     | Timestamp when this Session was last updated.                                                             |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
