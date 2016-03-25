@@ -268,6 +268,7 @@ The endpoint response contains a [AuthorizationInfo](#31-authorizationinfo-objec
 | issuer                  | [string](types.md#15-string-type)(64) | 1     | Issuing company                                                                                         |
 | valid                   | boolean                               | 1     | Is this Token valid                                                                                     |
 | allow_whitelist         | boolean                               | ?     | Indicates whether it is allowed to authorize a charging session for this token without requesting live authorization from the eMSP. Default is FALSE. |
+| language                | [string](types.md#15-string-type)(2)  | ?     | Language Code ISO 639-1. This optional field indicates the Token owner's preferred interface language. If the language is not provided or not supported then the CPO is free to choose its own language.                                                                                     |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 The combination of _uid_ and _type_ should be unique for every token.
