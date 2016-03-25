@@ -37,14 +37,14 @@ The CPO interface is meant to be used when the connection between 2 parties is e
 
 ### 2.1 CPO Interface
 
-The CPO Tariffs interface gives the eMSP the ability to request all tariffs.
+The CPO Tariffs interface gives the eMSP the ability to request tariffs.
 
-Example endpoint structure: `/ocpi/cpo/2.0/tariffs/`
+Example endpoint structure: `/ocpi/cpo/2.0/tariffs/?date_from=xxx&date_to=yyy`
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Method                 | Description                                          |
 |------------------------|------------------------------------------------------|
-| [GET](#211-get-method) | Returns all Tariff Objects from the CPO ([paginated](transport_and_format.md#get)) |
+| [GET](#211-get-method) | Returns Tariff Objects from the CPO, last updated between the {date_from} and {date_to} ([paginated](transport_and_format.md#get)) |
 | POST                   | n/a                                                  |
 | PUT                    | n/a                                                  |
 | PATCH                  | n/a                                                  |
@@ -58,11 +58,15 @@ Fetch information about all Tariffs.
 
 ##### Request Parameters
 
+If additional parameters: {date_from} and/or {date_to} are provided, only Tariffs with (`last_updated`) between the given date_from and date_to will be returned.
+
 This request is [paginated](transport_and_format.md#get), it supports the [pagination](transport_and_format.md#paginated-request) related URL parameters.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Parameter  | Datatype                              | Required | Description                                                                   |
 |------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
+| date_from  | [DateTime](types.md#12-datetime-type) | no       | Only return Tariffs that have `last_updated` after this Date/Time.             |
+| date_to    | [DateTime](types.md#12-datetime-type) | no       | Only return Tariffs that have `last_updated` before this Date/Time.            |
 | offset     | int                                   | no       | The offset of the first object returned. Default is 0.                        |
 | limit      | int                                   | no       | Maximum number of objects to GET.                                             |
 <div><!-- ---------------------------------------------------------------------------- --></div>
@@ -228,6 +232,7 @@ non of the TariffElements before this matches the current charging period.
 | tariff_alt_url      | [URL](types.md#16-url-type)                  | ?     | Alternative URL to tariff info                                                        |
 | elements            | [TariffElement](#43-tariffelement-class)     | +     | List of tariff elements                                                               |
 | energy_mix          | [EnergyMix](mod_locations.md#45-energymix-class) | ? | Details on the energy supplied with this tariff.                                     |
+| last_updated        | [DateTime](types.md#12-datetime-type)        | 1     | Timestamp when this Tariff was last updated.                                                             |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 

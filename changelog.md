@@ -28,7 +28,9 @@
 |[Tokens](mod_tokens.md) / [eMSP POST](mod_tokens.md#222-post-method)                         | Optional / Major             | Large / Large              | added functionality for 'real-time' authorization of Tokens. |
 |[Tokens](mod_tokens.md) / [Token](mod_tokens.md#32-Token-object)                             | Optional / Minor             | Minimal / Average          | new field added: language. |
 |[Tokens](mod_tokens.md) / [Token](mod_tokens.md#32-Token-object)                             | Major / Major                | Minimal / Average          | changed field: whitelist_allowed (type: boolean) to whitelist (type: WhitelistType) |
-|[Version information](version_information_endpoint.md) / [Custom Modules](version_information_endpoint.md#custom-modules)   | Optional / Optional          | Average / Average          | added description on how to add custom/customized modules to OCPI. |
+|[Tokens](mod_tokens.md) / [Token](mod_tokens.md#32-Token-object)                             | Minor / Minor                | Average / Average          | new field added: "last_updated" |
+|[Tokens](mod_tokens.md) / [eMSP GET](mod_tokens.md#221-get-method)                           | Average/ Optional            | Average / Minimal          | added filters to retrieve only Tokens that have been updated between date_to/date_from. |
+|[Version information](version_information_endpoint.md) / [Custom Modules](version_information_endpoint.md#custom-modules)   | Optional / Optional        | Average / Average          | added description on how to add custom/customized modules to OCPI. |
 |[Version information](version_information_endpoint.md) / [Version](version_information_endpoint.md#version-class) | Minor / Minor | Minimal / Minimal    | OCPI Version changed from OCPI decimal to VersionNumber enum. |
 |[Version information](version_information_endpoint.md) / [Version details endpoint](version_information_endpoint.md#version-details-endpoint) | Minor / Minor | Minimal / Minimal    | OCPI Version changed from OCPI decimal to VersionNumber enum. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
