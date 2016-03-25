@@ -1,10 +1,10 @@
-## Types
+# Types
 
-### 1.1 CiString *type*
+## 1.1 CiString *type*
 
 Case Insensitive String. Only printable ASCII allowed.
 
-### 1.2 DateTime *type*
+## 1.2 DateTime *type*
  
 All timestamps are formatted as string(25) using the combined date and time format from the ISO 8601 standard. All timestamps SHALL be in UTC. The absence of the timezone designator implies a UTC timestamp.
 
@@ -17,7 +17,7 @@ Example:
 Note: +00:00 is not the same as UTC.
 
     
-### 1.3 DimensionType *enum*
+## 1.3 DimensionType *enum*
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Value        | Description                                                        |
@@ -31,7 +31,7 @@ Note: +00:00 is not the same as UTC.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-### 1.4 DisplayText *class*
+## 1.4 DisplayText *class*
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property        | Type                           | Card. | Description                                                       |
@@ -48,13 +48,13 @@ Example:
     }
 
 
-### 1.5 string *type*
+## 1.5 string *type*
 
 Case Sensitive String. Only printable ASCII allowed. All strings in
 messages and enumerations are case sensitive, unless explicitly stated
 otherwise.
     
 
-### 1.6 URL *type*
+## 1.6 URL *type*
 
 An URL a string(255) type following the [w3.org spec](http://www.w3.org/Addressing/URL/uri-spec.html).

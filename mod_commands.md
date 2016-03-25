@@ -104,7 +104,7 @@ Example endpoint structure:
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Method                   | Description                                              |
-|--------------------------| ---------------------------------------------------------|
+|--------------------------|----------------------------------------------------------|
 | GET                      | n/a                                                      |
 | [POST](#221-post-method) | Receive the asynchronous response from the Charge Point. |
 | PUT                      | n/a                                                      |
@@ -150,14 +150,14 @@ The `evse_uid` is optional. If no EVSE is specified, the Charge Point should kee
 A reservation can be replaced/updated by sending a `RESERVE_NOW` request with the same Location (Charge Point) and the same `reservation_id`. 
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Property         | Type                                   | Card. | Description                                                                                                                                     |
-|------------------|----------------------------------------|-------|-------------------------------------------------------------------------------------------------------------------------------------------------|
-| response_url     | [URL](types.md#16-url-type)            | 1     | URL that the CommandResponse POST should be send to. This URL might contain an unique ID to be able to distinguish between ReserveNow requests. |
-| token            | [Token](mod_tokens.md#32-token-object) | 1     | Token object for how to reserve this Charge Point (and specific EVSE).                                                                          |
-| expiry_date      | [DateTime](types.md#12-datetime-type)  | 1     | The Date/Time when this reservation ends.                                                                                                       |
-| reservation_id   | int                                    | 1     | Reservation id, unique for this reservation. If the Charge Point allready has                                                                                                       |
-| location_id      | [string](types.md#15-string-type)(15)  | 1     | Location.id of the Location (belonging to the CPO this request is send to) for which to reserve an EVSE.                                        |
-| evse_uid         | [string](types.md#15-string-type)(15)  | ?     | Optional EVSE.uid of the EVSE of this Location if a specific EVSE has to be reserved.                                                           |
+| Property             | Type                                   | Card. | Description                                                                                                                                     |
+|----------------------|----------------------------------------|-------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| response_url         | [URL](types.md#16-url-type)            | 1     | URL that the CommandResponse POST should be send to. This URL might contain an unique ID to be able to distinguish between ReserveNow requests. |
+| token                | [Token](mod_tokens.md#32-token-object) | 1     | Token object for how to reserve this Charge Point (and specific EVSE).                                                                          |
+| expiry_date          | [DateTime](types.md#12-datetime-type)  | 1     | The Date/Time when this reservation ends.                                                                                                       |
+| reservation_id       | int                                    | 1     | Reservation id, unique for this reservation. If the Charge Point allready has                                                                                                       |
+| location_id          | [string](types.md#15-string-type)(15)  | 1     | Location.id of the Location (belonging to the CPO this request is send to) for which to reserve an EVSE.                                        |
+| evse_uid             | [string](types.md#15-string-type)(15)  | ?     | Optional EVSE.uid of the EVSE of this Location if a specific EVSE has to be reserved.                                                           |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -166,12 +166,12 @@ A reservation can be replaced/updated by sending a `RESERVE_NOW` request with th
 The `evse_uid` is optional. If no EVSE is specified, the Charge Point can itself decide on which EVSE to start a new session. (this might not be supported by all Charge Points).
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Property         | Type                                   | Card. | Description                                                                                                                                       |
-|------------------|----------------------------------------|-------|---------------------------------------------------------------------------------------------------------------------------------------------------|
-| response_url     | [URL](types.md#16-url-type)            | 1     | URL that the CommandResponse POST should be sent to. This URL might contain an unique ID to be able to distinguish between StartSession requests. |
-| token            | [Token](mod_tokens.md#32-token-object) | 1     | Token object the Charge Point has to use to start a new session.                                                                                  |
-| location_id      | [string](types.md#15-string-type)(15)  | 1     | Location.id of the Location (belonging to the CPO this request is send to) on which a session is to be started.                                   |
-| evse_uid         | [string](types.md#15-string-type)(15)  | ?     | Optional EVSE.uid of the EVSE of this Location on which a session is to be started.                                                               |
+| Property             | Type                                   | Card. | Description                                                                                                                                       |
+|----------------------|----------------------------------------|-------|---------------------------------------------------------------------------------------------------------------------------------------------------|
+| response_url         | [URL](types.md#16-url-type)            | 1     | URL that the CommandResponse POST should be sent to. This URL might contain an unique ID to be able to distinguish between StartSession requests. |
+| token                | [Token](mod_tokens.md#32-token-object) | 1     | Token object the Charge Point has to use to start a new session.                                                                                  |
+| location_id          | [string](types.md#15-string-type)(15)  | 1     | Location.id of the Location (belonging to the CPO this request is send to) on which a session is to be started.                                   |
+| evse_uid             | [string](types.md#15-string-type)(15)  | ?     | Optional EVSE.uid of the EVSE of this Location on which a session is to be started.                                                               |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -179,22 +179,22 @@ The `evse_uid` is optional. If no EVSE is specified, the Charge Point can itself
 ### 3.4 _StopSession_ Object
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Property         | Type                                   | Card. | Description                                                                                                                                      |
-|------------------|----------------------------------------|-------|--------------------------------------------------------------------------------------------------------------------------------------------------|
-| response_url     | [URL](types.md#16-url-type)            | 1     | URL that the CommandResponse POST should be sent to. This URL might contain an unique ID to be able to distinguish between StopSession requests. |
-| session_id       | [string](types.md#15-string-type)(15)  | 1     | Session.id of the Session that is requested to be stopped.                                                                                       |         
+| Property             | Type                                   | Card. | Description                                                                                                                                      |
+|----------------------|----------------------------------------|-------|--------------------------------------------------------------------------------------------------------------------------------------------------|
+| response_url         | [URL](types.md#16-url-type)            | 1     | URL that the CommandResponse POST should be sent to. This URL might contain an unique ID to be able to distinguish between StopSession requests. |
+| session_id           | [string](types.md#15-string-type)(15)  | 1     | Session.id of the Session that is requested to be stopped.                                                                                       |         
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
 ### 3.5 _UnlockConnector_ Object
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Property         | Type                                   | Card. | Description                                                                                                                                          |
-|------------------|----------------------------------------|-------|------------------------------------------------------------------------------------------------------------------------------------------------------|
-| response_url     | [URL](types.md#16-url-type)            | 1     | URL that the CommandResponse POST should be sent to. This URL might contain an unique ID to be able to distinguish between UnlockConnector requests. |
-| location_id      | [string](types.md#15-string-type)(15)  | 1     | Location.id of the Location (belonging to the CPO this request is send to) of which it is requested to unlock the connector.                         |
-| evse_uid         | [string](types.md#15-string-type)(15)  | 1     | EVSE.uid of the EVSE of this Location of which it is requested to unlock the connector.                                                              |
-| connector_id     | [string](types.md#15-string-type)(15)  | 1     | Connector.id of the Connector of this Location of which it is requested to unlock.                                                                   |
+| Property             | Type                                   | Card. | Description                                                                                                                                          |
+|----------------------|----------------------------------------|-------|------------------------------------------------------------------------------------------------------------------------------------------------------|
+| response_url         | [URL](types.md#16-url-type)            | 1     | URL that the CommandResponse POST should be sent to. This URL might contain an unique ID to be able to distinguish between UnlockConnector requests. |
+| location_id          | [string](types.md#15-string-type)(15)  | 1     | Location.id of the Location (belonging to the CPO this request is send to) of which it is requested to unlock the connector.                         |
+| evse_uid             | [string](types.md#15-string-type)(15)  | 1     | EVSE.uid of the EVSE of this Location of which it is requested to unlock the connector.                                                              |
+| connector_id         | [string](types.md#15-string-type)(15)  | 1     | Connector.id of the Connector of this Location of which it is requested to unlock.                                                                   |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -205,14 +205,14 @@ The `evse_uid` is optional. If no EVSE is specified, the Charge Point can itself
 The command requested.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Value           | Description                                                                                |
-|-----------------|--------------------------------------------------------------------------------------------|
-| NOT_SUPPORTED   | The requested command is not supported by this CPO, Charge Point, EVSE etc.                |
-| REJECTED        | Command request rejected by the CPO or Charge Point.                                       |
-| ACCEPTED        | Command request accepted by the CPO or Charge Point.                                       |
-| TIMEOUT         | Command request timeout, no response received from the Charge Point in an reasonable time. |
-| UNKOWN_LOCATION | The Location, EVSE or Location in the requested command is not known by this CPO.          |
-| UNKOWN_SESSION  | The Session in the requested command is not known by this CPO.                             |
+| Value               | Description                                                                                |
+|---------------------|--------------------------------------------------------------------------------------------|
+| NOT_SUPPORTED       | The requested command is not supported by this CPO, Charge Point, EVSE etc.                |
+| REJECTED            | Command request rejected by the CPO or Charge Point.                                       |
+| ACCEPTED            | Command request accepted by the CPO or Charge Point.                                       |
+| TIMEOUT             | Command request timeout, no response received from the Charge Point in an reasonable time. |
+| UNKOWN_LOCATION     | The Location, EVSE or Location in the requested command is not known by this CPO.          |
+| UNKOWN_SESSION      | The Session in the requested command is not known by this CPO.                             |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -232,3 +232,4 @@ The command requested.
 **The command `UNLOCK_CONNECTOR` may only be used by an operator of the eMSP. This command SHALL never be allowed to be sent directly by the EV-Driver. 
 The `UNLOCK_CONNECTOR` is intended to be used in the rare situation that the connector is not unlocked successfully after a transaction is stopped. The mechanical unlock of the lock mechanism might get stuck, for example: fail when there is tension on the charging cable when the Charge Point tries to unlock the connector.
 In such a situation the EV-Driver can call either the CPO or the eMSP to retry the unlocking.** 
+
