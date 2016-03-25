@@ -316,9 +316,9 @@ References to location details.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Field Name       | Field Type                               | Card. | Description                                                         |
 |------------------|------------------------------------------|-------|---------------------------------------------------------------------|
-| location_id      | [string](types.md#15-string-type)(15)    | 1     | Uniquely identifier for the location. 
+| location_id      | [string](types.md#15-string-type)(15)    | 1     | Uniquely identifier for the location.                               |
 | evse_uids        | [string](types.md#15-string-type)(15)    | *     | Uniquely identifier for EVSEs within the CPOs platform for the EVSE within the the given location. |
-| connector_ids    | [string](types.md#15-string-type)(15)    | *     | Identifies the connectors within the given EVSEs.                                                                                       |
+| connector_ids    | [string](types.md#15-string-type)(15)    | *     | Identifies the connectors within the given EVSEs.                   |                                                                                 |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -337,10 +337,10 @@ References to location details.
 Defines when authorization of a Token by the CPO is allowed. 
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Value                   | Description                                                                                                                  |
-|-------------------------|------------------------------------------------------------------------------------------------------------------------------|
-| ALWAYS                  | Token always has to whitelisted, realtime authorization is not possible/allowed.                                             |
-| ALLOWED                 | It is allowed to whitelist the token, realtime checking is also allowed.                                                     |
-| ALLOWED_OFFLINE         | Whitelisting is only allowed when CPO cannot reach the eMSP (communication between CPO and eMSP is offline)                  |
-| NEVER                   | Whitelisting is never allowed/forbidden, only realtime authorization allowed. Token should always be authorized by the eMSP. |
+| Value                           | Description                                                                                                                  |
+|---------------------------------|------------------------------------------------------------------------------------------------------------------------------|
+| ALWAYS                          | Token always has to whitelisted, realtime authorization is not possible/allowed.                                             |
+| ALLOWED                         | It is allowed to whitelist the token, realtime checking is also allowed.                                                     |
+| ALLOWED_OFFLINE                 | Whitelisting is only allowed when CPO cannot reach the eMSP (communication between CPO and eMSP is offline)                  |
+| NEVER                           | Whitelisting is never allowed/forbidden, only realtime authorization allowed. Token should always be authorized by the eMSP. |
 <div><!-- ---------------------------------------------------------------------------- --></div>

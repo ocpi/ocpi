@@ -309,15 +309,15 @@ The *Location* object describes the location and its properties where a group of
 | city                                         | [string](types.md#15-string-type)(45)                    | 1     | City or town.                                                                          |
 | postal_code                                  | [string](types.md#15-string-type)(10)                    | 1     | Postal code of the location.                                                           |
 | country                                      | [string](types.md#15-string-type)(3)                     | 1     | ISO 3166-1 alpha-3 code for the country of this location.                              |
-| coordinates                                  | [GeoLocation](#412-geolocation-class)                     | 1     | Coordinates of the location.                                                           |
+| coordinates                                  | [GeoLocation](#412-geolocation-class)                    | 1     | Coordinates of the location.                                                           |
 | related_locations                            | [AdditionalGeoLocation](#41-additionalgeolocation-class) | *     | Geographical location of related points relevant to the user.                          |
 | evses                                        | [EVSE](#32-evse-object)                                  | *     | List of EVSEs that belong to this Location.                                            |
 | directions                                   | [DisplayText](types.md#14-displaytext-class)             | *     | Human-readable directions on how to reach the location.                                |
 | operator                                     | [BusinessDetails](#41-businessdetails-class)             | ?     | Information of the operator. When not specified, the information retrieved from the `api_info` endpoint should be used instead. |
 | suboperator                                  | [BusinessDetails](#41-businessdetails-class)             | ?     | Information of the suboperator if available.                                           |
 | owner                                        | [BusinessDetails](#41-businessdetails-class)             | ?     | Information of the owner if available.                                           |
-| facilities                                   | [Facility](#411-facility-enum)                            | *     | Optional list of facilities this charge location directly belongs to.                        |
-| time_zone                                    | string(255)                                              | ?     | One of IANA tzdata's TZ-values representing the time zone of the location. Examples: "Europe/Oslo", "Europe/Zurich". (http://www.iana.org/time-zones) |
+| facilities                                   | [Facility](#411-facility-enum)                           | *     | Optional list of facilities this charge location directly belongs to.                        |
+| time_zone                                    | [string](types.md#15-string-type)(255)                   | ?     | One of IANA tzdata's TZ-values representing the time zone of the location. Examples: "Europe/Oslo", "Europe/Zurich". (http://www.iana.org/time-zones) |
 | opening_times                                | [Hours](#413-hours-class)                                | ?     | The times when the EVSEs at the location can be accessed for charging.                         |
 | charging_when_closed                         | boolean                                                  | ?     | Indicates if the EVSEs are still charging outside the opening hours of the location. E.g. when the parking garage closes its barriers over night, is it allowed to charge till the next morning?  Default: **true** |
 | images                                       | [Image](#414-image-class)                                | *     | Links to images related to the location such as photos or logos.                       |
@@ -470,14 +470,14 @@ This class defines a geo location. The geodetic system to be used is WGS 84.
 The capabilities of an EVSE.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Value                            | Description                                                |
-|----------------------------------|------------------------------------------------------------|
-| CHARGING_PROFILE_CAPABLE         | The EVSE supports charging profiles. Sending Charging Profiles is not yet supported by OCPI. |
-| CREDIT_CARD_PAYABLE              | Charging at this EVSE can be payed with credit card        |
-| REMOTE_START_STOP_CAPABLE        | The EVSE can remotely be started/stopped.                  |
-| RESERVABLE                       | The EVSE can be reserved.                                  |
-| RFID_READER                      | Charging at this EVSE can be authorized with a RFID token  |
-| UNLOCK_CAPABLE                   | Connectors have mechanical lock that can be requested by the eMSP to be unlocked. |
+| Value                                    | Description                                          |
+|------------------------------------------|------------------------------------------------------|
+| CHARGING_PROFILE_CAPABLE                 | The EVSE supports charging profiles. Sending Charging Profiles is not yet supported by OCPI. |
+| CREDIT_CARD_PAYABLE                      | Charging at this EVSE can be payed with credit card. |
+| REMOTE_START_STOP_CAPABLE                | The EVSE can remotely be started/stopped.            |
+| RESERVABLE                               | The EVSE can be reserved.                            |
+| RFID_READER                              | Charging at this EVSE can be authorized with a RFID token  |
+| UNLOCK_CAPABLE                           | Connectors have mechanical lock that can be requested by the eMSP to be unlocked. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -534,13 +534,13 @@ The socket or plug standard of the charging point.
 This type is used to specify the energy mix and environmental impact of the supplied energy at a location or in a tariff.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Property            | Type                                                 | Card. | Description                                                                                     |
-|---------------------|------------------------------------------------------|-------|-------------------------------------------------------------------------------------------------|
-| is_green_energy     | boolean                                              | 1     | True if 100% from regenerative sources. (CO2 and nuclear waste is zero)                         |
-| energy_sources      | [EnergySource](#46-energysource-class)               | *     | Key-value pairs (enum + percentage) of energy sources of this location's tariff.                |
-| environ_impact      | [EnvironmentalImpact](#48-environmentalimpact-class) | *     | Key-value pairs (enum + percentage) of nuclear waste and CO2 exhaust of this location's tariff. |
-| supplier_name       | [string](types.md#15-string-type)(64)                | ?     | Name of the energy supplier, delivering the energy for this location or tariff.*                |
-| energy_product_name | [string](types.md#15-string-type)(64)                | ?     | Name of the energy suppliers product/tariff plan used at this location.*                        |
+| Property                    | Type                                                 | Card. | Description                                                                                     |
+|-----------------------------|------------------------------------------------------|-------|-------------------------------------------------------------------------------------------------|
+| is_green_energy             | boolean                                              | 1     | True if 100% from regenerative sources. (CO2 and nuclear waste is zero)                         |
+| energy_sources              | [EnergySource](#46-energysource-class)               | *     | Key-value pairs (enum + percentage) of energy sources of this location's tariff.                |
+| environ_impact              | [EnvironmentalImpact](#48-environmentalimpact-class) | *     | Key-value pairs (enum + percentage) of nuclear waste and CO2 exhaust of this location's tariff. |
+| supplier_name               | [string](types.md#15-string-type)(64)                | ?     | Name of the energy supplier, delivering the energy for this location or tariff.*                |
+| energy_product_name         | [string](types.md#15-string-type)(64)                | ?     | Name of the energy suppliers product/tariff plan used at this location.*                        |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 _* These fields can be used to look-up energy qualification or to show it directly to the customer (for well-known brands like Greenpeace Energy, etc.)_
@@ -605,16 +605,16 @@ Key-value pairs (enum + percentage) of energy sources. All given values should a
 Categories of energy sources.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Value              | Description                                                                           |
-|--------------------|---------------------------------------------------------------------------------------|
-| NUCLEAR            | Nuclear power sources.                                                                |
-| GENERAL_FOSSIL     | All kinds of fossil power sources.                                                    |
-| COAL               | Fossil power from coal.                                                               |
-| GAS                | Fossil power from gas.                                                                |
-| GENERAL_GREEN      | All kinds of regenerative power sources.                                              |
-| SOLAR              | Regenerative power from PV.                                                           |
-| WIND               | Regenerative power from wind turbines.                                                |
-| WATER              | Regenerative power from water turbines.                                               |
+| Value                  | Description                                  |
+|------------------------|----------------------------------------------|
+| NUCLEAR                | Nuclear power sources.                       |
+| GENERAL_FOSSIL         | All kinds of fossil power sources.           |
+| COAL                   | Fossil power from coal.                      |
+| GAS                    | Fossil power from gas.                       |
+| GENERAL_GREEN          | All kinds of regenerative power sources.     |
+| SOLAR                  | Regenerative power from PV.                  |
+| WIND                   | Regenerative power from wind turbines.       |
+| WATER                  | Regenerative power from water turbines.      |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -635,10 +635,10 @@ Key-value pairs (enum + amount) of waste and carbon dioxide emittion per kWh.
 Categories of environmental impact values.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Value              | Description                                                                           |
-|--------------------|---------------------------------------------------------------------------------------|
-| NUCLEAR_WASTE      | Produced nuclear waste in gramms per kilowatthour.                                    |
-| CARBON_DIOXIDE     | Exhausted carbon dioxide in gramms per kilowarrhour.                                  |
+| Value                      | Description                                                                           |
+|----------------------------|---------------------------------------------------------------------------------------|
+| NUCLEAR_WASTE              | Produced nuclear waste in gramms per kilowatthour.                                    |
+| CARBON_DIOXIDE             | Exhausted carbon dioxide in gramms per kilowarrhour.                                  |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -657,24 +657,24 @@ Specifies one exceptional period for opening or access hours.
 ### 4.11 Facility *enum*
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Value           | Description                                               |
-|-----------------|--------------------------------------------------------- -|
-| HOTEL           | A hotel nearby.                                           |
-| RESTAURANT      | A restaurant nearby.                                      |
-| CAFE            | A cafe nearby.                                            |
-| MALL            | A mall or shopping center nearby.                         |
-| SUPERMARKET     | A supermarket nearby.                                     |
-| SPORT           | Sport facilities nearby: gym, field etc.                  |
-| RECREATION_AREA | A Recreation area nearby.                                 |
-| NATURE          | Located in, or close to, a park, nature reserve/park etc. |
-| MUSEUM          | A museum nearby.                                          |
-| BUS_STOP        | A bus stop nearby.                                        |
-| TAXI_STAND      | A taxi stand nearby.                                      |
-| TRAIN_STATION   | A train station nearby.                                   |
-| AIRPORT         | An airport nearby.                                        |
-| CARPOOL_PARKING | A carpool parking nearby.                                 |
-| FUEL_STATION    | A Fuel station nearby.                                    |
-| WIFI            | Wifi or other type of internet available.                 |
+| Value               | Description                                               |
+|---------------------|-----------------------------------------------------------|
+| HOTEL               | A hotel nearby.                                           |
+| RESTAURANT          | A restaurant nearby.                                      |
+| CAFE                | A cafe nearby.                                            |
+| MALL                | A mall or shopping center nearby.                         |
+| SUPERMARKET         | A supermarket nearby.                                     |
+| SPORT               | Sport facilities nearby: gym, field etc.                  |
+| RECREATION_AREA     | A Recreation area nearby.                                 |
+| NATURE              | Located in, or close to, a park, nature reserve/park etc. |
+| MUSEUM              | A museum nearby.                                          |
+| BUS_STOP            | A bus stop nearby.                                        |
+| TAXI_STAND          | A taxi stand nearby.                                      |
+| TRAIN_STATION       | A train station nearby.                                   |
+| AIRPORT             | An airport nearby.                                        |
+| CARPOOL_PARKING     | A carpool parking nearby.                                 |
+| FUEL_STATION        | A Fuel station nearby.                                    |
+| WIFI                | Wifi or other type of internet available.                 |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
