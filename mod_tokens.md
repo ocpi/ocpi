@@ -299,13 +299,13 @@ The combination of _uid_ and _type_ should be unique for every token.
 ### 4.1 Allowed *enum*
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Value        | Description                                                                                   |
-|--------------|-----------------------------------------------------------------------------------------------|
-| ALLOWED      | This Token is allowed to charge at this location.                                             |
-| BLOCKED      | This Token is blocked.                                                                        |
-| EXPIRED      | This Token has expired.                                                                       |
-| NO_CREDIT    | This Token belongs to an account that has not enough credits to charge at the given location. |
-| NOT_ALLOWED  | Token is valid, but is not allowed to charge at the given location.                           |
+| Value            | Description                                                                                   |
+|------------------|-----------------------------------------------------------------------------------------------|
+| ALLOWED          | This Token is allowed to charge at this location.                                             |
+| BLOCKED          | This Token is blocked.                                                                        |
+| EXPIRED          | This Token has expired.                                                                       |
+| NO_CREDIT        | This Token belongs to an account that has not enough credits to charge at the given location. |
+| NOT_ALLOWED      | Token is valid, but is not allowed to charge at the given location.                           |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -337,10 +337,10 @@ References to location details.
 Defines when authorization of a Token by the CPO is allowed. 
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Value           | Description                                                                                                                  |
-|-----------------|------------------------------------------------------------------------------------------------------------------------------|
-| ALWAYS          | Token always has to whitelisted, realtime authorization is not possible/allowed.                                             |
-| ALLOWED         | It is allowed to whitelist the token, realtime checking is also allowed.                                                     |
-| ALLOWED_OFFLINE | Whitelisting is only allowed when CPO cannot reach the eMSP (communication between CPO and eMSP is offline)                  |
-| NEVER           | Whitelisting is never allowed/forbidden, only realtime authorization allowed. Token should always be authorized by the eMSP. |
+| Value                   | Description                                                                                                                  |
+|-------------------------|------------------------------------------------------------------------------------------------------------------------------|
+| ALWAYS                  | Token always has to whitelisted, realtime authorization is not possible/allowed.                                             |
+| ALLOWED                 | It is allowed to whitelist the token, realtime checking is also allowed.                                                     |
+| ALLOWED_OFFLINE         | Whitelisting is only allowed when CPO cannot reach the eMSP (communication between CPO and eMSP is offline)                  |
+| NEVER                   | Whitelisting is never allowed/forbidden, only realtime authorization allowed. Token should always be authorized by the eMSP. |
 <div><!-- ---------------------------------------------------------------------------- --></div>

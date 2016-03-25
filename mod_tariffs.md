@@ -224,15 +224,15 @@ It is advised to always set a "default" tariff, the last tariff in the list of _
 non of the TariffElements before this matches the current charging period.   
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Property            | Type                                         | Card. | Description                                                                           |
-|---------------------|----------------------------------------------|-------|---------------------------------------------------------------------------------------|
-| id                  | [string](types.md#15-string-type)(15)        | 1     | Uniquely identifies the tariff within the CPOs platform (and suboperator platforms).  |
-| currency            | [string](types.md#15-string-type)(3)         | 1     | Currency of this tariff, ISO 4217 Code                                                |
-| tariff_alt_text     | [DisplayText](types.md#14-displaytext-class) | *     | List of multi language alternative tariff info text                                   |
-| tariff_alt_url      | [URL](types.md#16-url-type)                  | ?     | Alternative URL to tariff info                                                        |
-| elements            | [TariffElement](#43-tariffelement-class)     | +     | List of tariff elements                                                               |
-| energy_mix          | [EnergyMix](mod_locations.md#45-energymix-class) | ? | Details on the energy supplied with this tariff.                                     |
-| last_updated        | [DateTime](types.md#12-datetime-type)        | 1     | Timestamp when this Tariff was last updated.                                                             |
+| Property            | Type                                            | Card. | Description                                                                           |
+|---------------------|-------------------------------------------------|-------|---------------------------------------------------------------------------------------|
+| id                  | [string](types.md#15-string-type)(15)           | 1     | Uniquely identifies the tariff within the CPOs platform (and suboperator platforms).  |
+| currency            | [string](types.md#15-string-type)(3)            | 1     | Currency of this tariff, ISO 4217 Code                                                |
+| tariff_alt_text     | [DisplayText](types.md#14-displaytext-class)    | *     | List of multi language alternative tariff info text                                   |
+| tariff_alt_url      | [URL](types.md#16-url-type)                     | ?     | Alternative URL to tariff info                                                        |
+| elements            | [TariffElement](#43-tariffelement-class)        | +     | List of tariff elements                                                               |
+| energy_mix          | [EnergyMix](mod_locations.md#45energymix-class) | ?     | Details on the energy supplied with this tariff.                                     |
+| last_updated        | [DateTime](types.md#12-datetime-type)           | 1     | Timestamp when this Tariff was last updated.                                                             |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
