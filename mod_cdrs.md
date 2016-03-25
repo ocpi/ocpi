@@ -31,6 +31,7 @@ If the CPO, for any reason wants to view a CDR it has posted to a eMSP system, t
 eMSPs who do not support the push model need to call
 [GET](#211-get-method) on the CPOs CDRs endpoint to receive a list of CDRs.
 
+This [GET](#211-get-method) can also be used, combined with the Push model to retrieve CDRs, after the system (re)connects to a CPO, to get a list of CDRs, 'mist' during a time offline. 
 
 ## 2. Interfaces and endpoints
 
@@ -48,7 +49,7 @@ Example endpoint structure: `/ocpi/cpo/2.0/cdrs/?date_from=xxx&date_to=yyy`
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Method                  | Description                                                                      |
 |-------------------------|----------------------------------------------------------------------------------|
-| [GET](#211-get-method)  | Fetch CDRs of charging sessions started between the {date_from} and {date_to} ([paginated](transport_and_format.md#get))    |
+| [GET](#211-get-method)  | Fetch CDRs, last updated between the {date_from} and {date_to} ([paginated](transport_and_format.md#get))    |
 | POST                    | n/a                                                                              |
 | PUT                     | n/a                                                                              |
 | PATCH                   | n/a                                                                              |
@@ -63,15 +64,15 @@ Fetch CDRs from the CPO systems.
 
 ##### Request Parameters
 
-If additional parameters: {date_from} and/or {date_to} are provided, only CDRs of charging sessions with a start date/time between the given date_from and date_to will be returned.
+If additional parameters: {date_from} and/or {date_to} are provided, only CDRs with `last_updated` between the given date_from and date_to will be returned.
 
 This request is [paginated](transport_and_format.md#get), it supports the [pagination](transport_and_format.md#paginated-request) related URL parameters.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Parameter     | Datatype                             | Required    | Description                                                               |
 |---------------|--------------------------------------|-------------|---------------------------------------------------------------------------|
-| date_from     | [DateTime](types.md#12-datetime-type)| no          | Begin charging session start Date/Time of CDRs to fetch.                  |
-| date_to       | [DateTime](types.md#12-datetime-type)| no          | End charging session start Date/Time of CDRs to fetch, if omitted all CDRs up to now are request to be returned. |
+| date_from     | [DateTime](types.md#12-datetime-type)| no          | Only return CDRs that have `last_updated` after this Date/Time.           |
+| date_to       | [DateTime](types.md#12-datetime-type)| no          | Only return CDRs that have `last_updated` before this Date/Time.          |
 | offset        | int                                  | no          | The offset of the first object returned. Default is 0.                    |
 | limit         | int                                  | no          | Maximum number of objects to GET.                                         |
 <div><!-- ---------------------------------------------------------------------------- --></div>
@@ -184,6 +185,7 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 | total_time                           | number                                                   | 1     | Total time charging, in hours.                                        |
 | total_parking_time                   | number                                                   | ?     | Total time not charging, in hours.                                            |
 | remark                               | [string](types.md#15-string-type)(255)                   | ?     | Optional remark, can be used to provide addition human readable information to the CDR, for example: reason why a transaction was stopped.|
+| last_updated                         | [DateTime](types.md#12-datetime-type)                    | 1     | Timestamp when this CDR was last updated.                                                             |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 

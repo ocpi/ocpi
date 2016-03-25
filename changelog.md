@@ -7,6 +7,7 @@
 |---------------------------------------------------------------------------------------------|------------------------------|-------------------------------|--------------------------------------------------|
 |[CDRs](mod_cdrs.md) / [CDR](mod_cdrs.md#31-cdr-object)                                       | Major / Major                | Minimal / Minimal          | replaced field: "total_usage" with: "total_energy", "total_time" and "total_parking_time" |
 |[CDRs](mod_cdrs.md) / [CDR](mod_cdrs.md#31-cdr-object)                                       | Major / Major                | Minimal / Minimal          | OCPI decimal type is removed and replaced by JSON number. |
+|[CDRs](mod_cdrs.md) / [CDR](mod_cdrs.md#31-cdr-object)                                       | Major / Major                | Minimal / Minimal          | new field added: "last_updated", GET method filters changed to use this new field instead of start of charging session |
 |[CDRs](mod_cdrs.md) / [CdrDimension](mod_cdrs.md#42-cdrdimension-class)                      | Major / Major                | Minimal / Minimal          | OCPI decimal type is removed and replaced by JSON number. |
 |[Commands](mod_commands)                                                                     | Optional / Optional          | Large / Large              | added new commands module. |
 |[Locations](mod_locations.md) / [Location](mod_locations.md#31-location-object)              | Average / Optional           | Minimal / Minimal          | new field added: "owner" |  
