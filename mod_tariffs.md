@@ -96,7 +96,7 @@ Example endpoint structure:
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Method                       | Description                                            |
 |------------------------------|--------------------------------------------------------|
-| [GET](#221-get-method)       | Retrieve a Location as it is stored in the eMSP system.|
+| [GET](#221-get-method)       | Retrieve a Tariff as it is stored in the eMSP system.  |
 | POST                         | n/a                                                    |
 | [PUT](#222-put-method)       | Push new/updated Tariff object to the eMSP.            |
 | [PATCH](#223-patch-method)   | Notify the eMSP of partial updates to a Tariff.        |
