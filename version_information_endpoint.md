@@ -125,7 +125,7 @@ List of known versions.
 
 Parties are allowed to create custom modules or customized version of the existing modules.
 For this the [ModuleID enum](#moduleid-enum) can be extended with additional custom moduleIDs.
-These custom moduleIDs MAY only be send to parties with which there is an agreement to use a custom module. Do NOT send custom moduleIDs to parties your are not 100% sure understand the custom moduleIDs.
+These custom moduleIDs MAY only be send to parties with which there is an agreement to use a custom module. Do NOT send custom moduleIDs to parties you are not 100% sure that they understand the custom moduleIDs.
 It is advised to use a prefix (country_code + party_id) for any custom moduleID, this ensures that the moduleID will not be used for any future module of OCPI.
  
 For example:
