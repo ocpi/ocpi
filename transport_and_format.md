@@ -209,7 +209,7 @@ For brevity's sake, any further examples used in this specification will only co
 ```
 
 
-#### Example: Response with an error (not data)
+#### Example: Response with an error (contains no data field)
 
 ```json
 {
