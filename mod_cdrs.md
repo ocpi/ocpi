@@ -179,7 +179,7 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 | meter_id                                     | [string](types.md#15-string-type)(255)                   | ?     | Identification of the Meter inside the Charge Point.                                                                           |
 | currency                                     | [string](types.md#15-string-type)(3)                     | 1     | Currency of the CDR in ISO 4217 Code.                                                                                          |
 | tariffs                                      | [Tariff](mod_tariffs.md#31-tariff-object)                | *     | List of relevant tariff elements, see: [Tariffs](mod_tariffs.md#31-tariff-object).                                             |
-| charging_periods                             | [ChargingPeriod](#43-chargingperiod-class)               | +     | List of charging periods that make up this charging session. A session consists of 1 or more periods, where each period has a different relevant Tariff. |
+| charging_periods                             | [ChargingPeriod](#44-chargingperiod-class)               | +     | List of charging periods that make up this charging session. A session consists of 1 or more periods, where each period has a different relevant Tariff. |
 | total_cost                                   | number                                                   | 1     | Total cost of this transaction.                                                                                                |
 | total_energy                                 | number                                                   | 1     | Total energy charged, in kWh.                                        |
 | total_time                                   | number                                                   | 1     | Total time charging, in hours.                                        |
@@ -272,11 +272,26 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property        | Type                                            | Card. | Description                                                                 |
 |-----------------|-------------------------------------------------|-------|-----------------------------------------------------------------------------|
-| type            | [DimensionType](types.md#13-dimensiontype-enum) | 1     | Type of cdr dimension                                                       |
+| type            | [CdrDimensionType](#43-cdrdimensiontype-enum)   | 1     | Type of cdr dimension                                                       |
 | volume          | number                                          | 1     | Volume of the dimension consumed, measured according to the dimension type. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
-### 4.3 ChargingPeriod *class*
+
+### 4.3 CdrDimensionType *enum*
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Value        | Description                                                             |
+|--------------|-------------------------------------------------------------------------|
+| ENERGY       | defined in kWh, default step_size is 1 Wh                               |
+| FLAT         | flat fee, no unit                                                       |
+| MAX_CURRENT  | defined in A (Ampere), Maximum current reached during charging session. |
+| MIN_CURRENT  | defined in A (Ampere), Minimum current used during charging session.    |
+| PARKING_TIME | time not charging: defined in hours, default step_size is 1 second.     |
+| TIME         | time charging: defined in hours, default step_size is 1 second.         |
+<div><!-- ---------------------------------------------------------------------------- --></div>
+
+
+### 4.4 ChargingPeriod *class*
 
 A charging period consists of a start timestamp and a list of possible values that influence this period, for example: Amount of energy charged this period, maximum current during this period etc.
 

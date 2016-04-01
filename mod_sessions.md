@@ -199,7 +199,7 @@ The following parameters can be provided as URL segments.
 | location                          | [Location](mod_locations.md#31-location-object)            | 1     | The location where this session took place, including only the relevant EVSE and connector                |
 | meter_id                          | [string](types.md#15-string-type)(255)                     | ?     | Optional identification of the kWh meter.                                                                      |
 | currency                          | [string](types.md#15-string-type)(3)                       | 1     | ISO 4217 code of the currency used for this session.                                                           |
-| charging_periods                  | [ChargingPeriod](mod_cdrs.md#43-chargingperiod-class)      | *     | An optional list of charging periods that can be used to calculate and verify the total cost.                  |
+| charging_periods                  | [ChargingPeriod](mod_cdrs.md#44-chargingperiod-class)      | *     | An optional list of charging periods that can be used to calculate and verify the total cost.                  |
 | total_cost                        | number                                                     | 1     | The total cost (excluding VAT) of the session in the specified currency. This is the price that the eMSP will have to pay to the CPO. |
 | status                            | [SessionStatus](#41-sessionstatus-enum)                    | 1     | The status of the session.                                                                                  |
 | last_updated                      | [DateTime](types.md#12-datetime-type)                      | 1     | Timestamp when this Session was last updated.                                                             |
@@ -331,4 +331,3 @@ The following parameters can be provided as URL segments.
 | INVALID   | The session is declared invalid and will not be billed.                    |
 | PENDING   | The session is pending and has not yet started. This is the initial state. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
-

@@ -17,18 +17,8 @@ Example:
 Note: +00:00 is not the same as UTC.
 
     
-## 1.3 DimensionType *enum*
+## 1.5 TODO REMOVE placeholder
 
-<div><!-- ---------------------------------------------------------------------------- --></div>
-| Value        | Description                                                        |
-| ------------ | ------------------------------------------------------------------ |
-| ENERGY       | defined in kWh, default step_size is 1 Wh                          |
-| FLAT         | flat fee, no unit                                                  |
-| MAX_CURRENT  | defined in A (Ampere), Maximum current                             |
-| MIN_CURRENT  | defined in A (Ampere), Minimum current                             |
-| PARKING_TIME | time not charging: defined in hours, default step_size is 1 second |
-| TIME         | time charging: defined in hours, default step_size is 1 second     |
-<div><!-- ---------------------------------------------------------------------------- --></div>
 
 
 ## 1.4 DisplayText *class*

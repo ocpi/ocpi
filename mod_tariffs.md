@@ -391,7 +391,7 @@ Parking costs:
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property        | Type                                            | Card. | Description                                      |
 |-----------------|-------------------------------------------------|-------|--------------------------------------------------|
-| type            | [DimensionType](types.md#13-dimensiontype-enum) | 1     | Type of tariff dimension, see: [Types](types.md#types) |
+| type            | [TariffDimensionType](#44-tariffdimensiontype-enum) | 1     | Type of tariff dimension |
 | price           | number                                          | 1     | price per unit for this tariff dimension         |
 | step_size       | int                                             | 1     | Minimum amount to be billed. This unit will be billed in this step_size blocks. For example: if type is time and  step_size is 300, then time will be billed in blocks of 5 minutes, so if 6 minutes is used, 10 minutes (2 blocks of step_size) will be billed. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
@@ -402,11 +402,23 @@ Parking costs:
 | Property                 | Type                                               | Card. | Description                                                      |
 |--------------------------|----------------------------------------------------|-------|------------------------------------------------------------------|
 | price_components         | [PriceComponent](#42-pricecomponent-class)         | +     | List of price components that make up the pricing of this tariff |
-| restrictions             | [TariffRestrictions](#44-tariffrestrictions-class) | ?     | List of tariff restrictions                                      |
+| restrictions             | [TariffRestrictions](#45-tariffrestrictions-class) | ?     | List of tariff restrictions                                      |
+<div><!-- ---------------------------------------------------------------------------- --></div>
+
+    
+### 4.4 TariffDimensionType *enum*
+
+<div><!-- ---------------------------------------------------------------------------- --></div>
+| Value        | Description                                                        |
+| ------------ | ------------------------------------------------------------------ |
+| ENERGY       | defined in kWh, default step_size is 1 Wh                          |
+| FLAT         | flat fee, no unit                                                  |
+| PARKING_TIME | time not charging: defined in hours, default step_size is 1 second |
+| TIME         | time charging: defined in hours, default step_size is 1 second     |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-### 4.4 TariffRestrictions *class*
+### 4.5 TariffRestrictions *class*
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property                | Type                                  | Card. | Description                                                                           |
