@@ -31,6 +31,10 @@ The BDEW organisation keeps the registry for Germany in their general code numbe
 Austrian Mobile Power GmbH maintains a registry for Austria. This list is not publicly available.
 For more information visit [austrian-mobile-power.at](http://austrian-mobile-power.at/tools/id-vergabe/information/)
 
+### France
+In France the registry is: afirev.
+
+
 ## Charging topology
 
 The charging topology, as relevant to the eMSP, consists of three entities:
