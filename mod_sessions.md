@@ -10,22 +10,17 @@ The Session object is owned by the CPO back-end system, and can be GET from the 
 
 ### 1.1 Push model
 
-When the CPO creates a Session object they push it to the eMSPs by calling [PUT](#222-put-method) on the eMSPs
-Sessions endpoint with the newly created Session object.
+When the CPO creates a Session object they push it to the eMSPs by calling [PUT](#222-put-method) on the eMSPs Sessions endpoint with the newly created Session object.
 
-Any changes to a Session in the CPO system are sent to the eMSP system by calling [PATCH](#223-patch-method)
-on the eMSPs Sessions endpoint with the updated Session object.
+Any changes to a Session in the CPO system are sent to the eMSP system by calling [PATCH](#223-patch-method) on the eMSPs Sessions endpoint with the updated Session object.
 
-When the CPO deletes a Session, they will update the eMSPs systems by calling [DELETE](#224-delete-method)
-on the eMSPs Sessions endpoint, on the Sessions unique URL.
+Sessions cannot be deleted, final status of a session is: `COMPLETED`.
 
-When the CPO is not sure about the state or existence of a Session object in the eMSPs system, the 
-CPO can call the [GET](#221-get-method) to validate the Session object in the eMSP system.   
+When the CPO is not sure about the state or existence of a Session object in the eMSPs system, the CPO can call the [GET](#221-get-method) to validate the Session object in the eMSP system.   
 
 ### 1.2 Pull model
 
-eMSPs who do not support the push model need to call
-[GET](#211-get-method) on the CPOs Sessions endpoint to receive a list of Sessions.
+eMSPs who do not support the push model need to call [GET](#211-get-method) on the CPOs Sessions endpoint to receive a list of Sessions.
 
 This [GET](#211-get-method) can also be used, combined with the Push model to retrieve Sessions after the system (re)connects to a CPO, to get a list Sessions 'missed' during a time offline.
 
@@ -91,7 +86,7 @@ Example endpoint structure:
 | POST                         | n/a                                                                 |
 | [PUT](#222-put-method)       | Send a new/updated Session object                                   |
 | [PATCH](#223-patch-method)   | Update the Session object of id {session_id}.                       |
-| [DELETE](#224-delete-method) | Delete the Session object of id {session_id}.                       |
+| DELETE                       | n/a                                                                 |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -164,23 +159,6 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
   	"total_cost": "0.60"
 }
 ```
-
-
-#### 2.2.4 __DELETE__ Method
-
-Inform the eMSP about a deleted Session object.
-
-##### Request Parameters
-
-The following parameters can be provided as URL segments.
-
-<div><!-- ---------------------------------------------------------------------------- --></div>
-| Parameter        | Datatype                              | Required | Description                                                                   |
-|------------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
-| country_code     | [string](types.md#15-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
-| party_id         | [string](types.md#15-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
-| session_id       | [string](types.md#15-string-type)(15) | yes      | ID of the Session to be deleted                                               |
-<div><!-- ---------------------------------------------------------------------------- --></div>
 
 
 ## 3. Object description
