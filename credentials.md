@@ -39,8 +39,6 @@ If successful, the server generates a new token for the client and responds with
 
 Informs the server that its credentials to the client's system are now invalid and can no longer be used. This is the unregistration process.
 
-If successful, the server responds with an empty OCPI response message (i.e. `data` is null).
-
 
 ## 2. Object description
 
