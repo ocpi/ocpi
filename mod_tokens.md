@@ -63,7 +63,7 @@ Example endpoint structure:
 
 #### 2.1.1 __GET__ Method
 
-If the eMSP wants to check the status of a Token in the CPO system it might GET the object from the CPO system for validation purposes. The eMSP is the owner of the objects, so it would be illogical if the CPO system had a different status of was missing an object.
+If the eMSP wants to check the status of a Token in the CPO system it might GET the object from the CPO system for validation purposes. The eMSP is the owner of the objects, so it would be illogical if the CPO system had a different status or was missing an object.
 
 
 ##### Request Parameters
@@ -101,7 +101,7 @@ In the put request a the new or updated Token object is send.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Type                            | Card. | Description                              |
 |---------------------------------|-------|------------------------------------------|
-| [Token](#32-token-object)       | 1     | New or updated Tariff object.            |
+| [Token](#32-token-object)       | 1     | New or updated Token object.             |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
