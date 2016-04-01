@@ -256,5 +256,5 @@ OCPI messages should not be queued.
 
 When the connection is re-established, it is up the the client of a connection to GET the current status from to server to get back in-sync. 
 For example: 
-- CDRs of the period of communication loss can be rerieved with a GET command on the CDRs module, with filters to retrieve only CDRs of the period since the last CDR was receive.
+- CDRs of the period of communication loss can be rerieved with a GET command on the CDRs module, with filters to retrieve only CDRs of the period since the last CDR was received.
 - Status of EVSEs (or Locations) can be retrieved by calling a GET on the Locations module.
