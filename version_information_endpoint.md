@@ -30,10 +30,10 @@ Both the CPO and the eMSP must have this endpoint.
 ### Version *class*
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Property | Type                        | Card. | Description                               |
-|----------|-----------------------------|-------|-------------------------------------------|
+| Property | Type                                 | Card. | Description                               |
+|----------|--------------------------------------|-------|-------------------------------------------|
 | version  | [VersionNumber](#versionnumber-enum) | 1     | The version number.                       |
-| url      | [URL](types.md#16-url-type) | 1     | URL to the endpoint containing version specific information. |
+| url      | [URL](types.md#16-url-type)          | 1     | URL to the endpoint containing version specific information. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -75,10 +75,10 @@ Both the CPO and the eMSP must have this endpoint.
 ## Data
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Property  | Type                                | Card. | Description                                     |
-|-----------|-------------------------------------|-------|-------------------------------------------------|
-| version   | [VersionNumber](#versionnumber-enum)| 1     | The version number.                             |
-| endpoints | Endpoint                            | +     | A list of supported endpoints for this version. |
+| Property  | Type                                 | Card. | Description                                     |
+|-----------|--------------------------------------|-------|-------------------------------------------------|
+| version   | [VersionNumber](#versionnumber-enum) | 1     | The version number.                             |
+| endpoints | Endpoint                             | +     | A list of supported endpoints for this version. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
