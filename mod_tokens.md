@@ -339,8 +339,8 @@ Defines when authorization of a Token by the CPO is allowed.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Value                           | Description                                                                |
 |---------------------------------|----------------------------------------------------------------------------|
-| ALWAYS                          | Token always has to whitelisted, realtime authorization is not possible/allowed. |
-| ALLOWED                         | It is allowed to whitelist the token, realtime checking is also allowed.   |
+| ALWAYS                          | Token always has to whitelisted, [realtime authorization](13-real-time-authorization) is not possible/allowed. |
+| ALLOWED                         | It is allowed to whitelist the token, [realtime authorization](13-real-time-authorization) is also allowed.   |
 | ALLOWED_OFFLINE                 | Whitelisting is only allowed when CPO cannot reach the eMSP (communication between CPO and eMSP is offline)                  |
-| NEVER                           | Whitelisting is never allowed/forbidden, only realtime authorization allowed. Token should always be authorized by the eMSP. |
+| NEVER                           | Whitelisting is never allowed/forbidden, only [realtime authorization](13-real-time-authorization) allowed. Token should always be authorized by the eMSP. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
