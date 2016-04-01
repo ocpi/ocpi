@@ -8,7 +8,7 @@
  * **eMSP** e-Mobility Service Provider
 
 ## Provider and Operator abbreviation
-In this model, the provider and the operator play an important role. In order to target the right provider or operator, they need to be known upfront, at least between the cooperating parties. 
+In OCPI it is advised to use eMI3 compliant names for Contract IDs and EVSE IDs. The provider and the operator name is important here, in order to target the right provider or operator, they need to be known upfront, at least between the cooperating parties. 
 
 In several standards, an issuing authority is mentioned that will keep a central registry of known Providers and Operators. 
 At this moment, the following countries have an authority that keeps track of the known providers and operators:
