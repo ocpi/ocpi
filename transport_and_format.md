@@ -83,16 +83,22 @@ Normal client/server RESTful services work in a way that the Server is the owner
  
 Many OCPI modules work differently: the client is the owner of the object and only pushes the information to one or more servers for information sharing purposes.   
 For example: the CPO owns the Tariff objects and pushes them to a couple of eMSPs, so each eMSP gains knowledge of the tariffs that the CPO will charge them for their customers' sessions. eMSP might receive Tariff objects from multiple CPOs. They need to be able to make a distinction between the different tariffs from different CPOs. 
-POST is not supported for these kind of modules.
-PUT is used to send new objects to the servers. 
-The distinction between objects from different CPOs/eMSPs is made based on a {[country-code](credentials.md#credentials-object)} and {[party-id](credentials.md#credentials-object)}.
-Client owned object URL definition: {base-ocpi-url}/{end-point}/{country-code}/{party-id}/{object-id}
 
+The distinction between objects from different CPOs/eMSPs is made based on a {[country-code](credentials.md#credentials-object)} and {[party-id](credentials.md#credentials-object)}.
+The [country-code](credentials.md#credentials-object) and [party-id](credentials.md#credentials-object) of the other party are received during the [credentials](credentials.md#credentials-object) handshake, so that a server might known the values a client will use in an URL.
+
+Client owned object URL definition: {base-ocpi-url}/{end-point}/{country-code}/{party-id}/{object-id}
 
 Example of a URL to a client owned object
 ```   
    https://www.server.com/ocpi/cpo/2.0/tariffs/NL/TNM/14
 ```   
+
+POST is not supported for these kind of modules.
+PUT is used to send new objects to the servers. 
+
+If a client tries to access an object with a URL that has a different [country-code](credentials.md#credentials-object) and/or [party-id](credentials.md#credentials-object) then given during the [credentials](credentials.md#credentials-object) handshake, it is allowed the respond with a HTTP 404 status code, this way blocking client access to object that do not belong to them.
+
 
 #### Errors
 When a client pushes a client owned object, but the {object-id} in the URL is different from the id in the object being pushed. A Server implementation is advised to return an [OCPI status code](transport_and_format.md): [2001](transport_and_format.md#2xxx-client-errors).
