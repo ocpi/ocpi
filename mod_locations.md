@@ -4,6 +4,7 @@
 
 The Location objects life in the CPO back-end system. They describe the charging locations of that operator.
 
+**Module dependency:** the eMSP endpoint is dependent on the [Tariffs module](mod_tariffs.md#tariffs-module)
 
 ## 1. Flow and Lifecycle
 

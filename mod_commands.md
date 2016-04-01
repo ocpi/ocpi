@@ -12,6 +12,8 @@ The following commands are supported:
 See [CommandType](#42-commandtype-enum) for a description of the different commands.
 _Use the `UNLOCK_CONNECTOR` command with care, please read the note at [CommandType](#42-commandtype-enum)._ 
 
+**Module dependency:** [Locations module](mod_locations.md#locations-module)
+
 
 ## 1. Flow
 

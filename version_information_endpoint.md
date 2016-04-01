@@ -94,7 +94,7 @@ Both the CPO and the eMSP must have this endpoint.
 
 ### ModuleID *enum*
 
-The Module identifiers for each endpoint are in the beginning of each *Module* chapter. The following table contains the list of modules in this version of OCPI.
+The Module identifiers for each endpoint are in the beginning of each *Module* chapter. The following table contains the list of modules in this version of OCPI. Most modules (except [Credentials & registration](credentials.md)) are optional, but there might be dependencies between modules, if so that will be mentioned in the module description.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Module                                         | ModuleID      | Remark                            |
