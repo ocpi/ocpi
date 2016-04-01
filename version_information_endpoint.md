@@ -114,7 +114,7 @@ The Module identifiers for each endpoint are in the beginning of each *Module* c
 List of known versions.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Property | Description                         |
+| Value    | Description                         |
 |----------|-------------------------------------|
 | 2.0      | OCPI version 2.0.                   |
 | 2.1      | OCPI version 2.1. (this version)    |
