@@ -250,7 +250,7 @@ The URLs of the endpoints in this document are descriptive only. The exact URL c
 ## Offline behaviour
 
 During communication over OCPI, it might happen that one of the communication parties is unreachable for an amount of time. 
-OCPI works event bases, new messages and status are push from one party to another. When communication is lost, updates cannot be delivered.
+OCPI works event based, new messages and status are pushed from one party to another. When communication is lost, updates cannot be delivered.
 
 OCPI messages should not be queued.
 
