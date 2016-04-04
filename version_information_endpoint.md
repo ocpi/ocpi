@@ -97,15 +97,15 @@ Both the CPO and the eMSP must have this endpoint.
 The Module identifiers for each endpoint are in the beginning of each *Module* chapter. The following table contains the list of modules in this version of OCPI. Most modules (except [Credentials & registration](credentials.md)) are optional, but there might be dependencies between modules, if so that will be mentioned in the module description.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Module                                         | ModuleID      | Remark                            |
-|------------------------------------------------|---------------|-----------------------------------|
-| [CDRs](mod_cdrs.md)                            | cdrs          | &nbsp;                            |
-| [Commands](mod_commands.md)                    | commands      | &nbsp;                            |
-| [Credentials & registration](credentials.md)   | credentials   | Required for all implementations  |
-| [Locations](mod_locations.md)                  | locations     | &nbsp;                            |
-| [Sessions](mod_sessions.md)                    | sessions      | &nbsp;                            |
-| [Tariffs](mod_tariffs.md)                      | tariffs       | &nbsp;                            |
-| [Tokens](mod_tokens.md)                        | tokens        | &nbsp;                            |
+| Module                                                            | ModuleID      | Remark                            |
+|-------------------------------------------------------------------|---------------|-----------------------------------|
+| [CDRs](mod_cdrs.md#cdrs-module)                                   | cdrs          | &nbsp;                            |
+| [Commands](mod_commands.md#commands-module)                       | commands      | &nbsp;                            |
+| [Credentials & registration](credentials.md#credentials-endpoint) | credentials   | Required for all implementations  |
+| [Locations](mod_locations.md#locations-module)                    | locations     | &nbsp;                            |
+| [Sessions](mod_sessions.md#sessions-module)                       | sessions      | &nbsp;                            |
+| [Tariffs](mod_tariffs.md#tariffs-module)                          | tariffs       | &nbsp;                            |
+| [Tokens](mod_tokens.md#tokens-module)                             | tokens        | &nbsp;                            |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
