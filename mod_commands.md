@@ -213,8 +213,7 @@ The command requested.
 | REJECTED                    | Command request rejected by the CPO or Charge Point.                                       |
 | ACCEPTED                    | Command request accepted by the CPO or Charge Point.                                       |
 | TIMEOUT                     | Command request timeout, no response received from the Charge Point in an reasonable time. |
-| UNKOWN_LOCATION             | The Location, EVSE or Location in the requested command is not known by this CPO.          |
-| UNKOWN_SESSION              | The Session in the requested command is not known by this CPO.                             |
+| UNKNOWN_SESSION             | The Session in the requested command is not known by this CPO.                             |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
