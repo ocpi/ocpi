@@ -532,15 +532,15 @@ The socket or plug standard of the charging point.
 
 This type is used to specify the energy mix and environmental impact of the supplied energy at a location or in a tariff.
 
-<div><!-- ---------------------------------------------------------------------------- --></div>
-| Property                    | Type                                                 | Card. | Description                                                                                     |
-|-----------------------------|------------------------------------------------------|-------|-------------------------------------------------------------------------------------------------|
-| is_green_energy             | boolean                                              | 1     | True if 100% from regenerative sources. (CO2 and nuclear waste is zero)                         |
-| energy_sources              | [EnergySource](#46-energysource-class)               | *     | Key-value pairs (enum + percentage) of energy sources of this location's tariff.                |
-| environ_impact              | [EnvironmentalImpact](#48-environmentalimpact-class) | *     | Key-value pairs (enum + percentage) of nuclear waste and CO2 exhaust of this location's tariff. |
-| supplier_name               | [string](types.md#15-string-type)(64)                | ?     | Name of the energy supplier, delivering the energy for this location or tariff.*                |
-| energy_product_name         | [string](types.md#15-string-type)(64)                | ?     | Name of the energy suppliers product/tariff plan used at this location.*                        |
-<div><!-- ---------------------------------------------------------------------------- --></div>
+<div><!-- ------------------------------------------------------------------------------------------------------------------------- --></div>
+| Property                                                    | Type                                                 | Card. | Description                                                                                     |
+|-------------------------------------------------------------|------------------------------------------------------|-------|-------------------------------------------------------------------------------------------------|
+| is_green_energy                                             | boolean                                              | 1     | True if 100% from regenerative sources. (CO2 and nuclear waste is zero)                         |
+| energy_sources                                              | [EnergySource](#46-energysource-class)               | *     | Key-value pairs (enum + percentage) of energy sources of this location's tariff.                |
+| environ_impact                                              | [EnvironmentalImpact](#48-environmentalimpact-class) | *     | Key-value pairs (enum + percentage) of nuclear waste and CO2 exhaust of this location's tariff. |
+| supplier_name                                               | [string](types.md#15-string-type)(64)                | ?     | Name of the energy supplier, delivering the energy for this location or tariff.*                |
+| energy_product_name                                         | [string](types.md#15-string-type)(64)                | ?     | Name of the energy suppliers product/tariff plan used at this location.*                        |
+<div><!-- ------------------------------------------------------------------------------------------------------------------------- --></div>
 
 _* These fields can be used to look-up energy qualification or to show it directly to the customer (for well-known brands like Greenpeace Energy, etc.)_
 
