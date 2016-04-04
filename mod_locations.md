@@ -139,7 +139,7 @@ Example endpoint structures:
 
 #### 2.2.1 __GET__ Method
 
-If the CPO wants to check the status of a Location, EVSE or Connector object in the eMSP system it might GET the object from the eMSP system for validation purposes. The CPO is the owner of the objects, so it would be illogical if the eMSP system had a different status of was missing an object.
+If the CPO wants to check the status of a Location, EVSE or Connector object in the eMSP system, it might GET the object from the eMSP system for validation purposes. The CPO is the owner of the objects, so it would be illogical if the eMSP system had a different status of was missing an object. If a discrepancy is found, the CPO might push an update to the eMSP via a [PUT](#222-put-method) or [PATCH](#223-patch-method) call.
 
 ##### Request Parameters
 
@@ -447,8 +447,8 @@ This class defines a geo location. The geodetic system to be used is WGS 84.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property    | Type                                         | Card. | Description                                                                                                                              |
 |-------------|----------------------------------------------|-------|-------------------------------------------------------------------|
-| latitude    | [string](types.md#15-string-type)(10)        | 1     | Latitude of the point in decimal degree. Example: 50.770774. Decimal separator: "." Regex: `-?[0-9]\{1,2\}\.[0-9]\{6\}`        |
-| longitude   | [string](types.md#15-string-type)(11)        | 1     | Longitude of the point in decimal degree. Example: -126.104965. Decimal separator: "." Regex: `-?[0-9]\{1,3\}\.[0-9]\{6\}`     |
+| latitude    | [string](types.md#15-string-type)(10)        | 1     | Latitude of the point in decimal degree. Example: 50.770774. Decimal separator: "." Regex: `-?[0-9]{1,2}\.[0-9]{6}`                       |
+| longitude   | [string](types.md#15-string-type)(11)        | 1     | Longitude of the point in decimal degree. Example: -126.104965. Decimal separator: "." Regex: `-?[0-9]{1,3}\.[0-9]{6}`            |
 | name        | [DisplayText](types.md#14-displaytext-class) | ?     | Name of the point in local language or as written at the location. For example the street name of a parking lot entrance or it's number. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
@@ -658,21 +658,21 @@ Specifies one exceptional period for opening or access hours.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Value               | Description                                               |
 |---------------------|-----------------------------------------------------------|
-| HOTEL               | A hotel nearby.                                           |
-| RESTAURANT          | A restaurant nearby.                                      |
-| CAFE                | A cafe nearby.                                            |
-| MALL                | A mall or shopping center nearby.                         |
-| SUPERMARKET         | A supermarket nearby.                                     |
-| SPORT               | Sport facilities nearby: gym, field etc.                  |
-| RECREATION_AREA     | A Recreation area nearby.                                 |
+| HOTEL               | A hotel.                                                  |
+| RESTAURANT          | A restaurant.                                             |
+| CAFE                | A cafe.                                                   |
+| MALL                | A mall or shopping center.                                |
+| SUPERMARKET         | A supermarket.                                            |
+| SPORT               | Sport facilities: gym, field etc.                         |
+| RECREATION_AREA     | A Recreation area.                                        |
 | NATURE              | Located in, or close to, a park, nature reserve/park etc. |
-| MUSEUM              | A museum nearby.                                          |
-| BUS_STOP            | A bus stop nearby.                                        |
-| TAXI_STAND          | A taxi stand nearby.                                      |
-| TRAIN_STATION       | A train station nearby.                                   |
-| AIRPORT             | An airport nearby.                                        |
-| CARPOOL_PARKING     | A carpool parking nearby.                                 |
-| FUEL_STATION        | A Fuel station nearby.                                    |
+| MUSEUM              | A museum.                                                 |
+| BUS_STOP            | A bus stop.                                               |
+| TAXI_STAND          | A taxi stand.                                             |
+| TRAIN_STATION       | A train station.                                          |
+| AIRPORT             | An airport.                                               |
+| CARPOOL_PARKING     | A carpool parking.                                        |
+| FUEL_STATION        | A Fuel station.                                           |
 | WIFI                | Wifi or other type of internet available.                 |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
@@ -682,8 +682,8 @@ Specifies one exceptional period for opening or access hours.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property    | Type                                | Card. | Description                                                                                       |
 |-------------|-------------------------------------|-------|---------------------------------------------------------------------------------------------------|
-| latitude    | [string](types.md#15-string-type)(10)| 1     | Latitude of the point in decimal degree. Example: 50.770774. Decimal separator: "." Regex: `-?[0-9]\{1,2\}\.[0-9]\{6\}`        |
-| longitude   | [string](types.md#15-string-type)(11)| 1     | Longitude of the point in decimal degree. Example: -126.104965. Decimal separator: "." Regex: `-?[0-9]\{1,3\}\.[0-9]\{6\}`     |
+| latitude    | [string](types.md#15-string-type)(10)| 1     | Latitude of the point in decimal degree. Example: 50.770774. Decimal separator: "." Regex: `-?[0-9]{1,2}\.[0-9]{6}`        |
+| longitude   | [string](types.md#15-string-type)(11)| 1     | Longitude of the point in decimal degree. Example: -126.104965. Decimal separator: "." Regex: `-?[0-9]{1,3}\.[0-9]{6}`     |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
