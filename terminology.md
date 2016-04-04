@@ -32,7 +32,9 @@ Austrian Mobile Power GmbH maintains a registry for Austria. This list is not pu
 For more information visit [austrian-mobile-power.at](http://austrian-mobile-power.at/tools/id-vergabe/information/)
 
 ### France
-In France the registry is: afirev.
+The AFIREV* organisation will keep/keeps the registry for France. It provides operation Id for CPO and eMSP in compliance with eMI3 id structure. The prefix of these Ids is the “fr” country code. AFIREV will also be in charge of the definition of EVSE-Id structure, Charging-Pool-Id structure (location), and Contract-Id structure for France. AFIREV bases its requirements and recommendations on eMI3 definitions.
+ 
+AFIREV stands for: Association Française pour l’Itinérance de la Recharge Électrique des Véhicules
 
 
 ## Charging topology
