@@ -30,7 +30,7 @@ echo "" >> all.md
 cat $RELEASE_DIR/mod_locations.md >> all.md
 echo "" >> all.md
 cat $RELEASE_DIR/mod_sessions.md >> all.md
-echo "" >> all.md
+echo "\pagebreak" >> all.md
 cat $RELEASE_DIR/mod_cdrs.md >> all.md
 echo "" >> all.md
 cat $RELEASE_DIR/mod_tariffs.md >> all.md
