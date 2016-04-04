@@ -447,8 +447,8 @@ This class defines a geo location. The geodetic system to be used is WGS 84.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property    | Type                                         | Card. | Description                                                                                                                              |
 |-------------|----------------------------------------------|-------|-------------------------------------------------------------------|
-| latitude    | [string](types.md#15-string-type)(10)        | 1     | Latitude of the point in decimal degree. Example: 50.770774. Decimal separator: "." Regex: `-?[0-9]\{1,2\}\.[0-9]\{6\}`        |
-| longitude   | [string](types.md#15-string-type)(11)        | 1     | Longitude of the point in decimal degree. Example: -126.104965. Decimal separator: "." Regex: `-?[0-9]\{1,3\}\.[0-9]\{6\}`     |
+| latitude    | [string](types.md#15-string-type)(10)        | 1     | Latitude of the point in decimal degree. Example: 50.770774. Decimal separator: "." Regex: `-?[0-9]{1,2}\.[0-9]{6}`                       |
+| longitude   | [string](types.md#15-string-type)(11)        | 1     | Longitude of the point in decimal degree. Example: -126.104965. Decimal separator: "." Regex: `-?[0-9]{1,3}\.[0-9]{6}`            |
 | name        | [DisplayText](types.md#14-displaytext-class) | ?     | Name of the point in local language or as written at the location. For example the street name of a parking lot entrance or it's number. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
@@ -682,8 +682,8 @@ Specifies one exceptional period for opening or access hours.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property    | Type                                | Card. | Description                                                                                       |
 |-------------|-------------------------------------|-------|---------------------------------------------------------------------------------------------------|
-| latitude    | [string](types.md#15-string-type)(10)| 1     | Latitude of the point in decimal degree. Example: 50.770774. Decimal separator: "." Regex: `-?[0-9]\{1,2\}\.[0-9]\{6\}`        |
-| longitude   | [string](types.md#15-string-type)(11)| 1     | Longitude of the point in decimal degree. Example: -126.104965. Decimal separator: "." Regex: `-?[0-9]\{1,3\}\.[0-9]\{6\}`     |
+| latitude    | [string](types.md#15-string-type)(10)| 1     | Latitude of the point in decimal degree. Example: 50.770774. Decimal separator: "." Regex: `-?[0-9]{1,2}\.[0-9]{6}`        |
+| longitude   | [string](types.md#15-string-type)(11)| 1     | Longitude of the point in decimal degree. Example: -126.104965. Decimal separator: "." Regex: `-?[0-9]{1,3}\.[0-9]{6}`     |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
