@@ -20,24 +20,26 @@ Example: `/ocpi/cpo/2.0/credentials` and `/ocpi/emsp/2.0/credentials`
 
 ### 1.1 __GET__ Method
 
-Retrieves the client's credentials for the server's platform. The response is the same as a response to a POST or PUT, but without generating a new token. The Request body is empty, the response contains the credentials for the server's platform.
+Retrieves the client's credentials for the server's platform. The request body is empty, the response contains the credentials for the server's platform.
 
 
 ### 1.2 __POST__ Method
 
-Provides the server with credentials to the client's system, this initiates the registration process. If successful, the server responds with the client's new credentials to the server's system.
+Provides the server with credentials to the client's system, this initiates the registration process for this endpoint's version. The server must also fetch the client's endpoints for this version. 
+
+If successful, the server must generate a new token and respond with the client's new credentials to the server's system.
 
 
 ### 1.3 __PUT__ Method
 
-Updates the server's credentials to the client's system and switches to the version that contains this credentials endpoint. The server should also fetch the client's endpoints for this version.
+Updates the server's credentials to the client's system and switches to the version that contains this credentials endpoint. The server must also fetch the client's endpoints again (for this version) as they could have been updated.
 
-If successful, the server generates a new token for the client and responds with the client's updated credentials to the server's system.
+If successful, the server must generate a new token for the client and respond with the client's updated credentials to the server's system.
 
 
 ### 1.4 __DELETE__ Method
 
-Informs the server that its credentials to the client's system are now invalid and can no longer be used. This is the unregistration process.
+Informs the server that its credentials to the client's system are now invalid and can no longer be used. Both parties must end any automated communication. This is the unregistration process.
 
 
 ## 2. Object description
