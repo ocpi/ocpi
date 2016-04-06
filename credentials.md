@@ -35,11 +35,11 @@ This must return a `405 method not allowed` if the client was already registered
 
 ### 1.3 __PUT__ Method
 
-Provides the server with updated credentials to access the client's system, This credentials object also contains extra information about the client such as its business details.
+Provides the server with updated credentials to access the client's system. This credentials object also contains extra information about the client such as its business details.
 
 A `PUT` will switch to the version that contains this credentials endpoint if it's different from the current version. The server must also fetch the client's endpoints again.
 
-If successful, the server must generate a new token for the client and respond with the client's updated credentials to the server's system. The credentials object in the response also contains extra information about the server such as its business details.
+If successful, the server must generate a new token for the client and respond with the client's updated credentials to access the server's system. The credentials object in the response also contains extra information about the server such as its business details.
 
 This must return a `405 method not allowed` if the client was not registered yet.
 
