@@ -37,7 +37,7 @@ This must return a `405 method not allowed` if the client was already registered
 
 Provides the server with updated credentials to access the client's system. This credentials object also contains extra information about the client such as its business details.
 
-A `PUT` will switch to the version that contains this credentials endpoint if it's different from the current version. The server must also fetch the client's endpoints again.
+A `PUT` will switch to the version that contains this credentials endpoint if it's different from the current version. The server must fetch the client's endpoints again, even if the version has not changed.
 
 If successful, the server must generate a new token for the client and respond with the client's updated credentials to access the server's system. The credentials object in the response also contains extra information about the server such as its business details.
 
