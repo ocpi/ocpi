@@ -256,7 +256,7 @@ The endpoint response contains a [AuthorizationInfo](#31-authorizationinfo-objec
 |-----------|----------------------------------------------------|-------|---------------------------------------------------------------------------------------|
 | allowed   | [Allowed](#41-allowed-enum)                        | 1     | Status of the Token, and if it is allowed to charge at the optionally given location. |
 | location  | [LocationReferences](#42-locationreferences-class) | ?     | Optional reference to the location if it was request in the request, and if the EV driver is allowed to charge at that location. Only the EVSEs/Connectors the EV driver is allowed to charge at are returned.                                                                     |
-| info      | [DisplayText](types.md#14-displaytext-class)       | ?     | Optional display text, additional information to the EV driver.                       |
+| info      | [DisplayText](types.md#13-displaytext-class)       | ?     | Optional display text, additional information to the EV driver.                       |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 

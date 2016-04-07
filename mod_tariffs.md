@@ -228,7 +228,7 @@ non of the TariffElements before this matches the current charging period.
 |---------------------|-------------------------------------------------|-------|---------------------------------------------------------------------------------------|
 | id                  | [string](types.md#15-string-type)(15)           | 1     | Uniquely identifies the tariff within the CPOs platform (and suboperator platforms).  |
 | currency            | [string](types.md#15-string-type)(3)            | 1     | Currency of this tariff, ISO 4217 Code                                                |
-| tariff_alt_text     | [DisplayText](types.md#14-displaytext-class)    | *     | List of multi language alternative tariff info text                                   |
+| tariff_alt_text     | [DisplayText](types.md#13-displaytext-class)    | *     | List of multi language alternative tariff info text                                   |
 | tariff_alt_url      | [URL](types.md#16-url-type)                     | ?     | Alternative URL to tariff info                                                        |
 | elements            | [TariffElement](#43-tariffelement-class)        | +     | List of tariff elements                                                               |
 | energy_mix          | [EnergyMix](mod_locations.md#45energymix-class) | ?     | Details on the energy supplied with this tariff.                                     |
