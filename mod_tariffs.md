@@ -435,4 +435,3 @@ Parking costs:
 | max_duration            | int                                   | ?     | Maximum duration in seconds, valid for a duration up to x seconds                     |
 | day_of_week             | [DayOfWeek](#41-dayofweek-enum)       | *     | Which day(s) of the week this tariff is valid                                         |
 <div><!-- ---------------------------------------------------------------------------- --></div>
-

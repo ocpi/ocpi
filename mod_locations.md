@@ -45,8 +45,8 @@ Example endpoint structure: `/ocpi/cpo/2.0/locations`
 #### 2.1.1 __GET__ Method
 
 Depending on the URL Segments provided, the GET request can either be used to retrieve 
-information about a list of available locations and EVSEs at this CPO: [GET List](get-list-request-parameters)
-Or it can be used to get information about a specific Location, EVSE or Connector: [GET Object](get-object-request-parameters)
+information about a list of available locations and EVSEs at this CPO: [GET List](#get-list-request-parameters)
+Or it can be used to get information about a specific Location, EVSE or Connector: [GET Object](#get-object-request-parameters)
 
 ##### GET List Request Parameters 
 
@@ -723,6 +723,20 @@ The recommended dimensions for logos are exactly 512 pixels wide and 512 pixels 
 | height     | int(5)                                   | ?     | Height of the full scale image        |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
 
 ### 4.15 ImageCategory *enum*
 
@@ -894,3 +908,4 @@ This type is used to schedule status periods in the future. The eMSP can provide
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 Note that the scheduled status is purely informational. When the status actually changes, the CPO must push an update to the EVSEs `status` field itself.
+
