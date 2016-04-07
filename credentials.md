@@ -31,7 +31,7 @@ A `POST` initiates the registration process for this endpoint's version. The ser
 
 If successful, the server must generate a new token and respond with the client's new credentials to access the server's system. The credentials object in the response also contains extra information about the server such as its business details.
 
-This must return a `405 method not allowed` if the client was already registered.
+This must return a `HTTP status code 405: method not allowed` if the client was already registered.
 
 ### 1.3 __PUT__ Method
 
@@ -41,13 +41,14 @@ A `PUT` will switch to the version that contains this credentials endpoint if it
 
 If successful, the server must generate a new token for the client and respond with the client's updated credentials to access the server's system. The credentials object in the response also contains extra information about the server such as its business details.
 
-This must return a `405 method not allowed` if the client was not registered yet.
+This must return a `HTTP status code 405: method not allowed` if the client was not registered yet.
 
 ### 1.4 __DELETE__ Method
 
 Informs the server that its credentials to access the client's system are now invalid and can no longer be used. Both parties must end any automated communication. This is the unregistration process.
 
-This must return a `405 method not allowed` if the client was not registered.
+This must return a `HTTP status code 405: method not allowed` if the client was not registered.
+
 
 ## 2. Object description
 
