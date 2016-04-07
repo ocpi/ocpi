@@ -101,7 +101,7 @@ If a client tries to access an object with a URL that has a different [country-c
 
 
 #### Errors
-When a client pushes a client owned object, but the {object-id} in the URL is different from the id in the object being pushed. A Server implementation is advised to return an [OCPI status code](transport_and_format.md): [2001](transport_and_format.md#2xxx-client-errors).
+When a client pushes a client owned object, but the {object-id} in the URL is different from the id in the object being pushed. A Server implementation is advised to return an [OCPI status code](transport_and_format.md#status-codes): [2001](status_codes.md#2xxx-client-errors).
 
  
 
