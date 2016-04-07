@@ -7,10 +7,10 @@ It offers market participants in EV an attractive and scalable solution for (int
 As such it helps to enable EV drivers to charge everywhere in a fully-informed way, helps the market to develop quickly and helps market players to execute their business models in the best way.
 
 What does it offer (main functionalities):
-•	A good roaming system (for bilateral usage and/or via a hub).
-•	Real-time information about location, availability and price.
-•	A uniform way of exchanging data (Notification Data Records and Charge Data Records), before during and after the transaction.
-•	Remote mobile support to access any charge station without pre-registration.
+* A good roaming system (for bilateral usage and/or via a hub).
+* Real-time information about location, availability and price.
+* A uniform way of exchanging data (Notification Data Records and Charge Data Records), before during and after the transaction.
+* Remote mobile support to access any charge station without pre-registration.
 
 Starting in 2009, e-laad foundation and the predecessor of the eViolin association specified 2 standards in order to retrieve charge point details and active state. These are called the VAS interface and the Amsterdam interface. In this same period, a CDR format for the exchange of charge sessions between eViolin members was defined. This format is currently in use by the majority of the eViolin members. (eViolin is the branch organisation for EV operators and service providers in NL and responsible for national roaming and issuing of ID’s). This resulted in 2014 in the development of OCPI.
 
