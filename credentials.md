@@ -54,15 +54,15 @@ This must return a `HTTP status code 405: method not allowed` if the client was 
 
 ### 2.1 Credentials object
 
-<div><!-- ---------------------------------------------------------------------------- --></div>
-| Property                 | Type                                                                   | Card. | Description                                                       |
-|--------------------------|------------------------------------------------------------------------|-------|-------------------------------------------------------------------|
-| token                    | String                                                                 | 1     | The token for the other party to authenticate in your system.     |
-| url                      | [URL](types.md#16-url-type)                                            | 1     | The URL to your API versions endpoint.                            |
-| business_details         | [BusinessDetails](mod_locations.md#41-businessdetails-class)           | 1     | Details of the other party.                                       |
-| party_id                 | [string](types.md#15-string-type)(3)                                   | 1     | CPO or eMSP ID of this party. (following the 15118 ISO standard). |
-| country_code             | [string](types.md#15-string-type)(2)                                   | 1     | Country code of the country this party is operating in.           |
-<div><!-- ---------------------------------------------------------------------------- --></div>
+<div><!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --></div>
+| Property                 | Type                                                         | Card.  | Description                                                        |
+|--------------------------|--------------------------------------------------------------|--------|--------------------------------------------------------------------|
+| token                    | [string](types.md#15-string-type)                            | 1      | The token for the other party to authenticate in your system.      |
+| url                      | [URL](types.md#16-url-type)                                  | 1      | The URL to your API versions endpoint.                             |
+| business_details         | [BusinessDetails](mod_locations.md#41-businessdetails-class) | 1      | Details of the other party.                                        |
+| party_id                 | [string](types.md#15-string-type)(3)                         | 1      | CPO or eMSP ID of this party. (following the 15118 ISO standard).  |
+| country_code             | [string](types.md#15-string-type)(2)                         | 1      | Country code of the country this party is operating in.            |
+<div><!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --></div>
 
 The `party_id` and `country_code` are provided here to inform a server about the `party_id` and `country_code` a client will use when pushing [client owned objects](transport_and_format.md#client-owned-object-push). This helps a server determine the URLs a client will use when pushing a [client owned object](transport_and_format.md#client-owned-object-push). 
 The `country_code` is added the make certain the URL used when pushing a [client owned object](transport_and_format.md#client-owned-object-push) is unique, there might be multiple parties in the world with the same `party_id`, but the combination should always be unique.
