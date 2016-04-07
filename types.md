@@ -17,8 +17,9 @@ Example:
 Note: +00:00 is not the same as UTC.
 
     
-## 1.5 TODO REMOVE placeholder
+## 1.3 Number *type*
 
+Numbers in OCPI are formatted as JSON numbers. Unless mentioned otherwise, numbers use 4 decimals and a *sufficiently large amount* of digits.
 
 
 ## 1.4 DisplayText *class*
