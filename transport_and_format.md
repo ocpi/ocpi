@@ -53,11 +53,11 @@ The following table is a list of all the parameters that have to be supported, b
 HTTP headers that have to be added to any paginated GET response.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| HTTP Parameter | Description                                                                 |
-|----------------|-----------------------------------------------------------------------------|
-| link           | Link to the 'next' page should be provided, if this is NOT the last page. See example below. |
-| X-Total-Count  | (Custom HTTP Header) Total number of objects available in the server system |
-| X-Limit        | (Custom HTTP Header) Number of objects that are returned. Note that this is an upper limit, if there are not enough remaining objects to return, fewer objects than this upper limit number will be returned. |
+| HTTP Parameter  | Description                                                                 |
+|-----------------|-----------------------------------------------------------------------------|
+| link            | Link to the 'next' page should be provided, if this is NOT the last page. See example below. |
+| X-Total-Count   | (Custom HTTP Header) Total number of objects available in the server system |
+| X-Limit         | (Custom HTTP Header) Number of objects that are returned. Note that this is an upper limit, if there are not enough remaining objects to return, fewer objects than this upper limit number will be returned. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 Example of a required OCPI pagination link header
@@ -112,12 +112,12 @@ When a request cannot be accepted, an HTTP error response code is expected inclu
 The content that is sent with all the response messages is an 'application/json' type and contains a JSON object with the following properties:
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Property           | Type                                  | Card.  | Description                                               |
-|--------------------|---------------------------------------|--------|-----------------------------------------------------------|
-| data               | Array or Object                       | * or ? | Contains the actual response data object or list of objects from each request, depending on the cardinality of the response data, this is an array (card. * or +), or a single object (card. 1 or ?) |
-| status_code        | Integer                               | 1      | Response code, as listed in [Status Codes](status_codes.md#status-codes), indicates how the request was handled. To avoid confusion with HTTP codes, at least four digits are used.                              |
-| status_message     | String                                | ?      | An optional status message which may help when debugging. |
-| timestamp          | [DateTime](types.md#12-datetime-type) | 1      | The time this message was generated.                      |
+| Property           | Type                                  | Card.   | Description                                               |
+|--------------------|---------------------------------------|---------|-----------------------------------------------------------|
+| data               | Array or Object                       | * or ?  | Contains the actual response data object or list of objects from each request, depending on the cardinality of the response data, this is an array (card. * or +), or a single object (card. 1 or ?) |
+| status_code        | Integer                               | 1       | Response code, as listed in [Status Codes](status_codes.md#status-codes), indicates how the request was handled. To avoid confusion with HTTP codes, at least four digits are used.                              |
+| status_message     | String                                | ?       | An optional status message which may help when debugging. |
+| timestamp          | [DateTime](types.md#12-datetime-type) | 1       | The time this message was generated.                      |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 For brevity's sake, any further examples used in this specification will only contain the value of the "data" field. In reality, it will always have to be wrapped in the above response format.
