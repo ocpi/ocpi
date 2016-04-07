@@ -180,10 +180,10 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 | currency                                     | [string](types.md#15-string-type)(3)                     | 1     | Currency of the CDR in ISO 4217 Code.                                                                                          |
 | tariffs                                      | [Tariff](mod_tariffs.md#31-tariff-object)                | *     | List of relevant tariff elements, see: [Tariffs](mod_tariffs.md#31-tariff-object).                                             |
 | charging_periods                             | [ChargingPeriod](#44-chargingperiod-class)               | +     | List of charging periods that make up this charging session. A session consists of 1 or more periods, where each period has a different relevant Tariff. |
-| total_cost                                   | number                                                   | 1     | Total cost of this transaction.                                                                                                |
-| total_energy                                 | number                                                   | 1     | Total energy charged, in kWh.                                        |
-| total_time                                   | number                                                   | 1     | Total time charging, in hours.                                        |
-| total_parking_time                           | number                                                   | ?     | Total time not charging, in hours.                                            |
+| total_cost                                   | [number](types.md#14-number-type)                        | 1     | Total cost of this transaction.                                                                                                |
+| total_energy                                 | [number](types.md#14-number-type)                        | 1     | Total energy charged, in kWh.                                        |
+| total_time                                   | [number](types.md#14-number-type)                        | 1     | Total time charging, in hours.                                        |
+| total_parking_time                           | [number](types.md#14-number-type)                        | ?     | Total time not charging, in hours.                                            |
 | remark                                       | [string](types.md#15-string-type)(255)                   | ?     | Optional remark, can be used to provide addition human readable information to the CDR, for example: reason why a transaction was stopped.|
 | last_updated                                 | [DateTime](types.md#12-datetime-type)                    | 1     | Timestamp when this CDR was last updated.                                                             |
 <div><!-- ---------------------------------------------------------------------------- --></div>
@@ -273,7 +273,7 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 | Property        | Type                                            | Card. | Description                                                                 |
 |-----------------|-------------------------------------------------|-------|-----------------------------------------------------------------------------|
 | type            | [CdrDimensionType](#43-cdrdimensiontype-enum)   | 1     | Type of cdr dimension                                                       |
-| volume          | number                                          | 1     | Volume of the dimension consumed, measured according to the dimension type. |
+| volume          | [number](types.md#14-number-type)               | 1     | Volume of the dimension consumed, measured according to the dimension type. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 

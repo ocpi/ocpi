@@ -595,7 +595,7 @@ Key-value pairs (enum + percentage) of energy sources. All given values should a
 | Property         | Type                                                  | Card. | Description                                            |
 |------------------|-------------------------------------------------------|-------|--------------------------------------------------------|
 | source           | [EnergySourceCategory](#47-energysourcecategory-enum) | 1     | The type of energy source.                             |
-| percentage       | number                                                | 1     | Percentage of this source (0-100) in the mix.          |
+| percentage       | [number](types.md#14-number-type)                     | 1     | Percentage of this source (0-100) in the mix.          |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -625,7 +625,7 @@ Key-value pairs (enum + amount) of waste and carbon dioxide emittion per kWh.
 | Property         | Type                                                                | Card. | Description                                            |
 |------------------|---------------------------------------------------------------------|-------|--------------------------------------------------------|
 | source           | [EnvironmentalImpactCategory](#49-environmentalimpactcategory-enum) | 1     | The category of this value.                            |
-| amount           | number                                                              | 1     | Amount of this portion in g/kWh.                       |
+| amount           | [number](types.md#14-number-type)                                   | 1     | Amount of this portion in g/kWh.                       |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 

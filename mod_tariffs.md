@@ -392,7 +392,7 @@ Parking costs:
 | Property        | Type                                            | Card. | Description                                      |
 |-----------------|-------------------------------------------------|-------|--------------------------------------------------|
 | type            | [TariffDimensionType](#44-tariffdimensiontype-enum) | 1     | Type of tariff dimension |
-| price           | number                                          | 1     | price per unit for this tariff dimension         |
+| price           | [number](types.md#14-number-type)               | 1     | price per unit for this tariff dimension         |
 | step_size       | int                                             | 1     | Minimum amount to be billed. This unit will be billed in this step_size blocks. For example: if type is time and  step_size is 300, then time will be billed in blocks of 5 minutes, so if 6 minutes is used, 10 minutes (2 blocks of step_size) will be billed. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
@@ -427,10 +427,10 @@ Parking costs:
 | end_time                | [string](types.md#15-string-type)(5)  | ?     | End time of day, for example 19:45, valid until this time of the day. Same syntax as start_time |
 | start_date              | [string](types.md#15-string-type)(10) | ?     | Start date, for example: 2015-12-24, valid from this day                              |
 | end_date                | [string](types.md#15-string-type)(10) | ?     | End date, for example: 2015-12-27, valid until this day (excluding this day)          |
-| min_kwh                 | number                                | ?     | Minimum used energy in kWh, for example 20, valid from this amount of energy is used  |                             
-| max_kwh                 | number                                | ?     | Maximum used energy in kWh, for example 50, valid until this amount of energy is used |
-| min_power               | number                                | ?     | Minimum power in kW, for example 0, valid from this charging speed                    |
-| max_power               | number                                | ?     | Maximum power in kW, for example 20, valid up to this charging speed                  |
+| min_kwh                 | [number](types.md#14-number-type)     | ?     | Minimum used energy in kWh, for example 20, valid from this amount of energy is used  |                             
+| max_kwh                 | [number](types.md#14-number-type)     | ?     | Maximum used energy in kWh, for example 50, valid until this amount of energy is used |
+| min_power               | [number](types.md#14-number-type)     | ?     | Minimum power in kW, for example 0, valid from this charging speed                    |
+| max_power               | [number](types.md#14-number-type)     | ?     | Maximum power in kW, for example 20, valid up to this charging speed                  |
 | min_duration            | int                                   | ?     | Minimum duration in seconds, valid for a duration from x seconds                      |
 | max_duration            | int                                   | ?     | Maximum duration in seconds, valid for a duration up to x seconds                     |
 | day_of_week             | [DayOfWeek](#41-dayofweek-enum)       | *     | Which day(s) of the week this tariff is valid                                         |
