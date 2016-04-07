@@ -159,7 +159,7 @@ A reservation can be replaced/updated by sending a `RESERVE_NOW` request with th
 | expiry_date                  | [DateTime](types.md#12-datetime-type)  | 1     | The Date/Time when this reservation ends.                                                                                                       |
 | reservation_id               | int                                    | 1     | Reservation id, unique for this reservation. If the Charge Point allready has                                                                                                       |
 | location_id                  | [string](types.md#15-string-type)(15)  | 1     | Location.id of the Location (belonging to the CPO this request is send to) for which to reserve an EVSE.                                        |
-| evse_uid                     | [string](types.md#15-string-type)(48)  | ?     | Optional EVSE.uid of the EVSE of this Location if a specific EVSE has to be reserved.                                                           |
+| evse_uid                     | [string](types.md#15-string-type)(15)  | ?     | Optional EVSE.uid of the EVSE of this Location if a specific EVSE has to be reserved.                                                           |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -173,7 +173,7 @@ The `evse_uid` is optional. If no EVSE is specified, the Charge Point can itself
 | response_url             | [URL](types.md#16-url-type)            | 1     | URL that the CommandResponse POST should be sent to. This URL might contain an unique ID to be able to distinguish between StartSession requests. |
 | token                    | [Token](mod_tokens.md#32-token-object) | 1     | Token object the Charge Point has to use to start a new session.                                                                                  |
 | location_id              | [string](types.md#15-string-type)(15)  | 1     | Location.id of the Location (belonging to the CPO this request is send to) on which a session is to be started.                                   |
-| evse_uid                 | [string](types.md#15-string-type)(48)  | ?     | Optional EVSE.uid of the EVSE of this Location on which a session is to be started.                                                               |
+| evse_uid                 | [string](types.md#15-string-type)(15)  | ?     | Optional EVSE.uid of the EVSE of this Location on which a session is to be started.                                                               |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -195,7 +195,7 @@ The `evse_uid` is optional. If no EVSE is specified, the Charge Point can itself
 |--------------------------|----------------------------------------|-------|------------------------------------------------------------------------------------------------------------------------------------------------------|
 | response_url             | [URL](types.md#16-url-type)            | 1     | URL that the CommandResponse POST should be sent to. This URL might contain an unique ID to be able to distinguish between UnlockConnector requests. |
 | location_id              | [string](types.md#15-string-type)(15)  | 1     | Location.id of the Location (belonging to the CPO this request is send to) of which it is requested to unlock the connector.                         |
-| evse_uid                 | [string](types.md#15-string-type)(48)  | 1     | EVSE.uid of the EVSE of this Location of which it is requested to unlock the connector.                                                              |
+| evse_uid                 | [string](types.md#15-string-type)(15)  | 1     | EVSE.uid of the EVSE of this Location of which it is requested to unlock the connector.                                                              |
 | connector_id             | [string](types.md#15-string-type)(15)  | 1     | Connector.id of the Connector of this Location of which it is requested to unlock.                                                                   |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
