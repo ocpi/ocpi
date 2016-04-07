@@ -311,7 +311,7 @@ The *Location* object describes the location and its properties where a group of
 | coordinates                                  | [GeoLocation](#412-geolocation-class)                    | 1     | Coordinates of the location.                                                           |
 | related_locations                            | [AdditionalGeoLocation](#41-additionalgeolocation-class) | *     | Geographical location of related points relevant to the user.                          |
 | evses                                        | [EVSE](#32-evse-object)                                  | *     | List of EVSEs that belong to this Location.                                            |
-| directions                                   | [DisplayText](types.md#14-displaytext-class)             | *     | Human-readable directions on how to reach the location.                                |
+| directions                                   | [DisplayText](types.md#13-displaytext-class)             | *     | Human-readable directions on how to reach the location.                                |
 | operator                                     | [BusinessDetails](#41-businessdetails-class)             | ?     | Information of the operator. When not specified, the information retrieved from the `api_info` endpoint should be used instead. |
 | suboperator                                  | [BusinessDetails](#41-businessdetails-class)             | ?     | Information of the suboperator if available.                                           |
 | owner                                        | [BusinessDetails](#41-businessdetails-class)             | ?     | Information of the owner if available.                                           |
@@ -412,7 +412,7 @@ An *EVSE* object has a list of connectors which can not be used simultaneously: 
 | floor_level                          | [string](types.md#15-string-type)(4)               | ?     | Level on which the charging station is located (in garage buildings) in the locally displayed numbering scheme.     |
 | coordinates                          | [GeoLocation](#412-geolocation-class)               | ?     | Coordinates of the EVSE.                                               |
 | physical_reference                   | [string](types.md#15-string-type)(16)              | ?     | A number/string printed on the outside of the EVSE for visual identification.     |
-| directions                           | [DisplayText](types.md#14-displaytext-class)       | *     | Multi-language human-readable directions when more detailed information on how to reach the EVSE from the *Location* is required.     |
+| directions                           | [DisplayText](types.md#13-displaytext-class)       | *     | Multi-language human-readable directions when more detailed information on how to reach the EVSE from the *Location* is required.     |
 | parking_restrictions                 | [ParkingRestriction](#417-parkingrestriction-enum) | *     | The restrictions that apply to the parking spot.                       |
 | images                               | [Image](#48-image-class)                           | *     | Links to images related to the EVSE such as photos or logos.           |
 | last_updated                         | [DateTime](types.md#12-datetime-type)              | 1     | Timestamp when this EVSE or one of its Connectors was last updated.                                                             |
@@ -449,7 +449,7 @@ This class defines a geo location. The geodetic system to be used is WGS 84.
 |-------------|----------------------------------------------|-------|-------------------------------------------------------------------|
 | latitude    | [string](types.md#15-string-type)(10)        | 1     | Latitude of the point in decimal degree. Example: 50.770774. Decimal separator: "." Regex: `-?[0-9]{1,2}\.[0-9]{6}`                       |
 | longitude   | [string](types.md#15-string-type)(11)        | 1     | Longitude of the point in decimal degree. Example: -126.104965. Decimal separator: "." Regex: `-?[0-9]{1,3}\.[0-9]{6}`            |
-| name        | [DisplayText](types.md#14-displaytext-class) | ?     | Name of the point in local language or as written at the location. For example the street name of a parking lot entrance or it's number. |
+| name        | [DisplayText](types.md#13-displaytext-class) | ?     | Name of the point in local language or as written at the location. For example the street name of a parking lot entrance or it's number. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -595,7 +595,7 @@ Key-value pairs (enum + percentage) of energy sources. All given values should a
 | Property         | Type                                                  | Card. | Description                                            |
 |------------------|-------------------------------------------------------|-------|--------------------------------------------------------|
 | source           | [EnergySourceCategory](#47-energysourcecategory-enum) | 1     | The type of energy source.                             |
-| percentage       | number                                                | 1     | Percentage of this source (0-100) in the mix.          |
+| percentage       | [number](types.md#14-number-type)                     | 1     | Percentage of this source (0-100) in the mix.          |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -625,7 +625,7 @@ Key-value pairs (enum + amount) of waste and carbon dioxide emittion per kWh.
 | Property         | Type                                                                | Card. | Description                                            |
 |------------------|---------------------------------------------------------------------|-------|--------------------------------------------------------|
 | source           | [EnvironmentalImpactCategory](#49-environmentalimpactcategory-enum) | 1     | The category of this value.                            |
-| amount           | number                                                              | 1     | Amount of this portion in g/kWh.                       |
+| amount           | [number](types.md#14-number-type)                                   | 1     | Amount of this portion in g/kWh.                       |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
