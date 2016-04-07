@@ -246,10 +246,10 @@ The URLs of the endpoints in this document are descriptive only. The exact URL c
 
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| eMSP interface             | Identifier  | Example URL                                   |
-| -------------------------- | ----------- | --------------------------------------------- |
-| Credentials                | credentials | https://example.com/ocpi/emsp/2.0/credentials |
-| Charging location updates  | locations   | https://example.com/ocpi/emsp/2.0/locations   |
+| eMSP interface             | Identifier  | Example URL                                       |
+| -------------------------- | ----------- | ------------------------------------------------- |
+| Credentials                | credentials | https://example.com/ocpi/emsp/2.0/credentials     |
+| Charging location updates  | locations   | https://example.com/ocpi/emsp/2.0/locations       |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 

@@ -43,6 +43,18 @@ Errors a server detected in the message sent by a client: The client did somethi
 | 2003 | Unknown Location, for example: Command: START_SESSION with unknown location. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
+&nbsp;
+
+&nbsp;
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
 
 ## 3xxx: Server errors
 
