@@ -59,12 +59,13 @@ In order to prevent issues with Capitals in variable names, the naming in JSON i
 
 When defining the cardinality of a field, the following symbols are used during the document:
 
-<div><!-- ---------------------------------------------------------------------------- --></div>
-| Symbol | Description                     | Type     |
-|--------|---------------------------------|----------|
-| ?      | An optional object.             | Object   |
-| 1      | Required object.                | Object   |
-| *      | A list of zero or more objects. | [Object] |
-| +      | A list of at least one object.  | [Object] |
-<div><!-- ---------------------------------------------------------------------------- --></div>
+<div><!-- ---------------------------------------------------------------------------------------------------------------- --></div>
+| Symbol | Description                                                                                                                                                               | Type     |
+|--------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|
+| ?      | An optional object. If not set, it might be `null`, or the field might be omitted. When the field is omitted and it has a default value, the value is the default value.  | Object   |
+| 1      | Required object.                                                                                                                                                          | Object   |
+| *      | A list of zero or more objects. If empty, it might be `null`, `[]` or the field might be omitted.                                                                         | [Object] |
+| +      | A list of at least one object.                                                                                                                                            | [Object] |
+<div><!-- ---------------------------------------------------------------------------------------------------------------- --></div>
 
+ 
