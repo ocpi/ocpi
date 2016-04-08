@@ -13,8 +13,7 @@ NoDerivatives 4.0 International Public License*<br/>
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Version | Date       | Description                                      |
 |---------|------------|--------------------------------------------------|
-| 2.1-RC2 | 07-04-2016 | 2.1 Release Candidate 2: rework after review, fixed layout issues  |
-| 2.1-RC1 | 25-03-2016 | 2.1 Release Candidate 1: added Realtime checking of Tokens, Charge Point Commands, filtering on all GET List Methods and minor fixes.  |
+| 2.1     | 08-04-2016 | Added [command module](mod_command.md#commands-module).<br/> Added support for [real-time authorization](mod_tokens.md#222-post-method).<br/> Lots of small improvements: see [changelog](changelog.md#changelog)  |
 | 2.0-d2  | 15-02-2016 | 2nd documentation revision of the OCPI 2.0 spec. <br/> Only documentation updated: ConnectorType of Connector<br/> was not visible, credentials clarified, location URL<br/> segments incorrect (now string, was int), <br/>minor textual updates.<br/> DateTime with timezones is still an issue |
 | 2.0     | 30-12-2015 | First official release of OCPI. |
 | 0.4     | 04-11-2014 | First draft of OCPI. (Also known as Draft v4) |
