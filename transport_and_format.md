@@ -115,8 +115,8 @@ The content that is sent with all the response messages is an 'application/json'
 | Property           | Type                                  | Card.   | Description                                               |
 |--------------------|---------------------------------------|---------|-----------------------------------------------------------|
 | data               | Array or Object                       | * or ?  | Contains the actual response data object or list of objects from each request, depending on the cardinality of the response data, this is an array (card. * or +), or a single object (card. 1 or ?) |
-| status_code        | Integer                               | 1       | Response code, as listed in [Status Codes](status_codes.md#status-codes), indicates how the request was handled. To avoid confusion with HTTP codes, at least four digits are used.                              |
-| status_message     | String                                | ?       | An optional status message which may help when debugging. |
+| status_code        | int                                   | 1       | Response code, as listed in [Status Codes](status_codes.md#status-codes), indicates how the request was handled. To avoid confusion with HTTP codes, at least four digits are used.                              |
+| status_message     | [string](types.md#15-string-type)     | ?       | An optional status message which may help when debugging. |
 | timestamp          | [DateTime](types.md#12-datetime-type) | 1       | The time this message was generated.                      |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
