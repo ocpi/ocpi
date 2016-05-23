@@ -104,7 +104,7 @@ The following parameters can be provided as URL segments.
 |------------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
 | country_code     | [string](types.md#15-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
 | party_id         | [string](types.md#15-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
-| session_id       | [string](types.md#15-string-type)(15) | yes      | id of the Session object to get from the eMSP system.                         |
+| session_id       | [string](types.md#15-string-type)(36) | yes      | id of the Session object to get from the eMSP system.                         |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -142,7 +142,7 @@ The following parameters can be provided as URL segments.
 |------------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
 | country_code     | [string](types.md#15-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
 | party_id         | [string](types.md#15-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
-| session_id       | [string](types.md#15-string-type)(15) | yes      | id of the new or updated Session object.                                      |
+| session_id       | [string](types.md#15-string-type)(36) | yes      | id of the new or updated Session object.                                      |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -168,7 +168,7 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property                          | Type                                                       | Card. | Description                                                                                                    |
 |-----------------------------------|------------------------------------------------------------|-------|----------------------------------------------------------------------------------------------------------------|
-| id                                | [string](types.md#15-string-type)(15)                      | 1     | The unique id that identifies the session in the CPO platform.                                                 |
+| id                                | [string](types.md#15-string-type)(36)                      | 1     | The unique id that identifies the session in the CPO platform.                                                 |
 | start_datetime                    | [DateTime](types.md#12-datetime-type)                      | 1     | The time when the session became active.                                                                       |
 | end_datetime                      | [DateTime](types.md#12-datetime-type)                      | ?     | The time when the session is completed.                                                                        |
 | kwh                               | [number](types.md#14-number-type)                          | 1     | How many kWh are charged.                                                                                      |
