@@ -1,0 +1,60 @@
+@startuml
+title OCPI Registration process
+
+participant CPO
+participant eMSP
+
+== Offline ==
+
+CPO -> CPO: Generate token: TOKEN_A
+CPO -> eMSP: send information via e-mail \n(TOKEN_A, "https://company.com/ocpi/cpo/versions", ...)
+
+...
+
+== OCPI ==
+
+CPO <- eMSP: GET /ocpi/cpo/versions
+activate eMSP
+activate CPO
+note right
+    The eMSP uses TOKEN_A as authentication
+    to fetch information from the CPO.
+end note
+CPO --> eMSP: Available versions
+deactivate CPO
+
+eMSP -> eMSP: Pick latest mutual version (e.g. 2.0).
+CPO <- eMSP: GET /ocpi/cpo/2.0/
+activate CPO
+CPO --> eMSP: Available endpoints for v2.0
+deactivate CPO
+eMSP -> eMSP: Store version and endpoints
+eMSP -> eMSP: Generate token: TOKEN_B
+CPO <- eMSP: POST /ocpi/cpo/2.0/credentials \n("/ocpi/emsp/versions", TOKEN_B, ...)
+
+activate CPO
+CPO -> eMSP: GET /ocpi/emsp/versions
+CPO <-- eMSP: Available versions
+CPO -> eMSP: GET /ocpi/emsp/2.0/
+CPO <-- eMSP: Available endpoints for v2.0
+note right
+    The CPO knows it's version 2.0 because
+    of the endpoint the eMSP has used. The URL
+    is retrieved from the available versions.
+end note
+CPO -> CPO: Store version and endpoints
+CPO -> CPO: Store TOKEN_B
+CPO -> CPO: Generate TOKEN_C
+CPO --> eMSP: Credentials with TOKEN_C for eMSP
+deactivate CPO
+
+note right
+    By returning new credentials for the eMSP,
+    the initial setup token (TOKEN_A)
+    has now become invalid.
+end note
+eMSP -> eMSP: Store updated credentials with TOKEN_C
+
+deactivate eMSP
+
+@enduml

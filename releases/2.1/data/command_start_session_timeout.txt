@@ -1,0 +1,28 @@
+@startuml
+title OCPI Command START_SESSION -> ACCEPTED but EV never plugged in
+hide footbox
+
+participant eMSP
+participant CPO
+participant "Charge Point" as CP
+
+eMSP ->  CPO:  Command(START_SESSION, location_id=1234, token=200)
+activate eMSP
+activate CPO
+CPO  --> eMSP: SUCCESSFUL
+deactivate eMSP
+
+CPO  ->  CP:   RemoteStartTransaction.req(Token=200)
+deactivate CPO
+activate CP
+CP   ->  CPO:  RemoteStartTransaction.conf(Accepted)
+activate CPO
+CPO  ->  eMSP: CommandResponse(SUCESSFUL)
+activate eMSP
+eMSP --> CPO: 
+deactivate CPO
+deactivate eMSP
+
+CP   --> CP: EV NOT Plugged in before time-out
+
+deactivate CP
