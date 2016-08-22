@@ -406,7 +406,7 @@ Parking costs:
 | Property                 | Type                                               | Card. | Description                                                      |
 |--------------------------|----------------------------------------------------|-------|------------------------------------------------------------------|
 | price_components         | [PriceComponent](#42-pricecomponent-class)         | +     | List of price components that make up the pricing of this tariff |
-| restrictions             | [TariffRestrictions](#45-tariffrestrictions-class) | ?     | List of tariff restrictions                                      |
+| restrictions             | [TariffRestrictions](#45-tariffrestrictions-class) | ?     | Tariff restrictions object                                       |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
