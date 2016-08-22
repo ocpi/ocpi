@@ -18,7 +18,7 @@ or [PATCH](#223-patch-method) on the eMSPs Tariffs endpoint with the updated Tar
 When the CPO deletes a Tariff, they will update the eMSPs systems by calling [DELETE](#224-delete-method)
 on the eMSPs Tariffs endpoint, with the ID of the Tariff that is deleted.
 
-When the CPO is not sure about the state or existence of a Tariff object in the eMSPs system, the 
+When the CPO is not sure about the state or existence of a Tariff object in the eMSPs system, the
 CPO can call the [GET](#221-get-method) to validate the Tariff object in the eMSP system.   
 
 
@@ -90,8 +90,8 @@ Each object must contain all required fields. Fields that are not specified may 
 ### 2.2 eMSP Interface
 
 Tariffs is a [client owned object](transport_and_format.md#client-owned-object-push), so the end-points need to contain the required extra fields: {[party_id](credentials.md#credentials-object)} and {[country_code](credentials.md#credentials-object)}.
-Example endpoint structure: 
-`/ocpi/emsp/2.0/tariffs/{country_code}/{party_id}/{tariff_id}` 
+Example endpoint structure:
+`/ocpi/emsp/2.0/tariffs/{country_code}/{party_id}/{tariff_id}`
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Method                       | Description                                            |
@@ -123,7 +123,7 @@ The following parameters can be provided as URL segments.
 
 ##### Response Data
 
-The response contains the requested object. 
+The response contains the requested object.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Type                                | Card. | Description                                                |
@@ -134,7 +134,7 @@ The response contains the requested object.
 
 #### 2.2.2 __PUT__ Method
 
-New or updated Tariff objects are pushed from the CPO to the eMSP. 
+New or updated Tariff objects are pushed from the CPO to the eMSP.
 
 ##### Request Body
 
@@ -168,7 +168,7 @@ PUT To URL: https://www.server.com/ocpi/emsp/2.0/tariffs/NL/TNM/12
 	"elements": [{
 		"price_components": [{
 			"type": "TIME",
-			"price": "2.00",
+			"price": 2.00,
 			"step_size": 300
 		}]
 	}]
@@ -180,7 +180,7 @@ PUT To URL: https://www.server.com/ocpi/emsp/2.0/tariffs/NL/TNM/12
 
 The PATCH method works the same as the [PUT](#222-put-method) method, except that the fields/objects that have to be updated have to be present, other fields/objects that are not specified are considered unchanged.
 
-##### Example: Change Tariff to 2,50 
+##### Example: Change Tariff to 2,50
 ```json
 PUT To URL: https://www.server.com/ocpi/emsp/2.0/tariffs/NL/TNM/12
 
@@ -188,7 +188,7 @@ PUT To URL: https://www.server.com/ocpi/emsp/2.0/tariffs/NL/TNM/12
 	"elements": [{
 		"price_components": [{
 			"type": "TIME",
-			"price": "2.50",
+			"price": 2.50,
 			"step_size": 300
 		}]
 	}]
@@ -198,7 +198,7 @@ PUT To URL: https://www.server.com/ocpi/emsp/2.0/tariffs/NL/TNM/12
 
 #### 2.2.4 __DELETE__ Method
 
-Delete a no longer valid Tariff object. 
+Delete a no longer valid Tariff object.
 
 ##### Request Parameters
 
@@ -217,7 +217,7 @@ The following parameters can be provided as URL segments.
 
 ### 3.1 _Tariff_ Object
 
-A Tariff Object consists of a list of one or more TariffElements, these elements can be used to create complex Tariff structures. 
+A Tariff Object consists of a list of one or more TariffElements, these elements can be used to create complex Tariff structures.
 When the list of _elements_ contains more then 1 element, than the first tariff in the list with matching restrictions will be used.
 
 It is advised to always set a "default" tariff, the last tariff in the list of _elements_ with no restriction. This acts as a fallback when
@@ -246,10 +246,11 @@ non of the TariffElements before this matches the current charging period.
 	"elements": [{
 		"price_components": [{
 			"type": "TIME",
-			"price": "2.00",
+			"price": 2.00,
 			"step_size": 300
 		}]
-	}]
+	}],
+	"last_updated": "2015-06-29T20:39:09Z"
 }
 ```
 
@@ -268,10 +269,11 @@ non of the TariffElements before this matches the current charging period.
 	"elements": [{
 		"price_components": [{
 			"type": "TIME",
-			"price": "2.00",
+			"price": 2.00,
 			"step_size": 300
 		}]
-	}]
+	}],
+	"last_updated": "2015-06-29T20:39:09Z"
 }
 ```
 
@@ -285,10 +287,11 @@ non of the TariffElements before this matches the current charging period.
 	"elements": [{
 		"price_components": [{
 			"type": "TIME",
-			"price": "2.00",
+			"price": 2.00,
 			"step_size": 300
 		}]
-	}]
+	}],
+	"last_updated": "2015-06-29T20:39:09Z"
 }
 ```
 
@@ -299,7 +302,7 @@ non of the TariffElements before this matches the current charging period.
 2.00 euro per hour charging tariff for more than 32A on weekdays (paid per 10 minutes)
 1.25 euro per hour charging tariff for more than 32A during the weekend (paid per 10 minutes)
 Parking costs:
-- Weekdays: between 09:00 and 18:00 : 5 euro (paid per 5 minutes) 
+- Weekdays: between 09:00 and 18:00 : 5 euro (paid per 5 minutes)
 - Saturday: between 10:00 and 17:00 : 6 euro (paid per 5 minutes)
 
 ```json
@@ -310,61 +313,62 @@ Parking costs:
 	"elements": [{
 		"price_components": [{
 			"type": "FLAT",
-			"price": "2.50",
+			"price": 2.50,
 			"step_size": 1
 		}]
 	}, {
 		"price_components": [{
 			"type": "TIME",
-			"price": "1.00",
-			"step_size": "900"
+			"price": 1.00,
+			"step_size": 900
 		}],
-		"restrictions": [{
-			"max_power": "32.00"
-		}]
+		"restrictions": {
+			"max_power": 32.00
+		}
 	}, {
 		"price_components": [{
 			"type": "TIME",
-			"price": "2.00",
-			"step_size": "600"
+			"price": 2.00,
+			"step_size": 600
 		}],
-		"restrictions": [{
-			"min_power": "32.00",
+		"restrictions": {
+			"min_power": 32.00,
 			"day_of_week": ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY"]
-		}]
+		}
 	}, {
 		"price_components": [{
 			"type": "TIME",
-			"price": "1.25",
-			"step_size": "600"
+			"price": 1.25,
+			"step_size": 600
 		}],
-		"restrictions": [{
-			"min_power": "32.00",
+		"restrictions": {
+			"min_power": 32.00,
 			"day_of_week": ["SATURDAY", "SUNDAY"]
-		}]
+		}
 	}, {
 		"price_components": [{
 			"type": "PARKING_TIME",
-			"price": "5.00",
-			"step_size": "300"
+			"price": 5.00,
+			"step_size": 300
 		}],
-		"restrictions": [{
+		"restrictions": {
 			"start_time": "09:00",
 			"end_time": "18:00",
 			"day_of_week": ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY"]
-		}]
+		}
 	}, {
 		"price_components": [{
 			"type": "PARKING_TIME",
-			"price": "6.00",
-			"step_size": "300"
+			"price": 6.00,
+			"step_size": 300
 		}],
-		"restrictions": [{
+		"restrictions": {
 			"start_time": "10:00",
 			"end_time": "17:00",
 			"day_of_week": ["SATURDAY"]
-		}]
-	}]
+		}
+	}],
+	"last_updated": "2015-06-29T20:39:09Z"
 }
 ```
 
@@ -405,7 +409,7 @@ Parking costs:
 | restrictions             | [TariffRestrictions](#45-tariffrestrictions-class) | ?     | List of tariff restrictions                                      |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
-    
+
 ### 4.4 TariffDimensionType *enum*
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
