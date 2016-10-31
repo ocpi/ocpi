@@ -790,7 +790,6 @@ for different purposes.
 
 ### 4.18 PowerType *enum*
 
-The format of the connector, whether it is a socket or a plug.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Value             | Description                                                              |
