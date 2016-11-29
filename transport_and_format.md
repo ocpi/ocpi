@@ -1,4 +1,4 @@
-## Transport and format
+# Transport and format
 
 ## JSON / HTTP implementation guide
 
