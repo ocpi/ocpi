@@ -16,7 +16,7 @@ Each HTTP request must add a 'Authorization' header. The header looks as followi
     Authorization: Token IpbJOXxkxOAuKR92z0nEcmVF3Qw09VG7I7d/WCg0koM=
 ```
 
-The literal 'Token' indicates that the token based authentication mechanism is used. Its parameter is a string consisting of printable, non-whitespace ASCII characters. The token must uniquely identify the requesting party. Than, the server can use this to link data and commands to this party's account.
+The literal 'Token' indicates that the token based authentication mechanism is used. Its parameter is a string consisting of printable, non-whitespace ASCII characters. The token must uniquely identify the requesting party. Then, the server can use this to link data and commands to this party's account.
 
 The request method can be any of [GET](#get), [PUT](#put), [PATCH](#patch) or DELETE. The OCPI protocol uses them in a similar way as REST APIs do.
 
@@ -85,7 +85,7 @@ Many OCPI modules work differently: the client is the owner of the object and on
 For example: the CPO owns the Tariff objects and pushes them to a couple of eMSPs, so each eMSP gains knowledge of the tariffs that the CPO will charge them for their customers' sessions. eMSP might receive Tariff objects from multiple CPOs. They need to be able to make a distinction between the different tariffs from different CPOs. 
 
 The distinction between objects from different CPOs/eMSPs is made based on a {[country-code](credentials.md#credentials-object)} and {[party-id](credentials.md#credentials-object)}.
-The [country-code](credentials.md#credentials-object) and [party-id](credentials.md#credentials-object) of the other party are received during the [credentials](credentials.md#credentials-object) handshake, so that a server might known the values a client will use in an URL.
+The [country-code](credentials.md#credentials-object) and [party-id](credentials.md#credentials-object) of the other party are received during the [credentials](credentials.md#credentials-object) handshake, so that a server might know the values a client will use in an URL.
 
 Client owned object URL definition: {base-ocpi-url}/{end-point}/{country-code}/{party-id}/{object-id}
 
@@ -97,7 +97,7 @@ Example of a URL to a client owned object
 POST is not supported for these kind of modules.
 PUT is used to send new objects to the servers. 
 
-If a client tries to access an object with a URL that has a different [country-code](credentials.md#credentials-object) and/or [party-id](credentials.md#credentials-object) then given during the [credentials](credentials.md#credentials-object) handshake, it is allowed the respond with a HTTP 404 status code, this way blocking client access to object that do not belong to them.
+If a client tries to access an object with a URL that has a different [country-code](credentials.md#credentials-object) and/or [party-id](credentials.md#credentials-object) then given during the [credentials](credentials.md#credentials-object) handshake, it is allowed the respond with a HTTP 404 status code, this way blocking client access to objects that do not belong to them.
 
 
 #### Errors
@@ -259,7 +259,7 @@ OCPI works event based, new messages and status are pushed from one party to ano
 
 OCPI messages should not be queued.
 
-When the connection is re-established, it is up the the client of a connection to GET the current status from to server to get back in-sync. 
+When the connection is re-established, it is up to the client of a connection to GET the current status from to server to get back in-sync. 
 For example: 
 - CDRs of the period of communication loss can be rerieved with a GET command on the CDRs module, with filters to retrieve only CDRs of the period since the last CDR was received.
 - Status of EVSEs (or Locations) can be retrieved by calling a GET on the Locations module.
