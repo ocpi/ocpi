@@ -7,7 +7,7 @@ where version specific details such as the supported endpoints can be found.
 Example endpoint structure: `/ocpi/cpo/versions` and `/ocpi/emsp/versions`
 The exact URL to the implemented version endpoint should be given (offline) to parties that interface
 with your OCPI implementation, this endpoint is the starting point for discovering locations
-of the different modules and version of OCPI that have been implemented.
+of the different modules and versions of OCPI that have been implemented.
 
 Both the CPO and the eMSP must have this endpoint.
 
@@ -136,9 +136,9 @@ List of known versions.
 
 #### Custom Modules
 
-Parties are allowed to create custom modules or customized version of the existing modules.
+Parties are allowed to create custom modules or customized versions of the existing modules.
 For this the [ModuleID enum](#moduleid-enum) can be extended with additional custom moduleIDs.
-These custom moduleIDs MAY only be send to parties with which there is an agreement to use a custom module. Do NOT send custom moduleIDs to parties you are not 100% sure that they understand the custom moduleIDs.
+These custom moduleIDs MAY only be sent to parties with which there is an agreement to use a custom module. Do NOT send custom moduleIDs to parties you are not 100% sure will understand the custom moduleIDs.
 It is advised to use a prefix (country_code + party_id) for any custom moduleID, this ensures that the moduleID will not be used for any future module of OCPI.
  
 For example:
