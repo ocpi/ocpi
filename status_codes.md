@@ -39,7 +39,7 @@ Errors a server detected in the message sent by a client: The client did somethi
 |------|-----------------------------------------|
 | 2000 | Generic client error                    |
 | 2001 | Invalid or missing parameters           |
-| 2002 | Not enough information, for example: Authorization request with to little information. |
+| 2002 | Not enough information, for example: Authorization request with too little information. |
 | 2003 | Unknown Location, for example: Command: START_SESSION with unknown location. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
@@ -64,7 +64,7 @@ Error during processing of the OCPI payload in the server. The message was synta
 | Code | Description                                                                |
 |------|----------------------------------------------------------------------------|
 | 3000 | Generic server error                                                       |
-| 3001 | Unable to use the client's API. For example during the credentials registration: When the initializing party requests data from the other party during the open POST call to it’s credentials endpoint. If one of the GETs can not be processed, the party should return this error in the POST response. |
+| 3001 | Unable to use the client's API. For example during the credentials registration: When the initializing party requests data from the other party during the open POST call to its credentials endpoint. If one of the GETs can not be processed, the party should return this error in the POST response. |
 | 3002 | Unsupported version.                                                       |
 | 3003 | No matching endpoints or expected endpoints missing between parties. Used during the registration process if the two parties do not have any mutual modules or endpoints available, or the minimum expected by the other party implementation. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
