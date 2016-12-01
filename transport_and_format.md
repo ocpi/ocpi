@@ -10,15 +10,15 @@ The interfaces are protected on HTTP transport level, with SSL and token based a
 
 ### Request format
 
-Each HTTP request must add a 'Authorization' header. The header looks as following:
+Each HTTP request must add a 'Authorization' header. The header looks as follows:
 
 ```
     Authorization: Token IpbJOXxkxOAuKR92z0nEcmVF3Qw09VG7I7d/WCg0koM=
 ```
 
-The literal 'Token' indicates that the token based authentication mechanism is used. Its parameter is a string consisting of printable, non-whitespace ASCII characters. The token must uniquely identify the requesting party. Then, the server can use this to link data and commands to this party's account.
+The literal 'Token' indicates that the token based authentication mechanism is used. Its parameter is a string consisting of printable, non-whitespace ASCII characters. The token must uniquely identify the requesting party. This way, the server can use this to link data and commands to this party's account.
 
-The request method can be any of [GET](#get), [PUT](#put), [PATCH](#patch) or DELETE. The OCPI protocol uses them in a similar way as REST APIs do.
+The request method can be any of [GET](#get), [PUT](#put), [PATCH](#patch) or DELETE. The OCPI protocol uses them in a way similar to REST APIs.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Method          | Description                                        |
@@ -35,17 +35,17 @@ The mimetype of the request body is `application/json` and may contain the data 
 
 #### GET
 All GET methods that return a list of objects have pagination.
-To enable pagination of the returned list of objects extra URL parameters are allowed for the GET request and extra headers need to be added to the response.
+To enable pagination of the returned list of objects, additional URL parameters are allowed for the GET request and additional headers need to be added to the response.
 
 
 ##### Paginated Request
-The following table is a list of all the parameters that have to be supported, but might be omitted by a client request.
+The following table lists all the parameters that have to be supported, but might be omitted by a client request.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Parameter | Description                                            |
 |-----------|--------------------------------------------------------|
 | offset    | The offset of the first object returned. Default is 0. |
-| limit     | Maximum number of objects to GET. Note: the server might decide to return less objects, because there are no more objects or the server limits the maximum amount of objects to return. This is to prevent, for example, overloading the system. |
+| limit     | Maximum number of objects to GET. Note: the server might decide to return fewer objects, either because there are no more objects, or the server limits the maximum number of objects to return. This is to prevent, for example, overloading the system. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -55,7 +55,7 @@ HTTP headers that have to be added to any paginated GET response.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | HTTP Parameter  | Description                                                                 |
 |-----------------|-----------------------------------------------------------------------------|
-| Link            | Link to the 'next' page should be provided, if this is NOT the last page. See example below. |
+| link            | Link to the 'next' page should be provided, if this is NOT the last page. See example below. |
 | X-Total-Count   | (Custom HTTP Header) Total number of objects available in the server system |
 | X-Limit         | (Custom HTTP Header) Number of objects that are returned. Note that this is an upper limit, if there are not enough remaining objects to return, fewer objects than this upper limit number will be returned. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
@@ -75,12 +75,12 @@ A PATCH request must only specify the object's identifier (if needed to identify
 
 The mimetype of the request body is `application/json` and may contain the data as documented for each endpoint.
 
-In case a PATCH request fails, the client is expected to call the GET method to check the state of the object in the other parties system. If the object doesn't exist, the client should do a [PUT](#put). 
+In case a PATCH request fails, the client is expected to call the GET method to check the state of the object in the other party's system. If the object doesn't exist, the client should do a [PUT](#put). 
 
 
 ### Client owned object push
-Normal client/server RESTful services work in a way that the Server is the owner of the objects that are created. The client requests a POST method with an object to the end-point URL. The response send by the server will contain the URL to the new object. The client will only request 1 server to create a new object, not multiple servers.
- 
+Normal client/server RESTful services work in a way where the Server is the owner of the objects that are created. The client requests a POST method with an object to the end-point URL. The response send by the server will contain the URL to the new object. The client will only request only one server to create a new object, not multiple servers.
+
 Many OCPI modules work differently: the client is the owner of the object and only pushes the information to one or more servers for information sharing purposes.   
 For example: the CPO owns the Tariff objects and pushes them to a couple of eMSPs, so each eMSP gains knowledge of the tariffs that the CPO will charge them for their customers' sessions. eMSP might receive Tariff objects from multiple CPOs. They need to be able to make a distinction between the different tariffs from different CPOs. 
 
@@ -97,7 +97,7 @@ Example of a URL to a client owned object
 POST is not supported for these kind of modules.
 PUT is used to send new objects to the servers. 
 
-If a client tries to access an object with a URL that has a different [country-code](credentials.md#credentials-object) and/or [party-id](credentials.md#credentials-object) then given during the [credentials](credentials.md#credentials-object) handshake, it is allowed the respond with a HTTP 404 status code, this way blocking client access to objects that do not belong to them.
+If a client tries to access an object with a URL that has a different [country-code](credentials.md#credentials-object) and/or [party-id](credentials.md#credentials-object) then given during the [credentials](credentials.md#credentials-object) handshake, it is allowed the respond with a HTTP 404 status code, this way blocking client access to object that do not belong to them.
 
 
 #### Errors
@@ -259,7 +259,7 @@ OCPI works event based, new messages and status are pushed from one party to ano
 
 OCPI messages should not be queued.
 
-When the connection is re-established, it is up to the client of a connection to GET the current status from to server to get back in-sync. 
+When the connection is re-established, it is up the the client of a connection to GET the current status from to server to get back in-sync. 
 For example: 
 - CDRs of the period of communication loss can be rerieved with a GET command on the CDRs module, with filters to retrieve only CDRs of the period since the last CDR was received.
 - Status of EVSEs (or Locations) can be retrieved by calling a GET on the Locations module.

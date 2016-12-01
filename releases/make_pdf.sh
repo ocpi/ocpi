@@ -4,8 +4,8 @@ command -v pandoc >/dev/null 2>&1 || { echo >&2 "I require pandoc >1.9.2 but it'
 #############################################
 #############################################
 # adjust these before you release
-PROTOCOL_VERSION="2.0"
-DOCUMENT_VERSION="${PROTOCOL_VERSION}-d2"
+PROTOCOL_VERSION="2.1"
+DOCUMENT_VERSION="${PROTOCOL_VERSION}"
 OUTFILE="OCPI_${DOCUMENT_VERSION}.pdf"
 RELEASE_DATE=$(date +%d.%m.%Y)
 RELEASE_DIR=${DOCUMENT_VERSION}

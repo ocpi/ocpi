@@ -2,7 +2,7 @@
 
 **Module Identifier: `locations`**
 
-The Location objects life in the CPO back-end system. They describe the charging locations of that operator.
+The Location objects live in the CPO back-end system. They describe the charging locations of that operator.
 
 **Module dependency:** the eMSP endpoint is dependent on the [Tariffs module](mod_tariffs.md#tariffs-module)
 
@@ -10,7 +10,7 @@ The Location objects life in the CPO back-end system. They describe the charging
 
 The Locations module has Locations as base object, Locations have EVSEs, EVSEs have Connectors. With the methods in the [eMSP interface](#22-emsp-interface), Location information/statuses can be shared with the eMSP. Updates can be done to the Location, but also to only an EVSE or a Connector.
 
-When a CPO creates Location objects they push them to the eMSPs by calling [PUT](#222-put-method) on the eMSPs Locations endpoint. Providers who do not support push mode need to call [GET](#211-get-method) on the CPOs Locations endpoint to receive the new object.
+When a CPO creates Location objects it pushes them to the eMSPs by calling [PUT](#222-put-method) on the eMSPs Locations endpoint. Providers who do not support push mode need to call [GET](#211-get-method) on the CPOs Locations endpoint to receive the new object.
 
 If the CPO wants to replace a Location related object, they push it to the eMSP systems by calling [PUT](#222-put-method) on their Locations endpoint.
 
@@ -76,7 +76,7 @@ This request is [paginated](transport_and_format.md#get), it supports the [pagin
 The endpoint returns a list of Location objects
 The header will contain the [pagination](transport_and_format.md#paginated-response) related headers.
 
-Any older information that is not specified in the response is considered as no longer valid.
+Any older information that is not specified in the response is considered no longer valid.
 Each object must contain all required fields. Fields that are not specified may be considered as null values.
  
 <div><!-- ---------------------------------------------------------------------------- --></div>
