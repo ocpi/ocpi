@@ -139,7 +139,7 @@ Example endpoint structures:
 
 #### 2.2.1 __GET__ Method
 
-If the CPO wants to check the status of a Location, EVSE or Connector object in the eMSP system, it might GET the object from the eMSP system for validation purposes. The CPO is the owner of the objects, so it would be illogical if the eMSP system had a different status of was missing an object. If a discrepancy is found, the CPO might push an update to the eMSP via a [PUT](#222-put-method) or [PATCH](#223-patch-method) call.
+If the CPO wants to check the status of a Location, EVSE or Connector object in the eMSP system, it might GET the object from the eMSP system for validation purposes. The CPO is the owner of the objects, so it would be illogical if the eMSP system had a different status or was missing an object. If a discrepancy is found, the CPO might push an update to the eMSP via a [PUT](#222-put-method) or [PATCH](#223-patch-method) call.
 
 ##### Request Parameters
 
@@ -790,7 +790,6 @@ for different purposes.
 
 ### 4.18 PowerType *enum*
 
-The format of the connector, whether it is a socket or a plug.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Value             | Description                                                              |
