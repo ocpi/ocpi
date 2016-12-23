@@ -102,8 +102,8 @@ The following parameters can be provided as URL segments.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Parameter        | Datatype                              | Required | Description                                                                   |
 |------------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
-| country_code     | [string](types.md#15-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
-| party_id         | [string](types.md#15-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
+| country_code     | [string](types.md#15-string-type)(2)  | yes      | Country code of the CPO requesting this GET from the eMSP system.               |
+| party_id         | [string](types.md#15-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this GET from the eMSP system.     |
 | session_id       | [string](types.md#15-string-type)(15) | yes      | id of the Session object to get from the eMSP system.                         |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
