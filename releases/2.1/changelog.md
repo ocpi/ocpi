@@ -5,7 +5,8 @@
 <div><!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --></div>
 | Context (Module / Object)                      | Expected Impact: eMSP / CPO | Expected Effort: eMSP / CPO | Description                                                                        | 
 |------------------------------------------------|-----------------------------|-----------------------------|------------------------------------------------------------------------------------|
-| Tokens / Token object                          | Optional / Minor            | Minimal / Minor             | field: Token.uid length changed from 15 to 20 to match OCPP 1.5/1.6 specification.                                                      |
+| Sessions / Session object                      | Minor / Minor               | Minimal / Minimal           | field: Session.auth_id length changed from 15 to 32 this was THE bug in 2.1.                                                        |
+| Tokens / Token object                          | Minor / Minor               | Minimal / Minimal           | field: Token.uid length changed from 15 to 20 to match OCPP 1.5/1.6 specification.                                                  |
 
 
 ## Changes between OCPI 2.0 and 2.1
