@@ -10,15 +10,15 @@ The interfaces are protected on HTTP transport level, with SSL and token based a
 
 ### Request format
 
-Each HTTP request must add a 'Authorization' header. The header looks as following:
+Each HTTP request must add a 'Authorization' header. The header looks as follows:
 
 ```
     Authorization: Token IpbJOXxkxOAuKR92z0nEcmVF3Qw09VG7I7d/WCg0koM=
 ```
 
-The literal 'Token' indicates that the token based authentication mechanism is used. Its parameter is a string consisting of printable, non-whitespace ASCII characters. The token must uniquely identify the requesting party. Then, the server can use this to link data and commands to this party's account.
+The literal 'Token' indicates that the token based authentication mechanism is used. Its parameter is a string consisting of printable, non-whitespace ASCII characters. The token must uniquely identify the requesting party. This way, the server can use this to link data and commands to this party's account.
 
-The request method can be any of [GET](#get), [PUT](#put), [PATCH](#patch) or DELETE. The OCPI protocol uses them in a similar way as REST APIs do.
+The request method can be any of [GET](#get), [PUT](#put), [PATCH](#patch) or DELETE. The OCPI protocol uses them in a way similar to REST APIs.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Method          | Description                                        |
@@ -35,17 +35,17 @@ The mimetype of the request body is `application/json` and may contain the data 
 
 #### GET
 All GET methods that return a list of objects have pagination.
-To enable pagination of the returned list of objects extra URL parameters are allowed for the GET request and extra headers need to be added to the response.
+To enable pagination of the returned list of objects, additional URL parameters are allowed for the GET request and additional headers need to be added to the response.
 
 
 ##### Paginated Request
-The following table is a list of all the parameters that have to be supported, but might be omitted by a client request.
+The following table lists all the parameters that have to be supported, but might be omitted by a client request.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Parameter | Description                                            |
 |-----------|--------------------------------------------------------|
 | offset    | The offset of the first object returned. Default is 0. |
-| limit     | Maximum number of objects to GET. Note: the server might decide to return less objects, because there are no more objects or the server limits the maximum amount of objects to return. This is to prevent, for example, overloading the system. |
+| limit     | Maximum number of objects to GET. Note: the server might decide to return fewer objects, either because there are no more objects, or the server limits the maximum number of objects to return. This is to prevent, for example, overloading the system. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -75,12 +75,12 @@ A PATCH request must only specify the object's identifier (if needed to identify
 
 The mimetype of the request body is `application/json` and may contain the data as documented for each endpoint.
 
-In case a PATCH request fails, the client is expected to call the GET method to check the state of the object in the other parties system. If the object doesn't exist, the client should do a [PUT](#put). 
+In case a PATCH request fails, the client is expected to call the GET method to check the state of the object in the other party's system. If the object doesn't exist, the client should do a [PUT](#put). 
 
 
 ### Client owned object push
-Normal client/server RESTful services work in a way that the Server is the owner of the objects that are created. The client requests a POST method with an object to the end-point URL. The response send by the server will contain the URL to the new object. The client will only request 1 server to create a new object, not multiple servers.
- 
+Normal client/server RESTful services work in a way where the Server is the owner of the objects that are created. The client requests a POST method with an object to the end-point URL. The response send by the server will contain the URL to the new object. The client will request only one server to create a new object, not multiple servers.
+
 Many OCPI modules work differently: the client is the owner of the object and only pushes the information to one or more servers for information sharing purposes.   
 For example: the CPO owns the Tariff objects and pushes them to a couple of eMSPs, so each eMSP gains knowledge of the tariffs that the CPO will charge them for their customers' sessions. eMSP might receive Tariff objects from multiple CPOs. They need to be able to make a distinction between the different tariffs from different CPOs. 
 

@@ -121,7 +121,7 @@ This can be done by following the update procedure for the same version. By send
 
 ### 3.4 Updating the credentials and resetting the token
 
-The credentials (or parts theirof, such as the token) can be updated by sending the new credentials via a PUT request to the credentials endpoint of the current version, similar to the update procedure described above.
+The credentials (or parts thereof, such as the token) can be updated by sending the new credentials via a PUT request to the credentials endpoint of the current version, similar to the update procedure described above.
 
 ### 3.5 Errors during registration
 
@@ -133,6 +133,6 @@ When two parties connect, it might happen that one of the parties expects a cert
 
 For example: a CPO could only want to connect when the CDRs endpoint is available in an eMSP system. 
 
-In case the client is starting the credentials exchange process and cannot find the endpoints it expects. Then, it is expected NOT to send the POST request with credentials to the server. Log a message/notify the administrator to contact the administrator of the server system.
+In case the client is starting the credentials exchange process and cannot find the endpoints it expects, it is expected NOT to send the POST request with credentials to the server. Log a message/notify the administrator to contact the administrator of the server system.
 
 In case the server, receiving the request from a client, cannot find the endpoints it expects, then it is expected to respond to the request with a status code: [3003](status_codes.md#3xxx-server-errors).
