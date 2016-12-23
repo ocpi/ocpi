@@ -79,7 +79,7 @@ In case a PATCH request fails, the client is expected to call the GET method to 
 
 
 ### Client owned object push
-Normal client/server RESTful services work in a way where the Server is the owner of the objects that are created. The client requests a POST method with an object to the end-point URL. The response send by the server will contain the URL to the new object. The client will only request only one server to create a new object, not multiple servers.
+Normal client/server RESTful services work in a way where the Server is the owner of the objects that are created. The client requests a POST method with an object to the end-point URL. The response send by the server will contain the URL to the new object. The client will request only one server to create a new object, not multiple servers.
 
 Many OCPI modules work differently: the client is the owner of the object and only pushes the information to one or more servers for information sharing purposes.   
 For example: the CPO owns the Tariff objects and pushes them to a couple of eMSPs, so each eMSP gains knowledge of the tariffs that the CPO will charge them for their customers' sessions. eMSP might receive Tariff objects from multiple CPOs. They need to be able to make a distinction between the different tariffs from different CPOs. 
