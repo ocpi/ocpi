@@ -97,7 +97,7 @@ Example of a URL to a client owned object
 POST is not supported for these kind of modules.
 PUT is used to send new objects to the servers. 
 
-If a client tries to access an object with a URL that has a different [country-code](credentials.md#credentials-object) and/or [party-id](credentials.md#credentials-object) then given during the [credentials](credentials.md#credentials-object) handshake, it is allowed the respond with a HTTP 404 status code, this way blocking client access to object that do not belong to them.
+If a client tries to access an object with a URL that has a different [country-code](credentials.md#credentials-object) and/or [party-id](credentials.md#credentials-object) then given during the [credentials](credentials.md#credentials-object) handshake, it is allowed the respond with a HTTP 404 status code, this way blocking client access to objects that do not belong to them.
 
 
 #### Errors
