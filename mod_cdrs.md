@@ -31,7 +31,7 @@ If the CPO, for any reason wants to view a CDR it has posted to a eMSP system, t
 eMSPs who do not support the push model need to call
 [GET](#211-get-method) on the CPOs CDRs endpoint to receive a list of CDRs.
 
-This [GET](#211-get-method) can also be used, combined with the Push model to retrieve CDRs, after the system (re)connects to a CPO, to get a list of CDRs, 'mist' during a time offline. 
+This [GET](#211-get-method) can also be used, combined with the Push model to retrieve CDRs, after the system (re)connects to a CPO, to get a list of CDRs, 'missed' during a time offline. 
 
 ## 2. Interfaces and endpoints
 
