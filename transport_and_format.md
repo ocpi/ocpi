@@ -132,8 +132,13 @@ The server should return (when the server has enough objects and the limit is th
 
 
 #### PUT
-A PUT request must specify all required fields of an object (similar to a POST request). Optional fields that are not included will revert to their default value which is either specified in the protocol or NULL.
+A PUT request must specify all required fields of an object (similar to a POST request). 
+Optional fields that are not included will revert to their default value which is either specified in the protocol or NULL.
 
+The server should return:
+
+- HTTP `200 - Ok` when the object already exsisted and is updated.
+- HTTP `201 - Created` when the object allready exsisted and is updated.
 
 #### PATCH
 A PATCH request must only specify the object's identifier (if needed to identify this object) and the fields to be updated. Any fields (both required or optional) that are left out remain unchanged.

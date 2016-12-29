@@ -4,9 +4,17 @@ There are two types of status codes:
 - Transport related (HTTP)
 - Content related (OCPI)
 
-The transport layer ends after a message is correctly parsed into a (semantically unvalidated) JSON structure. When a message does not contain a valid JSON string, the HTTP error `400 - Bad request` is returned.
+The transport layer ends after a message is correctly parsed into a (semantically unvalidated) JSON structure. 
+When a message does not contain a valid JSON string, the HTTP error `400 - Bad request` is returned.
 
-If a request is syntactically valid JSON and addresses an existing resource, no HTTP error should be returned. Those requests are supposed to have reached the OCPI layer. As is customary for RESTful APIs: if the resource does NOT exist, the server should return a HTTP 404: Not Found.  
+If a request is syntactically valid JSON and addresses an existing resource, no HTTP error should be returned. 
+Those requests are supposed to have reached the OCPI layer. As is customary for RESTful APIs: 
+if the resource does NOT exist, the server should return a HTTP `404 - Not Found`.
+
+When the server receives a valid OCPI object it should respond with:
+
+- HTTP `200 - Ok` when the object already existed and is successfully updated.
+- HTTP `201 - Created` when the object is newly created in the server system.
 
 Requests that reach the OCPI layer should return an OCPI response message with a `status_code` field as defined below.
 
