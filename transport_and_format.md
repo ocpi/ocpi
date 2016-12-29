@@ -34,9 +34,15 @@ The mimetype of the request body is `application/json` and may contain the data 
 
 
 #### GET
-A server is not required to return all objects to a client, the server might for example not send all CDRs to a client, because some CDRs do not belong to this client.    
-All GET methods that return a list of objects have pagination.
-To enable pagination of the returned list of objects, additional URL parameters are allowed for the GET request and additional headers need to be added to the response.
+A server is not required to return all objects to a client, the server might for example not send all CDRs to a client, 
+because some CDRs do not belong to this client.    
+
+All GET methods that return a list of objects have pagination, this allows a client and server to control the amount of objects 
+returned in the response to a GET request, while still enabling the client to retrieve all objects by doing multiple request 
+with different parameters. Without pagination the server had to return all objects in one response that could potentially contain millions of objects. 
+
+To enable pagination of the returned list of objects, additional URL parameters are allowed for the GET request and additional 
+headers need to be added to the response.
 
 
 ##### Paginated Request
