@@ -266,10 +266,10 @@ The endpoint response contains a [AuthorizationInfo](#31-authorizationinfo-objec
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property                | Type                                  | Card. | Description                                                                                             |
 |-------------------------|---------------------------------------|-------|---------------------------------------------------------------------------------------------------------|
-| uid                     | [string](types.md#15-string-type)(20) | 1     | Identification used by CPO system to identify this token, for example RFID hidden ID                    |
+| uid                     | [string](types.md#15-string-type)(20) | 1     | Identification used by CPO system to identify this token. Currently, in most cases, this is the RFID hidden ID as read by the RFID reader. |
 | type                    | [TokenType](#43-tokentype)            | 1     | Type of the token                                                                                       |
 | auth_id                 | [string](types.md#15-string-type)(32) | 1     | Uniquely identifies the EV Driver contract token within the eMSPs platform (and suboperator platforms). Recommended to follow the specification for eMA ID from "eMI3 standard version V1.0" (http://emi3group.com/documents-links/) "Part 2: business objects." |
-| visual_number           | [string](types.md#15-string-type)(64) | ?     | Visual readable number/identification of the Token                                                      |
+| visual_number           | [string](types.md#15-string-type)(64) | ?     | Visual readable number/identification as printed on the Token (RFID card), might be equal to the auth_id. |
 | issuer                  | [string](types.md#15-string-type)(64) | 1     | Issuing company, most of the times the name of the company printed on the token (RFID card), not necessarily the eMSP,                                                                                          |
 | valid                   | boolean                               | 1     | Is this Token valid                                                                                     |
 | whitelist               | [WhitelistType](#45-whitelisttype-enum) | 1     | Indicates what type of white-listing is allowed.                                                      |
