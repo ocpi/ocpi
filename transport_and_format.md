@@ -64,14 +64,45 @@ HTTP headers that have to be added to any paginated GET response.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | HTTP Parameter  | Description                                                                 |
 |-----------------|-----------------------------------------------------------------------------|
-| Link            | Link to the 'next' page should be provided, if this is NOT the last page. See example below. |
+| Link            | Link to the 'next' page should be provided, when this is NOT the last page. The Link should also contain any filters present in the original request. See example below. |
 | X-Total-Count   | (Custom HTTP Header) Total number of objects available in the server system |
 | X-Limit         | (Custom HTTP Header) Number of objects that are returned. Note that this is an upper limit, if there are not enough remaining objects to return, fewer objects than this upper limit number will be returned. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
-Example of a required OCPI pagination link header
+Example of a required OCPI pagination link header:
+
 ```   
-   Link: <https://www.server.com/ocpi/cpo/2.0/cdrs/?offset=5&limit=50>; rel="next"
+   Link: <https://www.server.com/ocpi/cpo/2.0/cdrs/?offset=150&limit=50>; rel="next"
+```   
+
+After the client has called the given "next" page URL above the Link parameter will most likely look like this:
+
+```   
+   Link: <https://www.server.com/ocpi/cpo/2.0/cdrs/?offset=200&limit=50>; rel="next"
+```   
+
+Example of a query with filters: Client does a GET to:
+
+```   
+   https://www.server.com/ocpi/cpo/2.0/cdrs/?date_from=2016-01-01T00:00:00Z&date_to=2016-12-31T23:59:59Z
+```   
+
+The server should return (when the server has enough objects and the limit is the amount of objects the server wants to send is 100.)
+
+```   
+   Link: <https://www.server.com/ocpi/cpo/2.0/cdrs/?offset=100&limit=100&date_from=2016-01-01T00:00:00Z&date_to=2016-12-31T23:59:59Z>; rel="next"
+```   
+
+Example of a server limiting the amount of objects returned: Client does a GET to:
+
+```   
+   https://www.server.com/ocpi/cpo/2.0/cdrs/?limit=2000
+```   
+
+The server should return (when the server has enough objects and the limit is the amount of objects the server wants to send is 100.) The `X-Limit` HTTP parameter should be set to 100 as well.
+
+```   
+   Link: <https://www.server.com/ocpi/cpo/2.0/cdrs/?offset=100&limit=100>; rel="next"
 ```   
 
 
