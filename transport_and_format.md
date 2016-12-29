@@ -65,7 +65,7 @@ HTTP headers that have to be added to any paginated GET response.
 | HTTP Parameter  | Description                                                                 |
 |-----------------|-----------------------------------------------------------------------------|
 | Link            | Link to the 'next' page should be provided, when this is NOT the last page. The Link should also contain any filters present in the original request. See example below. |
-| X-Total-Count   | (Custom HTTP Header) Total number of objects available in the server system |
+| X-Total-Count   | (Custom HTTP Header) Total number of objects available in the server system that match the give query (including the given query parameters for example: `date_to` and `date_from` but excluding `limit` and `offset`) and that are available to this client. For example: The CPO server might return less CDR objects to an eMSP then the total number of CDRs available in the CPO system. |
 | X-Limit         | (Custom HTTP Header) Number of objects that are returned. Note that this is an upper limit, if there are not enough remaining objects to return, fewer objects than this upper limit number will be returned. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
