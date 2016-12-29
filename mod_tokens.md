@@ -277,7 +277,7 @@ The endpoint response contains a [AuthorizationInfo](#31-authorizationinfo-objec
 | last_updated            | [DateTime](types.md#12-datetime-type) | 1     | Timestamp when this Token was last updated (or created).                                                             |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
-The combination of _uid_ and _type_ should be unique for every token.
+The combination of _uid_ and _type_ should be unique for every token within an eMSPs system.
 
 
 #### Example
