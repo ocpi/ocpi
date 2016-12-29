@@ -59,6 +59,22 @@ Example: With offset=0 and limit=10 the server shall return the first 10 records
 
 
 ##### Paginated Response
+For pagination to work correctly it is important that multiple calls to the same URL (including query parameters) 
+result in the same objects being returned by the server.
+For this to be the case it is important that the sequence of objects does not change. (or as little as possible)
+It is best practice to return the oldest (by creation date, not the `last_updated` field) first.
+While a client crawls over the pages (multiple GET requests every time to the 'next' page Link), a new object might be created on the server. 
+The client detects this: the `X-Total-Count` will be higher on the next call.
+But the client doesn't have to correct for this. Only the last page will be different (or an additional page). 
+So the client will not be required to crawl all pages all over again, when the client has reached to last page it has retrieved all relevant pages and is up to date.
+
+Note: Some query parameters can cause concurrency problems. For example: the `date_to` query parameter. 
+When there are for example 1000 objects matching a query for all objects with `date_to` before 2016-01-01.
+While crawling over the pages one of these objects is update. 
+The client detects this: `X-Total-Count` will be lower in a next request. 
+It is advised redo the previous GET but then with the `offset` lowered by 1 (if the `offset` was not 0) and after that continue crawling the 'next' page links.
+When an object before this page has been updated, then the client has missed 1 object.
+
 HTTP headers that have to be added to any paginated GET response.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
@@ -68,6 +84,10 @@ HTTP headers that have to be added to any paginated GET response.
 | X-Total-Count   | (Custom HTTP Header) Total number of objects available in the server system that match the give query (including the given query parameters for example: `date_to` and `date_from` but excluding `limit` and `offset`) and that are available to this client. For example: The CPO server might return less CDR objects to an eMSP then the total number of CDRs available in the CPO system. |
 | X-Limit         | (Custom HTTP Header) Number of objects that are returned. Note that this is an upper limit, if there are not enough remaining objects to return, fewer objects than this upper limit number will be returned. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
+
+
+##### Pagination Examples
 
 Example of a required OCPI pagination link header:
 
