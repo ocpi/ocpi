@@ -27,7 +27,8 @@ eMSP can call the [GET](#221-get-method) to validate the Token object in the CPO
 When a CPO is not sure about the state of the list of known Tokens, or wants to request the full 
 list as a start-up of their system, the CPO can call the [GET](#221-get-method) on the eMSPs Token endpoint to receive
 all Tokens, updating already known Tokens and adding new received Tokens to it own list of Tokens.
-This method is not for operational flow.
+This is not intended for real-time operation, requesting the full list of tokens for every authorization will put to much strain on systems. 
+It is intended for getting in-sync with the server, or to get a list of all tokens (from a server without push) every X hours.
 
 
 ### 1.3 Real-time authorization
