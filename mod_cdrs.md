@@ -187,7 +187,7 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 | total_time                                   | [number](types.md#14-number-type)                        | 1     | Total time charging, in hours.                                        |
 | total_parking_time                           | [number](types.md#14-number-type)                        | ?     | Total time not charging, in hours.                                            |
 | remark                                       | [string](types.md#15-string-type)(255)                   | ?     | Optional remark, can be used to provide addition human readable information to the CDR, for example: reason why a transaction was stopped.|
-| last_updated                                 | [DateTime](types.md#12-datetime-type)                    | 1     | Timestamp when this CDR was last updated.                                                             |
+| last_updated                                 | [DateTime](types.md#12-datetime-type)                    | 1     | Timestamp when this CDR was last updated (or created).                                                             |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 

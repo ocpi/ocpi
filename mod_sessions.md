@@ -180,7 +180,7 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
 | charging_periods                  | [ChargingPeriod](mod_cdrs.md#44-chargingperiod-class)      | *     | An optional list of charging periods that can be used to calculate and verify the total cost.                  |
 | total_cost                        | [number](types.md#14-number-type)                          | 1     | The total cost (excluding VAT) of the session in the specified currency. This is the price that the eMSP will have to pay to the CPO. |
 | status                            | [SessionStatus](#41-sessionstatus-enum)                    | 1     | The status of the session.                                                                                  |
-| last_updated                      | [DateTime](types.md#12-datetime-type)                      | 1     | Timestamp when this Session was last updated.                                                             |
+| last_updated                      | [DateTime](types.md#12-datetime-type)                      | 1     | Timestamp when this Session was last updated (or created).                                                     |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 

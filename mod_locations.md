@@ -321,7 +321,7 @@ The *Location* object describes the location and its properties where a group of
 | charging_when_closed                         | boolean                                                  | ?     | Indicates if the EVSEs are still charging outside the opening hours of the location. E.g. when the parking garage closes its barriers over night, is it allowed to charge till the next morning?  Default: **true** |
 | images                                       | [Image](#414-image-class)                                | *     | Links to images related to the location such as photos or logos.                       |
 | energy_mix                                   | [EnergyMix](#45-energymix-class)                         | ?     | Details on the energy supplied at this location.                                       |
-| last_updated                                 | [DateTime](types.md#12-datetime-type)                    | 1     | Timestamp when this Location or one of its EVSEs or Connectors were last updated.                                                             |
+| last_updated                                 | [DateTime](types.md#12-datetime-type)                    | 1     | Timestamp when this Location or one of its EVSEs or Connectors were last updated (or created).                                                             |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 #### Example
@@ -415,7 +415,7 @@ An *EVSE* object has a list of connectors which can not be used simultaneously: 
 | directions                           | [DisplayText](types.md#13-displaytext-class)       | *     | Multi-language human-readable directions when more detailed information on how to reach the EVSE from the *Location* is required.     |
 | parking_restrictions                 | [ParkingRestriction](#417-parkingrestriction-enum) | *     | The restrictions that apply to the parking spot.                       |
 | images                               | [Image](#48-image-class)                           | *     | Links to images related to the EVSE such as photos or logos.           |
-| last_updated                         | [DateTime](types.md#12-datetime-type)              | 1     | Timestamp when this EVSE or one of its Connectors was last updated.                                                             |
+| last_updated                         | [DateTime](types.md#12-datetime-type)              | 1     | Timestamp when this EVSE or one of its Connectors was last updated (or created).  |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -434,7 +434,7 @@ A connector is the socket or cable available for the EV to use. A single EVSE ma
 | amperage                           | int                                         | 1     | maximum amperage of the connector, in ampere [A].                       |
 | tariff_id                          | [string](types.md#15-string-type)(15)       | ?     | Identifier of the current charging tariff structure                     |
 | terms_and_conditions               | [URL](types.md#16-url-type)                 | ?     | URL to the operator's terms and conditions.                             |
-| last_updated                       | [DateTime](types.md#12-datetime-type)       | 1     | Timestamp when this Connectors was last updated.                                                             |
+| last_updated                       | [DateTime](types.md#12-datetime-type)       | 1     | Timestamp when this Connectors was last updated (or created).           |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 

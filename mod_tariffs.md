@@ -232,7 +232,7 @@ non of the TariffElements before this matches the current charging period.
 | tariff_alt_url      | [URL](types.md#16-url-type)                     | ?     | Alternative URL to tariff info                                                        |
 | elements            | [TariffElement](#43-tariffelement-class)        | +     | List of tariff elements                                                               |
 | energy_mix          | [EnergyMix](mod_locations.md#45energymix-class) | ?     | Details on the energy supplied with this tariff.                                     |
-| last_updated        | [DateTime](types.md#12-datetime-type)           | 1     | Timestamp when this Tariff was last updated.                                                             |
+| last_updated        | [DateTime](types.md#12-datetime-type)           | 1     | Timestamp when this Tariff was last updated (or created).                                                             |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 

@@ -273,7 +273,7 @@ The endpoint response contains a [AuthorizationInfo](#31-authorizationinfo-objec
 | valid                   | boolean                               | 1     | Is this Token valid                                                                                     |
 | whitelist               | [WhitelistType](#45-whitelisttype-enum) | 1     | Indicates what type of white-listing is allowed.                                                      |
 | language                | [string](types.md#15-string-type)(2)  | ?     | Language Code ISO 639-1. This optional field indicates the Token owner's preferred interface language. If the language is not provided or not supported then the CPO is free to choose its own language.      |
-| last_updated            | [DateTime](types.md#12-datetime-type) | 1     | Timestamp when this Token was last updated.                                                             |
+| last_updated            | [DateTime](types.md#12-datetime-type) | 1     | Timestamp when this Token was last updated (or created).                                                             |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 The combination of _uid_ and _type_ should be unique for every token.
