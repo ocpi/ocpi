@@ -6,13 +6,16 @@ Case Insensitive String. Only printable ASCII allowed.
 
 ## 1.2 DateTime *type*
  
-All timestamps are formatted as string(25) using the combined date and time format from the ISO 8601 standard. All timestamps SHALL be in UTC. The absence of the timezone designator implies a UTC timestamp.
+All timestamps are formatted as string(25) using the combined date and time format from the ISO 8601 standard. 
+All timestamps SHALL be in UTC. 
+The absence of the timezone designator implies a UTC timestamp.
 
 Example:
 
-    2015-06-29T22:39:09+02:00
     2015-06-29T20:39:09Z
     2015-06-29T20:39:09
+    2016-12-29T17:45:09Z
+    2016-12-29T17:45:09
 
 Note: +00:00 is not the same as UTC.
 

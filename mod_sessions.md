@@ -191,7 +191,7 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
 ```json
 {
 	"id": "101",
-	"start_datetime": "2015-06-29T22:39:09+02:00",
+	"start_datetime": "2015-06-29T22:39:09Z",
 	"kwh": "0.00",
 	"auth_id": "DE8ACC12E46L89",
 	"location": {
@@ -232,8 +232,8 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
 ```json
 {
 	"id": "101",
-	"start_datetime": "2015-06-29T22:39:09+02:00",
-	"end_datetime": "2015-06-29T23:50:16+02:00",
+	"start_datetime": "2015-06-29T22:39:09Z",
+	"end_datetime": "2015-06-29T23:50:16Z",
 	"kwh": "0.00",
 	"auth_id": "DE8ACC12E46L89",
 	"location": {
@@ -265,7 +265,7 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
 	},
 	"currency": "EUR",
 	"charging_periods": [{
-		"start_date_time": "2015-06-29T22:39:09+02:00",
+		"start_date_time": "2015-06-29T22:39:09Z",
 		"dimensions": [{
 			"type": "ENERGY",
 			"volume": 120
@@ -274,7 +274,7 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
 			"volume": 30
 		}]
 	}, {
-		"start_date_time": "2015-06-29T22:40:54+02:00",
+		"start_date_time": "2015-06-29T22:40:54Z",
 		"dimensions": [{
 			"type": "energy",
 			"volume": 41000
@@ -283,7 +283,7 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
 			"volume": 34
 		}]
 	}, {
-		"start_date_time": "2015-06-29T23:07:09+02:00",
+		"start_date_time": "2015-06-29T23:07:09Z",
 		"dimensions": [{
 			"type": "PARKING_TIME",
 			"volume": 0.718
