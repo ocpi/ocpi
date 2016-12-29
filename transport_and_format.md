@@ -45,9 +45,11 @@ The following table lists all the parameters that have to be supported, but migh
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Parameter | Description                                            |
 |-----------|--------------------------------------------------------|
-| offset    | The offset of the first object returned. Default is 0. |
+| offset    | The offset of the first object returned. Default is 0 (the first object). |
 | limit     | Maximum number of objects to GET. Note: the server might decide to return fewer objects, either because there are no more objects, or the server limits the maximum number of objects to return. This is to prevent, for example, overloading the system. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
+Example: With offset=0 and limit=10 the server shall return the first 10 records (if 10 objects match the request). Then next page starts with offset=10.
 
 
 ##### Paginated Response
