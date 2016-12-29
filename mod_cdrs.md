@@ -51,7 +51,7 @@ Example endpoint structure: `/ocpi/cpo/2.0/cdrs/?date_from=xxx&date_to=yyy`
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Method                  | Description                                                                      |
 |-------------------------|----------------------------------------------------------------------------------|
-| [GET](#211-get-method)  | Fetch CDRs, last updated between the {date_from} and {date_to} ([paginated](transport_and_format.md#get))    |
+| [GET](#211-get-method)  | Fetch CDRs, last updated (which in the current version of OCPI can only be the creation date/time) between the {date_from} and {date_to} ([paginated](transport_and_format.md#get))    |
 | POST                    | n/a                                                                              |
 | PUT                     | n/a                                                                              |
 | PATCH                   | n/a                                                                              |
