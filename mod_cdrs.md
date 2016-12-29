@@ -196,7 +196,7 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 	"id": "12345",
 	"start_date_time": "2015-06-29T21:39:09+02:00",
 	"stop_date_time": "2015-06-29T23:37:32+02:00",
-	"auth_id": "FA54320",
+	"auth_id": "DE8ACC12E46L89",
 	"auth_method": "WHITELIST",
 	"location": {
 		"id": "LOC1",

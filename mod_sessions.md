@@ -193,7 +193,7 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
 	"id": "101",
 	"start_datetime": "2015-06-29T22:39:09+02:00",
 	"kwh": "0.00",
-	"auth_id": "FA54320",
+	"auth_id": "DE8ACC12E46L89",
 	"location": {
 		"id": "LOC1",
 		"type": "on_street",
@@ -235,7 +235,7 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
 	"start_datetime": "2015-06-29T22:39:09+02:00",
 	"end_datetime": "2015-06-29T23:50:16+02:00",
 	"kwh": "0.00",
-	"auth_id": "FA54320",
+	"auth_id": "DE8ACC12E46L89",
 	"location": {
 		"id": "LOC1",
 		"type": "on_street",

@@ -125,7 +125,7 @@ PUT To URL: https://www.server.com/ocpi/cpo/2.0/tokens/NL/TNM/012345678
 {
   "uid": "012345678",
   "type": "RFID",
-  "auth_id": "FA54320",
+  "auth_id": "DE8ACC12E46L89",
   "visual_number": "DF000-2001-8999",
   "issuer": "TheNewMotion",
   "valid": true,
@@ -285,7 +285,7 @@ The combination of _uid_ and _type_ should be unique for every token.
 {
   "uid": "012345678",
   "type": "RFID",
-  "auth_id": "FA54320",
+  "auth_id": "DE8ACC12E46L89",
   "visual_number": "DF000-2001-8999",
   "issuer": "TheNewMotion",
   "valid": true,
