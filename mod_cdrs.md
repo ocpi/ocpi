@@ -16,7 +16,7 @@ CDRs are created by the CPO. They probably only will be sent to the eMSP that wi
 
 ### 1.1 Push model
 
-When the CPO creates CDR(s) they push them to the relevant eMSP by calling [POST](#222-post-method) on the eMSPs CDRs endpoint with the newly created CDR(s).
+When the CPO creates CDR(s) they push them to the relevant eMSP by calling [POST](#222-post-method) on the eMSPs CDRs endpoint with the newly created CDR(s). A CPO is not required to send ALL CDRs to ALL eMSPs, it is allowed to only send CDRs to the eMSP that a CDR is relevant to.
 
 CDRs should contain enough information (dimensions) to allow the eMSP to validate the total costs. 
 It is advised to send enough information to the eMSP so it can calculate its own costs for billing their customer. An eMSP might have a very different contract/pricing model with the EV driver than the tariff structure from the CPO.
@@ -31,7 +31,9 @@ If the CPO, for any reason wants to view a CDR it has posted to a eMSP system, t
 eMSPs who do not support the push model need to call
 [GET](#211-get-method) on the CPOs CDRs endpoint to receive a list of CDRs.
 
-This [GET](#211-get-method) can also be used, combined with the Push model to retrieve CDRs, after the system (re)connects to a CPO, to get a list of CDRs, 'missed' during a time offline. 
+This [GET](#211-get-method) can also be used, combined with the Push model to retrieve CDRs, after the system (re)connects to a CPO, to get a list of CDRs, 'missed' during a time offline.
+
+A CPO is not required to return all known CDRs, the CPO is allowed to return only the CDRs that are relevant for the requesting eMSP.
 
 ## 2. Interfaces and endpoints
 
