@@ -432,7 +432,7 @@ A connector is the socket or cable available for the EV to use. A single EVSE ma
 | power_type                         | [PowerType](#418-powertype-enum)            | 1     |                                                                         |
 | voltage                            | int                                         | 1     | Voltage of the connector (line to neutral for AC_3_PHASE), in volt [V]. |
 | amperage                           | int                                         | 1     | maximum amperage of the connector, in ampere [A].                       |
-| tariff_id                          | [string](types.md#15-string-type)(15)       | ?     | Identifier of the current charging tariff structure                     |
+| tariff_id                          | [string](types.md#15-string-type)(15)       | ?     | Identifier of the current charging tariff structure. For a "Free of Charge" tariff this field should be set, and point to a defined "Free of Charge" tariff. |
 | terms_and_conditions               | [URL](types.md#16-url-type)                 | ?     | URL to the operator's terms and conditions.                             |
 | last_updated                       | [DateTime](types.md#12-datetime-type)       | 1     | Timestamp when this Connectors was last updated (or created).           |
 <div><!-- ---------------------------------------------------------------------------- --></div>

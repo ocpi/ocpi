@@ -221,7 +221,10 @@ A Tariff Object consists of a list of one or more TariffElements, these elements
 When the list of _elements_ contains more then 1 element, than the first tariff in the list with matching restrictions will be used.
 
 It is advised to always set a "default" tariff, the last tariff in the list of _elements_ with no restriction. This acts as a fallback when
-non of the TariffElements before this matches the current charging period.   
+non of the TariffElements before this matches the current charging period.
+
+To define a "Free of Charge" Tariff in OCPI, a tariff has to be provided that has a `type` = `FLAT` and `price` = `0.00`. 
+See: [Free of Charge Tariff example](free-of-charge-tariff-example)
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property            | Type                                            | Card. | Description                                                                           |
@@ -368,6 +371,22 @@ Parking costs:
 			"day_of_week": ["SATURDAY"]
 		}
 	}],
+	"last_updated": "2015-06-29T20:39:09Z"
+}
+```
+
+##### Free of Charge Tariff example
+```json
+{
+    "id": "12",
+    "currency": "EUR",
+    "elements": [{
+        "price_components": [{
+            "type": "FLAT",
+            "price": "0.00",
+            "step_size": 0
+        }]
+    }],
 	"last_updated": "2015-06-29T20:39:09Z"
 }
 ```
