@@ -349,24 +349,22 @@ The *Location* object describes the location and its properties where a group of
 		],
 		"connectors": [{
 			"id": "1",
-			"status": "AVAILABLE",
 			"standard": "IEC_62196_T2",
 			"format": "CABLE",
 			"power_type": "AC_3_PHASE",
 			"voltage": 220,
 			"amperage": 16,
 			"tariff_id": "11",
-            "last_updated": "2015-06-26T10:10:02Z"
+            "last_updated": "2015-03-16T10:10:02Z"
 		}, {
 			"id": "2",
-			"status": "AVAILABLE",
 			"standard": "IEC_62196_T2",
 			"format": "SOCKET",
 			"power_type": "AC_3_PHASE",
 			"voltage": 220,
 			"amperage": 16,
 			"tariff_id": "11",
-        	"last_updated": "2015-06-28T08:12:01Z"
+        	"last_updated": "2015-03-18T08:12:01Z"
 		}],
 		"physical_reference": "1",
 		"floor_level": "-1",
