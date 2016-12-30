@@ -8,6 +8,23 @@ The OCPI protocol is based on HTTP and uses the JSON format. It follows a RESTfu
 
 The interfaces are protected on HTTP transport level, with SSL and token based authentication. Please note that this mechanism does **not** require client side certificates for authentication, only server side certificates in order to setup a secure SSL connection.
 
+### Pull and Push
+
+OCPI supports both 'pull' and 'push' models. 
+
+- Push: Changes in objects, and new objects are send (semi) real-time to receiver.
+- Pull: Receiver request a (full) list of objects every X times.
+
+OCPI doesn't require parties to implement 'push'. 
+'pull' is required, a receiver needs to be able to get 'in-sync' after a period of connection loss.
+
+It is possible to implement a 'pull' only OCPI implementation, it might be a good starting point for an OCPI implementation.
+However, it is strongly advised to implement 'push' for production systems that have to handle some load, 
+especially when a number of clients are requesting long lists frequently. 
+'Push' implementation tend to use much less resources.
+It is therefor advised to clients 'pulling' lists from a server to do this on a relative low polling interval: think in hours, not minutes, and to introduce some splay (randomize the length of the poll interface a bit).   
+
+
 ### Request format
 
 Each HTTP request must add a 'Authorization' header. The header looks as follows:
