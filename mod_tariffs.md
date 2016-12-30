@@ -400,6 +400,11 @@ Parking costs:
 | step_size       | int                                                  | 1     | Minimum amount to be billed. This unit will be billed in this step_size blocks. For example: if type is time and  step_size is 300, then time will be billed in blocks of 5 minutes, so if 6 minutes is used, 10 minutes (2 blocks of step_size) will be billed. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
+The `step_size` also depends on the `type`, every `type` (except `FLAT`) defines a step_size multiplier. this is the size of every 'step' and the unit. 
+For example: `PARKING_TIME` has 'step_size multiplier: 1 second' That means that the `step_size` of a `PriceComponent` is muliplied by 1 second. 
+Thus a `step_size = 300` means 300 seconds. 
+
+
 ### 4.3 TariffElement *class*
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
@@ -413,12 +418,12 @@ Parking costs:
 ### 4.4 TariffDimensionType *enum*
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Value        | Description                                                        |
-| ------------ | ------------------------------------------------------------------ |
-| ENERGY       | defined in kWh, default step_size is 1 Wh                          |
-| FLAT         | flat fee, no unit                                                  |
-| PARKING_TIME | time not charging: defined in hours, default step_size is 1 second |
-| TIME         | time charging: defined in hours, default step_size is 1 second     |
+| Value        | Description                                                         |
+| ------------ | ------------------------------------------------------------------- |
+| ENERGY       | defined in kWh, step_size multiplier: 1 Wh                          |
+| FLAT         | flat fee, no unit                                                   |
+| PARKING_TIME | time not charging: defined in hours, step_size multiplier: 1 second |
+| TIME         | time charging: defined in hours, step_size multiplier: 1 second     |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
