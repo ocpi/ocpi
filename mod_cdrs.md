@@ -196,8 +196,8 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 ```json
 {
 	"id": "12345",
-	"start_date_time": "2015-06-29T21:39:09+02:00",
-	"stop_date_time": "2015-06-29T23:37:32+02:00",
+	"start_date_time": "2015-06-29T21:39:09Z",
+	"stop_date_time": "2015-06-29T23:37:32Z",
 	"auth_id": "DE8ACC12E46L89",
 	"auth_method": "WHITELIST",
 	"location": {
@@ -223,9 +223,12 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 				"power_type": "AC_1_PHASE",
 				"voltage": 230,
 				"amperage": 64,
-				"tariff_id": "11"
-			}]
-		}
+				"tariff_id": "11",
+                "last_updated": "2015-06-29T21:39:01Z"
+			}],
+            "last_updated": "2015-06-29T21:39:01Z"
+		},
+        "last_updated": "2015-06-29T21:39:01Z"
 	},
 	"currency": "EUR",
 	"tariffs": [{
@@ -236,11 +239,12 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 				"type": "TIME",
 				"price": "2.00",
 				"step_size": 300
-			}]
+			}],
+            "last_updated": "2015-02-02T14:15:01Z"
 		}]
 	}],
 	"charging_periods": [{
-		"start_date_time": "2015-06-29T21:39:09+02:00",
+		"start_date_time": "2015-06-29T21:39:09Z",
 		"dimensions": [{
 			"type": "TIME",
 			"volume": "1.973"
@@ -253,7 +257,8 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 	}, {
 		"type": "ENERGY",
 		"volume": "15.342"
-	}]
+	}],
+    "last_updated": "2015-06-29T22:01:13Z"
 }
 ```
 

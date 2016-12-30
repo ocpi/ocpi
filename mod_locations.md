@@ -355,7 +355,8 @@ The *Location* object describes the location and its properties where a group of
 			"power_type": "AC_3_PHASE",
 			"voltage": 220,
 			"amperage": 16,
-			"tariff_id": "11"
+			"tariff_id": "11",
+            "last_updated": "2015-06-26T10:10:02Z"
 		}, {
 			"id": "2",
 			"status": "AVAILABLE",
@@ -364,10 +365,12 @@ The *Location* object describes the location and its properties where a group of
 			"power_type": "AC_3_PHASE",
 			"voltage": 220,
 			"amperage": 16,
-			"tariff_id": "11"
+			"tariff_id": "11",
+        	"last_updated": "2015-06-28T08:12:01Z"
 		}],
 		"physical_reference": "1",
-		"floor_level": "-1"
+		"floor_level": "-1",
+     	"last_updated": "2015-06-28T08:12:01Z"
 	}, {
         "uid": "3257",
 		"id": "BE-BEC-E041503002",
@@ -386,11 +389,13 @@ The *Location* object describes the location and its properties where a group of
 			"tariff_id": "12"
 		}],
 		"physical_reference": "2",
-		"floor_level": "-2"
+		"floor_level": "-2",
+     	"last_updated": "2015-06-29T20:39:09Z"
 	}],
 	"operator": {
 		"name": "BeCharged"
-	}
+	},
+	"last_updated": "2015-06-29T20:39:09Z"
 }
 ```
 
