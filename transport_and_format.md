@@ -340,7 +340,8 @@ The URLs of the endpoints in this document are descriptive only. The exact URL c
 During communication over OCPI, it might happen that one of the communication parties is unreachable for an amount of time. 
 OCPI works event based, new messages and status are pushed from one party to another. When communication is lost, updates cannot be delivered.
 
-OCPI messages should not be queued.
+OCPI messages should not be queued. When a client does a POST, PUT or PATCH request and that requests fails or times out, 
+the client should not queue the message and retry the same message again on a later time. 
 
 When the connection is re-established, it is up to the client of a connection to GET the current status from to server to get back in-sync. 
 For example: 
