@@ -2,7 +2,7 @@
 
 ## Changes between OCPI 2.1 and 2.1.1
 
-Lots of typos and textual improvements.
+Lots of typos fixed and textual improvements.
 
 The following changes to messages/objects etc.
 <div><!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --></div>
