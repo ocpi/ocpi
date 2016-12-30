@@ -393,11 +393,11 @@ Parking costs:
 ### 4.2 PriceComponent *class*
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Property        | Type                                            | Card. | Description                                      |
-|-----------------|-------------------------------------------------|-------|--------------------------------------------------|
-| type            | [TariffDimensionType](#44-tariffdimensiontype-enum) | 1     | Type of tariff dimension |
-| price           | [number](types.md#14-number-type)               | 1     | price per unit for this tariff dimension         |
-| step_size       | int                                             | 1     | Minimum amount to be billed. This unit will be billed in this step_size blocks. For example: if type is time and  step_size is 300, then time will be billed in blocks of 5 minutes, so if 6 minutes is used, 10 minutes (2 blocks of step_size) will be billed. |
+| Property        | Type                                                 | Card. | Description                                      |
+|-----------------|------------------------------------------------------|-------|--------------------------------------------------|
+| type            | [TariffDimensionType](#44-tariffdimensiontype-enum)  | 1     | Type of tariff dimension                         |
+| price           | [number](types.md#14-number-type)                    | 1     | price per unit for this tariff dimension         |
+| step_size       | int                                                  | 1     | Minimum amount to be billed. This unit will be billed in this step_size blocks. For example: if type is time and  step_size is 300, then time will be billed in blocks of 5 minutes, so if 6 minutes is used, 10 minutes (2 blocks of step_size) will be billed. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 ### 4.3 TariffElement *class*
