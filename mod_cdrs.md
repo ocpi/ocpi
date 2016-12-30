@@ -247,16 +247,16 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 		"start_date_time": "2015-06-29T21:39:09Z",
 		"dimensions": [{
 			"type": "TIME",
-			"volume": "1.973"
+			"volume": 1.973
 		}]
 	}],
-	"total_cost": "4,00",
+	"total_cost": 4,00,
 	"total_usage": [{
 		"type": "TIME",
-		"volume": "1.973"
+		"volume": 1.973
 	}, {
 		"type": "ENERGY",
-		"volume": "15.342"
+		"volume": 15.342
 	}],
     "last_updated": "2015-06-29T22:01:13Z"
 }

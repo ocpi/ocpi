@@ -383,7 +383,7 @@ Parking costs:
     "elements": [{
         "price_components": [{
             "type": "FLAT",
-            "price": "0.00",
+            "price": 0.00,
             "step_size": 0
         }]
     }],

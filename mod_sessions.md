@@ -156,7 +156,7 @@ Same as the [PUT](#222-put-method) method, but only the fields/objects that have
 PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
 
 {
-  	"total_cost": "0.60"
+  	"total_cost": 0.60
 }
 ```
 
@@ -192,7 +192,7 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
 {
 	"id": "101",
 	"start_datetime": "2015-06-29T22:39:09Z",
-	"kwh": "0.00",
+	"kwh": 0.00,
 	"auth_id": "DE8ACC12E46L89",
 	"location": {
 		"id": "LOC1",
@@ -215,8 +215,8 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
 				"standard": "IEC_62196_T2",
 				"format": "SOCKET",
 				"power_type": "AC_1_PHASE",
-				"voltage": "230",
-				"amperage": "64",
+				"voltage": 230,
+				"amperage": 64,
 				"tariff_id": "11",
                 "last_updated": "2015-06-29T22:39:09Z"
 			}],
@@ -225,7 +225,7 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
         "last_updated": "2015-06-29T22:39:09Z"
 	},
 	"currency": "EUR",
-	"total_cost": "2.50",
+	"total_cost": 2.50,
 	"status": "PENDING",
     "last_updated": "2015-06-29T22:39:09Z"
 }
@@ -238,7 +238,7 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
 	"id": "101",
 	"start_datetime": "2015-06-29T22:39:09Z",
 	"end_datetime": "2015-06-29T23:50:16Z",
-	"kwh": "0.00",
+	"kwh": 41.00,
 	"auth_id": "DE8ACC12E46L89",
 	"location": {
 		"id": "LOC1",
@@ -261,8 +261,8 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
 				"standard": "IEC_62196_T2",
 				"format": "SOCKET",
 				"power_type": "AC_1_PHASE",
-				"voltage": "230",
-				"amperage": "64",
+				"voltage": 230,
+				"amperage": 64,
 				"tariff_id": "11",
                 "last_updated": "2015-06-29T23:09:10Z"
 			}],
@@ -296,7 +296,7 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
 			"volume": 0.718
 		}]
 	}],
-	"total_cost": "8.50",
+	"total_cost": 8.50,
 	"status": "COMPLETED",
 	"last_updated": "2015-06-29T23:09:10Z"
 }
