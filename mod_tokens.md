@@ -273,7 +273,7 @@ The endpoint response contains a [AuthorizationInfo](#31-authorizationinfo-objec
 | visual_number           | [string](types.md#15-string-type)(64) | ?     | Visual readable number/identification as printed on the Token (RFID card), might be equal to the auth_id. |
 | issuer                  | [string](types.md#15-string-type)(64) | 1     | Issuing company, most of the times the name of the company printed on the token (RFID card), not necessarily the eMSP,                                                                                          |
 | valid                   | boolean                               | 1     | Is this Token valid                                                                                     |
-| whitelist               | [WhitelistType](#45-whitelisttype-enum) | 1     | Indicates what type of white-listing is allowed.                                                      |
+| whitelist               | [WhitelistType](#44-whitelisttype-enum) | 1     | Indicates what type of white-listing is allowed.                                                      |
 | language                | [string](types.md#15-string-type)(2)  | ?     | Language Code ISO 639-1. This optional field indicates the Token owner's preferred interface language. If the language is not provided or not supported then the CPO is free to choose its own language.      |
 | last_updated            | [DateTime](types.md#12-datetime-type) | 1     | Timestamp when this Token was last updated (or created).                                                             |
 <div><!-- ---------------------------------------------------------------------------- --></div>
@@ -335,7 +335,7 @@ References to location details.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
-### 4.5 WhitelistType *enum*
+### 4.4 WhitelistType *enum*
 
 Defines when authorization of a Token by the CPO is allowed. 
 
