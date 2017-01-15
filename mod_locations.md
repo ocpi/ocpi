@@ -721,7 +721,7 @@ The recommended dimensions for logos are exactly 512 pixels wide and 512 pixels 
 | url        | [URL](types.md#16-url-type)              | 1     | URL from where the image data can be fetched through a web browser. |
 | thumbnail  | [URL](types.md#16-url-type)              | ?     | URL from where a thumbnail of the image can be fetched through a webbrowser. |
 | category   | [ImageCategory](#415-imagecategory-enum) | 1     | Describes what the image is used for. |
-| type       | string(4)                                | 1     | Image type like: gif, jpeg, png, svg  |
+| type       | [string](types.md#15-string-type)(4)     | 1     | Image type like: gif, jpeg, png, svg  |
 | width      | int(5)                                   | ?     | Width of the full scale image         |
 | height     | int(5)                                   | ?     | Height of the full scale image        |
 <div><!-- ---------------------------------------------------------------------------- --></div>
@@ -811,8 +811,8 @@ Regular recurring operation or access hours
 | Field Name    | Field Type   | Card.   | Description                                                                             |
 |---------------|--------------|---------|-----------------------------------------------------------------------------------------|
 | weekday       |  int(1)      |  1      |  Number of day in the week, from Monday (1) till Sunday (7)                             |
-| period_begin  |  string(5)   |  1      |  Begin of the regular period given in hours and minutes. Must be in 24h format with leading zeros. Example: "18:15". Hour/Minute separator: ":" Regex: [0-2][0-9]:[0-5][0-9]|
-| period_end    |  string(5)   |  1      |  End of the regular period, syntax as for period_begin. Must be later than period_begin.|
+| period_begin  |  [string](types.md#15-string-type)(5)   |  1      |  Begin of the regular period given in hours and minutes. Must be in 24h format with leading zeros. Example: "18:15". Hour/Minute separator: ":" Regex: [0-2][0-9]:[0-5][0-9]|
+| period_end    |  [string](types.md#15-string-type)(5)   |  1      |  End of the regular period, syntax as for period_begin. Must be later than period_begin.|
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
