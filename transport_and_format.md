@@ -38,13 +38,13 @@ The literal 'Token' indicates that the token based authentication mechanism is u
 The request method can be any of [GET](#get), [PUT](#put), [PATCH](#patch) or DELETE. The OCPI protocol uses them in a way similar to REST APIs.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Method          | Description                                        |
-|-----------------|----------------------------------------------------|
-| [GET](#get)     | Fetches objects or information.                    |
-| POST            | Creates new objects or information.                |
-| [PUT](#put)     | Updates existing objects or information.           |
-| [PATCH](#patch) | Partially updates existing objects or information. |
-| DELETE          | Removes existing objects or information.           |
+| Method           | Description                          
+|------------------|-------------------------------------------------------|
+| [GET](#get)      | Fetches objects or information. |
+| POST             | Creates new objects or information. |
+| [PUT](#put)      | Updates existing objects or information. |
+| [PATCH](#patch)  | Partially updates existing objects or information. |
+| DELETE           | Removes existing objects or information. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 The mimetype of the request body is `application/json` and may contain the data as documented for each endpoint.

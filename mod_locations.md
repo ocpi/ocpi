@@ -697,11 +697,11 @@ Opening and access hours of the location.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Field Name                       | Field Type                                     | Card.   | Description                                                         |
 |----------------------------------|------------------------------------------------|---------|---------------------------------------------------------------------|
-| *Choice: one of two*             |                                                |         |                                                                     |
-|  > regular_hours                 |  [RegularHours](#419-regularhours-class)       |  *      |  Regular hours, weekday based. Should not be set for representing 24/7 as this is the most common case. |
-|  > twentyfourseven               |  boolean                                       |  1      |  True to represent 24 hours a day and 7 days a week, except the given exceptions. |
-| exceptional_openings             | [ExceptionalPeriod](#410-exceptionalperiod-class)| *     |  Exceptions for specified calendar dates, time-range based. Periods the station is operating/accessible. Additional to regular hours. May overlap regular rules. |
-| exceptional_closings             | [ExceptionalPeriod](#410-exceptionalperiod-class)| *     |  Exceptions for specified calendar dates, time-range based. Periods the station is not operating/accessible. Overwriting regularHours and exceptionalOpenings. Should not overlap exceptionalOpenings. |
+| *Choice: one of two*             |                                                   |         |                                                                     |
+|  > regular_hours                 |  [RegularHours](#419-regularhours-class)          | *     |  Regular hours, weekday based. Should not be set for representing 24/7 as this is the most common case. |
+|  > twentyfourseven               |  boolean                                          | 1     |  True to represent 24 hours a day and 7 days a week, except the given exceptions. |
+| exceptional_openings             | [ExceptionalPeriod](#410-exceptionalperiod-class) | *     |  Exceptions for specified calendar dates, time-range based. Periods the station is operating/accessible. Additional to regular hours. May overlap regular rules. |
+| exceptional_closings             | [ExceptionalPeriod](#410-exceptionalperiod-class) | *     |  Exceptions for specified calendar dates, time-range based. Periods the station is not operating/accessible. Overwriting regularHours and exceptionalOpenings. Should not overlap exceptionalOpenings. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -794,11 +794,11 @@ for different purposes.
 Regular recurring operation or access hours
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Field Name    | Field Type   | Card.   | Description                                                                             |
-|---------------|--------------|---------|-----------------------------------------------------------------------------------------|
-| weekday       |  int(1)      |  1      |  Number of day in the week, from Monday (1) till Sunday (7)                             |
-| period_begin  |  [string](types.md#15-string-type)(5)   |  1      |  Begin of the regular period given in hours and minutes. Must be in 24h format with leading zeros. Example: "18:15". Hour/Minute separator: ":" Regex: [0-2][0-9]:[0-5][0-9]|
-| period_end    |  [string](types.md#15-string-type)(5)   |  1      |  End of the regular period, syntax as for period_begin. Must be later than period_begin.|
+| Field Name    | Field Type                          | Card.   | Description                                                                             |
+|---------------|-------------------------------------|---------|-----------------------------------------------------------------------------------------|
+| weekday       |  int(1)                               |  1      |  Number of day in the week, from Monday (1) till Sunday (7)                             |
+| period_begin  |  [string](types.md#15-string-type)(5) |  1      |  Begin of the regular period given in hours and minutes. Must be in 24h format with leading zeros. Example: "18:15". Hour/Minute separator: ":" Regex: [0-2][0-9]:[0-5][0-9]|
+| period_end    |  [string](types.md#15-string-type)(5) |  1      |  End of the regular period, syntax as for period_begin. Must be later than period_begin.|
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
