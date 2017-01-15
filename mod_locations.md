@@ -213,7 +213,7 @@ This is the most common type of update message to notify eMSPs that an EVSE (EVS
 PATCH To URL: https://www.server.com/ocpi/emsp/2.0/locations/NL/TNM/1012/3255
 
 {
-	"status": "CHARGING",
+	"status": "CHARGING"
 }
 ```
 
@@ -226,7 +226,7 @@ In this example the name of location 1012 is updated.
 PATCH To URL: https://www.server.com/ocpi/emsp/2.0/locations/NL/TNM/1012
 
 {
-	"name": "Interparking Gent Zuid",
+	"name": "Interparking Gent Zuid"
 }
 ```
 
@@ -265,7 +265,7 @@ PUT To URL: https://www.server.com/ocpi/emsp/2.0/locations/NL/TNM/1012/3256
 		}
 	],
 	"physical_reference": 3,
-	"floor": -1,
+	"floor": -1
 }
 ```
 
@@ -278,7 +278,7 @@ An EVSE can be deleted by updating its *status* property.
 PATCH To URL: https://www.server.com/ocpi/emsp/2.0/locations/NL/TNM/1012/3256
 
 {
-	"status": "REMOVED",
+	"status": "REMOVED"
 }
 ```
 
