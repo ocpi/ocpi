@@ -108,27 +108,14 @@ The Module identifiers for each endpoint are in the beginning of each *Module* c
 | [Tokens](mod_tokens.md#tokens-module)                             | tokens        | &nbsp;                                                           |
 <div><!-- ----------------------------------------------------------------------------------------------------------------------------------------------------- --></div>
 
-<!--
-  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
--->
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-<!--
-  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
--->
 
 ### VersionNumber *enum*
 
 List of known versions.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Value    | Description                         |
-|----------|-------------------------------------|
+| Value    | Description                                                                            |
+|----------|----------------------------------------------------------------------------------------|
 | 2.0      | OCPI version 2.0.                   |
 | 2.1      | OCPI version 2.1. (DEPRECATED, do not use, use 2.1.1 instead) |
 | 2.1.1    | OCPI version 2.1.1. (this version)  |

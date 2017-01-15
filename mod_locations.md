@@ -726,20 +726,6 @@ The recommended dimensions for logos are exactly 512 pixels wide and 512 pixels 
 | height     | int(5)                                   | ?     | Height of the full scale image        |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
-<!--
-  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
--->
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-<!--
-  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
--->
-
 
 ### 4.15 ImageCategory *enum*
 
