@@ -33,7 +33,7 @@ It is intended for getting in-sync with the server, or to get a list of all toke
 
 ### 1.3 Real-time authorization
 
-An eMSP might want their Tokens to be authorization 'real-time', not white-listed. For this the eMSP has to implement the [POST Authorize request](#222-post-method) and set the Token.allow_whitelist field to FALSE for Tokens they want to have authorized 'real-time'.
+An eMSP might want their Tokens to be authorization 'real-time', not white-listed. For this the eMSP has to implement the [POST Authorize request](#222-post-method) and set the Token.whitelist field to `NEVER` for Tokens they want to have authorized 'real-time'.
 
 If an eMSP doesn't want real-time authorization, the [POST Authorize request](#222-post-method) doesn't have to be implemented as long as all their Tokens have Token.whitelist set to `ALWAYS`.  
 
@@ -130,7 +130,7 @@ PUT To URL: https://www.server.com/ocpi/cpo/2.0/tokens/NL/TNM/012345678
   "visual_number": "DF000-2001-8999",
   "issuer": "TheNewMotion",
   "valid": true,
-  "allow_whitelist": true,
+  "whitelist": "ALWAYS",
   "last_updated": "2015-06-29T22:39:09Z"
 }
 ```
@@ -291,7 +291,7 @@ The combination of _uid_ and _type_ should be unique for every token within an e
   "visual_number": "DF000-2001-8999",
   "issuer": "TheNewMotion",
   "valid": true,
-  "allow_whitelist": true,
+  "whitelist": "ALLOWED",
   "last_updated": "2015-06-29T22:39:09Z"
 }
 ```
