@@ -74,8 +74,8 @@ perl -p -i.bak -e 's/\|\s*(?=\n)//g' all.md
 pandoc \
    +RTS -V0 -RTS \
    --template=ocpi.latex \
-  -V fontfamily="arev" -V fontsize=10pt --number-sections \
-  -V geometry:margin=1in -V papersize:"a4paper" \
+  -V fontfamily:"arev" -V fontsize:8pt --number-sections \
+  -V geometry:margin=1in -V papersize:"a4paper" -V documentclass:"extarticle" \
   -V title-meta:"Open Charge Point Interface $PROTOCOL_VERSION" -V title:"OCPI $PROTOCOL_VERSION" \
   -V subtitle:"Open Charge Point Interface $PROTOCOL_VERSION, document version: $DOCUMENT_VERSION"\
   -V author:"https://github.com/ocpi" \
