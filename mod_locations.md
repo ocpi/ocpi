@@ -893,8 +893,8 @@ This type is used to schedule status periods in the future. The eMSP can provide
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property         | Type                                  | Card. | Description                                            |
 |------------------|---------------------------------------|-------|--------------------------------------------------------|
-| period_begin     | [DateTime](types.md#12_datetime_type) | 1     | Begin of the scheduled period.                         |
-| period_end       | [DateTime](types.md#12_datetime_type) | ?     | End of the scheduled period, if known.                 |
+| period_begin     | [DateTime](types.md#12-datetime-type) | 1     | Begin of the scheduled period.                         |
+| period_end       | [DateTime](types.md#12-datetime-type) | ?     | End of the scheduled period, if known.                 |
 | status           | [Status](#420-status-enum)            | 1     | Status value during the scheduled period.              |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
