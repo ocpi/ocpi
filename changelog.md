@@ -9,6 +9,7 @@ The following changes to messages/objects etc.
 <div><!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --></div>
 | Context (Module / Object)              | Expected Impact: eMSP / CPO | Expected Effort: eMSP / CPO | Description                                                                         
 |----------------------------------------|-----------------------------|-----------------------------|------------------------------------------------------------------------------------|
+| CDRs / CDR object                      | Minor / Minor               | Minimal / Minimal           | field: Session.stop_date_time is changed from optional (?) to required (1).
 | Sessions / Session object              | Minor / Minor               | Minimal / Minimal           | field: Session.auth_id length changed from 15 to 32 this was THE bug in 2.1.
 | Sessions / Session object              | Minor / Minor               | Minimal / Minimal           | field: Session.total_cost is changed from required (1) to optional (?).
 | Tokens / Token object                  | Minor / Minor               | Minimal / Minimal           | field: Token.uid length changed from 15 to 20 to match OCPP 1.5/1.6 specification.
