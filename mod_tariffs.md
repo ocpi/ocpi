@@ -146,6 +146,22 @@ In the put request the new or updated Tariff object is sent.
 | [Tariff](#31-tariff-object)     | 1     | New or updated Tariff object             |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
 ##### Request Parameters
 
 The following parameters can be provided as URL segments.
@@ -212,6 +228,28 @@ The following parameters can be provided as URL segments.
 | tariff_id         | [string](types.md#15-string-type)(36) | yes      | Tariff.id of the Tariff object to delete.                                     |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
 
 ## 3. Object description
 

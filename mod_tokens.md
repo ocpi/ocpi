@@ -136,6 +136,24 @@ PUT To URL: https://www.server.com/ocpi/cpo/2.0/tokens/NL/TNM/012345678
 ```
 
 
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
 #### 2.1.2 __PATCH__ Method
 
 Same as the [PUT](#212-put-method) method, but only the fields/objects that have to be updated have to be present, other fields/objects that are not specified are considered unchanged.
@@ -261,6 +279,48 @@ The endpoint response contains a [AuthorizationInfo](#31-authorizationinfo-objec
 | info      | [DisplayText](types.md#13-displaytext-class)       | ?     | Optional display text, additional information to the EV driver.                       |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
 
 ### 3.2 _Token_ Object
 

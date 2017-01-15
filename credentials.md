@@ -49,6 +49,23 @@ Informs the server that its credentials to access the client's system are now in
 
 This must return a `HTTP status code 405: method not allowed` if the client was not registered.
 
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
 
 ## 2. Object description
 

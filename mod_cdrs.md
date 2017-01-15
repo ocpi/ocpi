@@ -59,6 +59,16 @@ Example endpoint structure: `/ocpi/cpo/2.0/cdrs/?date_from=xxx&date_to=yyy`
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
+&nbsp;
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
 #### 2.1.1 __GET__ Method
 
 Fetch CDRs from the CPO systems. 
@@ -132,6 +142,28 @@ The endpoint returns the requested CDR, if it exists
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
 #### 2.2.2 POST Method
 
 Creates a new CDR.
@@ -190,6 +222,24 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 | last_updated                                 | [DateTime](types.md#12-datetime-type)                    | 1     | Timestamp when this CDR was last updated (or created).                                                             |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
 
 #### Example of a CDR
 

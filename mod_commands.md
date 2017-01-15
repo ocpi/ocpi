@@ -59,6 +59,24 @@ Example endpoint structure: `/ocpi/cpo/2.0/commands/{command}`
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
 #### 2.1.1 __POST__ Method
 
 ##### Request Parameters
@@ -115,6 +133,32 @@ Example endpoint structure:
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
 #### 2.2.1 __POST__ Method
 
 ##### Request Parameters
@@ -162,6 +206,23 @@ A reservation can be replaced/updated by sending a `RESERVE_NOW` request with th
 | evse_uid                     | [string](types.md#15-string-type)(39)  | ?     | Optional EVSE.uid of the EVSE of this Location if a specific EVSE has to be reserved.                                                           |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
+
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
 
 ### 3.3 _StartSession_ Object
 
@@ -216,6 +277,20 @@ The command requested.
 | UNKNOWN_SESSION             | The Session in the requested command is not known by this CPO.                             |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
 
 ### 4.2 CommandType *enum*
 

@@ -59,6 +59,16 @@ This request is [paginated](transport_and_format.md#get), so also supports the [
 | limit      | int                                   | no       | Maximum number of objects to GET.                                             |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
+&nbsp;
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
 ##### Response Data
 
 The response contains a list of Session objects that match the given parameters in the request, the header will contain the [pagination](transport_and_format.md#paginated-response) related headers.  
@@ -132,6 +142,23 @@ The request contains the new or updated Session object.
 |---------------------------------|-------|------------------------------------------|
 | [Session](#31-session-object)   | 1     | new Session object.                      |
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
 
 ##### Request Parameters
 
