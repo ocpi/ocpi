@@ -3,17 +3,20 @@
 ## OCPI 2.1.1
 
 During implementation of OCPI 2.1, a number of bugs in the message definition were found.
-This forced us to release a bug fix: OCPI 2.1.1. It should not 
+This forced us to release a bug fix: OCPI 2.1.1. 
 With the release of OCPI 2.1.1: OCPI 2.1 is deprecated, 2.1 should no longer used and replaced by 2.1.1.
 It should be a small effort to upgrade an existing 2.1 implementation to 2.1.1. 
 
-## OCPI 2.1.1 - DRAFT1
-This document is DRAFT1
-There are still a couple of open issues, these are all message level changes that need to be discussed with the hole OCPI community.
-We hope to do this soon. This document will be update and released as RC1: Release Candidate 1. 
+## OCPI 2.1.1 - RC1
+This document is: Release Candidate 1 (RC1)
+
+All known bugs, typos and textual improvements have been fixed. 
+A number of high priority issues, not necessarily bugs, but requested by the OCPI community have also been fixed.
+For more info on message level changes see [changelog](changelog.md#changelog).
+ 
 We want to prevent running into the same problem as we had with OCPI 2.1.
 
-We will make 2.1.1 FINAL after a couple of implementation has successfully tests against each other and not bug are found.
+We will make 2.1.1 FINAL after a couple of implementation has successfully tests against each other and no bugs are found.
  
 
 ## Introduction and background

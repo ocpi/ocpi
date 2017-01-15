@@ -46,8 +46,8 @@ Fetch all supported OCPI versions of this CPO or eMSP.
 ```json
 [
     {
-        "version": "1.9",
-        "url": "https://example.com/ocpi/cpo/1.9/"
+        "version": "2.1.1",
+        "url": "https://example.com/ocpi/cpo/2.1.1/"
     },
     {
         "version": "2.0",
@@ -130,7 +130,8 @@ List of known versions.
 | Value    | Description                         |
 |----------|-------------------------------------|
 | 2.0      | OCPI version 2.0.                   |
-| 2.1      | OCPI version 2.1. (this version)    |
+| 2.1      | OCPI version 2.1. (DEPRECATED, do not use, use 2.1.1 instead) |
+| 2.1.1    | OCPI version 2.1.1. (this version)  |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 

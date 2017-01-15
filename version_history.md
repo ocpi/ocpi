@@ -13,6 +13,7 @@ NoDerivatives 4.0 International Public License*<br/>
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Version   | Date       | Description                                      |
 |-----------|------------|--------------------------------------------------|
+| 2.1.1-RC1 | 15-01-2017 | Fixed the last 4 issues after consulting with the OCPI community.  |
 | 2.1.1-DRAFT1 | 30-12-2016 | Fixed 3 bugs found in OCPI 2.1, lots of small textual improvements: see [changelog](changelog.md#changelog)  |
 | 2.1       | 08-04-2016 | Added [command module](mod_command.md#commands-module).<br/> Added support for [real-time authorization](mod_tokens.md#222-post-method).<br/> Lots of small improvements: see [changelog](changelog.md#changelog)  |
 | 2.0-d2    | 15-02-2016 | 2nd documentation revision of the OCPI 2.0 spec. <br/> Only documentation updated: ConnectorType of Connector<br/> was not visible, credentials clarified, location URL<br/> segments incorrect (now string, was int), <br/>minor textual updates.<br/> DateTime with timezones is still an issue |
