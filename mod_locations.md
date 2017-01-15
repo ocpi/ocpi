@@ -188,7 +188,10 @@ This is an information push message, the objects pushed will not be owned by the
 | connector_id      | [string](types.md#15-string-type)(36) | no       | Connector.id, required when a Connector object is send/replaced.              |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
-#### Request Body
+
+##### Request Body
+
+The request contains the new/updated object.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Type                                | Card. | Description                                            |
