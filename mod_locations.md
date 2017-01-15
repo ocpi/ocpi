@@ -98,8 +98,8 @@ The following parameters can be provided as URL segments.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Parameter         | Datatype                              | Required | Description                                                                   |
 |-------------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
-| location_id       | [string](types.md#15-string-type)(15) | yes      | Location.id of the Location object to retrieve.                               |
-| evse_uid          | [string](types.md#15-string-type)(15) | no       | Evse.uid, required when requesting an EVSE or Connector object.               |
+| location_id       | [string](types.md#15-string-type)(39) | yes      | Location.id of the Location object to retrieve.                               |
+| evse_uid          | [string](types.md#15-string-type)(39) | no       | Evse.uid, required when requesting an EVSE or Connector object.               |
 | connector_id      | [string](types.md#15-string-type)(15) | no       | Connector.id, required when requesting a Connector object.                    |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
@@ -150,8 +150,8 @@ The following parameters can be provided as URL segments.
 |-------------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
 | country_code      | [string](types.md#15-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
 | party_id          | [string](types.md#15-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
-| location_id       | [string](types.md#15-string-type)(15) | yes      | Location.id of the Location object to retrieve.                               |
-| evse_uid          | [string](types.md#15-string-type)(15) | no       | Evse.uid, required when requesting an EVSE or Connector object.               |
+| location_id       | [string](types.md#15-string-type)(39) | yes      | Location.id of the Location object to retrieve.                               |
+| evse_uid          | [string](types.md#15-string-type)(39) | no       | Evse.uid, required when requesting an EVSE or Connector object.               |
 | connector_id      | [string](types.md#15-string-type)(15) | no       | Connector.id, required when requesting a Connector object.                    |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
@@ -183,8 +183,8 @@ This is an information push message, the objects pushed will not be owned by the
 |-------------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
 | country_code      | [string](types.md#15-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
 | party_id          | [string](types.md#15-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
-| location_id       | [string](types.md#15-string-type)(15) | yes      | Location.id of the new Location object, or the Location of which an EVSE or Location object is send |
-| evse_uid          | [string](types.md#15-string-type)(15) | no       | Evse.uid, required when an EVSE or Connector object is send/replaced.         |
+| location_id       | [string](types.md#15-string-type)(39) | yes      | Location.id of the new Location object, or the Location of which an EVSE or Location object is send |
+| evse_uid          | [string](types.md#15-string-type)(39) | no       | Evse.uid, required when an EVSE or Connector object is send/replaced.         |
 | connector_id      | [string](types.md#15-string-type)(15) | no       | Connector.id, required when a Connector object is send/replaced.              |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
@@ -301,7 +301,7 @@ The *Location* object describes the location and its properties where a group of
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property                                     | Type                                                     | Card. | Description                                                                            |
 |----------------------------------------------|----------------------------------------------------------|-------|----------------------------------------------------------------------------------------|
-| id                                           | [string](types.md#15-string-type)(15)                    | 1     | Uniquely identifies the location within the CPOs platform (and suboperator platforms). |
+| id                                           | [string](types.md#15-string-type)(39)                    | 1     | Uniquely identifies the location within the CPOs platform (and suboperator platforms). This field can never be changed, modified or renamed. |
 | type                                         | [LocationType](#416-locationtype-enum)                   | 1     | The general type of the charge point location.                                         |
 | name                                         | [string](types.md#15-string-type)(255)                   | ?     | Display name of the location.                                                          |
 | address                                      | [string](types.md#15-string-type)(45)                    | 1     | Street/block name and house number if available.                                       |
@@ -406,7 +406,7 @@ An *EVSE* object has a list of connectors which can not be used simultaneously: 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property                             | Type                                               | Card. | Description                                                            |
 |--------------------------------------|----------------------------------------------------|-------|------------------------------------------------------------------------|
-| uid                                  | [string](types.md#15-string-type)(15)              | 1     | Uniquely identifies the EVSE within the CPOs platform (and suboperator platforms). For example a database unique ID     |
+| uid                                  | [string](types.md#15-string-type)(39)              | 1     | Uniquely identifies the EVSE within the CPOs platform (and suboperator platforms). For example a database unique ID or the "EVSE ID". This field can never be changed, modified or renamed. This is the 'technical' identification of the EVSE, not to be used as 'human readable' identification, use the field: evse_id for that.|
 | evse_id                              | [string](types.md#15-string-type)(48)              | ?     | Compliant with the following specification for EVSE ID from "eMI3 standard version V1.0" (http://emi3group.com/documents-links/) "Part 2: business objects." Optional because: if an EVSE ID is to be re-used the EVSE ID can be removed from an EVSE that is removed (status: REMOVED)     |
 | status                               | [Status](#420-status-enum)                         | 1     | Indicates the current status of the EVSE.                              |
 | status_schedule                      | [StatusSchedule](#421-statusschedule-class)        | *     | Indicates a planned status in the future of the EVSE.                  |
