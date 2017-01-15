@@ -5,13 +5,14 @@
 Lots of typos fixed and textual improvements.
 
 The following changes to messages/objects etc.
+
 <div><!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --></div>
-| Context (Module / Object)                      | Expected Impact: eMSP / CPO | Expected Effort: eMSP / CPO | Description                                                                         
-|------------------------------------------------|-----------------------------|-----------------------------|------------------------------------------------------------------------------------|
-| Sessions / Session object                      | Minor / Minor               | Minimal / Minimal           | field: Session.auth_id length changed from 15 to 32 this was THE bug in 2.1.
-| Sessions / Session object                      | Minor / Minor               | Minimal / Minimal           | field: Session.total_cost is changed from required (1) to optional (?).
-| Tokens / Token object                          | Minor / Minor               | Minimal / Minimal           | field: Token.uid length changed from 15 to 20 to match OCPP 1.5/1.6 specification.
-| Transport and Format / Response format         | Minor / Minor               | Minimal / Minimal           | field: data now allows String as possible type, needed for the commands module.
+| Context (Module / Object)              | Expected Impact: eMSP / CPO | Expected Effort: eMSP / CPO | Description                                                                         
+|----------------------------------------|-----------------------------|-----------------------------|------------------------------------------------------------------------------------|
+| Sessions / Session object              | Minor / Minor               | Minimal / Minimal           | field: Session.auth_id length changed from 15 to 32 this was THE bug in 2.1.
+| Sessions / Session object              | Minor / Minor               | Minimal / Minimal           | field: Session.total_cost is changed from required (1) to optional (?).
+| Tokens / Token object                  | Minor / Minor               | Minimal / Minimal           | field: Token.uid length changed from 15 to 20 to match OCPP 1.5/1.6 specification.
+| Transport and Format / Response format | Minor / Minor               | Minimal / Minimal           | field: data now allows String as possible type, needed for the commands module.
 <div><!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --></div>
 
 
