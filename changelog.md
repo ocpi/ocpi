@@ -9,10 +9,43 @@ The following changes to messages/objects etc.
 <div><!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --></div>
 | Context (Module / Object)              | Expected Impact: eMSP / CPO | Expected Effort: eMSP / CPO | Description                                                                         
 |----------------------------------------|-----------------------------|-----------------------------|------------------------------------------------------------------------------------|
+| CDRs / CDR object                      | Minor / Minor               | Minimal / Minimal           | field: CDR.id is changed from string(15) to string(36).
+| CDRs / CDR object                      | Minor / Minor               | Minimal / Minimal           | field: CDR.auth_id is changed from string(32) to string(36).
 | CDRs / CDR object                      | Minor / Minor               | Minimal / Minimal           | field: Session.stop_date_time is changed from optional (?) to required (1).
-| Sessions / Session object              | Minor / Minor               | Minimal / Minimal           | field: Session.auth_id length changed from 15 to 32 this was THE bug in 2.1.
+| Commands / ReserveNow object           | Minor / Minor               | Minimal / Minimal           | field: ReserveNow.location_id is changed from string(15) to string(39).
+| Commands / ReserveNow object           | Minor / Minor               | Minimal / Minimal           | field: ReserveNow.evse_uid is changed from string(15) to string(39).
+| Commands / StartSession object         | Minor / Minor               | Minimal / Minimal           | field: StartSession.location_id is changed from string(15) to string(39).
+| Commands / StartSession object         | Minor / Minor               | Minimal / Minimal           | field: StartSession.evse_uid is changed from string(15) to string(39).
+| Commands / StopSession object          | Minor / Minor               | Minimal / Minimal           | field: StopSession.session_id is changed from string(15) to string(36).
+| Commands / UnlockConnector object      | Minor / Minor               | Minimal / Minimal           | field: UnlockConnector.location_id is changed from string(15) to string(39).
+| Commands / UnlockConnector object      | Minor / Minor               | Minimal / Minimal           | field: UnlockConnector.evse_uid is changed from string(15) to string(39).
+| Commands / UnlockConnector object      | Minor / Minor               | Minimal / Minimal           | field: UnlockConnector.connector_id is changed from string(15) to string(36).
+| Locations / CPO GET Object method      | Minor / Minor               | Minimal / Minimal           | parameter: location_id is changed from string(15) to string(39).
+| Locations / CPO GET Object method      | Minor / Minor               | Minimal / Minimal           | parameter: evse_uid is changed from string(15) to string(39).
+| Locations / CPO GET Object method      | Minor / Minor               | Minimal / Minimal           | parameter: connector_id is changed from string(15) to string(36).
+| Locations / eMSP GET method            | Minor / Minor               | Minimal / Minimal           | parameter: location_id is changed from string(15) to string(39).
+| Locations / eMSP GET method            | Minor / Minor               | Minimal / Minimal           | parameter: evse_uid is changed from string(15) to string(39).
+| Locations / eMSP GET method            | Minor / Minor               | Minimal / Minimal           | parameter: connector_id is changed from string(15) to string(36).
+| Locations / eMSP PUT method            | Minor / Minor               | Minimal / Minimal           | parameter: location_id is changed from string(15) to string(39).
+| Locations / eMSP PUT method            | Minor / Minor               | Minimal / Minimal           | parameter: evse_uid is changed from string(15) to string(39).
+| Locations / eMSP PUT method            | Minor / Minor               | Minimal / Minimal           | parameter: connector_id is changed from string(15) to string(36).
+| Locations / Location object            | Minor / Minor               | Minimal / Minimal           | field: Location.id is changed from string(15) to string(39).
+| Locations / EVSE object                | Minor / Minor               | Minimal / Minimal           | field: EVSE.uid is changed from string(15) to string(39).
+| Locations / Connector object           | Minor / Minor               | Minimal / Minimal           | field: Connector.id is changed from string(15) to string(36).
+| Sessions / eMSP GET method             | Minor / Minor               | Minimal / Minimal           | parameter: session_id is changed from string(15) to string(36).
+| Sessions / eMSP PUT method             | Minor / Minor               | Minimal / Minimal           | parameter: session_id is changed from string(15) to string(36).
+| Sessions / Session object              | Minor / Minor               | Minimal / Minimal           | field: Session.id  is changed from string(15) to string(36).
+| Sessions / Session object              | Minor / Minor               | Minimal / Minimal           | field: Session.auth_id length changed from 15 to 36 this was THE bug in 2.1.
 | Sessions / Session object              | Minor / Minor               | Minimal / Minimal           | field: Session.total_cost is changed from required (1) to optional (?).
-| Tokens / Token object                  | Minor / Minor               | Minimal / Minimal           | field: Token.uid length changed from 15 to 20 to match OCPP 1.5/1.6 specification.
+| Tariffs / eMSP GET method              | Minor / Minor               | Minimal / Minimal           | parameter: tariff_id is changed from string(15) to string(36).
+| Tariffs / eMSP PUT method              | Minor / Minor               | Minimal / Minimal           | parameter: tariff_id is changed from string(15) to string(36).
+| Tariffs / eMSP DELETE method           | Minor / Minor               | Minimal / Minimal           | parameter: tariff_id is changed from string(15) to string(36).
+| Tariffs / Tariff object                | Minor / Minor               | Minimal / Minimal           | field: Tariff.id length changed from string(15) to string(36).
+| Tokens / CPO GET method                | Minor / Minor               | Minimal / Minimal           | parameter: token_uid is changed from string(15) to string(36).
+| Tokens / CPO PUT method                | Minor / Minor               | Minimal / Minimal           | parameter: token_uid is changed from string(15) to string(36).
+| Tokens / eMSP POST method              | Minor / Minor               | Minimal / Minimal           | parameter: token_uid is changed from string(15) to string(36).
+| Tokens / Token object                  | Minor / Minor               | Minimal / Minimal           | field: Token.uid length changed from string(15) to string(36).
+| Tokens / Token object                  | Minor / Minor               | Minimal / Minimal           | field: Token.auth_id length changed from string(32) to string(36).
 | Transport and Format / Response format | Minor / Minor               | Minimal / Minimal           | field: data now allows String as possible type, needed for the commands module.
 <div><!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --></div>
 

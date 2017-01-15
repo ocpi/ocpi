@@ -117,7 +117,7 @@ The following parameters can be provided as URL segments.
 |-------------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
 | country_code      | [string](types.md#15-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
 | party_id          | [string](types.md#15-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
-| tariff_id         | [string](types.md#15-string-type)(15) | yes      | Tariff.id of the Tariff object to retrieve.                                   |
+| tariff_id         | [string](types.md#15-string-type)(36) | yes      | Tariff.id of the Tariff object to retrieve.                                   |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -155,7 +155,7 @@ The following parameters can be provided as URL segments.
 |-------------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
 | country_code      | [string](types.md#15-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
 | party_id          | [string](types.md#15-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
-| tariff_id         | [string](types.md#15-string-type)(15) | yes      | Tariff.id of the (new) Tariff object (to replace).                            |
+| tariff_id         | [string](types.md#15-string-type)(36) | yes      | Tariff.id of the (new) Tariff object (to replace).                            |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 ##### Example: New Tariff 2 euro per hour
@@ -209,7 +209,7 @@ The following parameters can be provided as URL segments.
 |-------------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
 | country_code      | [string](types.md#15-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
 | party_id          | [string](types.md#15-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
-| tariff_id         | [string](types.md#15-string-type)(15) | yes      | Tariff.id of the Tariff object to delete.                                     |
+| tariff_id         | [string](types.md#15-string-type)(36) | yes      | Tariff.id of the Tariff object to delete.                                     |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -229,7 +229,7 @@ See: [Free of Charge Tariff example](free-of-charge-tariff-example)
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property            | Type                                            | Card. | Description                                                                           |
 |---------------------|-------------------------------------------------|-------|---------------------------------------------------------------------------------------|
-| id                  | [string](types.md#15-string-type)(15)           | 1     | Uniquely identifies the tariff within the CPOs platform (and suboperator platforms).  |
+| id                  | [string](types.md#15-string-type)(36)           | 1     | Uniquely identifies the tariff within the CPOs platform (and suboperator platforms).  |
 | currency            | [string](types.md#15-string-type)(3)            | 1     | Currency of this tariff, ISO 4217 Code                                                |
 | tariff_alt_text     | [DisplayText](types.md#13-displaytext-class)    | *     | List of multi language alternative tariff info text                                   |
 | tariff_alt_url      | [URL](types.md#16-url-type)                     | ?     | Alternative URL to tariff info                                                        |

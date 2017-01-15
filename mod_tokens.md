@@ -76,7 +76,7 @@ The following parameters can be provided as URL segments.
 |-------------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
 | country_code      | [string](types.md#15-string-type)(2)  | yes      | Country code of the eMSP requesting this GET from the CPO system.             |
 | party_id          | [string](types.md#15-string-type)(3)  | yes      | Party ID (Provider ID) of the eMSP requesting this GET from the CPO system.   |
-| token_uid         | [string](types.md#15-string-type)(20) | yes      | Token.uid of the Token object to retrieve.                                    |
+| token_uid         | [string](types.md#15-string-type)(36) | yes      | Token.uid of the Token object to retrieve.                                    |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -115,7 +115,7 @@ The following parameters can be provided as URL segments.
 |-------------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
 | country_code      | [string](types.md#15-string-type)(2)  | yes      | Country code of the eMSP sending this PUT request to the CPO system.               |
 | party_id          | [string](types.md#15-string-type)(3)  | yes      | Party ID (Provider ID) of the eMSP sending this PUT request to the CPO system.     |
-| token_uid         | [string](types.md#15-string-type)(20) | yes      | Token.uid of the (new) Token object (to replace).                             |
+| token_uid         | [string](types.md#15-string-type)(36) | yes      | Token.uid of the (new) Token object (to replace).                             |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 ##### Example: put a new Token
@@ -222,7 +222,7 @@ The following parameter has to be provided as URL segments.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Parameter         | Datatype                              | Required | Description                                               |
 |-------------------|---------------------------------------|----------|-----------------------------------------------------------|
-| token_uid         | [string](types.md#15-string-type)(20) | yes      | Token.uid of the Token for which this authorization is.   |
+| token_uid         | [string](types.md#15-string-type)(36) | yes      | Token.uid of the Token for which this authorization is.   |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -267,9 +267,9 @@ The endpoint response contains a [AuthorizationInfo](#31-authorizationinfo-objec
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property                | Type                                  | Card. | Description                                                                                             |
 |-------------------------|---------------------------------------|-------|---------------------------------------------------------------------------------------------------------|
-| uid                     | [string](types.md#15-string-type)(20) | 1     | Identification used by CPO system to identify this token. Currently, in most cases, this is the RFID hidden ID as read by the RFID reader. |
+| uid                     | [string](types.md#15-string-type)(36) | 1     | Identification used by CPO system to identify this token. Currently, in most cases, this is the RFID hidden ID as read by the RFID reader. |
 | type                    | [TokenType](#43-tokentype-enum)       | 1     | Type of the token                                                                                       |
-| auth_id                 | [string](types.md#15-string-type)(32) | 1     | Uniquely identifies the EV Driver contract token within the eMSPs platform (and suboperator platforms). Recommended to follow the specification for eMA ID from "eMI3 standard version V1.0" (http://emi3group.com/documents-links/) "Part 2: business objects." |
+| auth_id                 | [string](types.md#15-string-type)(36) | 1     | Uniquely identifies the EV Driver contract token within the eMSPs platform (and suboperator platforms). Recommended to follow the specification for eMA ID from "eMI3 standard version V1.0" (http://emi3group.com/documents-links/) "Part 2: business objects." |
 | visual_number           | [string](types.md#15-string-type)(64) | ?     | Visual readable number/identification as printed on the Token (RFID card), might be equal to the auth_id. |
 | issuer                  | [string](types.md#15-string-type)(64) | 1     | Issuing company, most of the times the name of the company printed on the token (RFID card), not necessarily the eMSP,                                                                                          |
 | valid                   | boolean                               | 1     | Is this Token valid                                                                                     |
@@ -321,7 +321,7 @@ References to location details.
 |------------------|------------------------------------------|-------|---------------------------------------------------------------------|
 | location_id      | [string](types.md#15-string-type)(39)    | 1     | Uniquely identifier for the location.                               |
 | evse_uids        | [string](types.md#15-string-type)(39)    | *     | Uniquely identifier for EVSEs within the CPOs platform for the EVSE within the the given location. |
-| connector_ids    | [string](types.md#15-string-type)(15)    | *     | Identifies the connectors within the given EVSEs.                   |                                                                                 |
+| connector_ids    | [string](types.md#15-string-type)(36)    | *     | Identifies the connectors within the given EVSEs.                   |                                                                                 |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 

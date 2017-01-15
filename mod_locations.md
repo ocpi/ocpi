@@ -100,7 +100,7 @@ The following parameters can be provided as URL segments.
 |-------------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
 | location_id       | [string](types.md#15-string-type)(39) | yes      | Location.id of the Location object to retrieve.                               |
 | evse_uid          | [string](types.md#15-string-type)(39) | no       | Evse.uid, required when requesting an EVSE or Connector object.               |
-| connector_id      | [string](types.md#15-string-type)(15) | no       | Connector.id, required when requesting a Connector object.                    |
+| connector_id      | [string](types.md#15-string-type)(36) | no       | Connector.id, required when requesting a Connector object.                    |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -152,7 +152,7 @@ The following parameters can be provided as URL segments.
 | party_id          | [string](types.md#15-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
 | location_id       | [string](types.md#15-string-type)(39) | yes      | Location.id of the Location object to retrieve.                               |
 | evse_uid          | [string](types.md#15-string-type)(39) | no       | Evse.uid, required when requesting an EVSE or Connector object.               |
-| connector_id      | [string](types.md#15-string-type)(15) | no       | Connector.id, required when requesting a Connector object.                    |
+| connector_id      | [string](types.md#15-string-type)(36) | no       | Connector.id, required when requesting a Connector object.                    |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -185,7 +185,7 @@ This is an information push message, the objects pushed will not be owned by the
 | party_id          | [string](types.md#15-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
 | location_id       | [string](types.md#15-string-type)(39) | yes      | Location.id of the new Location object, or the Location of which an EVSE or Location object is send |
 | evse_uid          | [string](types.md#15-string-type)(39) | no       | Evse.uid, required when an EVSE or Connector object is send/replaced.         |
-| connector_id      | [string](types.md#15-string-type)(15) | no       | Connector.id, required when a Connector object is send/replaced.              |
+| connector_id      | [string](types.md#15-string-type)(36) | no       | Connector.id, required when a Connector object is send/replaced.              |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 #### Request Body
@@ -429,13 +429,13 @@ A connector is the socket or cable available for the EV to use. A single EVSE ma
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Property                           | Type                                        | Card. | Description                                                             |
 |------------------------------------|---------------------------------------------|-------|-------------------------------------------------------------------------|
-| id                                 | [string](types.md#15-string-type)(15)       | 1     | Identifier of the connector within the EVSE. Two connectors may have the same id as long as they do not belong to the same *EVSE* object. |
+| id                                 | [string](types.md#15-string-type)(36)       | 1     | Identifier of the connector within the EVSE. Two connectors may have the same id as long as they do not belong to the same *EVSE* object. |
 | standard                           | [ConnectorType](#44-connectortype-enum)     | 1     | The standard of the installed connector.                                |
 | format                             | [ConnectorFormat](#43-connectorformat-enum) | 1     | The format (socket/cable) of the installed connector.                   |
 | power_type                         | [PowerType](#418-powertype-enum)            | 1     |                                                                         |
 | voltage                            | int                                         | 1     | Voltage of the connector (line to neutral for AC_3_PHASE), in volt [V]. |
 | amperage                           | int                                         | 1     | maximum amperage of the connector, in ampere [A].                       |
-| tariff_id                          | [string](types.md#15-string-type)(15)       | ?     | Identifier of the current charging tariff structure. For a "Free of Charge" tariff this field should be set, and point to a defined "Free of Charge" tariff. |
+| tariff_id                          | [string](types.md#15-string-type)(36)       | ?     | Identifier of the current charging tariff structure. For a "Free of Charge" tariff this field should be set, and point to a defined "Free of Charge" tariff. |
 | terms_and_conditions               | [URL](types.md#16-url-type)                 | ?     | URL to the operator's terms and conditions.                             |
 | last_updated                       | [DateTime](types.md#12-datetime-type)       | 1     | Timestamp when this Connectors was last updated (or created).           |
 <div><!-- ---------------------------------------------------------------------------- --></div>
