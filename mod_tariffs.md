@@ -493,7 +493,7 @@ Thus a `step_size = 300` means 300 seconds.
 | end_time                | [string](types.md#15-string-type)(5)  | ?     | End time of day, for example 19:45, valid until this time of the day. Same syntax as start_time |
 | start_date              | [string](types.md#15-string-type)(10) | ?     | Start date, for example: 2015-12-24, valid from this day                              |
 | end_date                | [string](types.md#15-string-type)(10) | ?     | End date, for example: 2015-12-27, valid until this day (excluding this day)          |
-| min_kwh                 | [number](types.md#14-number-type)     | ?     | Minimum used energy in kWh, for example 20, valid from this amount of energy is used  |                             
+| min_kwh                 | [number](types.md#14-number-type)     | ?     | Minimum used energy in kWh, for example 20, valid from this amount of energy is used  |
 | max_kwh                 | [number](types.md#14-number-type)     | ?     | Maximum used energy in kWh, for example 50, valid until this amount of energy is used |
 | min_power               | [number](types.md#14-number-type)     | ?     | Minimum power in kW, for example 0, valid from this charging speed                    |
 | max_power               | [number](types.md#14-number-type)     | ?     | Maximum power in kW, for example 20, valid up to this charging speed                  |

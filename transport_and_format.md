@@ -30,7 +30,7 @@ It is therefor advised to clients 'pulling' lists from a server to do this on a 
 Each HTTP request must add a 'Authorization' header. The header looks as follows:
 
 ```
-    Authorization: Token IpbJOXxkxOAuKR92z0nEcmVF3Qw09VG7I7d/WCg0koM=
+  Authorization: Token IpbJOXxkxOAuKR92z0nEcmVF3Qw09VG7I7d/WCg0koM=
 ```
 
 The literal 'Token' indicates that the token based authentication mechanism is used. Its parameter is a string consisting of printable, non-whitespace ASCII characters. The token must uniquely identify the requesting party. This way, the server can use this to link data and commands to this party's account.
@@ -114,37 +114,39 @@ HTTP headers that have to be added to any paginated GET response.
 Example of a required OCPI pagination link header:
 
 ```   
-   Link: <https://www.server.com/ocpi/cpo/2.0/cdrs/?offset=150&limit=50>; rel="next"
+  Link: <https://www.server.com/ocpi/cpo/2.0/cdrs/?offset=150&limit=50>; rel="next"
 ```   
 
 After the client has called the given "next" page URL above the Link parameter will most likely look like this:
 
 ```   
-   Link: <https://www.server.com/ocpi/cpo/2.0/cdrs/?offset=200&limit=50>; rel="next"
+  Link: <https://www.server.com/ocpi/cpo/2.0/cdrs/?offset=200&limit=50>; rel="next"
 ```   
 
-Example of a query with filters: Client does a GET to:
+Example of a query with filters: Client does a GET to: 
 
 ```   
-   https://www.server.com/ocpi/cpo/2.0/cdrs/?date_from=2016-01-01T00:00:00Z&date_to=2016-12-31T23:59:59Z
+  https://www.server.com/ocpi/cpo/2.0/cdrs/?date_from=2016-01-01T00:00:00Z&date_to=2016-12-31T23:59:59Z
 ```   
 
 The server should return (when the server has enough objects and the limit is the amount of objects the server wants to send is 100.)
+_(This example should have been on 1 line, but didn't fit the paper width.)_ 
 
-```   
-   Link: <https://www.server.com/ocpi/cpo/2.0/cdrs/?offset=100&limit=100&date_from=2016-01-01T00:00:00Z&date_to=2016-12-31T23:59:59Z>; rel="next"
-```   
+```  
+  Link: <https://www.server.com/ocpi/cpo/2.0/cdrs/?offset=100
+                 &limit=100&date_from=2016-01-01T00:00:00Z&date_to=2016-12-31T23:59:59Z>; rel="next"
+```
 
 Example of a server limiting the amount of objects returned: Client does a GET to:
 
 ```   
-   https://www.server.com/ocpi/cpo/2.0/cdrs/?limit=2000
+  https://www.server.com/ocpi/cpo/2.0/cdrs/?limit=2000
 ```   
 
 The server should return (when the server has enough objects and the limit is the amount of objects the server wants to send is 100.) The `X-Limit` HTTP parameter should be set to 100 as well.
 
 ```   
-   Link: <https://www.server.com/ocpi/cpo/2.0/cdrs/?offset=100&limit=100>; rel="next"
+  Link: <https://www.server.com/ocpi/cpo/2.0/cdrs/?offset=100&limit=100>; rel="next"
 ```   
 
 
@@ -174,7 +176,7 @@ Client owned object URL definition: {base-ocpi-url}/{end-point}/{country-code}/{
 
 Example of a URL to a client owned object
 ```   
-   https://www.server.com/ocpi/cpo/2.0/tariffs/NL/TNM/14
+  https://www.server.com/ocpi/cpo/2.0/tariffs/NL/TNM/14
 ```   
 
 POST is not supported for these kind of modules.

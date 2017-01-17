@@ -68,7 +68,7 @@ perl -p -i.bak -e 's/\|\s(?=\w)/  /g' all.md
 perl -p -i.bak -e 's/\|(?=\w)/ /g' all.md
 perl -p -i.bak -e 's/[-:]\|[-:]/-  /g' all.md
 perl -p -i.bak -e "s/ \| (?=[^\n])/   /g" all.md
-perl -i.bak -e '$/ = undef; while($all = <>){ $all =~ s/(?<=[\w.!?:\]\)\$*"`~])\s*\|\s*(?=\n\s+[\w?1*+>])/\n\n/g; print $all;}' all.md
+perl -i.bak -e '$/ = undef; while($all = <>){ $all =~ s/(?<=[\w.!?:\]\)\$*"`~])\s*\|\s*(?=\n\s+[\[\w?1*+>])/\n\n/g; print $all;}' all.md
 perl -p -i.bak -e 's/\|\s*(?=\n)//g' all.md
 
 pandoc \
