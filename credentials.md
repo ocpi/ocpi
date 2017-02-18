@@ -76,7 +76,7 @@ This must return a `HTTP status code 405: method not allowed` if the client was 
 |--------------------------|--------------------------------------------------------------|--------|--------------------------------------------------------------------|
 | token                    | [string](types.md#15-string-type)(64)                        | 1      | The token for the other party to authenticate in your system.      |
 | url                      | [URL](types.md#16-url-type)                                  | 1      | The URL to your API versions endpoint.                             |
-| business_details         | [BusinessDetails](mod_locations.md#41-businessdetails-class) | 1      | Details of the other party.                                        |
+| business_details         | [BusinessDetails](mod_locations.md#41-businessdetails-class) | 1      | Details of this party.                                             |
 | party_id                 | [string](types.md#15-string-type)(3)                         | 1      | CPO or eMSP ID of this party. (following the 15118 ISO standard).  |
 | country_code             | [string](types.md#15-string-type)(2)                         | 1      | Country code of the country this party is operating in.            |
 <div><!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --></div>
