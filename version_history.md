@@ -11,6 +11,7 @@ NoDerivatives 4.0 International Public License*<br/>
 **Version History**
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Version   | Date       | Description                                      |
 |-----------|------------|--------------------------------------------------|
 | 2.1.1-RC1 | 15-01-2017 | Fixed the last 4 issues after consulting with the OCPI community.  |

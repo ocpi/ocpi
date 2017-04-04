@@ -38,6 +38,7 @@ The literal 'Token' indicates that the token based authentication mechanism is u
 The request method can be any of [GET](#get), [PUT](#put), [PATCH](#patch) or DELETE. The OCPI protocol uses them in a way similar to REST APIs.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Method           | Description                          
 |------------------|-------------------------------------------------------|
 | [GET](#get)      | Fetches objects or information. |
@@ -71,6 +72,7 @@ headers need to be added to the response.
 The following table lists all the parameters that have to be supported, but might be omitted by a client request.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Parameter | Description                                            |
 |-----------|--------------------------------------------------------|
 | offset    | The offset of the first object returned. Default is 0 (the first object). |
@@ -100,6 +102,7 @@ When an object before this page has been updated, then the client has missed 1 o
 HTTP headers that have to be added to any paginated GET response.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | HTTP Parameter  | Description                                                                 |
 |-----------------|-----------------------------------------------------------------------------|
 | Link            | Link to the 'next' page should be provided, when this is NOT the last page. The Link should also contain any filters present in the original request. See example below. |
@@ -196,6 +199,7 @@ When a request cannot be accepted, an HTTP error response code is expected inclu
 The content that is sent with all the response messages is an 'application/json' type and contains a JSON object with the following properties:
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Property           | Type                                  | Card.   | Description                                               |
 |--------------------|---------------------------------------|---------|-----------------------------------------------------------|
 | data               | Array or Object or String             | * or ?  | Contains the actual response data object or list of objects from each request, depending on the cardinality of the response data, this is an array (card. * or +), or a single object (card. 1 or ?) |
@@ -322,6 +326,7 @@ The URLs of the endpoints in this document are descriptive only. The exact URL c
 
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Operator interface         | Identifier  | Example URL                                   |
 | -------------------------- | ----------- | --------------------------------------------- |
 | Credentials                | credentials | https://example.com/ocpi/cpo/2.0/credentials  |
@@ -330,6 +335,7 @@ The URLs of the endpoints in this document are descriptive only. The exact URL c
 
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | eMSP interface             | Identifier  | Example URL                                       |
 | -------------------------- | ----------- | ------------------------------------------------- |
 | Credentials                | credentials | https://example.com/ocpi/emsp/2.0/credentials     |

@@ -49,6 +49,7 @@ The CDRs endpoint can be used to create or retrieve CDRs.
 Example endpoint structure: `/ocpi/cpo/2.0/cdrs/?date_from=xxx&date_to=yyy`
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Method                  | Description                                                                      |
 |-------------------------|----------------------------------------------------------------------------------|
 | [GET](#211-get-method)  | Fetch CDRs, last updated (which in the current version of OCPI can only be the creation date/time) between the {date_from} and {date_to} ([paginated](transport_and_format.md#get))    |
@@ -81,6 +82,7 @@ If additional parameters: {date_from} and/or {date_to} are provided, only CDRs w
 This request is [paginated](transport_and_format.md#get), it supports the [pagination](transport_and_format.md#paginated-request) related URL parameters.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Parameter     | Datatype                             | Required    | Description                                                               |
 |---------------|--------------------------------------|-------------|---------------------------------------------------------------------------|
 | date_from     | [DateTime](types.md#12-datetime-type)| no          | Only return CDRs that have `last_updated` after this Date/Time.           |
@@ -98,6 +100,7 @@ Any older information that is not specified in the response is considered as no 
 Each object must contain all required fields. Fields that are not specified may be considered as null values.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Datatype              | Card. | Description                                                         |
 |-----------------------|-------|---------------------------------------------------------------------|
 | [CDR](#31-cdr-object) | *     | List of CDRs.                                                       |
@@ -111,6 +114,7 @@ The CDRs endpoint can be used to create, or get CDRs.
 Example endpoint structure: `/ocpi/emsp/2.0/cdrs`
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Method                   | Description                                          |
 | ------------------------ | ---------------------------------------------------- |
 | [GET](#221-get-method)   | Retrieve an existing CDR                             |
@@ -136,6 +140,7 @@ To retrieve an existing URL from the eMSP system, the URL, returned in the respo
 The endpoint returns the requested CDR, if it exists
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Datatype              | Card. | Description                                  |
 |-----------------------|-------|----------------------------------------------|
 | [CDR](#31-cdr-object) | 1     | Requested CDR object.                        |
@@ -176,6 +181,7 @@ The post method should contain the full, final CDR object.
 In the post request the new CDR object is sent.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Type                            | Card. | Description                             |
 |---------------------------------|-------|-----------------------------------------|
 | [CDR](#31-cdr-object)           | 1     | New CDR object.                         |
@@ -186,6 +192,7 @@ In the post request the new CDR object is sent.
 
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Parameter  | Datatype                    | Required | Description                               |
 |------------|-----------------------------|----------|-------------------------------------------|
 | Location   | [URL](types.md#16-url-type) | yes      | URL to the newly created CDR in the eMSP system, can be used by the CPO system to do a GET on of the same CDR |
@@ -202,6 +209,7 @@ Example: Location: /ocpi/emsp/2.0/cdrs/123456
 The *CDR* object describes the Charging Session and its costs. How these costs are build up etc. 
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Property                                     | Type                                                     | Card. | Description                                                                                                                    |
 |----------------------------------------------|----------------------------------------------------------|-------|--------------------------------------------------------------------------------------------------------------------------------|
 | id                                           | [CiString](types.md#12-cistring-type)(36)                | 1     | Uniquely identifies the CDR within the CPOs platform (and suboperator platforms).                                              |
@@ -318,6 +326,7 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 ### 4.1 AuthMethod *enum*
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Value                | Description                                                                             |
 |----------------------|-----------------------------------------------------------------------------------------|
 | AUTH_REQUEST         | Authentication request from the eMSP                                                    |
@@ -327,6 +336,7 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 ### 4.2 CdrDimension *class*
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Property        | Type                                            | Card. | Description                                                                 |
 |-----------------|-------------------------------------------------|-------|-----------------------------------------------------------------------------|
 | type            | [CdrDimensionType](#43-cdrdimensiontype-enum)   | 1     | Type of cdr dimension                                                       |
@@ -337,6 +347,7 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 ### 4.3 CdrDimensionType *enum*
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Value        | Description                                                             |
 |--------------|-------------------------------------------------------------------------|
 | ENERGY       | defined in kWh, default step_size is 1 Wh                               |
@@ -353,6 +364,7 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 A charging period consists of a start timestamp and a list of possible values that influence this period, for example: Amount of energy charged this period, maximum current during this period etc.
 
 <div><!-- -------------------------------------------------------------------------------- --></div>
+
 | Property               | Type                                   | Card. | Description                                                                  |
 |------------------------|----------------------------------------|-------|------------------------------------------------------------------------------|
 | start_date_time        | [DateTime](types.md#12-datetime-type)  | 1     | Start timestamp of the charging period. This period ends when a next period starts, the last period ends when the session ends. |

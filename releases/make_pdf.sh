@@ -62,7 +62,7 @@ perl -p -i.bak -e 's/(?<=\(#)(\w+)_(\w+)\)/\1-\2)/g' all.md
 
 # translate MD tables to pandoc 'multiline' tables
 perl -p -i.bak -e 's/<div><!-- //g' all.md
-perl -p -i.bak -e 's/ --><\/div>//g' all.md
+perl -p -i.bak -e 's/ --><\/div>\n//g' all.md
 perl -p -i.bak -e 's/^\|[\s-:]/  /g' all.md
 perl -p -i.bak -e 's/\|\s(?=\w)/  /g' all.md
 perl -p -i.bak -e 's/\|(?=\w)/ /g' all.md

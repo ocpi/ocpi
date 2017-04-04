@@ -19,6 +19,7 @@ When the server receives a valid OCPI object it should respond with:
 Requests that reach the OCPI layer should return an OCPI response message with a `status_code` field as defined below.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Range | Description                                                                    |
 |-------|--------------------------------------------------------------------------------|
 | 1xxx  | Success                                                                        |
@@ -32,6 +33,7 @@ When the status code is in the success range (1xxx), the `data` field in the res
 ## 1xxx: Success
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Code | Description                                                                     |
 |------|---------------------------------------------------------------------------------|
 | 1000 | Generic success code                    |
@@ -43,6 +45,7 @@ When the status code is in the success range (1xxx), the `data` field in the res
 Errors detected by a server in the message sent by a client: The client did something wrong
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Code | Description                                                                     |
 |------|---------------------------------------------------------------------------------|
 | 2000 | Generic client error                    |
@@ -75,6 +78,7 @@ Errors detected by a server in the message sent by a client: The client did some
 Error during processing of the OCPI payload in the server. The message was syntactically correct but could not be processed by the server.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Code | Description                                                                     |
 |------|---------------------------------------------------------------------------------|
 | 3000 | Generic server error                                                       |

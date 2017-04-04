@@ -7,6 +7,7 @@ Lots of typos fixed and textual improvements.
 The following changes to messages/objects etc.
 
 <div><!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --></div>
+
 | Context (Module / Object)              | Expected Impact: eMSP / CPO | Expected Effort: eMSP / CPO | Description                                                                         
 |----------------------------------------|-----------------------------|-----------------------------|------------------------------------------------------------------------------------|
 | CDRs / CDR object                      | Minor / Minor               | Minimal / Minimal           | field: CDR.id is changed from string(15) to string(36). |
@@ -53,6 +54,7 @@ The following changes to messages/objects etc.
 ## Changes between OCPI 2.0 and 2.1
 
 <div><!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --></div>
+
 | Context (Module / Object)                      | Expected Impact: eMSP / CPO | Expected Effort: eMSP / CPO | Description                                                                         
 |------------------------------------------------|-----------------------------|-----------------------------|------------------------------------------------------------------------------------|
 | CDRs / CDR object                              | Major / Major               | Minimal / Minimal           | replaced field: "total_usage" with: "total_energy", "total_time" and "total_parking_time"                                                                                           |

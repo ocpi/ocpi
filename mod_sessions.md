@@ -31,6 +31,7 @@ This [GET](#211-get-method) can also be used, combined with the Push model to re
 Example endpoint structure: `/ocpi/cpo/2.0/sessions/?date_from=xxx&date_to=yyy`
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Method                 | Description                                                                             |
 | ---------------------- | --------------------------------------------------------------------------------------- |
 | [GET](#211-get-method) | Fetch Session objects of charging sessions last updated between the {date_from} and {date_to} ([paginated](transport_and_format.md#get)) |
@@ -51,6 +52,7 @@ Only Sessions with `last_update` between the given {date_from} and {date_to} wil
 This request is [paginated](transport_and_format.md#get), so also supports the [pagination](transport_and_format.md#paginated-request) related URL parameters.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Parameter  | Datatype                              | Required | Description                                                                   |
 |------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
 | date_from  | [DateTime](types.md#12-datetime-type) | yes      | Only return Sessions that have `last_updated` after this Date/Time.           |
@@ -77,6 +79,7 @@ Any older information that is not specified in the response is considered as no 
 Each object must contain all required fields. Fields that are not specified may be considered as null values.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Datatype                      | Card. | Description                                                             |
 |-------------------------------|-------|-------------------------------------------------------------------------|
 | [Session](#31-session-object) | *     | List of Session objects that match the request parameters               |
@@ -90,6 +93,7 @@ Example endpoint structure:
 `/ocpi/emsp/2.0/sessions/{country_code}/{party_id}/{session_id}` 
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Method                       | Description                                                         |
 |------------------------------|---------------------------------------------------------------------|
 | [GET](#221-get-method)       | Get the Session object from the eMSP system by its id {session_id}. |
@@ -110,6 +114,7 @@ for example validation purposes, or the CPO system might have received a error o
 The following parameters can be provided as URL segments.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Parameter        | Datatype                              | Required | Description                                                                   |
 |------------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
 | country_code     | [string](types.md#15-string-type)(2)  | yes      | Country code of the CPO requesting this GET to the eMSP system.               |
@@ -123,6 +128,7 @@ The following parameters can be provided as URL segments.
 The response contains the request Session object, if available.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Datatype                      | Card. | Description                                                   |
 |-------------------------------|-------|---------------------------------------------------------------|
 | [Session](#31-session-object) | 1     | Session object requested.                                     |
@@ -138,6 +144,7 @@ Inform the system about a new/updated session in the eMSP backoffice by PUTing a
 The request contains the new or updated Session object.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Type                            | Card. | Description                              |
 |---------------------------------|-------|------------------------------------------|
 | [Session](#31-session-object)   | 1     | new Session object.                      |
@@ -165,6 +172,7 @@ The request contains the new or updated Session object.
 The following parameters can be provided as URL segments.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Parameter        | Datatype                              | Required | Description                                                                   |
 |------------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
 | country_code     | [string](types.md#15-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
@@ -193,6 +201,7 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
 ### 3.1 _Session_ Object
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Property                          | Type                                                       | Card. | Description                                                                                                    |
 |-----------------------------------|------------------------------------------------------------|-------|----------------------------------------------------------------------------------------------------------------|
 | id                                | [string](types.md#15-string-type)(36)                      | 1     | The unique id that identifies the session in the CPO platform.                                                 |
@@ -337,6 +346,7 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
 ### 4.1 SessionStatus *enum*
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Property  | Description                                                                |
 |-----------|----------------------------------------------------------------------------|
 | ACTIVE    | The session is accepted and active.                                        |

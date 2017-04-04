@@ -42,6 +42,7 @@ The CPO Tariffs interface gives the eMSP the ability to request tariffs.
 Example endpoint structure: `/ocpi/cpo/2.0/tariffs/?date_from=xxx&date_to=yyy`
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Method                 | Description                                          |
 |------------------------|------------------------------------------------------|
 | [GET](#211-get-method) | Returns Tariff Objects from the CPO, last updated between the {date_from} and {date_to} ([paginated](transport_and_format.md#get)) |
@@ -63,6 +64,7 @@ If additional parameters: {date_from} and/or {date_to} are provided, only Tariff
 This request is [paginated](transport_and_format.md#get), it supports the [pagination](transport_and_format.md#paginated-request) related URL parameters.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Parameter  | Datatype                              | Required | Description                                                                   |
 |------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
 | date_from  | [DateTime](types.md#12-datetime-type) | no       | Only return Tariffs that have `last_updated` after this Date/Time.             |
@@ -81,6 +83,7 @@ Each object must contain all required fields. Fields that are not specified may 
 
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Type                            | Card. | Description                              |
 |---------------------------------|-------|------------------------------------------|
 | [Tariff](#31-tariff-object)     | *     | List of all tariffs.                     |
@@ -94,6 +97,7 @@ Example endpoint structure:
 `/ocpi/emsp/2.0/tariffs/{country_code}/{party_id}/{tariff_id}`
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Method                       | Description                                            |
 |------------------------------|--------------------------------------------------------|
 | [GET](#221-get-method)       | Retrieve a Tariff as it is stored in the eMSP system.  |
@@ -113,6 +117,7 @@ If the CPO wants to check the status of a Tariff in the eMSP system it might GET
 The following parameters can be provided as URL segments.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Parameter         | Datatype                              | Required | Description                                                                   |
 |-------------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
 | country_code      | [string](types.md#15-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
@@ -126,6 +131,7 @@ The following parameters can be provided as URL segments.
 The response contains the requested object.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Type                                | Card. | Description                                                |
 |-------------------------------------|-------|------------------------------------------------------------|
 | [Tariff](#31-tariff-object)         | 1     | The requested Tariff object.                               |
@@ -141,6 +147,7 @@ New or updated Tariff objects are pushed from the CPO to the eMSP.
 In the put request the new or updated Tariff object is sent.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Type                            | Card. | Description                              |
 |---------------------------------|-------|------------------------------------------|
 | [Tariff](#31-tariff-object)     | 1     | New or updated Tariff object             |
@@ -167,6 +174,7 @@ In the put request the new or updated Tariff object is sent.
 The following parameters can be provided as URL segments.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Parameter         | Datatype                              | Required | Description                                                                   |
 |-------------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
 | country_code      | [string](types.md#15-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
@@ -221,6 +229,7 @@ Delete a no longer valid Tariff object.
 The following parameters can be provided as URL segments.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Parameter         | Datatype                              | Required | Description                                                                   |
 |-------------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
 | country_code      | [string](types.md#15-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
@@ -265,6 +274,7 @@ To define a "Free of Charge" Tariff in OCPI, a tariff has to be provided that ha
 See: [Free of Charge Tariff example](free-of-charge-tariff-example)
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Property            | Type                                            | Card. | Description                                                                           |
 |---------------------|-------------------------------------------------|-------|---------------------------------------------------------------------------------------|
 | id                  | [string](types.md#15-string-type)(36)           | 1     | Uniquely identifies the tariff within the CPOs platform (and suboperator platforms).  |
@@ -435,6 +445,7 @@ Parking costs:
 ### 4.1 DayOfWeek *enum*
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Value        | Description                                          |
 | ------------ | ---------------------------------------------------- |
 | MONDAY       | Monday                                               |
@@ -450,6 +461,7 @@ Parking costs:
 ### 4.2 PriceComponent *class*
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Property        | Type                                                 | Card. | Description                                      |
 |-----------------|------------------------------------------------------|-------|--------------------------------------------------|
 | type            | [TariffDimensionType](#44-tariffdimensiontype-enum)  | 1     | Type of tariff dimension                         |
@@ -465,6 +477,7 @@ Thus a `step_size = 300` means 300 seconds.
 ### 4.3 TariffElement *class*
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Property                 | Type                                               | Card. | Description                                                      |
 |--------------------------|----------------------------------------------------|-------|------------------------------------------------------------------|
 | price_components         | [PriceComponent](#42-pricecomponent-class)         | +     | List of price components that make up the pricing of this tariff |
@@ -475,6 +488,7 @@ Thus a `step_size = 300` means 300 seconds.
 ### 4.4 TariffDimensionType *enum*
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Value        | Description                                                         |
 | ------------ | ------------------------------------------------------------------- |
 | ENERGY       | defined in kWh, step_size multiplier: 1 Wh                          |
@@ -487,6 +501,7 @@ Thus a `step_size = 300` means 300 seconds.
 ### 4.5 TariffRestrictions *class*
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Property                | Type                                  | Card. | Description                                                                           |
 |-------------------------|---------------------------------------|-------|---------------------------------------------------------------------------------------|
 | start_time              | [string](types.md#15-string-type)(5)  | ?     | Start time of day, for example 13:30, valid from this time of the day. Must be in 24h format with leading zeros. Hour/Minute separator: ":" Regex: [0-2][0-9]:[0-5][0-9] |
