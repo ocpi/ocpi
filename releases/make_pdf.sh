@@ -62,14 +62,14 @@ perl -p -i.bak -e 's/(?<=\(#)(\w+)_(\w+)\)/\1-\2)/g' all.md
 
 # translate MD tables to pandoc 'multiline' tables
 perl -p -i.bak -e 's/<div><!-- //g' all.md
-perl -p -i.bak -e 's/ --><\/div>\n//g' all.md
+perl -p -i.bak -e 's/ --><\/div>\r?\n//g' all.md
 perl -p -i.bak -e 's/^\|[\s-:]/  /g' all.md
 perl -p -i.bak -e 's/\|\s(?=\w)/  /g' all.md
 perl -p -i.bak -e 's/\|(?=\w)/ /g' all.md
 perl -p -i.bak -e 's/[-:]\|[-:]/-  /g' all.md
-perl -p -i.bak -e "s/ \| (?=[^\n])/   /g" all.md
-perl -i.bak -e '$/ = undef; while($all = <>){ $all =~ s/(?<=[\w.!?:\]\)\$*"`~])\s*\|\s*(?=\n\s+[\[\w?1*+>])/\n\n/g; print $all;}' all.md
-perl -p -i.bak -e 's/\|\s*(?=\n)//g' all.md
+perl -p -i.bak -e "s/ \| (?=[^\r?\n])/   /g" all.md
+perl -i.bak -e '$/ = undef; while($all = <>){ $all =~ s/(?<=[\w.!?:\]\)\$*"`~])\s*\|\s*(?=\r?\n\s+[\[\w?1*+>])/\n\n/g; print $all;}' all.md
+perl -p -i.bak -e 's/\|\s*(?=\r?\n)//g' all.md
 
 pandoc \
    +RTS -V0 -RTS \
