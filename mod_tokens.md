@@ -52,6 +52,7 @@ Example endpoint structure:
 `/ocpi/cpo/2.0/tokens/{country_code}/{party_id}/{token_uid}` 
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Method                       | Description                                                  |
 |------------------------------|--------------------------------------------------------------|
 | [GET](#211-post-method)      | Retrieve a Token as it is stored in the CPO system.          |
@@ -72,6 +73,7 @@ If the eMSP wants to check the status of a Token in the CPO system it might GET 
 The following parameters can be provided as URL segments.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Parameter         | Datatype                              | Required | Description                                                                   |
 |-------------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
 | country_code      | [string](types.md#15-string-type)(2)  | yes      | Country code of the eMSP requesting this GET from the CPO system.             |
@@ -85,6 +87,7 @@ The following parameters can be provided as URL segments.
 The response contains the requested object. 
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Type                                | Card. | Description                                                |
 |-------------------------------------|-------|------------------------------------------------------------|
 | [Token](#32-token-object)           | 1     | The requested Token object.                                |
@@ -100,6 +103,7 @@ New or updated Token objects are pushed from the eMSP to the CPO.
 In the put request a the new or updated Token object is send.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Type                            | Card. | Description                              |
 |---------------------------------|-------|------------------------------------------|
 | [Token](#32-token-object)       | 1     | New or updated Token object.             |
@@ -111,6 +115,7 @@ In the put request a the new or updated Token object is send.
 The following parameters can be provided as URL segments.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Parameter         | Datatype                              | Required | Description                                                                   |
 |-------------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
 | country_code      | [string](types.md#15-string-type)(2)  | yes      | Country code of the eMSP sending this PUT request to the CPO system.               |
@@ -178,6 +183,7 @@ Example endpoint structure: `/ocpi/emsp/2.0/tokens/?date_from=xxx&date_to=yyy`
 
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Method                   | Description                                                             |
 |--------------------------|-------------------------------------------------------------------------|
 | [GET](#221-get-method)   | Get the list of known Tokens, last updated between the {date_from} and {date_to} ([paginated](transport_and_format.md#get)) |
@@ -199,6 +205,7 @@ If additional parameters: {date_from} and/or {date_to} are provided, only Tokens
 This request is [paginated](transport_and_format.md#get), it supports the [pagination](transport_and_format.md#paginated-request) related URL parameters.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Parameter     | Datatype                              | Required | Description                                                                   |
 |---------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
 | date_from     | [DateTime](types.md#12-datetime-type) | no       | Only return Tokens that have `last_updated` after this Date/Time.             |
@@ -217,6 +224,7 @@ Each object must contain all required fields. Fields that are not specified may 
 
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Type                            | Card. | Description                              |
 |---------------------------------|-------|------------------------------------------|
 | [Token](#32-token-object)       | *     | List of all tokens.                      |
@@ -238,6 +246,7 @@ When the eMSP receives a 'real-time' authorization request from a CPO that conta
 The following parameter has to be provided as URL segments.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Parameter         | Datatype                              | Required | Description                                               |
 |-------------------|---------------------------------------|----------|-----------------------------------------------------------|
 | token_uid         | [string](types.md#15-string-type)(36) | yes      | Token.uid of the Token for which this authorization is.   |
@@ -250,6 +259,7 @@ In the body an optional [LocationReferences](#42-locationreferences-class) objec
 The object with valid Location and EVSEs/Connectors will be returned in the response.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Type                                                | Card. | Description                                                                     |
 |-----------------------------------------------------|-------|---------------------------------------------------------------------------------|
 | [LocationReferences](#42-locationreferences-class)  | ?     | Location and EVSEs/Connectos for which the Token is requested to be authorized. |
@@ -261,6 +271,7 @@ The object with valid Location and EVSEs/Connectors will be returned in the resp
 The endpoint response contains a [AuthorizationInfo](#31-authorizationinfo-object) object.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Type                                              | Card. | Description                              |
 |---------------------------------------------------|-------|------------------------------------------|
 | [AuthorizationInfo](#31-authorizationinfo-object) | 1     | Contains information about the authorization, if the Token is allowed to charge and optionally which EVSEs/Connectors are allowed to be used. |
@@ -272,6 +283,7 @@ The endpoint response contains a [AuthorizationInfo](#31-authorizationinfo-objec
 ### 3.1 _AuthorizationInfo_ Object
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Property  | Type                                               | Card. | Description                                                                           |
 |-----------|----------------------------------------------------|-------|---------------------------------------------------------------------------------------|
 | allowed   | [Allowed](#41-allowed-enum)                        | 1     | Status of the Token, and if it is allowed to charge at the optionally given location. |
@@ -325,6 +337,7 @@ The endpoint response contains a [AuthorizationInfo](#31-authorizationinfo-objec
 ### 3.2 _Token_ Object
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Property                | Type                                  | Card. | Description                                                                                             |
 |-------------------------|---------------------------------------|-------|---------------------------------------------------------------------------------------------------------|
 | uid                     | [string](types.md#15-string-type)(36) | 1     | Identification used by CPO system to identify this token. Currently, in most cases, this is the RFID hidden ID as read by the RFID reader. |
@@ -362,6 +375,7 @@ The combination of _uid_ and _type_ should be unique for every token within an e
 ### 4.1 Allowed *enum*
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Value            | Description                                                                                   |
 |------------------|-----------------------------------------------------------------------------------------------|
 | ALLOWED          | This Token is allowed to charge at this location.                                             |
@@ -377,6 +391,7 @@ The combination of _uid_ and _type_ should be unique for every token within an e
 References to location details.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Field Name       | Field Type                               | Card. | Description                                                         |
 |------------------|------------------------------------------|-------|---------------------------------------------------------------------|
 | location_id      | [string](types.md#15-string-type)(39)    | 1     | Uniquely identifier for the location.                               |
@@ -388,6 +403,7 @@ References to location details.
 ### 4.3 TokenType *enum*
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Value        | Description                                          |
 | ------------ | ---------------------------------------------------- |
 | OTHER        | Other type of token                                  |
@@ -400,6 +416,7 @@ References to location details.
 Defines when authorization of a Token by the CPO is allowed. 
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Value                           | Description                                                                |
 |---------------------------------|----------------------------------------------------------------------------|
 | ALWAYS                          | Token always has to whitelisted, [realtime authorization](mod_tokens.md#13-real-time-authorization) is not possible/allowed. |

@@ -8,6 +8,7 @@
 Example: `/ocpi/cpo/2.0/credentials` and `/ocpi/emsp/2.0/credentials`
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Method                      | Description                                                                                       |
 |-----------------------------|---------------------------------------------------------------------------------------------------|
 | [GET](#11-get-method)       | Retrieves the credentials object to access the server's platform.                                 |
@@ -72,6 +73,7 @@ This must return a `HTTP status code 405: method not allowed` if the client was 
 ### 2.1 Credentials object
 
 <div><!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --></div>
+
 | Property                 | Type                                                         | Card.  | Description                                                        |
 |--------------------------|--------------------------------------------------------------|--------|--------------------------------------------------------------------|
 | token                    | [string](types.md#15-string-type)(64)                        | 1      | The token for the other party to authenticate in your system.      |
