@@ -236,7 +236,7 @@ Each object must contain all required fields. Fields that are not specified may 
 Do a 'real-time' authorization request to the eMSP system, validating if a Token might be used (at the optionally given Location). 
 
 Example endpoint structure: 
-`/ocpi/emsp/2.0/tokens/{token_uid}/authorize`
+`/ocpi/emsp/2.0/tokens/{token_uid}/{token_type}/authorize`
 The `/authorize` is required for the real-time authorize request.
 
 When the eMSP receives a 'real-time' authorization request from a CPO that contains to little information (no LocationReferences provided) to determine if the Token might be used, the eMSP SHOULD respond with the OCPI status: [2002](status_codes.md#2xxx-client-errors) 
@@ -250,6 +250,7 @@ The following parameter has to be provided as URL segments.
 | Parameter         | Datatype                              | Required | Description                                               |
 |-------------------|---------------------------------------|----------|-----------------------------------------------------------|
 | token_uid         | [string](types.md#15-string-type)(36) | yes      | Token.uid of the Token for which this authorization is.   |
+| token_type        | [TokenType](#43-tokentype-enum)       | yes      | Token.type of the Token for which this authorization is.  |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
