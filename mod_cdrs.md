@@ -190,6 +190,7 @@ In the post request the new CDR object is sent.
 
 ##### Response Headers
 
+The response should contain the URL to the just created CDR object in the eMSP system.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
