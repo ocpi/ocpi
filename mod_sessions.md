@@ -15,7 +15,6 @@ When the CPO creates a Session object they push it to the eMSPs by calling [PUT]
 Any changes to a Session in the CPO system are sent to the eMSP system by calling [PATCH](#223-patch-method) on the eMSPs Sessions endpoint with the updated Session object.
 
 Sessions cannot be deleted, final status of a session is: `COMPLETED`.
-
 When the CPO is not sure about the state or existence of a Session object in the eMSPs system, the CPO can call the [GET](#221-get-method) to validate the Session object in the eMSP system.   
 
 ### 1.2 Pull model
@@ -30,7 +29,7 @@ This [GET](#211-get-method) can also be used, combined with the Push model to re
 
 Example endpoint structure: `/ocpi/cpo/2.0/sessions/?date_from=xxx&date_to=yyy`
 
-<div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Method                 | Description                                                                             |
 | ---------------------- | --------------------------------------------------------------------------------------- |
 | [GET](#211-get-method) | Fetch Session objects of charging sessions last updated between the {date_from} and {date_to} ([paginated](transport_and_format.md#get)) |
@@ -38,7 +37,7 @@ Example endpoint structure: `/ocpi/cpo/2.0/sessions/?date_from=xxx&date_to=yyy`
 | PUT                    | n/a                                                                                     |
 | PATCH                  | n/a                                                                                     |
 | DELETE                 | n/a                                                                                     |
-<div><!-- ---------------------------------------------------------------------------- --></div>
+
 
 #### 2.1.1 __GET__ Method
 
@@ -50,14 +49,14 @@ Only Sessions with `last_update` between the given {date_from} and {date_to} wil
 
 This request is [paginated](transport_and_format.md#get), so also supports the [pagination](transport_and_format.md#paginated-request) related URL parameters.
 
-<div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Parameter  | Datatype                              | Required | Description                                                                   |
 |------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
 | date_from  | [DateTime](types.md#12-datetime-type) | yes      | Only return Sessions that have `last_updated` after this Date/Time.           |
 | date_to    | [DateTime](types.md#12-datetime-type) | no       | Only return Sessions that have `last_updated` before this Date/Time.          |
 | offset     | int                                   | no       | The offset of the first object returned. Default is 0.                        |
 | limit      | int                                   | no       | Maximum number of objects to GET.                                             |
-<div><!-- ---------------------------------------------------------------------------- --></div>
+
 
 ##### Response Data
 
@@ -66,11 +65,11 @@ The response contains a list of Session objects that match the given parameters 
 Any older information that is not specified in the response is considered as no longer valid.
 Each object must contain all required fields. Fields that are not specified may be considered as null values.
 
-<div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Datatype                      | Card. | Description                                                             |
 |-------------------------------|-------|-------------------------------------------------------------------------|
 | [Session](#31-session-object) | *     | List of Session objects that match the request parameters               |
-<div><!-- ---------------------------------------------------------------------------- --></div>
+
 
 
 ### 2.2 eMSP Interface
@@ -79,7 +78,7 @@ Sessions is a [client owned object](transport_and_format.md#client-owned-object-
 Example endpoint structure: 
 `/ocpi/emsp/2.0/sessions/{country_code}/{party_id}/{session_id}` 
 
-<div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Method                       | Description                                                         |
 |------------------------------|---------------------------------------------------------------------|
 | [GET](#221-get-method)       | Get the Session object from the eMSP system by its id {session_id}. |
@@ -87,7 +86,7 @@ Example endpoint structure:
 | [PUT](#222-put-method)       | Send a new/updated Session object                                   |
 | [PATCH](#223-patch-method)   | Update the Session object of id {session_id}.                       |
 | DELETE                       | n/a                                                                 |
-<div><!-- ---------------------------------------------------------------------------- --></div>
+
 
 
 #### 2.2.1 __GET__ Method
@@ -99,13 +98,13 @@ for example validation purposes, or the CPO system might have received a error o
 
 The following parameters can be provided as URL segments.
 
-<div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Parameter        | Datatype                              | Required | Description                                                                   |
 |------------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
 | country_code     | [string](types.md#15-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
 | party_id         | [string](types.md#15-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
 | session_id       | [string](types.md#15-string-type)(15) | yes      | id of the Session object to get from the eMSP system.                         |
-<div><!-- ---------------------------------------------------------------------------- --></div>
+
 
 
 ##### Response Data
@@ -116,7 +115,7 @@ The response contains the request Session object, if available.
 | Datatype                      | Card. | Description                                                   |
 |-------------------------------|-------|---------------------------------------------------------------|
 | [Session](#31-session-object) | 1     | Session object requested.                                     |
-<div><!-- ---------------------------------------------------------------------------- --></div>
+
 
 
 #### 2.2.2 __PUT__ Method
@@ -127,24 +126,19 @@ Inform the system about a new/updated session in the eMSP backoffice by PUTing a
 
 The request contains the new or updated Session object.
 
-<div><!-- ---------------------------------------------------------------------------- --></div>
 | Type                            | Card. | Description                              |
 |---------------------------------|-------|------------------------------------------|
 | [Session](#31-session-object)   | 1     | new Session object.                      |
-<div><!-- ---------------------------------------------------------------------------- --></div>
 
 ##### Request Parameters
 
 The following parameters can be provided as URL segments.
 
-<div><!-- ---------------------------------------------------------------------------- --></div>
 | Parameter        | Datatype                              | Required | Description                                                                   |
 |------------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
 | country_code     | [string](types.md#15-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
 | party_id         | [string](types.md#15-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
 | session_id       | [string](types.md#15-string-type)(15) | yes      | id of the new or updated Session object.                                      |
-<div><!-- ---------------------------------------------------------------------------- --></div>
-
 
 #### 2.2.3 __PATCH__ Method
 
@@ -165,7 +159,7 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
 
 ### 3.1 _Session_ Object
 
-<div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Property                          | Type                                                       | Card. | Description                                                                                                    |
 |-----------------------------------|------------------------------------------------------------|-------|----------------------------------------------------------------------------------------------------------------|
 | id                                | [string](types.md#15-string-type)(15)                      | 1     | The unique id that identifies the session in the CPO platform.                                                 |
@@ -181,7 +175,7 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
 | total_cost                        | [number](types.md#14-number-type)                          | 1     | The total cost (excluding VAT) of the session in the specified currency. This is the price that the eMSP will have to pay to the CPO. |
 | status                            | [SessionStatus](#41-sessionstatus-enum)                    | 1     | The status of the session.                                                                                  |
 | last_updated                      | [DateTime](types.md#12-datetime-type)                      | 1     | Timestamp when this Session was last updated.                                                             |
-<div><!-- ---------------------------------------------------------------------------- --></div>
+
 
 
 #### Examples
@@ -301,11 +295,10 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
 
 ### 4.1 SessionStatus *enum*
 
-<div><!-- ---------------------------------------------------------------------------- --></div>
 | Property  | Description                                                                |
 |-----------|----------------------------------------------------------------------------|
 | ACTIVE    | The session is accepted and active.                                        |
 | COMPLETED | The session is finished successfully.                                      |
 | INVALID   | The session is declared invalid and will not be billed.                    |
 | PENDING   | The session is pending and has not yet started. This is the initial state. |
-<div><!-- ---------------------------------------------------------------------------- --></div>
+
