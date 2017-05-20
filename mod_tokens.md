@@ -129,7 +129,7 @@ PUT To URL: https://www.server.com/ocpi/cpo/2.0/tokens/NL/TNM/012345678
   "visual_number": "DF000-2001-8999",
   "issuer": "TheNewMotion",
   "valid": true,
-  "allow_whitelist": true
+  "whitelist": "ALWAYS"
 }
 ```
 
