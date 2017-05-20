@@ -2,7 +2,8 @@ This repository contains the OCPI specification.
 
 ## OCPI 2.1.1 RC1
 Some bugs were found in OCPI 2.1. These, together with a lot of textual improvements have been fixed in the branch:
-https://github.com/ocpi/ocpi/tree/2.1-bugfixes
+https://github.com/ocpi/ocpi/tree/2.1-bugfixes. If you find any bug in OCPI 2.1, please check this bugfix branch.
+If you do a pull-request, please do it on this bug-fix branch.
 
 Current status of this branch: 2.1.1 RC1 (Release Candidate 1)
 When 2.1.1 RC1 is proven bug free it will be released as 2.1.1 FINAL, replacing 2.1.
