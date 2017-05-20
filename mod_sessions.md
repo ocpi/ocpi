@@ -345,12 +345,14 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
 
 ### 4.1 SessionStatus *enum*
 
+Defines the state of a session.
+
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 | Property  | Description                                                                |
 |-----------|----------------------------------------------------------------------------|
-| ACTIVE    | The session is accepted and active.                                        |
-| COMPLETED | The session is finished successfully.                                      |
+| ACTIVE    | The session is accepted and active. Al pre-condition are met: Communication between EV and EVSE (for example: cable plugged in correctly), EV or Driver is authorized.  EV is being charged, or can be charged. Energy is, or is not, being transfered. |
+| COMPLETED | The session is finished successfully. No more modifications will be made to this session.          	                             |
 | INVALID   | The session is declared invalid and will not be billed.                    |
-| PENDING   | The session is pending and has not yet started. This is the initial state. |
+| PENDING   | The session is pending, it has not yet started. Not all pre-condition are met. This is the initial state. This session might never become an _active_ session. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
