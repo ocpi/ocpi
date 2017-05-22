@@ -45,7 +45,7 @@ The following changes to messages/objects etc.
 | Tokens / CPO GET method                | Minor / Minor               | Minimal / Minimal           | parameter: token_uid is changed from string(15) to string(36). |
 | Tokens / CPO PUT method                | Minor / Minor               | Minimal / Minimal           | parameter: token_uid is changed from string(15) to string(36). |
 | Tokens / eMSP POST method              | Minor / Minor               | Minimal / Minimal           | parameter: token_uid is changed from string(15) to string(36). |
-| Tokens / eMSP POST method              | Minor / Minor               | Minimal / Minimal           | extra required parameter added: token_type. |
+| Tokens / eMSP POST method              | Minor / Minor               | Minimal / Minimal           | extra optional parameter added: token_type. |
 | Tokens / Token object                  | Minor / Minor               | Minimal / Minimal           | field: Token.uid length changed from string(15) to string(36). |
 | Tokens / Token object                  | Minor / Minor               | Minimal / Minimal           | field: Token.auth_id length changed from string(32) to string(36). |
 | Transport and Format / Response format | Minor / Minor               | Minimal / Minimal           | field: data now allows String as possible type, needed for the commands module. |
