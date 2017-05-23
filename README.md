@@ -34,23 +34,28 @@ Will be added lated:
 * [9. Smart charging.md](smart_charging.md)
 -->
 
-The specification will be finalised module-by-module. Once a module is finalised it will be implemented and tested by the parties cooperating on the specification. The finalisation work for the following module will commence in parellel.
 
-This is the schedule for finalising all modules:
+__Current versions:__
 
 Release 2.0: 
+
 - Charge Point Exchange Static & Dynamic (with tariffing covering only start/kWh/time)
 - Authorization & token data exchange
 - Tariffing
 - Session Info exchange (cdr & ndr)
 - Registration (How to connect) & Security
 
-Release 2.1:
+Release 2.1.1:
+
 - Improvements from rel. 2.0
 - Chargepoint commands
 - realtime authorization
 
+
+__Planned releases:__
+
 Release 2.2:
+
 - Smart Charging
 - Tariffing (advanced/dynamic)
 

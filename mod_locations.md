@@ -2,7 +2,7 @@
 
 **Module Identifier: `locations`**
 
-The Location objects life in the CPO back-end system. They describe the charging locations of that operator.
+The Location objects live in the CPO back-end system. They describe the charging locations of that operator.
 
 **Module dependency:** the eMSP endpoint is dependent on the [Tariffs module](mod_tariffs.md#tariffs-module)
 
@@ -10,7 +10,7 @@ The Location objects life in the CPO back-end system. They describe the charging
 
 The Locations module has Locations as base object, Locations have EVSEs, EVSEs have Connectors. With the methods in the [eMSP interface](#22-emsp-interface), Location information/statuses can be shared with the eMSP. Updates can be done to the Location, but also to only an EVSE or a Connector.
 
-When a CPO creates Location objects they push them to the eMSPs by calling [PUT](#222-put-method) on the eMSPs Locations endpoint. Providers who do not support push mode need to call [GET](#211-get-method) on the CPOs Locations endpoint to receive the new object.
+When a CPO creates Location objects it pushes them to the eMSPs by calling [PUT](#222-put-method) on the eMSPs Locations endpoint. Providers who do not support push mode need to call [GET](#211-get-method) on the CPOs Locations endpoint to receive the new object.
 
 If the CPO wants to replace a Location related object, they push it to the eMSP systems by calling [PUT](#222-put-method) on their Locations endpoint.
 
@@ -32,6 +32,7 @@ The eMSP can use the CPO GET Object interface to retrieve a specific Location, E
 Example endpoint structure: `/ocpi/cpo/2.0/locations`
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Method                 | Description                                          |
 | ---------------------- | ---------------------------------------------------- |
 | [GET](#211-get-method) | Fetch a list locations, last updated between the {date_from} and {date_to} ([paginated](transport_and_format.md#get)), or get a specific location, EVSE or Connector. |
@@ -48,6 +49,24 @@ Depending on the URL Segments provided, the GET request can either be used to re
 information about a list of available locations and EVSEs at this CPO: [GET List](#get-list-request-parameters)
 Or it can be used to get information about a specific Location, EVSE or Connector: [GET Object](#get-object-request-parameters)
 
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
 ##### GET List Request Parameters 
 
 Example endpoint structures for retrieving a list of Locations: 
@@ -62,6 +81,7 @@ If an EVSE is updated, also the 'parent' Location's `last_updated` fields is upd
 This request is [paginated](transport_and_format.md#get), it supports the [pagination](transport_and_format.md#paginated-request) related URL parameters.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Parameter  | Datatype                              | Required | Description                                                                   |
 |------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
 | date_from  | [DateTime](types.md#12-datetime-type) | no       | Only return Locations that have `last_updated` after this Date/Time.          |
@@ -76,10 +96,11 @@ This request is [paginated](transport_and_format.md#get), it supports the [pagin
 The endpoint returns a list of Location objects
 The header will contain the [pagination](transport_and_format.md#paginated-response) related headers.
 
-Any older information that is not specified in the response is considered as no longer valid.
+Any older information that is not specified in the response is considered no longer valid.
 Each object must contain all required fields. Fields that are not specified may be considered as null values.
  
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Type                            | Card. | Description                              |
 |---------------------------------|-------|------------------------------------------|
 | [Location](#31-location-object) | *     | List of all locations with valid EVSEs.  |
@@ -96,11 +117,12 @@ Example endpoint structures for a specific Location, EVSE or Connector:
 The following parameters can be provided as URL segments.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Parameter         | Datatype                              | Required | Description                                                                   |
 |-------------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
-| location_id       | [string](types.md#15-string-type)(15) | yes      | Location.id of the Location object to retrieve.                               |
-| evse_uid          | [string](types.md#15-string-type)(15) | no       | Evse.uid, required when requesting an EVSE or Connector object.               |
-| connector_id      | [string](types.md#15-string-type)(15) | no       | Connector.id, required when requesting a Connector object.                    |
+| location_id       | [string](types.md#15-string-type)(39) | yes      | Location.id of the Location object to retrieve.                               |
+| evse_uid          | [string](types.md#15-string-type)(39) | no       | Evse.uid, required when requesting an EVSE or Connector object.               |
+| connector_id      | [string](types.md#15-string-type)(36) | no       | Connector.id, required when requesting a Connector object.                    |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -109,6 +131,7 @@ The following parameters can be provided as URL segments.
 The response contains the requested object. 
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Type                                | Card. | Description                                                |
 |-------------------------------------|-------|------------------------------------------------------------|
 | *Choice: one of three*              |       |                                                            |
@@ -117,6 +140,26 @@ The response contains the requested object.
 | > [Connector](#33-connector-object) | 1     | If a Connector object was requested: the Connector object. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
 
 ### 2.2 eMSP Interface
 
@@ -127,6 +170,7 @@ Example endpoint structures:
 `/ocpi/emsp/2.0/locations/{country_code}/{party_id}/{location_id}/{evse_uid}/{connector_id}`
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Method                        | Description                                                                                |
 |-------------------------------|--------------------------------------------------------------------------------------------|
 | [GET](#221-get-method)        | Retrieve a Location as it is stored in the eMSP system.                                    |
@@ -146,13 +190,14 @@ If the CPO wants to check the status of a Location, EVSE or Connector object in 
 The following parameters can be provided as URL segments.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Parameter         | Datatype                              | Required | Description                                                                   |
 |-------------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
 | country_code      | [string](types.md#15-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
 | party_id          | [string](types.md#15-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
-| location_id       | [string](types.md#15-string-type)(15) | yes      | Location.id of the Location object to retrieve.                               |
-| evse_uid          | [string](types.md#15-string-type)(15) | no       | Evse.uid, required when requesting an EVSE or Connector object.               |
-| connector_id      | [string](types.md#15-string-type)(15) | no       | Connector.id, required when requesting a Connector object.                    |
+| location_id       | [string](types.md#15-string-type)(39) | yes      | Location.id of the Location object to retrieve.                               |
+| evse_uid          | [string](types.md#15-string-type)(39) | no       | Evse.uid, required when requesting an EVSE or Connector object.               |
+| connector_id      | [string](types.md#15-string-type)(36) | no       | Connector.id, required when requesting a Connector object.                    |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -161,6 +206,7 @@ The following parameters can be provided as URL segments.
 The response contains the requested object. 
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Type                                | Card. | Description                                                |
 |-------------------------------------|-------|------------------------------------------------------------|
 | *Choice: one of three*              |       |                                                            |
@@ -169,6 +215,32 @@ The response contains the requested object.
 | > [Connector](#33-connector-object) | 1     | If a Connector object was requested: the Connector object. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
 
 #### 2.2.2 __PUT__ Method
 
@@ -179,18 +251,23 @@ The CPO pushes available Location/EVSE or Connector objects to the eMSP. PUT is 
 This is an information push message, the objects pushed will not be owned by the eMSP. To make distinctions between objects being pushed to an eMSP from different CPOs, the {[party_id](credentials.md#credentials-object)} and {[country_code](credentials.md#credentials-object)} have to be included in the URL, as URL segments.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Parameter         | Datatype                              | Required | Description                                                                   |
 |-------------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
 | country_code      | [string](types.md#15-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
 | party_id          | [string](types.md#15-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
-| location_id       | [string](types.md#15-string-type)(15) | yes      | Location.id of the new Location object, or the Location of which an EVSE or Location object is send |
-| evse_uid          | [string](types.md#15-string-type)(15) | no       | Evse.uid, required when an EVSE or Connector object is send/replaced.         |
-| connector_id      | [string](types.md#15-string-type)(15) | no       | Connector.id, required when a Connector object is send/replaced.              |
+| location_id       | [string](types.md#15-string-type)(39) | yes      | Location.id of the new Location object, or the Location of which an EVSE or Location object is send |
+| evse_uid          | [string](types.md#15-string-type)(39) | no       | Evse.uid, required when an EVSE or Connector object is send/replaced.         |
+| connector_id      | [string](types.md#15-string-type)(36) | no       | Connector.id, required when a Connector object is send/replaced.              |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
-#### Request Body
+
+##### Request Body
+
+The request contains the new/updated object.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Type                                | Card. | Description                                            |
 |-------------------------------------|-------|--------------------------------------------------------|
 | *Choice: one of three*              |       |                                                        |
@@ -213,7 +290,7 @@ This is the most common type of update message to notify eMSPs that an EVSE (EVS
 PATCH To URL: https://www.server.com/ocpi/emsp/2.0/locations/NL/TNM/1012/3255
 
 {
-	"status": "CHARGING",
+	"status": "CHARGING"
 }
 ```
 
@@ -226,7 +303,7 @@ In this example the name of location 1012 is updated.
 PATCH To URL: https://www.server.com/ocpi/emsp/2.0/locations/NL/TNM/1012
 
 {
-	"name": "Interparking Gent Zuid",
+	"name": "Interparking Gent Zuid"
 }
 ```
 
@@ -265,7 +342,7 @@ PUT To URL: https://www.server.com/ocpi/emsp/2.0/locations/NL/TNM/1012/3256
 		}
 	],
 	"physical_reference": 3,
-	"floor": -1,
+	"floor": -1
 }
 ```
 
@@ -278,7 +355,7 @@ An EVSE can be deleted by updating its *status* property.
 PATCH To URL: https://www.server.com/ocpi/emsp/2.0/locations/NL/TNM/1012/3256
 
 {
-	"status": "REMOVED",
+	"status": "REMOVED"
 }
 ```
 
@@ -299,9 +376,10 @@ The *Location* object describes the location and its properties where a group of
 
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Property                                     | Type                                                     | Card. | Description                                                                            |
 |----------------------------------------------|----------------------------------------------------------|-------|----------------------------------------------------------------------------------------|
-| id                                           | [string](types.md#15-string-type)(15)                    | 1     | Uniquely identifies the location within the CPOs platform (and suboperator platforms). |
+| id                                           | [string](types.md#15-string-type)(39)                    | 1     | Uniquely identifies the location within the CPOs platform (and suboperator platforms). This field can never be changed, modified or renamed. |
 | type                                         | [LocationType](#416-locationtype-enum)                   | 1     | The general type of the charge point location.                                         |
 | name                                         | [string](types.md#15-string-type)(255)                   | ?     | Display name of the location.                                                          |
 | address                                      | [string](types.md#15-string-type)(45)                    | 1     | Street/block name and house number if available.                                       |
@@ -321,8 +399,32 @@ The *Location* object describes the location and its properties where a group of
 | charging_when_closed                         | boolean                                                  | ?     | Indicates if the EVSEs are still charging outside the opening hours of the location. E.g. when the parking garage closes its barriers over night, is it allowed to charge till the next morning?  Default: **true** |
 | images                                       | [Image](#414-image-class)                                | *     | Links to images related to the location such as photos or logos.                       |
 | energy_mix                                   | [EnergyMix](#45-energymix-class)                         | ?     | Details on the energy supplied at this location.                                       |
-| last_updated                                 | [DateTime](types.md#12-datetime-type)                    | 1     | Timestamp when this Location or one of its EVSEs or Connectors were last updated.                                                             |
+| last_updated                                 | [DateTime](types.md#12-datetime-type)                    | 1     | Timestamp when this Location or one of its EVSEs or Connectors were last updated (or created).                                                             |
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
 
 #### Example
 
@@ -349,25 +451,26 @@ The *Location* object describes the location and its properties where a group of
 		],
 		"connectors": [{
 			"id": "1",
-			"status": "AVAILABLE",
 			"standard": "IEC_62196_T2",
 			"format": "CABLE",
 			"power_type": "AC_3_PHASE",
 			"voltage": 220,
 			"amperage": 16,
-			"tariff_id": "11"
+			"tariff_id": "11",
+            "last_updated": "2015-03-16T10:10:02Z"
 		}, {
 			"id": "2",
-			"status": "AVAILABLE",
 			"standard": "IEC_62196_T2",
 			"format": "SOCKET",
 			"power_type": "AC_3_PHASE",
 			"voltage": 220,
 			"amperage": 16,
-			"tariff_id": "11"
+			"tariff_id": "11",
+        	"last_updated": "2015-03-18T08:12:01Z"
 		}],
 		"physical_reference": "1",
-		"floor_level": "-1"
+		"floor_level": "-1",
+     	"last_updated": "2015-06-28T08:12:01Z"
 	}, {
         "uid": "3257",
 		"id": "BE-BEC-E041503002",
@@ -386,11 +489,13 @@ The *Location* object describes the location and its properties where a group of
 			"tariff_id": "12"
 		}],
 		"physical_reference": "2",
-		"floor_level": "-2"
+		"floor_level": "-2",
+     	"last_updated": "2015-06-29T20:39:09Z"
 	}],
 	"operator": {
 		"name": "BeCharged"
-	}
+	},
+	"last_updated": "2015-06-29T20:39:09Z"
 }
 ```
 
@@ -401,9 +506,10 @@ The *EVSE* object describes the part that controls the power supply to a single 
 An *EVSE* object has a list of connectors which can not be used simultaneously: only one connector per EVSE can be used at the time.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Property                             | Type                                               | Card. | Description                                                            |
 |--------------------------------------|----------------------------------------------------|-------|------------------------------------------------------------------------|
-| uid                                  | [string](types.md#15-string-type)(15)              | 1     | Uniquely identifies the EVSE within the CPOs platform (and suboperator platforms). For example a database unique ID     |
+| uid                                  | [string](types.md#15-string-type)(39)              | 1     | Uniquely identifies the EVSE within the CPOs platform (and suboperator platforms). For example a database unique ID or the "EVSE ID". This field can never be changed, modified or renamed. This is the 'technical' identification of the EVSE, not to be used as 'human readable' identification, use the field: evse_id for that.|
 | evse_id                              | [string](types.md#15-string-type)(48)              | ?     | Compliant with the following specification for EVSE ID from "eMI3 standard version V1.0" (http://emi3group.com/documents-links/) "Part 2: business objects." Optional because: if an EVSE ID is to be re-used the EVSE ID can be removed from an EVSE that is removed (status: REMOVED)     |
 | status                               | [Status](#420-status-enum)                         | 1     | Indicates the current status of the EVSE.                              |
 | status_schedule                      | [StatusSchedule](#421-statusschedule-class)        | *     | Indicates a planned status in the future of the EVSE.                  |
@@ -415,26 +521,51 @@ An *EVSE* object has a list of connectors which can not be used simultaneously: 
 | directions                           | [DisplayText](types.md#13-displaytext-class)       | *     | Multi-language human-readable directions when more detailed information on how to reach the EVSE from the *Location* is required.     |
 | parking_restrictions                 | [ParkingRestriction](#417-parkingrestriction-enum) | *     | The restrictions that apply to the parking spot.                       |
 | images                               | [Image](#48-image-class)                           | *     | Links to images related to the EVSE such as photos or logos.           |
-| last_updated                         | [DateTime](types.md#12-datetime-type)              | 1     | Timestamp when this EVSE or one of its Connectors was last updated.                                                             |
+| last_updated                         | [DateTime](types.md#12-datetime-type)              | 1     | Timestamp when this EVSE or one of its Connectors was last updated (or created).  |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
 
 ### 3.3 _Connector_ Object
 
 A connector is the socket or cable available for the EV to use. A single EVSE may provide multiple connectors but only one of them can be in use at the same time. A connector always belongs to an *EVSE* object.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Property                           | Type                                        | Card. | Description                                                             |
 |------------------------------------|---------------------------------------------|-------|-------------------------------------------------------------------------|
-| id                                 | [string](types.md#15-string-type)(15)       | 1     | Identifier of the connector within the EVSE. Two connectors may have the same id as long as they do not belong to the same *EVSE* object. |
+| id                                 | [string](types.md#15-string-type)(36)       | 1     | Identifier of the connector within the EVSE. Two connectors may have the same id as long as they do not belong to the same *EVSE* object. |
 | standard                           | [ConnectorType](#44-connectortype-enum)     | 1     | The standard of the installed connector.                                |
 | format                             | [ConnectorFormat](#43-connectorformat-enum) | 1     | The format (socket/cable) of the installed connector.                   |
 | power_type                         | [PowerType](#418-powertype-enum)            | 1     |                                                                         |
 | voltage                            | int                                         | 1     | Voltage of the connector (line to neutral for AC_3_PHASE), in volt [V]. |
 | amperage                           | int                                         | 1     | maximum amperage of the connector, in ampere [A].                       |
-| tariff_id                          | [string](types.md#15-string-type)(15)       | ?     | Identifier of the current charging tariff structure                     |
+| tariff_id                          | [string](types.md#15-string-type)(36)       | ?     | Identifier of the current charging tariff structure. For a "Free of Charge" tariff this field should be set, and point to a defined "Free of Charge" tariff. |
 | terms_and_conditions               | [URL](types.md#16-url-type)                 | ?     | URL to the operator's terms and conditions.                             |
-| last_updated                       | [DateTime](types.md#12-datetime-type)       | 1     | Timestamp when this Connectors was last updated.                                                             |
+| last_updated                       | [DateTime](types.md#12-datetime-type)       | 1     | Timestamp when this Connectors was last updated (or created).           |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -445,6 +576,7 @@ A connector is the socket or cable available for the EV to use. A single EVSE ma
 This class defines a geo location. The geodetic system to be used is WGS 84.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Property    | Type                                         | Card. | Description                                                                                                                              |
 |-------------|----------------------------------------------|-------|-------------------------------------------------------------------|
 | latitude    | [string](types.md#15-string-type)(10)        | 1     | Latitude of the point in decimal degree. Example: 50.770774. Decimal separator: "." Regex: `-?[0-9]{1,2}\.[0-9]{6}`                       |
@@ -456,6 +588,7 @@ This class defines a geo location. The geodetic system to be used is WGS 84.
 ### 4.1 BusinessDetails *class*
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Property         | Type                                   | Card. | Description                        |
 |------------------|----------------------------------------|-------|------------------------------------|
 | name             | [string](types.md#15-string-type)(100) | 1     | Name of the operator.              |
@@ -464,11 +597,30 @@ This class defines a geo location. The geodetic system to be used is WGS 84.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
 ### 4.2 Capability *enum*
 
 The capabilities of an EVSE.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Value                                    | Description                                          |
 |------------------------------------------|------------------------------------------------------|
 | CHARGING_PROFILE_CAPABLE                 | The EVSE supports charging profiles. Sending Charging Profiles is not yet supported by OCPI. |
@@ -486,6 +638,7 @@ The format of the connector, whether it is a socket or a plug.
 
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Value  | Description |
 |--------|------------------------------------------------------------------|
 | SOCKET | The connector is a socket; the EV user needs to bring a fitting plug. |
@@ -498,6 +651,7 @@ The format of the connector, whether it is a socket or a plug.
 The socket or plug standard of the charging point.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Value                 | Description |
 |-----------------------|-------------------------------------------------------------------|
 | CHADEMO               | The connector type is CHAdeMO, DC |
@@ -533,6 +687,7 @@ The socket or plug standard of the charging point.
 This type is used to specify the energy mix and environmental impact of the supplied energy at a location or in a tariff.
 
 <div><!-- ------------------------------------------------------------------------------------------------------------------------- --></div>
+
 | Property                                                    | Type                                                 | Card. | Description                                                                                     |
 |-------------------------------------------------------------|------------------------------------------------------|-------|-------------------------------------------------------------------------------------------------|
 | is_green_energy                                             | boolean                                              | 1     | True if 100% from regenerative sources. (CO2 and nuclear waste is zero)                         |
@@ -592,6 +747,7 @@ _* These fields can be used to look-up energy qualification or to show it direct
 Key-value pairs (enum + percentage) of energy sources. All given values should add up to 100 percent per category.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Property         | Type                                                  | Card. | Description                                            |
 |------------------|-------------------------------------------------------|-------|--------------------------------------------------------|
 | source           | [EnergySourceCategory](#47-energysourcecategory-enum) | 1     | The type of energy source.                             |
@@ -604,6 +760,7 @@ Key-value pairs (enum + percentage) of energy sources. All given values should a
 Categories of energy sources.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Value                  | Description                                  |
 |------------------------|----------------------------------------------|
 | NUCLEAR                | Nuclear power sources.                       |
@@ -622,6 +779,7 @@ Categories of energy sources.
 Key-value pairs (enum + amount) of waste and carbon dioxide emittion per kWh.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Property         | Type                                                                | Card. | Description                                            |
 |------------------|---------------------------------------------------------------------|-------|--------------------------------------------------------|
 | source           | [EnvironmentalImpactCategory](#49-environmentalimpactcategory-enum) | 1     | The category of this value.                            |
@@ -634,6 +792,7 @@ Key-value pairs (enum + amount) of waste and carbon dioxide emittion per kWh.
 Categories of environmental impact values.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Value                      | Description                                                                           |
 |----------------------------|---------------------------------------------------------------------------------------|
 | NUCLEAR_WASTE              | Produced nuclear waste in gramms per kilowatthour.                                    |
@@ -646,6 +805,7 @@ Categories of environmental impact values.
 Specifies one exceptional period for opening or access hours.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Field Name   | Field Type                            | Card.   | Description |
 |--------------|---------------------------------------|---------|-------------|
 | period_begin | [DateTime](types.md#12-datetime-type) | 1       | Begin of the exception.|
@@ -653,9 +813,38 @@ Specifies one exceptional period for opening or access hours.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
 ### 4.11 Facility *enum*
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Value               | Description                                               |
 |---------------------|-----------------------------------------------------------|
 | HOTEL               | A hotel.                                                  |
@@ -680,6 +869,7 @@ Specifies one exceptional period for opening or access hours.
 ### 4.12 GeoLocation *class*
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Property    | Type                                | Card. | Description                                                                                       |
 |-------------|-------------------------------------|-------|---------------------------------------------------------------------------------------------------|
 | latitude    | [string](types.md#15-string-type)(10)| 1     | Latitude of the point in decimal degree. Example: 50.770774. Decimal separator: "." Regex: `-?[0-9]{1,2}\.[0-9]{6}`        |
@@ -692,13 +882,14 @@ Specifies one exceptional period for opening or access hours.
 Opening and access hours of the location.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Field Name                       | Field Type                                     | Card.   | Description                                                         |
 |----------------------------------|------------------------------------------------|---------|---------------------------------------------------------------------|
-| *Choice: one of two*             |                                                |         |                                                                     |
-|  > regular_hours                 |  [RegularHours](#419-regularhours-class)       |  *      |  Regular hours, weekday based. Should not be set for representing 24/7 as this is the most common case. |
-|  > twentyfourseven               |  boolean                                       |  1      |  True to represent 24 hours a day and 7 days a week, except the given exceptions. |
-| exceptional_openings             | [ExceptionalPeriod](#410-exceptionalperiod-class)| *     |  Exceptions for specified calendar dates, time-range based. Periods the station is operating/accessible. Additional to regular hours. May overlap regular rules. |
-| exceptional_closings             | [ExceptionalPeriod](#410-exceptionalperiod-class)| *     |  Exceptions for specified calendar dates, time-range based. Periods the station is not operating/accessible. Overwriting regularHours and exceptionalOpenings. Should not overlap exceptionalOpenings. |
+| *Choice: one of two*             |                                                   |         |                                                                     |
+|  > regular_hours                 |  [RegularHours](#419-regularhours-class)          | *     |  Regular hours, weekday based. Should not be set for representing 24/7 as this is the most common case. |
+|  > twentyfourseven               |  boolean                                          | 1     |  True to represent 24 hours a day and 7 days a week, except the given exceptions. |
+| exceptional_openings             | [ExceptionalPeriod](#410-exceptionalperiod-class) | *     |  Exceptions for specified calendar dates, time-range based. Periods the station is operating/accessible. Additional to regular hours. May overlap regular rules. |
+| exceptional_closings             | [ExceptionalPeriod](#410-exceptionalperiod-class) | *     |  Exceptions for specified calendar dates, time-range based. Periods the station is not operating/accessible. Overwriting regularHours and exceptionalOpenings. Should not overlap exceptionalOpenings. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -713,29 +904,16 @@ Logo Dimensions:
 The recommended dimensions for logos are exactly 512 pixels wide and 512 pixels height. Thumbnail representations for logos should be exactly 128 pixels in width and height. If not squared, thumbnails should have the same orientation as the original.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Field Name | Field Type                               | Card. | Description                           |
 |------------|------------------------------------------|-------|---------------------------------------|
 | url        | [URL](types.md#16-url-type)              | 1     | URL from where the image data can be fetched through a web browser. |
 | thumbnail  | [URL](types.md#16-url-type)              | ?     | URL from where a thumbnail of the image can be fetched through a webbrowser. |
 | category   | [ImageCategory](#415-imagecategory-enum) | 1     | Describes what the image is used for. |
-| type       | string(4)                                | 1     | Image type like: gif, jpeg, png, svg  |
+| type       | [string](types.md#15-string-type)(4)     | 1     | Image type like: gif, jpeg, png, svg  |
 | width      | int(5)                                   | ?     | Width of the full scale image         |
 | height     | int(5)                                   | ?     | Height of the full scale image        |
 <div><!-- ---------------------------------------------------------------------------- --></div>
-
-<!--
-  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
--->
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-<!--
-  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
--->
 
 
 ### 4.15 ImageCategory *enum*
@@ -743,6 +921,7 @@ The recommended dimensions for logos are exactly 512 pixels wide and 512 pixels 
 The category of an image to obtain the correct usage in a user presentation. The category has to be set accordingly to the image content in order to guarantee the right usage.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Value                | Description                                                                                                                  |
 |----------------------|------------------------------------------------------------------------------------------------------------------------------|
 | CHARGER              | Photo of the physical device that contains one or more EVSEs.                                                                |
@@ -761,6 +940,7 @@ Reflects the general type of the charge points location. May be used
 for user information.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Value                       | Description                                                        |
 |:----------------------------|:-------------------------------------------------------------------|
 | ON_STREET                   |  Parking in public space.                                          |
@@ -778,6 +958,7 @@ This value, if provided, represents the restriction to the parking spot
 for different purposes.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Value               | Description                                                              |
 |:--------------------|:-------------------------------------------------------------------------|
 | EV_ONLY             |  Reserved parking spot for electric vehicles.                            |
@@ -792,6 +973,7 @@ for different purposes.
 
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Value             | Description                                                              |
 |-------------------|--------------------------------------------------------------------------|
 | AC_1_PHASE        | AC mono phase.                                                           |
@@ -805,11 +987,12 @@ for different purposes.
 Regular recurring operation or access hours
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Field Name    | Field Type   | Card.   | Description                                                                             |
-|---------------|--------------|---------|-----------------------------------------------------------------------------------------|
-| weekday       |  int(1)      |  1      |  Number of day in the week, from Monday (1) till Sunday (7)                             |
-| period_begin  |  string(5)   |  1      |  Begin of the regular period given in hours and minutes. Must be in 24h format with leading zeros. Example: "18:15". Hour/Minute separator: ":" Regex: [0-2][0-9]:[0-5][0-9]|
-| period_end    |  string(5)   |  1      |  End of the regular period, syntax as for period_begin. Must be later than period_begin.|
+
+| Field Name    | Field Type                          | Card.   | Description                                                                             |
+|---------------|-------------------------------------|---------|-----------------------------------------------------------------------------------------|
+| weekday       |  int(1)                               |  1      |  Number of day in the week, from Monday (1) till Sunday (7)                             |
+| period_begin  |  [string](types.md#15-string-type)(5) |  1      |  Begin of the regular period given in hours and minutes. Must be in 24h format with leading zeros. Example: "18:15". Hour/Minute separator: ":" Regex: [0-2][0-9]:[0-5][0-9]|
+| period_end    |  [string](types.md#15-string-type)(5) |  1      |  End of the regular period, syntax as for period_begin. Must be later than period_begin.|
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -867,6 +1050,7 @@ This represents the following schedule, where ~~stroked out~~ days are without o
 
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Weekday   | Mo | Tu | We | Th | Fr | Sa     | Su     | Mo | Tu         | We | Th | Fr | Sa     | Su     |
 |-----------|----|----|----|----|----|--------|--------|----|------------|----|----|----|--------|--------|
 | Date      | 16 | 17 | 18 | 19 | 20 | **21** | ~~22~~ | 23 | **~~24~~** | 25 | 26 | 27 | ~~28~~ | ~~29~~ |
@@ -880,6 +1064,7 @@ This represents the following schedule, where ~~stroked out~~ days are without o
 The status of an EVSE.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Value              | Description                                                                                     |
 |--------------------|-------------------------------------------------------------------------------------------------|
 | AVAILABLE          | The EVSE/Connector is able to start a new charging session.                                     |
@@ -899,10 +1084,11 @@ The status of an EVSE.
 This type is used to schedule status periods in the future. The eMSP can provide this information to the EV user for trip planning purpose. A period MAY have no end. Example: "This station will be running as of tomorrow. Today it is still planned and under construction."
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Property         | Type                                  | Card. | Description                                            |
 |------------------|---------------------------------------|-------|--------------------------------------------------------|
-| period_begin     | [DateTime](types.md#12_datetime_type) | 1     | Begin of the scheduled period.                         |
-| period_end       | [DateTime](types.md#12_datetime_type) | ?     | End of the scheduled period, if known.                 |
+| period_begin     | [DateTime](types.md#12-datetime-type) | 1     | Begin of the scheduled period.                         |
+| period_end       | [DateTime](types.md#12-datetime-type) | ?     | End of the scheduled period, if known.                 |
 | status           | [Status](#420-status-enum)            | 1     | Status value during the scheduled period.              |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 

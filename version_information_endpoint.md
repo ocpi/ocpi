@@ -12,6 +12,7 @@ of the different modules and version of OCPI that have been implemented.
 Both the CPO and the eMSP must have this endpoint.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Method   | Description                                                             |
 | -------- | ----------------------------------------------------------------------- |
 | GET      | Fetch information about the supported versions.                         |
@@ -21,6 +22,7 @@ Both the CPO and the eMSP must have this endpoint.
 ## Data
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Property  | Type                       | Card.  | Description                               |
 |-----------|----------------------------|--------|-------------------------------------------|
 | versions  | [Version](#version-class)  | +      | A list of supported OCPI versions.        |
@@ -30,6 +32,7 @@ Both the CPO and the eMSP must have this endpoint.
 ### Version *class*
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Property | Type                                 | Card. | Description                               |
 |----------|--------------------------------------|-------|-------------------------------------------|
 | version  | [VersionNumber](#versionnumber-enum) | 1     | The version number.                       |
@@ -46,8 +49,8 @@ Fetch all supported OCPI versions of this CPO or eMSP.
 ```json
 [
     {
-        "version": "1.9",
-        "url": "https://example.com/ocpi/cpo/1.9/"
+        "version": "2.1.1",
+        "url": "https://example.com/ocpi/cpo/2.1.1/"
     },
     {
         "version": "2.0",
@@ -66,6 +69,7 @@ This endpoint lists the supported endpoints and their URLs for a specific OCPI v
 Both the CPO and the eMSP must have this endpoint.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Method   | Description                                                             |
 | -------- | ----------------------------------------------------------------------- |
 | GET      | Fetch information about the supported endpoints for this version.       |
@@ -75,6 +79,7 @@ Both the CPO and the eMSP must have this endpoint.
 ## Data
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Property   | Type                                  | Card.  | Description                                      |
 |------------|---------------------------------------|--------|--------------------------------------------------|
 | version    | [VersionNumber](#versionnumber-enum)  | 1      | The version number.                              |
@@ -85,6 +90,7 @@ Both the CPO and the eMSP must have this endpoint.
 ### Endpoint *class*
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Property    | Type                         | Card.  | Description                               |
 |-------------|------------------------------|--------|-------------------------------------------|
 | identifier  | [ModuleID](#moduleid-enum)   | 1      | Endpoint identifier.                      |
@@ -97,40 +103,30 @@ Both the CPO and the eMSP must have this endpoint.
 The Module identifiers for each endpoint are in the beginning of each *Module* chapter. The following table contains the list of modules in this version of OCPI. Most modules (except [Credentials & registration](credentials.md#credentials-endpoint)) are optional, but there might be dependencies between modules, if so that will be mentioned in the module description.
 
 <div><!-- ------------------------------------------------------------------------------------------------------------------------------------------------------ --></div>
-| Module                                                            | ModuleID      | Remark                                                           |
-|-------------------------------------------------------------------|---------------|------------------------------------------------------------------|
-| [CDRs](mod_cdrs.md#cdrs-module)                                   | cdrs          | &nbsp;                                                           |
-| [Commands](mod_commands.md#commands-module)                       | commands      | &nbsp;                                                           |
-| [Credentials & registration](credentials.md#credentials-endpoint) | credentials   | Required for all implementations                                 |
-| [Locations](mod_locations.md#locations-module)                    | locations     | &nbsp;                                                           |
-| [Sessions](mod_sessions.md#sessions-module)                       | sessions      | &nbsp;                                                           |
-| [Tariffs](mod_tariffs.md#tariffs-module)                          | tariffs       | &nbsp;                                                           |
-| [Tokens](mod_tokens.md#tokens-module)                             | tokens        | &nbsp;                                                           |
+
+| Module                                                         | ModuleID      | Remark                                                                                                 |
+|----------------------------------------------------------------|---------------|--------------------------------------------------------------------------------------------------------|
+| [CDRs](mod_cdrs.md#cdrs-module)                                   | cdrs          | &nbsp; |
+| [Commands](mod_commands.md#commands-module)                       | commands      | &nbsp; |
+| [Credentials & registration](credentials.md#credentials-endpoint) | credentials   | Required for all implementations |
+| [Locations](mod_locations.md#locations-module)                    | locations     | &nbsp; |
+| [Sessions](mod_sessions.md#sessions-module)                       | sessions      | &nbsp; |
+| [Tariffs](mod_tariffs.md#tariffs-module)                          | tariffs       | &nbsp; |
+| [Tokens](mod_tokens.md#tokens-module)                             | tokens        | &nbsp; |
 <div><!-- ----------------------------------------------------------------------------------------------------------------------------------------------------- --></div>
 
-<!--
-  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
--->
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-<!--
-  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
--->
 
 ### VersionNumber *enum*
 
 List of known versions.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
-| Value    | Description                         |
-|----------|-------------------------------------|
+
+| Value    | Description                                                                            |
+|----------|----------------------------------------------------------------------------------------|
 | 2.0      | OCPI version 2.0.                   |
-| 2.1      | OCPI version 2.1. (this version)    |
+| 2.1      | OCPI version 2.1. (DEPRECATED, do not use, use 2.1.1 instead) |
+| 2.1.1    | OCPI version 2.1.1. (this version)  |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 

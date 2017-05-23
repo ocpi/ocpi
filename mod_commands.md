@@ -31,6 +31,24 @@ Example of a `UNLOCK_CONNECTOR` that fails because the Location is not known by 
 Example of a `RESERVE_NOW` that is rejected by the Charge Point.
 ![RESERVE_NEW rejected by Charge Point](data/command_reservenow_rejected.png)
 
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
+
 Example of a `START_SESSION` that is accepted, but no new Session is started because EV not plugged in before end of time-out.
 ![START_SESSION failed](data/command_start_session_timeout.png)
 
@@ -49,6 +67,7 @@ The commands module consists of two interfaces: a CPO interface that enables a e
 Example endpoint structure: `/ocpi/cpo/2.0/commands/{command}`
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Method                   | Description                                          |
 |--------------------------|------------------------------------------------------|
 | GET                      | n/a                                                  |
@@ -59,6 +78,24 @@ Example endpoint structure: `/ocpi/cpo/2.0/commands/{command}`
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
 #### 2.1.1 __POST__ Method
 
 ##### Request Parameters
@@ -66,6 +103,7 @@ Example endpoint structure: `/ocpi/cpo/2.0/commands/{command}`
 The following parameters can be provided as URL segments.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Parameter   | Datatype                                    | Required | Description                                                                   |
 |-------------|---------------------------------------------|----------|-------------------------------------------------------------------------------|
 | command     | [CommandType](#41-commandresponsetype-enum) | yes      | Type of command that is requested.                                            |
@@ -76,6 +114,7 @@ The following parameters can be provided as URL segments.
 Depending on the `command` parameter the body SHALL contain the applicable object for that command. 
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Type                                            | Card. | Description                                            |
 |-------------------------------------------------|-------|--------------------------------------------------------|
 | *Choice: one of four*                           |       |                                                        |
@@ -90,9 +129,10 @@ Depending on the `command` parameter the body SHALL contain the applicable objec
 The response contains the direct response from the CPO, not the response from the Charge Point itself, that will be sent via an asynchronous POST on the eMSP interface if this response is `ACCEPTED`.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Datatype                                            | Card. | Description                                                              |
 |-----------------------------------------------------|-------|--------------------------------------------------------------------------|
-| [CommandResponseType](#42-commandresponsetype-enum) | 1     | Result of the command request by the CPO (not the Charge Point).         |
+| [CommandResponseType](#42-commandresponsetype-enum) | 1     | Result of the command request, by the CPO (not the Charge Point). So this indicates if the CPO understood the command request and was able to send it to the Charge Point. This is not the response by the Charge Point |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -105,6 +145,7 @@ Example endpoint structure:
 `/ocpi/emsp/2.0/commands/{command}/{uid}`
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Method                   | Description                                              |
 |--------------------------|----------------------------------------------------------|
 | GET                      | n/a                                                      |
@@ -114,6 +155,22 @@ Example endpoint structure:
 | DELETE                   | n/a                                                      |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
 
 #### 2.2.1 __POST__ Method
 
@@ -129,9 +186,10 @@ Example:
 #### Request Body
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Datatype                                            | Card. | Description                                                              |
 |-----------------------------------------------------|-------|--------------------------------------------------------------------------|
-| [CommandResponseType](#42-commandresponsetype-enum) | 1     | Result of the command request by the CPO (not the Charge Point).         |
+| [CommandResponseType](#42-commandresponsetype-enum) | 1     | Result of the command request, from the Charge Point.         |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -140,6 +198,7 @@ Example:
 ### 3.1 _CommandResponse_ Object
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Property         | Type                                                | Card. | Description                                                           |
 |------------------|-----------------------------------------------------|-------|-----------------------------------------------------------------------|
 | result           | [CommandResponseType](#42-commandresponsetype-enum) | 1     | Result of the command request as sent by the Charge Point to the CPO. |
@@ -152,28 +211,47 @@ The `evse_uid` is optional. If no EVSE is specified, the Charge Point should kee
 A reservation can be replaced/updated by sending a `RESERVE_NOW` request with the same Location (Charge Point) and the same `reservation_id`. 
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Property                     | Type                                   | Card. | Description                                                                                                                                     |
 |------------------------------|----------------------------------------|-------|-------------------------------------------------------------------------------------------------------------------------------------------------|
 | response_url                 | [URL](types.md#16-url-type)            | 1     | URL that the CommandResponse POST should be send to. This URL might contain an unique ID to be able to distinguish between ReserveNow requests. |
 | token                        | [Token](mod_tokens.md#32-token-object) | 1     | Token object for how to reserve this Charge Point (and specific EVSE).                                                                          |
 | expiry_date                  | [DateTime](types.md#12-datetime-type)  | 1     | The Date/Time when this reservation ends.                                                                                                       |
-| reservation_id               | int                                    | 1     | Reservation id, unique for this reservation. If the Charge Point allready has                                                                                                       |
-| location_id                  | [string](types.md#15-string-type)(15)  | 1     | Location.id of the Location (belonging to the CPO this request is send to) for which to reserve an EVSE.                                        |
-| evse_uid                     | [string](types.md#15-string-type)(15)  | ?     | Optional EVSE.uid of the EVSE of this Location if a specific EVSE has to be reserved.                                                           |
+| reservation_id               | int                                    | 1     | Reservation id, unique for this reservation. If the Charge Point already has a reservation that matches this reservationId the Charge Point will replace the reservation. |
+| location_id                  | [string](types.md#15-string-type)(39)  | 1     | Location.id of the Location (belonging to the CPO this request is send to) for which to reserve an EVSE.                                        |
+| evse_uid                     | [string](types.md#15-string-type)(39)  | ?     | Optional EVSE.uid of the EVSE of this Location if a specific EVSE has to be reserved.                                                           |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
+
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
 
 ### 3.3 _StartSession_ Object
 
 The `evse_uid` is optional. If no EVSE is specified, the Charge Point can itself decide on which EVSE to start a new session. (this might not be supported by all Charge Points).
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Property                 | Type                                   | Card. | Description                                                                                                                                       |
 |--------------------------|----------------------------------------|-------|---------------------------------------------------------------------------------------------------------------------------------------------------|
 | response_url             | [URL](types.md#16-url-type)            | 1     | URL that the CommandResponse POST should be sent to. This URL might contain an unique ID to be able to distinguish between StartSession requests. |
 | token                    | [Token](mod_tokens.md#32-token-object) | 1     | Token object the Charge Point has to use to start a new session.                                                                                  |
-| location_id              | [string](types.md#15-string-type)(15)  | 1     | Location.id of the Location (belonging to the CPO this request is send to) on which a session is to be started.                                   |
-| evse_uid                 | [string](types.md#15-string-type)(15)  | ?     | Optional EVSE.uid of the EVSE of this Location on which a session is to be started.                                                               |
+| location_id              | [string](types.md#15-string-type)(39)  | 1     | Location.id of the Location (belonging to the CPO this request is send to) on which a session is to be started.                                   |
+| evse_uid                 | [string](types.md#15-string-type)(39)  | ?     | Optional EVSE.uid of the EVSE of this Location on which a session is to be started.                                                               |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -181,22 +259,24 @@ The `evse_uid` is optional. If no EVSE is specified, the Charge Point can itself
 ### 3.4 _StopSession_ Object
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Property                 | Type                                   | Card. | Description                                                                                                                                      |
 |--------------------------|----------------------------------------|-------|--------------------------------------------------------------------------------------------------------------------------------------------------|
 | response_url             | [URL](types.md#16-url-type)            | 1     | URL that the CommandResponse POST should be sent to. This URL might contain an unique ID to be able to distinguish between StopSession requests. |
-| session_id               | [string](types.md#15-string-type)(15)  | 1     | Session.id of the Session that is requested to be stopped.                                                                                       |         
+| session_id               | [string](types.md#15-string-type)(36)  | 1     | Session.id of the Session that is requested to be stopped.                                                                                       |         
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
 ### 3.5 _UnlockConnector_ Object
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Property                 | Type                                   | Card. | Description                                                                                                                                          |
 |--------------------------|----------------------------------------|-------|------------------------------------------------------------------------------------------------------------------------------------------------------|
 | response_url             | [URL](types.md#16-url-type)            | 1     | URL that the CommandResponse POST should be sent to. This URL might contain an unique ID to be able to distinguish between UnlockConnector requests. |
-| location_id              | [string](types.md#15-string-type)(15)  | 1     | Location.id of the Location (belonging to the CPO this request is send to) of which it is requested to unlock the connector.                         |
-| evse_uid                 | [string](types.md#15-string-type)(15)  | 1     | EVSE.uid of the EVSE of this Location of which it is requested to unlock the connector.                                                              |
-| connector_id             | [string](types.md#15-string-type)(15)  | 1     | Connector.id of the Connector of this Location of which it is requested to unlock.                                                                   |
+| location_id              | [string](types.md#15-string-type)(39)  | 1     | Location.id of the Location (belonging to the CPO this request is send to) of which it is requested to unlock the connector.                         |
+| evse_uid                 | [string](types.md#15-string-type)(39)  | 1     | EVSE.uid of the EVSE of this Location of which it is requested to unlock the connector.                                                              |
+| connector_id             | [string](types.md#15-string-type)(36)  | 1     | Connector.id of the Connector of this Location of which it is requested to unlock.                                                                   |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -207,6 +287,7 @@ The `evse_uid` is optional. If no EVSE is specified, the Charge Point can itself
 The command requested.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Value                       | Description                                                                                |
 |-----------------------------|--------------------------------------------------------------------------------------------|
 | NOT_SUPPORTED               | The requested command is not supported by this CPO, Charge Point, EVSE etc.                |
@@ -217,11 +298,26 @@ The command requested.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
 ### 4.2 CommandType *enum*
 
 The command requested.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Value                 | Description |
 |-----------------------|-------------------------------------------------------------------|
 | RESERVE_NOW           | Request the Charge Point to reserve a (specific) EVSE for a Token for a certain time, starting now.                                |
