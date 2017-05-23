@@ -8,6 +8,7 @@
 Example: `/ocpi/cpo/2.0/credentials` and `/ocpi/emsp/2.0/credentials`
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 | Method                      | Description                                                                                       |
 |-----------------------------|---------------------------------------------------------------------------------------------------|
 | [GET](#11-get-method)       | Retrieves the credentials object to access the server's platform.                                 |
@@ -49,17 +50,35 @@ Informs the server that its credentials to access the client's system are now in
 
 This must return a `HTTP status code 405: method not allowed` if the client was not registered.
 
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
 
 ## 2. Object description
 
 ### 2.1 Credentials object
 
 <div><!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --></div>
+
 | Property                 | Type                                                         | Card.  | Description                                                        |
 |--------------------------|--------------------------------------------------------------|--------|--------------------------------------------------------------------|
 | token                    | [string](types.md#15-string-type)(64)                        | 1      | The token for the other party to authenticate in your system.      |
 | url                      | [URL](types.md#16-url-type)                                  | 1      | The URL to your API versions endpoint.                             |
-| business_details         | [BusinessDetails](mod_locations.md#41-businessdetails-class) | 1      | Details of the other party.                                        |
+| business_details         | [BusinessDetails](mod_locations.md#41-businessdetails-class) | 1      | Details of this party.                                             |
 | party_id                 | [string](types.md#15-string-type)(3)                         | 1      | CPO or eMSP ID of this party. (following the 15118 ISO standard).  |
 | country_code             | [string](types.md#15-string-type)(2)                         | 1      | Country code of the country this party is operating in.            |
 <div><!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --></div>
@@ -107,6 +126,17 @@ To register a CPO in an eMSP platform (or vice versa), the CPO must create a uni
 
 Due to its symmetric nature, the CPO and eMSP can be swapped in the registration sequence.
 
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
+&nbsp;
+
+&nbsp;
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
 
 ### 3.2 Updating to a newer version
 
@@ -121,7 +151,7 @@ This can be done by following the update procedure for the same version. By send
 
 ### 3.4 Updating the credentials and resetting the token
 
-The credentials (or parts theirof, such as the token) can be updated by sending the new credentials via a PUT request to the credentials endpoint of the current version, similar to the update procedure described above.
+The credentials (or parts thereof, such as the token) can be updated by sending the new credentials via a PUT request to the credentials endpoint of the current version, similar to the update procedure described above.
 
 ### 3.5 Errors during registration
 
@@ -133,6 +163,6 @@ When two parties connect, it might happen that one of the parties expects a cert
 
 For example: a CPO could only want to connect when the CDRs endpoint is available in an eMSP system. 
 
-In case the client is starting the credentials exchange process and cannot find the endpoints it expects. Then, it is expected NOT to send the POST request with credentials to the server. Log a message/notify the administrator to contact the administrator of the server system.
+In case the client is starting the credentials exchange process and cannot find the endpoints it expects, it is expected NOT to send the POST request with credentials to the server. Log a message/notify the administrator to contact the administrator of the server system.
 
 In case the server, receiving the request from a client, cannot find the endpoints it expects, then it is expected to respond to the request with a status code: [3003](status_codes.md#3xxx-server-errors).

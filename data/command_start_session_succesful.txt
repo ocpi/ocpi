@@ -17,7 +17,7 @@ deactivate CPO
 activate CP
 CP   ->  CPO:  RemoteStartTransaction.conf(Accepted)
 activate CPO
-CPO  ->  eMSP: CommandResponse(SUCESSFUL)
+CPO  ->  eMSP: CommandResponse(SUCCESSFUL)
 activate eMSP
 eMSP --> CPO: 
 deactivate CPO

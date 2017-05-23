@@ -102,8 +102,8 @@ The following parameters can be provided as URL segments.
 <div><!-- ---------------------------------------------------------------------------- --></div>
 | Parameter        | Datatype                              | Required | Description                                                                   |
 |------------------|---------------------------------------|----------|-------------------------------------------------------------------------------|
-| country_code     | [string](types.md#15-string-type)(2)  | yes      | Country code of the CPO requesting this PUT to the eMSP system.               |
-| party_id         | [string](types.md#15-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.     |
+| country_code     | [string](types.md#15-string-type)(2)  | yes      | Country code of the CPO requesting this GET from the eMSP system.               |
+| party_id         | [string](types.md#15-string-type)(3)  | yes      | Party ID (Provider ID) of the CPO requesting this GET from the eMSP system.     |
 | session_id       | [string](types.md#15-string-type)(15) | yes      | id of the Session object to get from the eMSP system.                         |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
@@ -172,7 +172,7 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
 | start_datetime                    | [DateTime](types.md#12-datetime-type)                      | 1     | The time when the session became active.                                                                       |
 | end_datetime                      | [DateTime](types.md#12-datetime-type)                      | ?     | The time when the session is completed.                                                                        |
 | kwh                               | [number](types.md#14-number-type)                          | 1     | How many kWh are charged.                                                                                      |
-| auth_id                           | [string](types.md#15-string-type)(15)                      | 1     | An id provided by the authentication used, so that the eMSP knows to which driver the session belongs.         |
+| auth_id                           | [string](types.md#15-string-type)(32)                      | 1     | An id provided by the authentication used, so that the eMSP knows to which driver the session belongs.         |
 | auth_method                       | [AuthMethod](mod_cdrs.md#41-authmethod-enum)               | 1     | Method used for authentication.                                                                                |
 | location                          | [Location](mod_locations.md#31-location-object)            | 1     | The location where this session took place, including only the relevant EVSE and connector                |
 | meter_id                          | [string](types.md#15-string-type)(255)                     | ?     | Optional identification of the kWh meter.                                                                      |
