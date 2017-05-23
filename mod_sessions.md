@@ -342,7 +342,7 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
 			"latitude": "3.72994",
 			"longitude": "51.04759"
 		},
-		"evse": {
+		"evses": [{
 			"uid": "3256",
 			"evse_id": "BE-BEC-E041503003",
 			"STATUS": "AVAILABLE",
@@ -357,7 +357,7 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
                 "last_updated": "2015-06-29T23:09:10Z"
 			}],
             "last_updated": "2015-06-29T23:09:10Z"
-		},
+		}],
         "last_updated": "2015-06-29T23:09:10Z"
 	},
 	"currency": "EUR",
