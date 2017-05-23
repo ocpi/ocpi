@@ -210,7 +210,7 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 			"latitude": "3.72994",
 			"longitude": "51.04759"
 		},
-		"evse": {
+		"evses": [{
 			"uid": "3256",
 			"evse_id": "BE-BEC-E041503003",
 			"STATUS": "AVAILABLE",
@@ -223,7 +223,7 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 				"amperage": 64,
 				"tariff_id": "11"
 			}]
-		}
+		}]
 	},
 	"currency": "EUR",
 	"tariffs": [{
