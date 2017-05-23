@@ -110,6 +110,17 @@ HTTP headers that have to be added to any paginated GET response.
 | X-Limit         | (Custom HTTP Header) Number of objects that are returned. Note that this is an upper limit, if there are not enough remaining objects to return, fewer objects than this upper limit number will be returned. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
+&nbsp;
+
+&nbsp;
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
 
 
 ##### Pagination Examples
@@ -247,6 +258,21 @@ For brevity's sake, any further examples used in this specification will only co
 }
 ```
 
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
+
 #### Example: Tokens GET Response with one Token object. (CPO end-point) (one object)
 
 ```json
@@ -312,6 +338,28 @@ For brevity's sake, any further examples used in this specification will only co
 	"timestamp": "2015-06-30T21:59:59Z"
 }
 ```
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
 
 
 ## Interface endpoints

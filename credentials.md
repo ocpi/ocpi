@@ -126,6 +126,17 @@ To register a CPO in an eMSP platform (or vice versa), the CPO must create a uni
 
 Due to its symmetric nature, the CPO and eMSP can be swapped in the registration sequence.
 
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
+&nbsp;
+
+&nbsp;
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
 
 ### 3.2 Updating to a newer version
 

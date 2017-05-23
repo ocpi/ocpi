@@ -7,8 +7,8 @@ This forced us to release a bug fix: OCPI 2.1.1.
 With the release of OCPI 2.1.1: OCPI 2.1 is deprecated, 2.1 should no longer used and replaced by 2.1.1.
 It should be a small effort to upgrade an existing 2.1 implementation to 2.1.1. 
 
-## OCPI 2.1.1 - RC1
-This document is: Release Candidate 1 (RC1)
+## OCPI 2.1.1 - RC2
+This document is: Release Candidate 2 (RC2)
 
 All known bugs, typos and textual improvements have been fixed. 
 A number of high priority issues, not necessarily bugs, but requested by the OCPI community have also been fixed.

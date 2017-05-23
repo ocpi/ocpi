@@ -14,7 +14,7 @@ NoDerivatives 4.0 International Public License*<br/>
 
 | Version   | Date       | Description                                      |
 |-----------|------------|--------------------------------------------------|
-| 2.1.1-RC2 | 22-05-2017 | Fixed 2 more issues and some typos.  |
+| 2.1.1-RC2 | 23-05-2017 | Fixed 2 more issues and some typos.  |
 | 2.1.1-RC1 | 15-01-2017 | Fixed the last 4 issues after consulting with the OCPI community.  |
 | 2.1.1-DRAFT1 | 30-12-2016 | Fixed 3 bugs found in OCPI 2.1, lots of small textual improvements: see [changelog](changelog.md#changelog)  |
 | 2.1       | 08-04-2016 | Added [command module](mod_command.md#commands-module).<br/> Added support for [real-time authorization](mod_tokens.md#222-post-method).<br/> Lots of small improvements: see [changelog](changelog.md#changelog)  |

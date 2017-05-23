@@ -31,6 +31,24 @@ Example of a `UNLOCK_CONNECTOR` that fails because the Location is not known by 
 Example of a `RESERVE_NOW` that is rejected by the Charge Point.
 ![RESERVE_NEW rejected by Charge Point](data/command_reservenow_rejected.png)
 
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
+
 Example of a `START_SESSION` that is accepted, but no new Session is started because EV not plugged in before end of time-out.
 ![START_SESSION failed](data/command_start_session_timeout.png)
 
@@ -141,16 +159,6 @@ Example endpoint structure:
 <!--
   Add some whitelines for PDF generation fix, TODO check in new PDf versions 
 -->
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
 
 &nbsp;
 

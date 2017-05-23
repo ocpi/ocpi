@@ -516,3 +516,19 @@ Thus a `step_size = 300` means 300 seconds.
 | max_duration            | int                                   | ?     | Maximum duration in seconds, valid for a duration up to x seconds                     |
 | day_of_week             | [DayOfWeek](#41-dayofweek-enum)       | *     | Which day(s) of the week this tariff is valid                                         |
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
+

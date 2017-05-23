@@ -49,6 +49,24 @@ Depending on the URL Segments provided, the GET request can either be used to re
 information about a list of available locations and EVSEs at this CPO: [GET List](#get-list-request-parameters)
 Or it can be used to get information about a specific Location, EVSE or Connector: [GET Object](#get-object-request-parameters)
 
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+<!--
+  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
+-->
+
 ##### GET List Request Parameters 
 
 Example endpoint structures for retrieving a list of Locations: 
@@ -302,22 +320,6 @@ PATCH To URL: https://www.server.com/ocpi/emsp/2.0/locations/NL/TNM/1012/3255/2
 }
 ```
 
-
-<!--
-  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
--->
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-<!--
-  Add some whitelines for PDF generation fix, TODO check in new PDf versions 
--->
 
 ##### Example: add an EVSE
 
