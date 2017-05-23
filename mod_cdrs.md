@@ -271,7 +271,7 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 			"latitude": "3.72994",
 			"longitude": "51.04759"
 		},
-		"evse": {
+		"evses": [{
 			"uid": "3256",
 			"evse_id": "BE-BEC-E041503003",
 			"STATUS": "AVAILABLE",
@@ -283,11 +283,11 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 				"voltage": 230,
 				"amperage": 64,
 				"tariff_id": "11",
-                "last_updated": "2015-06-29T21:39:01Z"
+				"last_updated": "2015-06-29T21:39:01Z"
 			}],
-            "last_updated": "2015-06-29T21:39:01Z"
-		},
-        "last_updated": "2015-06-29T21:39:01Z"
+			"last_updated": "2015-06-29T21:39:01Z"
+		}],
+		"last_updated": "2015-06-29T21:39:01Z"
 	},
 	"currency": "EUR",
 	"tariffs": [{
@@ -299,7 +299,7 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 				"price": "2.00",
 				"step_size": 300
 			}],
-            "last_updated": "2015-02-02T14:15:01Z"
+			"last_updated": "2015-02-02T14:15:01Z"
 		}]
 	}],
 	"charging_periods": [{
@@ -309,10 +309,10 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 			"volume": 1.973
 		}]
 	}],
-	"total_cost": 4,00,
-	"total_energy":  15.342,
-	"total_time":  1.973,
-    "last_updated": "2015-06-29T22:01:13Z"
+	"total_cost": 4.00,
+	"total_energy": 15.342,
+	"total_time": 1.973,
+	"last_updated": "2015-06-29T22:01:13Z"
 }
 ```
 

@@ -1,5 +1,13 @@
 This repository contains the OCPI specification.
 
+## OCPI 2.1.1 RC2
+Some bugs were found in OCPI 2.1. These, together with a lot of textual improvements have been fixed in the branch:
+https://github.com/ocpi/ocpi/tree/2.1-bugfixes. If you find any bug in OCPI 2.1, please check this bugfix branch.
+If you do a pull-request, please do it on this bug-fix branch.
+
+Current status of this branch: [2.1.1 RC2](releases/OCPI_2.1.1-RC2.pdf) (Release Candidate 2)
+When 2.1.1 RC2 is proven bug free it will be released as 2.1.1 FINAL, replacing 2.1.
+
 ## Contents
 
  * [__Version History__](version_history.md)
@@ -53,6 +61,6 @@ Release 2.2:
 
 
 ----
-1 Dec 2014 [Draft v4](releases/OCPI-Draftv4.pdf) is published
+1 Dec 2014 [Draft v4](releases/old/OCPI-Draftv4.pdf) is published
 17 June 2015 [Draft v5] is moved to a new branch that will be used as a reference as the OCPI specifications are being redefined and the specifications are restructured in different files, a file per chapter
 
