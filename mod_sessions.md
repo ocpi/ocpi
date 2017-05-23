@@ -206,7 +206,7 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
 			"latitude": "3.72994",
 			"longitude": "51.04759"
 		},
-		"evse": {
+		"evses": [{
 			"uid": "3256",
 			"evse_id": "BE-BEC-E041503003",
 			"STATUS": "AVAILABLE",
@@ -219,7 +219,7 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
 				"amperage": "64",
 				"tariff_id": "11"
 			}]
-		}
+		}]
 	},
 	"currency": "EUR",
 	"total_cost": "2.50",
