@@ -277,7 +277,7 @@ The *CDR* object describes the Charging Session and its costs. How these costs a
 			"STATUS": "AVAILABLE",
 			"connectors": [{
 				"id": "1",
-				"standard": "IEC-62196-T2",
+				"standard": "IEC_62196_T2",
 				"format": "SOCKET",
 				"power_type": "AC_1_PHASE",
 				"voltage": 230,
