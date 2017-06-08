@@ -1,12 +1,5 @@
 This repository contains the OCPI specification.
 
-## OCPI 2.1.1 RC2
-Some bugs were found in OCPI 2.1. These, together with a lot of textual improvements have been fixed in the branch:
-https://github.com/ocpi/ocpi/tree/2.1-bugfixes. If you find any bug in OCPI 2.1, please check this bugfix branch.
-If you do a pull-request, please do it on this bug-fix branch.
-
-Current status of this branch: [2.1.1 RC2](releases/OCPI_2.1.1-RC2.pdf) (Release Candidate 2)
-When 2.1.1 RC2 is proven bug free it will be released as 2.1.1 FINAL, replacing 2.1.
 
 ## Contents
 
@@ -50,6 +43,7 @@ Release 2.1.1:
 - Improvements from rel. 2.0
 - Chargepoint commands
 - realtime authorization
+- fixes some bugs of 2.1 (2.1 is now deprecated)
 
 
 __Planned releases:__
