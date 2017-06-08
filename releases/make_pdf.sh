@@ -7,7 +7,7 @@ alias pandoc='pandoc +RTS -V0 -RTS'
 #############################################
 # adjust these before you release
 PROTOCOL_VERSION="2.1.1";
-DOCUMENT_VERSION="${PROTOCOL_VERSION}-RC2";
+DOCUMENT_VERSION="${PROTOCOL_VERSION}";
 OUTFILE="OCPI_${DOCUMENT_VERSION}.pdf";
 RELEASE_DATE=$(date +%d.%m.%Y);
 RELEASE_DIR=${DOCUMENT_VERSION};
