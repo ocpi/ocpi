@@ -885,9 +885,8 @@ Opening and access hours of the location.
 
 | Field Name                       | Field Type                                     | Card.   | Description                                                         |
 |----------------------------------|------------------------------------------------|---------|---------------------------------------------------------------------|
-| *Choice: one of two*             |                                                   |         |                                                                     |
-|  > regular_hours                 |  [RegularHours](#419-regularhours-class)          | *     |  Regular hours, weekday based. Should not be set for representing 24/7 as this is the most common case. |
-|  > twentyfourseven               |  boolean                                          | 1     |  True to represent 24 hours a day and 7 days a week, except the given exceptions. |
+| twentyfourseven                  |  boolean                                          | 1     |  True to represent 24 hours a day and 7 days a week, except the given exceptions. |
+| regular_hours                    |  [RegularHours](#419-regularhours-class)          | *     |  Regular hours, weekday-based. Only to be used if `twentyfourseven=false`. |
 | exceptional_openings             | [ExceptionalPeriod](#410-exceptionalperiod-class) | *     |  Exceptions for specified calendar dates, time-range based. Periods the station is operating/accessible. Additional to regular hours. May overlap regular rules. |
 | exceptional_closings             | [ExceptionalPeriod](#410-exceptionalperiod-class) | *     |  Exceptions for specified calendar dates, time-range based. Periods the station is not operating/accessible. Overwriting regularHours and exceptionalOpenings. Should not overlap exceptionalOpenings. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
