@@ -106,7 +106,7 @@ The following parameters can be provided as URL segments.
 
 | Parameter   | Datatype                                    | Required | Description                                                                   |
 |-------------|---------------------------------------------|----------|-------------------------------------------------------------------------------|
-| command     | [CommandType](#41-commandresponsetype-enum) | yes      | Type of command that is requested.                                            |
+| command     | [CommandType](#42-commandtype-enum) | yes      | Type of command that is requested.                                            |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 #### Request Body
@@ -132,7 +132,7 @@ The response contains the direct response from the CPO, not the response from th
 
 | Datatype                                            | Card. | Description                                                              |
 |-----------------------------------------------------|-------|--------------------------------------------------------------------------|
-| [CommandResponseType](#42-commandresponsetype-enum) | 1     | Result of the command request, by the CPO (not the Charge Point). So this indicates if the CPO understood the command request and was able to send it to the Charge Point. This is not the response by the Charge Point |
+| [CommandResponseType](#41-commandresponsetype-enum) | 1     | Result of the command request, by the CPO (not the Charge Point). So this indicates if the CPO understood the command request and was able to send it to the Charge Point. This is not the response by the Charge Point |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
