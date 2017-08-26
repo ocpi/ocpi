@@ -396,8 +396,8 @@ References to location details.
 | Field Name       | Field Type                               | Card. | Description                                                         |
 |------------------|------------------------------------------|-------|---------------------------------------------------------------------|
 | location_id      | [string](types.md#15-string-type)(39)    | 1     | Uniquely identifier for the location.                               |
-| evse_uids        | [string](types.md#15-string-type)(39)    | *     | Uniquely identifier for EVSEs within the CPOs platform for the EVSE within the the given location. |
-| connector_ids    | [string](types.md#15-string-type)(36)    | *     | Identifies the connectors within the given EVSEs.                   |                                                                                 |
+| evse_uids        | [string](types.md#Array)| *     | Uniquely Identifies for EVSEs within the CPOs platform for the EVSE within the the given location. |
+| connector_ids    | [string](types.md#Array)    | *     | Identifies the connectors within the given EVSEs.                   |                                                                                 |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
