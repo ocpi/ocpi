@@ -33,7 +33,7 @@ Each HTTP request must add a 'Authorization' header. The header looks as follows
   Authorization: Token IpbJOXxkxOAuKR92z0nEcmVF3Qw09VG7I7d/WCg0koM=
 ```
 
-The literal 'Token' indicates that the token based authentication mechanism is used. Its parameter is a string consisting of printable, non-whitespace ASCII characters. The token must uniquely identify the requesting party. This way, the server can use this to link data and commands to this party's account.
+The literal 'Token' indicates that the token based authentication mechanism is used. Its parameter is a string consisting of printable, non-whitespace ASCII characters. The token must uniquely identify the requesting party. This way, the server can use this to link data and commands to this party's account. If the header is missing or the token doesn't match any known party then the server must respond with a HTTP `401 - Unauthorized` status code.
 
 The request method can be any of [GET](#get), [PUT](#put), [PATCH](#patch) or DELETE. The OCPI protocol uses them in a way similar to REST APIs.
 
@@ -196,7 +196,7 @@ Example of a URL to a client owned object
 POST is not supported for these kind of modules.
 PUT is used to send new objects to the servers. 
 
-If a client tries to access an object with a URL that has a different [country-code](credentials.md#credentials-object) and/or [party-id](credentials.md#credentials-object) then given during the [credentials](credentials.md#credentials-object) handshake, it is allowed the respond with a HTTP 404 status code, this way blocking client access to objects that do not belong to them.
+If a client tries to access an object with a URL that has a different [country-code](credentials.md#credentials-object) and/or [party-id](credentials.md#credentials-object) then given during the [credentials](credentials.md#credentials-object) handshake, it is allowed the respond with a HTTP `404` status code, this way blocking client access to objects that do not belong to them.
 
 
 #### Errors
