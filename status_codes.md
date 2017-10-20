@@ -15,6 +15,7 @@ When the server receives a valid OCPI object it should respond with:
 
 - HTTP `200 - Ok` when the object already existed and is successfully updated.
 - HTTP `201 - Created` when the object is newly created in the server system.
+- HTTP `202 - Accepted` When the request has been accepted, but the processing has not been completed (for example for remote commands).
 
 Requests that reach the OCPI layer should return an OCPI response message with a `status_code` field as defined below.
 
