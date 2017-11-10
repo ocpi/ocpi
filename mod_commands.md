@@ -326,7 +326,7 @@ The command requested.
 | UNLOCK_CONNECTOR      | Request the Charge Point to unlock the connector (if applicable). This functionality is for help desk operators only! |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
-**The command `UNLOCK_CONNECTOR` may only be used by an operator of the eMSP. This command SHALL never be allowed to be sent directly by the EV-Driver. 
+**The command `UNLOCK_CONNECTOR` may only be used by an operator or the eMSP. This command SHALL never be allowed to be sent directly by the EV-Driver. 
 The `UNLOCK_CONNECTOR` is intended to be used in the rare situation that the connector is not unlocked successfully after a transaction is stopped. The mechanical unlock of the lock mechanism might get stuck, for example: fail when there is tension on the charging cable when the Charge Point tries to unlock the connector.
 In such a situation the EV-Driver can call either the CPO or the eMSP to retry the unlocking.** 
 
