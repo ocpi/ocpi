@@ -485,8 +485,8 @@ The *Location* object describes the location and its properties where a group of
 			"power_type": "AC_3_PHASE",
 			"voltage": 220,
 			"amperage": 16,
-			"tariff_id": "12"
-     		"last_updated": "2015-06-29T20:39:09Z"
+			"tariff_id": "12",
+			"last_updated": "2015-06-29T20:39:09Z"
 		}],
 		"physical_reference": "2",
 		"floor_level": "-2",
