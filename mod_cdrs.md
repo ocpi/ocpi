@@ -255,20 +255,20 @@ NOTE: The duration of charging (energy being transferred between EVSE and EV) du
 	"auth_method": "WHITELIST",
 	"location": {
 		"id": "LOC1",
-		"type": "on_street",
+		"type": "ON_STREET",
 		"name": "Gent Zuid",
 		"address": "F.Rooseveltlaan 3A",
 		"city": "Gent",
 		"postal_code": "9000",
 		"country": "BE",
 		"coordinates": {
-			"latitude": "3.72994",
-			"longitude": "51.04759"
+			"latitude": "3.729944",
+			"longitude": "51.047599"
 		},
 		"evses": [{
 			"uid": "3256",
 			"evse_id": "BE-BEC-E041503003",
-			"STATUS": "AVAILABLE",
+			"status": "AVAILABLE",
 			"connectors": [{
 				"id": "1",
 				"standard": "IEC_62196_T2",
@@ -293,8 +293,8 @@ NOTE: The duration of charging (energy being transferred between EVSE and EV) du
 				"price": "2.00",
 				"step_size": 300
 			}],
-			"last_updated": "2015-02-02T14:15:01Z"
-		}]
+		}],
+		"last_updated": "2015-02-02T14:15:01Z"
 	}],
 	"charging_periods": [{
 		"start_date_time": "2015-06-29T21:39:09Z",

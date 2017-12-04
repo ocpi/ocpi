@@ -247,22 +247,23 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
 	"start_datetime": "2015-06-29T22:39:09Z",
 	"kwh": 0.00,
 	"auth_id": "DE8ACC12E46L89",
+	"auth_method": "WHITELIST",
 	"location": {
 		"id": "LOC1",
-		"type": "on_street",
+		"type": "ON_STREET",
 		"name": "Gent Zuid",
 		"address": "F.Rooseveltlaan 3A",
 		"city": "Gent",
 		"postal_code": "9000",
 		"country": "BE",
 		"coordinates": {
-			"latitude": "3.72994",
-			"longitude": "51.04759"
+			"latitude": "3.729944",
+			"longitude": "51.047599"
 		},
 		"evses": [{
 			"uid": "3256",
 			"evse_id": "BE-BEC-E041503003",
-			"STATUS": "AVAILABLE",
+			"status": "AVAILABLE",
 			"connectors": [{
 				"id": "1",
 				"standard": "IEC_62196_T2",
@@ -330,17 +331,18 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
 	"end_datetime": "2015-06-29T23:50:16Z",
 	"kwh": 41.00,
 	"auth_id": "DE8ACC12E46L89",
+	"auth_method": "WHITELIST",
 	"location": {
 		"id": "LOC1",
-		"type": "on_street",
+		"type": "ON_STREET",
 		"name": "Gent Zuid",
 		"address": "F.Rooseveltlaan 3A",
 		"city": "Gent",
 		"postal_code": "9000",
 		"country": "BE",
 		"coordinates": {
-			"latitude": "3.72994",
-			"longitude": "51.04759"
+			"latitude": "3.729944",
+			"longitude": "51.047599"
 		},
 		"evses": [{
 			"uid": "3256",
@@ -373,7 +375,7 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
 	}, {
 		"start_date_time": "2015-06-29T22:40:54Z",
 		"dimensions": [{
-			"type": "energy",
+			"type": "ENERGY",
 			"volume": 41000
 		}, {
 			"type": "MIN_CURRENT",
