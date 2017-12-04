@@ -438,12 +438,12 @@ The *Location* object describes the location and its properties where a group of
 	"postal_code": "9000",
 	"country": "BEL",
 	"coordinates": {
-		"latitude": "51.04759",
-		"longitude": "3.72994"
+		"latitude": "51.047599",
+		"longitude": "3.729944"
 	},
 	"evses": [{
         "uid": "3256",
-		"id": "BE-BEC-E041503001",
+		"evse_id": "BE-BEC-E041503001",
 		"status": "AVAILABLE",
 		"status_schedule": [],
 		"capabilities": [
@@ -473,20 +473,20 @@ The *Location* object describes the location and its properties where a group of
      	"last_updated": "2015-06-28T08:12:01Z"
 	}, {
         "uid": "3257",
-		"id": "BE-BEC-E041503002",
+		"evse_id": "BE-BEC-E041503002",
 		"status": "RESERVED",
 		"capabilities": [
 			"RESERVABLE"
 		],
 		"connectors": [{
 			"id": "1",
-			"status": "RESERVED",
 			"standard": "IEC_62196_T2",
 			"format": "SOCKET",
 			"power_type": "AC_3_PHASE",
 			"voltage": 220,
 			"amperage": 16,
-			"tariff_id": "12"
+			"tariff_id": "12",
+			"last_updated": "2015-06-29T20:39:09Z"
 		}],
 		"physical_reference": "2",
 		"floor_level": "-2",
@@ -733,7 +733,7 @@ _* These fields can be used to look-up energy qualification or to show it direct
 			{ "source": "NUCLEAR",        "percentage": 21.7 }
 		],
 	"environ_impact": [
-			{ "source": "NUCLEAR_WASTE",  "amount": 0.00006, },
+			{ "source": "NUCLEAR_WASTE",  "amount": 0.0006,  },
 			{ "source": "CARBON_DIOXIDE", "amount": 372,     }
 		],
 	"supplier_name":       "E.ON Energy Deutschland",
@@ -1033,14 +1033,14 @@ Operating on weekdays from 8am till 8pm with one exceptional opening on
     "twentyfourseven": false,
     "exceptional_openings": [
       {
-        "period_begin": "2014-06-21T09:00:00+02:00",
-        "period_end": "2014-06-21T12:00:00+02:00"
+        "period_begin": "2014-06-21T09:00:00Z",
+        "period_end": "2014-06-21T12:00:00Z"
       }
     ],
     "exceptional_closings": [
       {
-        "period_begin": "2014-06-24T00:00:00+02:00",
-        "period_end": "2014-06-25T00:00:00+02:00"
+        "period_begin": "2014-06-24T00:00:00Z",
+        "period_end": "2014-06-25T00:00:00Z"
       }
     ]
   }
