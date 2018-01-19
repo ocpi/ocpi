@@ -12,7 +12,7 @@ With this cached information they know to which eMSP they can later send a CDR.
 
 ### 1.1 Push model
 
-When the MSP creates a new Token object they push it to the CPO by calling [PUT](#212-put-method) on the CPOs Tokens endpoint with the newly created Token object.
+When the MSP creates a new Token object they push it to the CPO by calling [PUT](#212-put-method) on the CPO‘s Tokens endpoint with the newly created Token object.
 
 Any changes to Token in the eMSP system are sent to the CPO system by calling either the [PUT](#212-put-method) or the [PATCH](#213-patch-method) on the CPO‘s Tokens endpoint with the updated Token(s).
 
@@ -395,8 +395,8 @@ References to location details.
 
 | Field Name       | Field Type                               | Card. | Description                                                         |
 |------------------|------------------------------------------|-------|---------------------------------------------------------------------|
-| location_id      | [string](types.md#15-string-type)(39)    | 1     | Uniquely identifier for the location.                               |
-| evse_uids        | [string](types.md#15-string-type)(39)    | *     | Uniquely identifier for EVSEs within the CPOs platform for the EVSE within the the given location. |
+| location_id      | [string](types.md#15-string-type)(39)    | 1     | Unique identifier for the location.                               |
+| evse_uids        | [string](types.md#15-string-type)(39)    | *     | Unique identifier for EVSEs within the CPOs platform for the EVSE within the the given location. |
 | connector_ids    | [string](types.md#15-string-type)(36)    | *     | Identifies the connectors within the given EVSEs.                   |                                                                                 |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
