@@ -16,7 +16,7 @@ When the MSP creates a new Token object they push it to the CPO by calling [PUT]
 
 Any changes to Token in the eMSP system are sent to the CPO system by calling either the [PUT](#212-put-method) or the [PATCH](#213-patch-method) on the CPO's Tokens endpoint with the updated Token(s).
 
-When the eMSP invalidates a Token (deleting is not possible), the eMSP will send the updated Token (with the field: valid set to False, by calling, either the [PUT](#212-put-method) or the [PATCH](#213-patch-method) on the CPOs Tokens endpoint with the updated Token. 
+When the eMSP invalidates a Token (deleting is not possible), the eMSP will send the updated Token (with the field: valid set to False, by calling, either the [PUT](#212-put-method) or the [PATCH](#213-patch-method) on the CPO's Tokens endpoint with the updated Token. 
 
 When the eMSP is not sure about the state or existence of a Token object in the CPO system, the 
 eMSP can call the [GET](#221-get-method) to validate the Token object in the CPO system.   
@@ -25,7 +25,7 @@ eMSP can call the [GET](#221-get-method) to validate the Token object in the CPO
 ### 1.2 Pull model
 
 When a CPO is not sure about the state of the list of known Tokens, or wants to request the full 
-list as a start-up of their system, the CPO can call the [GET](#221-get-method) on the eMSPs Token endpoint to receive
+list as a start-up of their system, the CPO can call the [GET](#221-get-method) on the eMSP's Token endpoint to receive
 all Tokens, updating already known Tokens and adding new received Tokens to it own list of Tokens.
 This is not intended for real-time operation, requesting the full list of tokens for every authorization will put to much strain on systems. 
 It is intended for getting in-sync with the server, or to get a list of all tokens (from a server without push) every X hours.
@@ -343,7 +343,7 @@ The endpoint response contains a [AuthorizationInfo](#31-authorizationinfo-objec
 |-------------------------|---------------------------------------|-------|---------------------------------------------------------------------------------------------------------|
 | uid                     | [string](types.md#15-string-type)(36) | 1     | Identification used by CPO system to identify this token. Currently, in most cases, this is the RFID hidden ID as read by the RFID reader. |
 | type                    | [TokenType](#43-tokentype-enum)       | 1     | Type of the token                                                                                       |
-| auth_id                 | [string](types.md#15-string-type)(36) | 1     | Uniquely identifies the EV Driver contract token within the eMSPs platform (and suboperator platforms). Recommended to follow the specification for eMA ID from "eMI3 standard version V1.0" (http://emi3group.com/documents-links/) "Part 2: business objects." |
+| auth_id                 | [string](types.md#15-string-type)(36) | 1     | Uniquely identifies the EV Driver contract token within the eMSP's platform (and suboperator platforms). Recommended to follow the specification for eMA ID from "eMI3 standard version V1.0" (http://emi3group.com/documents-links/) "Part 2: business objects." |
 | visual_number           | [string](types.md#15-string-type)(64) | ?     | Visual readable number/identification as printed on the Token (RFID card), might be equal to the auth_id. |
 | issuer                  | [string](types.md#15-string-type)(64) | 1     | Issuing company, most of the times the name of the company printed on the token (RFID card), not necessarily the eMSP. |
 | valid                   | boolean                               | 1     | Is this Token valid                                                                                     |
@@ -352,7 +352,7 @@ The endpoint response contains a [AuthorizationInfo](#31-authorizationinfo-objec
 | last_updated            | [DateTime](types.md#12-datetime-type) | 1     | Timestamp when this Token was last updated (or created).                                                             |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
-The combination of _uid_ and _type_ should be unique for every token within an eMSPs system.
+The combination of _uid_ and _type_ should be unique for every token within the eMSP's system.
 
 
 #### Example
@@ -396,7 +396,7 @@ References to location details.
 | Field Name       | Field Type                               | Card. | Description                                                         |
 |------------------|------------------------------------------|-------|---------------------------------------------------------------------|
 | location_id      | [string](types.md#15-string-type)(39)    | 1     | Unique identifier for the location.                               |
-| evse_uids        | [string](types.md#15-string-type)(39)    | *     | Unique identifier for EVSEs within the CPOs platform for the EVSE within the the given location. |
+| evse_uids        | [string](types.md#15-string-type)(39)    | *     | Unique identifier for EVSEs within the CPO's platform for the EVSE within the the given location. |
 | connector_ids    | [string](types.md#15-string-type)(36)    | *     | Identifies the connectors within the given EVSEs.                   |                                                                                 |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
