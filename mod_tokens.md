@@ -12,9 +12,9 @@ With this cached information they know to which eMSP they can later send a CDR.
 
 ### 1.1 Push model
 
-When the MSP creates a new Token object they push it to the CPO by calling [PUT](#212-put-method) on the CPO‘s Tokens endpoint with the newly created Token object.
+When the MSP creates a new Token object they push it to the CPO by calling [PUT](#212-put-method) on the CPO's Tokens endpoint with the newly created Token object.
 
-Any changes to Token in the eMSP system are sent to the CPO system by calling either the [PUT](#212-put-method) or the [PATCH](#213-patch-method) on the CPO‘s Tokens endpoint with the updated Token(s).
+Any changes to Token in the eMSP system are sent to the CPO system by calling either the [PUT](#212-put-method) or the [PATCH](#213-patch-method) on the CPO's Tokens endpoint with the updated Token(s).
 
 When the eMSP invalidates a Token (deleting is not possible), the eMSP will send the updated Token (with the field: valid set to False, by calling, either the [PUT](#212-put-method) or the [PATCH](#213-patch-method) on the CPOs Tokens endpoint with the updated Token. 
 
