@@ -284,7 +284,8 @@ For brevity's sake, any further examples used in this specification will only co
 		"visual_number": "DF000-2001-8999",
 		"issuer": "TheNewMotion",
 		"valid": true,
-		"allow_whitelist": true
+		"whitelist": "ALLOWED",
+		"last_updated": "2015-06-29T22:39:09Z"
 	},
 	"status_code": 1000,
 	"status_message": "Success",
@@ -304,7 +305,8 @@ For brevity's sake, any further examples used in this specification will only co
 		"visual_number": "DF000-2001-8999",
 		"issuer": "TheNewMotion",
 		"valid": true,
-		"allow_whitelist": true
+		"whitelist": "ALWAYS",
+		"last_updated": "2015-06-21T22:39:05Z"
 	}, {
 		"uid": "100013",
 		"type": "RFID",
@@ -312,7 +314,8 @@ For brevity's sake, any further examples used in this specification will only co
 		"visual_number": "DF000-2001-9000",
 		"issuer": "TheNewMotion",
 		"valid": true,
-		"allow_whitelist": true
+		"whitelist": "ALLOWED",
+		"last_updated": "2015-06-28T11:21:09Z"
 	}, {
 		"uid": "100014",
 		"type": "RFID",
@@ -320,7 +323,8 @@ For brevity's sake, any further examples used in this specification will only co
 		"visual_number": "DF000-2001-9010",
 		"issuer": "TheNewMotion",
 		"valid": false,
-		"allow_whitelist": true
+		"whitelist": "ALLOWED",
+		"last_updated": "2015-05-29T10:12:26Z"
 	}],
 	"status_code": 1000,
 	"status_message": "Success",
