@@ -93,7 +93,7 @@ The `party_id` and `country_code` give here, have no direct link with the eMI3 E
 
 ```json
 {
-    "url": "https://example.com/ocpi/cpo/",
+    "url": "https://example.com/ocpi/cpo/versions/",
     "token": "ebf3b399-779f-4497-9b9d-ac6ad3cc44d2",
     "party_id": "EXA",
     "country_code": "NL",
