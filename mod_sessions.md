@@ -347,7 +347,7 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
 		"evses": [{
 			"uid": "3256",
 			"evse_id": "BE-BEC-E041503003",
-			"STATUS": "AVAILABLE",
+			"status": "AVAILABLE",
 			"connectors": [{
 				"id": "1",
 				"standard": "IEC_62196_T2",
