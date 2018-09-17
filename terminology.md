@@ -3,12 +3,13 @@
 ## Abbreviations
 
  * **OCPI** Open Charge Point Interface
+ * **OCPP** Open Charge Point Protocol
  * **CDR** Charge Detail Record
  * **CPO** Charging Point Operator
  * **eMSP** e-Mobility Service Provider
 
 ## Provider and Operator abbreviation
-In OCPI it is advised to use eMI3 compliant names for Contract IDs and EVSE IDs. The provider and the operator name is important here, in order to target the right provider or operator, they need to be known upfront, at least between the cooperating parties. 
+In OCPI it is advised to use eMI3 compliant names for Contract IDs and EVSE IDs. The provider and the operator name is important here, in order to target the right provider or operator, they need to be known up front, at least between the cooperating parties. 
 
 In several standards, an issuing authority is mentioned that will keep a central registry of known Providers and Operators. 
 At this moment, the following countries have an authority that keeps track of the known providers and operators:
@@ -57,7 +58,7 @@ In order to prevent issues with Capitals in variable names, the naming in JSON i
 
 ## Cardinality
 
-When defining the cardinality of a field, the following symbols are used during the document:
+When defining the cardinality of a field, the following symbols are used throughout this document:
 
 <div><!-- ---------------------------------------------------------------------- --></div>
 
