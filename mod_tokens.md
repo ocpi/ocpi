@@ -16,7 +16,7 @@ When the MSP creates a new Token object they push it to the CPO by calling [PUT]
 
 Any changes to Token in the eMSP system are sent to the CPO system by calling either the [PUT](#212-put-method) or the [PATCH](#213-patch-method) on the CPO's Tokens endpoint with the updated Token(s).
 
-When the eMSP invalidates a Token (deleting is not possible), the eMSP will send the updated Token (with the field: valid set to False, by calling, either the [PUT](#212-put-method) or the [PATCH](#213-patch-method) on the CPO's Tokens endpoint with the updated Token. 
+When the eMSP invalidates a Token (deleting is not possible), the eMSP will send the updated Token (with the field: valid set to `false`, by calling, either the [PUT](#212-put-method) or the [PATCH](#213-patch-method) on the CPO's Tokens endpoint with the updated Token. 
 
 When the eMSP is not sure about the state or existence of a Token object in the CPO system, the 
 eMSP can call the [GET](#221-get-method) to validate the Token object in the CPO system.   
@@ -100,7 +100,7 @@ New or updated Token objects are pushed from the eMSP to the CPO.
 
 ##### Request Body
 
-In the put request a the new or updated Token object is send.
+In the put request a new or updated Token object is sent.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
@@ -287,8 +287,8 @@ The endpoint response contains a [AuthorizationInfo](#31-authorizationinfo-objec
 
 | Property  | Type                                               | Card. | Description                                                                           |
 |-----------|----------------------------------------------------|-------|---------------------------------------------------------------------------------------|
-| allowed   | [Allowed](#41-allowed-enum)                        | 1     | Status of the Token, and if it is allowed to charge at the optionally given location. |
-| location  | [LocationReferences](#42-locationreferences-class) | ?     | Optional reference to the location if it was request in the request, and if the EV driver is allowed to charge at that location. Only the EVSEs/Connectors the EV driver is allowed to charge at are returned.                                                                     |
+| allowed   | [Allowed](#41-allowed-enum)                        | 1     | Status of the Token, and whether charging is allowed at the optionally given location. |
+| location  | [LocationReferences](#42-locationreferences-class) | ?     | Optional reference to the location if it was included in the request, and if the EV driver is allowed to charge at that location. Only the EVSEs/Connectors the EV driver is allowed to charge at are returned.                                                                     |
 | info      | [DisplayText](types.md#13-displaytext-class)       | ?     | Optional display text, additional information to the EV driver.                       |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
@@ -420,8 +420,8 @@ Defines when authorization of a Token by the CPO is allowed.
 
 | Value                           | Description                                                                |
 |---------------------------------|----------------------------------------------------------------------------|
-| ALWAYS                          | Token always has to whitelisted, [realtime authorization](mod_tokens.md#13-real-time-authorization) is not possible/allowed. |
+| ALWAYS                          | Token always has to be whitelisted, [realtime authorization](mod_tokens.md#13-real-time-authorization) is not possible/allowed. |
 | ALLOWED                         | It is allowed to whitelist the token, [realtime authorization](mod_tokens.md#13-real-time-authorization) is also allowed.   |
 | ALLOWED_OFFLINE                 | Whitelisting is only allowed when CPO cannot reach the eMSP (communication between CPO and eMSP is offline)                  |
-| NEVER                           | Whitelisting is never allowed/forbidden, only [realtime authorization](mod_tokens.md#13-real-time-authorization) allowed. Token should always be authorized by the eMSP. |
+| NEVER                           | Whitelisting is forbidden, only [realtime authorization](mod_tokens.md#13-real-time-authorization) is allowed. Token should always be authorized by the eMSP. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
