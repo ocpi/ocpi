@@ -6,7 +6,7 @@ A **Charge Detail Record** is the description of a concluded charging
 session. The CDR is the only billing-relevant object.
 CDRs are sent from the CPO to the eMSP after the charging session has ended.
 There is no requirement to send CDRs semi-realtime, it is seen as good practice to send them
-ASAP. But if there is an agreement between parties to send them for example once a month, that is also allowed by OCPI.
+as soon as possible. But if there is an agreement between parties to send them for example once a month, that is also allowed by OCPI.
 
 
 ## 1. Flow and Lifecycle
@@ -200,7 +200,7 @@ Example: Location: /ocpi/emsp/2.0/cdrs/123456
 
 ### 3.1 _CDR_ Object
 
-The *CDR* object describes the Charging Session and its costs. How these costs are build up etc. 
+The *CDR* object describes the Charging Session and its costs, hHow these costs are built up, etc. 
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
@@ -342,10 +342,10 @@ NOTE: The duration of charging (energy being transferred between EVSE and EV) du
 |--------------|-------------------------------------------------------------------------|
 | ENERGY       | defined in kWh, default step_size is 1 Wh                               |
 | FLAT         | flat fee, no unit                                                       |
-| MAX_CURRENT  | defined in A (Ampere), Maximum current reached during charging session. |
-| MIN_CURRENT  | defined in A (Ampere), Minimum current used during charging session.    |
-| PARKING_TIME | time not charging: defined in hours, default step_size is 1 second.     |
-| TIME         | time charging: defined in hours, default step_size is 1 second.         |
+| MAX_CURRENT  | defined in A (Ampere), Maximum current reached during charging session  |
+| MIN_CURRENT  | defined in A (Ampere), Minimum current used during charging session     |
+| PARKING_TIME | time not charging: defined in hours, default step_size is 1 second      |
+| TIME         | time charging: defined in hours, default step_size is 1 second          |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
