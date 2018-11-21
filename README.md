@@ -1,5 +1,6 @@
 This repository contains the OCPI specification.
 
+This branch contains the latest fixes to OCPI 2.1.1.
 
 ## Contents
 
