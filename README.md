@@ -1,4 +1,4 @@
-This repository contains the OCPI specification.
+This branch contains the development of the next version of OCPI, currently it is expected to be OCPI 2.2.
 
 
 ## Contents
