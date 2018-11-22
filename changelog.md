@@ -10,6 +10,7 @@ The following changes to messages/objects etc.
 
 | Context (Module / Object)              | Expected Impact: eMSP / CPO | Expected Effort: eMSP / CPO | Description                                                                         
 |----------------------------------------|-----------------------------|-----------------------------|------------------------------------------------------------------------------------|
+| CDRs / CDR Object                      | Minor / Minor               | Minimal / Minimal           | Added `session_id` field, making it easier to match a CDR to a Session. |
 | Locations / Hours class                | Minor / Minor               | Minimal / Minimal           | removed to option for either: twentyfourseven or regular_hours, now regular_hours is always required, this is much less confusing. |
 <div><!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --></div>
 
