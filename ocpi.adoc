@@ -1,16 +1,17 @@
 :toc: macro
-:toclevels: 3
+:toclevels: 5
 :numbered:
 :pagenums:
+:title-separator: |
+[separator=|]
 :year: 2018
 :protocol_version: 2.2
 :document_version: {protocol_version}-DRAFT
 :revision_date: {year}-11-22
 
-= OCPI {protocol_version}: Open Charge Point Interface {protocol_version}
- document version {document_version}
-<https://github.com/ocpi>
-{revision_date}
+= OCPI {protocol_version}| Open Charge Point Interface
+document version {document_version}, {revision_date}
+http://github.com/ocpi TODO
 
 <<<
 :toc:
