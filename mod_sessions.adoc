@@ -1,0 +1,322 @@
+:numbered:
+== _Sessions_ module
+
+*Module Identifier: `sessions`*
+
+The Session object describes one charging session.
+The Session object is owned by the CPO back-end system, and can be GET from the CPO system, or pushed by the CPO to another system.
+
+=== Flow and Lifecycle
+
+==== Push model
+
+When the CPO creates a Session object they push it to the eMSPs by calling link:#222-put-method[PUT] on the eMSPs Sessions endpoint with the newly created Session object.
+
+Any changes to a Session in the CPO system are sent to the eMSP system by calling link:#223-patch-method[PATCH] on the eMSPs Sessions endpoint with the updated Session object.
+
+Sessions cannot be deleted, final status of a session is: `COMPLETED`.
+
+When the CPO is not sure about the state or existence of a Session object in the eMSPs system, the CPO can call the link:#221-get-method[GET] to validate the Session object in the eMSP system. 
+
+==== Pull model
+
+eMSPs who do not support the push model need to call link:#211-get-method[GET] on the CPOs Sessions endpoint to receive a list of Sessions.
+
+This link:#211-get-method[GET] can also be used, combined with the Push model to retrieve Sessions after the system (re)connects to a CPO, to get a list Sessions 'missed' during a time offline.
+
+=== Interfaces and endpoints
+
+==== CPO Interface
+
+Example endpoint structure: `/ocpi/cpo/2.0/sessions/?date_from=xxx&amp;date_to=yyy`
+
+|===
+|Method |Description 
+
+|link:#211-get-method[GET] |Fetch Session objects of charging sessions last updated between the {date_from} and {date_to} (link:transport_and_format.md#get[paginated]) 
+|POST |n/a 
+|PUT |n/a 
+|PATCH |n/a 
+|DELETE |n/a 
+|===
+
+===== *GET* Method
+
+Fetch Sessions from the CPO systems. 
+
+====== Request Parameters
+
+Only Sessions with `last_update` between the given {date_from} and {date_to} will be returned.
+
+This request is link:transport_and_format.md#get[paginated], so also supports the link:transport_and_format.md#paginated-request[pagination] related URL parameters.
+
+|===
+|Parameter |Datatype |Required |Description 
+
+|date_from |link:types.md#12-datetime-type[DateTime] |yes |Only return Sessions that have `last_updated` after this Date/Time. 
+|date_to |link:types.md#12-datetime-type[DateTime] |no |Only return Sessions that have `last_updated` before this Date/Time. 
+|offset |int |no |The offset of the first object returned. Default is 0. 
+|limit |int |no |Maximum number of objects to GET. 
+|===
+
+====== Response Data
+
+The response contains a list of Session objects that match the given parameters in the request, the header will contain the link:transport_and_format.md#paginated-response[pagination] related headers. 
+
+Any older information that is not specified in the response is considered as no longer valid.
+Each object must contain all required fields. Fields that are not specified may be considered as null values.
+
+|===
+|Datatype |Card. |Description 
+
+|link:#31-session-object[Session] |* |List of Session objects that match the request parameters 
+|===
+
+===== eMSP Interface
+
+Sessions is a link:transport_and_format.md#client-owned-object-push[client owned object], so the end-points need to contain the required extra fields: {link:credentials.md#credentials-object[party_id]} and {link:credentials.md#credentials-object[country_code]}.
+Example endpoint structure:
+`/ocpi/emsp/2.0/sessions/{country_code}/{party_id}/{session_id}` 
+
+|===
+|Method |Description 
+
+|link:#221-get-method[GET] |Get the Session object from the eMSP system by its id {session_id}. 
+|POST |n/a 
+|link:#222-put-method[PUT] |Send a new/updated Session object 
+|link:#223-patch-method[PATCH] |Update the Session object of id {session_id}. 
+|DELETE |n/a 
+|===
+
+===== *GET* Method
+
+The CPO system might request the current version of a Session object from the eMSP system for,
+for example validation purposes, or the CPO system might have received a error on a PATCH.
+
+====== Request Parameters
+
+The following parameters can be provided as URL segments.
+
+|===
+|Parameter |Datatype |Required |Description 
+
+|country_code |link:types.md#15-string-type[string](2) |yes |Country code of the CPO requesting this GET to the eMSP system. 
+|party_id |link:types.md#15-string-type[string](3) |yes |Party ID (Provider ID) of the CPO requesting this GET to the eMSP system. 
+|session_id |link:types.md#15-string-type[string](36) |yes |id of the Session object to get from the eMSP system. 
+|===
+
+====== Response Data
+
+The response contains the request Session object, if available.
+
+|===
+|Datatype |Card. |Description 
+
+|link:#31-session-object[Session] |1 |Session object requested. 
+|===
+
+===== *PUT* Method
+
+Inform the system about a new/updated session in the eMSP backoffice by PUTing a _Session_ object.
+
+====== Request Body
+
+The request contains the new or updated Session object.
+
+|===
+|Type |Card. |Description 
+
+|link:#31-session-object[Session] |1 |new Session object. 
+|===
+
+
+====== Request Parameters
+
+The following parameters can be provided as URL segments.
+
+|===
+|Parameter |Datatype |Required |Description 
+
+|country_code |link:types.md#15-string-type[string](2) |yes |Country code of the CPO requesting this PUT to the eMSP system. 
+|party_id |link:types.md#15-string-type[string](3) |yes |Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system. 
+|session_id |link:types.md#15-string-type[string](36) |yes |id of the new or updated Session object. 
+|===
+
+===== *PATCH* Method
+
+Same as the link:#222-put-method[PUT] method, but only the fields/objects that have to be updated have to be present, other fields/objects that are not specified are considered unchanged.
+
+====== Example: update the total cost
+
+[source,json]
+----
+PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
+
+{
+  	"total_cost": 0.60
+}
+----
+
+=== Object description
+
+==== _Session_ Object
+
+|===
+|Property |Type |Card. |Description 
+
+|id |link:types.md#15-string-type[string](36) |1 |The unique id that identifies the session in the CPO platform. 
+|start_datetime |link:types.md#12-datetime-type[DateTime] |1 |The time when the session became active. 
+|end_datetime |link:types.md#12-datetime-type[DateTime] |? |The time when the session is completed. 
+|kwh |link:types.md#14-number-type[number] |1 |How many kWh are charged. 
+|auth_id |link:types.md#15-string-type[string](36) |1 |Reference to a token, identified by the auth_id field of the link:mod_tokens.md#32-token-object[Token]. 
+|auth_method |link:mod_cdrs.md#41-authmethod-enum[AuthMethod] |1 |Method used for authentication. 
+|location |link:mod_locations.md#31-location-object[Location] |1 |The location where this session took place, including only the relevant EVSE and connector 
+|meter_id |link:types.md#15-string-type[string](255) |? |Optional identification of the kWh meter. 
+|currency |link:types.md#15-string-type[string](3) |1 |ISO 4217 code of the currency used for this session. 
+|charging_periods |link:mod_cdrs.md#44-chargingperiod-class[ChargingPeriod] |* |An optional list of charging periods that can be used to calculate and verify the total cost. 
+|total_cost |link:types.md#14-number-type[number] |? |The total cost (excluding VAT) of the session in the specified currency. This is the price that the eMSP will have to pay to the CPO. A total_cost of 0.00 means free of charge. When omitted, no price information is given in the Session object, this does not have to mean it is free of charge. 
+|status |link:#41-sessionstatus-enum[SessionStatus] |1 |The status of the session. 
+|last_updated |link:types.md#12-datetime-type[DateTime] |1 |Timestamp when this Session was last updated (or created). 
+|===
+
+
+===== Examples
+
+===== Simple Session example of a just starting session
+
+[source,json]
+----
+{
+	"id": "101",
+	"start_datetime": "2015-06-29T22:39:09Z",
+	"kwh": 0.00,
+	"auth_id": "DE8ACC12E46L89",
+	"auth_method": "WHITELIST",
+	"location": {
+		"id": "LOC1",
+		"type": "ON_STREET",
+		"name": "Gent Zuid",
+		"address": "F.Rooseveltlaan 3A",
+		"city": "Gent",
+		"postal_code": "9000",
+		"country": "BE",
+		"coordinates": {
+			"latitude": "3.729944",
+			"longitude": "51.047599"
+		},
+		"evses": [{
+			"uid": "3256",
+			"evse_id": "BE-BEC-E041503003",
+			"status": "AVAILABLE",
+			"connectors": [{
+				"id": "1",
+				"standard": "IEC_62196_T2",
+				"format": "SOCKET",
+				"power_type": "AC_1_PHASE",
+				"voltage": 230,
+				"amperage": 64,
+				"tariff_id": "11",
+				"last_updated": "2015-06-29T22:39:09Z"
+			}],
+			"last_updated": "2015-06-29T22:39:09Z"
+		}],
+		"last_updated": "2015-06-29T22:39:09Z"
+	},
+	"currency": "EUR",
+	"total_cost": 2.50,
+	"status": "PENDING",
+	"last_updated": "2015-06-29T22:39:09Z"
+}
+----
+
+
+====== Simple Session example of a short finished session
+
+[source,json]
+----
+{
+	"id": "101",
+	"start_datetime": "2015-06-29T22:39:09Z",
+	"end_datetime": "2015-06-29T23:50:16Z",
+	"kwh": 41.00,
+	"auth_id": "DE8ACC12E46L89",
+	"auth_method": "WHITELIST",
+	"location": {
+		"id": "LOC1",
+		"type": "ON_STREET",
+		"name": "Gent Zuid",
+		"address": "F.Rooseveltlaan 3A",
+		"city": "Gent",
+		"postal_code": "9000",
+		"country": "BE",
+		"coordinates": {
+			"latitude": "3.729944",
+			"longitude": "51.047599"
+		},
+		"evses": [{
+			"uid": "3256",
+			"evse_id": "BE-BEC-E041503003",
+			"status": "AVAILABLE",
+			"connectors": [{
+				"id": "1",
+				"standard": "IEC_62196_T2",
+				"format": "SOCKET",
+				"power_type": "AC_1_PHASE",
+				"voltage": 230,
+				"amperage": 64,
+				"tariff_id": "11",
+                "last_updated": "2015-06-29T23:09:10Z"
+			}],
+            "last_updated": "2015-06-29T23:09:10Z"
+		}],
+        "last_updated": "2015-06-29T23:09:10Z"
+	},
+	"currency": "EUR",
+	"charging_periods": [{
+		"start_date_time": "2015-06-29T22:39:09Z",
+		"dimensions": [{
+			"type": "ENERGY",
+			"volume": 120
+		}, {
+			"type": "MAX_CURRENT",
+			"volume": 30
+		}]
+	}, {
+		"start_date_time": "2015-06-29T22:40:54Z",
+		"dimensions": [{
+			"type": "ENERGY",
+			"volume": 41000
+		}, {
+			"type": "MIN_CURRENT",
+			"volume": 34
+		}]
+	}, {
+		"start_date_time": "2015-06-29T23:07:09Z",
+		"dimensions": [{
+			"type": "PARKING_TIME",
+			"volume": 0.718
+		}]
+	}],
+	"total_cost": 8.50,
+	"status": "COMPLETED",
+	"last_updated": "2015-06-29T23:09:10Z"
+}
+----
+
+
+=== Data types
+
+_Describe all datatypes used in this object_
+
+==== SessionStatus _enum_
+
+Defines the state of a session.
+
+|===
+|Property |Description 
+
+|ACTIVE |The session is accepted and active. Al pre-condition are met: Communication between EV and EVSE (for example: cable plugged in correctly), EV or Driver is authorized. EV is being charged, or can be charged. Energy is, or is not, being transfered. 
+|COMPLETED |The session is finished successfully. No more modifications will be made to this session. 
+|INVALID |The session is declared invalid and will not be billed. 
+|PENDING |The session is pending, it has not yet started. Not all pre-condition are met. This is the initial state. This session might never become an _active_ session. 
+|===
