@@ -1,7 +1,7 @@
 [[transport_and_format_transport_and_format]]
 == Transport and format
 
-[[transport_and_format_json_/_http_implementation_guide]]
+[[transport_and_format_json_http_implementation_guide]]
 === JSON / HTTP implementation guide
 
 The OCPI protocol is based on HTTP and uses the JSON format. It follows a RESTful architecture for webservices where possible.
@@ -227,7 +227,7 @@ The content that is sent with all the response messages is an 'application/json'
 
 For brevity's sake, any further examples used in this specification will only contain the value of the "data" field. In reality, it will always have to be wrapped in the above response format.
 
-[[transport_and_format_example_version_information_response_(list_of_objects)]]
+[[transport_and_format_example_version_information_response_list_of_objects]]
 ===== Example: Version information response (list of objects)
 
 [source,json]
@@ -246,7 +246,7 @@ For brevity's sake, any further examples used in this specification will only co
 }
 ----
 
-[[transport_and_format_example_version_details_response_(one_object)]]
+[[transport_and_format_example_version_details_response_one_object]]
 ===== Example: Version details response (one object)
 
 [source,json]
@@ -269,7 +269,7 @@ For brevity's sake, any further examples used in this specification will only co
 ----
 
 
-[[transport_and_format_example_tokens_get_response_with_one_token_object._(cpo_end-point)_(one_object)]]
+[[transport_and_format_example_tokens_get_response_with_one_token_object_cpo_end-point_one_object]]
 ===== Example: Tokens GET Response with one Token object. (CPO end-point) (one object)
 
 [source,json]
@@ -291,7 +291,7 @@ For brevity's sake, any further examples used in this specification will only co
 }
 ----
 
-[[transport_and_format_example_tokens_get_response_with_list_of_token_objects._(emsp_end-point)_(list_of_objects)]]
+[[transport_and_format_example_tokens_get_response_with_list_of_token_objects_emsp_end-point_list_of_objects]]
 ===== Example: Tokens GET Response with list of Token objects. (eMSP end-point) (list of objects)
 
 [source,json]
@@ -331,7 +331,7 @@ For brevity's sake, any further examples used in this specification will only co
 }
 ----
 
-[[transport_and_format_example_response_with_an_error_(contains_no_data_field)]]
+[[transport_and_format_example_response_with_an_error_contains_no_data_field]]
 ===== Example: Response with an error (contains no data field)
 
 [source,json]
