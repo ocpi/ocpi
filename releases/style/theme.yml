@@ -1,3 +1,6 @@
+page: 
+  background_image: draft.png
+
 base:
   font_size: 8
   font_color: #000000
