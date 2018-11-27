@@ -3,28 +3,28 @@ This branch contains the development of the next version of OCPI, currently it i
 
 ## Contents
 
- * [__Version History__](version_history.md)
- * [__Introduction__](introduction.md)
-   - [Terminology and Definitions](terminology.md)
+ * [__Version History__](version_history.asciidoc)
+ * [__Introduction__](introduction.asciidoc)
+   - [Terminology and Definitions](terminology.asciidoc)
  * __Protocol Meta Information__, describes the connections between the parties
-   - [Transport and Format](transport_and_format.md)
-   - [Status codes](status_codes.md)
-   - [Version information endpoint](version_information_endpoint.md)
-   - [Credentials & registration](credentials.md)
+   - [Transport and Format](transport_and_format.asciidoc)
+   - [Status codes](status_codes.asciidoc)
+   - [Version information endpoint](version_information_endpoint.asciidoc)
+   - [Credentials & registration](credentials.asciidoc)
  * __Overview of Modules__, each section describes one module.
-   - [Locations](mod_locations.md)
-   - [Sessions](mod_sessions.md)
-   - [CDRs](mod_cdrs.md)
-   - [Tariffs](mod_tariffs.md)
-   - [Tokens](mod_tokens.md)
-   - [Commands](mod_commands.md)
+   - [Locations](mod_locations.asciidoc)
+   - [Sessions](mod_sessions.asciidoc)
+   - [CDRs](mod_cdrs.asciidoc)
+   - [Tariffs](mod_tariffs.asciidoc)
+   - [Tokens](mod_tokens.asciidoc)
+   - [Commands](mod_commands.asciidoc)
  * __Generic Types__, describing all data types that are used by multiple objects
-   - [Types](types.md)
- * [__Changelog__](changelog.md)
+   - [Types](types.asciidoc)
+ * [__Changelog__](changelog.asciidoc)
 
 <!--
 Will be added lated:
-* [9. Smart charging.md](smart_charging.md)
+- [9. Smart charging](smart_charging.asciidoc)
 -->
 
 
