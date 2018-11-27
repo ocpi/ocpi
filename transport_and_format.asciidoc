@@ -195,9 +195,11 @@ The <<credentials.asciidoc#credentials_credentials_object,country_code>> and <<c
 Client owned object URL definition: {base-ocpi-url}/{end-point}/{country-code}/{party-id}/{object-id}
 
 Example of a URL to a client owned object
-`
+
+[source]
+----
   https://www.server.com/ocpi/cpo/2.0/tariffs/NL/TNM/14
-` 
+----
 
 POST is not supported for these kind of modules.
 PUT is used to send new objects to the servers. 
