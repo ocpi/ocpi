@@ -133,8 +133,9 @@ PUT To URL: https://www.server.com/ocpi/cpo/2.0/tokens/NL/TNM/012345678
   "uid": "012345678",
   "type": "RFID",
   "auth_id": "DE8ACC12E46L89",
-  "visual_number": "DF000-2001-8999",
+  "visual_number": "DF000-2001-8999-1",
   "issuer": "TheNewMotion",
+  "group_id": "DF000-2001-8999",
   "valid": true,
   "whitelist": "ALWAYS",
   "last_updated": "2015-06-29T22:39:09Z"
@@ -284,14 +285,18 @@ The endpoint response contains a <<mod_tokens_authorizationinfo_object,Authoriza
 |type |<<mod_tokens_tokentype_enum,TokenType>> |1 |Type of the token 
 |auth_id |<<types.asciidoc#types_string_type,string>>(36) |1 |Uniquely identifies the EV Driver contract token within the eMSP's platform (and suboperator platforms). Recommended to follow the specification for eMA ID from "eMI3 standard version V1.0" (http://emi3group.com/documents-links/[http://emi3group.com/documents-links/]) "Part 2: business objects." 
 |visual_number |<<types.asciidoc#types_string_type,string>>(64) |? |Visual readable number/identification as printed on the Token (RFID card), might be equal to the auth_id. 
-|issuer |<<types.asciidoc#types_string_type,string>>(64) |1 |Issuing company, most of the times the name of the company printed on the token (RFID card), not necessarily the eMSP. 
-|valid |boolean |1 |Is this Token valid 
+|issuer |<<types.asciidoc#types_string_type,string>>(64) |1 |Issuing company, most of the times the name of the company printed on the token (RFID card), not necessarily the eMSP.
+|group_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |This ID groups a couple of tokens. This can be used to make two or more tokens work as one, so that a session can be started with one token and stopped with another, handy when a card and key-fob are given to the EV-driver.
+|valid |boolean |1 |Is this Token valid
 |whitelist |<<mod_tokens_whitelisttype_enum,WhitelistType>> |1 |Indicates what type of white-listing is allowed. 
 |language |<<types.asciidoc#types_string_type,string>>(2) |? |Language Code ISO 639-1. This optional field indicates the Token owner's preferred interface language. If the language is not provided or not supported then the CPO is free to choose its own language. 
 |last_updated |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Timestamp when this Token was last updated (or created). 
 |===
 
 The combination of _uid_ and _type_ should be unique for every token within the eMSP's system.
+
+NOTE: OCPP supports group_id (or ParentID as it is called in OCPP 1.5/1.6) OCPP 1.5/1.6 only support group ID's with maximum length of string(20), case insensitive.
+As long as EV-driver can be expected to charge at an OCPP 1.5/1.6 Charge Point, it is adviced to not used a group_id longer then 20.
 
 [[mod_tokens_example]]
 ===== Example
@@ -302,8 +307,9 @@ The combination of _uid_ and _type_ should be unique for every token within the 
   "uid": "012345678",
   "type": "RFID",
   "auth_id": "DE8ACC12E46L89",
-  "visual_number": "DF000-2001-8999",
+  "visual_number": "DF000-2001-8999-1",
   "issuer": "TheNewMotion",
+  "group_id": "DF000-2001-8999",
   "valid": true,
   "whitelist": "ALLOWED",
   "last_updated": "2015-06-29T22:39:09Z"
