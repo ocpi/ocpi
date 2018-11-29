@@ -1,10 +1,12 @@
 @startuml
-title OCPI Command START_SESSION -> ACCEPTED and Session started
+title OCPI Command START_SESSION -> REJECT by Charge Point: no cable plugged in
 hide footbox
 
 participant eMSP
 participant CPO
 participant "Charge Point" as CP
+
+NOTE OVER CP: EV NOT Plugged in
 
 eMSP ->  CPO:  Command(START_SESSION, location_id=1234, token=200)
 activate eMSP
@@ -15,24 +17,14 @@ deactivate eMSP
 CPO  ->  CP:   RemoteStartTransaction.req(Token=200)
 deactivate CPO
 activate CP
-CP   ->  CPO:  RemoteStartTransaction.conf(Accepted)
+CP   ->  CPO:  RemoteStartTransaction.conf(Rejected)
 activate CPO
-CPO  ->  eMSP: CommandResponse(result = ACCEPTED)
+CPO  ->  eMSP: CommandResponse(result = REJECTED)
 activate eMSP
 eMSP --> CPO: 
 deactivate CPO
 deactivate eMSP
 
-CP   --> CP: EV Plugged in
-
-CP   ->  CPO:  StartTransaction.req(Token=200)
-activate CPO
-CPO  ->  CP:   StartTransaction.conf(TransactionId=15)
 deactivate CP
-CPO  ->  eMSP: Session(id=15, token=200, location_id=1234)
-activate eMSP
-eMSP --> CPO: 
-deactivate CPO
-deactivate eMSP
 
 @enduml
