@@ -1,4 +1,5 @@
 VERSION = 2.2-DRAFT1
+plantuml_tool = java -Xms256m -Xmx512m -jar ../scripts/plantuml.jar -tsvg -nometadata -charset UTF-8
 
 TOOL = asciidoctor-pdf
 STYLE_DIR = ./style
@@ -11,13 +12,20 @@ SOURCE = ocpi_merged
 ASCIIDOC = $(VERSION)/$(SOURCE).adoc
 TARGET = OCPI-$(VERSION).pdf
 
-all: copy merge check gen_pdf
+all: copy merge check images gen_pdf
 
 copy: 
 	mkdir -p $(VERSION)
 	cp ../*.asciidoc $(VERSION)
 	cp ../scripts/*.pl $(VERSION)
 	cp -R ../images $(VERSION)
+	cp -R ../plantuml $(VERSION)
+
+images:
+	$(plantuml_tool) -o ../../$(VERSION)/images/ $(VERSION)/plantuml/*
+
+images_current:
+	$(plantuml_tool) -o ../images/ ../plantuml/*
 
 merge:
 	cd $(VERSION) && ./merge.pl
