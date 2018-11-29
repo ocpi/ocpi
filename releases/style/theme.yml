@@ -1,0 +1,24 @@
+page: 
+  background_image: draft.png
+
+base:
+  font_size: 8
+  font_color: #000000
+  line_height: 1.2
+
+code:
+  font:
+    size: 7
+
+footer:
+  height: 0.7cm
+  border_color: #BBBBBB
+  border_width: 0.2
+  recto_content:
+    center: '*{page-number}*'
+  verso_content:
+    center: '*{page-number}*'
+  font:
+    size: 7
+    border_color: #666666
+    style: bold

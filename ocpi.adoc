@@ -1,0 +1,81 @@
+:toc: macro
+:toclevels: 5
+:numbered:
+:pagenums:
+:title-separator: |
+[separator=|]
+:year: 2018
+:protocol_version: 2.2
+:document_version: {protocol_version}-DRAFT
+:revision_date: {year}-11-22
+
+= OCPI {protocol_version}| Open Charge Point Interface
+document version {document_version}, {revision_date}
+http://github.com/ocpi TODO
+
+<<<
+:toc:
+
+<<<
+
+include::copyright.adoc[]
+
+<<<
+
+include::version_history.adoc[]
+
+<<<
+
+include::introduction.adoc[]
+
+<<<
+
+include::terminology.adoc[]
+
+<<<
+
+include::transport_and_format.adoc[]
+
+<<<
+
+include::status_codes.adoc[]
+
+<<<
+
+include::version_information_endpoint.adoc[]
+
+<<<
+
+include::credentials.adoc[]
+
+<<<
+
+include::mod_locations.adoc[]
+
+<<<
+
+include::mod_sessions.adoc[]
+
+<<<
+
+include::mod_cdrs.adoc[]
+
+<<<
+
+include::mod_tariffs.adoc[]
+
+<<<
+
+include::mod_tokens.adoc[]
+
+<<<
+
+include::mod_commands.adoc[]
+
+<<<
+
+include::types.adoc[]
+
+<<<
+
+include::changelog.adoc[]

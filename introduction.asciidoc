@@ -1,16 +1,19 @@
-# OCPI
+[[introduction_ocpi]]
+== OCPI
 
-## OCPI 2.1.1
+[[introduction_ocpi_2.1.1]]
+=== OCPI 2.1.1
 
 During implementation of OCPI 2.1, a number of bugs in the message definition were found.
-This forced us to release a bug fix: OCPI 2.1.1. 
+This forced us to release a bug fix: OCPI 2.1.1.
 With the release of OCPI 2.1.1: OCPI 2.1 is deprecated, 2.1 should no longer used and replaced by 2.1.1.
 It should be a small effort to upgrade an existing 2.1 implementation to 2.1.1. 
 
-For more information on message level changes see [changelog](changelog.md#changelog).
+For more information on message level changes see <<changelog.asciidoc#changelog_changelog,changelog>>.
 
+[[introduction_introduction_and_background]]
+=== Introduction and background
 
-## Introduction and background
 The Open Charge Point Interface (OCPI) enables a scalable, automated EV roaming setup between Charge Point Operators and e-Mobility Service Providers. It supports authorization, charge point information exchange (including live status updates and transaction events), charge detail record exchange, remote charge point commands and, finally, the exchange of smart-charging commands between parties.
 
 It offers market participants in EV an attractive and scalable solution for (international) roaming between networks, avoiding the costs and innovation-limiting complexities involved with today's non-automated solutions or with central roaming hubs.
@@ -28,4 +31,4 @@ An international group of companies already supports OCPI. Initiators are EV Box
 
 This document describes a combined set of standards based on the work done in the past. Next to that, the evolution of these standards and their use is taken into account and some elements have been updated to match nowadays use.
 
-The latest version of this specification can be found here: https://github.com/ocpi/ocpi
+The latest version of this specification can be found here: https://github.com/ocpi/ocpi[https://github.com/ocpi/ocpi]
