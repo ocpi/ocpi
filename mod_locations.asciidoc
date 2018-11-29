@@ -308,7 +308,7 @@ status_schedule field can be used._
 Location, EVSE and Connector have the following relation.
 
 .Location class diagram
-image::data/locations-class-diagram.png[Location class diagram]
+image::images/locations-class-diagram.svg[Location class diagram]
 
 [[mod_locations_location_object]]
 ==== _Location_ Object
