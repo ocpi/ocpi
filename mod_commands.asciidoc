@@ -41,9 +41,19 @@ image::images/command_reservenow_rejected.svg[RESERVE_NEW rejected by Charge Poi
 
 
 Example of a `START_SESSION` that is accepted, but no new Session is started because EV not plugged in before end of time-out.
+This is an example for Charge Point that allows a remote start when the cable is not yet plugged in.
+Some Charge Points even require this, there might, for example, be a latch in front of the socket to prevent vandalism.
 
 .START_SESSION failed
 image::images/command_start_session_timeout.svg[START_SESSION failed]
+
+
+Example of a `START_SESSION` that is accepted, but no new Session is started because the EV is not plugged in,
+and this Charge Point does not allow a remote start without a cable already being plugged in.
+
+.START_SESSION failed
+image::images/command_start_session_no_cable.svg[START_SESSION failed]
+
 
 Example of a `START_SESSION` that is accepted and results in a new Session.
 
@@ -140,7 +150,7 @@ Example endpoint structure:
 ====== Request Parameters
 
 There are no URL segment parameters required by OCPI.
-It is up to the implementation of the eMSP to determine what parameters are put in the URL. The eMSP sends a URL in the POST method body to the CPO. The CPO is required to use this URL for the asynchronous response by the Charge Point. It is advised to make this URL unique for every request to differentiate simultanous commands, for example by adding a unique id as a URL segment. 
+It is up to the implementation of the eMSP to determine what parameters are put in the URL. The eMSP sends a URL in the POST method body to the CPO. The CPO is required to use this URL for the asynchronous response by the Charge Point. It is advised to make this URL unique for every request to differentiate simultaneous commands, for example by adding a unique id as a URL segment.
 
 Example:
 `/ocpi/emsp/2.0/commands/RESERVE_NOW/1234`
