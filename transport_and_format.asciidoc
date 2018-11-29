@@ -52,7 +52,8 @@ The request method can be any of <<transport_and_format_get,GET>>, <<transport_a
 |DELETE |Removes existing objects or information. 
 |===
 
-The mimetype of the request body is `application/json` and may contain the data as documented for each endpoint.
+The mimetype HTTP header: Content-Type SHALL be set to `application/json` for any request that contains a message body: POST, PUT and PATCH.
+
 
 [[transport_and_format_get]]
 ===== GET
