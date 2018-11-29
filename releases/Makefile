@@ -17,7 +17,7 @@ copy:
 	mkdir -p $(VERSION)
 	cp ../*.asciidoc $(VERSION)
 	cp ../scripts/*.pl $(VERSION)
-	cp -R ../data $(VERSION)
+	cp -R ../images $(VERSION)
 
 merge:
 	cd $(VERSION) && ./merge.pl
