@@ -224,7 +224,7 @@ NOTE: The duration of charging (energy being transferred between EVSE and EV) du
 		},
 		"evses": [{
 			"uid": "3256",
-			"evse_id": "BE-BEC-E041503003",
+			"evse_id": "BE*BEC*E041503003",
 			"status": "AVAILABLE",
 			"connectors": [{
 				"id": "1",

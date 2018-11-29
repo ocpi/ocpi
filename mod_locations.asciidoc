@@ -269,7 +269,7 @@ PUT To URL: https://www.server.com/ocpi/emsp/2.0/locations/NL/TNM/1012/3256
 
 {
 	"uid": "3256",
-	"evse_id": "BE-BEC-E041503003",
+	"evse_id": "BE*BEC*E041503003",
 	"status": "AVAILABLE",
 	"capabilities": ["RESERVABLE"],
 	"connectors": [
@@ -361,7 +361,7 @@ The _Location_ object describes the location and its properties where a group of
 	},
 	"evses": [{
         "uid": "3256",
-		"evse_id": "BE-BEC-E041503001",
+		"evse_id": "BE*BEC*E041503001",
 		"status": "AVAILABLE",
 		"status_schedule": [],
 		"capabilities": [
@@ -391,7 +391,7 @@ The _Location_ object describes the location and its properties where a group of
      	"last_updated": "2015-06-28T08:12:01Z"
 	}, {
         "uid": "3257",
-		"evse_id": "BE-BEC-E041503002",
+		"evse_id": "BE*BEC*E041503002",
 		"status": "RESERVED",
 		"capabilities": [
 			"RESERVABLE"
