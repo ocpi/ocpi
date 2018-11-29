@@ -11,7 +11,7 @@ NOTE OVER CP: EV NOT Plugged in
 eMSP ->  CPO:  Command(START_SESSION, location_id=1234, token=200)
 activate eMSP
 activate CPO
-CPO  --> eMSP: status_code = 1000, data: {result = ACCEPTED}
+CPO  --> eMSP: status_code = 1000, data: {CommandResponse { result = ACCEPTED }}
 deactivate eMSP
 
 CPO  ->  CP:   RemoteStartTransaction.req(Token=200)
@@ -19,7 +19,7 @@ deactivate CPO
 activate CP
 CP   ->  CPO:  RemoteStartTransaction.conf(Rejected)
 activate CPO
-CPO  ->  eMSP: CommandResponse(result = REJECTED)
+CPO  ->  eMSP: CommandResult(result = FAILED)
 activate eMSP
 eMSP --> CPO: 
 deactivate CPO

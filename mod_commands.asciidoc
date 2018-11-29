@@ -21,11 +21,16 @@ _Use the `UNLOCK_CONNECTOR` command with care, please read the note at <<mod_com
 === Flow
 
 With the Commands module, commands can be sent from the eMSP, via the CPO to a Charge Point.
-Most Charge Point are hooked up to the internet via a relative slow wireless connection. To prevent long blocking calls, the commands module is designed to work asynchronously.
+Most Charge Point are hooked up to the internet via a relative slow wireless connection. To prevent long blocking calls,
+the commands module is designed to work asynchronously.
 
-The eMSP send a request to a CPO, via the CPO Commands interface. The CPO checks if it can send the request to a Charge Point and will respond to the request with a status, indicating if the request can be sent to a Charge Point. 
+The eMSP send a request to a CPO, via the CPO Commands interface.
+The CPO checks if it can send the request to a Charge Point and will respond to the request with a status, indicating if the request can be sent to a Charge Point.
 
-The CPO sends the requested command (via another protocol, for example: OCPP) to a Charge Point. The Charge Point will respond if it understands the command and will try to execute the command. This response doesn't mean that the command was executed successfully. The CPO will forward this command in a new POST request to the eMSP Commands interface. 
+The CPO sends the requested command (via another protocol, for example: OCPP) to a Charge Point.
+The Charge Point will respond if it understands the command and will try to execute the command.
+This response doesn't always mean that the command was executed successfully.
+The CPO will forward the result in a new POST request to the eMSP Commands interface.
 
 The following examples try to give insight into the message flow and the asynchronous nature of the OCPI Commands.
 Example of a `UNLOCK_CONNECTOR` that fails because the Location is not known by the CPO.
@@ -162,7 +167,7 @@ Example:
 |===
 |Datatype |Card. |Description 
 
-|<<mod_commands_commandresponse_object,CommandResponse>> |1 |Result of the command request, from the Charge Point. 
+|<<mod_commands_commandresult_object,CommandResult>> |1 |Result of the command request, from the Charge Point.
 |===
 
 [[mod_commands_object_description]]
@@ -174,8 +179,21 @@ Example:
 |===
 |Property |Type |Card. |Description 
 
-|result |<<mod_commands_commandresponsetype_enum,CommandResponseType>> |1 |Result of the command request as sent by the Charge Point to the CPO. 
+|result |<<mod_commands_commandresponsetype_enum,CommandResponseType>> |1 |Response from the CPO on the command request.
+|message|<<types.asciidoc#types_displaytext_class,DisplayText>>|?|Human-readable description of the result (if one can be provided), multiple languages can be provided.|
 |===
+
+
+[[mod_commands_commandresult_object]]
+==== _CommandResult_ Object
+
+|===
+|Property |Type |Card. |Description
+
+|result |<<mod_commands_commandresulttype_enum,CommandResultType>> |1 |Result of the command request as sent by the Charge Point to the CPO.
+|message|<<types.asciidoc#types_displaytext_class,DisplayText>>|?|Human-readable description of the reason (if one can be provided), multiple languages can be provided.|
+|===
+
 
 [[mod_commands_reservenow_object]]
 ==== _ReserveNow_ Object
@@ -237,16 +255,33 @@ The `evse_uid` is optional. If no EVSE is specified, the Charge Point can itself
 [[mod_commands_commandresponsetype_enum]]
 ==== CommandResponseType _enum_
 
-The command requested.
+Response to the command request from the MSP to the CPO.
 
 |===
 |Value |Description 
 
-|NOT_SUPPORTED |The requested command is not supported by this CPO, Charge Point, EVSE etc. 
-|REJECTED |Command request rejected by the CPO or Charge Point. 
-|ACCEPTED |Command request accepted by the CPO or Charge Point. 
-|TIMEOUT |Command request timeout, no response received from the Charge Point in an reasonable time. 
-|UNKNOWN_SESSION |The Session in the requested command is not known by this CPO. 
+|NOT_SUPPORTED |The requested command is not supported by this CPO, Charge Point, EVSE etc.
+|REJECTED |Command request rejected by the CPO.
+|ACCEPTED |Command request accepted by the CPO.
+|UNKNOWN_SESSION |The Session in the requested command is not known by this CPO.
+|===
+
+
+[[mod_commands_commandresulttype_enum]]
+==== CommandResultType _enum_
+
+Result of the command that was send to the Charge Point.
+
+|===
+|Value |Description
+
+|ACCEPTED |Command request accepted by the Charge Point.
+|EVSE_OCCUPIED |EVSE is currently occupied, another session is ongoing. Cannot start a new session
+|EVSE_INOPERATIVE | EVSE is currently inoperative or faulted.
+|FAILED |Execution of the command failed at the Charge Point.
+|NOT_SUPPORTED |The requested command is not supported by this Charge Point, EVSE etc.
+|REJECTED |Command request rejected by the Charge Point.
+|TIMEOUT |Command request timeout, no response received from the Charge Point in a reasonable time.
 |===
 
 

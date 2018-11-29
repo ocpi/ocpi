@@ -12,7 +12,9 @@ The following changes to messages/objects etc.
 |===
 |Context (Module / Object) |Expected Impact: eMSP / CPO |Expected Effort: eMSP / CPO |Description
 
-|CDRs / CDR Object |Minor / Minor |Minimal / Minimal |Added `session_id` field, making it easier to match a CDR to a Session. 
-|Locations / Hours class |Minor / Minor |Minimal / Minimal |removed to option for either: twentyfourseven or regular_hours, now regular_hours is always required, this is much less confusing. 
+|CDRs / CDR Object |Minor / Minor |Minimal / Minimal |Added `session_id` field, making it easier to match a CDR to a Session.
+|Commands / CommandResponseType Enum |Minor / Minor |Minimal / Minimal |removed `TIMEOUT` as possible value. This is moved to the new CommandResult object.
+|Commands / CommandResult Object |Medium / Medium |Medium / Medium |Changed result message from CPO to eMSP from CommandResponse to CommandResult to make it more clear.
+|Locations / Hours class |Minor / Minor |Minimal / Minimal |removed to option for either: twentyfourseven or regular_hours, now regular_hours is always required, this is much less confusing.
 |Token / Token Object |Minor / Minor |Minimal / Minimal |Added `group_id` field to enable support for OCPP GroupId/ParentId.
 |===
