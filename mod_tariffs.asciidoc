@@ -179,6 +179,7 @@ PUT To URL: https://www.server.com/ocpi/emsp/2.0/tariffs/NL/TNM/12
 		"price_components": [{
 			"type": "TIME",
 			"price": 2.00,
+			"vat": 10.0,
 			"step_size": 300
 		}]
 	}]
@@ -188,7 +189,8 @@ PUT To URL: https://www.server.com/ocpi/emsp/2.0/tariffs/NL/TNM/12
 [[mod_tariffs_patch_method]]
 ===== *PATCH* Method
 
-The PATCH method works the same as the <<mod_tariffs_put_method,PUT>> method, except that the fields/objects that have to be updated have to be present, other fields/objects that are not specified are considered unchanged.
+The PATCH method works the same as the <<mod_tariffs_put_method,PUT>> method, except that the fields/objects that have to be updated have to be present,
+other fields/objects that are not specified are considered unchanged.
 
 [[mod_tariffs_example_change_tariff_to_2,50]]
 ====== Example: Change Tariff to 2,50
@@ -204,7 +206,8 @@ PUT To URL: https://www.server.com/ocpi/emsp/2.0/tariffs/NL/TNM/12
 			"price": 2.50,
 			"step_size": 300
 		}]
-	}]
+	}],
+	"last_updated": "2015-06-29T20:39:09Z"
 }
 ----
 
@@ -258,6 +261,7 @@ See: <<mod_tariffs_free_of_charge_tariff_example,Free of Charge Tariff example>>
 
 [[mod_tariffs_simple_tariff_example_2_euro_per_hour]]
 ====== Simple Tariff example 2 euro per hour
+10% VAT
 
 [source,json]
 ----
@@ -268,6 +272,7 @@ See: <<mod_tariffs_free_of_charge_tariff_example,Free of Charge Tariff example>>
 		"price_components": [{
 			"type": "TIME",
 			"price": 2.00,
+			"vat": 10.0,
 			"step_size": 300
 		}]
 	}],
@@ -294,6 +299,7 @@ See: <<mod_tariffs_free_of_charge_tariff_example,Free of Charge Tariff example>>
 		"price_components": [{
 			"type": "TIME",
 			"price": 2.00,
+			"vat": 10.0,
 			"step_size": 300
 		}]
 	}],
@@ -314,6 +320,7 @@ See: <<mod_tariffs_free_of_charge_tariff_example,Free of Charge Tariff example>>
 		"price_components": [{
 			"type": "TIME",
 			"price": 2.00,
+			"vat": 10.0,
 			"step_size": 300
 		}]
 	}],
@@ -324,13 +331,21 @@ See: <<mod_tariffs_free_of_charge_tariff_example,Free of Charge Tariff example>>
 [[mod_tariffs_complex_tariff_example]]
 ====== Complex Tariff example
 
-2.50 euro start tariff
-1.00 euro per hour charging tariff for less than 32A (paid per 15 minutes)
-2.00 euro per hour charging tariff for more than 32A on weekdays (paid per 10 minutes)
-1.25 euro per hour charging tariff for more than 32A during the weekend (paid per 10 minutes)
+- 2.50 euro start tariff
+- 1.00 euro per hour charging tariff for less than 32A (paid per 15 minutes)
+- 2.00 euro per hour charging tariff for more than 32A on weekdays (paid per 10 minutes)
+- 1.25 euro per hour charging tariff for more than 32A during the weekend (paid per 10 minutes)
+
 Parking costs:
+
 - Weekdays: between 09:00 and 18:00 : 5 euro (paid per 5 minutes)
 - Saturday: between 10:00 and 17:00 : 6 euro (paid per 5 minutes)
+
+VAT:
+
+- 15% on start tariff
+- 20% on charging per hour
+- 10% on parking
 
 [source,json]
 ----
@@ -342,12 +357,14 @@ Parking costs:
 		"price_components": [{
 			"type": "FLAT",
 			"price": 2.50,
+			"vat": 15.0,
 			"step_size": 1
 		}]
 	}, {
 		"price_components": [{
 			"type": "TIME",
 			"price": 1.00,
+			"vat": 20.0,
 			"step_size": 900
 		}],
 		"restrictions": {
@@ -357,6 +374,7 @@ Parking costs:
 		"price_components": [{
 			"type": "TIME",
 			"price": 2.00,
+			"vat": 20.0,
 			"step_size": 600
 		}],
 		"restrictions": {
@@ -367,6 +385,7 @@ Parking costs:
 		"price_components": [{
 			"type": "TIME",
 			"price": 1.25,
+			"vat": 20.0,
 			"step_size": 600
 		}],
 		"restrictions": {
@@ -377,6 +396,7 @@ Parking costs:
 		"price_components": [{
 			"type": "PARKING_TIME",
 			"price": 5.00,
+			"vat": 10.0,
 			"step_size": 300
 		}],
 		"restrictions": {
@@ -388,6 +408,7 @@ Parking costs:
 		"price_components": [{
 			"type": "PARKING_TIME",
 			"price": 6.00,
+			"vat": 10.0,
 			"step_size": 300
 		}],
 		"restrictions": {
@@ -402,6 +423,7 @@ Parking costs:
 
 [[mod_tariffs_free_of_charge_tariff_example]]
 ====== Free of Charge Tariff example
+In this example no VAT (that might not always be the case)
 
 [source,json]
 ----
@@ -445,11 +467,12 @@ Parking costs:
 
 |type |<<mod_tariffs_tariffdimensiontype_enum,TariffDimensionType>> |1 |Type of tariff dimension 
 |price |<<types.asciidoc#types_number_type,number>> |1 |price per unit (excluding VAT) for this tariff dimension 
-|step_size |int |1 |Minimum amount to be billed. This unit will be billed in this step_size blocks. For example: if type is time and step_size is 300, then time will be billed in blocks of 5 minutes, so if 6 minutes is used, 10 minutes (2 blocks of step_size) will be billed. 
+|vat |<<types.asciidoc#types_number_type,number>> |? |applicable VAT percentage for this tariff dimension. If omitted, no VAT is applicable, that is different from 0% VAT, which would be a value of 0.0 here.
+|step_size |int |1 |Minimum amount to be billed. This unit will be billed in this step_size blocks. For example: if type is time and step_size is 300, then time will be billed in blocks of 5 minutes, so if 6 minutes is used, 10 minutes (2 blocks of step_size) will be billed.
 |===
 
-The `step_size` also depends on the `type`, every `type` (except `FLAT`) defines a step_size multiplier. this is the size of every 'step' and the unit.
-For example: `PARKING_TIME` has 'step_size multiplier: 1 second' That means that the `step_size` of a `PriceComponent` is muliplied by 1 second.
+The `step_size` also depends on the `type`, every `type` (except `FLAT`) defines a step_size multiplier, this is the size of every 'step' for that type in the gaven unit.
+For example: `PARKING_TIME` has 'step_size multiplier: 1 second' That means that the `step_size` of a `PriceComponent` is multiplied by 1 second.
 Thus a `step_size = 300` means 300 seconds. 
 
 [[mod_tariffs_tariffelement_class]]

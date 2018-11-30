@@ -247,7 +247,8 @@ NOTE: The duration of charging (energy being transferred between EVSE and EV) du
 		"elements": [{
 			"price_components": [{
 				"type": "TIME",
-				"price": "2.00",
+				"price": 2.00,
+				"vat": 10.0,
 				"step_size": 300
 			}],
 		}],
