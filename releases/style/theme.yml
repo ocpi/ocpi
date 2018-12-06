@@ -1,4 +1,4 @@
-page: 
+page:
   background_image: draft.png
 
 base:
@@ -21,8 +21,20 @@ table:
     grid_color: BBBBBB
     cell:
        padding: [4, 4, 4, 4]
-    
-    
+
+header:
+  height: 0.7cm
+  border_color: #BBBBBB
+  border_width: 0.2
+  recto_content:
+    center: '*{document_header}*'
+  verso_content:
+    center: '*{document_header}*'
+  font:
+    size: 8
+    border_color: #666666
+    style: bold
+
 footer:
   height: 0.7cm
   border_color: #BBBBBB

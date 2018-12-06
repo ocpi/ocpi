@@ -9,16 +9,84 @@ Lots of typos fixed and textual improvements.
 
 The following changes to messages/objects etc.
 
+[cols="6,2,2,12",options="header"]
 |===
-|Context (Module / Object) |Expected Impact: eMSP / CPO |Expected Effort: eMSP / CPO |Description
+|Context (Module / Object)
+|Expected Impact: +
+eMSP / CPO
+|Expected Effort: +
+eMSP / CPO
+|Description
 
-|CDRs / CDR Object |Minor / Minor |Minimal / Minimal |Added `session_id` field, making it easier to match a CDR to a Session.
-|Commands / CancelReservation Object |Minor / Minor |Minimal / Minimal | Added CancelReservation object for the cancel reservation command.
-|Commands / CommandType Enum |Minor / Minor |Minimal / Minimal | Added `CANCEL_RESERVATION` value, adding the cancel reservation command.
-|Commands / CommandResponse Object |Minor / Minor |Minimal / Minimal | Added `message` field, enables the CPO to send a message to the user when something goes wrong.
-|Commands / CommandResponseType Enum |Minor / Minor |Minimal / Minimal |removed `TIMEOUT` as possible value. This is moved to the new CommandResult object.
-|Commands / CommandResult Object |Medium / Medium |Medium / Medium |Changed result message from CPO to eMSP from CommandResponse to CommandResult to make it more clear.
-|Locations / Hours class |Minor / Minor |Minimal / Minimal |removed to option for either: twentyfourseven or regular_hours, now regular_hours is always required, this is much less confusing.
-|Tariff / PriceComponent class |Minor / Minor |Minimal / Minimal |Added `vat` field to send the applicable VAT with every tariff component.
-|Token / Token Object |Minor / Minor |Minimal / Minimal |Added `group_id` field to enable support for OCPP GroupId/ParentId.
+|CDRs / +
+CDR Object
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Added `session_id` field, making it easier to match a CDR to a Session.
+
+|Commands / +
+CancelReservation Object
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Added CancelReservation object for the cancel reservation command.
+
+|Commands / +
+CommandType Enum
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Added `CANCEL_RESERVATION` value, adding the cancel reservation command.
+
+|Commands / +
+CommandResponse Object
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Added `message` field, enables the CPO to send a message to the user when something goes wrong.
+
+|Commands / +
+CommandResponseType Enum
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|removed `TIMEOUT` as possible value. This is moved to the new CommandResult object.
+
+|Commands / +
+CommandResult Object
+|Medium / +
+Medium
+|Medium / +
+Medium
+|Changed result message from CPO to eMSP from CommandResponse to CommandResult to make it more clear.
+
+|Locations / +
+Hours class
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|removed to option for either: twentyfourseven or regular_hours, now regular_hours is always required, this is much less confusing.
+
+|Tariff / +
+PriceComponent class
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Added `vat` field to send the applicable VAT with every tariff component.
+
+|Token / +
+Token Object
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Added `group_id` field to enable support for OCPP GroupId/ParentId.
 |===

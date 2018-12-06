@@ -42,6 +42,7 @@ The literal 'Token' indicates that the token based authentication mechanism is u
 
 The request method can be any of <<transport_and_format_get,GET>>, <<transport_and_format_put,PUT>>, <<transport_and_format_patch,PATCH>> or DELETE. The OCPI protocol uses them in a way similar to REST APIs.
 
+[cols="2,12",options="header"]
 |===
 |Method |Description
 
@@ -81,6 +82,7 @@ headers need to be added to the response.
 
 The following table lists all the parameters that have to be supported, but might be omitted by a client request.
 
+[cols="2,12",options="header"]
 |===
 |Parameter |Description 
 
@@ -111,6 +113,7 @@ When an object before this page has been updated, then the client has missed 1 o
 
 HTTP headers that have to be added to any paginated GET response.
 
+[cols="3,10",options="header"]
 |===
 |HTTP Parameter |Description 
 
@@ -217,6 +220,7 @@ When a client pushes a client owned object, but the {object-id} in the URL is di
 ==== Response format
 The content that is sent with all the response messages is an 'application/json' type and contains a JSON object with the following properties:
 
+[cols="3,2,1,10",options="header"]
 |===
 |Property |Type |Card. |Description 
 
@@ -360,6 +364,7 @@ For example: `/ocpi/cpo/2.0/locations` and `/ocpi/emsp/2.0/locations`.
 
 The URLs of the endpoints in this document are descriptive only. The exact URL can be found by fetching the endpoint information from the API info endpoint and looking up the identifier of the endpoint.
 
+[cols="4,2,10",options="header"]
 |===
 |Operator interface |Identifier |Example URL 
 
@@ -367,6 +372,7 @@ The URLs of the endpoints in this document are descriptive only. The exact URL c
 |Charging location details |locations |https://example.com/ocpi/cpo/2.0/locations[https://example.com/ocpi/cpo/2.0/locations] 
 |===
 
+[cols="4,2,10",options="header"]
 |===
 |eMSP interface |Identifier |Example URL 
 

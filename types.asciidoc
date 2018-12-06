@@ -29,6 +29,7 @@ Note: +00:00 is not the same as UTC.
 [[types_displaytext_class]]
 === DisplayText _class_
 
+[cols="3,2,1,10",options="header"]
 |===
 |Property |Type |Card. |Description 
 

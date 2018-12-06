@@ -4,11 +4,15 @@
 [[terminology_abbreviations]]
 === Abbreviations
 
-* *OCPI* Open Charge Point Interface
-* *OCPP* Open Charge Point Protocol
-* *CDR* Charge Detail Record
-* *CPO* Charging Point Operator
-* *eMSP* e-Mobility Service Provider
+[cols="2s,10",options="header"]
+|===
+|Abbr. |Description
+|OCPI  |Open Charge Point Interface
+|OCPP  |Open Charge Point Protocol
+|CDR   |Charge Detail Record
+|CPO   |Charging Point Operator
+|eMSP  |e-Mobility Service Provider
+|===
 
 [[terminology_provider_and_operator_abbreviation]]
 === Provider and Operator abbreviation
@@ -70,6 +74,7 @@ In order to prevent issues with Capitals in variable names, the naming in JSON i
 
 When defining the cardinality of a field, the following symbols are used throughout this document:
 
+[cols="1,9,1",options="header"]
 |===
 |Symbol |Description |Type 
 

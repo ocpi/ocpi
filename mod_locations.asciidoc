@@ -35,6 +35,7 @@ The eMSP can use the CPO GET Object interface to retrieve a specific Location, E
 
 Example endpoint structure: `/ocpi/cpo/2.0/locations`
 
+[cols="2,12",options="header"]
 |===
 |Method |Description 
 
@@ -66,6 +67,7 @@ If an EVSE is updated, also the 'parent' Location's `last_updated` fields is upd
 
 This request is <<transport_and_format.asciidoc#transport_and_format_pagination,paginated>>, it supports the <<transport_and_format.asciidoc#transport_and_format_paginated_request,pagination>> related URL parameters.
 
+[cols="3,2,1,10",options="header"]
 |===
 |Parameter |Datatype |Required |Description 
 
@@ -84,6 +86,7 @@ the header will contain the <<transport_and_format.asciidoc#transport_and_format
 Any older information that is not specified in the response is considered no longer valid.
 Each object must contain all required fields. Fields that are not specified may be considered as null values.
 
+[cols="4,1,12",options="header"]
 |===
 |Type |Card. |Description 
 
@@ -100,6 +103,7 @@ Example endpoint structures for a specific Location, EVSE or Connector:
 
 The following parameters can be provided as URL segments.
 
+[cols="3,2,1,10",options="header"]
 |===
 |Parameter |Datatype |Required |Description 
 
@@ -113,6 +117,7 @@ The following parameters can be provided as URL segments.
 
 The response contains the requested object. 
 
+[cols="4,1,12",options="header"]
 |===
 |Type |Card. |Description 
 
@@ -132,6 +137,7 @@ Example endpoint structures:
 `/ocpi/emsp/2.0/locations/{country_code}/{party_id}/{location_id}/{evse_uid}`
 `/ocpi/emsp/2.0/locations/{country_code}/{party_id}/{location_id}/{evse_uid}/{connector_id}`
 
+[cols="2,12",options="header"]
 |===
 |Method |Description 
 
@@ -152,6 +158,7 @@ If the CPO wants to check the status of a Location, EVSE or Connector object in 
 
 The following parameters can be provided as URL segments.
 
+[cols="3,2,1,10",options="header"]
 |===
 |Parameter |Datatype |Required |Description 
 
@@ -167,6 +174,7 @@ The following parameters can be provided as URL segments.
 
 The response contains the requested object. 
 
+[cols="4,1,12",options="header"]
 |===
 |Type |Card. |Description 
 
@@ -187,6 +195,7 @@ The CPO pushes available Location/EVSE or Connector objects to the eMSP. PUT is 
 
 This is an information push message, the objects pushed will not be owned by the eMSP. To make distinctions between objects being pushed to an eMSP from different CPOs, the {<<credentials.asciidoc#credentials_credentials_object,party_id>>} and {<<credentials.asciidoc#credentials_credentials_object,country_code>>} have to be included in the URL, as URL segments.
 
+[cols="3,2,1,10",options="header"]
 |===
 |Parameter |Datatype |Required |Description 
 
@@ -202,6 +211,7 @@ This is an information push message, the objects pushed will not be owned by the
 
 The request contains the new/updated object.
 
+[cols="4,1,12",options="header"]
 |===
 |Type |Card. |Description 
 
@@ -315,6 +325,7 @@ image::images/locations-class-diagram.svg[Location class diagram]
 
 The _Location_ object describes the location and its properties where a group of EVSEs that belong together are installed. Typically the _Location_ object is the exact location of the group of EVSEs, but it can also be the entrance of a parking garage which contains these EVSEs. The exact way to reach each EVSE can be further specified by its own properties.
 
+[cols="3,2,1,10",options="header"]
 |===
 |Property |Type |Card. |Description 
 
@@ -424,6 +435,7 @@ The _EVSE_ object describes the part that controls the power supply to a single 
 
 An _EVSE_ object has a list of connectors which can not be used simultaneously: only one connector per EVSE can be used at the time.
 
+[cols="3,2,1,10",options="header"]
 |===
 |Property |Type |Card. |Description 
 
@@ -448,6 +460,7 @@ An _EVSE_ object has a list of connectors which can not be used simultaneously: 
 
 A connector is the socket or cable available for the EV to use. A single EVSE may provide multiple connectors but only one of them can be in use at the same time. A connector always belongs to an _EVSE_ object.
 
+[cols="3,2,1,10",options="header"]
 |===
 |Property |Type |Card. |Description 
 
@@ -470,6 +483,7 @@ A connector is the socket or cable available for the EV to use. A single EVSE ma
 
 This class defines a geo location. The geodetic system to be used is WGS 84.
 
+[cols="3,2,1,10",options="header"]
 |===
 |Property |Type |Card. |Description 
 
@@ -481,6 +495,7 @@ This class defines a geo location. The geodetic system to be used is WGS 84.
 [[mod_locations_businessdetails_class]]
 ==== BusinessDetails _class_
 
+[cols="3,2,1,10",options="header"]
 |===
 |Property |Type |Card. |Description 
 
@@ -495,6 +510,7 @@ This class defines a geo location. The geodetic system to be used is WGS 84.
 
 The capabilities of an EVSE.
 
+[cols="3,10",options="header"]
 |===
 |Value |Description 
 
@@ -511,6 +527,7 @@ The capabilities of an EVSE.
 
 The format of the connector, whether it is a socket or a plug.
 
+[cols="3,10",options="header"]
 |===
 |Value |Description 
 
@@ -523,6 +540,7 @@ The format of the connector, whether it is a socket or a plug.
 
 The socket or plug standard of the charging point.
 
+[cols="3,10",options="header"]
 |===
 |Value |Description 
 
@@ -558,6 +576,7 @@ The socket or plug standard of the charging point.
 
 This type is used to specify the energy mix and environmental impact of the supplied energy at a location or in a tariff.
 
+[cols="3,2,1,10",options="header"]
 |===
 |Property |Type |Card. |Description 
 
@@ -623,6 +642,7 @@ _* These fields can be used to look-up energy qualification or to show it direct
 
 Key-value pairs (enum + percentage) of energy sources. All given values should add up to 100 percent per category.
 
+[cols="3,2,1,10",options="header"]
 |===
 |Property |Type |Card. |Description 
 
@@ -635,6 +655,7 @@ Key-value pairs (enum + percentage) of energy sources. All given values should a
 
 Categories of energy sources.
 
+[cols="3,10",options="header"]
 |===
 |Value |Description 
 
@@ -653,6 +674,7 @@ Categories of energy sources.
 
 Key-value pairs (enum + amount) of waste and carbon dioxide emittion per kWh.
 
+[cols="3,2,1,10",options="header"]
 |===
 |Property |Type |Card. |Description 
 
@@ -665,6 +687,7 @@ Key-value pairs (enum + amount) of waste and carbon dioxide emittion per kWh.
 
 Categories of environmental impact values.
 
+[cols="3,10",options="header"]
 |===
 |Value |Description 
 
@@ -677,8 +700,9 @@ Categories of environmental impact values.
 
 Specifies one exceptional period for opening or access hours.
 
+[cols="3,2,1,10",options="header"]
 |===
-|Field Name |Field Type |Card. |Description 
+|Property |Type |Card. |Description
 
 |period_begin |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Begin of the exception.
 |period_end |<<types.asciidoc#types_datetime_type,DateTime>> |1 |End of the exception.
@@ -688,6 +712,7 @@ Specifies one exceptional period for opening or access hours.
 [[mod_locations_facility_enum]]
 ==== Facility _enum_
 
+[cols="3,10",options="header"]
 |===
 |Value |Description 
 
@@ -712,6 +737,7 @@ Specifies one exceptional period for opening or access hours.
 [[mod_locations_geolocation_class]]
 ==== GeoLocation _class_
 
+[cols="3,2,1,10",options="header"]
 |===
 |Property |Type |Card. |Description 
 
@@ -724,8 +750,9 @@ Specifies one exceptional period for opening or access hours.
 
 Opening and access hours of the location.
 
+[cols="3,2,1,10",options="header"]
 |===
-|Field Name |Field Type |Card. |Description 
+|Property |Type |Card. |Description
 
 |twentyfourseven |boolean |1 |True to represent 24 hours a day and 7 days a week, except the given exceptions. 
 |regular_hours |<<mod_locations_regularhours_class,RegularHours>> |* |Regular hours, weekday-based. Only to be used if `twentyfourseven=false`. 
@@ -744,8 +771,9 @@ The recommended dimensions for all photos is a minimum of 800 pixels wide and 60
 Logo Dimensions:
 The recommended dimensions for logos are exactly 512 pixels wide and 512 pixels height. Thumbnail representations for logos should be exactly 128 pixels in width and height. If not squared, thumbnails should have the same orientation as the original.
 
+[cols="3,2,1,10",options="header"]
 |===
-|Field Name |Field Type |Card. |Description 
+|Property |Type |Card. |Description
 
 |url |<<types.asciidoc#types_url_type,URL>> |1 |URL from where the image data can be fetched through a web browser. 
 |thumbnail |<<types.asciidoc#types_url_type,URL>> |? |URL from where a thumbnail of the image can be fetched through a webbrowser. 
@@ -760,6 +788,7 @@ The recommended dimensions for logos are exactly 512 pixels wide and 512 pixels 
 
 The category of an image to obtain the correct usage in a user presentation. The category has to be set accordingly to the image content in order to guarantee the right usage.
 
+[cols="3,10",options="header"]
 |===
 |Value |Description 
 
@@ -778,7 +807,7 @@ The category of an image to obtain the correct usage in a user presentation. The
 Reflects the general type of the charge points location. May be used
 for user information.
 
-[cols="<,<"]
+[cols="3,10",options="header"]
 |===
 |Value |Description 
 
@@ -796,7 +825,7 @@ for user information.
 This value, if provided, represents the restriction to the parking spot
 for different purposes.
 
-[cols="<,<"]
+[cols="3,10",options="header"]
 |===
 |Value |Description 
 
@@ -810,6 +839,7 @@ for different purposes.
 [[mod_locations_powertype_enum]]
 ==== PowerType _enum_
 
+[cols="3,10",options="header"]
 |===
 |Value |Description 
 
@@ -823,8 +853,9 @@ for different purposes.
 
 Regular recurring operation or access hours
 
+[cols="3,2,1,10",options="header"]
 |===
-|Field Name |Field Type |Card. |Description 
+|Property |Type |Card. |Description
 
 |weekday |int(1) |1 |Number of day in the week, from Monday (1) till Sunday (7) 
 |period_begin |<<types.asciidoc#types_string_type,string>>(5) |1 |Begin of the regular period given in hours and minutes. Must be in 24h format with leading zeros. Example: "18:15". Hour/Minute separator: ":" Regex: [0-2][0-9]:[0-5][0-9]
@@ -898,6 +929,7 @@ This represents the following schedule, where [line-through]#stroked out# days a
 
 The status of an EVSE.
 
+[cols="3,10",options="header"]
 |===
 |Value |Description 
 
@@ -917,6 +949,7 @@ The status of an EVSE.
 
 This type is used to schedule status periods in the future. The eMSP can provide this information to the EV user for trip planning purpose. A period MAY have no end. Example: "This station will be running as of tomorrow. Today it is still planned and under construction."
 
+[cols="3,2,1,10",options="header"]
 |===
 |Property |Type |Card. |Description 
 
