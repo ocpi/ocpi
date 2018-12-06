@@ -8,6 +8,7 @@ The Commands module enables remote commands to be sent to a Location/EVSE.
 The following commands are supported:
 
 - `RESERVE_NOW`
+- `CANCEL_RESERVATION`
 - `START_SESSION`
 - `STOP_SESSION`
 - `UNLOCK_CONNECTOR`
@@ -110,9 +111,10 @@ Depending on the `command` parameter the body SHALL contain the applicable objec
 |===
 |Type |Card. |Description 
 
-|_Choice: one of four_ | | 
-|&gt; <<mod_commands_reservenow_object,ReserveNow>> |1 |ReserveNow object, for the `RESERVE_NOW` command, with information needed to reserve a (specific) connector of a Charge Point for a given Token. 
-|&gt; <<mod_commands_startsession_object,StartSession>> |1 |StartSession object, for the `START_SESSION` command, with information needed to start a sessions. 
+|_Choice: one of five_ | |
+|&gt; <<mod_commands_cancelreservation_object,CancelReservation>> |1 |CancelReservation object, for the `CANCEL_RESERVATION` command, with information needed to cancel an existing reservation.
+|&gt; <<mod_commands_reservenow_object,ReserveNow>> |1 |ReserveNow object, for the `RESERVE_NOW` command, with information needed to reserve a (specific) connector of a Charge Point for a given Token.
+|&gt; <<mod_commands_startsession_object,StartSession>> |1 |StartSession object, for the `START_SESSION` command, with information needed to start a sessions.
 |&gt; <<mod_commands_stopsession_object,StopSession>> |1 |StopSession object, for the `STOP_SESSION` command, with information needed to stop a sessions. 
 |&gt; <<mod_commands_unlockconnector_object,UnlockConnector>> |1 |UnlockConnector object, for the `UNLOCK_CONNECTOR` command, with information needed to unlock a connector of a Charge Point. 
 |===
@@ -172,6 +174,22 @@ Example:
 
 [[mod_commands_object_description]]
 === Object description
+
+[[mod_commands_cancelreservation_object]]
+==== _CancelReservation_ Object
+
+TODO
+
+The `evse_uid` is optional. If no EVSE is specified, the Charge Point should keep one EVSE available for the EV Driver identified by the given Token. (This might not be supported by all Charge Points).
+A reservation can be replaced/updated by sending a `RESERVE_NOW` request with the same Location (Charge Point) and the same `reservation_id`.
+
+|===
+|Property |Type |Card. |Description
+
+|response_url |<<types.asciidoc#types_url_type,URL>> |1 |URL that the CommandResponse POST should be send to. This URL might contain an unique ID to be able to distinguish between ReserveNow requests.
+|reservation_id |int |1 |Reservation id, unique for this reservation. If the Charge Point already has a reservation that matches this reservationId the Charge Point will replace the reservation.
+|===
+
 
 [[mod_commands_commandresponse_object]]
 ==== _CommandResponse_ Object
@@ -282,6 +300,7 @@ Result of the command that was send to the Charge Point.
 |NOT_SUPPORTED |The requested command is not supported by this Charge Point, EVSE etc.
 |REJECTED |Command request rejected by the Charge Point.
 |TIMEOUT |Command request timeout, no response received from the Charge Point in a reasonable time.
+|UNKNOWN_RESERVATION |The Reservation in the requested command is not known by this Charge Point.
 |===
 
 
@@ -293,7 +312,8 @@ The command requested.
 |===
 |Value |Description 
 
-|RESERVE_NOW |Request the Charge Point to reserve a (specific) EVSE for a Token for a certain time, starting now. 
+|CANCEL_RESERVATION |Request the Charge Point to cancel a specific reservation.
+|RESERVE_NOW |Request the Charge Point to reserve a (specific) EVSE for a Token for a certain time, starting now.
 |START_SESSION |Request the Charge Point to start a transaction on the given EVSE/Connector. 
 |STOP_SESSION |Request the Charge Point to stop an ongoing session. 
 |UNLOCK_CONNECTOR |Request the Charge Point to unlock the connector (if applicable). This functionality is for help desk operators only! 
