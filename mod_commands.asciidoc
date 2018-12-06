@@ -197,11 +197,18 @@ Example:
 [[mod_commands_commandresponse_object]]
 ==== _CommandResponse_ Object
 
+The CommandResponse object is send in the HTTP response body.
+
+Because OCPI does not allow/require retries, it could happen that the asynchronous result url given by the eMSP is never successfully called.
+The eMSP might have had a glitch, HTTP 500 returned, was offline for a moment etc.
+For the eMSP to be able to give a quick as possible response to another system or driver app. it is important for the eMSP to known the timeout on a certain command.
+
 [cols="2,4,1,10",options="header"]
 |===
 |Property |Type |Card. |Description
 
 |result |<<mod_commands_commandresponsetype_enum,CommandResponseType>> |1 |Response from the CPO on the command request.
+|timeout |int |1 |Timeout for this command in seconds. When the Result is not received within this timeout, the eMSP can assume that the message might never be send.
 |message|<<types.asciidoc#types_displaytext_class,DisplayText>>|?|Human-readable description of the result (if one can be provided), multiple languages can be provided.|
 |===
 
