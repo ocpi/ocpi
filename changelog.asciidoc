@@ -51,6 +51,14 @@ Minimal
 |Added `message` field, enables the CPO to send a message to the user when something goes wrong.
 
 |Commands / +
+CommandResponse Object
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Added `timeout` field, enables the eMSP to cleanup not responded outstanding commands.
+
+|Commands / +
 CommandResponseType Enum
 |Minor / +
 Minor
