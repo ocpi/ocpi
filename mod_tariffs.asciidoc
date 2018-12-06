@@ -45,6 +45,7 @@ The CPO Tariffs interface gives the eMSP the ability to request tariffs.
 
 Example endpoint structure: `/ocpi/cpo/2.0/tariffs/?date_from=xxx&amp;date_to=yyy`
 
+[cols="2,12",options="header"]
 |===
 |Method |Description 
 
@@ -67,6 +68,7 @@ If additional parameters: {date_from} and/or {date_to} are provided, only Tariff
 
 This request is <<transport_and_format.asciidoc#transport_and_format_pagination,paginated>>, it supports the <<transport_and_format.asciidoc#transport_and_format_paginated_request,pagination>> related URL parameters.
 
+[cols="3,2,1,10",options="header"]
 |===
 |Parameter |Datatype |Required |Description 
 
@@ -84,6 +86,7 @@ The endpoint returns an object with a list of valid Tariffs, the header will con
 Any older information that is not specified in the response is considered as no longer valid.
 Each object must contain all required fields. Fields that are not specified may be considered as null values.
 
+[cols="4,1,12",options="header"]
 |===
 |Type |Card. |Description 
 
@@ -97,6 +100,7 @@ Tariffs is a <<transport_and_format.asciidoc#transport_and_format_client_owned_o
 Example endpoint structure:
 `/ocpi/emsp/2.0/tariffs/{country_code}/{party_id}/{tariff_id}`
 
+[cols="2,12",options="header"]
 |===
 |Method |Description 
 
@@ -117,6 +121,7 @@ If the CPO wants to check the status of a Tariff in the eMSP system it might GET
 
 The following parameters can be provided as URL segments.
 
+[cols="3,2,1,10",options="header"]
 |===
 |Parameter |Datatype |Required |Description 
 
@@ -130,6 +135,7 @@ The following parameters can be provided as URL segments.
 
 The response contains the requested object.
 
+[cols="4,1,12",options="header"]
 |===
 |Type |Card. |Description 
 
@@ -146,6 +152,7 @@ New or updated Tariff objects are pushed from the CPO to the eMSP.
 
 In the put request the new or updated Tariff object is sent.
 
+[cols="4,1,12",options="header"]
 |===
 |Type |Card. |Description 
 
@@ -157,6 +164,7 @@ In the put request the new or updated Tariff object is sent.
 
 The following parameters can be provided as URL segments.
 
+[cols="3,2,1,10",options="header"]
 |===
 |Parameter |Datatype |Required |Description 
 
@@ -221,6 +229,7 @@ Delete a no longer valid Tariff object.
 
 The following parameters can be provided as URL segments.
 
+[cols="3,2,1,10",options="header"]
 |===
 |Parameter |Datatype |Required |Description 
 
@@ -244,6 +253,7 @@ non of the TariffElements before this matches the current charging period.
 To define a "Free of Charge" Tariff in OCPI, a tariff has to be provided that has a `type` = `FLAT` and `price` = `0.00`.
 See: <<mod_tariffs_free_of_charge_tariff_example,Free of Charge Tariff example>>
 
+[cols="3,2,1,10",options="header"]
 |===
 |Property |Type |Card. |Description 
 
@@ -447,6 +457,7 @@ In this example no VAT (that might not always be the case)
 [[mod_tariffs_dayofweek_enum]]
 ==== DayOfWeek _enum_
 
+[cols="3,10",options="header"]
 |===
 |Value |Description 
 
@@ -462,6 +473,7 @@ In this example no VAT (that might not always be the case)
 [[mod_tariffs_pricecomponent_class]]
 ==== PriceComponent _class_
 
+[cols="3,2,1,10",options="header"]
 |===
 |Property |Type |Card. |Description 
 
@@ -478,6 +490,7 @@ Thus a `step_size = 300` means 300 seconds.
 [[mod_tariffs_tariffelement_class]]
 ==== TariffElement _class_
 
+[cols="3,2,1,10",options="header"]
 |===
 |Property |Type |Card. |Description 
 
@@ -488,6 +501,7 @@ Thus a `step_size = 300` means 300 seconds.
 [[mod_tariffs_tariffdimensiontype_enum]]
 ==== TariffDimensionType _enum_
 
+[cols="3,10",options="header"]
 |===
 |Value |Description 
 
@@ -500,6 +514,7 @@ Thus a `step_size = 300` means 300 seconds.
 [[mod_tariffs_tariffrestrictions_class]]
 ==== TariffRestrictions _class_
 
+[cols="3,2,1,10",options="header"]
 |===
 |Property |Type |Card. |Description 
 

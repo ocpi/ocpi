@@ -1,9 +1,11 @@
 *Version History*
 
+[cols="2,3,12",options="header"]
 |===
 |Version |Date |Description 
 
-|2.1.1 |08-06-2017 |Fixed 4 bugs found in OCPI 2.1, lots of small textual improvements: see <<changelog.asciidoc#changelog_changelog,changelog>> 
+|2.2 Draft1 |22-11-2018 |First draft of OCPI 2.2: see <<changelog.asciidoc#changelog_changelog,changelog>>
+|2.1.1 |08-06-2017 |Fixed 4 bugs found in OCPI 2.1, lots of small textual improvements: see <<changelog.asciidoc#changelog_changelog,changelog>>
 |2.1 |08-04-2016 |Added <<mod_commands.asciidoc#mod_commands_commands_module,command module>>. +
  Added support for <<mod_tokens.asciidoc#mod_tokens_real-time_authorization,real-time authorization>>. + 
  Lots of small improvements: see <<changelog.asciidoc#changelog_changelog,changelog>> 

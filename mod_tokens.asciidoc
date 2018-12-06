@@ -54,6 +54,7 @@ Tokens is a <<transport_and_format.asciidoc#transport_and_format_client_owned_ob
 Example endpoint structure:
 `/ocpi/cpo/2.0/tokens/{country_code}/{party_id}/{token_uid}` 
 
+[cols="2,12",options="header"]
 |===
 |Method |Description 
 
@@ -74,6 +75,7 @@ If the eMSP wants to check the status of a Token in the CPO system it might GET 
 
 The following parameters can be provided as URL segments.
 
+[cols="3,2,1,10",options="header"]
 |===
 |Parameter |Datatype |Required |Description 
 
@@ -87,6 +89,7 @@ The following parameters can be provided as URL segments.
 
 The response contains the requested object. 
 
+[cols="4,1,12",options="header"]
 |===
 |Type |Card. |Description 
 
@@ -103,6 +106,7 @@ New or updated Token objects are pushed from the eMSP to the CPO.
 
 In the put request a new or updated Token object is sent.
 
+[cols="4,1,12",options="header"]
 |===
 |Type |Card. |Description 
 
@@ -114,6 +118,7 @@ In the put request a new or updated Token object is sent.
 
 The following parameters can be provided as URL segments.
 
+[cols="3,2,1,10",options="header"]
 |===
 |Parameter |Datatype |Required |Description 
 
@@ -168,6 +173,7 @@ Via the POST method it is possible to authorize a single token.
 
 Example endpoint structure: `/ocpi/emsp/2.0/tokens/?date_from=xxx&amp;date_to=yyy`
 
+[cols="2,12",options="header"]
 |===
 |Method |Description 
 
@@ -191,6 +197,7 @@ If additional parameters: {date_from} and/or {date_to} are provided, only Tokens
 This request is <<transport_and_format.asciidoc#transport_and_format_pagination,paginated>>, it supports the <<transport_and_format.asciidoc#transport_and_format_paginated_request,pagination>> related URL parameters.
 This request is <<transport_and_format.asciidoc#transport_and_format_pagination,paginated>>, it supports the <<transport_and_format.asciidoc#transport_and_format_paginated_request,pagination>> related URL parameters.
 
+[cols="3,2,1,10",options="header"]
 |===
 |Parameter |Datatype |Required |Description 
 
@@ -208,6 +215,7 @@ The endpoint response with list of valid Token objects, the header will contain 
 Any older information that is not specified in the response is considered as no longer valid.
 Each object must contain all required fields. Fields that are not specified may be considered as null values.
 
+[cols="4,1,12",options="header"]
 |===
 |Type |Card. |Description 
 
@@ -230,6 +238,7 @@ When the eMSP receives a 'real-time' authorization request from a CPO that conta
 
 The following parameter has to be provided as URL segments.
 
+[cols="3,2,1,10",options="header"]
 |===
 |Parameter |Datatype |Required |Description 
 
@@ -243,6 +252,7 @@ The following parameter has to be provided as URL segments.
 In the body an optional <<mod_tokens_locationreferences_class,LocationReferences>> object can be given. The eMSP SHALL then validate if the Token is allowed to be used at this Location, and if applicable: which of the Locations EVSEs/Connectors.
 The object with valid Location and EVSEs/Connectors will be returned in the response.
 
+[cols="4,1,12",options="header"]
 |===
 |Type |Card. |Description 
 
@@ -254,6 +264,7 @@ The object with valid Location and EVSEs/Connectors will be returned in the resp
 
 The endpoint response contains a <<mod_tokens_authorizationinfo_object,AuthorizationInfo>> object.
 
+[cols="4,1,12",options="header"]
 |===
 |Type |Card. |Description 
 
@@ -266,6 +277,7 @@ The endpoint response contains a <<mod_tokens_authorizationinfo_object,Authoriza
 [[mod_tokens_authorizationinfo_object]]
 ==== _AuthorizationInfo_ Object
 
+[cols="3,2,1,10",options="header"]
 |===
 |Property |Type |Card. |Description 
 
@@ -278,6 +290,7 @@ The endpoint response contains a <<mod_tokens_authorizationinfo_object,Authoriza
 [[mod_tokens_token_object]]
 ==== _Token_ Object
 
+[cols="3,2,1,10",options="header"]
 |===
 |Property |Type |Card. |Description 
 
@@ -322,6 +335,7 @@ As long as EV-driver can be expected to charge at an OCPP 1.5/1.6 Charge Point, 
 [[mod_tokens_allowed_enum]]
 ==== Allowed _enum_
 
+[cols="3,10",options="header"]
 |===
 |Value |Description 
 
@@ -337,8 +351,9 @@ As long as EV-driver can be expected to charge at an OCPP 1.5/1.6 Charge Point, 
 
 References to location details.
 
+[cols="3,2,1,10",options="header"]
 |===
-|Field Name |Field Type |Card. |Description 
+|Property |Type |Card. |Description
 
 |location_id |<<types.asciidoc#types_string_type,string>>(39) |1 |Unique identifier for the location. 
 |evse_uids |<<types.asciidoc#types_string_type,string>>(39) |* |Unique identifier for EVSEs within the CPO's platform for the EVSE within the the given location. 
@@ -348,6 +363,7 @@ References to location details.
 [[mod_tokens_tokentype_enum]]
 ==== TokenType _enum_
 
+[cols="3,10",options="header"]
 |===
 |Value |Description 
 
@@ -360,6 +376,7 @@ References to location details.
 
 Defines when authorization of a Token by the CPO is allowed. 
 
+[cols="3,10",options="header"]
 |===
 |Value |Description 
 

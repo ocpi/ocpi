@@ -12,6 +12,7 @@ of the different modules and versions of OCPI that have been implemented.
 
 Both the CPO and the eMSP must have this endpoint.
 
+[cols="2,12",options="header"]
 |===
 |Method |Description 
 
@@ -21,6 +22,7 @@ Both the CPO and the eMSP must have this endpoint.
 [[version_information_get_versions_endpoint_data]]
 === Data
 
+[cols="3,2,1,10",options="header"]
 |===
 |Property |Type |Card. |Description 
 
@@ -30,6 +32,7 @@ Both the CPO and the eMSP must have this endpoint.
 [[version_information_endpoint_version_class]]
 ==== Version _class_
 
+[cols="3,2,1,10",options="header"]
 |===
 |Property |Type |Card. |Description 
 
@@ -68,6 +71,7 @@ This endpoint lists the supported endpoints and their URLs for a specific OCPI v
 
 Both the CPO and the eMSP must have this endpoint.
 
+[cols="2,12",options="header"]
 |===
 |Method |Description 
 
@@ -77,6 +81,7 @@ Both the CPO and the eMSP must have this endpoint.
 [[version_information_get_details_endpoint_data]]
 === Data
 
+[cols="3,2,1,10",options="header"]
 |===
 |Property |Type |Card. |Description 
 
@@ -87,6 +92,7 @@ Both the CPO and the eMSP must have this endpoint.
 [[version_information_endpoint_endpoint_class]]
 ==== Endpoint _class_
 
+[cols="3,2,1,10",options="header"]
 |===
 |Property |Type |Card. |Description 
 
@@ -99,6 +105,7 @@ Both the CPO and the eMSP must have this endpoint.
 
 The Module identifiers for each endpoint are in the beginning of each _Module_ chapter. The following table contains the list of modules in this version of OCPI. Most modules (except <<credentials.asciidoc#credentials_credentials_endpoint,Credentials &amp; registration>>) are optional, but there might be dependencies between modules, if so that will be mentioned in the module description.
 
+[cols="5,3,10",options="header"]
 |===
 |Module |ModuleID |Remark 
 
@@ -116,6 +123,7 @@ The Module identifiers for each endpoint are in the beginning of each _Module_ c
 
 List of known versions.
 
+[cols="3,10",options="header"]
 |===
 |Value |Description 
 

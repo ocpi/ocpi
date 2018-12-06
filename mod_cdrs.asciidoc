@@ -51,6 +51,7 @@ The CDRs endpoint can be used to create or retrieve CDRs.
 
 Example endpoint structure: `/ocpi/cpo/2.0/cdrs/?date_from=xxx&amp;date_to=yyy`
 
+[cols="2,12",options="header"]
 |===
 |Method |Description 
 
@@ -73,6 +74,7 @@ If additional parameters: {date_from} and/or {date_to} are provided, only CDRs w
 
 This request is <<transport_and_format.asciidoc#transport_and_format_pagination,paginated>>, it supports the <<transport_and_format.asciidoc#transport_and_format_paginated_request,pagination>> related URL parameters.
 
+[cols="3,2,1,10",options="header"]
 |===
 |Parameter |Datatype |Required |Description 
 
@@ -103,6 +105,7 @@ The CDRs endpoint can be used to create, or get CDRs.
 
 Example endpoint structure: `/ocpi/emsp/2.0/cdrs`
 
+[cols="2,12",options="header"]
 |===
 |Method |Description 
 
@@ -147,6 +150,7 @@ The post method should contain the full, final CDR object.
 
 In the post request the new CDR object is sent.
 
+[cols="4,1,12",options="header"]
 |===
 |Type |Card. |Description 
 
@@ -158,6 +162,7 @@ In the post request the new CDR object is sent.
 
 The response should contain the URL to the just created CDR object in the eMSP system.
 
+[cols="3,2,1,10",options="header"]
 |===
 |Parameter |Datatype |Required |Description 
 
@@ -174,6 +179,7 @@ Example: Location: /ocpi/emsp/2.0/cdrs/123456
 
 The _CDR_ object describes the Charging Session and its costs, hHow these costs are built up, etc. 
 
+[cols="3,2,1,10",options="header"]
 |===
 |Property |Type |Card. |Description 
 
@@ -274,6 +280,7 @@ NOTE: The duration of charging (energy being transferred between EVSE and EV) du
 [[mod_cdrs_authmethod_enum]]
 ==== AuthMethod _enum_
 
+[cols="3,10",options="header"]
 |===
 |Value |Description 
 
@@ -284,6 +291,7 @@ NOTE: The duration of charging (energy being transferred between EVSE and EV) du
 [[mod_cdrs_cdrdimension_class]]
 ==== CdrDimension _class_
 
+[cols="3,2,1,10",options="header"]
 |===
 |Property |Type |Card. |Description 
 
@@ -294,6 +302,7 @@ NOTE: The duration of charging (energy being transferred between EVSE and EV) du
 [[mod_cdrs_cdrdimensiontype_enum]]
 ==== CdrDimensionType _enum_
 
+[cols="3,10",options="header"]
 |===
 |Value |Description 
 
@@ -310,6 +319,7 @@ NOTE: The duration of charging (energy being transferred between EVSE and EV) du
 
 A charging period consists of a start timestamp and a list of possible values that influence this period, for example: Amount of energy charged this period, maximum current during this period etc.
 
+[cols="3,2,1,10",options="header"]
 |===
 |Property |Type |Card. |Description 
 

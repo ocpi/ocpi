@@ -3,15 +3,16 @@
 :numbered:
 :pagenums:
 :title-separator: |
-[separator=|]
+[separator=:]
 :year: 2018
 :protocol_version: 2.2
 :document_version: {protocol_version}-DRAFT
 :revision_date: {year}-11-22
+:document_header: OCPI {document_version}
 
-= OCPI {protocol_version}| Open Charge Point Interface
+= OCPI {protocol_version}: Open Charge Point Interface
 document version {document_version}, {revision_date}
-http://github.com/ocpi TODO
+github.com/ocpi
 
 <<<
 :toc:

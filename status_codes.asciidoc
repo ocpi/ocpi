@@ -19,6 +19,7 @@ When the server receives a valid OCPI object it should respond with:
 
 Requests that reach the OCPI layer should return an OCPI response message with a `status_code` field as defined below.
 
+[cols="3,10",options="header"]
 |===
 |Range |Description 
 
@@ -32,6 +33,7 @@ When the status code is in the success range (1xxx), the `data` field in the res
 [[status_codes_1xxx_success]]
 === 1xxx: Success
 
+[cols="3,10",options="header"]
 |===
 |Code |Description 
 
@@ -43,6 +45,7 @@ When the status code is in the success range (1xxx), the `data` field in the res
 
 Errors detected by a server in the message sent by a client: The client did something wrong
 
+[cols="3,10",options="header"]
 |===
 |Code |Description 
 
@@ -57,6 +60,7 @@ Errors detected by a server in the message sent by a client: The client did some
 
 Error during processing of the OCPI payload in the server. The message was syntactically correct but could not be processed by the server.
 
+[cols="3,10",options="header"]
 |===
 |Code |Description 
 
