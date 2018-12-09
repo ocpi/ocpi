@@ -1,13 +1,21 @@
 [[introduction_ocpi]]
 == OCPI
 
-[[introduction_ocpi_2.1.1]]
-=== OCPI 2.1.1
+[[introduction_ocpi_2.2]]
+=== OCPI 2.2
 
-During implementation of OCPI 2.1, a number of bugs in the message definition were found.
-This forced us to release a bug fix: OCPI 2.1.1.
-With the release of OCPI 2.1.1: OCPI 2.1 is deprecated, 2.1 should no longer used and replaced by 2.1.1.
-It should be a small effort to upgrade an existing 2.1 implementation to 2.1.1. 
+OCPI 2.2 includes new functionality and fixes, compared to OCPI 2.1.1.
+
+New functionality:
+
+- Support for Hubs TODO
+- Support for Virtual CPO's and eMSP's TODO
+- Schedule based Smart Charging (TODO)
+- Preference based Smart Charging
+- Cancel Reservation
+- Improved CDR (TODO)
+
+TODO (Make this list complete, make the items links)
 
 For more information on message level changes see <<changelog.asciidoc#changelog_changelog,changelog>>.
 

@@ -514,13 +514,16 @@ The capabilities of an EVSE.
 |===
 |Value |Description 
 
-|CHARGING_PROFILE_CAPABLE |The EVSE supports charging profiles. Sending Charging Profiles is not yet supported by OCPI. 
-|CREDIT_CARD_PAYABLE |Charging at this EVSE can be payed with credit card. 
-|REMOTE_START_STOP_CAPABLE |The EVSE can remotely be started/stopped. 
-|RESERVABLE |The EVSE can be reserved. 
+|CHARGING_PROFILE_CAPABLE |The EVSE supports charging profiles.
+|CHARGING_PREFERENCES_CAPABLE |The EVSE supports <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,charging preferences>>.
+|CREDIT_CARD_PAYABLE |Charging at this EVSE can be payed with a credit card.
+|DEBIT_CARD_PAYABLE |Charging at this EVSE can be payed with a debit card.
+|REMOTE_START_STOP_CAPABLE |The EVSE can remotely be <<mod_commands.asciidoc#mod_commands_startsession_object,started>>/<<mod_commands.asciidoc#mod_commands_stopsession_object,stopped>>.
+|RESERVABLE |The EVSE can be <<mod_commands.asciidoc#mod_commands_reservenow_object,reserved>>.
 |RFID_READER |Charging at this EVSE can be authorized with a RFID token 
-|UNLOCK_CAPABLE |Connectors have mechanical lock that can be requested by the eMSP to be unlocked. 
+|UNLOCK_CAPABLE |Connectors have mechanical lock that can be requested by the eMSP to be <<mod_commands.asciidoc#mod_commands_unlockconnector_object,unlocked>>.
 |===
+
 
 [[mod_locations_connectorformat_enum]]
 ==== ConnectorFormat _enum_

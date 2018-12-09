@@ -98,3 +98,6 @@ Minor
 Minimal
 |Added `group_id` field to enable support for OCPP GroupId/ParentId.
 |===
+
+
+TODO Add Charging Preferences
