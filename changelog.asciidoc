@@ -112,6 +112,14 @@ Connector Object
 Minor
 |Minimal / +
 Minimal
+|Added `max_electric_power` field, some DC Fast Charger have a lower max power then can be calculated form `voltage` and `amperage`.
+
+|Locations / +
+Connector Object
+|Minor / +
+Minor
+|Minimal / +
+Minimal
 |Changed `tariff_id` field to `tariff_ids`, and changed cardinality from `?` to `*` Making it possible to make provided tariffs for different Smart Charging Preferences and also for ad hoc payment.
 
 |Locations / +
