@@ -253,7 +253,7 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
 [[mod_sessions_session_object]]
 ==== _Session_ Object
 
-[cols="3,2,1,10",options="header"]
+[cols="3,3,1,10",options="header"]
 |===
 |Property |Type |Card. |Description 
 
@@ -280,7 +280,7 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
 ===== Examples
 
 [[mod_sessions_simple_session_example_of_a_just_starting_session]]
-===== Simple Session example of a just starting session
+====== Simple Session example of a just starting session
 
 [source,json]
 ----
@@ -346,7 +346,7 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
 	}],
 	"total_cost": 8.50,
 	"status": "COMPLETED",
-	"last_updated": "2015-06-29T23:09:10Z"
+	"last_updated": "2015-06-29T23:50:17Z"
 }
 ----
 
@@ -366,6 +366,7 @@ Contains the charging preferences for an EV driver.
 |departure_time |<<types.asciidoc#types_datetime_type,DateTime>> |? |Expected departure. Driver has given this datetime as expected departure moment, which does not mean that that will be the real departure time.
 |energy_need |<<types.asciidoc#types_number_type,number>> |? |Requested amount of energy in kWh. EV drivers wants to have this amount of energy charged.
 |discharge_allowed |boolean |? | Driver allows his/her EV to be discharged when needed, as long as the other preferences are met: EV is charged with the preferred energy at the preferred momement. Default if omitted: *false*.
+|===
 
 
 [[mod_sessions_data_types]]
@@ -380,7 +381,7 @@ Different smart charging profile types.
 
 No value for NOT_SUPPORTED, when a PUT for ChargingPreferences is received for a EVSE that does not support it: use HTTP 404.
 
-[cols="3,10",options="header"]
+[cols="5,8",options="header"]
 |===
 |Value |Description
 
