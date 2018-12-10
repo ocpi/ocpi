@@ -1,0 +1,229 @@
+:numbered:
+[[changelog_changelog]]
+== Changelog
+
+[[changelog_changes_between_ocpi_2.1.1_and_2.2]]
+=== Changes between OCPI 2.1.1 and 2.2
+
+Lots of typos fixed and textual improvements.
+
+The following changes to messages/objects etc.
+
+[cols="6,2,2,12",options="header"]
+|===
+|Context (Module / Object)
+|Expected Impact: +
+eMSP / CPO
+|Expected Effort: +
+eMSP / CPO
+|Description
+
+|CDRs / +
+CDR Object
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Added `session_id` field, making it easier to match a CDR to a Session.
+
+|CDRs / +
+CDR Object
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Added `total_cost_incl_vat` field, providing the MSP with the total cost including VAT.
+
+|CDRs / +
+CDR Object
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Replaced `auth_id` field with `Token`. For CDRs it is better to include the full object instead of a reference, changes made to a Token after CDR is created should have no impact on a CDR. By copying the state of the Token into the CDR, this is better.
+
+|CDRs / +
+CDR Object
+|Medium / +
+Medium
+|Minimal / +
+Minimal
+|Replaced `location` field with `cdr_location`, this also changed type, from `Location` to `CdrLocation`. Reusing the `Location` object always caused a lot of confusing, things were not clear. By creating a deticated object `CdrLocation` with only the relevant fields, things should be much clearer.
+
+|CDRs / +
+ChargingPeriod class
+|Medium / +
+Medium
+|Minimal / +
+Minimal
+|Added `tariff_id` field to ChargingPeriod, when the session switches from one tariff to another, this needs to be known, can be relevant with Preference based Smart Charging.
+
+|Commands / +
+CancelReservation Object
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Added CancelReservation object for the cancel reservation command.
+
+|Commands / +
+CommandType Enum
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Added `CANCEL_RESERVATION` value, adding the cancel reservation command.
+
+|Commands / +
+CommandResponse Object
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Added `message` field, enables the CPO to send a message to the user when something goes wrong.
+
+|Commands / +
+CommandResponse Object
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Added `timeout` field, enables the eMSP to cleanup not responded outstanding commands.
+
+|Commands / +
+CommandResponseType Enum
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|removed `TIMEOUT` as possible value. This is moved to the new CommandResult object.
+
+|Commands / +
+CommandResult Object
+|Medium / +
+Medium
+|Medium / +
+Medium
+|Changed result message from CPO to eMSP from CommandResponse to CommandResult to make it more clear.
+
+|Locations / +
+Connector Object
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Added `max_electric_power` field, some DC Fast Charger have a lower max power then can be calculated form `voltage` and `amperage`.
+
+|Locations / +
+Connector Object
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Changed `tariff_id` field to `tariff_ids`, and changed cardinality from `?` to `*` Making it possible to make provided tariffs for different Smart Charging Preferences and also for ad hoc payment.
+
+|Locations / +
+Capability enum
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|added new values for: `CHARGING_PREFERENCES_CAPABLE` and `DEBIT_CARD_PAYABLE `.
+
+|Locations / +
+EnvironmentalImpact class
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Changed field name from `source` to `category`, this was a copy/past error in an older version of OCPI, as this is not used (much) yet, it is better for understandability of OCPI for correct the field name.
+
+|Locations / +
+Hours class
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|removed to option for either: twentyfourseven or regular_hours, now regular_hours is always required, this is much less confusing.
+
+|Sessions / +
+CPO PUT method
+|Medium / +
+Medium
+| Large / +
+Large
+|Added setting Charging Preferences on a session. Proving the CPO with preferences from the driver, needed for Smart Charging.
+  For this the following data types are added: ChargingPreferences, ChargingPreferencesResponse, ProfileType,
+
+|Sessions / +
+Session Object
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Added `total_cost_incl_vat` field, providing the MSP with the total cost including VAT.
+
+|Sessions / +
+Session Object
+|Minor / +
+Minor
+| Minimal / +
+Minimal
+|Replace `auth_id` with `token_uid` and `token_type`. `auth_id` alone could not be used to uniquely identify a <<mod_tokens.asciidoc#mod_tokens_token_object,Token>>.
+
+|Sessions / +
+Session Object
+|Minor / +
+Minor
+| Minimal / +
+Minimal
+|Replace `location` object with `location_id`, `evse_uid` and `connector_id`. Having the `Location` Object in the `Session` was overkill, only reference is more inline with the rest.
+
+|Tariffs / +
+Tariff Object
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Added `type` field to make it possible to make different tariffs for different Smart Charging Preferences and also for ad hoc payment.
+
+|Tariffs / +
+PriceComponent class
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Added `vat` field to send the applicable VAT with every tariff component.
+
+|Tokens / +
+Token Object
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Added `group_id` field to enable support for OCPP GroupId/ParentId.
+
+|Tokens / +
+Token Object
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Added `default_profile_type` field to enable a default Preference base Smart Charging ProfileType to be provided for a user.
+
+|Tokens / +
+Token Object
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Added `energy_contract` field to make it possible, if allowed, to use a drivers energy supplier/contract at a Charge Point.
+
+|Tokens / +
+TokenType enum
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Added value `APP_USER`. As more and more MSPs are launching Apps, this becomes more common, so a special category is useful.
+|===
