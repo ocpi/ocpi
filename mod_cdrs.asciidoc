@@ -177,7 +177,7 @@ Example: Location: /ocpi/emsp/2.0/cdrs/123456
 [[mod_cdrs_cdr_object]]
 ==== _CDR_ Object
 
-The _CDR_ object describes the Charging Session and its costs, hHow these costs are built up, etc. 
+The _CDR_ object describes the Charging Session and its costs, how these costs are built up, etc.
 
 [cols="3,2,1,10",options="header"]
 |===
@@ -187,7 +187,7 @@ The _CDR_ object describes the Charging Session and its costs, hHow these costs 
 |start_date_time |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Start timestamp of the charging session. 
 |stop_date_time |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Stop timestamp of the charging session. 
 |session_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |Unique ID of the Session for which this CDR is send. Is only allowed to be omitted when the CPO has not implemented the Sessions Module. 
-|auth_id |<<types.asciidoc#types_string_type,string>>(36) |1 |Reference to a token, identified by the auth_id field of the <<mod_tokens.asciidoc#mod_tokens_token_object,Token>>. 
+|token |<<mod_tokens.asciidoc#mod_tokens_token_object,Token>> |1 |Token used to start this Charging Session.
 |auth_method |<<mod_cdrs_authmethod_enum,AuthMethod>> |1 |Method used for authentication. 
 |location |<<mod_locations.asciidoc#mod_locations_location_object,Location>> |1 |Location where the charging session took place, including only the relevant <<mod_locations.asciidoc#mod_locations_evse_object,EVSE>> and <<mod_locations.asciidoc#mod_locations_connector_object,Connector>>. 
 |meter_id |<<types.asciidoc#types_string_type,string>>(255) |? |Identification of the Meter inside the Charge Point. 

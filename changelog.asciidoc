@@ -26,6 +26,14 @@ Minor
 Minimal
 |Added `session_id` field, making it easier to match a CDR to a Session.
 
+|CDRs / +
+CDR Object
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Replace `auth_id` field with `Token`. For CDRs it is better to include the full object instead of a reference, changes made to a Token after CDR is created should have no impact on a CDR. By copying the state of the Token into the CDR, this is better.
+
 |Commands / +
 CancelReservation Object
 |Minor / +
