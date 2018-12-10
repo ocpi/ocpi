@@ -286,7 +286,8 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
 	"id": "101",
 	"start_datetime": "2015-06-29T22:39:09Z",
 	"kwh": 0.00,
-	"auth_id": "DE8ACC12E46L89",
+	"token_uid": "012345678",
+	"token_type": "RFID",
 	"auth_method": "WHITELIST",
 	"location": {
 		"id": "LOC1",
@@ -336,7 +337,8 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
 	"start_datetime": "2015-06-29T22:39:09Z",
 	"end_datetime": "2015-06-29T23:50:16Z",
 	"kwh": 41.00,
-	"auth_id": "DE8ACC12E46L89",
+	"token_uid": "012345678",
+	"token_type": "RFID",
 	"auth_method": "WHITELIST",
 	"location": {
 		"id": "LOC1",

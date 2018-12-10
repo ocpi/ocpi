@@ -214,7 +214,17 @@ NOTE: The duration of charging (energy being transferred between EVSE and EV) du
 	"id": "12345",
 	"start_date_time": "2015-06-29T21:39:09Z",
 	"stop_date_time": "2015-06-29T23:37:32Z",
-	"auth_id": "DE8ACC12E46L89",
+	"token": {
+        "uid": "012345678",
+        "type": "RFID",
+        "auth_id": "DE8ACC12E46L89",
+        "visual_number": "DF000-2001-8999-1",
+        "issuer": "TheNewMotion",
+        "group_id": "DF000-2001-8999",
+        "valid": true,
+        "whitelist": "ALLOWED",
+        "last_updated": "2015-06-29T22:39:09Z"
+	},
 	"auth_method": "WHITELIST",
 	"location": {
 		"id": "LOC1",
@@ -256,7 +266,7 @@ NOTE: The duration of charging (energy being transferred between EVSE and EV) du
 				"price": 2.00,
 				"vat": 10.0,
 				"step_size": 300
-			}],
+			}]
 		}],
 		"last_updated": "2015-02-02T14:15:01Z"
 	}],
