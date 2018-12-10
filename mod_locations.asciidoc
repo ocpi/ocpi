@@ -649,7 +649,7 @@ _* These fields can be used to look-up energy qualification or to show it direct
 
 Key-value pairs (enum + percentage) of energy sources. All given values should add up to 100 percent per category.
 
-[cols="3,2,1,10",options="header"]
+[cols="2,4,1,10",options="header"]
 |===
 |Property |Type |Card. |Description 
 
@@ -679,13 +679,13 @@ Categories of energy sources.
 [[mod_locations_environmentalimpact_class]]
 ==== EnvironmentalImpact _class_
 
-Key-value pairs (enum + amount) of waste and carbon dioxide emittion per kWh.
+Amount of waste produced/emitted per kWh.
 
-[cols="3,2,1,10",options="header"]
+[cols="2,5,1,9",options="header"]
 |===
 |Property |Type |Card. |Description 
 
-|source |<<mod_locations_environmentalimpactcategory_enum,EnvironmentalImpactCategory>> |1 |The category of this value. 
+|category |<<mod_locations_environmentalimpactcategory_enum,EnvironmentalImpactCategory>> |1 |The environmental impact category of this value.
 |amount |<<types.asciidoc#types_number_type,number>> |1 |Amount of this portion in g/kWh. 
 |===
 
@@ -698,8 +698,8 @@ Categories of environmental impact values.
 |===
 |Value |Description 
 
-|NUCLEAR_WASTE |Produced nuclear waste in gramms per kilowatthour. 
-|CARBON_DIOXIDE |Exhausted carbon dioxide in gramms per kilowarrhour. 
+|NUCLEAR_WASTE |Produced nuclear waste in grams per kilowatthour.
+|CARBON_DIOXIDE |Exhausted carbon dioxide in grams per kilowatthour.
 |===
 
 [[mod_locations_exceptionalperiod_class]]
