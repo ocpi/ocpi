@@ -115,6 +115,15 @@ Large
 |Added setting Charging Preferences on a session. Proving the CPO with preferences from the driver, needed for Smart Charging.
   For this the following data types are added: ChargingPreferences, ChargingPreferencesResponse, ProfileType,
 
+|Sessions / +
+Session Object
+|Minor / +
+Minor
+| Minimal / +
+Minimal
+|Replace `auth_id` with `token_uid` and `token_type`. `auth_id` alone could not be used to uniquely identify a <<mod_tokens.asciidoc#mod_tokens_token_object,Token>>.
+
+
 |Tariffs / +
 Tariff Object
 |Minor / +

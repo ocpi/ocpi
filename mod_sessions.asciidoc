@@ -261,8 +261,9 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
 |start_datetime |<<types.asciidoc#types_datetime_type,DateTime>> |1 |The time when the session became active. 
 |end_datetime |<<types.asciidoc#types_datetime_type,DateTime>> |? |The time when the session is completed. 
 |kwh |<<types.asciidoc#types_number_type,number>> |1 |How many kWh are charged. 
-|auth_id |<<types.asciidoc#types_string_type,string>>(36) |1 |Reference to a token, identified by the auth_id field of the <<mod_tokens.asciidoc#mod_tokens_token_object,Token>>. 
-|auth_method |<<mod_cdrs.asciidoc#mod_cdrs_authmethod_enum,AuthMethod>> |1 |Method used for authentication. 
+|token_uid |<<types.asciidoc#types_string_type,string>>(36) |1 |UID of the <<mod_tokens.asciidoc#mod_tokens_token_object,Token>> used to start the Charging Session, combination: Token.UID and Token.type, uniquely identifies a <<mod_tokens.asciidoc#mod_tokens_token_object,Token>>.
+|token_type |<<mod_tokens_tokentype_enum,TokenType>> |1 |Type of the <<mod_tokens.asciidoc#mod_tokens_token_object,Token>> used to start the Charging Session, combination: Token.UID and Token.type, uniquely identifies a <<mod_tokens.asciidoc#mod_tokens_token_object,Token>>.
+|auth_method |<<mod_cdrs.asciidoc#mod_cdrs_authmethod_enum,AuthMethod>> |1 |Method used for authentication.
 |location |<<mod_locations.asciidoc#mod_locations_location_object,Location>> |1 |The location where this session took place, including only the relevant EVSE and connector 
 |meter_id |<<types.asciidoc#types_string_type,string>>(255) |? |Optional identification of the kWh meter. 
 |currency |<<types.asciidoc#types_string_type,string>>(3) |1 |ISO 4217 code of the currency used for this session. 
