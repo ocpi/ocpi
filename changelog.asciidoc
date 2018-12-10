@@ -186,7 +186,12 @@ Minor
 |Minimal / +
 Minimal
 |Added `group_id` field to enable support for OCPP GroupId/ParentId.
+
+|Tokens / +
+TokenType enum
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Added value `APP_USER`. As more and more MSPs are launching Apps, this becomes more common, so a special category is useful.
 |===
-
-
-TODO Add Charging Preferences
