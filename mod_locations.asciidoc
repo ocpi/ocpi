@@ -470,10 +470,13 @@ A connector is the socket or cable available for the EV to use. A single EVSE ma
 |power_type |<<mod_locations_powertype_enum,PowerType>> |1 | 
 |voltage |int |1 |Voltage of the connector (line to neutral for AC_3_PHASE), in volt [V]. 
 |amperage |int |1 |maximum amperage of the connector, in ampere [A]. 
-|tariff_id |<<types.asciidoc#types_string_type,string>>(36) |? |Identifier of the current charging tariff structure. For a "Free of Charge" tariff this field should be set, and point to a defined "Free of Charge" tariff. 
+|tariff_ids |<<types.asciidoc#types_string_type,string>>(36) |* |Identifiers of the current valid charging tariffs. Multiple tariffs are possible, but each require a unique Tariff.type, duplicates not allowed. +
+                                                              When Preference based Smart Charging is supported, on tariff for every possible <<mod_sessions.asciidoc#mod_sessions_profile_type_enum,ProfileType>> should be provided, these tell the Driver the options he has at this Connector, and what the tariff is for every option. +
+                                                              For a "Free of Charge" tariff this field should be set, and point to a defined "Free of Charge" tariff.
 |terms_and_conditions |<<types.asciidoc#types_url_type,URL>> |? |URL to the operator's terms and conditions. 
 |last_updated |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Timestamp when this Connectors was last updated (or created). 
 |===
+
 
 [[mod_locations_data_types]]
 === Data types
@@ -514,13 +517,16 @@ The capabilities of an EVSE.
 |===
 |Value |Description 
 
-|CHARGING_PROFILE_CAPABLE |The EVSE supports charging profiles. Sending Charging Profiles is not yet supported by OCPI. 
-|CREDIT_CARD_PAYABLE |Charging at this EVSE can be payed with credit card. 
-|REMOTE_START_STOP_CAPABLE |The EVSE can remotely be started/stopped. 
-|RESERVABLE |The EVSE can be reserved. 
+|CHARGING_PROFILE_CAPABLE |The EVSE supports charging profiles.
+|CHARGING_PREFERENCES_CAPABLE |The EVSE supports <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,charging preferences>>.
+|CREDIT_CARD_PAYABLE |Charging at this EVSE can be payed with a credit card.
+|DEBIT_CARD_PAYABLE |Charging at this EVSE can be payed with a debit card.
+|REMOTE_START_STOP_CAPABLE |The EVSE can remotely be <<mod_commands.asciidoc#mod_commands_startsession_object,started>>/<<mod_commands.asciidoc#mod_commands_stopsession_object,stopped>>.
+|RESERVABLE |The EVSE can be <<mod_commands.asciidoc#mod_commands_reservenow_object,reserved>>.
 |RFID_READER |Charging at this EVSE can be authorized with a RFID token 
-|UNLOCK_CAPABLE |Connectors have mechanical lock that can be requested by the eMSP to be unlocked. 
+|UNLOCK_CAPABLE |Connectors have mechanical lock that can be requested by the eMSP to be <<mod_commands.asciidoc#mod_commands_unlockconnector_object,unlocked>>.
 |===
+
 
 [[mod_locations_connectorformat_enum]]
 ==== ConnectorFormat _enum_
@@ -602,8 +608,8 @@ _* These fields can be used to look-up energy qualification or to show it direct
     }
 ----
 
-[[mod_locations_tariff_name_based]]
-====== Tariff name based:
+[[mod_locations_energy_provider_name]]
+====== Tariff energy provider name:
 
 [source,json]
 ----

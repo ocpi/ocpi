@@ -13,7 +13,7 @@ The Session object is owned by the CPO back-end system, and can be GET from the 
 [[mod_sessions_push_model]]
 ==== Push model
 
-When the CPO creates a Session object they push it to the eMSPs by calling <<mod_sessions_put_method,PUT>> on the eMSPs Sessions endpoint with the newly created Session object.
+When the CPO creates a Session object they push it to the eMSPs by calling <<mod_sessions_msp_put_method,PUT>> on the eMSPs Sessions endpoint with the newly created Session object.
 
 Any changes to a Session in the CPO system are sent to the eMSP system by calling <<mod_sessions_patch_method,PATCH>> on the eMSPs Sessions endpoint with the updated Session object.
 
@@ -28,6 +28,25 @@ eMSPs who do not support the push model need to call <<mod_sessions_cpo_get_meth
 
 This <<mod_sessions_cpo_get_method,GET>> can also be used, combined with the Push model to retrieve Sessions after the system (re)connects to a CPO, to get a list Sessions 'missed' during a time offline.
 
+
+[[mod_sessions_set_charging_preferences]]
+==== Set charging preferences
+
+For a lot of smart charging use cases, input from the driver is needed.
+The smart charging algorithms need to be able to give certain session priority over others,
+need to know how much energy an EV needs before what time.
+Via a <<mod_sessions_cpo_put_method,PUT>> on the CPO Interface, during an ongoing session,
+the eMSP can send <<mod_sessions_charging_preferences_object,Charging Preferences>> for the driver.
+Indicating the preferences of the driver to the CPO.
+
+The eMSP can determine if an EVSE supports Charging Preferences by checking if the
+<<mod_locations.asciidoc#mod_locations_evse_object,EVSE capabilities>> contains:
+<<mod_locations.asciidoc#mod_locations_capability_enum,CHARGING_PREFERENCES_CAPABLE>>.
+
+Via <<mod_tariffs.asciidoc#mod_tariffs_tariff_object,Tariffs>> the CPO can give different preferences different prices.
+A <<mod_locations.asciidoc#mod_locations_connector_object,Connector>> can have multiple <<mod_tariffs.asciidoc#mod_tariffs_tariff_object,Tariffs>> one for each <<mod_sessions_profile_type_enum,ProfileType>>.
+
+
 [[mod_sessions_interfaces_and_endpoints]]
 === Interfaces and endpoints
 
@@ -41,9 +60,9 @@ Example endpoint structure: `/ocpi/cpo/2.0/sessions/?date_from=xxx&amp;date_to=y
 |Method |Description 
 
 |<<mod_sessions_cpo_get_method,GET>> |Fetch Session objects of charging sessions last updated between the {date_from} and {date_to} (<<transport_and_format.asciidoc#transport_and_format_pagination,paginated>>) 
-|POST |n/a 
-|PUT |n/a 
-|PATCH |n/a 
+|POST |n/a
+|<<mod_sessions_cpo_put_method,PUT>> |Setting charging requirements on an ongoing session.
+|PATCH |n/a
 |DELETE |n/a 
 |===
 
@@ -83,6 +102,53 @@ Each object must contain all required fields. Fields that are not specified may 
 |<<mod_sessions_session_object,Session>> |* |List of Session objects that match the request parameters 
 |===
 
+
+[[mod_sessions_cpo_put_method]]
+===== *PUT* Method
+
+Set/update the drivers Charging Preferences for this charging session.
+
+Example endpoint structure:
+`/ocpi/cpo/2.2/sessions/{session_id}/charging_preferences`
+The `/charging_preferences` is required when setting Charging Preferences.
+
+[[mod_sessions_cpo_post_request_parameters]]
+====== Request Parameters
+
+The following parameter has to be provided as URL segments.
+
+[cols="3,2,1,10",options="header"]
+|===
+|Parameter |Datatype |Required |Description
+
+|session_id |<<types.asciidoc#types_string_type,string>>(36) |yes |Session.id of the Session on which these Charging Preferences are to be set.
+|===
+
+[[mod_sessions_cpo_post_request_body]]
+====== Request Body
+
+In the body a <<mod_sessions_charging_preferences_object,ChargingPreferences>> object has to be provided.
+
+[cols="4,1,12",options="header"]
+|===
+|Type |Card. |Description
+
+|<<mod_sessions_charging_preferences_object,ChargingPreferences>> |1 | Updated Charging preferences for the driver for this Session.
+|===
+
+[[mod_sessions_cpo_post_response_data]]
+====== Response Data
+
+The endpoint response contains a <<mod_sessions_charging_preferences_response_enum,ChargingPreferencesResponse>> value.
+
+[cols="4,1,12",options="header"]
+|===
+|Type |Card. |Description
+
+|<<mod_sessions_charging_preferences_response_enum,ChargingPreferencesResponse>> |1 |Response to the Charging Preferences PUT request.
+|===
+
+
 [[mod_sessions_emsp_interface]]
 ===== eMSP Interface
 
@@ -96,7 +162,7 @@ Example endpoint structure:
 
 |<<mod_sessions_msp_get_method,GET>> |Get the Session object from the eMSP system by its id {session_id}. 
 |POST |n/a 
-|<<mod_sessions_put_method,PUT>> |Send a new/updated Session object 
+|<<mod_sessions_msp_put_method,PUT>> |Send a new/updated Session object
 |<<mod_sessions_patch_method,PATCH>> |Update the Session object of id {session_id}. 
 |DELETE |n/a 
 |===
@@ -132,7 +198,7 @@ The response contains the request Session object, if available.
 |<<mod_sessions_session_object,Session>> |1 |Session object requested. 
 |===
 
-[[mod_sessions_put_method]]
+[[mod_sessions_msp_put_method]]
 ===== *PUT* Method
 
 Inform the system about a new/updated session in the eMSP backoffice by PUTing a _Session_ object.
@@ -167,7 +233,7 @@ The following parameters can be provided as URL segments.
 [[mod_sessions_patch_method]]
 ===== *PATCH* Method
 
-Same as the <<mod_sessions_put_method,PUT>> method, but only the fields/objects that have to be updated have to be present, other fields/objects that are not specified are considered unchanged.
+Same as the <<mod_sessions_msp_put_method,PUT>> method, but only the fields/objects that have to be updated have to be present, other fields/objects that are not specified are considered unchanged.
 
 [[mod_sessions_example_update_the_total_cost]]
 ====== Example: update the total cost
@@ -334,10 +400,62 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
 ----
 
 
+[[mod_sessions_charging_preferences_object]]
+==== _ChargingPreferences_ Object
+
+Contains the charging preferences for an EV driver.
+
+[cols="3,2,1,10",options="header"]
+|===
+|Property |Type |Card. |Description
+
+|profile_type |<<mod_sessions_profile_type_enum,ProfileType>> |1 |Type of Smart Charging Profile selected by the driver.
+            The <<mod_sessions_profile_type_enum,ProfileType>> has to be supported at the <<mod_locations.asciidoc#mod_locations_connector_object,Connector>>,
+            for every supported <<mod_sessions_profile_type_enum,ProfileType>>, a <<mod_tariffs.asciidoc#mod_tariffs_tariff_object,Tariff>> is provided. This gives the EV Driver the option between different pricing options.
+|departure_time |<<types.asciidoc#types_datetime_type,DateTime>> |? |Expected departure. Driver has given this datetime as expected departure moment, which does not mean that that will be the real departure time.
+|energy_need |<<types.asciidoc#types_number_type,number>> |? |Requested amount of energy in kWh. EV drivers wants to have this amount of energy charged.
+|discharge_allowed |boolean |? | Driver allows his/her EV to be discharged when needed, as long as the other preferences are met: EV is charged with the preferred energy at the preferred momement. Default if omitted: *false*.
+
+
 [[mod_sessions_data_types]]
 === Data types
 
 _Describe all datatypes used in this object_
+
+[[mod_sessions_charging_preferences_response_enum]]
+==== ChargingPreferencesResponse _enum_
+
+Different smart charging profile types.
+
+No value for NOT_SUPPORTED, when a PUT for ChargingPreferences is received for a EVSE that does not support it: use HTTP 404.
+
+[cols="3,10",options="header"]
+|===
+|Value |Description
+
+|ACCEPTED | Charging Preferences accepted, EVSE will try to execute them, this is no guarantee that they will be fulfilled.
+|DEPARTURE_REQUIRED | CPO requires departure time to be able to do Charging Preference based Smart Charging.
+|ENERGY_NEED_REQUIRED | CPO requires energy_need to be able to do Charging Preference based Smart Charging.
+|NOT_POSSIBLE | Charging Preferences contain a request that the EVSE knows it cannot fulfill.
+|PROFILE_TYPE_NOT_SUPPORTED | profile_type contains a value that is not supported by the EVSE.
+|===
+
+
+[[mod_sessions_profile_type_enum]]
+==== ProfileType _enum_
+
+Different smart charging profile types.
+
+[cols="3,10",options="header"]
+|===
+|Value |Description
+
+|CHEAP   | Driver wants to use the cheapest charging profile possible.
+|FAST    | Driver wants his EV charged as quickly as possible and is willing to pay a premium for this, if needed.
+|GREEN   | Driver wants his EV charged which as much regenerative (green) power as possible.
+|REGULAR | Driver does not have special preferences.
+|===
+
 
 [[mod_sessions_sessionstatus_enum]]
 ==== SessionStatus _enum_
