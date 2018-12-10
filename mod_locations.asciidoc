@@ -340,8 +340,8 @@ The _Location_ object describes the location and its properties where a group of
 |related_locations |<<mod_locations_additionalgeolocation_class,AdditionalGeoLocation>> |* |Geographical location of related points relevant to the user. 
 |evses |<<mod_locations_evse_object,Location>> |* |List of EVSEs that belong to this Location. 
 |directions |<<types.asciidoc#types_displaytext_class,DisplayText>> |* |Human-readable directions on how to reach the location. 
-|operator |<<mod_locations_businessdetails_class,BusinessDetails>> |? |Information of the operator. When not specified, the information retrieved from the `api_info` endpoint should be used instead. 
-|suboperator |<<mod_locations_businessdetails_class,BusinessDetails>> |? |Information of the suboperator if available. 
+|operator |<<mod_locations_businessdetails_class,BusinessDetails>> |? |Information of the operator. When not specified, the information retrieved from the <<credentials.asciidoc#credentials_credentials_endpoint,Credentials>> module should be used instead.
+|suboperator |<<mod_locations_businessdetails_class,BusinessDetails>> |? |Information of the suboperator if available.
 |owner |<<mod_locations_businessdetails_class,BusinessDetails>> |? |Information of the owner if available. 
 |facilities |<<mod_locations_facility_enum,Facility>> |* |Optional list of facilities this charge location directly belongs to. 
 |time_zone |<<types.asciidoc#types_string_type,string>>(255) |? |One of IANA tzdata's TZ-values representing the time zone of the location. Examples: "Europe/Oslo", "Europe/Zurich". (http://www.iana.org/time-zones[http://www.iana.org/time-zones]) 

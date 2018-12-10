@@ -26,6 +26,30 @@ Minor
 Minimal
 |Added `session_id` field, making it easier to match a CDR to a Session.
 
+|CDRs / +
+CDR Object
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Replaced `auth_id` field with `Token`. For CDRs it is better to include the full object instead of a reference, changes made to a Token after CDR is created should have no impact on a CDR. By copying the state of the Token into the CDR, this is better.
+
+|CDRs / +
+CDR Object
+|Medium / +
+Medium
+|Minimal / +
+Minimal
+|Replaced `location` field with `cdr_location`, this also changed type, from `Location` to `CdrLocation`. Reusing the `Location` object always caused a lot of confusing, things were not clear. By creating a deticated object `CdrLocation` with only the relevant fields, things should be much clearer.
+
+|CDRs / +
+ChargingPeriod class
+|Medium / +
+Medium
+|Minimal / +
+Minimal
+|Added `tariff_id` field to ChargingPeriod, when the session switches from one tariff to another, this needs to be known, can be relevant with Preference based Smart Charging.
+
 |Commands / +
 CancelReservation Object
 |Minor / +
@@ -106,6 +130,22 @@ Medium
 Large
 |Added setting Charging Preferences on a session. Proving the CPO with preferences from the driver, needed for Smart Charging.
   For this the following data types are added: ChargingPreferences, ChargingPreferencesResponse, ProfileType,
+
+|Sessions / +
+Session Object
+|Minor / +
+Minor
+| Minimal / +
+Minimal
+|Replace `auth_id` with `token_uid` and `token_type`. `auth_id` alone could not be used to uniquely identify a <<mod_tokens.asciidoc#mod_tokens_token_object,Token>>.
+
+|Sessions / +
+Session Object
+|Minor / +
+Minor
+| Minimal / +
+Minimal
+|Replace `location` object with `location_id`, `evse_uid` and `connector_id`. Having the `Location` Object in the `Session` was overkill, only reference is more inline with the rest.
 
 |Tariffs / +
 Tariff Object
