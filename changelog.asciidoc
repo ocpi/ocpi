@@ -212,6 +212,14 @@ Minimal
 |Added `default_profile_type` field to enable a default Preference base Smart Charging ProfileType to be provided for a user.
 
 |Tokens / +
+Token Object
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Added `energy_contract` field to make it possible, if allowed, to use a drivers energy supplier/contract at a Charge Point.
+
+|Tokens / +
 TokenType enum
 |Minor / +
 Minor
