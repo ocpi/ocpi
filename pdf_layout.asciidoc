@@ -6,8 +6,8 @@
 [separator=:]
 :year: 2018
 :protocol_version: 2.2
-:document_version: {protocol_version}-DRAFT
-:revision_date: {year}-11-22
+:document_version: {protocol_version}-DRAFT1
+:revision_date: 10-12-{year}
 :document_header: OCPI {document_version}
 
 = OCPI {protocol_version}: Open Charge Point Interface

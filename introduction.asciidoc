@@ -6,18 +6,19 @@
 
 OCPI 2.2 includes new functionality and fixes, compared to OCPI 2.1.1.
 
-New functionality:
+Changes/New functionality:
 
-- Support for Hubs TODO
-- Support for Virtual CPO's and eMSP's TODO
-- Schedule based Smart Charging (TODO)
+- Support for Hubs (TODO: proposal ready, needs some rework and needs to be merged in to this document.)
+- Support for Virtual CPO's and eMSP's (TODO: part of the Hubs proposal)
+- Schedule based Smart Charging (TODO: first version of a proposal ready)
 - <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,Preference based Smart Charging>>
 - <<mod_commands.asciidoc#mod_commands_cancelreservation_object,Cancel Reservation>>
-- Improved CDR (TODO)
+- Improvements on: <<mod_cdrs.asciidoc#mod_cdrs_cdr_object,CDRs>>/
+<<mod_sessions.asciidoc#mod_sessions_session_object,Sessions>>/
+<<mod_locations.asciidoc#mod_cdrs_cdr_object,Locations>>/
+<<mod_tokens.asciidoc#mod_tokens_token_object,Tokens>>
 
-TODO (Make this list complete, make the items links)
-
-For more information on message level changes see <<changelog.asciidoc#changelog_changelog,changelog>>.
+For more information on detailedchanges see <<changelog.asciidoc#changelog_changelog,changelog>>.
 
 [[introduction_introduction_and_background]]
 === Introduction and background
