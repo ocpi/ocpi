@@ -470,7 +470,8 @@ A connector is the socket or cable available for the EV to use. A single EVSE ma
 |power_type |<<mod_locations_powertype_enum,PowerType>> |1 | 
 |voltage |int |1 |Voltage of the connector (line to neutral for AC_3_PHASE), in volt [V]. 
 |amperage |int |1 |maximum amperage of the connector, in ampere [A].
-|max_electric_power |int |? |Maximum electric power that can be delivered by this connector, in watt [W]. When the maximum electric power is lower then the calculated value from: `voltage` and `amperage`, this value should be set.
+|max_electric_power |int |? |Maximum electric power that can be delivered by this connector, in watt [W]. When the maximum electric power is lower then the calculated value from: `voltage` and `amperage`, this value should be set. +
+        For example: A Charge Point which can deliver up to 920V, up to 400A, but max. 150kW. Depending on the car, it may supply max voltage or current, but not both.
 |tariff_ids |<<types.asciidoc#types_string_type,string>>(36) |* |Identifiers of the current valid charging tariffs. Multiple tariffs are possible, but each require a unique Tariff.type, duplicates not allowed. +
                                                               When Preference based Smart Charging is supported, on tariff for every possible <<mod_sessions.asciidoc#mod_sessions_profile_type_enum,ProfileType>> should be provided, these tell the Driver the options he has at this Connector, and what the tariff is for every option. +
                                                               For a "Free of Charge" tariff this field should be set, and point to a defined "Free of Charge" tariff.
