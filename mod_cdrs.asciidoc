@@ -179,14 +179,14 @@ Example: Location: /ocpi/emsp/2.0/cdrs/123456
 
 The _CDR_ object describes the Charging Session and its costs, how these costs are built up, etc.
 
-The CDR object is different from the <<mod_sessions#mod_sessions_session_object,Session>> object. The Session contains a lot of references to other information.
+The CDR object is different from the <<mod_sessions.asciidoc#mod_sessions_session_object,Session>> object. The Session contains a lot of references to other information.
 For the Session that works, if information changes during or after a Charging Session, that is not a problem.
-For a CDR changing information after a Charging Session has ended, is a problem: What if the address of a <<mod_locations#mod_locations_location_object,Location>> is changed.
+For a CDR changing information after a Charging Session has ended, is a problem: What if the address of a <<mod_locations.asciidoc#mod_locations_location_object,Location>> is changed.
 The Driver will not recognize that he has charged at that address. <<mod_tokens.asciidoc#mod_tokens_token_object,Token>> auth_id might change, this should never impact an existing CDR.
 
 The _CDR_ object shall always contain information like location, EVSE, Tariffs and tokens as they were at the START of the Charging Session.
 
-[cols="3,2,1,10",options="header"]
+[cols="3,3,1,10",options="header"]
 |===
 |Property |Type |Card. |Description 
 
@@ -355,5 +355,6 @@ A charging period consists of a start timestamp and a list of possible values th
 |Property |Type |Card. |Description 
 
 |start_date_time |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Start timestamp of the charging period. This period ends when a next period starts, the last period ends when the session ends. 
-|dimensions |<<mod_cdrs_cdrdimension_class,CdrDimension>> |+ |List of relevant values for this charging period. 
+|dimensions |<<mod_cdrs_cdrdimension_class,CdrDimension>> |+ |List of relevant values for this charging period.
+|tariff_id |<<types.asciidoc#types_string_type,string>>(36) |? |Uniquely identifier of the tariff that is relevant for this ChargingPeriod. If not provided, no tariff is relevant during this period.
 |===
