@@ -179,6 +179,13 @@ Example: Location: /ocpi/emsp/2.0/cdrs/123456
 
 The _CDR_ object describes the Charging Session and its costs, how these costs are built up, etc.
 
+The CDR object is different from the <<mod_sessions#mod_sessions_session_object,Session>> object. The Session contains a lot of references to other information.
+For the Session that works, if information changes during or after a Charging Session, that is not a problem.
+For a CDR changing information after a Charging Session has ended, is a problem: What if the address of a <<mod_locations#mod_locations_location_object,Location>> is changed.
+The Driver will not recognize that he has charged at that address. <<mod_tokens.asciidoc#mod_tokens_token_object,Token>> auth_id might change, this should never impact an existing CDR.
+
+The _CDR_ object shall always contain information like location, EVSE, Tariffs and tokens as they were at the START of the Charging Session.
+
 [cols="3,2,1,10",options="header"]
 |===
 |Property |Type |Card. |Description 
@@ -189,8 +196,8 @@ The _CDR_ object describes the Charging Session and its costs, how these costs a
 |session_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |Unique ID of the Session for which this CDR is send. Is only allowed to be omitted when the CPO has not implemented the Sessions Module. 
 |token |<<mod_tokens.asciidoc#mod_tokens_token_object,Token>> |1 |Token used to start this Charging Session.
 |auth_method |<<mod_cdrs_authmethod_enum,AuthMethod>> |1 |Method used for authentication. 
-|location |<<mod_locations.asciidoc#mod_locations_location_object,Location>> |1 |Location where the charging session took place, including only the relevant <<mod_locations.asciidoc#mod_locations_evse_object,EVSE>> and <<mod_locations.asciidoc#mod_locations_connector_object,Connector>>. 
-|meter_id |<<types.asciidoc#types_string_type,string>>(255) |? |Identification of the Meter inside the Charge Point. 
+|cdr_location |<<mod_cdrs_cdr_location_class,CdrLocation>> |1 |Location where the charging session took place, including only the relevant <<mod_locations.asciidoc#mod_locations_evse_object,EVSE>> and <<mod_locations.asciidoc#mod_locations_connector_object,Connector>>.
+|meter_id |<<types.asciidoc#types_string_type,string>>(255) |? |Identification of the Meter inside the Charge Point.
 |currency |<<types.asciidoc#types_string_type,string>>(3) |1 |Currency of the CDR in ISO 4217 Code. 
 |tariffs |<<mod_tariffs.asciidoc#mod_tariffs_tariff_object,Tariff>> |* |List of relevant tariff elements, see: <<mod_tariffs.asciidoc#mod_tariffs_tariff_object,Tariff>>. When relevant, a "Free of Charge" tariff should also be in this list, and point to a defined "Free of Charge" tariff. 
 |charging_periods |<<mod_cdrs_chargingperiod_class,ChargingPeriod>> |+ |List of charging periods that make up this charging session. A session consists of 1 or more periods, where each period has a different relevant Tariff. 
@@ -226,9 +233,8 @@ NOTE: The duration of charging (energy being transferred between EVSE and EV) du
         "last_updated": "2015-06-29T22:39:09Z"
 	},
 	"auth_method": "WHITELIST",
-	"location": {
+	"cdr_location": {
 		"id": "LOC1",
-		"type": "ON_STREET",
 		"name": "Gent Zuid",
 		"address": "F.Rooseveltlaan 3A",
 		"city": "Gent",
@@ -238,23 +244,12 @@ NOTE: The duration of charging (energy being transferred between EVSE and EV) du
 			"latitude": "3.729944",
 			"longitude": "51.047599"
 		},
-		"evses": [{
-			"uid": "3256",
-			"evse_id": "BE*BEC*E041503003",
-			"status": "AVAILABLE",
-			"connectors": [{
-				"id": "1",
-				"standard": "IEC_62196_T2",
-				"format": "SOCKET",
-				"power_type": "AC_1_PHASE",
-				"voltage": 230,
-				"amperage": 64,
-				"tariff_id": "11",
-				"last_updated": "2015-06-29T21:39:01Z"
-			}],
-			"last_updated": "2015-06-29T21:39:01Z"
-		}],
-		"last_updated": "2015-06-29T21:39:01Z"
+		"evses_uid": "3256",
+		"evse_id": "BE*BEC*E041503003",
+		"connectors_id": "1",
+		"connectors_standard": "IEC_62196_T2",
+		"connectors_format": "SOCKET",
+		"connectors_power_type": "AC_1_PHASE"
 	},
 	"currency": "EUR",
 	"tariffs": [{
@@ -323,6 +318,32 @@ NOTE: The duration of charging (energy being transferred between EVSE and EV) du
 |PARKING_TIME |time not charging: defined in hours, default step_size is 1 second 
 |TIME |time charging: defined in hours, default step_size is 1 second 
 |===
+
+
+[[mod_cdrs_cdr_location_class]]
+==== CdrLocation _class_
+
+The _CdrLocation_ class contains only the relevant information from the <<mod_locations.asciidoc#mod_locations_location_object,Location>> object that is needed in a CDR.
+
+[cols="3,2,1,10",options="header"]
+|===
+|Property |Type |Card. |Description
+
+|id |<<types.asciidoc#types_string_type,string>>(39) |1 |Uniquely identifies the location within the CPOs platform (and suboperator platforms). This field can never be changed, modified or renamed.
+|name |<<types.asciidoc#types_string_type,string>>(255) |? |Display name of the location.
+|address |<<types.asciidoc#types_string_type,string>>(45) |1 |Street/block name and house number if available.
+|city |<<types.asciidoc#types_string_type,string>>(45) |1 |City or town.
+|postal_code |<<types.asciidoc#types_string_type,string>>(10) |1 |Postal code of the location.
+|country |<<types.asciidoc#types_string_type,string>>(3) |1 |ISO 3166-1 alpha-3 code for the country of this location.
+|coordinates |<<mod_locations_geolocation_class,GeoLocation>> |1 |Coordinates of the location.
+|evse_uid |<<types.asciidoc#types_string_type,string>>(39) |1 |Uniquely identifies the EVSE within the CPOs platform (and suboperator platforms). For example a database unique ID or the "EVSE ID". This field can never be changed, modified or renamed. This is the 'technical' identification of the EVSE, not to be used as 'human readable' identification, use the field: evse_id for that.
+|evse_id |<<types.asciidoc#types_string_type,string>>(48) |1 |Compliant with the following specification for EVSE ID from "eMI3 standard version V1.0" (http://emi3group.com/documents-links/[http://emi3group.com/documents-links/]) "Part 2: business objects.".
+|connector_id |<<types.asciidoc#types_string_type,string>>(36) |1 |Identifier of the connector within the EVSE.
+|connector_standard |<<mod_locations.asciidoc#mod_locations_connectortype_enum,ConnectorType>> |1 |The standard of the installed connector.
+|connector_format |<<mod_locations.asciidoc#mod_locations_connectorformat_enum,ConnectorFormat>> |1 |The format (socket/cable) of the installed connector.
+|connector_power_type |<<mod_locations.asciidoc#mod_locations_powertype_enum,PowerType>> |1 |
+|===
+
 
 [[mod_cdrs_chargingperiod_class]]
 ==== ChargingPeriod _class_

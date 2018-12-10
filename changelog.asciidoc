@@ -32,7 +32,15 @@ CDR Object
 Minor
 |Minimal / +
 Minimal
-|Replace `auth_id` field with `Token`. For CDRs it is better to include the full object instead of a reference, changes made to a Token after CDR is created should have no impact on a CDR. By copying the state of the Token into the CDR, this is better.
+|Replaced `auth_id` field with `Token`. For CDRs it is better to include the full object instead of a reference, changes made to a Token after CDR is created should have no impact on a CDR. By copying the state of the Token into the CDR, this is better.
+
+|CDRs / +
+CDR Object
+|Medium / +
+Medium
+|Minimal / +
+Minimal
+|Replaced `location` field with `cdr_location`, this also changed type, from `Location` to `CdrLocation`. Reusing the `Location` object always caused a lot of confusing, things were not clear. By creating a deticated object `CdrLocation` with only the relevant fields, things should be much clearer.
 
 |Commands / +
 CancelReservation Object
