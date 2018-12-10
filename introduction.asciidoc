@@ -11,8 +11,8 @@ New functionality:
 - Support for Hubs TODO
 - Support for Virtual CPO's and eMSP's TODO
 - Schedule based Smart Charging (TODO)
-- Preference based Smart Charging
-- Cancel Reservation
+- <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences ,Preference based Smart Charging>>
+- <<mod_commands.asciidoc#mod_commands_cancelreservation_object,Cancel Reservation>>
 - Improved CDR (TODO)
 
 TODO (Make this list complete, make the items links)

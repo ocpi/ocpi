@@ -259,7 +259,8 @@ See: <<mod_tariffs_free_of_charge_tariff_example,Free of Charge Tariff example>>
 
 |id |<<types.asciidoc#types_string_type,string>>(36) |1 |Uniquely identifies the tariff within the CPOs platform (and suboperator platforms). 
 |currency |<<types.asciidoc#types_string_type,string>>(3) |1 |Currency of this tariff, ISO 4217 Code 
-|tariff_alt_text |<<types.asciidoc#types_displaytext_class,DisplayText>> |* |List of multi language alternative tariff info text 
+|type |<<mod_tariffs_tariff_type,TariffType>> |? | Defines what type of tariff this is. This makes it possible to make distinction possible for different <<Charging Preferences>>. When omitted, this tariff is valid for all sessions.
+|tariff_alt_text |<<types.asciidoc#types_displaytext_class,DisplayText>> |* |List of multi language alternative tariff info text
 |tariff_alt_url |<<types.asciidoc#types_url_type,URL>> |? |Alternative URL to tariff info 
 |elements |<<mod_tariffs_tariffelement_class,TariffElement>> |+ |List of tariff elements 
 |energy_mix |<<mod_locations.asciidoc#mod_locations_energymix_class,EnergyMix>> |? |Details on the energy supplied with this tariff. 
@@ -278,6 +279,7 @@ See: <<mod_tariffs_free_of_charge_tariff_example,Free of Charge Tariff example>>
 {
 	"id": "12",
 	"currency": "EUR",
+	"type": "AD_HOC_PAYMENT",
 	"elements": [{
 		"price_components": [{
 			"type": "TIME",
@@ -298,6 +300,7 @@ See: <<mod_tariffs_free_of_charge_tariff_example,Free of Charge Tariff example>>
 {
 	"id": "12",
 	"currency": "EUR",
+	"type": "AD_HOC_PAYMENT",
 	"tariff_alt_text": [{
 		"language": "en",
 		"text": "2 euro p/hour"
@@ -325,6 +328,7 @@ See: <<mod_tariffs_free_of_charge_tariff_example,Free of Charge Tariff example>>
 {
 	"id": "12",
 	"currency": "EUR",
+	"type": "AD_HOC_PAYMENT",
 	"tariff_alt_url": "https://company.com/tariffs/12",
 	"elements": [{
 		"price_components": [{
@@ -362,6 +366,7 @@ VAT:
 {
 	"id": "11",
 	"currency": "EUR",
+	"type": "REGULAR",
 	"tariff_alt_url": "https://company.com/tariffs/11",
 	"elements": [{
 		"price_components": [{
@@ -530,3 +535,18 @@ Thus a `step_size = 300` means 300 seconds.
 |max_duration |int |? |Maximum duration in seconds, valid for a duration up to x seconds 
 |day_of_week |<<mod_tariffs_dayofweek_enum,DayOfWeek>> |* |Which day(s) of the week this tariff is valid 
 |===
+
+[[mod_tariffs_tariff_type]]
+==== TariffType _enum_
+
+[cols="3,10",options="header"]
+|===
+|Value |Description
+
+|AD_HOC_PAYMENT |This tariff is valid when ad hoc payment is used at the Charge Point. Instead of an RFID token or APP.
+|PROFILE_CHEAP |This tariff is valid when <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,Charging Preference>>: <<mod_sessions.asciidoc#mod_sessions_profile_type_enum,CHEAP>> is set on the session.
+|PROFILE_FAST |This tariff is valid when <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,Charging Preference>>: <<mod_sessions.asciidoc#mod_sessions_profile_type_enum,FAST>> is set on the session.
+|PROFILE_GREEN |This tariff is valid when <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,Charging Preference>>: <<mod_sessions.asciidoc#mod_sessions_profile_type_enum,GREEN>> is set on the session.
+|REGULAR |This is the tariff when using an RFID, without any Charging Preference, or when <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,Charging Preference>>: <<mod_sessions.asciidoc#mod_sessions_profile_type_enum,REGULAR>> is set on the session.
+|===
+

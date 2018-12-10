@@ -75,6 +75,14 @@ Medium
 |Changed result message from CPO to eMSP from CommandResponse to CommandResult to make it more clear.
 
 |Locations / +
+Connector Object
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Changed `tariff_id` field to `tariff_ids`, and changed cardinality from `?` to `*` Making it possible to make provided tariffs for different Smart Charging Preferences and also for ad hoc payment.
+
+|Locations / +
 Hours class
 |Minor / +
 Minor
@@ -82,7 +90,32 @@ Minor
 Minimal
 |removed to option for either: twentyfourseven or regular_hours, now regular_hours is always required, this is much less confusing.
 
-|Tariff / +
+|Locations / +
+Capability enum
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|added new values for: `CHARGING_PREFERENCES_CAPABLE` and `DEBIT_CARD_PAYABLE `.
+
+|Sessions / +
+CPO PUT method
+|Medium / +
+Medium
+| Large / +
+Large
+|Added setting Charging Preferences on a session. Proving the CPO with preferences from the driver, needed for Smart Charging.
+  For this the following data types are added: ChargingPreferences, ChargingPreferencesResponse, ProfileType,
+
+|Tariffs / +
+Tariff Object
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Added `type` field to make it possible to make different tariffs for different Smart Charging Preferences and also for ad hoc payment.
+
+|Tariffs / +
 PriceComponent class
 |Minor / +
 Minor
@@ -90,7 +123,7 @@ Minor
 Minimal
 |Added `vat` field to send the applicable VAT with every tariff component.
 
-|Token / +
+|Tokens / +
 Token Object
 |Minor / +
 Minor

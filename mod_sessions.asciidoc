@@ -43,6 +43,9 @@ The eMSP can determine if an EVSE supports Charging Preferences by checking if t
 <<mod_locations.asciidoc#mod_locations_evse_object,EVSE capabilities>> contains:
 <<mod_locations.asciidoc#mod_locations_capability_enum,CHARGING_PREFERENCES_CAPABLE>>.
 
+Via <<mod_tariffs.asciidoc#mod_tariffs_tariff_object,Tariffs>> the CPO can give different preferences different prices.
+A <<locations.asciidoc#mod_locations_connector_object,Connector>> can have multiple <<mod_tariffs.asciidoc#mod_tariffs_tariff_object,Tariffs>> one for each <<mod_sessions_profile_type_enum,ProfileType>>.
+
 
 [[mod_sessions_interfaces_and_endpoints]]
 === Interfaces and endpoints
@@ -402,15 +405,15 @@ mod_sessions_charging_preferences_object]]
 
 Contains the charging preferences for an EV driver.
 
-TODO add text to explain supported profile_type can found via tariffs, add to tariffs.
-
 [cols="3,2,1,10",options="header"]
 |===
 |Property |Type |Card. |Description
 
-|profile_type |<<mod_sessions_profile_type_enum,ProfileType>> |1 |The time when the session became active.
-|departure |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Expected departure. Driver has given this datetime as expected departure moment, which does not mean that that will be the real departure time.
-|energy |<<types.asciidoc#types_number_type,number>> |1 |Requested amount of energy in kWh. EV drivers wants to have this amount of energy charged.
+|profile_type |<<mod_sessions_profile_type_enum,ProfileType>> |1 |Type of Smart Charging Profile selected by the driver.
+            The <<mod_sessions_profile_type_enum,ProfileType>> has to be supported at the <<mod_location.asciidoc#mod_locations_connector_object,Connector>>,
+            for every supported <<mod_sessions_profile_type_enum,ProfileType>>, a <<mod_tariffs.asciidoc#mod_tariffs_tariff_object,Tariff>> is provided. This gives the EV Driver the option between different pricing options.
+|departure_time |<<types.asciidoc#types_datetime_type,DateTime>> |? |Expected departure. Driver has given this datetime as expected departure moment, which does not mean that that will be the real departure time.
+|energy_need |<<types.asciidoc#types_number_type,number>> |? |Requested amount of energy in kWh. EV drivers wants to have this amount of energy charged.
 |discharge_allowed |boolean |? | Driver allows his/her EV to be discharged when needed, as long as the other preferences are met: EV is charged with the preferred energy at the preferred momement. Default if omitted: *false*.
 
 
@@ -431,6 +434,8 @@ No value for NOT_SUPPORTED, when a PUT for ChargingPreferences is received for a
 |Value |Description
 
 |ACCEPTED | Charging Preferences accepted, EVSE will try to execute them, this is no guarantee that they will be fulfilled.
+|DEPARTURE_REQUIRED | CPO requires departure time to be able to do Charging Preference based Smart Charging.
+|ENERGY_NEED_REQUIRED | CPO requires energy_need to be able to do Charging Preference based Smart Charging.
 |NOT_POSSIBLE | Charging Preferences contain a request that the EVSE knows it cannot fulfill.
 |PROFILE_TYPE_NOT_SUPPORTED | profile_type contains a value that is not supported by the EVSE.
 |===
