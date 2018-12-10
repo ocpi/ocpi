@@ -13,7 +13,7 @@ The Session object is owned by the CPO back-end system, and can be GET from the 
 [[mod_sessions_push_model]]
 ==== Push model
 
-When the CPO creates a Session object they push it to the eMSPs by calling <<mod_sessions_put_method,PUT>> on the eMSPs Sessions endpoint with the newly created Session object.
+When the CPO creates a Session object they push it to the eMSPs by calling <<mod_sessions_msp_put_method,PUT>> on the eMSPs Sessions endpoint with the newly created Session object.
 
 Any changes to a Session in the CPO system are sent to the eMSP system by calling <<mod_sessions_patch_method,PATCH>> on the eMSPs Sessions endpoint with the updated Session object.
 
@@ -35,7 +35,7 @@ This <<mod_sessions_cpo_get_method,GET>> can also be used, combined with the Pus
 For a lot of smart charging use cases, input from the driver is needed.
 The smart charging algorithms need to be able to give certain session priority over others,
 need to know how much energy an EV needs before what time.
-Via a <<mod_sessions_cpo_post_method,PUT>> on the CPO Interface, during an ongoing session,
+Via a <<mod_sessions_cpo_put_method,PUT>> on the CPO Interface, during an ongoing session,
 the eMSP can send <<mod_sessions_charging_preferences_object,Charging Preferences>> for the driver.
 Indicating the preferences of the driver to the CPO.
 
@@ -44,7 +44,7 @@ The eMSP can determine if an EVSE supports Charging Preferences by checking if t
 <<mod_locations.asciidoc#mod_locations_capability_enum,CHARGING_PREFERENCES_CAPABLE>>.
 
 Via <<mod_tariffs.asciidoc#mod_tariffs_tariff_object,Tariffs>> the CPO can give different preferences different prices.
-A <<locations.asciidoc#mod_locations_connector_object,Connector>> can have multiple <<mod_tariffs.asciidoc#mod_tariffs_tariff_object,Tariffs>> one for each <<mod_sessions_profile_type_enum,ProfileType>>.
+A <<mod_locations.asciidoc#mod_locations_connector_object,Connector>> can have multiple <<mod_tariffs.asciidoc#mod_tariffs_tariff_object,Tariffs>> one for each <<mod_sessions_profile_type_enum,ProfileType>>.
 
 
 [[mod_sessions_interfaces_and_endpoints]]
@@ -139,7 +139,7 @@ In the body a <<mod_sessions_charging_preferences_object,ChargingPreferences>> o
 [[mod_sessions_cpo_post_response_data]]
 ====== Response Data
 
-The endpoint response contains a <<mod_sessions_charging_preferences_response,ChargingPreferencesResponse>> value.
+The endpoint response contains a <<mod_sessions_charging_preferences_response_enum,ChargingPreferencesResponse>> value.
 
 [cols="4,1,12",options="header"]
 |===
@@ -233,7 +233,7 @@ The following parameters can be provided as URL segments.
 [[mod_sessions_patch_method]]
 ===== *PATCH* Method
 
-Same as the <<mod_sessions_put_method,PUT>> method, but only the fields/objects that have to be updated have to be present, other fields/objects that are not specified are considered unchanged.
+Same as the <<mod_sessions_msp_put_method,PUT>> method, but only the fields/objects that have to be updated have to be present, other fields/objects that are not specified are considered unchanged.
 
 [[mod_sessions_example_update_the_total_cost]]
 ====== Example: update the total cost
@@ -400,7 +400,7 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
 ----
 
 
-mod_sessions_charging_preferences_object]]
+[[mod_sessions_charging_preferences_object]]
 ==== _ChargingPreferences_ Object
 
 Contains the charging preferences for an EV driver.
@@ -410,7 +410,7 @@ Contains the charging preferences for an EV driver.
 |Property |Type |Card. |Description
 
 |profile_type |<<mod_sessions_profile_type_enum,ProfileType>> |1 |Type of Smart Charging Profile selected by the driver.
-            The <<mod_sessions_profile_type_enum,ProfileType>> has to be supported at the <<mod_location.asciidoc#mod_locations_connector_object,Connector>>,
+            The <<mod_sessions_profile_type_enum,ProfileType>> has to be supported at the <<mod_locations.asciidoc#mod_locations_connector_object,Connector>>,
             for every supported <<mod_sessions_profile_type_enum,ProfileType>>, a <<mod_tariffs.asciidoc#mod_tariffs_tariff_object,Tariff>> is provided. This gives the EV Driver the option between different pricing options.
 |departure_time |<<types.asciidoc#types_datetime_type,DateTime>> |? |Expected departure. Driver has given this datetime as expected departure moment, which does not mean that that will be the real departure time.
 |energy_need |<<types.asciidoc#types_number_type,number>> |? |Requested amount of energy in kWh. EV drivers wants to have this amount of energy charged.

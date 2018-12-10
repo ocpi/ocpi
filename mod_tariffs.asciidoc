@@ -259,7 +259,7 @@ See: <<mod_tariffs_free_of_charge_tariff_example,Free of Charge Tariff example>>
 
 |id |<<types.asciidoc#types_string_type,string>>(36) |1 |Uniquely identifies the tariff within the CPOs platform (and suboperator platforms). 
 |currency |<<types.asciidoc#types_string_type,string>>(3) |1 |Currency of this tariff, ISO 4217 Code 
-|type |<<mod_tariffs_tariff_type,TariffType>> |? | Defines what type of tariff this is. This makes it possible to make distinction possible for different <<Charging Preferences>>. When omitted, this tariff is valid for all sessions.
+|type |<<mod_tariffs_tariff_type,TariffType>> |? | Defines what type of tariff this is. This makes it possible to make distinction possible for different <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,Charging Preferences>>. When omitted, this tariff is valid for all sessions.
 |tariff_alt_text |<<types.asciidoc#types_displaytext_class,DisplayText>> |* |List of multi language alternative tariff info text
 |tariff_alt_url |<<types.asciidoc#types_url_type,URL>> |? |Alternative URL to tariff info 
 |elements |<<mod_tariffs_tariffelement_class,TariffElement>> |+ |List of tariff elements 
