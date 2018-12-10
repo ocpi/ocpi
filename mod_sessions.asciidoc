@@ -264,7 +264,9 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
 |token_uid |<<types.asciidoc#types_string_type,string>>(36) |1 |UID of the <<mod_tokens.asciidoc#mod_tokens_token_object,Token>> used to start the Charging Session, combination: Token.UID and Token.type, uniquely identifies a <<mod_tokens.asciidoc#mod_tokens_token_object,Token>>.
 |token_type |<<mod_tokens_tokentype_enum,TokenType>> |1 |Type of the <<mod_tokens.asciidoc#mod_tokens_token_object,Token>> used to start the Charging Session, combination: Token.UID and Token.type, uniquely identifies a <<mod_tokens.asciidoc#mod_tokens_token_object,Token>>.
 |auth_method |<<mod_cdrs.asciidoc#mod_cdrs_authmethod_enum,AuthMethod>> |1 |Method used for authentication.
-|location |<<mod_locations.asciidoc#mod_locations_location_object,Location>> |1 |The location where this session took place, including only the relevant EVSE and connector 
+|location_id |<<types.asciidoc#types_string_type,string>>(39) |1 |Location.id of the Location object of this CPO, on which the Charging Session is ongoing.
+|evse_uid |<<types.asciidoc#types_string_type,string>>(39) |1 |EVSE.uid of the EVSE of this Location on which the Charging Session is ongoing.
+|connector_id |<<types.asciidoc#types_string_type,string>>(36) |1 |Connector.id of the Connector of this Location the Charging Session is ongoing.
 |meter_id |<<types.asciidoc#types_string_type,string>>(255) |? |Optional identification of the kWh meter. 
 |currency |<<types.asciidoc#types_string_type,string>>(3) |1 |ISO 4217 code of the currency used for this session. 
 |charging_periods |<<mod_cdrs.asciidoc#mod_cdrs_chargingperiod_class,ChargingPeriod>> |* |An optional list of charging periods that can be used to calculate and verify the total cost. 
@@ -289,36 +291,9 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
 	"token_uid": "012345678",
 	"token_type": "RFID",
 	"auth_method": "WHITELIST",
-	"location": {
-		"id": "LOC1",
-		"type": "ON_STREET",
-		"name": "Gent Zuid",
-		"address": "F.Rooseveltlaan 3A",
-		"city": "Gent",
-		"postal_code": "9000",
-		"country": "BE",
-		"coordinates": {
-			"latitude": "3.729944",
-			"longitude": "51.047599"
-		},
-		"evses": [{
-			"uid": "3256",
-			"evse_id": "BE*BEC*E041503003",
-			"status": "AVAILABLE",
-			"connectors": [{
-				"id": "1",
-				"standard": "IEC_62196_T2",
-				"format": "SOCKET",
-				"power_type": "AC_1_PHASE",
-				"voltage": 230,
-				"amperage": 64,
-				"tariff_id": "11",
-				"last_updated": "2015-06-29T22:39:09Z"
-			}],
-			"last_updated": "2015-06-29T22:39:09Z"
-		}],
-		"last_updated": "2015-06-29T22:39:09Z"
-	},
+	"location_id": "LOC1",
+    "evse_uid": "3256",
+	"connector_id": "1",
 	"currency": "EUR",
 	"total_cost": 2.50,
 	"status": "PENDING",
@@ -340,36 +315,9 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
 	"token_uid": "012345678",
 	"token_type": "RFID",
 	"auth_method": "WHITELIST",
-	"location": {
-		"id": "LOC1",
-		"type": "ON_STREET",
-		"name": "Gent Zuid",
-		"address": "F.Rooseveltlaan 3A",
-		"city": "Gent",
-		"postal_code": "9000",
-		"country": "BE",
-		"coordinates": {
-			"latitude": "3.729944",
-			"longitude": "51.047599"
-		},
-		"evses": [{
-			"uid": "3256",
-			"evse_id": "BE*BEC*E041503003",
-			"status": "AVAILABLE",
-			"connectors": [{
-				"id": "1",
-				"standard": "IEC_62196_T2",
-				"format": "SOCKET",
-				"power_type": "AC_1_PHASE",
-				"voltage": 230,
-				"amperage": 64,
-				"tariff_id": "11",
-                "last_updated": "2015-06-29T23:09:10Z"
-			}],
-            "last_updated": "2015-06-29T23:09:10Z"
-		}],
-        "last_updated": "2015-06-29T23:09:10Z"
-	},
+	"location_id": "LOC1",
+    "evse_uid": "3256",
+	"connector_id": "1",
 	"currency": "EUR",
 	"charging_periods": [{
 		"start_date_time": "2015-06-29T22:39:09Z",
