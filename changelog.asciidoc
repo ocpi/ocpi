@@ -32,6 +32,14 @@ CDR Object
 Minor
 |Minimal / +
 Minimal
+|Added `total_cost_incl_vat` field, providing the MSP with the total cost including VAT.
+
+|CDRs / +
+CDR Object
+|Minor / +
+Minor
+|Minimal / +
+Minimal
 |Replaced `auth_id` field with `Token`. For CDRs it is better to include the full object instead of a reference, changes made to a Token after CDR is created should have no impact on a CDR. By copying the state of the Token into the CDR, this is better.
 
 |CDRs / +
@@ -130,6 +138,14 @@ Medium
 Large
 |Added setting Charging Preferences on a session. Proving the CPO with preferences from the driver, needed for Smart Charging.
   For this the following data types are added: ChargingPreferences, ChargingPreferencesResponse, ProfileType,
+
+|Sessions / +
+Session Object
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Added `total_cost_incl_vat` field, providing the MSP with the total cost including VAT.
 
 |Sessions / +
 Session Object

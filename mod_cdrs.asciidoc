@@ -201,8 +201,9 @@ The _CDR_ object shall always contain information like location, EVSE, Tariffs a
 |currency |<<types.asciidoc#types_string_type,string>>(3) |1 |Currency of the CDR in ISO 4217 Code. 
 |tariffs |<<mod_tariffs.asciidoc#mod_tariffs_tariff_object,Tariff>> |* |List of relevant tariff elements, see: <<mod_tariffs.asciidoc#mod_tariffs_tariff_object,Tariff>>. When relevant, a "Free of Charge" tariff should also be in this list, and point to a defined "Free of Charge" tariff. 
 |charging_periods |<<mod_cdrs_chargingperiod_class,ChargingPeriod>> |+ |List of charging periods that make up this charging session. A session consists of 1 or more periods, where each period has a different relevant Tariff. 
-|total_cost |<<types.asciidoc#types_number_type,number>> |1 |Total cost (excluding VAT) of this transaction. 
-|total_energy |<<types.asciidoc#types_number_type,number>> |1 |Total energy charged, in kWh. 
+|total_cost |<<types.asciidoc#types_number_type,number>> |1 |Total cost (excluding VAT) of this transaction in the specified currency.
+|total_cost_incl_vat |<<types.asciidoc#types_number_type,number>> |1 |Total cost (including VAT) of this transaction in the specified currency.
+|total_energy |<<types.asciidoc#types_number_type,number>> |1 |Total energy charged, in kWh.
 |total_time |<<types.asciidoc#types_number_type,number>> |1 |total duration of this session (including the duration of charging and not charging), in hours. 
 |total_parking_time |<<types.asciidoc#types_number_type,number>> |? |Total duration during this session that the EV is not being charged (no energy being transfered between EVSE and EV), in hours. 
 |remark |<<types.asciidoc#types_string_type,string>>(255) |? |Optional remark, can be used to provide addition human readable information to the CDR, for example: reason why a transaction was stopped.
@@ -270,9 +271,11 @@ NOTE: The duration of charging (energy being transferred between EVSE and EV) du
 		"dimensions": [{
 			"type": "TIME",
 			"volume": 1.973
-		}]
+		}],
+		"tariff_id": "12"
 	}],
 	"total_cost": 4.00,
+	"total_cost_incl_vat": 4.40,
 	"total_energy": 15.342,
 	"total_time": 1.973,
 	"last_updated": "2015-06-29T22:01:13Z"

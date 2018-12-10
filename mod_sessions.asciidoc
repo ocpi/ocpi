@@ -271,7 +271,8 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
 |currency |<<types.asciidoc#types_string_type,string>>(3) |1 |ISO 4217 code of the currency used for this session. 
 |charging_periods |<<mod_cdrs.asciidoc#mod_cdrs_chargingperiod_class,ChargingPeriod>> |* |An optional list of charging periods that can be used to calculate and verify the total cost. 
 |total_cost |<<types.asciidoc#types_number_type,number>> |? |The total cost (excluding VAT) of the session in the specified currency. This is the price that the eMSP will have to pay to the CPO. A total_cost of 0.00 means free of charge. When omitted, no price information is given in the Session object, this does not have to mean it is free of charge. 
-|status |<<mod_sessions_sessionstatus_enum,SessionStatus>> |1 |The status of the session. 
+|total_cost_incl_vat |<<types.asciidoc#types_number_type,number>> |? |The total cost (including VAT) of the session in the specified currency. This is the price that the eMSP will have to pay to the CPO. A total_cost of 0.00 means free of charge. When omitted, no price information is given in the Session object, this does not have to mean it is free of charge.
+|status |<<mod_sessions_sessionstatus_enum,SessionStatus>> |1 |The status of the session.
 |last_updated |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Timestamp when this Session was last updated (or created). 
 |===
 
@@ -296,6 +297,7 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
 	"connector_id": "1",
 	"currency": "EUR",
 	"total_cost": 2.50,
+	"total_cost_incl_vat": 2.75,
 	"status": "PENDING",
 	"last_updated": "2015-06-29T22:39:09Z"
 }
@@ -342,9 +344,11 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
 		"dimensions": [{
 			"type": "PARKING_TIME",
 			"volume": 0.718
-		}]
+		}],
+		"tariff_id": "12"
 	}],
 	"total_cost": 8.50,
+	"total_cost_incl_vat": 9.35,
 	"status": "COMPLETED",
 	"last_updated": "2015-06-29T23:50:17Z"
 }
