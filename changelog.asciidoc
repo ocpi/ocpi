@@ -204,6 +204,14 @@ Minimal
 |Added `group_id` field to enable support for OCPP GroupId/ParentId.
 
 |Tokens / +
+Token Object
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Added `default_profile_type` field to enable a default Preference base Smart Charging ProfileType to be provided for a user.
+
+|Tokens / +
 TokenType enum
 |Minor / +
 Minor

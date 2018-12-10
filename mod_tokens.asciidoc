@@ -303,21 +303,42 @@ The endpoint response contains a <<mod_tokens_authorizationinfo_object,Authoriza
 |valid |boolean |1 |Is this Token valid
 |whitelist |<<mod_tokens_whitelisttype_enum,WhitelistType>> |1 |Indicates what type of white-listing is allowed. 
 |language |<<types.asciidoc#types_string_type,string>>(2) |? |Language Code ISO 639-1. This optional field indicates the Token owner's preferred interface language. If the language is not provided or not supported then the CPO is free to choose its own language. 
-|last_updated |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Timestamp when this Token was last updated (or created). 
+|default_profile_type |<<mod_sessions.asciidoc#mod_sessions_profile_type_enum,ProfileType>> |? | The default <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,Charging Preference>>. When this is provided,
+                                        and a charging session is started on an Charge Point that support Preference base Smart Charging and support this <<mod_sessions.asciidoc#mod_sessions_profile_type_enum,ProfileType>>,
+                                        the Charge Point can start using this <<mod_sessions.asciidoc#mod_sessions_profile_type_enum,ProfileType>>, without this having to be set via: <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,Set Charging Preferences>>.
+|last_updated |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Timestamp when this Token was last updated (or created).
 |===
+
 
 The combination of _uid_ and _type_ should be unique for every token within the eMSP's system.
 
 NOTE: OCPP supports group_id (or ParentID as it is called in OCPP 1.5/1.6) OCPP 1.5/1.6 only support group ID's with maximum length of string(20), case insensitive.
 As long as EV-driver can be expected to charge at an OCPP 1.5/1.6 Charge Point, it is adviced to not used a group_id longer then 20.
 
-[[mod_tokens_example]]
-===== Example
+[[mod_tokens_examples]]
+===== Examples
+
+====== Simple APP_USER example
 
 [source,json]
 ----
 {
-  "uid": "012345678",
+  "uid": "bdf21bce-fc97-11e8-8eb2-f2801f1b9fd1",
+  "type": "APP_USER",
+  "auth_id": "DE8ACC12E46L89",
+  "issuer": "TheNewMotion",
+  "valid": true,
+  "whitelist": "ALLOWED",
+  "last_updated": "2018-12-10T17:16:15Z"
+}
+----
+
+====== Full RFID example
+
+[source,json]
+----
+{
+  "uid": "12345678905880",
   "type": "RFID",
   "auth_id": "DE8ACC12E46L89",
   "visual_number": "DF000-2001-8999-1",
@@ -325,9 +346,12 @@ As long as EV-driver can be expected to charge at an OCPP 1.5/1.6 Charge Point, 
   "group_id": "DF000-2001-8999",
   "valid": true,
   "whitelist": "ALLOWED",
-  "last_updated": "2015-06-29T22:39:09Z"
+  "language": "it",
+  "default_profile_type": "GREEN",
+  "last_updated": "2018-12-10T17:25:10Z"
 }
 ----
+
 
 [[mod_tokens_data_types]]
 === Data types
