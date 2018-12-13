@@ -262,11 +262,19 @@ See: <<mod_tariffs_free_of_charge_tariff_example,Free of Charge Tariff example>>
 |type |<<mod_tariffs_tariff_type,TariffType>> |? | Defines what type of tariff this is. This makes it possible to make distinction possible for different <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,Charging Preferences>>. When omitted, this tariff is valid for all sessions.
 |tariff_alt_text |<<types.asciidoc#types_displaytext_class,DisplayText>> |* |List of multi language alternative tariff info text
 |tariff_alt_url |<<types.asciidoc#types_url_type,URL>> |? |Alternative URL to tariff info 
+|min_price |<<types.asciidoc#types_price_class,Price>> |? |When this field is set, a Charging Session with this tariff will minimum cost this amount.
+      This is different from a "Start Tariff, Transaction Fee, Start Fee, Session Fee etc.", such a fee is a fixed amount that has to be payed for any Charging Session.
+      A Minimum price means that when the cost of a Charging Session is lower then this amount, the cost of the Session will be equal to this amount. Also see note below.
 |max_price |<<types.asciidoc#types_price_class,Price>> |? |When this field is set, a Charging Session with this tariff will NOT cost more then this amount. See note below.
 |elements |<<mod_tariffs_tariffelement_class,TariffElement>> |+ |List of tariff elements
 |energy_mix |<<mod_locations.asciidoc#mod_locations_energymix_class,EnergyMix>> |? |Details on the energy supplied with this tariff. 
 |last_updated |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Timestamp when this Tariff was last updated (or created). 
 |===
+
+NOTE: `min_price`: As the VAT might be built up of different parts, there might be situations where minimum including VAT is reached earlier or later then then the minimum excluding VAT.
+So as a rule: they both apply:
+ - Minimum cost of a Charging Session including VAT can never be lower than the min_price including VAT.
+ - Minimum cost of a Charging Session excluding VAT can never be lower than the min_price excluding VAT.
 
 NOTE: `max_price`: As the VAT might be built up of different parts, there might be situations where maximum including VAT is reached earlier or later then then the maximum excluding VAT.
 So as a rule: they both apply:
