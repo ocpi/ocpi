@@ -53,6 +53,18 @@ Example:
 Numbers in OCPI are formatted as JSON numbers.
 Unless mentioned otherwise, numbers use 4 decimals and a _sufficiently large amount_ of digits.
 
+[[types_price_class]]
+=== Price _class_
+
+[cols="3,2,1,10",options="header"]
+|===
+|Property |Type |Card. |Description
+
+|excl_vat |<<types_number_type,number>> |1 |Price/Cost excluding VAT.
+|incl_vat |<<types_number_type,number>> |1 |Price/Cost including VAT.
+|===
+
+
 [[types_string_type]]
 === string _type_
 

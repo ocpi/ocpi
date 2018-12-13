@@ -32,7 +32,7 @@ CDR Object
 Minor
 |Minimal / +
 Minimal
-|Added `total_cost_incl_vat` field, providing the MSP with the total cost including VAT.
+|Changed `total_cost` field from type: `number` to `Price`, this provides the MSP with the total cost including VAT.
 
 |CDRs / +
 CDR Object
@@ -161,7 +161,7 @@ Session Object
 Minor
 |Minimal / +
 Minimal
-|Added `total_cost_incl_vat` field, providing the MSP with the total cost including VAT.
+|Changed `total_cost` field from type: `number` to `Price`, this provides the MSP with the total cost including VAT.
 
 |Sessions / +
 Session Object
@@ -194,6 +194,14 @@ Minor
 |Minimal / +
 Minimal
 |Added `vat` field to send the applicable VAT with every tariff component.
+
+|Tariffs / +
+PriceComponent class
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Added `max_price` field, making it possible to set a maximum price on a Charging Session.
 
 |Tokens / +
 Token Object

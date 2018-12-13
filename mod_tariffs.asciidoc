@@ -262,10 +262,17 @@ See: <<mod_tariffs_free_of_charge_tariff_example,Free of Charge Tariff example>>
 |type |<<mod_tariffs_tariff_type,TariffType>> |? | Defines what type of tariff this is. This makes it possible to make distinction possible for different <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,Charging Preferences>>. When omitted, this tariff is valid for all sessions.
 |tariff_alt_text |<<types.asciidoc#types_displaytext_class,DisplayText>> |* |List of multi language alternative tariff info text
 |tariff_alt_url |<<types.asciidoc#types_url_type,URL>> |? |Alternative URL to tariff info 
-|elements |<<mod_tariffs_tariffelement_class,TariffElement>> |+ |List of tariff elements 
+|max_price |<<types.asciidoc#types_price_class,Price>> |? |When this field is set, a Charging Session with this tariff will NOT cost more then this amount. See note below.
+|elements |<<mod_tariffs_tariffelement_class,TariffElement>> |+ |List of tariff elements
 |energy_mix |<<mod_locations.asciidoc#mod_locations_energymix_class,EnergyMix>> |? |Details on the energy supplied with this tariff. 
 |last_updated |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Timestamp when this Tariff was last updated (or created). 
 |===
+
+NOTE: `max_price`: As the VAT might be built up of different parts, there might be situations where maximum including VAT is reached earlier or later then then the maximum excluding VAT.
+So as a rule: they both apply:
+ - Total cost of a Charging Session including VAT can never be higher than the max_price including VAT.
+ - Total cost of a Charging Session excluding VAT can never be higher than the max_price excluding VAT.
+
 
 [[mod_tariffs_examples]]
 ===== Examples
