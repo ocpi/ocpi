@@ -134,17 +134,7 @@ The following parameters can be provided as URL segments.
 ----
 PUT To URL: https://www.server.com/ocpi/cpo/2.0/tokens/NL/TNM/012345678
 
-{
-  "uid": "012345678",
-  "type": "RFID",
-  "auth_id": "DE8ACC12E46L89",
-  "visual_number": "DF000-2001-8999-1",
-  "issuer": "TheNewMotion",
-  "group_id": "DF000-2001-8999",
-  "valid": true,
-  "whitelist": "ALWAYS",
-  "last_updated": "2015-06-29T22:39:09Z"
-}
+include::examples/token_put_example.json[]
 ----
 
 
@@ -160,9 +150,7 @@ Same as the <<mod_tokens_put_method,PUT>> method, but only the fields/objects th
 ----
 PATCH To URL: https://www.server.com/ocpi/cpo/2.0/tokens/NL/TNM/012345678
 
-{
-  "valid": false
-}
+include::examples/token_patch_example.json[]
 ----
 
 [[mod_tokens_emsp_interface]]
@@ -324,38 +312,15 @@ As long as EV-driver can be expected to charge at an OCPP 1.5/1.6 Charge Point, 
 
 [source,json]
 ----
-{
-  "uid": "bdf21bce-fc97-11e8-8eb2-f2801f1b9fd1",
-  "type": "APP_USER",
-  "auth_id": "DE8ACC12E46L89",
-  "issuer": "TheNewMotion",
-  "valid": true,
-  "whitelist": "ALLOWED",
-  "last_updated": "2018-12-10T17:16:15Z"
-}
+include::examples/token_example_1_app_user.json[]
 ----
+
 
 ====== Full RFID example
 
 [source,json]
 ----
-{
-  "uid": "12345678905880",
-  "type": "RFID",
-  "auth_id": "DE8ACC12E46L89",
-  "visual_number": "DF000-2001-8999-1",
-  "issuer": "TheNewMotion",
-  "group_id": "DF000-2001-8999",
-  "valid": true,
-  "whitelist": "ALLOWED",
-  "language": "it",
-  "default_profile_type": "GREEN",
-  "energy_contract": {
-    "supplier_name": "Greenpeace Energy eG",
-    "contract_id": "0123456789"
-  },
-  "last_updated": "2018-12-10T17:25:10Z"
-}
+include::examples/token_example_2_full_rfid.json[]
 ----
 
 
