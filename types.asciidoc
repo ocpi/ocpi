@@ -43,11 +43,9 @@ Example:
 
 [source]
 ----
-{
-  "language": "en",
-  "text": "Standard Tariff"
-}
+include::examples/type_displaytext_example.json[]
 ----
+
 
 [[types_number_type]]
 === number _type_
