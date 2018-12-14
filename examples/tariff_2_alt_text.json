@@ -1,0 +1,21 @@
+{
+  "id": "12",
+  "currency": "EUR",
+  "type": "AD_HOC_PAYMENT",
+  "tariff_alt_text": [{
+    "language": "en",
+    "text": "2 euro p/hour"
+  }, {
+    "language": "nl",
+    "text": "2 euro p/uur"
+  }],
+  "elements": [{
+    "price_components": [{
+      "type": "TIME",
+      "price": 2.00,
+      "vat": 10.0,
+      "step_size": 300
+    }]
+  }],
+  "last_updated": "2015-06-29T20:39:09Z"
+}

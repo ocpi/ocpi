@@ -180,18 +180,7 @@ The following parameters can be provided as URL segments.
 ----
 PUT To URL: https://www.server.com/ocpi/emsp/2.0/tariffs/NL/TNM/12
 
-{
-	"id": "12",
-	"currency": "EUR",
-	"elements": [{
-		"price_components": [{
-			"type": "TIME",
-			"price": 2.00,
-			"vat": 10.0,
-			"step_size": 300
-		}]
-	}]
-}
+include::examples/tariff_put_example.json[]
 ----
 
 [[mod_tariffs_patch_method]]
@@ -207,17 +196,9 @@ other fields/objects that are not specified are considered unchanged.
 ----
 PUT To URL: https://www.server.com/ocpi/emsp/2.0/tariffs/NL/TNM/12
 
-{
-	"elements": [{
-		"price_components": [{
-			"type": "TIME",
-			"price": 2.50,
-			"step_size": 300
-		}]
-	}],
-	"last_updated": "2015-06-29T20:39:09Z"
-}
+include::examples/tariff_patch_example.json[]
 ----
+
 
 [[mod_tariffs_delete_method]]
 ===== *DELETE* Method
@@ -289,73 +270,30 @@ So as a rule: they both apply:
 ====== Simple Tariff example 2 euro per hour
 10% VAT
 
+
 [source,json]
 ----
-{
-	"id": "12",
-	"currency": "EUR",
-	"type": "AD_HOC_PAYMENT",
-	"elements": [{
-		"price_components": [{
-			"type": "TIME",
-			"price": 2.00,
-			"vat": 10.0,
-			"step_size": 300
-		}]
-	}],
-	"last_updated": "2015-06-29T20:39:09Z"
-}
+include::examples/tariff_1_simple_2hour.json[]
 ----
+
 
 [[mod_tariffs_simple_tariff_example_with_alternative_multi_language_text]]
 ====== Simple Tariff example with alternative multi language text
 
 [source,json]
 ----
-{
-	"id": "12",
-	"currency": "EUR",
-	"type": "AD_HOC_PAYMENT",
-	"tariff_alt_text": [{
-		"language": "en",
-		"text": "2 euro p/hour"
-	}, {
-		"language": "nl",
-		"text": "2 euro p/uur"
-	}],
-	"elements": [{
-		"price_components": [{
-			"type": "TIME",
-			"price": 2.00,
-			"vat": 10.0,
-			"step_size": 300
-		}]
-	}],
-	"last_updated": "2015-06-29T20:39:09Z"
-}
+include::examples/tariff_2_alt_text.json[]
 ----
+
 
 [[mod_tariffs_simple_tariff_example_with_alternative_url]]
 ====== Simple Tariff example with alternative URL
 
 [source,json]
 ----
-{
-	"id": "12",
-	"currency": "EUR",
-	"type": "AD_HOC_PAYMENT",
-	"tariff_alt_url": "https://company.com/tariffs/12",
-	"elements": [{
-		"price_components": [{
-			"type": "TIME",
-			"price": 2.00,
-			"vat": 10.0,
-			"step_size": 300
-		}]
-	}],
-	"last_updated": "2015-06-29T20:39:09Z"
-}
+include::examples/tariff_3_alt_url.json[]
 ----
+
 
 [[mod_tariffs_complex_tariff_example]]
 ====== Complex Tariff example
@@ -378,78 +316,9 @@ VAT:
 
 [source,json]
 ----
-{
-	"id": "11",
-	"currency": "EUR",
-	"type": "REGULAR",
-	"tariff_alt_url": "https://company.com/tariffs/11",
-	"elements": [{
-		"price_components": [{
-			"type": "FLAT",
-			"price": 2.50,
-			"vat": 15.0,
-			"step_size": 1
-		}]
-	}, {
-		"price_components": [{
-			"type": "TIME",
-			"price": 1.00,
-			"vat": 20.0,
-			"step_size": 900
-		}],
-		"restrictions": {
-			"max_power": 32.00
-		}
-	}, {
-		"price_components": [{
-			"type": "TIME",
-			"price": 2.00,
-			"vat": 20.0,
-			"step_size": 600
-		}],
-		"restrictions": {
-			"min_power": 32.00,
-			"day_of_week": ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY"]
-		}
-	}, {
-		"price_components": [{
-			"type": "TIME",
-			"price": 1.25,
-			"vat": 20.0,
-			"step_size": 600
-		}],
-		"restrictions": {
-			"min_power": 32.00,
-			"day_of_week": ["SATURDAY", "SUNDAY"]
-		}
-	}, {
-		"price_components": [{
-			"type": "PARKING_TIME",
-			"price": 5.00,
-			"vat": 10.0,
-			"step_size": 300
-		}],
-		"restrictions": {
-			"start_time": "09:00",
-			"end_time": "18:00",
-			"day_of_week": ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY"]
-		}
-	}, {
-		"price_components": [{
-			"type": "PARKING_TIME",
-			"price": 6.00,
-			"vat": 10.0,
-			"step_size": 300
-		}],
-		"restrictions": {
-			"start_time": "10:00",
-			"end_time": "17:00",
-			"day_of_week": ["SATURDAY"]
-		}
-	}],
-	"last_updated": "2015-06-29T20:39:09Z"
-}
+include::examples/tariff_4_complex.json[]
 ----
+
 
 [[mod_tariffs_free_of_charge_tariff_example]]
 ====== Free of Charge Tariff example
@@ -457,19 +326,9 @@ In this example no VAT (that might not always be the case)
 
 [source,json]
 ----
-{
-    "id": "12",
-    "currency": "EUR",
-    "elements": [{
-        "price_components": [{
-            "type": "FLAT",
-            "price": 0.00,
-            "step_size": 0
-        }]
-    }],
-	"last_updated": "2015-06-29T20:39:09Z"
-}
+include::examples/tariff_5_free_of_charge.json[]
 ----
+
 
 [[mod_tariffs_data_types]]
 === Data types
