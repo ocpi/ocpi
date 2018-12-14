@@ -330,6 +330,36 @@ include::examples/tariff_5_free_of_charge.json[]
 ----
 
 
+[[mod_tariffs_diff_parking_fees_example]]
+====== Different Parking Fees example
+
+Parking when the EV has been charging longer then 30 min (1800 sec) with a minimum of 0.1 kW charging power:
+The Parking Tariff becomes 1.00 euro per hour, you pay per minute. (step_size 60).
+
+The first half hour, or when charging is blow 0.1 kW will be charged at 2.00 euro per hour. (again pay per minute)
+
+[source,json]
+----
+include::examples/tariff_6_diff_parking_fees.json[]
+----
+
+
+[[mod_tariffs_first_hour_free_energy]]
+====== First hour free energy example
+
+The first hour of parking time is free.
+From the second to the fourth hour is 2.00 euro per hour (but the first is free)
+From the fourth on 3.00 euro per hour (but the first is free, and from the second to the forth is 2.00 euro per hour)
+
+Something similar applies to the kWh consumed. The first kWhs is free,
+and then 0.20 euro per kWh for the rest.
+
+[source,json]
+----
+include::examples/tariff_7_first_hour_kwh_free.json[]
+----
+
+
 [[mod_tariffs_data_types]]
 === Data types
 

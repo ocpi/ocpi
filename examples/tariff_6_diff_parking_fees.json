@@ -1,0 +1,21 @@
+Tariff: {
+  "id" : "51",
+  "currency" : "EUR",
+  "elements" : [ {
+    "price_components" : [ {
+      "type" : "PARKING_TIME",
+      "price" : 1.0,
+      "step_size" : 60
+    } ],
+    "tariff_restrictions" : {
+      "min_power" : 0.1,
+      "min_duration" : 1800
+    }
+  }, {
+    "price_components" : [ {
+      "type" : "PARKING_TIME",
+      "price" : 2.0,
+      "step_size" : 60
+    } ]
+  } ]
+}
