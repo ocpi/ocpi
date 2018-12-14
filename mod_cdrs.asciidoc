@@ -217,69 +217,9 @@ NOTE: The duration of charging (energy being transferred between EVSE and EV) du
 
 [source,json]
 ----
-{
-	"id": "12345",
-	"start_date_time": "2015-06-29T21:39:09Z",
-	"stop_date_time": "2015-06-29T23:37:32Z",
-	"token": {
-        "uid": "012345678",
-        "type": "RFID",
-        "auth_id": "DE8ACC12E46L89",
-        "visual_number": "DF000-2001-8999-1",
-        "issuer": "TheNewMotion",
-        "group_id": "DF000-2001-8999",
-        "valid": true,
-        "whitelist": "ALLOWED",
-        "last_updated": "2015-06-29T22:39:09Z"
-	},
-	"auth_method": "WHITELIST",
-	"cdr_location": {
-		"id": "LOC1",
-		"name": "Gent Zuid",
-		"address": "F.Rooseveltlaan 3A",
-		"city": "Gent",
-		"postal_code": "9000",
-		"country": "BE",
-		"coordinates": {
-			"latitude": "3.729944",
-			"longitude": "51.047599"
-		},
-		"evses_uid": "3256",
-		"evse_id": "BE*BEC*E041503003",
-		"connectors_id": "1",
-		"connectors_standard": "IEC_62196_T2",
-		"connectors_format": "SOCKET",
-		"connectors_power_type": "AC_1_PHASE"
-	},
-	"currency": "EUR",
-	"tariffs": [{
-		"id": "12",
-		"currency": "EUR",
-		"elements": [{
-			"price_components": [{
-				"type": "TIME",
-				"price": 2.00,
-				"vat": 10.0,
-				"step_size": 300
-			}]
-		}],
-		"last_updated": "2015-02-02T14:15:01Z"
-	}],
-	"charging_periods": [{
-		"start_date_time": "2015-06-29T21:39:09Z",
-		"dimensions": [{
-			"type": "TIME",
-			"volume": 1.973
-		}],
-		"tariff_id": "12"
-	}],
-	"total_cost": 4.00,
-	"total_cost_incl_vat": 4.40,
-	"total_energy": 15.342,
-	"total_time": 1.973,
-	"last_updated": "2015-06-29T22:01:13Z"
-}
+include::examples/cdr_example.json[]
 ----
+
 
 [[mod_cdrs_data_types]]
 === Data types
