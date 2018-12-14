@@ -41,15 +41,10 @@ Note: +00:00 is not the same as UTC.
 
 Example:
 
-ifdef::env-github[]
-link:examples/type_displaytext_example.json[DisplayText Example]
-endif::[]
-ifndef::env-github[]
 [source]
 ----
 include::examples/type_displaytext_example.json[]
 ----
-endif::[]
 
 
 [[types_number_type]]
