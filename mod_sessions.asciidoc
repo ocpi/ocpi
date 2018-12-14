@@ -242,9 +242,7 @@ Same as the <<mod_sessions_msp_put_method,PUT>> method, but only the fields/obje
 ----
 PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
 
-{
-  	"total_cost": 0.60
-}
+include::examples/session_patch_example_total_cost.json[]
 ----
 
 [[mod_sessions_object_description]]
@@ -284,22 +282,7 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
 
 [source,json]
 ----
-{
-	"id": "101",
-	"start_datetime": "2015-06-29T22:39:09Z",
-	"kwh": 0.00,
-	"token_uid": "012345678",
-	"token_type": "RFID",
-	"auth_method": "WHITELIST",
-	"location_id": "LOC1",
-    "evse_uid": "3256",
-	"connector_id": "1",
-	"currency": "EUR",
-	"total_cost": 2.50,
-	"total_cost_incl_vat": 2.75,
-	"status": "PENDING",
-	"last_updated": "2015-06-29T22:39:09Z"
-}
+include::examples/session_example_1_simple_start.json[]
 ----
 
 
@@ -308,49 +291,7 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
 
 [source,json]
 ----
-{
-	"id": "101",
-	"start_datetime": "2015-06-29T22:39:09Z",
-	"end_datetime": "2015-06-29T23:50:16Z",
-	"kwh": 41.00,
-	"token_uid": "012345678",
-	"token_type": "RFID",
-	"auth_method": "WHITELIST",
-	"location_id": "LOC1",
-    "evse_uid": "3256",
-	"connector_id": "1",
-	"currency": "EUR",
-	"charging_periods": [{
-		"start_date_time": "2015-06-29T22:39:09Z",
-		"dimensions": [{
-			"type": "ENERGY",
-			"volume": 120
-		}, {
-			"type": "MAX_CURRENT",
-			"volume": 30
-		}]
-	}, {
-		"start_date_time": "2015-06-29T22:40:54Z",
-		"dimensions": [{
-			"type": "ENERGY",
-			"volume": 41000
-		}, {
-			"type": "MIN_CURRENT",
-			"volume": 34
-		}]
-	}, {
-		"start_date_time": "2015-06-29T23:07:09Z",
-		"dimensions": [{
-			"type": "PARKING_TIME",
-			"volume": 0.718
-		}],
-		"tariff_id": "12"
-	}],
-	"total_cost": 8.50,
-	"total_cost_incl_vat": 9.35,
-	"status": "COMPLETED",
-	"last_updated": "2015-06-29T23:50:17Z"
-}
+include::examples/session_example_2_short_finished.json[]
 ----
 
 
