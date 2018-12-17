@@ -352,7 +352,7 @@ include::examples/tariff_10_025kwh_parking_start.json[]
 
 
 [[mod_tariffs_tariff_example_0_25_euro_per_kwh_start_max_price]]
-====== Tariff example 0.25 euro per kWh + start fee + max price
+====== Tariff example 0.25 euro per kWh + start fee + max price + tariff end date
 
 * Start or transaction fee
 [disc]
@@ -365,6 +365,10 @@ include::examples/tariff_10_025kwh_parking_start.json[]
 ** Billed per 1 Wh
 
 This tariff has a maximum price of 25 euro (ex VAT).
+
+This tariff has an end date: 30 June 2019, this is typically used when a tariff is going to be replaced by a new tariff.
+A <<mod_locations.asciidoc#mod_locations_connector_object,Connector>> of a <<mod_locations.asciidoc#mod_locations_location_object,Location>> can have multiple tariffs (IDs).
+By assigning both the old and the new tariff ID, they will automatically be replaced. It is then not need to update all location at the same time, the old tariff can be removed later.
 
 [source,json]
 ----
