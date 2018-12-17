@@ -235,10 +235,9 @@ This is the most common type of update message to notify eMSPs that an EVSE (EVS
 ----
 PATCH To URL: https://www.server.com/ocpi/emsp/2.0/locations/NL/TNM/1012/3255
 
-{
-	"status": "CHARGING"
-}
+include::examples/location_patch_example_status.json[]
 ----
+
 
 [[mod_locations_example_change_the_location_name]]
 ====== Example: change the location name
@@ -249,10 +248,10 @@ In this example the name of location 1012 is updated.
 ----
 PATCH To URL: https://www.server.com/ocpi/emsp/2.0/locations/NL/TNM/1012
 
-{
-	"name": "Interparking Gent Zuid"
-}
+
+include::examples/location_patch_example_location.json[]
 ----
+
 
 [[mod_locations_example_set_tariff_update]]
 ====== Example: set tariff update
@@ -263,10 +262,9 @@ In this example connector 2 of EVSE 1 of Charge Point 1012, receives a new prici
 ----
 PATCH To URL: https://www.server.com/ocpi/emsp/2.0/locations/NL/TNM/1012/3255/2
 
-{
-    "tariff_id": "15"
-}
+include::examples/location_patch_example_tariff.json[]
 ----
+
 
 [[mod_locations_example_add_an_evse]]
 ====== Example: add an EVSE
@@ -277,23 +275,9 @@ To add an _EVSE_, simply put the full object in an update message, including all
 ----
 PUT To URL: https://www.server.com/ocpi/emsp/2.0/locations/NL/TNM/1012/3256
 
-{
-	"uid": "3256",
-	"evse_id": "BE*BEC*E041503003",
-	"status": "AVAILABLE",
-	"capabilities": ["RESERVABLE"],
-	"connectors": [
-		{
-			"id": "1",
-			"standard": "IEC_62196_T2",
-			"format": "SOCKET",
-			"tariff_id": "14"
-		}
-	],
-	"physical_reference": 3,
-	"floor": -1
-}
+include::examples/location_patch_example_add_evse.json[]
 ----
+
 
 [[mod_locations_example_delete_an_evse]]
 ====== Example: delete an EVSE
@@ -304,10 +288,9 @@ An EVSE can be deleted by updating its _status_ property.
 ----
 PATCH To URL: https://www.server.com/ocpi/emsp/2.0/locations/NL/TNM/1012/3256
 
-{
-	"status": "REMOVED"
-}
+include::examples/location_patch_example_remove_evse.json[]
 ----
+
 
 _Note: To inform that an EVSE is scheduled for removal, the
 status_schedule field can be used._
@@ -358,75 +341,9 @@ The _Location_ object describes the location and its properties where a group of
 
 [source,json]
 ----
-{
-	"id": "LOC1",
-	"type": "ON_STREET",
-	"name": "Gent Zuid",
-	"address": "F.Rooseveltlaan 3A",
-	"city": "Gent",
-	"postal_code": "9000",
-	"country": "BEL",
-	"coordinates": {
-		"latitude": "51.047599",
-		"longitude": "3.729944"
-	},
-	"evses": [{
-        "uid": "3256",
-		"evse_id": "BE*BEC*E041503001",
-		"status": "AVAILABLE",
-		"status_schedule": [],
-		"capabilities": [
-			"RESERVABLE"
-		],
-		"connectors": [{
-			"id": "1",
-			"standard": "IEC_62196_T2",
-			"format": "CABLE",
-			"power_type": "AC_3_PHASE",
-			"voltage": 220,
-			"amperage": 16,
-			"tariff_id": "11",
-            "last_updated": "2015-03-16T10:10:02Z"
-		}, {
-			"id": "2",
-			"standard": "IEC_62196_T2",
-			"format": "SOCKET",
-			"power_type": "AC_3_PHASE",
-			"voltage": 220,
-			"amperage": 16,
-			"tariff_id": "11",
-        	"last_updated": "2015-03-18T08:12:01Z"
-		}],
-		"physical_reference": "1",
-		"floor_level": "-1",
-     	"last_updated": "2015-06-28T08:12:01Z"
-	}, {
-        "uid": "3257",
-		"evse_id": "BE*BEC*E041503002",
-		"status": "RESERVED",
-		"capabilities": [
-			"RESERVABLE"
-		],
-		"connectors": [{
-			"id": "1",
-			"standard": "IEC_62196_T2",
-			"format": "SOCKET",
-			"power_type": "AC_3_PHASE",
-			"voltage": 220,
-			"amperage": 16,
-			"tariff_id": "12",
-			"last_updated": "2015-06-29T20:39:09Z"
-		}],
-		"physical_reference": "2",
-		"floor_level": "-2",
-     	"last_updated": "2015-06-29T20:39:09Z"
-	}],
-	"operator": {
-		"name": "BeCharged"
-	},
-	"last_updated": "2015-06-29T20:39:09Z"
-}
+include::examples/location_example.json[]
 ----
+
 
 [[mod_locations_evse_object]]
 ==== _EVSE_ Object
@@ -605,45 +522,27 @@ _* These fields can be used to look-up energy qualification or to show it direct
 
 [source,json]
 ----
-"energy_mix": {
-	"is_green_energy": true
-    }
+include::examples/location_energymix_example_simple.json[lines=2..4]
 ----
+
 
 [[mod_locations_energy_provider_name]]
 ====== Tariff energy provider name:
 
 [source,json]
 ----
-"energy_mix": {
-	"is_green_energy":     true,
-	"supplier_name":       "Greenpeace Energy eG",
-	"energy_product_name": "eco-power"
-    }
+include::examples/location_energymix_example_energy_provider.json[lines=2..6]
 ----
+
 
 [[mod_locations_complete]]
 ====== Complete:
 
 [source,json]
 ----
-"energy_mix": {
-	"is_green_energy": false,
-	"energy_sources": [
-			{ "source": "GENERAL_GREEN",  "percentage": 35.9 },
-			{ "source": "GAS",            "percentage": 6.3  },
-			{ "source": "COAL",           "percentage": 33.2 },
-			{ "source": "GENERAL_FOSSIL", "percentage": 2.9, },
-			{ "source": "NUCLEAR",        "percentage": 21.7 }
-		],
-	"environ_impact": [
-			{ "source": "NUCLEAR_WASTE",  "amount": 0.0006,  },
-			{ "source": "CARBON_DIOXIDE", "amount": 372,     }
-		],
-	"supplier_name":       "E.ON Energy Deutschland",
-	"energy_product_name": "E.ON DirektStrom eco"
-    }
+include::examples/location_energymix_example_complete.json[lines=2..17]
 ----
+
 
 [[mod_locations_energysource_class]]
 ==== EnergySource _class_
@@ -878,49 +777,9 @@ Operating on weekdays from 8am till 8pm with one exceptional opening on
 
 [source,json]
 ----
-  "opening_times": {
-    "regular_hours": [
-      {
-        "weekday": 1,
-        "period_begin": "08:00",
-        "period_end": "20:00"
-      },
-      {
-        "weekday": 2,
-        "period_begin": "08:00",
-        "period_end": "20:00"
-      },
-      {
-        "weekday": 3,
-        "period_begin": "08:00",
-        "period_end": "20:00"
-      },
-      {
-        "weekday": 4,
-        "period_begin": "08:00",
-        "period_end": "20:00"
-      },
-      {
-        "weekday": 5,
-        "period_begin": "08:00",
-        "period_end": "20:00"
-      }
-    ],
-    "twentyfourseven": false,
-    "exceptional_openings": [
-      {
-        "period_begin": "2014-06-21T09:00:00Z",
-        "period_end": "2014-06-21T12:00:00Z"
-      }
-    ],
-    "exceptional_closings": [
-      {
-        "period_begin": "2014-06-24T00:00:00Z",
-        "period_end": "2014-06-25T00:00:00Z"
-      }
-    ]
-  }
+include::examples/location_regularhours_example.json[lines=2..43]
 ----
+
 
 This represents the following schedule, where [line-through]#stroked out# days are without operation hours, *bold* days are where exceptions apply and regular displayed days are where the regular schedule applies.
 

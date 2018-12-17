@@ -180,18 +180,7 @@ The following parameters can be provided as URL segments.
 ----
 PUT To URL: https://www.server.com/ocpi/emsp/2.0/tariffs/NL/TNM/12
 
-{
-	"id": "12",
-	"currency": "EUR",
-	"elements": [{
-		"price_components": [{
-			"type": "TIME",
-			"price": 2.00,
-			"vat": 10.0,
-			"step_size": 300
-		}]
-	}]
-}
+include::examples/tariff_put_example.json[]
 ----
 
 [[mod_tariffs_patch_method]]
@@ -207,17 +196,9 @@ other fields/objects that are not specified are considered unchanged.
 ----
 PUT To URL: https://www.server.com/ocpi/emsp/2.0/tariffs/NL/TNM/12
 
-{
-	"elements": [{
-		"price_components": [{
-			"type": "TIME",
-			"price": 2.50,
-			"step_size": 300
-		}]
-	}],
-	"last_updated": "2015-06-29T20:39:09Z"
-}
+include::examples/tariff_patch_example.json[]
 ----
+
 
 [[mod_tariffs_delete_method]]
 ===== *DELETE* Method
@@ -267,7 +248,9 @@ See: <<mod_tariffs_free_of_charge_tariff_example,Free of Charge Tariff example>>
       A Minimum price means that when the cost of a Charging Session is lower then this amount, the cost of the Session will be equal to this amount. Also see note below.
 |max_price |<<types.asciidoc#types_price_class,Price>> |? |When this field is set, a Charging Session with this tariff will NOT cost more then this amount. See note below.
 |elements |<<mod_tariffs_tariffelement_class,TariffElement>> |+ |List of tariff elements
-|energy_mix |<<mod_locations.asciidoc#mod_locations_energymix_class,EnergyMix>> |? |Details on the energy supplied with this tariff. 
+|start_datetime |<<types.asciidoc#types_datetime_type,DateTime>> |? |The time when this tariff becomes active. Typically used for a new tariff that is already given with the location, before it becomes active. (See note below)
+|end_datetime |<<types.asciidoc#types_datetime_type,DateTime>> |? |The time after which this tariff is no longer valid. Typically used when this tariff is going to be replaced with a different tariff in the near future. (See note below)
+|energy_mix |<<mod_locations.asciidoc#mod_locations_energymix_class,EnergyMix>> |? |Details on the energy supplied with this tariff.
 |last_updated |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Timestamp when this Tariff was last updated (or created). 
 |===
 
@@ -281,81 +264,209 @@ So as a rule: they both apply:
  - Total cost of a Charging Session including VAT can never be higher than the max_price including VAT.
  - Total cost of a Charging Session excluding VAT can never be higher than the max_price excluding VAT.
 
+NOTE: `start_datetime` and `end_datetime`: When the tariff of a Charge Point (Location) is changed with an ongoing charging session,
+it is common to not switch the tariff until the ongoing session is finished. But this is NOT a rule of OCPI.
+The driver has started charging and might have read the tariff info before charging. When the tariff is then changed during the session,
+the driver might get a bill that is higher then expected.
+
+
 
 [[mod_tariffs_examples]]
 ===== Examples
 
+[[mod_tariffs_simple_tariff_example_0_25_euro_per_kwh]]
+====== Simple Tariff example 0.25 euro per kWh
+
+- 0.25 euro per kWh (excluding VAT)
+- 10% VAT
+- Billed per 1 Wh
+
+[source,json]
+----
+include::examples/tariff_8_simple_025kwh.json[]
+----
+
+
+[[mod_tariffs_tariff_example_0_25_euro_per_kwh_start]]
+====== Tariff example 0.25 euro per kWh + start fee
+
+* Start or transaction fee
+[disc]
+** 0.50 euro (excluding VAT)
+** 20% VAT
+* Energy
+[disc]
+** 0.25 euro per kWh (excluding VAT)
+** 10% VAT
+** Billed per 1 Wh
+
+This tariff will result in costs of 5.50 euro (ex VAT) when 20 kWh is charged.
+
+[source,json]
+----
+include::examples/tariff_9_025kwh_start.json[]
+----
+
+
+[[mod_tariffs_tariff_example_0_25_euro_per_kwh_min_price]]
+====== Tariff example 0.25 euro per kWh + minimum price
+
+* minimum price 0.50 (ex VAT)
+* 0.25 euro per kWh (excluding VAT)
+* 10% VAT
+* Billed per 1 Wh
+
+This tariff will result in costs of 5.00 euro (ex VAT) when 20 kWh is charged.
+But if less then 2 kWh is charged, 0.50 (ex VAT) will be billed.
+
+This is different from a start fee, see example above.
+
+[source,json]
+----
+include::examples/tariff_12_025kwh_min_price.json[]
+----
+
+
+[[mod_tariffs_tariff_example_0_25_euro_per_kwh_parking_start]]
+====== Tariff example 0.25 euro per kWh + parking fee + start fee
+
+* Start or transaction fee
+[disc]
+** 0.50 euro (excluding VAT)
+** 20% VAT
+* Energy
+[disc]
+** 0.25 euro per kWh (excluding VAT)
+** 10% VAT
+** Billed per 1 Wh
+* Parking
+[disc]
+** 2.00 euro per hour (excluding VAT)
+** 20% VAT
+** Billed per 15 min (900 seconds)
+
+[source,json]
+----
+include::examples/tariff_10_025kwh_parking_start.json[]
+----
+
+
+[[mod_tariffs_tariff_example_0_25_euro_per_kwh_start_max_price]]
+====== Tariff example 0.25 euro per kWh + start fee + max price + tariff end date
+
+* Start or transaction fee
+[disc]
+** 0.50 euro (excluding VAT)
+** 20% VAT
+* Energy
+[disc]
+** 0.25 euro per kWh (excluding VAT)
+** 10% VAT
+** Billed per 1 Wh
+
+This tariff has a maximum price of 25 euro (ex VAT).
+
+This tariff has an end date: 30 June 2019, this is typically used when a tariff is going to be replaced by a new tariff.
+A <<mod_locations.asciidoc#mod_locations_connector_object,Connector>> of a <<mod_locations.asciidoc#mod_locations_location_object,Location>> can have multiple tariffs (IDs).
+By assigning both the old and the new tariff ID, they will automatically be replaced. It is then not need to update all location at the same time, the old tariff can be removed later.
+
+[source,json]
+----
+include::examples/tariff_6_025kwh_start_max_price.json[]
+----
+
+
 [[mod_tariffs_simple_tariff_example_2_euro_per_hour]]
 ====== Simple Tariff example 2 euro per hour
-10% VAT
+
+An example of a tariff where the driver does not pay per kWh, but for the time of using the Charge Point.
+
+- 2.00 euro per hour charging (not per kWh) (excluding VAT)
+- 10% VAT
+- Billed per 1 minutes (60 seconds)
+
+As this is tariff is only has a `TIME` price_component, the driver will not be billed for time not charging: `PARKING_TIME`
 
 [source,json]
 ----
-{
-	"id": "12",
-	"currency": "EUR",
-	"type": "AD_HOC_PAYMENT",
-	"elements": [{
-		"price_components": [{
-			"type": "TIME",
-			"price": 2.00,
-			"vat": 10.0,
-			"step_size": 300
-		}]
-	}],
-	"last_updated": "2015-06-29T20:39:09Z"
-}
+include::examples/tariff_1_simple_2hour.json[]
 ----
+
+
+[[mod_tariffs_simple_tariff_example_3_euro_per_hour_5_euro_parking]]
+====== Simple Tariff example 3 euro per hour, 5 euro per hour parking
+
+Example of a tariff where the driver pays for the time of using the Charge Point, but pays more when the car is no longer charging,
+to discourage the EV driver of leaving his EV connected when it is full.
+
+* Charging time
+[disc]
+** 3.00 euro per hour charging (not per kWh) (excluding VAT)
+** 10% VAT
+** Billed per 1 minutes (60 seconds)
+* Parking
+[disc]
+** 5.00 euro per hour (excluding VAT)
+** 20% VAT
+** Billed per 5 min (300 seconds)
+
+[source,json]
+----
+include::examples/tariff_13_simple_3hour_5parking.json[]
+----
+
 
 [[mod_tariffs_simple_tariff_example_with_alternative_multi_language_text]]
-====== Simple Tariff example with alternative multi language text
+====== Ad-Hoc simple Tariff example with multiple languages
+
+For ad-hoc charging (paying for charging without a contract, the tariff `elements` are less needed.
+Normally no CDR will be send to an MSP for ad-hoc charging.
+Having a good human readable text is much more useful.
+
+- 2 euro per hour charging (not per kWh) (including VAT)
+- 5.2% VAT
+- Billed per 5 minutes (300 seconds)
 
 [source,json]
 ----
-{
-	"id": "12",
-	"currency": "EUR",
-	"type": "AD_HOC_PAYMENT",
-	"tariff_alt_text": [{
-		"language": "en",
-		"text": "2 euro p/hour"
-	}, {
-		"language": "nl",
-		"text": "2 euro p/uur"
-	}],
-	"elements": [{
-		"price_components": [{
-			"type": "TIME",
-			"price": 2.00,
-			"vat": 10.0,
-			"step_size": 300
-		}]
-	}],
-	"last_updated": "2015-06-29T20:39:09Z"
-}
+include::examples/tariff_2_alt_text.json[]
 ----
+
+
+[[mod_tariffs_adhoc_tariff_example_not_possible_with_ocpi]]
+====== Ad-Hoc Tariff example not possible with OCPI
+
+For this example, credit card start tariff is 0.50 euro, but when using a debit card it is only 0.25 euro.
+
+Such a tariff cannot be modeled with OCPI, but by modeling it as 0.50 euro start tariff,
+using a debit card as a discount of 0.25 euro. Nobody is likely to complain. But the `tariff_alt_text` explains this clearly.
+
+[source,json]
+----
+include::examples/tariff_11_not_possible_alt_text.json[]
+----
+
 
 [[mod_tariffs_simple_tariff_example_with_alternative_url]]
 ====== Simple Tariff example with alternative URL
 
+This examples shows the use of `tariff_alt_url`.
+
+This examples shows a `PROFILE_CHEAP` tariff. This is a smart-charging tariff.
+Were a driver selects to charge as cheaply as possible.
+In such case, the price might not be fixed, but depend on the real-time energy prices.
+To explain this to the driver, a short text inside `tariff_alt_text` might not be the best solution, maybe you want to show a graph.
+In such a case, an URL can be given that links to a better explanation of the tariff.
+
+- 0.25 euro per kWh (excluding VAT)
+- 10% VAT
+- Billed per 0.1 kWh (100 Wh)
+
 [source,json]
 ----
-{
-	"id": "12",
-	"currency": "EUR",
-	"type": "AD_HOC_PAYMENT",
-	"tariff_alt_url": "https://company.com/tariffs/12",
-	"elements": [{
-		"price_components": [{
-			"type": "TIME",
-			"price": 2.00,
-			"vat": 10.0,
-			"step_size": 300
-		}]
-	}],
-	"last_updated": "2015-06-29T20:39:09Z"
-}
+include::examples/tariff_3_alt_url.json[]
 ----
+
 
 [[mod_tariffs_complex_tariff_example]]
 ====== Complex Tariff example
@@ -378,78 +489,9 @@ VAT:
 
 [source,json]
 ----
-{
-	"id": "11",
-	"currency": "EUR",
-	"type": "REGULAR",
-	"tariff_alt_url": "https://company.com/tariffs/11",
-	"elements": [{
-		"price_components": [{
-			"type": "FLAT",
-			"price": 2.50,
-			"vat": 15.0,
-			"step_size": 1
-		}]
-	}, {
-		"price_components": [{
-			"type": "TIME",
-			"price": 1.00,
-			"vat": 20.0,
-			"step_size": 900
-		}],
-		"restrictions": {
-			"max_power": 32.00
-		}
-	}, {
-		"price_components": [{
-			"type": "TIME",
-			"price": 2.00,
-			"vat": 20.0,
-			"step_size": 600
-		}],
-		"restrictions": {
-			"min_power": 32.00,
-			"day_of_week": ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY"]
-		}
-	}, {
-		"price_components": [{
-			"type": "TIME",
-			"price": 1.25,
-			"vat": 20.0,
-			"step_size": 600
-		}],
-		"restrictions": {
-			"min_power": 32.00,
-			"day_of_week": ["SATURDAY", "SUNDAY"]
-		}
-	}, {
-		"price_components": [{
-			"type": "PARKING_TIME",
-			"price": 5.00,
-			"vat": 10.0,
-			"step_size": 300
-		}],
-		"restrictions": {
-			"start_time": "09:00",
-			"end_time": "18:00",
-			"day_of_week": ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY"]
-		}
-	}, {
-		"price_components": [{
-			"type": "PARKING_TIME",
-			"price": 6.00,
-			"vat": 10.0,
-			"step_size": 300
-		}],
-		"restrictions": {
-			"start_time": "10:00",
-			"end_time": "17:00",
-			"day_of_week": ["SATURDAY"]
-		}
-	}],
-	"last_updated": "2015-06-29T20:39:09Z"
-}
+include::examples/tariff_4_complex.json[]
 ----
+
 
 [[mod_tariffs_free_of_charge_tariff_example]]
 ====== Free of Charge Tariff example
@@ -457,19 +499,27 @@ In this example no VAT (that might not always be the case)
 
 [source,json]
 ----
-{
-    "id": "12",
-    "currency": "EUR",
-    "elements": [{
-        "price_components": [{
-            "type": "FLAT",
-            "price": 0.00,
-            "step_size": 0
-        }]
-    }],
-	"last_updated": "2015-06-29T20:39:09Z"
-}
+include::examples/tariff_5_free_of_charge.json[]
 ----
+
+
+[[mod_tariffs_first_hour_free_energy]]
+====== First hour free energy example
+
+* The first hour of parking time is free.
+* From the second to the fourth hour is 2.00 euro per hour
+* From the fourth on 3.00 euro per hour
+
+Something similar applies to the kWh consumed.
+
+* The first kWhs is free,
+* 0.20 euro per kWh for the rest.
+
+[source,json]
+----
+include::examples/tariff_7_first_hour_kwh_free.json[]
+----
+
 
 [[mod_tariffs_data_types]]
 === Data types
