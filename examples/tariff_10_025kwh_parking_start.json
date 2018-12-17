@@ -1,5 +1,5 @@
 {
-  "id": "13",
+  "id": "18",
   "currency": "EUR",
   "elements": [{
     "price_components": [{
@@ -11,7 +11,7 @@
       "type": "ENERGY",
       "price": 0.25,
       "vat": 10.0,
-      "step_size": 100
+      "step_size": 1
     }, {
       "type": "PARKING_TIME",
       "price": 2.00,

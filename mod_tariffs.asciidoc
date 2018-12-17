@@ -266,25 +266,12 @@ So as a rule: they both apply:
 [[mod_tariffs_examples]]
 ===== Examples
 
-[[mod_tariffs_simple_tariff_example_2_euro_per_hour]]
-====== Simple Tariff example 2 euro per hour
-
-- 2 euro per hour
-- 10% VAT
-- Billed per 1 minutes (60 seconds)
-
-[source,json]
-----
-include::examples/tariff_1_simple_2hour.json[]
-----
-
-
 [[mod_tariffs_simple_tariff_example_0_25_euro_per_kwh]]
 ====== Simple Tariff example 0.25 euro per kWh
 
-- 0.25 euro per kWh
+- 0.25 euro per kWh (excluding VAT)
 - 10% VAT
-- Billed per 0.1 kWh (100 Wh)
+- Billed per 1 Wh
 
 [source,json]
 ----
@@ -292,21 +279,43 @@ include::examples/tariff_8_simple_025kwh.json[]
 ----
 
 
-[[mod_tariffs_tariff_example_0_25_euro_per_kwh_parking]]
-====== Tariff example 0.25 euro per kWh + parking fee
+[[mod_tariffs_tariff_example_0_25_euro_per_kwh_start]]
+====== Tariff example 0.25 euro per kWh + start fee
 
-* Energy
-** 0.25 euro per kWh
-** 10% VAT
-** Billed per 0.1 kWh (100 Wh)
-* Parking
-** 2.00 euro per hour
+* Start or transaction fee
+[disc]
+** 0.50 euro (excluding VAT)
 ** 20% VAT
-** Billed per 15 min (900 seconds)
+* Energy
+[disc]
+** 0.25 euro per kWh (excluding VAT)
+** 10% VAT
+** Billed per 1 Wh
+
+This tariff will result in costs of 5.50 euro (ex VAT) when 20 kWh is charged.
 
 [source,json]
 ----
-include::examples/tariff_9_025kwh_parking.json[]
+include::examples/tariff_9_025kwh_start.json[]
+----
+
+
+[[mod_tariffs_tariff_example_0_25_euro_per_kwh_min_price]]
+====== Tariff example 0.25 euro per kWh + minimum price
+
+* minimum price 0.50 (ex VAT)
+* 0.25 euro per kWh (excluding VAT)
+* 10% VAT
+* Billed per 1 Wh
+
+This tariff will result in costs of 5.00 euro (ex VAT) when 20 kWh is charged.
+But if less then 2 kWh is charged, 0.50 (ex VAT) will be billed.
+
+This is different from a start fee, see example above.
+
+[source,json]
+----
+include::examples/tariff_12_025kwh_min_price.json[]
 ----
 
 
@@ -314,14 +323,17 @@ include::examples/tariff_9_025kwh_parking.json[]
 ====== Tariff example 0.25 euro per kWh + parking fee + start fee
 
 * Start or transaction fee
-** 0.50 euro
+[disc]
+** 0.50 euro (excluding VAT)
 ** 20% VAT
 * Energy
-** 0.25 euro per kWh
+[disc]
+** 0.25 euro per kWh (excluding VAT)
 ** 10% VAT
-** Billed per 0.1 kWh (100 Wh)
+** Billed per 1 Wh
 * Parking
-** 2.00 euro per hour
+[disc]
+** 2.00 euro per hour (excluding VAT)
 ** 20% VAT
 ** Billed per 15 min (900 seconds)
 
@@ -331,8 +343,56 @@ include::examples/tariff_10_025kwh_parking_start.json[]
 ----
 
 
+[[mod_tariffs_simple_tariff_example_2_euro_per_hour]]
+====== Simple Tariff example 2 euro per hour
+
+An example of a tariff where the driver does not pay per kWh, but for the time of using the Charge Point.
+
+- 2.00 euro per hour charging (not per kWh) (excluding VAT)
+- 10% VAT
+- Billed per 1 minutes (60 seconds)
+
+As this is tariff is only has a `TIME` price_component, the driver will not be billed for time not charging: `PARKING_TIME`
+
+[source,json]
+----
+include::examples/tariff_1_simple_2hour.json[]
+----
+
+
+[[mod_tariffs_simple_tariff_example_3_euro_per_hour_5_euro_parking]]
+====== Simple Tariff example 3 euro per hour, 5 euro per hour parking
+
+Example of a tariff where the driver pays for the time of using the Charge Point, but pays more when the car is no longer charging,
+to discourage the EV driver of leaving his EV connected when it is full.
+
+* Charging time
+[disc]
+** 3.00 euro per hour charging (not per kWh) (excluding VAT)
+** 10% VAT
+** Billed per 1 minutes (60 seconds)
+* Parking
+[disc]
+** 5.00 euro per hour (excluding VAT)
+** 20% VAT
+** Billed per 5 min (300 seconds)
+
+[source,json]
+----
+include::examples/tariff_13_3hour_5parking.json[]
+----
+
+
 [[mod_tariffs_simple_tariff_example_with_alternative_multi_language_text]]
-====== Simple Tariff example with alternative multi language text
+====== Ad-Hoc simple Tariff example with multiple languages
+
+For ad-hoc charging (paying for charging without a contract, the tariff `elements` are less needed.
+Normally no CDR will be send to an MSP for ad-hoc charging.
+Having a good human readable text is much more useful.
+
+- 2 euro per hour charging (not per kWh) (including VAT)
+- 5.2% VAT
+- Billed per 5 minutes (300 seconds)
 
 [source,json]
 ----
@@ -340,8 +400,34 @@ include::examples/tariff_2_alt_text.json[]
 ----
 
 
+[[mod_tariffs_simple_tariff_example_with_alternative_multi_language_text]]
+====== Ad-Hoc Tariff example not possible with OCPI
+
+For this example, credit card start tariff is 0.50 euro, but when using a debit card it is only 0.25 euro.
+
+Such a tariff cannot be modeled with OCPI, but by modeling it as 0.50 euro start tariff,
+using a debit card as a discount of 0.25 euro. Nobody is likely to complain. But the `tariff_alt_text` explains this clearly.
+
+[source,json]
+----
+include::examples/tariff_11_not_possible_alt_text.json[]
+----
+
+
 [[mod_tariffs_simple_tariff_example_with_alternative_url]]
 ====== Simple Tariff example with alternative URL
+
+This examples shows the use of `tariff_alt_url`.
+
+This examples shows a `PROFILE_CHEAP` tariff. This is a smart-charging tariff.
+Were a driver selects to charge as cheaply as possible.
+In such case, the price might not be fixed, but depend on the real-time energy prices.
+To explain this to the driver, a short text inside `tariff_alt_text` might not be the best solution, maybe you want to show a graph.
+In such a case, an URL can be given that links to a better explanation of the tariff.
+
+- 0.25 euro per kWh (excluding VAT)
+- 10% VAT
+- Billed per 0.1 kWh (100 Wh)
 
 [source,json]
 ----
