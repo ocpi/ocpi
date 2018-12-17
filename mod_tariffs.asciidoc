@@ -268,12 +268,66 @@ So as a rule: they both apply:
 
 [[mod_tariffs_simple_tariff_example_2_euro_per_hour]]
 ====== Simple Tariff example 2 euro per hour
-10% VAT
 
+- 2 euro per hour
+- 10% VAT
+- Billed per 1 minutes (60 seconds)
 
 [source,json]
 ----
 include::examples/tariff_1_simple_2hour.json[]
+----
+
+
+[[mod_tariffs_simple_tariff_example_0_25_euro_per_kwh]]
+====== Simple Tariff example 0.25 euro per kWh
+
+- 0.25 euro per kWh
+- 10% VAT
+- Billed per 0.1 kWh (100 Wh)
+
+[source,json]
+----
+include::examples/tariff_8_simple_025kwh.json[]
+----
+
+
+[[mod_tariffs_tariff_example_0_25_euro_per_kwh_parking]]
+====== Tariff example 0.25 euro per kWh + parking fee
+
+* Energy
+** 0.25 euro per kWh
+** 10% VAT
+** Billed per 0.1 kWh (100 Wh)
+* Parking
+** 2.00 euro per hour
+** 20% VAT
+** Billed per 15 min (900 seconds)
+
+[source,json]
+----
+include::examples/tariff_9_025kwh_parking.json[]
+----
+
+
+[[mod_tariffs_tariff_example_0_25_euro_per_kwh_parking_start]]
+====== Tariff example 0.25 euro per kWh + parking fee + start fee
+
+* Start or transaction fee
+** 0.50 euro
+** 20% VAT
+* Energy
+** 0.25 euro per kWh
+** 10% VAT
+** Billed per 0.1 kWh (100 Wh)
+* Parking
+** 2.00 euro per hour
+** 20% VAT
+** Billed per 15 min (900 seconds)
+
+[source,json]
+----
+include::examples/tariff_10_025kwh_parking_start.json[]
 ----
 
 

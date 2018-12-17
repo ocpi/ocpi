@@ -1,0 +1,18 @@
+{
+  "id": "13",
+  "currency": "EUR",
+  "elements": [{
+    "price_components": [{
+      "type": "ENERGY",
+      "price": 0.25,
+      "vat": 10.0,
+      "step_size": 100
+    }, {
+      "type": "PARKING_TIME",
+      "price": 2.00,
+      "vat": 20.0,
+      "step_size": 900
+    }]
+  }],
+  "last_updated": "2018-12-17T11:36:01Z"
+}
