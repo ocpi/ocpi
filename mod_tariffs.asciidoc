@@ -244,7 +244,7 @@ See: <<mod_tariffs_free_of_charge_tariff_example,Free of Charge Tariff example>>
 |tariff_alt_text |<<types.asciidoc#types_displaytext_class,DisplayText>> |* |List of multi language alternative tariff info text
 |tariff_alt_url |<<types.asciidoc#types_url_type,URL>> |? |Alternative URL to tariff info 
 |min_price |<<types.asciidoc#types_price_class,Price>> |? |When this field is set, a Charging Session with this tariff will minimum cost this amount.
-      This is different from a "Start Tariff, Transaction Fee, Start Fee, Session Fee etc.", such a fee is a fixed amount that has to be payed for any Charging Session.
+      This is different from a `FLAT` fee (Start Tariff, Transaction Fee), such a fee is a fixed amount that has to be payed for any Charging Session.
       A Minimum price means that when the cost of a Charging Session is lower then this amount, the cost of the Session will be equal to this amount. Also see note below.
 |max_price |<<types.asciidoc#types_price_class,Price>> |? |When this field is set, a Charging Session with this tariff will NOT cost more then this amount. See note below.
 |elements |<<mod_tariffs_tariffelement_class,TariffElement>> |+ |List of tariff elements
@@ -553,9 +553,54 @@ include::examples/tariff_7_first_hour_kwh_free.json[]
 |step_size |int |1 |Minimum amount to be billed. This unit will be billed in this step_size blocks. For example: if type is time and step_size is 300, then time will be billed in blocks of 5 minutes, so if 6 minutes is used, 10 minutes (2 blocks of step_size) will be billed.
 |===
 
-The `step_size` also depends on the `type`, every `type` (except `FLAT`) defines a step_size multiplier, this is the size of every 'step' for that type in the gaven unit.
+NOTE: `step_size`: depends on the `type`, every `type` (except `FLAT`) defines a step_size multiplier, this is the size of every 'step' for that type in the gaven unit.
 For example: `PARKING_TIME` has 'step_size multiplier: 1 second' That means that the `step_size` of a `PriceComponent` is multiplied by 1 second.
-Thus a `step_size = 300` means 300 seconds. 
+Thus a `step_size = 300` means 300 seconds = 5 minutes.
+
+NOTE: `step_size` shall only be taken into account for the last <<mod_tariffs_tariffelement_class,`TariffElement`>>
+and when switching to another <<mod_tariffs_tariffelement_class,`TariffElement`>> for the <<mod_tariffs_pricecomponent_class,`PriceComponents`>>
+that are not in the new <<mod_tariffs_tariffelement_class,`TariffElement`>>.
+The same rule applies in case there is a switch between 2 tariffs
+(for example when a driver selects a different <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,Charging Preference>> <<mod_sessions.asciidoc#mod_sessions_profile_type_enum,`profile_type`>>).
+
+
+===== Examples tariff
+Example tariff for explaining `step_size` when switching from one <<mod_tariffs_tariffelement_class,`TariffElement`>> to another:
+
+- Charging cost 1.20 euro p/hour before 17:00, step_size: 30 minutes (1800 seconds)
+- Charging cost 2.40 euro p/hour after 17:00, step_size: 15 minutes (900 seconds)
+- Parking  cost 1.00 euro p/hour before 20:00, step_size: 15 minutes (900 seconds)
+
+[source,json]
+----
+include::examples/tariff_14_step_size.json[]
+----
+
+===== Example switch to different price:
+
+An EV driver plugs in at 16:55, charges for 10 min (TIME), stops charging but stays plugged in for 2 min (PARKING TIME), and then leaves. Total session time = 12min.
+
+- 5 billable minutes charging time before 17:00: 1.20 euro p/hour = 0.10 euro
+- 10 billable minutes charging time after 17:00: 2.40 euro p/hour = 0.40 euro (10 minutes billed instead of 5: step_size is 15 minutes in the last tariff element, so total charging time is billed for 15 minutes)
+- 15 billable minutes parking time: 1 euro p/hour = 0.25 euro
+- 0.75 euro total for this session.
+
+
+===== Example switching to free tariff element:
+
+When parking becomes free after 20:00, the new <<mod_tariffs_tariffelement_class,`TariffElement`>> after 20:00 will not contain a
+<<mod_tariffs_tariffdimensiontype_enum,`PARKING_TIME`>> <<mod_tariffs_pricecomponent_class,`PriceComponent`>>. So the last parking period that needs to be payed,
+before 20:00, will be billed per step_size of the <<mod_tariffs_tariffdimensiontype_enum,`PARKING_TIME`>> <<mod_tariffs_pricecomponent_class,`PriceComponent`>> before 20:00.
+
+Example of this:
+
+An EV driver plugs in at 19:55, charges for 10 min (TIME), stops charging but stays plugged in for 2 min (PARKING TIME), and then leaves. Total session time = 12min.
+
+- 5 billable minutes charging time before 20:00: 2.40 euro p/hour = 0.20 euro
+- 10 billable minutes charging time after 20.00: 2.40 euro p/hour = 0.40 euro (10 minutes billed instead of 5: step_size is 15 minutes in the last tariff element, so total charging time is billed for 15 minutes)
+- 15 billable minutes parking time: 1 euro p/hour = 0.25 euro (15 minutes billed instead of 5: step_size of the last PARKING_TIME is 900: 15 minutes)
+- 0.85 euro total for this session.
+
 
 [[mod_tariffs_tariffelement_class]]
 ==== TariffElement _class_
