@@ -394,8 +394,8 @@ Defines when authorization of a Token by the CPO is allowed.
 |===
 |Value |Description 
 
-|ALWAYS |Token always has to be whitelisted, <<mod_tokens_real-time_authorization,realtime authorization>> is not possible/allowed. 
-|ALLOWED |It is allowed to whitelist the token, <<mod_tokens_real-time_authorization,realtime authorization>> is also allowed. 
-|ALLOWED_OFFLINE |Whitelisting is only allowed when CPO cannot reach the eMSP (communication between CPO and eMSP is offline) 
-|NEVER |Whitelisting is forbidden, only <<mod_tokens_real-time_authorization,realtime authorization>> is allowed. Token should always be authorized by the eMSP. 
+|ALWAYS |Token always has to be whitelisted, <<mod_tokens_real-time_authorization,realtime authorization>> is not possible/allowed. CPO shall always allow any use of this Token.
+|ALLOWED |It is allowed to whitelist the token, <<mod_tokens_real-time_authorization,realtime authorization>> is also allowed. The CPO may choose which version of authorization to use.
+|ALLOWED_OFFLINE |In normal situations <<mod_tokens_real-time_authorization,realtime authorization>> shall be used. But when the CPO cannot get a response from the eMSP (communication between CPO and eMSP is offline), the CPO shall allow this Token to be used.
+|NEVER |Whitelisting is forbidden, only <<mod_tokens_real-time_authorization,realtime authorization>> is allowed. CPO shall always send a <<mod_tokens_real-time_authorization,realtime authorization>> for any use of this Token to the eMSP.
 |===
