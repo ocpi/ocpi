@@ -317,8 +317,9 @@ The _Location_ object describes the location and its properties where a group of
 |name |<<types.asciidoc#types_string_type,string>>(255) |? |Display name of the location. 
 |address |<<types.asciidoc#types_string_type,string>>(45) |1 |Street/block name and house number if available. 
 |city |<<types.asciidoc#types_string_type,string>>(45) |1 |City or town. 
-|postal_code |<<types.asciidoc#types_string_type,string>>(10) |1 |Postal code of the location. 
-|country |<<types.asciidoc#types_string_type,string>>(3) |1 |ISO 3166-1 alpha-3 code for the country of this location. 
+|postal_code |<<types.asciidoc#types_string_type,string>>(10) |? |Postal code of the location, may only be omitted when the location has no postal code: in some countries charging location at highways don't have postal codes.
+|state |<<types.asciidoc#types_string_type,string>>(20) |? |State or Province of the location, only use when relevant.
+|country |<<types.asciidoc#types_string_type,string>>(3) |1 |ISO 3166-1 alpha-3 code for the country of this location.
 |coordinates |<<mod_locations_geolocation_class,GeoLocation>> |1 |Coordinates of the location. 
 |related_locations |<<mod_locations_additionalgeolocation_class,AdditionalGeoLocation>> |* |Geographical location of related points relevant to the user. 
 |evses |<<mod_locations_evse_object,Location>> |* |List of EVSEs that belong to this Location. 

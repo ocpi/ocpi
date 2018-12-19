@@ -146,6 +146,22 @@ Minor
 Minimal
 |removed to option for either: twentyfourseven or regular_hours, now regular_hours is always required, this is much less confusing.
 
+|Locations / +
+Location Object
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Added `state` field, optional, to allow as much different address schemes from around the world as possible..
+
+|Locations / +
+Location Object
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Changed `postal_code` field from required to optional, with the remark that omitting is only allowed when location has no postal_code.
+
 |Sessions / +
 CPO PUT method
 |Medium / +
