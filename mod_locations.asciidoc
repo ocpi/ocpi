@@ -4,6 +4,8 @@
 
 *Module Identifier: `locations`*
 
+*Data owner: `CPO`*
+
 The Location objects live in the CPO back-end system. They describe the charging locations of that operator.
 
 *Module dependency:* the eMSP endpoint is dependent on the <<mod_tariffs.asciidoc#mod_tariffs_tariffs_module,Tariffs module>>

@@ -211,6 +211,8 @@ PUT is used to send new objects to the servers.
 
 If a client tries to access an object with a URL that has a different <<credentials.asciidoc#credentials_credentials_object,country_code>> and/or <<credentials.asciidoc#credentials_credentials_object,party_id>> then given during the <<credentials.asciidoc#credentials_credentials_endpoint,credentials>> handshake, it is allowed the respond with a HTTP `404` status code, this way blocking client access to objects that do not belong to them.
 
+To identified the owner of data, the party generating the information that is provided to other parties via OCPI, a 'Data owner' is provided at the beginning of every module that has a clear owner.
+
 [[transport_and_format_errors]]
 ===== Errors
 

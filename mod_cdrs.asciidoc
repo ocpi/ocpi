@@ -4,6 +4,8 @@
 
 *Module Identifier: `cdrs`*
 
+*Data owner: `CPO`*
+
 A *Charge Detail Record* is the description of a concluded charging
 session. The CDR is the only billing-relevant object.
 CDRs are sent from the CPO to the eMSP after the charging session has ended.
