@@ -34,17 +34,6 @@ This response doesn't always mean that the command was executed successfully.
 The CPO will forward the result in a new POST request to the eMSP Commands interface.
 
 The following examples try to give insight into the message flow and the asynchronous nature of the OCPI Commands.
-Example of a `UNLOCK_CONNECTOR` that fails because the Location is not known by the CPO.
-
-.UNLOCK_CONNECTOR Unknown Location
-image::images/command_unlock_unknow_location.svg["UNLOCK_CONNECTOR Unknown Location"]
-
-
-Example of a `RESERVE_NOW` that is rejected by the Charge Point.
-
-.RESERVE_NEW rejected by Charge Point
-image::images/command_reservenow_rejected.svg[RESERVE_NEW rejected by Charge Point]
-
 
 Example of a `START_SESSION` that is accepted, but no new Session is started because EV not plugged in before end of time-out.
 This is an example for Charge Point that allows a remote start when the cable is not yet plugged in.
@@ -65,6 +54,20 @@ Example of a `START_SESSION` that is accepted and results in a new Session.
 
 .START_SESSION successful
 image::images/command_start_session_succesful.svg[START_SESSION successful]
+
+Example of a `UNLOCK_CONNECTOR` that fails because the Location is not known by the CPO.
+
+.UNLOCK_CONNECTOR Unknown Location
+image::images/command_unlock_unknow_location.svg["UNLOCK_CONNECTOR Unknown Location"]
+
+
+Example of a `RESERVE_NOW` that is rejected by the Charge Point.
+
+.RESERVE_NEW rejected by Charge Point
+image::images/command_reservenow_rejected.svg[RESERVE_NEW rejected by Charge Point]
+
+
+
 
 _These examples use OCPP 1.6 based commands between CPO and Charge Point, but that is not a requirement for OCPI._
 
