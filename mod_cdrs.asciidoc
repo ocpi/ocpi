@@ -181,12 +181,17 @@ Example: Location: /ocpi/emsp/2.0/cdrs/123456
 
 The _CDR_ object describes the Charging Session and its costs, how these costs are built up, etc.
 
-The CDR object is different from the <<mod_sessions.asciidoc#mod_sessions_session_object,Session>> object. The Session contains a lot of references to other information.
-For the Session that works, if information changes during or after a Charging Session, that is not a problem.
-For a CDR changing information after a Charging Session has ended, is a problem: What if the address of a <<mod_locations.asciidoc#mod_locations_location_object,Location>> is changed.
-The Driver will not recognize that he has charged at that address. <<mod_tokens.asciidoc#mod_tokens_token_object,Token>> auth_id might change, this should never impact an existing CDR.
+The CDR object is different from the <<mod_sessions.asciidoc#mod_sessions_session_object,Session>> object.
+The <<mod_sessions.asciidoc#mod_sessions_session_object,Session>> object is dynamic as it reflects the current state of the charging session.
+The information is meant to be viewed by the driver while the charging session is ongoing.
 
-The _CDR_ object shall always contain information like location, EVSE, Tariffs and tokens as they were at the START of the Charging Session.
+The CDR on the other hand can be thought of as "sealed",
+preserving the information valid at the moment in time the underlying session was started.
+This is a requirement of the main use case for CDRs, namely invoicing.
+If e.g. a street is renamed the day after a session took place, the driver should be presented with the name valid at the time the session was started.
+This guarantees that CDR will be recognized as correct by the driver and not contested.
+
+The _CDR_ object shall always contain information like location, EVSE, Tariffs and Token as they were at the START of the Charging Session.
 
 [cols="3,3,1,10",options="header"]
 |===
