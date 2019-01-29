@@ -37,6 +37,13 @@ _IHomer_ |First draft of OCPI 2.2: contains lots of minor changes, some new feat
 
 *Document revisions*
 There can be multiple documentation revisions of the same version of the OCPI protocol.
-The newer revisions of the same protocol version can never change the content of the messages: no new fields or renaming of fields. A new revision can only clarify/fix texts/descriptions and fix typos etc.
 
-These revisions (not the first) will be named: d2, d3, d4 etc.
+The newer documentation revisions of the same protocol version can never change the content of the messages: no new fields or renaming of fields. A new revision can only clarify/fix texts/descriptions and fix typos etc.
+
+These documentation revisions (not the first) will be named: d2, d3, d4 etc.
+
+Examples:
+
+- OCPI 2.1.1 is a different protocol version of OCPI then OCPI 2.1.
+
+- OCPI 2.0-d2 is the same protocol version as OCPI 2.0, but a newer documentation revision: same protocol, newer documentation.
