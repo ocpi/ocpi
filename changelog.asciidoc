@@ -128,7 +128,7 @@ Capability enum
 Minor
 |Minimal / +
 Minimal
-|added new values for: `CHARGING_PREFERENCES_CAPABLE` and `DEBIT_CARD_PAYABLE `.
+|added new values for: `CHARGING_PREFERENCES_CAPABLE`, `DEBIT_CARD_PAYABLE` and `TOKEN_GROUP_CAPABLE`.
 
 |Locations / +
 EnvironmentalImpact class

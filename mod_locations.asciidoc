@@ -446,6 +446,7 @@ The capabilities of an EVSE.
 |REMOTE_START_STOP_CAPABLE |The EVSE can remotely be <<mod_commands.asciidoc#mod_commands_startsession_object,started>>/<<mod_commands.asciidoc#mod_commands_stopsession_object,stopped>>.
 |RESERVABLE |The EVSE can be <<mod_commands.asciidoc#mod_commands_reservenow_object,reserved>>.
 |RFID_READER |Charging at this EVSE can be authorized with a RFID token 
+|TOKEN_GROUP_CAPABLE |This EVSE supports token groups, two or more tokens work as one, so that a session can be started with one token and stopped with another, handy when a card and key-fob are given to the EV-driver.
 |UNLOCK_CAPABLE |Connectors have mechanical lock that can be requested by the eMSP to be <<mod_commands.asciidoc#mod_commands_unlockconnector_object,unlocked>>.
 |===
 
