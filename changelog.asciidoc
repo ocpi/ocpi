@@ -185,7 +185,7 @@ Session Object
 Minor
 | Minimal / +
 Minimal
-|Replace `auth_id` with `token_uid` and `token_type`. `auth_id` alone could not be used to uniquely identify a <<mod_tokens.asciidoc#mod_tokens_token_object,Token>>.
+|Replaced `auth_id` with `CdrToken` class. `auth_id` alone could not be used to uniquely identify a <<mod_tokens.asciidoc#mod_tokens_token_object,Token>>.
 
 |Sessions / +
 Session Object

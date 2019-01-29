@@ -261,8 +261,7 @@ include::examples/session_patch_example_total_cost.json[]
 |start_datetime |<<types.asciidoc#types_datetime_type,DateTime>> |1 |The time when the session became active. 
 |end_datetime |<<types.asciidoc#types_datetime_type,DateTime>> |? |The time when the session is completed. 
 |kwh |<<types.asciidoc#types_number_type,number>> |1 |How many kWh are charged. 
-|token_uid |<<types.asciidoc#types_string_type,string>>(36) |1 |UID of the <<mod_tokens.asciidoc#mod_tokens_token_object,Token>> used to start the Charging Session, combination: Token.UID and Token.type, uniquely identifies a <<mod_tokens.asciidoc#mod_tokens_token_object,Token>>.
-|token_type |<<mod_tokens_tokentype_enum,TokenType>> |1 |Type of the <<mod_tokens.asciidoc#mod_tokens_token_object,Token>> used to start the Charging Session, combination: Token.UID and Token.type, uniquely identifies a <<mod_tokens.asciidoc#mod_tokens_token_object,Token>>.
+|cdr_token |<<mod_cdrs.asciidoc#mod_cdrs_cdr_token_object,CdrToken>> |1 |Token used to start this Charging Session, includes all the relevant information to identify the unique token.
 |auth_method |<<mod_cdrs.asciidoc#mod_cdrs_authmethod_enum,AuthMethod>> |1 |Method used for authentication.
 |location_id |<<types.asciidoc#types_string_type,string>>(39) |1 |Location.id of the Location object of this CPO, on which the Charging Session is ongoing.
 |evse_uid |<<types.asciidoc#types_string_type,string>>(39) |1 |EVSE.uid of the EVSE of this Location on which the Charging Session is ongoing.
