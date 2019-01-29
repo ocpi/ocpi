@@ -67,14 +67,13 @@ Example of a `RESERVE_NOW` that is rejected by the Charge Point.
 image::images/command_reservenow_rejected.svg[RESERVE_NEW rejected by Charge Point]
 
 
-
-
 _These examples use OCPP 1.6 based commands between CPO and Charge Point, but that is not a requirement for OCPI._
+
 
 [[mod_commands_interfaces_and_endpoints]]
 === Interfaces and endpoints
 
-The commands module consists of two interfaces: a CPO interface that enables a eMSP (and its clients) to send commands to a Charge Point and an eMSP interface to receive the response from the Charge Point asynchronously.
+The commands module consists of two interfaces: a CPO interface that enables a eMSP (and its clients) to send commands to a Location/EVSE and an eMSP interface to receive the response from the Location/EVSE asynchronously.
 
 [[mod_commands_cpo_interface]]
 ==== CPO Interface
@@ -180,6 +179,7 @@ Example:
 
 |<<mod_commands_commandresult_object,CommandResult>> |1 |Result of the command request, from the Charge Point.
 |===
+
 
 [[mod_commands_object_description]]
 === Object description
@@ -299,7 +299,7 @@ Response to the command request from the MSP to the CPO.
 |Value |Description 
 
 |NOT_SUPPORTED |The requested command is not supported by this CPO, Charge Point, EVSE etc.
-|REJECTED |Command request rejected by the CPO.
+|REJECTED |Command request rejected by the CPO. (Session might not be from a customer of the MSP that send this request)
 |ACCEPTED |Command request accepted by the CPO.
 |UNKNOWN_SESSION |The Session in the requested command is not known by this CPO.
 |===
