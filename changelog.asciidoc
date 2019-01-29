@@ -40,7 +40,7 @@ CDR Object
 Minor
 |Minimal / +
 Minimal
-|Replaced `auth_id` field with `Token`. For CDRs it is better to include the full object instead of a reference, changes made to a Token after CDR is created should have no impact on a CDR. By copying the state of the Token into the CDR, this is better.
+|Replaced `auth_id` field with `CdrToken`. `auth_id` alone could not be used to uniquely identify a <<mod_tokens.asciidoc#mod_tokens_token_object,Token>>. By copying the information for the dynamic Token object, the CDR will always reflect the 'true' status of Token at the start of the charging session.
 
 |CDRs / +
 CDR Object
