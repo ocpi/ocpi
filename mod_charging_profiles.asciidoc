@@ -40,22 +40,21 @@ It is the result of the calculation of all smart charging inputs present in the 
 
 TODO
 
-- An MSP sends a ChargingProfile to manipulate an ongoing charging session of one of its customers.
-- An MSP request the planned ChargingProfile for an ongoing charging session for a customer of the MSP.
-- An MSP request to remove the set ChargingProfile from an ongoing charging session for a customer of the MSP.
+- An eMSP sends a ChargingProfile to manipulate an ongoing charging session of one of its customers.
+- An eMSP request the planned ChargingProfile for an ongoing charging session for a customer of the MSP.
+- An eMSP request to remove the set ChargingProfile from an ongoing charging session for a customer of the MSP.
+- The CPO updates the eMSP of changes to an CompositeSchedule.
 
-TODO
 
 
 [[mod_charging_profiles_flow]]
 === Flow
 
-TODO update this section:
 
 The ChargingProfile creation is a request to activate a charging profile on a running charging session.
 
 Most Charge Points are hooked up to the internet via a relative slow wireless connection. To prevent long blocking calls,
-the ChargingProfile module is designed to work asynchronously. (simular to the <<mod_commands.asciidoc#mod_commands_commands_module,`Commands`>> module.
+the ChargingProfile module is designed to work asynchronously. (similar to the <<mod_commands.asciidoc#mod_commands_commands_module,`Commands`>> module.
 
 The eMSP send a request to a CPO, via the CPO Commands interface.
 The CPO checks if it can send the request to a Charge Point and will respond to the request with a status, indicating if the request can be sent to a Charge Point.
@@ -65,16 +64,14 @@ The Charge Point will respond if it understands the command and will try to exec
 This response doesn't always mean that the ChargingProfile will be executed.
 The CPO will forward the result in a new POST request to the eMSP ChargingProfile interface.
 
-The eMSP creates the object on the CPO system.
-The CPO can update the status of a ChargingProfile on the eMSP system using the PATCH method. (TODO is this correct?)
+The eMSP can send the Charging Profile to the EVSE via the CPO by using the <<mod_charging_profiles_cpo_put_method,CPO PUT method>> for an ongoing session.
+The eMSP can request the current schedule the EVSE has calculated, based on different inputs, and is planned to be used for the ongoing session by calling the <<mod_charging_profiles_cpo_get_method,CPO GET method>>.
+The eMSP has the ability to remove the Charging Profile for the session by calling the <<mod_charging_profiles_cpo_delete_method,CPO DELETE method>>
 
-The eMSP can update the ChargingProfile by sending a new ChargingProfile.
-This will append or replace (if the time periods overlap) any previous ChargingProfile. (TODO this does work with OCPP? append?)
-In this case, the previous ChargingProfile will be updated with the status OVERRIDDEN.
-The eMSP can also cancel an active ChargingProfile by using the DELETE method.
-In response, the CPO will update the charging profile to status CANCELLED.
-The CPO can reject a new profile and can also cancel an existing, active ChargingProfile.
-It can let the eMSP know by updating the status of the ChargingProfile object to REJECTED.
+When the eMSP has (at least once) successfully send a Charging Profile for an ongoing charging session,
+the CPO keeps the eMSP updated of changes to the CompositeSchedule, if the CPO is aware of any changes, by calling the <<mod_charging_profiles_msp_put_method,MSP PUT method>>
+
+The CPO can cancel an existing ChargingProfile, it can let the eMSP know by calling the <<mod_charging_profiles_msp_put_method,MSP PUT method>>
 
 
 TODO Added examples for:
@@ -83,6 +80,8 @@ TODO Added examples for:
 - SetChargingProfile
 - ClearChargingProfile
 - UpdateCompositeSchedule
+
+TODO Add examples
 
 
 [[mod_charging_profiles_interfaces_and_endpoints]]
@@ -298,10 +297,10 @@ The response to the POST on the eMSP interface SHALL contain the <<transport_and
 Updates the eMSP when the CPO knows the CompositeSchedule has changed.
 
 The CPO SHALL call this interface every time it knows changes have been made that influence the CompositeProfile for an ongoing session AND
-the eMSP has at least once called the charging profile CPO PUT interface for this session (SetChargingProfile).
+the eMSP has at least once successfully called the charging profile CPO PUT interface for this session (SetChargingProfile).
 If the CPO doesn't know the composite schedule has changed (EVSE does not notify the CPO of the change) it is not required to call this interface.
 
-The CPO SHALL NOT call this interface for any session where the eMSP has never called the charging profile CPO PUT interface for this session (SetChargingProfile).
+The CPO SHALL NOT call this interface for any session where the eMSP has never, successfully called the charging profile CPO PUT interface for this session (SetChargingProfile).
 
 The CPO SHALL send a useful relevant duration of CompositeSchedule to send to the eMSP. As a guide: between 5 and 60 minutes.
 If the eMSP wants a longer CompositeSchedule the eMSP can always do a GEt with a longer duration.
@@ -321,7 +320,7 @@ The following parameters can be provided as URL segments.
 |session_id |<<types.asciidoc#types_string_type,string>>(36) |yes |The unique id that identifies the session in the CPO platform.
 |===
 
-[[mod_charging_profiles_msp_put_request_body]]
+[[mod_charging_profiles_cpo_put_request_body]]
 ===== Request Body
 
 The body contains an SetChargingProfile object, that contains the new ChargingProfile and a response URL.
