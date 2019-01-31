@@ -144,7 +144,7 @@ Hours class
 Minor
 |Minimal / +
 Minimal
-|removed to option for either: twentyfourseven or regular_hours, now regular_hours is always required, this is much less confusing.
+|removed to option for either: twentyfourseven or regular_hours, now twentyfourseven is always required and regular_hours is required when twentyfourseven=false, this is much less confusing.
 
 |Locations / +
 Location Object
