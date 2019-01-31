@@ -110,7 +110,7 @@ The Module identifiers for each endpoint are in the beginning of each _Module_ c
 |Module |ModuleID |Remark 
 
 |<<mod_cdrs.asciidoc#mod_cdrs_cdrs_module,CDRs>> |cdrs |
-|<<mod_charging_profiles.asciidoc#mod_charging_profiles,ChargingProfiles>> |chargingprofiles |
+|<<mod_charging_profiles.asciidoc#mod_charging_profiles_module,ChargingProfiles>> |chargingprofiles |
 |<<mod_commands.asciidoc#mod_commands_commands_module,Commands>> |commands |
 |<<credentials.asciidoc#credentials_credentials_endpoint,Credentials &amp; registration>> |credentials |Required for all implementations 
 |<<mod_locations.asciidoc#mod_locations_locations_module,Locations>> |locations |

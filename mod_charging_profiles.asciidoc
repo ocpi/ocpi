@@ -5,32 +5,52 @@
 *Module Identifier: `charging_profiles`*
 
 With the ChargingProfiles module, parties (MSPs) can send (Smart) Charging Profiles to a Location/EVSE.
-It is also possible to request the 'CompositeSchedule' from a Location/EVSE.
+It is also possible to request the 'CompositeProfile' from a Location/EVSE.
 
 The ChargingProfile is similar to the concept of Charging Profiles in OCPP,
 but exposes this functionality to third parties.
 These objects and the accompanying interfaces make certain abstractions that make them more suitable for energy parties to signal their intent.
+The data structures are base on OCPP 1.6 and 2.0 to make conversion of messages between OCPI and OCPP easy.
 
-
-TODO add description that this is a request by the MSP, the CPO and Location/EVSE can have other inputs, like local energy limits, that can reduce the charging speed even more then the requested Charging Profile. The EV can charge slower etc, .... TODO
-
+NOTE: Charging Profiles set via this module are no garantue that the EV will charge with the exact given limit.
+A lot of factors influence the charging speed. The EV might not take the amount of energy that the EVSE is willing to provide to it.
+The battery might be to warm. The cable might be one phase on a three phase charger etc.
+There can be local energy limits (load balancing between EVSE on a relative small energy connection to a group of EVSEs)
+that limit the energy offered by EVSE to the EV even further.
 
 ChargingProfile can be created by the owner of a Token on Sessions that belong to that token.
+If another party sends a ChargingProfile and the CPO has no contract that allows that party to set profiles on sessions,
+the CPO is allowed to reject such profiles.
 
-The CompositeSchedule is the charging schedule as calculated by the EVSE. It is the result of the calculation of all smart charging inputs present in the EVSE, also Local Limits might be taken into account.
+This module can be used by the MSP, but can also be used by another party that provide "Smart Charging Services" (Smart Charging Service Provider (SCSP) / Aggregator / Energy Service Broker etc.)
+These SCSPs then depend on the CPO sending session information to them. They need to know which session is ongoing to be able to influence it.
+If a SCSP uses this module, read eMSP as SCSP.
+
+NOTE: OCPI provides the means for SCSPs to do this.
+Parties doing this have to oblige local privacy laws, have to have setup contracts etc.
+Local laws might oblige explicit consent from the driver etc.
+
+The CompositeProfile is the charging schedule as calculated by the EVSE.
+It is the result of the calculation of all smart charging inputs present in the EVSE, also Local Limits might be taken into account.
 
 *Module dependency:* <<mod_sessions.asciidoc#mod_sessions_sessions_module,Sessions module>>
 
 [[mod_charging_profiles_use_cases]]
 === Use Cases
 
--
+TODO
+
+- An MSP sends a ChargingProfile to manipulate an ongoing charging session of one of its customers.
+- An MSP request the planned ChargingProfile for an ongoing charging session for a customer of the MSP.
+- An MSP request to remove the set ChargingProfile from an ongoing charging session for a customer of the MSP.
 
 TODO
 
 
 [[mod_charging_profiles_flow]]
 === Flow
+
+TODO update this section:
 
 The ChargingProfile creation is a request to activate a charging profile on a running charging session.
 
@@ -59,9 +79,10 @@ It can let the eMSP know by updating the status of the ChargingProfile object to
 
 TODO Added examples for:
 
-- GetCompositeSchedule
+- GetCompositeProfile
 - SetChargingProfile
 - ClearChargingProfile
+- UpdateCompositeSchedule
 
 
 [[mod_charging_profiles_interfaces_and_endpoints]]
@@ -93,7 +114,9 @@ Example endpoint structures:
 
 Retrieves the Composite ChargingProfile as it is currently planned for the the given session.
 
-Example endpoint structure: `/ocpi/2.1.1/cpo/chargingprofiles/{session_id}?response_url=http://www.server.com/example`
+Example endpoint structure: `/ocpi/2.1.1/cpo/chargingprofiles/{session_id}?duration=XX&response_url=http://www.server.com/example`
+
+NOTE: As it is not common to add a body to a GET request, all parameters are added to the URL.
 
 [[mod_charging_profiles_msp_get_request_parameters]]
 ====== Request Parameters
@@ -105,8 +128,14 @@ The following parameters can be provided as URL segments.
 |Parameter |Datatype |Required |Description
 
 |session_id |<<types.asciidoc#types_string_type,string>>(36) |yes |The unique id that identifies the session in the CPO platform.
-|response_url |<<types.asciidoc#types_url_type,URL>> |1 |URL that the CompositeScheduleResponse POST should be send to. This URL might contain an unique ID to be able to distinguish between GET Composite ChargingProfile requests.
+|duration |int |1 |Length of the requested CompositeSchedule in seconds Duration in seconds. *
+|response_url |<<types.asciidoc#types_url_type,URL>> |1 |URL that the <<mod_charging_profiles_composite_profiles_result_object,CompositeProfileResult>> POST should be send to. This URL might contain an unique ID to be able to distinguish between GET Composite ChargingProfile requests.
 |===
+
+NOTE: duration: Use this wisely. Asking for a schedule hours in advance might not be very useful.
+But will use more mobile data then really useful. Duration of half hour,
+one full hour can be really useful when checking the profile calculated by the Charging Station.
+Longer might be less useful as lot can change during the time that will have influence on the profile.
 
 
 [[mod_charging_profiles_get_response_data]]
@@ -118,7 +147,7 @@ The response contains the direct response from the CPO, not the response from th
 |===
 |Datatype |Card. |Description
 
-|<<mod_charging_profiles_commandresponse_object,ChargingProfileResponse>> |1 |Result of the ChargingProfile request, by the CPO (not the location/EVSE). So this indicates if the CPO understood the ChargingProfile request and was able to send it to the EVSE. This is not the response by the Charge Point
+|<<mod_charging_profiles_response_object,ChargingProfileResponse>> |1 |Result of the Composite ChargingProfile request, by the CPO (not the location/EVSE). So this indicates if the CPO understood the ChargingProfile request and was able to send it to the EVSE. This is not the response by the Charge Point.
 |===
 
 
@@ -144,20 +173,17 @@ The following parameters can be provided as URL segments.
 [[mod_charging_profiles_msp_put_request_body]]
 ===== Request Body
 
-TODO: Depending on the `command` parameter the body SHALL contain the applicable object for that command.
+The body contains an SetChargingProfile object, that contains the new ChargingProfile and a response URL.
 
 [cols="4,1,12",options="header"]
 |===
 |Type |Card. |Description
 
-|<<mod_commands_cancelreservation_object,CancelReservation>> |1 |CancelReservation object, for the `CANCEL_RESERVATION` command, with information needed to cancel an existing reservation.
+|<<mod_charging_profiles_set_charging_profile_object,SetChargingProfile>> |1 |SetChargingProfile object with information needed to set/update the Charging Profile for a session.
 |===
 
-TODO make part of SetProfile body
-|response_url |<<types.asciidoc#types_url_type,URL>> |1 |URL that the CompositeScheduleResponse POST should be send to. This URL might contain an unique ID to be able to distinguish between GET Composite ChargingProfile requests.
 
-
-[[mod_charging_profiles_get_response_data]]
+[[mod_charging_profiles_put_response_data]]
 ====== Response Data
 
 The response contains the direct response from the CPO, not the response from the EVSE itself, that will be sent via an asynchronous POST on the eMSP interface if this response is `ACCEPTED`.
@@ -166,30 +192,43 @@ The response contains the direct response from the CPO, not the response from th
 |===
 |Datatype |Card. |Description
 
-|<<mod_charging_profiles_commandresponse_object,ChargingProfileResponse>> |1 |Result of the ChargingProfile request, by the CPO (not the location/EVSE). So this indicates if the CPO understood the ChargingProfile request and was able to send it to the EVSE. This is not the response by the Charge Point
+|<<mod_charging_profiles_response_object,ChargingProfileResponse>> |1 |Result of the ChargingProfile PUT request, by the CPO (not the location/EVSE). So this indicates if the CPO understood the ChargingProfile PUT request and was able to send it to the EVSE. This is not the response by the Charge Point.
 |===
 
 
+[[mod_charging_profiles_cpo_delete_method]]
+===== *DELETE* Method
 
+Clears the ChargingProfile set by the MSP on the given session.
 
+Example endpoint structure: `/ocpi/2.1.1/cpo/chargingprofiles/{session_id}?response_url=http://www.server.com/example`
 
+NOTE: As it is not common to add a body to a DELETE request, all parameters are added to the URL.
 
+[[mod_charging_profiles_msp_delete_request_parameters]]
+====== Request Parameters
 
+The following parameters can be provided as URL segments.
 
+[cols="3,2,1,10",options="header"]
+|===
+|Parameter |Datatype |Required |Description
 
+|session_id |<<types.asciidoc#types_string_type,string>>(36) |yes |The unique id that identifies the session in the CPO platform.
+|response_url |<<types.asciidoc#types_url_type,URL>> |1 |URL that the <<mod_charging_profiles_clear_profiles_result_object,ClearProfileResult>> POST should be send to. This URL might contain an unique ID to be able to distinguish between GET Composite ChargingProfile requests.
+|===
 
+[[mod_charging_profiles_delete_response_data]]
+====== Response Data
 
+The response contains the direct response from the CPO, not the response from the EVSE itself, that will be sent via an asynchronous POST on the eMSP interface if this response is `ACCEPTED`.
 
+[cols="4,1,12",options="header"]
+|===
+|Datatype |Card. |Description
 
-
-
-
-
-
-
-
-
-
+|<<mod_charging_profiles_response_object,ChargingProfileResponse>> |1 |Result of the ChargingProfile DELETE request, by the CPO (not the location/EVSE). So this indicates if the CPO understood the ChargingProfile DELETE request and was able to send it to the EVSE. This is not the response by the Charge Point.
+|===
 
 
 [[mod_charging_profiles_emsp_interface]]
@@ -197,16 +236,15 @@ The response contains the direct response from the CPO, not the response from th
 
 The eMSP interface receives the asynchronous responses.
 
-Example endpoint structure:
-`/ocpi/emsp/2.0/commands/{command}`
-`/ocpi/emsp/2.0/commands/{command}/{uid}`
-
 [cols="2,12",options="header"]
 |===
 |Method |Description
 
 |GET |n/a
-|<<mod_commands_msp_post_method,POST>> |Receive the asynchronous response from the Charge Point.
+|<<mod_charging_profiles_msp_post_method,POST>> |Receive the asynchronous response from the Charge Point.
+|<<mod_charging_profiles_msp_put_method,PUT>> |CPO can send an updated composite schedule when other inputs have made changes to existing schedule.
+        When the CPO sends a update schedule to the EVSE, for an other reason then the MSP, the CPO SHALL post an update to this interface.
+        When a local input influence the CompositeSchedule in the EVSE AND the CPO is made aware of this, the CPO SHALL post an update to this interface.
 |PUT |n/a
 |PATCH |n/a
 |DELETE |n/a
@@ -220,33 +258,92 @@ Example endpoint structure:
 ====== Request Parameters
 
 There are no URL segment parameters required by OCPI.
-It is up to the implementation of the eMSP to determine what parameters are put in the URL. The eMSP sends a URL in the POST method body to the CPO. The CPO is required to use this URL for the asynchronous response by the Charge Point. It is advised to make this URL unique for every request to differentiate simultaneous commands, for example by adding a unique id as a URL segment.
 
-Example:
-`/ocpi/emsp/2.0/commands/RESERVE_NOW/1234`
-`/ocpi/emsp/2.0/commands/UNLOCK_CONNECTOR/2`
+As the eMSP interface is called by the CPO on the URL given `response_url` in the MSP request to the CPO interface,
+It is up to the implementation of the eMSP to determine what parameters are put in the URL.
+The eMSP sends a URL in the POST method body to the CPO.
+The CPO is required to use this URL for the asynchronous response by the Charge Point.
+It is advised to make this URL unique for every request to differentiate simultaneous commands,
+for example by adding a unique id as a URL segment.
 
-[[mod_commands_msp_post_request_body]]
+Example endpoint structures:
+
+`/ocpi/emsp/2.2/chargingprofiles/chargingprofile/{request_uid}`
+`/ocpi/emsp/2.2/chargingprofiles/compositeschedule/{request_uid}`
+`/ocpi/emsp/2.2/chargingprofiles/deleteprofile/{request_uid}`
+
+The content of the request body depends on the original request by the MSP to which this POST is send as a result.
+
+[[mod_charging_profiles_cpo_post_request_body]]
 ===== Request Body
 
 [cols="4,1,12",options="header"]
 |===
 |Datatype |Card. |Description
 
-|<<mod_commands_commandresult_object,CommandResult>> |1 |Result of the command request, from the Charge Point.
+|_Choice: one of three_ | |
+|<<mod_charging_profiles_composite_profiles_result_object,CompositeProfileResult>> |1 |Result of the GET CompositeProfile request, from the Charge Point.
+|<<mod_charging_profiles_charging_profiles_result_object,ChargingProfileResult>> |1 |Result of the PUT ChargingProfile request, from the Charge Point.
+|<<mod_charging_profiles_clear_profiles_result_object,ClearProfileResult>> |1 |Result of the DELETE ChargingProfile request, from the Charge Point.
 |===
 
+===== Response Body
+
+The response to the POST on the eMSP interface SHALL contain the <<transport_and_format.asciidoc#transport_and_format_response_format,Response Format>> with the data field omitted.
 
 
+[[mod_charging_profiles_msp_put_method]]
+===== *PUT* Method
+
+Updates the eMSP when the CPO knows the CompositeSchedule has changed.
+
+The CPO SHALL call this interface every time it knows changes have been made that influence the CompositeProfile for an ongoing session AND
+the eMSP has at least once called the charging profile CPO PUT interface for this session (SetChargingProfile).
+If the CPO doesn't know the composite schedule has changed (EVSE does not notify the CPO of the change) it is not required to call this interface.
+
+The CPO SHALL NOT call this interface for any session where the eMSP has never called the charging profile CPO PUT interface for this session (SetChargingProfile).
+
+The CPO SHALL send a useful relevant duration of CompositeSchedule to send to the eMSP. As a guide: between 5 and 60 minutes.
+If the eMSP wants a longer CompositeSchedule the eMSP can always do a GEt with a longer duration.
+
+Example endpoint structure: `/ocpi/2.1.1/cpo/chargingprofiles/{session_id}`
+
+[[mod_charging_profiles_cpo_put_request_parameters]]
+====== Request Parameters
 
 
+The following parameters can be provided as URL segments.
+
+[cols="3,2,1,10",options="header"]
+|===
+|Parameter |Datatype |Required |Description
+
+|session_id |<<types.asciidoc#types_string_type,string>>(36) |yes |The unique id that identifies the session in the CPO platform.
+|===
+
+[[mod_charging_profiles_msp_put_request_body]]
+===== Request Body
+
+The body contains an SetChargingProfile object, that contains the new ChargingProfile and a response URL.
+
+[cols="4,1,12",options="header"]
+|===
+|Type |Card. |Description
+
+|schedule | <<mod_charging_profiles_composite_profile_class,CompositeProfile>> | 1 | The new composite profile. If there is no longer any charging profile active, the Composite Schedule SHALL reflect this by showing the maximum charging capacity of the EVSE.
+|===
+
+===== Response Body
+
+The response to the PUT on the eMSP interface SHALL contain the <<transport_and_format.asciidoc#transport_and_format_response_format,Response Format>> with the data field omitted.
 
 
 
 [[mod_charging_profiles_object_description]]
 === Object description
 
-[[mod_charging_profiles_commandresponse_object]]
+
+[[mod_charging_profiles_response_object]]
 ==== _ChargingProfileResponse_ Object
 
 The ChargingProfileResponse object is send in the HTTP response body.
@@ -264,18 +361,119 @@ For the eMSP to be able to reject to timeouts, it is important for the eMSP to k
 |===
 
 
+[[mod_charging_profiles_composite_profiles_result_object]]
+==== _CompositeProfileResult_ Object
+
+The CompositeProfileResult object is send by the CPO to the given `response_url` in a POST request.
+It contains the result of the GET (GetCompositeProfile) request send by the MSP.
+
+[cols="2,4,1,10",options="header"]
+|===
+|Property |Type |Card. |Description
+|result | <<mod_charging_profiles_resulttype_enum,ResultType>> | 1 | The EVSE will indicate if it was able to process the request for the Composite Profile
+|schedule | <<mod_charging_profiles_composite_profile_class,CompositeProfile>> | ? | The requested composite profile, if the result field is set to: `ACCEPTED`
+|===
 
 
+[[mod_charging_profiles_charging_profiles_result_object]]
+==== _ChargingProfileResult_ Object
+
+The ChargingProfileResult object is send by the CPO to the given `response_url` in a POST request.
+It contains the result of the PUT (SetChargingProfile) request send by the MSP.
+
+[cols="2,4,1,10",options="header"]
+|===
+|Property |Type |Card. |Description
+|result | <<mod_charging_profiles_resulttype_enum,ResultType>> | 1 | The EVSE will indicate if it was able to process the new/updated charging profile.
+|===
 
 
+[[mod_charging_profiles_clear_profiles_result_object]]
+==== _ClearProfileResult_ Object
+
+The ClearProfileResult object is send by the CPO to the given `response_url` in a POST request.
+It contains the result of the DELETE (ClearProfile) request send by the MSP.
+
+[cols="2,4,1,10",options="header"]
+|===
+|result | <<mod_charging_profiles_resulttype_enum,ResultType>> | 1 | The EVSE will indicate if it was able to process the removal of the charging profile (ClearChargingProfile).
+|===
 
 
+[[mod_charging_profiles_set_charging_profile_object]]
+==== _SetChargingProfile_ Object
 
+Object set to a CPO to set a Charging Profile.
 
+[cols="2,4,1,10",options="header"]
+|===
+|Property |Type |Card. |Description
+|charging_schedule |<<mod_charging_profiles_charging_schedule_object,>> |1 | Contains limits for the available power or current over time.
+|response_url      | <<types.asciidoc#types_url_type,URL>> |1 |URL that the ChargingProfileResult POST should be send to. This URL might contain an unique ID to be able to distinguish between GET Composite ChargingProfile requests.
+|===
 
 
 [[mod_charging_profiles_data_types]]
 === Data types
+
+[[mod_charging_profiles_chargingrateunit]]
+=== ChargingRateUnit _enum_
+
+Unit in which a charging schedule is defined.
+
+[cols="3,10",options="header"]
+|===
+|Value |Description
+|W | Watts (power) +
+This is the TOTAL allowed charging power.
+If used for AC Charging, the phase current should be calculated via: Current per phase = Power / (Line Voltage * Number of Phases). The "Line Voltage" used in the calculation is not the measured voltage, but the set voltage for the area (hence, 230 of 110 volt). The "Number of Phases" is the numberPhases from the ChargingSchedulePeriod.
+It is usually more convenient to use this for DC charging.
+Note that if numberPhases in a ChargingSchedulePeriod is absent, 3 SHALL be assumed.
+|A | Amperes (current) +
+The amount of Ampere per phase, not the sum of all phases.
+It is usually more convenient to use this for AC charging.
+|===
+
+
+[[mod_charging_profiles_charging_schedule_class]]
+=== ChargingSchedule _class_
+
+Charging schedule class defines a list of charging periods.
+
+[cols="3,2,1,10",options="header"]
+|===
+|Property                 |Type       |Card. |Description
+|start_schedule_period    | <<types.asciidoc#types_datetime_type,DateTime>>           | ?    | Starting point of an absolute schedule. If absent the schedule will be relative to start of charging.
+|duration                 | int                                                       | ?    | Duration of the charging schedule in seconds. If the duration is left empty, the last period will continue indefinitely or until end of the transaction in case startSchedule is absent.
+|charging_rate_unit       | <<mod_charging_profiles_chargingrateunit,ChargingRateUnit>> | 1    |  The unit of measure Limit is expressed in.
+|min_charging_rate        | <<types.asciidoc#types_number_type,number>>               | ?    | Minimum charging rate supported by the EV. The unit of measure is defined by the chargingRateUnit. This parameter is intended to be used by a local smart charging algorithm to optimize the power allocation for in the case a charging process is inefficient at lower charging rates. Accepts at most one digit fraction (e.g. 8.1)
+|charging_schedule_period | <<mod_charging_profiles_charging_schedule_period_class,ChargingSchedulePeriod>> | * | List of ChargingSchedulePeriod elements defining maximum power or current usage over time.
+|===
+
+
+[[mod_charging_profiles_charging_schedule_period_class]]
+=== ChargingSchedulePeriod _class_
+
+Charging schedule period structure defines a time period in a charging schedule, as used in: <<mod_charging_profiles_charging_schedule_class,ChargingSchedule>>
+
+[cols="3,2,1,10",options="header"]
+|===
+|Property      |Type     |Card. |Description
+|start_period  | int     | 1 | Start of the period, in seconds from the start of schedule. The value of StartPeriod also defines the stop time of the previous period.
+|limit*        | <<types.asciidoc#types_number_type,number>> | 1 | Charging rate limit during the schedule period, in the applicable chargingRateUnit, for example in Amperes (A) or Watts (W). Accepts at most one digit fraction (e.g. 8.1).
+|===
+
+
+[[mod_charging_profiles_composite_profile_class]]
+==== CompositeProfile _class_
+
+[cols="3,2,1,10",options="header"]
+|===
+|Property           |Type |Card. |Description
+|start_date_time    |<<types.asciidoc#types_datetime_type,DateTime>> | 1 | Date and time at which the schedule becomes active. All time measurements within the schedule are relative to this timestamp.
+|charging_schedule  |<<mod_charging_profiles_charging_schedule_class,ChargingSchedule>> | 1 | Charging schedule structure defines a list of charging periods.
+|===
+
 
 [[mod_charging_profiles_responsetype_enum]]
 ==== ResponseType _enum_
@@ -293,20 +491,15 @@ Response to the ChargingProfile request from the MSP to the CPO.
 |===
 
 
+[[mod_charging_profiles_resulttype_enum]]
+==== ResultType _enum_
 
+Result of a ChargingProfile request that the EVSE sends via the CPO to the MSP.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+[cols="3,10",options="header"]
+|===
+|Value |Description
+|ACCEPTED |ChargingProfile request accepted by the EVSE.
+|REJECTED |ChargingProfile request rejected by the EVSE.
+|UNKNOWN |No Charging Profile(s) were found by the EVSE matching the request.
+|===
