@@ -412,8 +412,8 @@ This class defines a geo location. The geodetic system to be used is WGS 84.
 |===
 |Property |Type |Card. |Description 
 
-|latitude |<<types.asciidoc#types_string_type,string>>(10) |1 |Latitude of the point in decimal degree. Example: 50.770774. Decimal separator: "." Regex: `-?[0-9]{1,2}\.[0-9]{6}` 
-|longitude |<<types.asciidoc#types_string_type,string>>(11) |1 |Longitude of the point in decimal degree. Example: -126.104965. Decimal separator: "." Regex: `-?[0-9]{1,3}\.[0-9]{6}` 
+|latitude |<<types.asciidoc#types_string_type,string>>(10) |1 |Latitude of the point in decimal degree. Example: 50.770774. Decimal separator: "." Regex: `-?[0-9]{1,2}\.[0-9]{5,7}`
+|longitude |<<types.asciidoc#types_string_type,string>>(11) |1 |Longitude of the point in decimal degree. Example: -126.104965. Decimal separator: "." Regex: `-?[0-9]{1,3}\.[0-9]{5,7}`
 |name |<<types.asciidoc#types_displaytext_class,DisplayText>> |? |Name of the point in local language or as written at the location. For example the street name of a parking lot entrance or it's number. 
 |===
 
@@ -652,8 +652,8 @@ Specifies one exceptional period for opening or access hours.
 |===
 |Property |Type |Card. |Description 
 
-|latitude |<<types.asciidoc#types_string_type,string>>(10) |1 |Latitude of the point in decimal degree. Example: 50.770774. Decimal separator: "." Regex: `-?[0-9]{1,2}\.[0-9]{6}` 
-|longitude |<<types.asciidoc#types_string_type,string>>(11) |1 |Longitude of the point in decimal degree. Example: -126.104965. Decimal separator: "." Regex: `-?[0-9]{1,3}\.[0-9]{6}` 
+|latitude |<<types.asciidoc#types_string_type,string>>(10) |1 |Latitude of the point in decimal degree. Example: 50.770774. Decimal separator: "." Regex: `-?[0-9]{1,2}\.[0-9]{5,7}`
+|longitude |<<types.asciidoc#types_string_type,string>>(11) |1 |Longitude of the point in decimal degree. Example: -126.104965. Decimal separator: "." Regex: `-?[0-9]{1,3}\.[0-9]{5,7}`
 |===
 
 [[mod_locations_hours_class]]
