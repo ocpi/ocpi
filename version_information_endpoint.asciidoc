@@ -81,7 +81,9 @@ No structure defined. This is open for every party to define themselves.
 Examples:
 
 `https://www.server.com/ocpi/cpo/2.2`
+
 `https://www.server.com/ocpi/emsp/2.2`
+
 `https://ocpi.server.com/2.2/details`
 
 This endpoint lists the supported endpoints and their URLs for a specific OCPI version. To notify the other party that the list of endpoints of your current version has changed, you can send a PUT request to the corresponding credentials endpoint (see the credentials chapter).

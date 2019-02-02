@@ -147,9 +147,9 @@ The following parameters can be provided as URL segments.
 |===
 |Parameter |Datatype |Required |Description 
 
-|country_code |<<types.asciidoc#types_string_type,string>>(2) |yes |Country code of the CPO requesting this PUT to the eMSP system. 
-|party_id |<<types.asciidoc#types_string_type,string>>(3) |yes |Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system. 
-|tariff_id |<<types.asciidoc#types_string_type,string>>(36) |yes |Tariff.id of the Tariff object to retrieve. 
+|country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |yes |Country code of the CPO requesting this PUT to the eMSP system.
+|party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |yes |Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.
+|tariff_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |Tariff.id of the Tariff object to retrieve.
 |===
 
 [[mod_tariffs_msp_get_response_data]]
@@ -190,9 +190,9 @@ The following parameters can be provided as URL segments.
 |===
 |Parameter |Datatype |Required |Description 
 
-|country_code |<<types.asciidoc#types_string_type,string>>(2) |yes |Country code of the CPO requesting this PUT to the eMSP system. 
-|party_id |<<types.asciidoc#types_string_type,string>>(3) |yes |Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system. 
-|tariff_id |<<types.asciidoc#types_string_type,string>>(36) |yes |Tariff.id of the (new) Tariff object (to replace). 
+|country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |yes |Country code of the CPO requesting this PUT to the eMSP system.
+|party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |yes |Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.
+|tariff_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |Tariff.id of the (new) Tariff object (to replace).
 |===
 
 [[mod_tariffs_example_new_tariff_2_euro_per_hour]]
@@ -236,9 +236,9 @@ The following parameters can be provided as URL segments.
 |===
 |Parameter |Datatype |Required |Description 
 
-|country_code |<<types.asciidoc#types_string_type,string>>(2) |yes |Country code of the CPO requesting this PUT to the eMSP system. 
-|party_id |<<types.asciidoc#types_string_type,string>>(3) |yes |Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system. 
-|tariff_id |<<types.asciidoc#types_string_type,string>>(36) |yes |Tariff.id of the Tariff object to delete. 
+|country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |yes |Country code of the CPO requesting this PUT to the eMSP system.
+|party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |yes |Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.
+|tariff_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |Tariff.id of the Tariff object to delete.
 |===
 
 [[mod_tariffs_object_description]]
@@ -260,7 +260,7 @@ See: <<mod_tariffs_free_of_charge_tariff_example,Free of Charge Tariff example>>
 |===
 |Property |Type |Card. |Description 
 
-|id |<<types.asciidoc#types_string_type,string>>(36) |1 |Uniquely identifies the tariff within the CPOs platform (and suboperator platforms). 
+|id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Uniquely identifies the tariff within the CPOs platform (and suboperator platforms).
 |currency |<<types.asciidoc#types_string_type,string>>(3) |1 |Currency of this tariff, ISO 4217 Code 
 |type |<<mod_tariffs_tariff_type,TariffType>> |? | Defines what type of tariff this is. This makes it possible to make distinction possible for different <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,Charging Preferences>>. When omitted, this tariff is valid for all sessions.
 |tariff_alt_text |<<types.asciidoc#types_displaytext_class,DisplayText>> |* |List of multi language alternative tariff info text

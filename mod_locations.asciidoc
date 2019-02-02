@@ -124,9 +124,9 @@ The following parameters can be provided as URL segments.
 |===
 |Parameter |Datatype |Required |Description 
 
-|location_id |<<types.asciidoc#types_string_type,string>>(39) |yes |Location.id of the Location object to retrieve. 
-|evse_uid |<<types.asciidoc#types_string_type,string>>(39) |no |Evse.uid, required when requesting an EVSE or Connector object. 
-|connector_id |<<types.asciidoc#types_string_type,string>>(36) |no |Connector.id, required when requesting a Connector object. 
+|location_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |Location.id of the Location object to retrieve.
+|evse_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |no |Evse.uid, required when requesting an EVSE or Connector object.
+|connector_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |no |Connector.id, required when requesting a Connector object.
 |===
 
 [[mod_locations_get_object_response_data]]
@@ -189,11 +189,11 @@ The following parameters can be provided as URL segments.
 |===
 |Parameter |Datatype |Required |Description 
 
-|country_code |<<types.asciidoc#types_string_type,string>>(2) |yes |Country code of the CPO requesting this PUT to the eMSP system. 
-|party_id |<<types.asciidoc#types_string_type,string>>(3) |yes |Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system. 
-|location_id |<<types.asciidoc#types_string_type,string>>(39) |yes |Location.id of the Location object to retrieve. 
-|evse_uid |<<types.asciidoc#types_string_type,string>>(39) |no |Evse.uid, required when requesting an EVSE or Connector object. 
-|connector_id |<<types.asciidoc#types_string_type,string>>(36) |no |Connector.id, required when requesting a Connector object. 
+|country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |yes |Country code of the CPO requesting this PUT to the eMSP system.
+|party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |yes |Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.
+|location_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |Location.id of the Location object to retrieve.
+|evse_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |no |Evse.uid, required when requesting an EVSE or Connector object.
+|connector_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |no |Connector.id, required when requesting a Connector object.
 |===
 
 [[mod_locations_response_data]]
@@ -226,11 +226,11 @@ This is an information push message, the objects pushed will not be owned by the
 |===
 |Parameter |Datatype |Required |Description 
 
-|country_code |<<types.asciidoc#types_string_type,string>>(2) |yes |Country code of the CPO requesting this PUT to the eMSP system. 
-|party_id |<<types.asciidoc#types_string_type,string>>(3) |yes |Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system. 
-|location_id |<<types.asciidoc#types_string_type,string>>(39) |yes |Location.id of the new Location object, or the Location of which an EVSE or Location object is send 
-|evse_uid |<<types.asciidoc#types_string_type,string>>(39) |no |Evse.uid, required when an EVSE or Connector object is send/replaced. 
-|connector_id |<<types.asciidoc#types_string_type,string>>(36) |no |Connector.id, required when a Connector object is send/replaced. 
+|country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |yes |Country code of the CPO requesting this PUT to the eMSP system.
+|party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |yes |Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.
+|location_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |Location.id of the new Location object, or the Location of which an EVSE or Location object is send
+|evse_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |no |Evse.uid, required when an EVSE or Connector object is send/replaced.
+|connector_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |no |Connector.id, required when a Connector object is send/replaced.
 |===
 
 [[mod_locations_request_body]]
@@ -339,7 +339,7 @@ The _Location_ object describes the location and its properties where a group of
 |===
 |Property |Type |Card. |Description 
 
-|id |<<types.asciidoc#types_string_type,string>>(39) |1 |Uniquely identifies the location within the CPOs platform (and suboperator platforms). This field can never be changed, modified or renamed. 
+|id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Uniquely identifies the location within the CPOs platform (and suboperator platforms). This field can never be changed, modified or renamed.
 |type |<<mod_locations_locationtype_enum,LocationType>> |1 |The general type of the charge point location. 
 |name |<<types.asciidoc#types_string_type,string>>(255) |? |Display name of the location. 
 |address |<<types.asciidoc#types_string_type,string>>(45) |1 |Street/block name and house number if available. 
@@ -384,8 +384,9 @@ An _EVSE_ object has a list of connectors which can not be used simultaneously: 
 |===
 |Property |Type |Card. |Description 
 
-|uid |<<types.asciidoc#types_string_type,string>>(39) |1 |Uniquely identifies the EVSE within the CPOs platform (and suboperator platforms). For example a database unique ID or the "EVSE ID". This field can never be changed, modified or renamed. This is the 'technical' identification of the EVSE, not to be used as 'human readable' identification, use the field: evse_id for that.
-|evse_id |<<types.asciidoc#types_string_type,string>>(48) |? |Compliant with the following specification for EVSE ID from "eMI3 standard version V1.0" (http://emi3group.com/documents-links/[http://emi3group.com/documents-links/]) "Part 2: business objects." Optional because: if an EVSE ID is to be re-used the EVSE ID can be removed from an EVSE that is removed (status: REMOVED) 
+|uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Uniquely identifies the EVSE within the CPOs platform (and suboperator platforms). For example a database unique ID or the "EVSE ID". This field can never be changed, modified or renamed. This is the 'technical' identification of the EVSE, not to be used as 'human readable' identification, use the field: `evse_id` for that. +
+This field is named `uid` instead of `id`, because `id` could be confused with `evse_id` which is a eMI3 defined field.
+|evse_id |<<types.asciidoc#types_cistring_type,CiString>>(48) |? |Compliant with the following specification for EVSE ID from "eMI3 standard version V1.0" (http://emi3group.com/documents-links/[http://emi3group.com/documents-links/]) "Part 2: business objects." Optional because: if an EVSE ID is to be re-used the EVSE ID can be removed from an EVSE that is removed (status: REMOVED)
 |status |<<mod_locations_status_enum,Status>> |1 |Indicates the current status of the EVSE. 
 |status_schedule |<<mod_locations_statusschedule_class,StatusSchedule>> |* |Indicates a planned status in the future of the EVSE. 
 |capabilities |<<mod_locations_capability_enum,Capability>> |* |List of functionalities that the EVSE is capable of. 
@@ -409,7 +410,7 @@ A connector is the socket or cable available for the EV to use. A single EVSE ma
 |===
 |Property |Type |Card. |Description 
 
-|id |<<types.asciidoc#types_string_type,string>>(36) |1 |Identifier of the connector within the EVSE. Two connectors may have the same id as long as they do not belong to the same _EVSE_ object. 
+|id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Identifier of the connector within the EVSE. Two connectors may have the same id as long as they do not belong to the same _EVSE_ object.
 |standard |<<mod_locations_connectortype_enum,ConnectorType>> |1 |The standard of the installed connector. 
 |format |<<mod_locations_connectorformat_enum,ConnectorFormat>> |1 |The format (socket/cable) of the installed connector. 
 |power_type |<<mod_locations_powertype_enum,PowerType>> |1 | 
@@ -417,7 +418,7 @@ A connector is the socket or cable available for the EV to use. A single EVSE ma
 |amperage |int |1 |maximum amperage of the connector, in ampere [A].
 |max_electric_power |int |? |Maximum electric power that can be delivered by this connector, in watt [W]. When the maximum electric power is lower then the calculated value from: `voltage` and `amperage`, this value should be set. +
         For example: A Charge Point which can deliver up to 920V, up to 400A, but max. 150kW. Depending on the car, it may supply max voltage or current, but not both.
-|tariff_ids |<<types.asciidoc#types_string_type,string>>(36) |* |Identifiers of the current valid charging tariffs. Multiple tariffs are possible, but each require a unique Tariff.type, duplicates not allowed. +
+|tariff_ids |<<types.asciidoc#types_cistring_type,CiString>>(36) |* |Identifiers of the current valid charging tariffs. Multiple tariffs are possible, but each require a unique Tariff.type, duplicates not allowed. +
                                                               When Preference based Smart Charging is supported, on tariff for every possible <<mod_sessions.asciidoc#mod_sessions_profile_type_enum,ProfileType>> should be provided, these tell the Driver the options he has at this Connector, and what the tariff is for every option. +
                                                               For a "Free of Charge" tariff this field should be set, and point to a defined "Free of Charge" tariff.
 |terms_and_conditions |<<types.asciidoc#types_url_type,URL>> |? |URL to the operator's terms and conditions. 

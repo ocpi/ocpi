@@ -142,7 +142,7 @@ The following parameter has to be provided as URL segments.
 |===
 |Parameter |Datatype |Required |Description
 
-|session_id |<<types.asciidoc#types_string_type,string>>(36) |yes |Session.id of the Session on which these Charging Preferences are to be set.
+|session_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |Session.id of the Session on which these Charging Preferences are to be set.
 |===
 
 [[mod_sessions_cpo_post_request_body]]
@@ -210,9 +210,9 @@ The following parameters can be provided as URL segments.
 |===
 |Parameter |Datatype |Required |Description 
 
-|country_code |<<types.asciidoc#types_string_type,string>>(2) |yes |Country code of the CPO requesting this GET to the eMSP system. 
-|party_id |<<types.asciidoc#types_string_type,string>>(3) |yes |Party ID (Provider ID) of the CPO requesting this GET to the eMSP system. 
-|session_id |<<types.asciidoc#types_string_type,string>>(36) |yes |id of the Session object to get from the eMSP system. 
+|country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |yes |Country code of the CPO requesting this GET to the eMSP system.
+|party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |yes |Party ID (Provider ID) of the CPO requesting this GET to the eMSP system.
+|session_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |id of the Session object to get from the eMSP system.
 |===
 
 [[mod_sessions_msp_get_response_data]]
@@ -253,9 +253,9 @@ The following parameters can be provided as URL segments.
 |===
 |Parameter |Datatype |Required |Description 
 
-|country_code |<<types.asciidoc#types_string_type,string>>(2) |yes |Country code of the CPO requesting this PUT to the eMSP system. 
-|party_id |<<types.asciidoc#types_string_type,string>>(3) |yes |Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system. 
-|session_id |<<types.asciidoc#types_string_type,string>>(36) |yes |id of the new or updated Session object. 
+|country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |yes |Country code of the CPO requesting this PUT to the eMSP system.
+|party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |yes |Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.
+|session_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |id of the new or updated Session object.
 |===
 
 [[mod_sessions_patch_method]]
@@ -283,15 +283,15 @@ include::examples/session_patch_example_total_cost.json[]
 |===
 |Property |Type |Card. |Description 
 
-|id |<<types.asciidoc#types_string_type,string>>(36) |1 |The unique id that identifies the session in the CPO platform. 
+|id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |The unique id that identifies the session in the CPO platform.
 |start_datetime |<<types.asciidoc#types_datetime_type,DateTime>> |1 |The time when the session became active. 
 |end_datetime |<<types.asciidoc#types_datetime_type,DateTime>> |? |The time when the session is completed. 
 |kwh |<<types.asciidoc#types_number_type,number>> |1 |How many kWh are charged. 
 |cdr_token |<<mod_cdrs.asciidoc#mod_cdrs_cdr_token_object,CdrToken>> |1 |Token used to start this Charging Session, includes all the relevant information to identify the unique token.
 |auth_method |<<mod_cdrs.asciidoc#mod_cdrs_authmethod_enum,AuthMethod>> |1 |Method used for authentication.
-|location_id |<<types.asciidoc#types_string_type,string>>(39) |1 |Location.id of the Location object of this CPO, on which the Charging Session is ongoing.
-|evse_uid |<<types.asciidoc#types_string_type,string>>(39) |1 |EVSE.uid of the EVSE of this Location on which the Charging Session is ongoing.
-|connector_id |<<types.asciidoc#types_string_type,string>>(36) |1 |Connector.id of the Connector of this Location the Charging Session is ongoing.
+|location_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Location.id of the Location object of this CPO, on which the Charging Session is ongoing.
+|evse_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |EVSE.uid of the EVSE of this Location on which the Charging Session is ongoing.
+|connector_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Connector.id of the Connector of this Location the Charging Session is ongoing.
 |meter_id |<<types.asciidoc#types_string_type,string>>(255) |? |Optional identification of the kWh meter. 
 |currency |<<types.asciidoc#types_string_type,string>>(3) |1 |ISO 4217 code of the currency used for this session. 
 |charging_periods |<<mod_cdrs.asciidoc#mod_cdrs_chargingperiod_class,ChargingPeriod>> |* |An optional list of charging periods that can be used to calculate and verify the total cost. 

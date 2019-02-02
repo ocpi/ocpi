@@ -133,7 +133,7 @@ The following parameters can be provided as URL segments.
 |===
 |Parameter |Datatype |Required |Description
 
-|session_id |<<types.asciidoc#types_string_type,string>>(36) |yes |The unique id that identifies the session in the CPO platform.
+|session_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |The unique id that identifies the session in the CPO platform.
 |duration |int |1 |Length of the requested CompositeSchedule in seconds Duration in seconds. *
 |response_url |<<types.asciidoc#types_url_type,URL>> |1 |URL that the <<mod_charging_profiles_composite_profiles_result_object,CompositeProfileResult>> POST should be send to. This URL might contain an unique ID to be able to distinguish between GET Composite ChargingProfile requests.
 |===
@@ -179,7 +179,7 @@ The following parameters can be provided as URL segments.
 |===
 |Parameter |Datatype |Required |Description
 
-|session_id |<<types.asciidoc#types_string_type,string>>(36) |yes |The unique id that identifies the session in the CPO platform.
+|session_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |The unique id that identifies the session in the CPO platform.
 |===
 
 [[mod_charging_profiles_msp_put_request_body]]
@@ -232,7 +232,7 @@ The following parameters can be provided as URL segments.
 |===
 |Parameter |Datatype |Required |Description
 
-|session_id |<<types.asciidoc#types_string_type,string>>(36) |yes |The unique id that identifies the session in the CPO platform.
+|session_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |The unique id that identifies the session in the CPO platform.
 |response_url |<<types.asciidoc#types_url_type,URL>> |1 |URL that the <<mod_charging_profiles_clear_profiles_result_object,ClearProfileResult>> POST should be send to. This URL might contain an unique ID to be able to distinguish between GET Composite ChargingProfile requests.
 |===
 
@@ -351,7 +351,7 @@ The following parameters can be provided as URL segments.
 |===
 |Parameter |Datatype |Required |Description
 
-|session_id |<<types.asciidoc#types_string_type,string>>(36) |yes |The unique id that identifies the session in the CPO platform.
+|session_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |The unique id that identifies the session in the CPO platform.
 |===
 
 [[mod_charging_profiles_cpo_put_request_body]]

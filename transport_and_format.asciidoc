@@ -288,7 +288,7 @@ When a request cannot be accepted, an HTTP error response code is expected, incl
 	"data": {
 		"uid": "012345678",
 		"type": "RFID",
-		"auth_id": "FA54320",
+		"contract_id": "FA54320",
 		"visual_number": "DF000-2001-8999",
 		"issuer": "TheNewMotion",
 		"valid": true,
@@ -310,7 +310,7 @@ When a request cannot be accepted, an HTTP error response code is expected, incl
 	"data": [{
 		"uid": "100012",
 		"type": "RFID",
-		"auth_id": "FA54320",
+		"contract_id": "FA54320",
 		"visual_number": "DF000-2001-8999",
 		"issuer": "TheNewMotion",
 		"valid": true,
@@ -319,7 +319,7 @@ When a request cannot be accepted, an HTTP error response code is expected, incl
 	}, {
 		"uid": "100013",
 		"type": "RFID",
-		"auth_id": "FA543A5",
+		"contract_id": "FA543A5",
 		"visual_number": "DF000-2001-9000",
 		"issuer": "TheNewMotion",
 		"valid": true,
@@ -328,7 +328,7 @@ When a request cannot be accepted, an HTTP error response code is expected, incl
 	}, {
 		"uid": "100014",
 		"type": "RFID",
-		"auth_id": "FA543BB",
+		"contract_id": "FA543BB",
 		"visual_number": "DF000-2001-9010",
 		"issuer": "TheNewMotion",
 		"valid": false,

@@ -1,7 +1,7 @@
 {
   "uid": "12345678905880",
   "type": "RFID",
-  "auth_id": "DE8ACC12E46L89",
+  "contract_id": "DE8ACC12E46L89",
   "visual_number": "DF000-2001-8999-1",
   "issuer": "TheNewMotion",
   "group_id": "DF000-2001-8999",
