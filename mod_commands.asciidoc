@@ -84,11 +84,11 @@ Endpoint structure definition:
 
 Examples:
 
-`https://www.server.com/ocpi/cpo/2.2/commands/START_SESSION`
+`+https://www.server.com/ocpi/cpo/2.2/commands/START_SESSION+`
 
-`https://ocpi.server.com/commands/STOP_SESSION`
+`+https://ocpi.server.com/commands/STOP_SESSION+`
 
-`https://server.com/ocpi/cpo/2.2/commands/RESERVE_NOW`
+`+https://server.com/ocpi/cpo/2.2/commands/RESERVE_NOW+`
 
 Example endpoint structure: ``
 
@@ -160,9 +160,9 @@ Therefor OCPI does not define variables.
 
 Example:
 
-`https://www.server.com/ocpi/emsp/2.2/commands/{command}`
+`+https://www.server.com/ocpi/emsp/2.2/commands/{command}+`
 
-`https://ocpi.server.com/commands/{command}/{uid}`
+`+https://ocpi.server.com/commands/{command}/{uid}+`
 
 [cols="2,12",options="header"]
 |===
@@ -187,9 +187,9 @@ It is advised to make this URL unique for every request to differentiate simulta
 
 Examples:
 
-`https://www.server.com/ocpi/emsp/2.2/commands/RESERVE_NOW/1234`
+`+https://www.server.com/ocpi/emsp/2.2/commands/RESERVE_NOW/1234+`
 
-`https://www.server.com/ocpi/emsp/2.2/commands/UNLOCK_CONNECTOR/2`
+`+https://www.server.com/ocpi/emsp/2.2/commands/UNLOCK_CONNECTOR/2+`
 
 [[mod_commands_msp_post_request_body]]
 ===== Request Body

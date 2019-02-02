@@ -77,13 +77,13 @@ Endpoint structure definition:
 
 Examples:
 
-`https://www.server.com/ocpi/cpo/2.2/sessions/?date_from=2019-01-28T12:00:00&date_to=2019-01-29T12:00:00`
+`+https://www.server.com/ocpi/cpo/2.2/sessions/?date_from=2019-01-28T12:00:00&date_to=2019-01-29T12:00:00+`
 
-`https://ocpi.server.com/2.2/sessions/?offset=50`
+`+https://ocpi.server.com/2.2/sessions/?offset=50+`
 
-`https://www.server.com/ocpi/2.2/sessions/?date_from=2019-01-29T12:00:00&limit=100`
+`+https://www.server.com/ocpi/2.2/sessions/?date_from=2019-01-29T12:00:00&limit=100+`
 
-`https://www.server.com/ocpi/cpo/2.2/sessions/?offset=50&amp;limit=100`
+`+https://www.server.com/ocpi/cpo/2.2/sessions/?offset=50&amp;limit=100+`
 
 
 [[mod_sessions_cpo_get_request_parameters]]
@@ -129,7 +129,7 @@ Endpoint structure definition:
 
 Examples:
 
-`https://www.server.com/ocpi/cpo/2.2/sessions/1234/charging_preferences`
+`+https://www.server.com/ocpi/cpo/2.2/sessions/1234/charging_preferences+`
 
 The `/charging_preferences` is required when setting Charging Preferences.
 
@@ -181,7 +181,7 @@ Endpoint structure definition:
 
 Example:
 
-`https://www.server.com/ocpi/cpo/2.2/sessions/BE/BEC/1234`
+`+https://www.server.com/ocpi/cpo/2.2/sessions/BE/BEC/1234+`
 
 
 [cols="2,12",options="header"]

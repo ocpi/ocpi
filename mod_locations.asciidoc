@@ -62,13 +62,13 @@ Endpoint structure definition:
 
 Examples:
 
-`https://www.server.com/ocpi/cpo/2.2/locations/?date_from=2019-01-28T12:00:00&date_to=2019-01-29T12:00:00`
+`+https://www.server.com/ocpi/cpo/2.2/locations/?date_from=2019-01-28T12:00:00&date_to=2019-01-29T12:00:00+`
 
-`https://ocpi.server.com/2.2/locations/?offset=50`
+`+https://ocpi.server.com/2.2/locations/?offset=50+`
 
-`https://www.server.com/ocpi/2.2/locations/?date_from=2019-01-29T12:00:00&limit=100`
+`+https://www.server.com/ocpi/2.2/locations/?date_from=2019-01-29T12:00:00&limit=100+`
 
-`https://www.server.com/ocpi/cpo/2.2/locations/?offset=50&amp;limit=100`
+`+https://www.server.com/ocpi/cpo/2.2/locations/?offset=50&amp;limit=100+`
 
 
 If additional parameters: {date_from} and/or {date_to} are provided, only Locations with (`last_updated`) between the given date_from and date_to will be returned.
@@ -111,11 +111,11 @@ Endpoint structure definition for retrieving a Location, EVSE or Connector:
 
 Examples:
 
-`https://www.server.com/ocpi/cpo/2.2/locations/LOC1`
+`+https://www.server.com/ocpi/cpo/2.2/locations/LOC1+`
 
-`https://www.server.com/ocpi/cpo/2.2/locations/LOC1/3256`
+`+https://www.server.com/ocpi/cpo/2.2/locations/LOC1/3256+`
 
-`https://www.server.com/ocpi/cpo/2.2/locations/LOC1/3256/1`
+`+https://www.server.com/ocpi/cpo/2.2/locations/LOC1/3256/1+`
 
 
 The following parameters can be provided as URL segments.
@@ -157,11 +157,11 @@ Endpoint structure definition:
 
 Examples:
 
-`https://www.server.com/ocpi/emsp/2.2/locations/BE/BEC/LOC1`
+`+https://www.server.com/ocpi/emsp/2.2/locations/BE/BEC/LOC1+`
 
-`https://server.com/ocpi/2.2/locations/BE/BEC/LOC1/3256`
+`+https://server.com/ocpi/2.2/locations/BE/BEC/LOC1/3256+`
 
-`https://ocpi.server.com/2.2/locations/BE/BEC/LOC1/3256/1`
+`+https://ocpi.server.com/2.2/locations/BE/BEC/LOC1/3256/1+`
 
 
 [cols="2,12",options="header"]

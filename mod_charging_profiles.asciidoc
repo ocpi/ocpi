@@ -120,7 +120,7 @@ Endpoint structure definition:
 
 Example:
 
-`https://www.cpo.com/ocpi/2.2/chargingprofiles/1234?duration=900&response_url=https://www.msp.com/ocpi/2.2/chargingprofile/response?request_id=5678`
+`+https://www.cpo.com/ocpi/2.2/chargingprofiles/1234?duration=900&response_url=https://www.msp.com/ocpi/2.2/chargingprofile/response?request_id=5678+`
 
 NOTE: As it is not common to add a body to a GET request, all parameters are added to the URL.
 
@@ -168,7 +168,7 @@ Endpoint structure definition:
 
 Example:
 
-`https://www.cpo.com/ocpi/2.2/chargingprofiles/1234`
+`+https://www.cpo.com/ocpi/2.2/chargingprofiles/1234+`
 
 [[mod_charging_profiles_msp_put_request_parameters]]
 ====== Request Parameters
@@ -219,7 +219,7 @@ Endpoint structure definition:
 
 Example:
 
-`https://www.cpo.com/ocpi/2.2/chargingprofiles/1234?response_url=http://www.server.com/example`
+`+https://www.cpo.com/ocpi/2.2/chargingprofiles/1234?response_url=https://www.server.com/example+`
 
 NOTE: As it is not common to add a body to a DELETE request, all parameters are added to the URL.
 
@@ -291,13 +291,13 @@ Therefor OCPI does not define variables.
 
 Examples:
 
-`https://www.msp.com/ocpi/2.2/chargingprofiles/chargingprofile/12345678`
+`+https://www.server.com/ocpi/2.2/chargingprofiles/chargingprofile/12345678+`
 
-`https://www.msp.com/compositeschedule/12345678`
+`+https://www.server.com/compositeschedule/12345678+`
 
-`https://www.msp.com/clearprofile?request_id=12345678`
+`+https://www.server.com/clearprofile?request_id=12345678+`
 
-`https://www.msp.com/ocpi/2.2/12345678`
+`+https://www.server.com/ocpi/2.2/12345678+`
 
 The content of the request body depends on the original request by the MSP to which this POST is send as a result.
 
@@ -339,7 +339,7 @@ Endpoint structure definition:
 
 Example:
 
- `https://www.msp.com/ocpi/2.2/chargingprofiles/1234`
+ `https://www.server.com/ocpi/2.2/chargingprofiles/1234`
 
 [[mod_charging_profiles_cpo_put_request_parameters]]
 ====== Request Parameters

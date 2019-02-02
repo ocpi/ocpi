@@ -60,7 +60,7 @@ Endpoint structure definition:
 
 Example:
 
-`https://www.server.com/ocpi/cpo/2.2/tokens/NL/TNM/012345678`
+`+https://www.server.com/ocpi/cpo/2.2/tokens/NL/TNM/012345678+`
 
 
 [cols="2,12",options="header"]
@@ -190,13 +190,13 @@ Endpoint structure definition:
 
 Examples:
 
-`https://www.server.com/ocpi/emps/2.2/tokens/?date_from=2019-01-28T12:00:00&date_to=2019-01-29T12:00:00`
+`+https://www.server.com/ocpi/emps/2.2/tokens/?date_from=2019-01-28T12:00:00&date_to=2019-01-29T12:00:00+`
 
-`https://ocpi.server.com/2.2/tokens/?offset=50`
+`+https://ocpi.server.com/2.2/tokens/?offset=50+`
 
-`https://www.server.com/ocpi/2.2/tokens/?date_from=2019-01-29T12:00:00&limit=100`
+`+https://www.server.com/ocpi/2.2/tokens/?date_from=2019-01-29T12:00:00&limit=100+`
 
-`https://www.server.com/ocpi/emsp/2.2/tokens/?offset=50&amp;limit=100`
+`+https://www.server.com/ocpi/emsp/2.2/tokens/?offset=50&amp;limit=100+`
 
 
 [[mod_tokens_msp_get_request_parameters]]
@@ -246,9 +246,9 @@ The `/authorize` is required for the real-time authorize request.
 
 Examples:
 
-`https://www.server.com/ocpi/emps/2.2/tokens/012345678/authorize`
+`+https://www.server.com/ocpi/emps/2.2/tokens/012345678/authorize+`
 
-`https://ocpi.server.com/2.2/tokens/012345678/authorize?type=RFID`
+`+https://ocpi.server.com/2.2/tokens/012345678/authorize?type=RFID+`
 
 
 When the eMSP receives a 'real-time' authorization request from a CPO that contains too little information (no LocationReferences provided) to determine if the Token might be used, the eMSP SHOULD respond with the OCPI status: <<status_codes.asciidoc#status_codes_2xxx_client_errors,2002>>

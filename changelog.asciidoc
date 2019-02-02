@@ -340,7 +340,6 @@ Minor
 Minimal
 |Changed `location_id`, `evse_uids` and `connector_ids` from string to CiString, making them case-insensitive, which had always been the idea. +
 Length of `location_id` and `evse_uids` changed from 39 to 36, matching changes in the object definitions.
-|===
 
 |Tokens / +
 TokenType enum
