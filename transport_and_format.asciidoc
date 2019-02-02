@@ -242,18 +242,7 @@ When a request cannot be accepted, an HTTP error response code is expected, incl
 
 [source,json]
 ----
-{
-	"data": [{
-		"version": "2.1.1",
-		"url": "https://example.com/ocpi/cpo/2.1.1/"
-	}, {
-		"version": "2.2",
-		"url": "https://example.com/ocpi/cpo/2.2/"
-	}],
-	"status_code": 1000,
-	"status_message": "Success",
-	"timestamp": "2015-06-30T21:59:59Z"
-}
+include::examples/transport_and_format_version_info_example.json[]
 ----
 
 [[transport_and_format_example_version_details_response_one_object]]
@@ -261,21 +250,7 @@ When a request cannot be accepted, an HTTP error response code is expected, incl
 
 [source,json]
 ----
-{
-	"data": {
-		"version": "2.2",
-		"endpoints": [{
-			"identifier": "credentials",
-			"url": "https://example.com/ocpi/cpo/2.2/credentials/"
-		}, {
-			"identifier": "locations",
-			"url": "https://example.com/ocpi/cpo/2.2/locations/"
-		}]
-	},
-	"status_code": 1000,
-	"status_message": "Success",
-	"timestamp": "2015-06-30T21:59:59Z"
-}
+include::examples/transport_and_format_version_details_example.json[]
 ----
 
 
@@ -284,21 +259,7 @@ When a request cannot be accepted, an HTTP error response code is expected, incl
 
 [source,json]
 ----
-{
-	"data": {
-		"uid": "012345678",
-		"type": "RFID",
-		"contract_id": "FA54320",
-		"visual_number": "DF000-2001-8999",
-		"issuer": "TheNewMotion",
-		"valid": true,
-		"whitelist": "ALLOWED",
-		"last_updated": "2015-06-29T22:39:09Z"
-	},
-	"status_code": 1000,
-	"status_message": "Success",
-	"timestamp": "2015-06-30T21:59:59Z"
-}
+include::examples/transport_and_format_get_token_example.json[]
 ----
 
 [[transport_and_format_example_tokens_get_response_with_list_of_token_objects_emsp_end-point_list_of_objects]]
@@ -306,39 +267,7 @@ When a request cannot be accepted, an HTTP error response code is expected, incl
 
 [source,json]
 ----
-{
-	"data": [{
-		"uid": "100012",
-		"type": "RFID",
-		"contract_id": "FA54320",
-		"visual_number": "DF000-2001-8999",
-		"issuer": "TheNewMotion",
-		"valid": true,
-		"whitelist": "ALWAYS",
-		"last_updated": "2015-06-21T22:39:05Z"
-	}, {
-		"uid": "100013",
-		"type": "RFID",
-		"contract_id": "FA543A5",
-		"visual_number": "DF000-2001-9000",
-		"issuer": "TheNewMotion",
-		"valid": true,
-		"whitelist": "ALLOWED",
-		"last_updated": "2015-06-28T11:21:09Z"
-	}, {
-		"uid": "100014",
-		"type": "RFID",
-		"contract_id": "FA543BB",
-		"visual_number": "DF000-2001-9010",
-		"issuer": "TheNewMotion",
-		"valid": false,
-		"whitelist": "ALLOWED",
-		"last_updated": "2015-05-29T10:12:26Z"
-	}],
-	"status_code": 1000,
-	"status_message": "Success",
-	"timestamp": "2015-06-30T21:59:59Z"
-}
+include::examples/transport_and_format_get_token_list_example.json[]
 ----
 
 [[transport_and_format_example_response_with_an_error_contains_no_data_field]]
@@ -370,16 +299,16 @@ The URLs of the endpoints in this document are descriptive only. The exact URL c
 |===
 |Operator interface |Identifier |Example URL 
 
-|Credentials |credentials |`https://example.com/ocpi/cpo/2.2/credentials` 
-|Charging location details |locations |`https://example.com/ocpi/cpo/2.2/locations` 
+|Credentials |credentials |`+https://example.com/ocpi/cpo/2.2/credentials+`
+|Charging location details |locations |`+https://example.com/ocpi/cpo/2.2/locations+`
 |===
 
 [cols="4,2,10",options="header"]
 |===
 |eMSP interface |Identifier |Example URL 
 
-|Credentials |credentials |`https://example.com/ocpi/emsp/2.2/credentials`
-|Charging location updates |locations |`https://example.com/ocpi/emsp/2.2/locations`
+|Credentials |credentials |`+https://example.com/ocpi/emsp/2.2/credentials+`
+|Charging location updates |locations |`+https://example.com/ocpi/emsp/2.2/locations+`
 |===
 
 [[transport_and_format_offline_behaviour]]
