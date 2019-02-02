@@ -51,7 +51,20 @@ Push is the preferred model to use, the eMSP will receive CDRs when created by t
 
 The CDRs endpoint can be used to create or retrieve CDRs.
 
-Example endpoint structure: `/ocpi/cpo/2.0/cdrs/?date_from=xxx&amp;date_to=yyy`
+Endpoint structure definition:
+
+`{cdr_endpoint_url}?[date_from={date_from}]&amp;[date_to={date_to}]&[offset={offset}]&[limit={limit}]`
+
+Examples:
+
+`https://www.server.com/ocpi/cpo/2.2/cdrs/?date_from=2019-01-28T12:00:00&date_to=2019-01-29T12:00:00`
+
+`https://ocpi.server.com/2.2/cdrs/?offset=50`
+
+`https://www.server.com/ocpi/2.2/cdrs/?date_from=2019-01-29T12:00:00&limit=100`
+
+`https://www.server.com/ocpi/cpo/2.2/cdrs/?offset=50&amp;limit=100`
+
 
 [cols="2,12",options="header"]
 |===
@@ -105,8 +118,6 @@ Each object must contain all required fields. Fields that are not specified may 
 
 The CDRs endpoint can be used to create, or get CDRs.
 
-Example endpoint structure: `/ocpi/emsp/2.0/cdrs`
-
 [cols="2,12",options="header"]
 |===
 |Method |Description 
@@ -122,6 +133,16 @@ Example endpoint structure: `/ocpi/emsp/2.0/cdrs`
 ===== GET Method
 
 Fetch CDRs from the eMSP system. 
+
+Endpoint structure definition:
+
+No structure defined. This is open to the MSP to define, the URL is provided to the CPO by the MSP in the result of the POST request.
+Therefor OCPI does not define variables.
+
+Example:
+
+`https://www.server.com/ocpi/2.2/cdrs/1234`
+
 
 [[mod_cdrs_response_url]]
 ====== Response URL
@@ -145,6 +166,15 @@ The endpoint returns the requested CDR, if it exists
 Creates a new CDR.
 
 The post method should contain the full, final CDR object.
+
+Endpoint structure definition:
+
+`{cdr_endpoint_url}`
+
+Example:
+
+`https://www.server.com/ocpi/2.2/cdrs/`
+
 
 
 [[mod_cdrs_request_body]]
@@ -171,7 +201,11 @@ The response should contain the URL to the just created CDR object in the eMSP s
 |Location |<<types.asciidoc#types_url_type,URL>> |yes |URL to the newly created CDR in the eMSP system, can be used by the CPO system to do a GET on of the same CDR 
 |===
 
-Example: Location: /ocpi/emsp/2.0/cdrs/123456
+The MSP returns the URL where the newly created CDR can be found. OCPI does not define a specific structure for this URL.
+
+Example:
+
+`https://www.server.com/ocpi/emsp/2.2/cdrs/123456`
 
 [[mod_cdrs_object_description]]
 === Object description

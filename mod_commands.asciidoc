@@ -78,7 +78,19 @@ The commands module consists of two interfaces: a CPO interface that enables a e
 [[mod_commands_cpo_interface]]
 ==== CPO Interface
 
-Example endpoint structure: `/ocpi/cpo/2.0/commands/{command}`
+Endpoint structure definition:
+
+`{commands_endpoint_url}{command}`
+
+Examples:
+
+`https://www.server.com/ocpi/cpo/2.2/commands/START_SESSION`
+
+`https://ocpi.server.com/commands/STOP_SESSION`
+
+`https://server.com/ocpi/cpo/2.2/commands/RESERVE_NOW`
+
+Example endpoint structure: ``
 
 [cols="2,12",options="header"]
 |===
@@ -141,9 +153,16 @@ The response contains the direct response from the CPO, not the response from th
 
 The eMSP interface receives the asynchronous responses.
 
-Example endpoint structure:
-`/ocpi/emsp/2.0/commands/{command}`
-`/ocpi/emsp/2.0/commands/{command}/{uid}`
+Endpoint structure definition:
+
+No structure defined. This is open to the MSP to define, the URL is provided to the CPO by the MSP in the POST to the CPO interface.
+Therefor OCPI does not define variables.
+
+Example:
+
+`https://www.server.com/ocpi/emsp/2.2/commands/{command}`
+
+`https://ocpi.server.com/commands/{command}/{uid}`
 
 [cols="2,12",options="header"]
 |===
@@ -160,15 +179,17 @@ Example endpoint structure:
 [[mod_commands_msp_post_method]]
 ===== *POST* Method
 
-[[mod_commands_cpo_post_request_parameters]]
-====== Request Parameters
+Endpoint structure definition:
 
-There are no URL segment parameters required by OCPI.
-It is up to the implementation of the eMSP to determine what parameters are put in the URL. The eMSP sends a URL in the POST method body to the CPO. The CPO is required to use this URL for the asynchronous response by the Charge Point. It is advised to make this URL unique for every request to differentiate simultaneous commands, for example by adding a unique id as a URL segment.
+It is up to the implementation of the eMSP to determine what parameters are put in the URL.
+The eMSP sends a URL in the POST method body to the CPO. The CPO is required to use this URL for the asynchronous response by the Charge Point.
+It is advised to make this URL unique for every request to differentiate simultaneous commands, for example by adding a unique id as a URL segment.
 
-Example:
-`/ocpi/emsp/2.0/commands/RESERVE_NOW/1234`
-`/ocpi/emsp/2.0/commands/UNLOCK_CONNECTOR/2`
+Examples:
+
+`https://www.server.com/ocpi/emsp/2.2/commands/RESERVE_NOW/1234`
+
+`https://www.server.com/ocpi/emsp/2.2/commands/UNLOCK_CONNECTOR/2`
 
 [[mod_commands_msp_post_request_body]]
 ===== Request Body

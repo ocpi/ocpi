@@ -55,15 +55,13 @@ A <<mod_locations.asciidoc#mod_locations_connector_object,Connector>> can have m
 [[mod_sessions_cpo_interface]]
 ==== CPO Interface
 
-Example endpoint structure: `/ocpi/cpo/2.0/sessions/?date_from=xxx&amp;date_to=yyy`
-
 [cols="2,12",options="header"]
 |===
 |Method |Description 
 
 |<<mod_sessions_cpo_get_method,GET>> |Fetch Session objects of charging sessions last updated between the {date_from} and {date_to} (<<transport_and_format.asciidoc#transport_and_format_pagination,paginated>>) 
 |POST |n/a
-|<<mod_sessions_cpo_put_method,PUT>> |Setting charging requirements on an ongoing session.
+|<<mod_sessions_cpo_put_method,PUT>> |Setting charging preferences on an ongoing session.
 |PATCH |n/a
 |DELETE |n/a 
 |===
@@ -71,7 +69,22 @@ Example endpoint structure: `/ocpi/cpo/2.0/sessions/?date_from=xxx&amp;date_to=y
 [[mod_sessions_cpo_get_method]]
 ===== *GET* Method
 
-Fetch Sessions from the CPO systems. 
+Fetch Sessions from the CPO systems.
+
+Endpoint structure definition:
+
+`{sessions_endpoint_url}?[date_from={date_from}]&amp;[date_to={date_to}]&[offset={offset}]&[limit={limit}]`
+
+Examples:
+
+`https://www.server.com/ocpi/cpo/2.2/sessions/?date_from=2019-01-28T12:00:00&date_to=2019-01-29T12:00:00`
+
+`https://ocpi.server.com/2.2/sessions/?offset=50`
+
+`https://www.server.com/ocpi/2.2/sessions/?date_from=2019-01-29T12:00:00&limit=100`
+
+`https://www.server.com/ocpi/cpo/2.2/sessions/?offset=50&amp;limit=100`
+
 
 [[mod_sessions_cpo_get_request_parameters]]
 ====== Request Parameters
@@ -110,8 +123,14 @@ Each object must contain all required fields. Fields that are not specified may 
 
 Set/update the drivers Charging Preferences for this charging session.
 
-Example endpoint structure:
-`/ocpi/cpo/2.2/sessions/{session_id}/charging_preferences`
+Endpoint structure definition:
+
+`{sessions_endpoint_url}{session_id}/charging_preferences`
+
+Examples:
+
+`https://www.server.com/ocpi/cpo/2.2/sessions/1234/charging_preferences`
+
 The `/charging_preferences` is required when setting Charging Preferences.
 
 [[mod_sessions_cpo_post_request_parameters]]
@@ -155,8 +174,15 @@ The endpoint response contains a <<mod_sessions_charging_preferences_response_en
 ===== eMSP Interface
 
 Sessions is a <<transport_and_format.asciidoc#transport_and_format_client_owned_object_push,client owned object>>, so the end-points need to contain the required extra fields: {<<credentials.asciidoc#credentials_credentials_object,party_id>>} and {<<credentials.asciidoc#credentials_credentials_object,country_code>>}.
-Example endpoint structure:
-`/ocpi/emsp/2.0/sessions/{country_code}/{party_id}/{session_id}` 
+
+Endpoint structure definition:
+
+`{sessions_endpoint_url}{country_code}/{party_id}/{session_id}`
+
+Example:
+
+`https://www.server.com/ocpi/cpo/2.2/sessions/BE/BEC/1234`
+
 
 [cols="2,12",options="header"]
 |===
@@ -242,7 +268,7 @@ Same as the <<mod_sessions_msp_put_method,PUT>> method, but only the fields/obje
 
 [source,json]
 ----
-PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
+PATCH To URL: https://www.server.com/ocpi/cpo/2.2/sessions/NL/TNM/101
 
 include::examples/session_patch_example_total_cost.json[]
 ----

@@ -45,7 +45,8 @@ TODO
 - An eMSP request to remove the set ChargingProfile from an ongoing charging session for a customer of the MSP.
 - The CPO updates the eMSP of changes to an CompositeSchedule.
 
-
+- Energy contract meenemen naar publieke laadpaal
+-
 
 [[mod_charging_profiles_flow]]
 === Flow
@@ -113,7 +114,13 @@ Example endpoint structures:
 
 Retrieves the Composite ChargingProfile as it is currently planned for the the given session.
 
-Example endpoint structure: `/ocpi/2.1.1/cpo/chargingprofiles/{session_id}?duration=XX&response_url=http://www.server.com/example`
+Endpoint structure definition:
+
+`{chargingprofiles_endpoint_url}{session_id}?duration={duration}&response_url={url}`
+
+Example:
+
+`https://www.cpo.com/ocpi/2.2/chargingprofiles/1234?duration=900&response_url=https://www.msp.com/ocpi/2.2/chargingprofile/response?request_id=5678`
 
 NOTE: As it is not common to add a body to a GET request, all parameters are added to the URL.
 
@@ -155,7 +162,13 @@ The response contains the direct response from the CPO, not the response from th
 
 Creates a new ChargingProfile on a session, or replaces an existing ChargingProfile on the EVSE.
 
-Example endpoint structure: `/ocpi/2.1.1/cpo/chargingprofiles/{session_id}`
+Endpoint structure definition:
+
+`{chargingprofiles_endpoint_url}{session_id}`
+
+Example:
+
+`https://www.cpo.com/ocpi/2.2/chargingprofiles/1234`
 
 [[mod_charging_profiles_msp_put_request_parameters]]
 ====== Request Parameters
@@ -200,7 +213,13 @@ The response contains the direct response from the CPO, not the response from th
 
 Clears the ChargingProfile set by the MSP on the given session.
 
-Example endpoint structure: `/ocpi/2.1.1/cpo/chargingprofiles/{session_id}?response_url=http://www.server.com/example`
+Endpoint structure definition:
+
+`{chargingprofiles_endpoint_url}{session_id}?response_url={url}`
+
+Example:
+
+`https://www.cpo.com/ocpi/2.2/chargingprofiles/1234?response_url=http://www.server.com/example`
 
 NOTE: As it is not common to add a body to a DELETE request, all parameters are added to the URL.
 
@@ -265,11 +284,20 @@ The CPO is required to use this URL for the asynchronous response by the Charge 
 It is advised to make this URL unique for every request to differentiate simultaneous commands,
 for example by adding a unique id as a URL segment.
 
-Example endpoint structures:
+Endpoint structure definition:
 
-`/ocpi/emsp/2.2/chargingprofiles/chargingprofile/{request_uid}`
-`/ocpi/emsp/2.2/chargingprofiles/compositeschedule/{request_uid}`
-`/ocpi/emsp/2.2/chargingprofiles/deleteprofile/{request_uid}`
+No structure defined. This is open to the MSP to define, the URL is provided to the CPO by the MSP.
+Therefor OCPI does not define variables.
+
+Examples:
+
+`https://www.msp.com/ocpi/2.2/chargingprofiles/chargingprofile/12345678`
+
+`https://www.msp.com/compositeschedule/12345678`
+
+`https://www.msp.com/clearprofile?request_id=12345678`
+
+`https://www.msp.com/ocpi/2.2/12345678`
 
 The content of the request body depends on the original request by the MSP to which this POST is send as a result.
 
@@ -305,7 +333,13 @@ The CPO SHALL NOT call this interface for any session where the eMSP has never, 
 The CPO SHALL send a useful relevant duration of CompositeSchedule to send to the eMSP. As a guide: between 5 and 60 minutes.
 If the eMSP wants a longer CompositeSchedule the eMSP can always do a GEt with a longer duration.
 
-Example endpoint structure: `/ocpi/2.1.1/cpo/chargingprofiles/{session_id}`
+Endpoint structure definition:
+
+`{chargingprofiles_endpoint_url}{session_id}`
+
+Example:
+
+ `https://www.msp.com/ocpi/2.2/chargingprofiles/1234`
 
 [[mod_charging_profiles_cpo_put_request_parameters]]
 ====== Request Parameters

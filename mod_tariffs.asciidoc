@@ -44,7 +44,6 @@ The CPO interface is meant to be used when the connection between 2 parties is e
 
 The CPO Tariffs interface gives the eMSP the ability to request tariffs.
 
-Example endpoint structure: `/ocpi/cpo/2.0/tariffs/?date_from=xxx&amp;date_to=yyy`
 
 [cols="2,12",options="header"]
 |===
@@ -61,6 +60,21 @@ Example endpoint structure: `/ocpi/cpo/2.0/tariffs/?date_from=xxx&amp;date_to=yy
 ===== *GET* Method
 
 Fetch information about all Tariffs.
+
+Endpoint structure definition:
+
+`{tariffs_endpoint_url}?[date_from={date_from}]&amp;[date_to={date_to}]&[offset={offset}]&[limit={limit}]`
+
+Examples:
+
+`https://www.server.com/ocpi/cpo/2.2/tariffs/?date_from=2019-01-28T12:00:00&date_to=2019-01-29T12:00:00`
+
+`https://ocpi.server.com/2.2/tariffs/?offset=50`
+
+`https://www.server.com/ocpi/2.2/tariffs/?date_from=2019-01-29T12:00:00&limit=100`
+
+`https://www.server.com/ocpi/cpo/2.2/tariffs/?offset=50&amp;limit=100`
+
 
 [[mod_tariffs_cpo_get_request_parameters]]
 ====== Request Parameters
@@ -98,8 +112,15 @@ Each object must contain all required fields. Fields that are not specified may 
 ==== eMSP Interface
 
 Tariffs is a <<transport_and_format.asciidoc#transport_and_format_client_owned_object_push,client owned object>>, so the end-points need to contain the required extra fields: {<<credentials.asciidoc#credentials_credentials_object,party_id>>} and {<<credentials.asciidoc#credentials_credentials_object,country_code>>}.
-Example endpoint structure:
-`/ocpi/emsp/2.0/tariffs/{country_code}/{party_id}/{tariff_id}`
+
+Endpoint structure definition:
+
+`{tariffs_endpoint_url}{country_code}/{party_id}/{tariff_id}`
+
+Example:
+
+`https://www.server.com/ocpi/cpo/2.2/tariffs/BE/BEC/12`
+
 
 [cols="2,12",options="header"]
 |===
@@ -179,7 +200,7 @@ The following parameters can be provided as URL segments.
 
 [source,json]
 ----
-PUT To URL: https://www.server.com/ocpi/emsp/2.0/tariffs/NL/TNM/12
+PUT To URL: https://www.server.com/ocpi/emsp/2.2/tariffs/NL/TNM/12
 
 include::examples/tariff_put_example.json[]
 ----
@@ -195,7 +216,7 @@ other fields/objects that are not specified are considered unchanged.
 
 [source,json]
 ----
-PUT To URL: https://www.server.com/ocpi/emsp/2.0/tariffs/NL/TNM/12
+PUT To URL: https://www.server.com/ocpi/emsp/2.2/tariffs/NL/TNM/12
 
 include::examples/tariff_patch_example.json[]
 ----

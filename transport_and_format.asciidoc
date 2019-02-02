@@ -131,21 +131,21 @@ Example of a required OCPI pagination link header:
 
 [source]
 ----
-  Link: <https://www.server.com/ocpi/cpo/2.0/cdrs/?offset=150&limit=50>; rel="next"
+  Link: <https://www.server.com/ocpi/cpo/2.2/cdrs/?offset=150&limit=50>; rel="next"
 ----
 
 After the client has called the given "next" page URL above the Link parameter will most likely look like this:
 
 [source]
 ----
-  Link: <https://www.server.com/ocpi/cpo/2.0/cdrs/?offset=200&limit=50>; rel="next"
+  Link: <https://www.server.com/ocpi/cpo/2.2/cdrs/?offset=200&limit=50>; rel="next"
 ----
 
 Example of a query with filters: Client does a GET to: 
 
 [source]
 ----
-  https://www.server.com/ocpi/cpo/2.0/cdrs/?date_from=2016-01-01T00:00:00Z&date_to=2016-12-31T23:59:59Z
+  https://www.server.com/ocpi/cpo/2.2/cdrs/?date_from=2016-01-01T00:00:00Z&date_to=2016-12-31T23:59:59Z
 ----
 
 The server should return (when the server has enough objects and the limit is the amount of objects the server wants to send is 100.)
@@ -153,7 +153,7 @@ _(This example should have been on 1 line, but didn't fit the paper width.)_
 
 [source]
 ----
-  Link: <https://www.server.com/ocpi/cpo/2.0/cdrs/?offset=100
+  Link: <https://www.server.com/ocpi/cpo/2.2/cdrs/?offset=100
                  &limit=100&date_from=2016-01-01T00:00:00Z&date_to=2016-12-31T23:59:59Z>; rel="next"
 ----
 
@@ -161,14 +161,14 @@ Example of a server limiting the amount of objects returned: Client does a GET t
 
 [source]
 ----
-  https://www.server.com/ocpi/cpo/2.0/cdrs/?limit=2000
+  https://www.server.com/ocpi/cpo/2.2/cdrs/?limit=2000
 ----
 
 The server should return (when the server has enough objects and the limit is the amount of objects the server wants to send is 100.) The `X-Limit` HTTP parameter should be set to 100 as well.
 
 [source]
 ----
-  Link: <https://www.server.com/ocpi/cpo/2.0/cdrs/?offset=100&limit=100>; rel="next"
+  Link: <https://www.server.com/ocpi/cpo/2.2/cdrs/?offset=100&limit=100>; rel="next"
 ----
 
 [[transport_and_format_put]]
@@ -203,7 +203,7 @@ Example of a URL to a client owned object
 
 [source]
 ----
-  https://www.server.com/ocpi/cpo/2.0/tariffs/NL/TNM/14
+  https://www.server.com/ocpi/cpo/2.2/tariffs/NL/TNM/14
 ----
 
 POST is not supported for these kind of modules.
@@ -244,11 +244,11 @@ When a request cannot be accepted, an HTTP error response code is expected, incl
 ----
 {
 	"data": [{
-		"version": "1.9",
-		"url": "https://example.com/ocpi/cpo/1.9/"
+		"version": "2.1.1",
+		"url": "https://example.com/ocpi/cpo/2.1.1/"
 	}, {
-		"version": "2.0",
-		"url": "https://example.com/ocpi/cpo/2.0/"
+		"version": "2.2",
+		"url": "https://example.com/ocpi/cpo/2.2/"
 	}],
 	"status_code": 1000,
 	"status_message": "Success",
@@ -263,13 +263,13 @@ When a request cannot be accepted, an HTTP error response code is expected, incl
 ----
 {
 	"data": {
-		"version": "2.0",
+		"version": "2.2",
 		"endpoints": [{
 			"identifier": "credentials",
-			"url": "https://example.com/ocpi/cpo/2.0/credentials/"
+			"url": "https://example.com/ocpi/cpo/2.2/credentials/"
 		}, {
 			"identifier": "locations",
-			"url": "https://example.com/ocpi/cpo/2.0/locations/"
+			"url": "https://example.com/ocpi/cpo/2.2/locations/"
 		}]
 	},
 	"status_code": 1000,
@@ -362,7 +362,7 @@ As OCPI contains multiple interfaces, different endpoints are available for mess
 
 The locations of all the version specific endpoints can be retrieved by fetching the API information from the versions endpoint. Each version specific endpoint will then list the available endpoints for that version. It is strongly recommended to insert the protocol version into the URL.
 
-For example: `/ocpi/cpo/2.0/locations` and `/ocpi/emsp/2.0/locations`.
+For example: `/ocpi/cpo/2.2/locations` and `/ocpi/emsp/2.2/locations`.
 
 The URLs of the endpoints in this document are descriptive only. The exact URL can be found by fetching the endpoint information from the API info endpoint and looking up the identifier of the endpoint.
 
@@ -370,16 +370,16 @@ The URLs of the endpoints in this document are descriptive only. The exact URL c
 |===
 |Operator interface |Identifier |Example URL 
 
-|Credentials |credentials |https://example.com/ocpi/cpo/2.0/credentials[https://example.com/ocpi/cpo/2.0/credentials] 
-|Charging location details |locations |https://example.com/ocpi/cpo/2.0/locations[https://example.com/ocpi/cpo/2.0/locations] 
+|Credentials |credentials |`https://example.com/ocpi/cpo/2.2/credentials` 
+|Charging location details |locations |`https://example.com/ocpi/cpo/2.2/locations` 
 |===
 
 [cols="4,2,10",options="header"]
 |===
 |eMSP interface |Identifier |Example URL 
 
-|Credentials |credentials |https://example.com/ocpi/emsp/2.0/credentials[https://example.com/ocpi/emsp/2.0/credentials] 
-|Charging location updates |locations |https://example.com/ocpi/emsp/2.0/locations[https://example.com/ocpi/emsp/2.0/locations] 
+|Credentials |credentials |`https://example.com/ocpi/emsp/2.2/credentials`
+|Charging location updates |locations |`https://example.com/ocpi/emsp/2.2/locations`
 |===
 
 [[transport_and_format_offline_behaviour]]

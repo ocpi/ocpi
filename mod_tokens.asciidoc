@@ -53,8 +53,15 @@ The eMSP interface is meant to be used when the CPO is not 100% sure the Token c
 
 With this interface the eMSP can push the Token information to the CPO.
 Tokens is a <<transport_and_format.asciidoc#transport_and_format_client_owned_object_push,client owned object>>, so the end-points need to contain the required extra fields: {<<credentials.asciidoc#credentials_credentials_object,party_id>>} and {<<credentials.asciidoc#credentials_credentials_object,country_code>>}.
-Example endpoint structure:
-`/ocpi/cpo/2.0/tokens/{country_code}/{party_id}/{token_uid}` 
+
+Endpoint structure definition:
+
+`{token_endpoint_url}{country_code}/{party_id}/{token_uid}`
+
+Example:
+
+`https://www.server.com/ocpi/cpo/2.2/tokens/NL/TNM/012345678`
+
 
 [cols="2,12",options="header"]
 |===
@@ -134,7 +141,7 @@ The following parameters can be provided as URL segments.
 
 [source,json]
 ----
-PUT To URL: https://www.server.com/ocpi/cpo/2.0/tokens/NL/TNM/012345678
+PUT To URL: https://www.server.com/ocpi/cpo/2.2/tokens/NL/TNM/012345678
 
 include::examples/token_put_example.json[]
 ----
@@ -150,7 +157,7 @@ Same as the <<mod_tokens_put_method,PUT>> method, but only the fields/objects th
 
 [source,json]
 ----
-PATCH To URL: https://www.server.com/ocpi/cpo/2.0/tokens/NL/TNM/012345678
+PATCH To URL: https://www.server.com/ocpi/cpo/2.2/tokens/NL/TNM/012345678
 
 include::examples/token_patch_example.json[]
 ----
@@ -160,8 +167,6 @@ include::examples/token_patch_example.json[]
 
 This interface enables the CPO to request the current list of Tokens, when needed.
 Via the POST method it is possible to authorize a single token.
-
-Example endpoint structure: `/ocpi/emsp/2.0/tokens/?date_from=xxx&amp;date_to=yyy`
 
 [cols="2,12",options="header"]
 |===
@@ -178,6 +183,21 @@ Example endpoint structure: `/ocpi/emsp/2.0/tokens/?date_from=xxx&amp;date_to=yy
 ===== *GET* Method
 
 Fetch information about Tokens known in the eMSP systems.
+
+Endpoint structure definition:
+
+`{tokens_endpoint_url}?[date_from={date_from}]&amp;[date_to={date_to}]&[offset={offset}]&[limit={limit}]`
+
+Examples:
+
+`https://www.server.com/ocpi/emps/2.2/tokens/?date_from=2019-01-28T12:00:00&date_to=2019-01-29T12:00:00`
+
+`https://ocpi.server.com/2.2/tokens/?offset=50`
+
+`https://www.server.com/ocpi/2.2/tokens/?date_from=2019-01-29T12:00:00&limit=100`
+
+`https://www.server.com/ocpi/emsp/2.2/tokens/?offset=50&amp;limit=100`
+
 
 [[mod_tokens_msp_get_request_parameters]]
 ====== Request Parameters
@@ -217,9 +237,19 @@ Each object must contain all required fields. Fields that are not specified may 
 
 Do a 'real-time' authorization request to the eMSP system, validating if a Token might be used (at the optionally given Location). 
 
-Example endpoint structure:
-`/ocpi/emsp/2.0/tokens/{token_uid}/authorize?{type=token_type}`
+Endpoint structure definition:
+
+`{tokens_endpoint_url}{token_uid}/authorize[?{type=token_type}]`
+
+
 The `/authorize` is required for the real-time authorize request.
+
+Examples:
+
+`https://www.server.com/ocpi/emps/2.2/tokens/012345678/authorize`
+
+`https://ocpi.server.com/2.2/tokens/012345678/authorize?type=RFID`
+
 
 When the eMSP receives a 'real-time' authorization request from a CPO that contains too little information (no LocationReferences provided) to determine if the Token might be used, the eMSP SHOULD respond with the OCPI status: <<status_codes.asciidoc#status_codes_2xxx_client_errors,2002>>
 
