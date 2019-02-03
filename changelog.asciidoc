@@ -24,31 +24,12 @@ CDR Object
 Minor
 |Minimal / +
 Minimal
-|Added `session_id` field, making it easier to match a CDR to a Session.
-
-|CDRs / +
-CDR Object
-|Minor / +
-Minor
-|Minimal / +
-Minimal
-|Changed `total_cost` field from type: `number` to `Price`, this provides the MSP with the total cost including VAT.
-
-|CDRs / +
-CDR Object
-|Minor / +
-Minor
-|Minimal / +
-Minimal
-|Replaced `auth_id` field with `CdrToken`. `auth_id` alone could not be used to uniquely identify a <<mod_tokens.asciidoc#mod_tokens_token_object,Token>>. By copying the information for the dynamic Token object, the CDR will always reflect the 'true' status of Token at the start of the charging session.
-
-|CDRs / +
-CDR Object
-|Medium / +
-Medium
-|Minimal / +
-Minimal
-|Replaced `location` field with `cdr_location`, this also changed type, from `Location` to `CdrLocation`. Reusing the `Location` object always caused a lot of confusing, things were not clear. By creating a deticated object `CdrLocation` with only the relevant fields, things should be much clearer.
+|- Added `session_id` field, making it easier to match a CDR to a Session. +
+- Changed `total_cost` field from type: `number` to `Price`, this provides the MSP with the total cost including VAT. +
+- Replaced `auth_id` field with `CdrToken`. `auth_id` alone could not be used to uniquely identify a <<mod_tokens.asciidoc#mod_tokens_token_object,Token>>. By copying the information for the dynamic Token object, the CDR will always reflect the 'true' status of Token at the start of the charging session. +
+- Replaced `location` field with `cdr_location`, this also changed type, from `Location` to `CdrLocation`. Reusing the `Location` object always caused a lot of confusing, things were not clear. By creating a deticated object `CdrLocation` with only the relevant fields, things should be much clearer. +
+- Added `credit` and `credit_reference_id` fields, to allow for Credit CDRs to be send. + 
+- Field `id` changed in length from 36 to 39, to allow for something to be appended after the original id in case of a Credit CDR.
 
 |CDRs / +
 ChargingPeriod class
@@ -87,8 +68,8 @@ CommandResponse Object
 Minor
 |Minimal / +
 Minimal
-|Added `message` field, enables the CPO to send a message to the user when something goes wrong. +
-Added `timeout` field, enables the eMSP to cleanup not responded outstanding commands.
+|- Added `message` field, enables the CPO to send a message to the user when something goes wrong. +
+- Added `timeout` field, enables the eMSP to cleanup not responded outstanding commands.
 
 |Commands / +
 ReserveNow Object
@@ -120,8 +101,8 @@ UnlockConnector Object
 Minor
 |Minimal / +
 Minimal
-|Changed `location_id`, `evse_uids` and `connector_ids` from string to CiString, making them case-insensitive, which had always been the idea. +
-Length of `location_id` and `evse_uids` changed from 39 to 36, matching changes in the object definitions.
+|- Changed `location_id`, `evse_uids` and `connector_ids` from string to CiString, making them case-insensitive, which had always been the idea. +
+- Length of `location_id` and `evse_uids` changed from 39 to 36, matching changes in the object definitions.
 
 |Commands / +
 CommandResponseType Enum
@@ -153,8 +134,8 @@ CPO GET Object method
 Minor
 |Minimal / +
 Minimal
-|Changed `location_id`, `evse_uids` and `connector_ids` from string to CiString, making them case-insensitive, which had always been the idea. +
-Length of `location_id` and `evse_uids` changed from 39 to 36, matching changes in the object definitions.
+|- Changed `location_id`, `evse_uids` and `connector_ids` from string to CiString, making them case-insensitive, which had always been the idea. +
+- Length of `location_id` and `evse_uids` changed from 39 to 36, matching changes in the object definitions.
 
 |Locations / +
 CPO GET, PUT & PATCH methods
@@ -162,8 +143,8 @@ CPO GET, PUT & PATCH methods
 Minor
 |Minimal / +
 Minimal
-|Changed `country_code`, `party_id`, `location_id`, `evse_uids` and `connector_ids` from string to CiString, making them case-insensitive, which had always been the idea. +
-Length of `location_id` and `evse_uids` changed from 39 to 36, matching changes in the object definitions.
+|- Changed `country_code`, `party_id`, `location_id`, `evse_uids` and `connector_ids` from string to CiString, making them case-insensitive, which had always been the idea. +
+- Length of `location_id` and `evse_uids` changed from 39 to 36, matching changes in the object definitions.
 
 |Locations / +
 Connector Object
@@ -171,9 +152,9 @@ Connector Object
 Minor
 |Minimal / +
 Minimal
-|Field `id` is changed from string to CiString, making it now case-insensitive, which had always been the idea. +
-Added `max_electric_power` field, some DC Fast Charger have a lower max power then can be calculated form `voltage` and `amperage`. +
-Changed `tariff_id` field to `tariff_ids`, and changed cardinality from `?` to `*`. Making it possible to make provided tariffs for different Smart Charging Preferences and also for ad hoc payment. Changed type from string to CiString, matching the change to Tariff.id.
+|- Field `id` is changed from string to CiString, making it now case-insensitive, which had always been the idea. +
+- Added `max_electric_power` field, some DC Fast Charger have a lower max power then can be calculated form `voltage` and `amperage`. +
+- Changed `tariff_id` field to `tariff_ids`, and changed cardinality from `?` to `*`. Making it possible to make provided tariffs for different Smart Charging Preferences and also for ad hoc payment. Changed type from string to CiString, matching the change to Tariff.id.
 
 |Locations / +
 EVSE Object
@@ -181,8 +162,8 @@ EVSE Object
 Minor
 |Minimal / +
 Minimal
-|Fields `uid` and `evse_id` is changed from string to CiString, making them case-insensitive, which had always been the idea. +
-length of `uid` changed from 39 to 36, as 36 is enough to store UUID and GUIDs.
+|- Fields `uid` and `evse_id` is changed from string to CiString, making them case-insensitive, which had always been the idea. +
+- length of `uid` changed from 39 to 36, as 36 is enough to store UUID and GUIDs.
 
 |Locations / +
 Location Object
@@ -190,10 +171,10 @@ Location Object
 Minor
 |Minimal / +
 Minimal
-|Field `id` is changed from string to CiString, making it now case-insensitive, which had always been the idea. +
-length changed from 39 to 36, as 36 is enough to store UUID and GUIDs. +
-Added `state` field, optional, to allow as much different address schemes from around the world as possible.. +
-Changed `postal_code` field from required to optional, with the remark that omitting is only allowed when location has no postal_code.
+|- Field `id` is changed from string to CiString, making it now case-insensitive, which had always been the idea. +
+- length changed from 39 to 36, as 36 is enough to store UUID and GUIDs. +
+- Added `state` field, optional, to allow as much different address schemes from around the world as possible.. +
+- Changed `postal_code` field from required to optional, with the remark that omitting is only allowed when location has no postal_code.
 
 |Locations / +
 AdditionalGeoLocation class
@@ -258,10 +239,10 @@ Session Object
 Minor
 |Minimal / +
 Minimal
-|Field `id` is changed from string to CiString, making it now case-insensitive, which had always been the idea. +
-Changed `total_cost` field from type: `number` to `Price`, this provides the MSP with the total cost including VAT. +
-Replaced `auth_id` with `CdrToken` class. `auth_id` alone could not be used to uniquely identify a <<mod_tokens.asciidoc#mod_tokens_token_object,Token>>. +
-Replaced `location` object with `location_id`, `evse_uid` and `connector_id`. Having the `Location` Object in the `Session` was overkill, only reference is more inline with the rest.
+|- Field `id` is changed from string to CiString, making it now case-insensitive, which had always been the idea. +
+- Changed `total_cost` field from type: `number` to `Price`, this provides the MSP with the total cost including VAT. +
+- Replaced `auth_id` with `CdrToken` class. `auth_id` alone could not be used to uniquely identify a <<mod_tokens.asciidoc#mod_tokens_token_object,Token>>. +
+- Replaced `location` object with `location_id`, `evse_uid` and `connector_id`. Having the `Location` Object in the `Session` was overkill, only reference is more inline with the rest.
 
 |Tokens / +
 eMSP GET, PUT, PATCH & DELETE methods
@@ -277,8 +258,8 @@ Tariff Object
 Minor
 |Minimal / +
 Minimal
-|Field `id` is changed from string to CiString, making it now case-insensitive, which had always been the idea. +
-Added `type` field to make it possible to make different tariffs for different Smart Charging Preferences and also for ad hoc payment.
+|- Field `id` is changed from string to CiString, making it now case-insensitive, which had always been the idea. +
+- Added `type` field to make it possible to make different tariffs for different Smart Charging Preferences and also for ad hoc payment.
 
 |Tariffs / +
 PriceComponent class
@@ -286,9 +267,9 @@ PriceComponent class
 Minor
 |Minimal / +
 Minimal
-|Added `vat` field to send the applicable VAT with every tariff component. +
-Added optional `max_price` field, making it possible to set a maximum price on a Charging Session. +
-Added optional `min_price` field, making it possible to set a minimum price on a Charging Session.
+|- Added `vat` field to send the applicable VAT with every tariff component. +
+- Added optional `max_price` field, making it possible to set a maximum price on a Charging Session. +
+- Added optional `min_price` field, making it possible to set a minimum price on a Charging Session.
 
 |Tariffs / +
 ReservationRestrictionType enum
@@ -328,11 +309,11 @@ Token Object
 Minor
 |Minimal / +
 Minimal
-|Fields `uid` changed from string to CiString, making it now case-insensitive, which had always been the idea. +
-Fields `auth_id_` renamed to `contract_id`, a much more logical and less confusing name. Also changed from string to CiString, making it now case-insensitive, which had always been the idea. +
-Added `group_id` field to enable support for OCPP GroupId/ParentId. +
-Added `default_profile_type` field to enable a default Preference base Smart Charging ProfileType to be provided for a user. +
-Added `energy_contract` field to make it possible, if allowed, to use a drivers energy supplier/contract at a Charge Point.
+|- Fields `uid` changed from string to CiString, making it now case-insensitive, which had always been the idea. +
+- Fields `auth_id_` renamed to `contract_id`, a much more logical and less confusing name. Also changed from string to CiString, making it now case-insensitive, which had always been the idea. +
+- Added `group_id` field to enable support for OCPP GroupId/ParentId. +
+- Added `default_profile_type` field to enable a default Preference base Smart Charging ProfileType to be provided for a user. +
+- Added `energy_contract` field to make it possible, if allowed, to use a drivers energy supplier/contract at a Charge Point.
 
 |Tokens / +
 LocationReferences class
@@ -340,8 +321,8 @@ LocationReferences class
 Minor
 |Minimal / +
 Minimal
-|Changed `location_id`, `evse_uids` and `connector_ids` from string to CiString, making them case-insensitive, which had always been the idea. +
-Length of `location_id` and `evse_uids` changed from 39 to 36, matching changes in the object definitions.
+|- Changed `location_id`, `evse_uids` and `connector_ids` from string to CiString, making them case-insensitive, which had always been the idea. +
+- Length of `location_id` and `evse_uids` changed from 39 to 36, matching changes in the object definitions.
 
 |Tokens / +
 TokenType enum

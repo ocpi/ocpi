@@ -15,7 +15,31 @@ as soon as possible. But if there is an agreement between parties to send them f
 [[mod_cdrs_flow_and_lifecycle]]
 === Flow and Lifecycle
 
-CDRs are created by the CPO. They probably only will be sent to the eMSP that will be paying the bill of a charging session. Because a CDR is for billing purposes, it cannot be changed/replaced, once sent to the eMSP, changes are not allowed in a CDR.
+CDRs are created by the CPO. They probably only will be sent to the eMSP that will be paying the bill of a charging session.
+Because a CDR is for billing purposes, it cannot be changed/replaced, once sent to the eMSP, changes are not allowed in a CDR,
+a <<mod_cdrs_credit_cdrs,Credit CDR>> needs to be send.
+
+[[mod_cdrs_credit_cdrs]]
+==== Credit CDRs
+
+As CDRs are used for billing and can be seen as a kind of invoice. CDRs cannot be deleted, they have to be credited.
+
+When a CPO wants to make changes to a CDR that is already send the a CPO, the CPO has to send a credit CDR for
+the first CDR. This credit CDR SHALL have a different CDR.id, this can be a completely different number,
+or it can be the id of the original CDR with something appended like for example: "-C" to make it unique again.
+To indicate this is a Credit CDR, the <<mod_cdrs_cdr_object,`credit`>> field is set to `true`
+The Credit CDR references the old CDR via the <<mod_cdrs_cdr_object,`credit_reference_id`>> field,
+which SHALL contain the <<mod_cdrs_cdr_object,`id`>> of the original CDR.
+The Credit CDR will contain all the data of the original CDR.
+Only the values in the <<mod_cdrs_cdr_object,`total_cost`>> field SHALL contain the negative amounts of the original CDR.
+
+After having send the Credit CDR, the CPO can send a new CDR, with a new unique ID,
+with the fields: <<mod_cdrs_cdr_object,`credit`>> and <<mod_cdrs_cdr_object,`credit_reference_id`>> omitted.
+
+NOTE: How far back in time a CPO can send a credit CDR, is not defined by OCPI,
+that is up the business contracts between the different parties involved,
+there might be local laws involved etc.
+
 
 [[mod_cdrs_push_model]]
 ==== Push model
@@ -231,7 +255,7 @@ The _CDR_ object shall always contain information like location, EVSE, Tariffs a
 |===
 |Property |Type |Card. |Description 
 
-|id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Uniquely identifies the CDR within the CPOs platform (and suboperator platforms). 
+|id |<<types.asciidoc#types_cistring_type,CiString>>(39) |1 |Uniquely identifies the CDR within the CPOs platform (and sub-operator platforms). This field is longer then the usual 36 chars to allow for credit CDRs to have <<mod_cdrs_credit_cdrs,something appended>> to the original ID, to make it unique. Normal (non-credit) CDRs SHALL only have an ID with a maximum length of 36.
 |start_date_time |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Start timestamp of the charging session. 
 |stop_date_time |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Stop timestamp of the charging session. 
 |session_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |Unique ID of the Session for which this CDR is send. Is only allowed to be omitted when the CPO has not implemented the Sessions Module. 
@@ -247,11 +271,15 @@ The _CDR_ object shall always contain information like location, EVSE, Tariffs a
 |total_time |<<types.asciidoc#types_number_type,number>> |1 |total duration of this session (including the duration of charging and not charging), in hours. 
 |total_parking_time |<<types.asciidoc#types_number_type,number>> |? |Total duration during this session that the EV is not being charged (no energy being transfered between EVSE and EV), in hours. 
 |remark |<<types.asciidoc#types_string_type,string>>(255) |? |Optional remark, can be used to provide addition human readable information to the CDR, for example: reason why a transaction was stopped.
-|last_updated |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Timestamp when this CDR was last updated (or created). 
+|credit |boolean |? |When set to 'true', this is a Credit CDR, and the field `credit_reference_id` needs to be set as well.
+|credit_reference_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |Is required to be set for a Credit CDR. This SHALL contain the `id` of the CDR for which this is a Credit CDR.
+|last_updated |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Timestamp when this CDR was last updated (or created).
 |===
 
 NOTE: The duration of charging (energy being transferred between EVSE and EV) during this session can be calculated via: `total_time` - `total_parking_time`. 
 
+NOTE: Having both a `credit` and a `credit_reference_id` might seem redundant. But it is seen as an advantage,
+having a boolean flag that can be used for queries, is much faster then string comparisons.
 
 [[mod_cdrs_example_of_a_cdr]]
 ===== Example of a CDR
