@@ -9,7 +9,33 @@ The OCPI protocol is based on HTTP and uses the JSON format. It follows a RESTfu
 [[transport_and_format_security_and_authentication]]
 ==== Security and authentication
 
-The interfaces are protected on HTTP transport level, with SSL and token based authentication. Please note that this mechanism does *not* require client side certificates for authentication, only server side certificates in order to setup a secure SSL connection.
+The interfaces are protected on HTTP transport level, with SSL and token based authentication.
+Please note that this mechanism does *not* require client side certificates for authentication,
+only server side certificates in order to setup a secure SSL connection.
+
+
+[[transport_and_format_authorization_header]]
+==== Authorization header
+
+Every OCPI HTTP request MUST add a 'Authorization' header. The header looks as follows:
+
+[source]
+----
+  Authorization: Token IpbJOXxkxOAuKR92z0nEcmVF3Qw09VG7I7d/WCg0koM=
+----
+
+The literal 'Token' indicates that the token based authentication mechanism is used, in OCPI this is called the 'credentials token'.
+<<credentials.asciidoc#credentials_credentials_endpoint,'Credentials tokens'>> are exchanged via the <<mod_tokens.asciidoc#mod_tokens_tokens_module,credentials module>>.
+These are different 'tokens' then the <<,Tokens>> exchanged via the <<,Token Module>>: Tokens used by drivers to authorize charging.
+To prevent confusion, when talking about the token used here in the HTTP Authorization header, call them: 'Credentials Tokens'.
+
+Its parameter is a string consisting of printable, non-whitespace ASCII characters.
+
+The credentials token must uniquely identify the requesting party.
+This way, the server can use the information in the Authorization header to the link the request to the correct requesting party's account.
+
+If the header is missing or the credentials token doesn't match any known party then the server MUST respond with a HTTP `401 - Unauthorized` status code.
+
 
 [[transport_and_format_pull_and_push]]
 ==== Pull and Push
@@ -28,17 +54,9 @@ especially when a number of clients are requesting long lists frequently.
 'Push' implementation tend to use much less resources.
 It is therefor advised to clients 'pulling' lists from a server to do this on a relative low polling interval: think in hours, not minutes, and to introduce some splay (randomize the length of the poll interface a bit). 
 
+
 [[transport_and_format_request_format]]
 ==== Request format
-
-Each HTTP request must add a 'Authorization' header. The header looks as follows:
-
-[source]
-----
-  Authorization: Token IpbJOXxkxOAuKR92z0nEcmVF3Qw09VG7I7d/WCg0koM=
-----
-
-The literal 'Token' indicates that the token based authentication mechanism is used. Its parameter is a string consisting of printable, non-whitespace ASCII characters. The token must uniquely identify the requesting party. This way, the server can use this to link data and commands to this party's account. If the header is missing or the token doesn't match any known party then the server must respond with a HTTP `401 - Unauthorized` status code.
 
 The request method can be any of <<transport_and_format_get,GET>>, <<transport_and_format_put,PUT>>, <<transport_and_format_patch,PATCH>> or DELETE. The OCPI protocol uses them in a way similar to REST APIs.
 
