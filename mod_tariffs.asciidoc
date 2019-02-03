@@ -543,6 +543,112 @@ include::examples/tariff_7_first_hour_kwh_free.json[]
 ----
 
 
+[[mod_tariffs_tariff_example_15_reservation_5_euro_per_hour]]
+====== Tariff example with reservation price
+
+* Reservation
+[disc]
+** 5.00 euro per hour (excluding VAT)
+** 20% VAT
+** Billed per 1 minute (60 seconds)
+* Start or transaction fee
+[disc]
+** 0.50 euro (excluding VAT)
+** 20% VAT
+* Energy
+[disc]
+** 0.25 euro per kWh (excluding VAT)
+** 10% VAT
+** Billed per 1 Wh
+
+[source,json]
+----
+include::examples/tariff_15_reservation_5_euro_per_hour.json[]
+----
+
+
+[[mod_tariffs_tariff_example_16_reservation_2_euro_fee_5_euro_per_hour]]
+====== Tariff example with reservation price and fee
+
+* Reservation
+[disc]
+** 2.00 euro reservation fee (excluding VAT)
+** 5.00 euro per hour (excluding VAT)
+** 20% VAT
+** Billed per 5 minutes (300 seconds)
+* Start or transaction fee
+[disc]
+** 0.50 euro (excluding VAT)
+** 20% VAT
+* Energy
+[disc]
+** 0.25 euro per kWh (excluding VAT)
+** 10% VAT
+** Billed per 1 Wh
+
+[source,json]
+----
+include::examples/tariff_16_reservation_2_euro_fee_5_euro_per_hour.json[]
+----
+
+
+[[mod_tariffs_tariff_example_17_reservation_with_expire_fee]]
+====== Tariff example with reservation price and expire fee
+
+* Reservation
+[disc]
+** 4.00 euro reservation expire fee (excluding VAT) (when reservation not used, this fee is added to reservation cost)
+** 2.00 euro per hour (excluding VAT)
+** 20% VAT
+** Billed per 10 minutes (600 seconds)
+* Start or transaction fee
+[disc]
+** 0.50 euro (excluding VAT)
+** 20% VAT
+* Energy
+[disc]
+** 0.25 euro per kWh (excluding VAT)
+** 10% VAT
+** Billed per 1 Wh
+
+[source,json]
+----
+include::examples/tariff_17_reservation_with_expire_fee.json[]
+----
+
+
+[[mod_tariffs_tariff_example_18_reservation_with_expire_time]]
+====== Tariff example with reservation time and expire time
+
+* Reservation
+[disc]
+** 3.00 euro per hour (excluding VAT)
+** 6.00 euro per hour (excluding VAT) (When reservation expires, EV driver never starts to charge)
+** 20% VAT
+** Billed per 10 minutes (600 seconds)
+* Start or transaction fee
+[disc]
+** 0.50 euro (excluding VAT)
+** 20% VAT
+* Energy
+[disc]
+** 0.25 euro per kWh (excluding VAT)
+** 10% VAT
+** Billed per 100 Wh
+
+[source,json]
+----
+include::examples/tariff_17_reservation_with_expire_fee.json[]
+----
+
+Example of cost:
+
+- EV driver reserves the EVSE for half an hour (30 minutes).
+- When the driver would start charging after 9 minutes, and charges 48.03 kWh: 0.50 + 0.50 + 12 = 13.00 euro (excluding VAT)
+- When the driver would start charging after 12 minutes, and charges 62.98 kWh: 1.00 + 0.50 + 15.75 = 17.25 euro (excluding VAT)
+- When the driver never start to charge before the reservation expires, cost: 3.00 euro (excluding VAT)
+
+
 [[mod_tariffs_data_types]]
 === Data types
 
@@ -624,6 +730,19 @@ An EV driver plugs in at 19:55, charges for 10 min (TIME), stops charging but st
 - 0.85 euro total for this session.
 
 
+[[mod_tariffs_reservation_restriction_type]]
+==== ReservationRestrictionType _enum_
+
+[cols="3,10",options="header"]
+|===
+|Value |Description
+|RESERVATION |This TariffElement is for the cost associated with a reservation.
+|RESERVATION_EXPIRES | This TariffElement is only for cost associated with a reservation that expires, driver does not start a charging session before <<mod_commands.asciidoc#mod_commands_reservenow_object,expiry_date>>.
+|===
+
+NOTE: When a Tariff has both a `RESERVATION` and a `RESERVATION_EXPIRES` TariffElement, with both a  <<mod_tariffs_tariffdimensiontype_enum,TIME>> PriceComponent,
+the time based cost of an expired reservation duration will be the price in the `RESERVATION_EXPIRES` TariffElement.
+
 [[mod_tariffs_tariffelement_class]]
 ==== TariffElement _class_
 
@@ -645,8 +764,10 @@ An EV driver plugs in at 19:55, charges for 10 min (TIME), stops charging but st
 |ENERGY |defined in kWh, step_size multiplier: 1 Wh 
 |FLAT |flat fee, no unit 
 |PARKING_TIME |time not charging: defined in hours, step_size multiplier: 1 second 
-|TIME |time charging: defined in hours, step_size multiplier: 1 second 
+|TIME |time charging: defined in hours, step_size multiplier: 1 second +
+Can also be used in combination with <<mod_tariffs_tariffrestrictions_class,reservation>> for the the price of the reservation time.
 |===
+
 
 [[mod_tariffs_tariffrestrictions_class]]
 ==== TariffRestrictions _class_
@@ -666,6 +787,9 @@ An EV driver plugs in at 19:55, charges for 10 min (TIME), stops charging but st
 |min_duration |int |? |Minimum duration in seconds, valid for a duration from x seconds 
 |max_duration |int |? |Maximum duration in seconds, valid for a duration up to x seconds 
 |day_of_week |<<mod_tariffs_dayofweek_enum,DayOfWeek>> |* |Which day(s) of the week this tariff is valid 
+|reservation |<<mod_tariffs_reservation_restriction_type,ReservationRestrictionType>> |? |When this field is present, this tariffElement is for a reservation.
+A reservation starts when the reservation is made, and ends when the drivers start charging on the reserved EVSE/Location, or when the reservation expires.
+A reservation can only have: <<mod_tariffs_tariffdimensiontype_enum,FLAT>> and <<mod_tariffs_tariffdimensiontype_enum,TIME>> TariffDimensions, where TIME is for the duration of the reservation.
 |===
 
 [[mod_tariffs_tariff_type]]
@@ -681,4 +805,3 @@ An EV driver plugs in at 19:55, charges for 10 min (TIME), stops charging but st
 |PROFILE_GREEN |This tariff is valid when <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,Charging Preference>>: <<mod_sessions.asciidoc#mod_sessions_profile_type_enum,GREEN>> is set on the session.
 |REGULAR |This is the tariff when using an RFID, without any Charging Preference, or when <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,Charging Preference>>: <<mod_sessions.asciidoc#mod_sessions_profile_type_enum,REGULAR>> is set on the session.
 |===
-

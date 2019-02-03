@@ -286,23 +286,25 @@ PriceComponent class
 Minor
 |Minimal / +
 Minimal
-|Added `vat` field to send the applicable VAT with every tariff component.
+|Added `vat` field to send the applicable VAT with every tariff component. +
+Added optional `max_price` field, making it possible to set a maximum price on a Charging Session. +
+Added optional `min_price` field, making it possible to set a minimum price on a Charging Session.
 
 |Tariffs / +
-PriceComponent class
+ReservationRestrictionType enum
 |Minor / +
 Minor
 |Minimal / +
 Minimal
-|Added optional `max_price` field, making it possible to set a maximum price on a Charging Session.
+|Added new enum for Reservation restrictions.
 
 |Tariffs / +
-PriceComponent class
+TariffRestrictions class
 |Minor / +
 Minor
 |Minimal / +
 Minimal
-|Added optional `min_price` field, making it possible to set a minimum price on a Charging Session.
+|Added optional `reservation` field, making it possible to define the tariff of a reservation (and an expired reservation).
 
 |Tokens / +
 CPO GET & PUT methods
