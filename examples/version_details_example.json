@@ -1,0 +1,13 @@
+{
+  "version": "2.0",
+  "endpoints": [
+    {
+      "identifier": "credentials",
+      "url": "https://example.com/ocpi/cpo/2.2/credentials/"
+    },
+    {
+      "identifier": "locations",
+      "url": "https://example.com/ocpi/cpo/2.2/locations/"
+    }
+  ]
+}

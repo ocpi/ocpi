@@ -1,6 +1,13 @@
 :numbered:
+[[versions_module]]
+== _Versions_ module
+
+This is the required base module of OCPI. This is module is the start point for any OCPI connection.
+Via this module, clients can learn <<version_information_endpoint_version_information_endpoint,which versions>>
+of OCPI a server supports, and <<version_information_endpoint_version_details_endpoint,which modules>> it supports for each version of OCPI.
+
 [[version_information_endpoint_version_information_endpoint]]
-== Version information endpoint
+=== Version information endpoint
 
 This endpoint lists all the available OCPI versions and the corresponding URLs to
 where version specific details such as the supported endpoints can be found.
@@ -31,7 +38,7 @@ Both the CPO and the eMSP must have this endpoint.
 |===
 
 [[version_information_get_versions_endpoint_data]]
-=== Data
+==== Data
 
 [cols="3,2,1,10",options="header"]
 |===
@@ -43,7 +50,7 @@ Both the CPO and the eMSP must have this endpoint.
 [[version_information_endpoint_version_class]]
 ==== Version _class_
 
-[cols="3,2,1,10",options="header"]
+[cols="2,3,1,10",options="header"]
 |===
 |Property |Type |Card. |Description 
 
@@ -52,29 +59,20 @@ Both the CPO and the eMSP must have this endpoint.
 |===
 
 [[version_information_endpoint_get]]
-=== GET
+==== GET
 
 Fetch all supported OCPI versions of this CPO or eMSP.
 
 [[version_information_get_versions_endpoint_example]]
-==== Example
+===== Example
 
 [source,json]
 ----
-[
-    {
-        "version": "2.1.1",
-        "url": "https://www.server.com/ocpi/cpo/2.1.1/"
-    },
-    {
-        "version": "2.2",
-        "url": "https://www.server.com/ocpi/cpo/2.2/"
-    }
-]
+include::examples/versions_info_example.json[]
 ----
 
 [[version_information_endpoint_version_details_endpoint]]
-== Version details endpoint
+=== Version details endpoint
 
 Endpoint structure definition:
 
@@ -100,9 +98,9 @@ Both the CPO and the eMSP must have this endpoint.
 |===
 
 [[version_information_get_details_endpoint_data]]
-=== Data
+==== Data
 
-[cols="3,2,1,10",options="header"]
+[cols="2,3,1,10",options="header"]
 |===
 |Property |Type |Card. |Description 
 
@@ -167,26 +165,14 @@ For example:
 `nltnm-tokens`
 
 [[version_information_get_endpoint]]
-=== GET
+==== GET
 
 Fetch information about the supported endpoints and their URLs for this version.
 
 [[version_information_get_details_endpoint_example]]
-==== Example
+===== Example
 
 [source,json]
 ----
-{
-    "version": "2.0",
-    "endpoints": [
-        {
-            "identifier": "credentials",
-            "url": "https://example.com/ocpi/cpo/2.2/credentials/"
-        },
-        {
-            "identifier": "locations",
-            "url": "https://example.com/ocpi/cpo/2.2/locations/"
-        }
-    ]
-}
+include::examples/version_details_example.json[]
 ----
