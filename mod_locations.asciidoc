@@ -335,7 +335,7 @@ image::images/locations-class-diagram.svg[Location class diagram]
 
 The _Location_ object describes the location and its properties where a group of EVSEs that belong together are installed. Typically the _Location_ object is the exact location of the group of EVSEs, but it can also be the entrance of a parking garage which contains these EVSEs. The exact way to reach each EVSE can be further specified by its own properties.
 
-[cols="3,2,1,10",options="header"]
+[cols="7,7,2,16",options="header"]
 |===
 |Property |Type |Card. |Description 
 
@@ -380,7 +380,7 @@ The _EVSE_ object describes the part that controls the power supply to a single 
 
 An _EVSE_ object has a list of connectors which can not be used simultaneously: only one connector per EVSE can be used at the time.
 
-[cols="3,2,1,10",options="header"]
+[cols="7,5,2,18",options="header"]
 |===
 |Property |Type |Card. |Description 
 
@@ -406,7 +406,7 @@ This field is named `uid` instead of `id`, because `id` could be confused with `
 
 A connector is the socket or cable available for the EV to use. A single EVSE may provide multiple connectors but only one of them can be in use at the same time. A connector always belongs to an _EVSE_ object.
 
-[cols="3,2,1,10",options="header"]
+[cols="7,5,2,18",options="header"]
 |===
 |Property |Type |Card. |Description 
 
@@ -461,7 +461,7 @@ This class defines a geo location. The geodetic system to be used is WGS 84.
 
 The capabilities of an EVSE.
 
-[cols="3,10",options="header"]
+[cols="5,8",options="header"]
 |===
 |Value |Description 
 
@@ -531,7 +531,7 @@ The socket or plug standard of the charging point.
 
 This type is used to specify the energy mix and environmental impact of the supplied energy at a location or in a tariff.
 
-[cols="3,2,1,10",options="header"]
+[cols="3,3,1,9",options="header"]
 |===
 |Property |Type |Card. |Description 
 
@@ -690,7 +690,7 @@ NOTE: Five decimal places is seen as a minimal for GPS coordinates for Charging 
 
 Opening and access hours of the location.
 
-[cols="3,2,1,10",options="header"]
+[cols="3,3,1,9",options="header"]
 |===
 |Property |Type |Card. |Description
 
@@ -711,7 +711,7 @@ The recommended dimensions for all photos is a minimum of 800 pixels wide and 60
 Logo Dimensions:
 The recommended dimensions for logos are exactly 512 pixels wide and 512 pixels height. Thumbnail representations for logos should be exactly 128 pixels in width and height. If not squared, thumbnails should have the same orientation as the original.
 
-[cols="3,2,1,10",options="header"]
+[cols="3,3,1,9",options="header"]
 |===
 |Property |Type |Card. |Description
 
@@ -747,7 +747,7 @@ The category of an image to obtain the correct usage in a user presentation. The
 Reflects the general type of the charge points location. May be used
 for user information.
 
-[cols="3,10",options="header"]
+[cols="4,9",options="header"]
 |===
 |Value |Description 
 
