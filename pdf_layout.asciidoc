@@ -1,5 +1,6 @@
 :toc: macro
-:toclevels: 3
+:toclevels: 4
+:sectnumlevels: 4
 :numbered:
 :pagenums:
 :title-separator: |
