@@ -8,7 +8,11 @@ OCPI 2.2 includes new functionality and fixes, compared to OCPI 2.1.1.
 
 Changes/New functionality:
 
-* Support for Hubs (TODO: proposal ready, needs some rework and needs to be merged in to this document.)
+* Support for Hubs
+[disc]
+** Message Routing (TODO)
+** <<mod_hub_client_info.asciidoc#mod_hub_client_info_module,Hub Client Info>>
+
 * Support for Virtual CPO's and eMSP's (TODO: part of the Hubs proposal)
 * <<mod_charging_profiles.asciidoc#mod_charging_profiles_module,Charging Profiles>>
 * <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,Preference based Smart Charging>>
@@ -16,7 +20,7 @@ Changes/New functionality:
 [disc]
 ** <<mod_cdrs.asciidoc#mod_cdrs_cdr_object,CDRs>>: Credit CDRs, VAT, Session_id, CdrLocation, CdrToken
 ** <<mod_sessions.asciidoc#mod_sessions_session_object,Sessions>>: VAT, CdrToken
-** <<mod_tariffs.asciidoc#mod_tariffs_tariffs_object,CDRs>>: Tariff types, Min/Max price, reservation tariff, Much more examples
+** <<mod_tariffs.asciidoc#mod_tariffs_tariff_object,CDRs>>: Tariff types, Min/Max price, reservation tariff, Much more examples
 ** <<mod_locations.asciidoc#mod_cdrs_cdr_object,Locations>>: Multiple Tariffs, Lost of small improvements
 ** <<mod_tokens.asciidoc#mod_tokens_token_object,Tokens>>: Group_id, energy contract
 ** <<mod_commands.asciidoc#mod_commands_cancelreservation_object,Commands>>: Cancel Reservation added

@@ -31,7 +31,7 @@ call <<mod_locations_get_method,GET>> on the CPOs Locations endpoint to receive 
 When the CPO wants to delete an EVSE they must update by setting the `status` field to `REMOVED`
 and call the <<mod_locations_put_method,PUT>> or <<mod_locations_patch_method,PATCH>> on the eMSP system.
 A _Location_ without valid _EVSE_ objects can be considered as expired and should no longer be displayed.
-There is no direct way to delete a location, EVSE or Connector, there are other modules like <<mod_sessions#mod_sessions_sessions_module,`sessions`>> that link to
+There is no direct way to delete a location, EVSE or Connector, there are other modules like <<mod_sessions.asciidoc#mod_sessions_sessions_module,`sessions`>> that link to
 location, EVSE and Connector IDs. If they were removed, these links would no longer work.
 
 When the CPO is not sure about the state or existence of a Location, EVSE or Connector object in the eMSPs system,

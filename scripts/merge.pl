@@ -23,6 +23,7 @@ my @ocpi_parts = qw( pdf_layout
                      mod_tokens
                      mod_commands
                      mod_charging_profiles
+                     mod_hub_client_info
                      types
                      changelog );
               
@@ -44,6 +45,7 @@ foreach my $file (@ocpi_parts) {
             $line =~ s/mod_tokens.asciidoc#//g;
             $line =~ s/mod_commands.asciidoc#//g;
             $line =~ s/mod_charging_profiles.asciidoc#//g;
+            $line =~ s/mod_hub_client_info.asciidoc#//g;
             $line =~ s/types.asciidoc#//g;
             $line =~ s/changelog.asciidoc#//g;
             print $out $line;

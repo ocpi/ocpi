@@ -18,7 +18,9 @@ This branch contains the development of the next version of OCPI, currently it i
    - [Tariffs](mod_tariffs.asciidoc)
    - [Tokens](mod_tokens.asciidoc)
    - [Commands](mod_commands.asciidoc)
-   - [ChargingProfiles](mod_charging_profiles.asciidoc)
+   - [Charging Profiles](mod_charging_profiles.asciidoc)
+   - [Hub Client Info](mod_hub_client_info.asciidoc)
+
  * __Generic Types__, describing all data types that are used by multiple objects
    - [Types](types.asciidoc)
  * [__Changelog__](changelog.asciidoc)
