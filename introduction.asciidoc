@@ -21,7 +21,7 @@ Changes/New functionality:
 ** <<mod_cdrs.asciidoc#mod_cdrs_cdr_object,CDRs>>: Credit CDRs, VAT, Session_id, CdrLocation, CdrToken
 ** <<mod_sessions.asciidoc#mod_sessions_session_object,Sessions>>: VAT, CdrToken
 ** <<mod_tariffs.asciidoc#mod_tariffs_tariff_object,CDRs>>: Tariff types, Min/Max price, reservation tariff, Much more examples
-** <<mod_locations.asciidoc#mod_cdrs_cdr_object,Locations>>: Multiple Tariffs, Lost of small improvements
+** <<mod_locations.asciidoc#mod_locations_location_object,Locations>>: Multiple Tariffs, Lost of small improvements
 ** <<mod_tokens.asciidoc#mod_tokens_token_object,Tokens>>: Group_id, energy contract
 ** <<mod_commands.asciidoc#mod_commands_cancelreservation_object,Commands>>: Cancel Reservation added
 
