@@ -477,6 +477,28 @@ For an Open Request, the TO headers in the request from the requesting party to 
 |===
 
 
+[[transport_and_format_unique_messageg_ids]]
+=== Unique message IDs
+
+For debugging issues, OCPI implementations are required to include unique IDs via HTTP headers in every request/response.
+
+[cols="3,10",options="header"]
+|===
+|Value |Description
+
+|X-Request-ID     |Every request SHALL contain a unique request ID, the response to this request SHALL contain the same ID.
+|X-Correlation-ID |Every request/response send via a Hub SHALL contain a unique correlation-ID, every response to this request SHALL contain the same ID.
+|===
+
+It is advised to used GUID/UUID as values for X-Request-ID and X-Correlation-ID.
+
+When a Hub forwards a request to a party, the request to the other party SHALL a new/unique value in the X-Request-ID HTTP header,
+not copy the X-Request-ID HTTP header from the incoming request that was forwarded.
+
+When a Hub forwards a request to a party, the request SHALL contain the same X-Correlation-ID HTTP header (with the same value)
+
+TODO Add sequence diagram to show how X-Request-ID and X-Correlation-ID work together
+
 
 [[transport_and_format_interface_endpoints]]
 === Interface endpoints
