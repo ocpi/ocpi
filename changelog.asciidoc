@@ -126,7 +126,15 @@ Credentials Object
 Minor
 |Minimal / +
 Minimal
-|Changed `country_code` and `party_id` from string to CiString, making them case-insensitive, which had always been the idea.
+|Changed `country_code` and `party_id` from string to CiString, making them case-insensitive, which had always been the idea. +
+Replaced the `business_details`, `party_id` and `country_code` field with a `roles` list. Making it possible to implement different parties and roles in the same OCPI instance. The fields are now moved into a new `CredentialsRole class.
+
+|HubClientInfo
+|Medium / +
+Medium
+|Medium / +
+Medium
+|Added new HubClientInfo module.
 
 |Locations / +
 CPO GET Object method
@@ -331,4 +339,14 @@ Minor
 |Minimal / +
 Minimal
 |Added value `APP_USER`. As more and more MSPs are launching Apps, this becomes more common, so a special category is useful.
+
+|Versions / +
+Endpoint class
+|Medium / +
+Medium
+|Minimal / +
+Minimal
+|Field `role` added, making it possible to have one OCPI version end-point for both MSP and CPO role, so one OCPI connection when both CPO and MSP implemented by the same party.
 |===
+
+

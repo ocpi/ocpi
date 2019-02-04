@@ -1,12 +1,14 @@
 {
-  "version": "2.0",
+  "version": "2.2",
   "endpoints": [
     {
       "identifier": "credentials",
+      "role": "CPO",
       "url": "https://example.com/ocpi/cpo/2.2/credentials/"
     },
     {
       "identifier": "locations",
+      "role": "CPO",
       "url": "https://example.com/ocpi/cpo/2.2/locations/"
     }
   ]
