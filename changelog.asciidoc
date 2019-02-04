@@ -347,6 +347,22 @@ Medium
 |Minimal / +
 Minimal
 |Field `role` added, making it possible to have one OCPI version end-point for both MSP and CPO role, so one OCPI connection when both CPO and MSP implemented by the same party.
+
+|Transport & Format
+|Medium / +
+Medium
+|Medium / +
+Medium
+|To enable routing of messages through a Hub, new 'OCPI-to-' and 'OCPI-from-' headers are introduced.
+
+|Transport & Format
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Unique message ID header is now required in every request/response. +
+Correlation message ID header in required for any request via a Hub.
+
 |===
 
 
