@@ -10,7 +10,7 @@ Changes/New functionality:
 
 * Support for Hubs
 [disc]
-** Message Routing (TODO)
+** <<transport_and_format.asciidoc#transport_and_format_message_routing,Message routing headers>>
 ** <<mod_hub_client_info.asciidoc#mod_hub_client_info_module,Hub Client Info>>
 
 * Support for Virtual CPO's and eMSP's (TODO: part of the Hubs proposal)

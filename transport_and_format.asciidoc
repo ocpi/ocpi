@@ -308,7 +308,7 @@ include::examples/transport_and_format_get_token_list_example.json[]
 
 
 [[transport_and_format_message_routing]]
-==== Message Routing
+==== Message Routing Headers
 
 When developement of OCPI was started, it was designed for peer-to-peer communication between CPO and MSP.
 This has advantages, but also disadvantages. Having to setup and maintain OCPI connections to a lot of parties requires more effort then doing for only a couple of connections.
