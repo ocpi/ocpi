@@ -139,7 +139,7 @@ HTTP headers that have to be added to any paginated GET response.
 
 [cols="3,10",options="header"]
 |===
-|HTTP Parameter |Description 
+|HTTP Header |Description
 
 |Link |Link to the 'next' page should be provided, when this is NOT the last page. The Link should also contain any filters present in the original request. See example below. 
 |X-Total-Count |(Custom HTTP Header) Total number of objects available in the server system that match the give query (including the given query parameters for example: `date_to` and `date_from` but excluding `limit` and `offset`) and that are available to this client. For example: The CPO server might return less CDR objects to an eMSP then the total number of CDRs available in the CPO system. 
@@ -188,7 +188,7 @@ Example of a server limiting the amount of objects returned: Client does a GET t
   https://www.server.com/ocpi/cpo/2.2/cdrs/?limit=2000
 ----
 
-The server should return (when the server has enough objects and the limit is the amount of objects the server wants to send is 100.) The `X-Limit` HTTP parameter should be set to 100 as well.
+The server should return (when the server has enough objects and the limit is the amount of objects the server wants to send is 100.) The `X-Limit` HTTP header should be set to 100 as well.
 
 [source]
 ----
@@ -323,7 +323,7 @@ When OCPI is used to communicatie via a Hub or to a virtual CPO/eMSP the followi
 
 [cols="4,14",options="header"]
 |===
-|HTTP Parameter |Description
+|HTTP Header |Description
 
 |OCPI-to-party-id |'party id' of the connected party this messages is to be send to.
 |OCPI-to-country-code |'country code' of the connected party this messages is to be send to.
@@ -484,7 +484,7 @@ For debugging issues, OCPI implementations are required to include unique IDs vi
 
 [cols="3,10",options="header"]
 |===
-|Value |Description
+|HTTP Header |Description
 
 |X-Request-ID     |Every request SHALL contain a unique request ID, the response to this request SHALL contain the same ID.
 |X-Correlation-ID |Every request/response send via a Hub SHALL contain a unique correlation-ID, every response to this request SHALL contain the same ID.
