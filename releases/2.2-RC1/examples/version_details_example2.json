@@ -1,0 +1,30 @@
+{
+  "version": "2.2",
+  "endpoints": [
+    {
+      "identifier": "credentials",
+      "role": "CPO",
+      "url": "https://example.com/ocpi/2.2/credentials/"
+    },
+    {
+      "identifier": "locations",
+      "role": "CPO",
+      "url": "https://example.com/ocpi/cpo/2.2/locations/"
+    },
+    {
+      "identifier": "tokens",
+      "role": "CPO",
+      "url": "https://example.com/ocpi/cpo/2.2/locations/"
+    },
+    {
+      "identifier": "locations",
+      "role": "MSP",
+      "url": "https://example.com/ocpi/msp/2.2/locations/"
+    },
+    {
+      "identifier": "tokens",
+      "role": "MSP",
+      "url": "https://example.com/ocpi/msp/2.2/locations/"
+    }
+  ]
+}

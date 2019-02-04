@@ -1,0 +1,10 @@
+{
+  "elements": [{
+    "price_components": [{
+      "type": "TIME",
+      "price": 2.50,
+      "step_size": 300
+    }]
+  }],
+  "last_updated": "2015-06-29T20:39:09Z"
+}
