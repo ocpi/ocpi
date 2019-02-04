@@ -18,15 +18,10 @@ This branch contains the development of the next version of OCPI, currently it i
    - [Tariffs](mod_tariffs.asciidoc)
    - [Tokens](mod_tokens.asciidoc)
    - [Commands](mod_commands.asciidoc)
+   - [ChargingProfiles](mod_charging_profiles.asciidoc)
  * __Generic Types__, describing all data types that are used by multiple objects
    - [Types](types.asciidoc)
  * [__Changelog__](changelog.asciidoc)
-
-<!--
-Will be added lated:
-- [9. Smart charging](smart_charging.asciidoc)
--->
-
 
 __Current versions:__
 
@@ -45,13 +40,24 @@ Release 2.1.1:
 - realtime authorization
 - fixes some bugs of 2.1 (2.1 is now deprecated)
 
+Release 2.2:
+
+- Charging Profiles
+- Preferences based Smart Charging
+- Support for Hubs
+- VAT
+- Credit CDRs
+- Improved Reservation support (Cancel & Tariff)
+- Lots of minor improvements
+
 
 __Planned releases:__
 
-Release 2.2:
+Release 3.0:
 
-- Smart Charging
-- Tariffing (advanced/dynamic)
+- ISO 15118 Plug&Charge
+- Eichrecht support
+- Performance improvements
 
 
 ----

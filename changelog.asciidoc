@@ -259,6 +259,8 @@ Minor
 |Minimal / +
 Minimal
 |- Field `id` is changed from string to CiString, making it now case-insensitive, which had always been the idea. +
+- Added optional `min_price` field, making it possible to set a minimum price on a Charging Session. +
+- Added optional `max_price` field, making it possible to set a maximum price on a Charging Session. +
 - Added `type` field to make it possible to make different tariffs for different Smart Charging Preferences and also for ad hoc payment.
 
 |Tariffs / +
@@ -267,9 +269,7 @@ PriceComponent class
 Minor
 |Minimal / +
 Minimal
-|- Added `vat` field to send the applicable VAT with every tariff component. +
-- Added optional `max_price` field, making it possible to set a maximum price on a Charging Session. +
-- Added optional `min_price` field, making it possible to set a minimum price on a Charging Session.
+|- Added `vat` field to send the applicable VAT with every tariff component.
 
 |Tariffs / +
 ReservationRestrictionType enum
