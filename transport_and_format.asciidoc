@@ -365,7 +365,7 @@ The client receiving a push from a Hub (with the Hubs information in the 'OCPI-f
 this push with the Hubs party-id and country-code in the 'OCPI-to-' headers.
 
 GET SHALL NOT be used in combination with Broadcast push.
-If the requesting party wants to GET information of which it does not know the receiving party, to <<Open routing request>> should be used. (see below)
+If the requesting party wants to GET information of which it does not know the receiving party, to <<transport_and_format_message_routing_open_routing_request,Open routing request>> should be used. (see below)
 
 Broadcast push SHALL only be used with information that is meant to be send to all other parties. It is useful for things like:
 <<mod_tokens.asciidoc#mod_tokens_tokens_module,Tokens>> and <<mod_locations.asciidoc#mod_locations_locations_module,Locations>>,
