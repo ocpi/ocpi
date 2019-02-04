@@ -69,3 +69,21 @@ Error during processing of the OCPI payload in the server. The message was synta
 |3002 |Unsupported version. 
 |3003 |No matching endpoints or expected endpoints missing between parties. Used during the registration process if the two parties do not have any mutual modules or endpoints available, or the minimum expected by the other party implementation. 
 |===
+
+
+[[status_codes_4xxx_hub_errors]]
+=== 4xxx: Hub errors
+
+When a server encounters an error, client side error (2xxx) or server side error (3xxx), it is send to status code to the Hub,
+the Hub SHALL forward this error to the client sending the request (when the request was not a broadcast push).
+
+For errors that a Hub encounters when routing messages, the following OCPI status codes shall be used.
+
+[cols="3,10",options="header"]
+|===
+|Code |Description
+
+|4001 |Unknown receiver (TO address is unknown).
+|4002 |Timeout on forwarded request (Message is forwarded, but request times out.)
+|4003 |Connection problem (Receiving party is not connected)
+|===
