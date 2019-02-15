@@ -681,9 +681,15 @@ Example of cost:
 |step_size |int |1 |Minimum amount to be billed. This unit will be billed in this step_size blocks. For example: if type is time and step_size is 300, then time will be billed in blocks of 5 minutes, so if 6 minutes is used, 10 minutes (2 blocks of step_size) will be billed.
 |===
 
-NOTE: `step_size`: depends on the `type`, every `type` (except `FLAT`) defines a step_size multiplier, this is the size of every 'step' for that type in the gaven unit.
+NOTE: `step_size`: depends on the `type`, every `type` (except `FLAT`) defines a step_size multiplier, this is the size of every 'step' for that type in the gaven unit. +
+ +
 For example: `PARKING_TIME` has 'step_size multiplier: 1 second' That means that the `step_size` of a `PriceComponent` is multiplied by 1 second.
-Thus a `step_size = 300` means 300 seconds = 5 minutes.
+Thus a `step_size = 300` means 300 seconds = 5 minutes, this means that when somebody has parked for 8 minutes he will be billed for 10, parked for 11 minutes then billed for 15. (steps of 5 minutes) +
+ +
+Example with `ENERGY`: `Price`= 0.25, `step_size` = 1. +
+Then energy is billed per 1 Wh. If somebody charges his EV with 115.2 Wh, then he is billed for 116 Wh, price: 0.029. +
+When `step_size` = 25, then the same amount will be billed for 125 Wh, price: 0.031. +
+When `step_size` = 500, then the same amount will be billed for 500 Wh, price: 0.125.
 
 NOTE: `step_size` shall only be taken into account for the last <<mod_tariffs_tariffelement_class,`TariffElement`>>
 and when switching to another <<mod_tariffs_tariffelement_class,`TariffElement`>> for the <<mod_tariffs_pricecomponent_class,`PriceComponents`>>
