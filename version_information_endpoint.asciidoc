@@ -78,8 +78,8 @@ Via the version details, the parties can exchange which modules are implemented 
 which Interface role is implemented, and what the endpoint URL is for this interface.
 
 Parties that are both CPO and eMSP (or are a Hub) can implement one version endpoint.
-With the information that is available in the version details, parties don't need to implement a separate endpoint per role (CPO or MSP) anymore.
-In the reality this means that when a company that is both a CPO and a MSP connects to another CPO/MSP combination, only one OCPI connection is needed.
+With the information that is available in the version details, parties don't need to implement a separate endpoint per role (CPO or eMSP) anymore.
+In the reality this means that when a company that is both a CPO and an eMSP connects to another CPO/MSP combination, only one OCPI connection is needed.
 
 NOTE: OCPI 2.2 introduces the role field in the version details.
 Older versions of OCPI do not support this.
@@ -207,7 +207,7 @@ Simple version details example: CPO with only 2 modules.
 include::examples/version_details_example.json[]
 ----
 
-Simple version details example: party with both CPO and MSP with only 2 modules.
+Simple version details example: party with both CPO and eMSP with only 2 modules.
 
 In this case the `credentials` module is not defined twice as this module is the same for all roles.
 [source,json]

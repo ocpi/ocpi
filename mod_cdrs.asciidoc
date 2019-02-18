@@ -160,7 +160,7 @@ Fetch CDRs from the eMSP system.
 
 Endpoint structure definition:
 
-No structure defined. This is open to the MSP to define, the URL is provided to the CPO by the MSP in the result of the POST request.
+No structure defined. This is open to the eMSP to define, the URL is provided to the CPO by the eMSP in the result of the POST request.
 Therefor OCPI does not define variables.
 
 Example:
@@ -225,7 +225,7 @@ The response should contain the URL to the just created CDR object in the eMSP s
 |Location |<<types.asciidoc#types_url_type,URL>> |yes |URL to the newly created CDR in the eMSP system, can be used by the CPO system to do a GET on of the same CDR 
 |===
 
-The MSP returns the URL where the newly created CDR can be found. OCPI does not define a specific structure for this URL.
+The eMSP returns the URL where the newly created CDR can be found. OCPI does not define a specific structure for this URL.
 
 Example:
 
@@ -366,7 +366,7 @@ The _CdrLocation_ class contains only the relevant information from the <<mod_lo
 |uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Unique ID by which this Token can be identified. +
                                       This is the field used by CPO system (RFID reader on the Charge Point) to identify this token. +
                                       Currently, in most cases: type=RFID, this is the RFID hidden ID as read by the RFID reader, but that is not a requirement. +
-                                      If this is a type=APP_USER Token, it will be a uniquely, by the MSP, generated ID.
+                                      If this is a type=APP_USER Token, it will be a uniquely, by the eMSP, generated ID.
 |type |<<mod_tokens_tokentype_enum,TokenType>> |1 |Type of the token
 |contract_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Uniquely identifies the EV Driver contract token within the eMSP's platform (and suboperator platforms). Recommended to follow the specification for eMA ID from "eMI3 standard version V1.0" (http://emi3group.com/documents-links/[http://emi3group.com/documents-links/]) "Part 2: business objects."
 |===

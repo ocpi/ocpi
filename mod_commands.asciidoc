@@ -165,7 +165,7 @@ The eMSP interface receives the asynchronous responses.
 
 Endpoint structure definition:
 
-No structure defined. This is open to the MSP to define, the URL is provided to the CPO by the MSP in the POST to the CPO interface.
+No structure defined. This is open to the eMSP to define, the URL is provided to the CPO by the eMSP in the POST to the CPO interface.
 Therefor OCPI does not define variables.
 
 Example:
@@ -290,7 +290,7 @@ but it would illogical that the Token would be not valid.
 The CPO does not need to check the validity of the Token provided before sending the request to the Charge Point.
 
 If the Charge Points sends an Authorize request to the CPO, the CPO needs to check it, as if it was a Token provided at the Charge Point.
-So if the token is Whitelist: NEVER or ALLOWED_OFFLINE, the CPO will need to do a <<mod_tokens.asciidoc#mod_tokens_real-time_authorization,realtime authorization>> at the MSP.
+So if the token is Whitelist: NEVER or ALLOWED_OFFLINE, the CPO will need to do a <<mod_tokens.asciidoc#mod_tokens_real-time_authorization,realtime authorization>> at the eMSP.
 
 If the CPO receives a Token in the StartSession Object that is unknown to the CPO, the CPO shall store that Token as if it was pushed by the eMSP.
 
@@ -334,14 +334,14 @@ If the CPO receives a Token in the StartSession Object that is unknown to the CP
 [[mod_commands_commandresponsetype_enum]]
 ==== CommandResponseType _enum_
 
-Response to the command request from the MSP to the CPO.
+Response to the command request from the eMSP to the CPO.
 
 [cols="3,10",options="header"]
 |===
 |Value |Description 
 
 |NOT_SUPPORTED |The requested command is not supported by this CPO, Charge Point, EVSE etc.
-|REJECTED |Command request rejected by the CPO. (Session might not be from a customer of the MSP that send this request)
+|REJECTED |Command request rejected by the CPO. (Session might not be from a customer of the eMSP that send this request)
 |ACCEPTED |Command request accepted by the CPO.
 |UNKNOWN_SESSION |The Session in the requested command is not known by this CPO.
 |===

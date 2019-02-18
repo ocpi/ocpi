@@ -17,7 +17,7 @@ With this cached information they know to which eMSP they can later send a CDR.
 [[mod_tokens_push_model]]
 ==== Push model
 
-When the MSP creates a new Token object they push it to the CPO by calling <<mod_tokens_put_method,PUT>> on the CPO's Tokens endpoint with the newly created Token object.
+When the eMSP creates a new Token object they push it to the CPO by calling <<mod_tokens_put_method,PUT>> on the CPO's Tokens endpoint with the newly created Token object.
 
 Any changes to Token in the eMSP system are sent to the CPO system by calling either the <<mod_tokens_put_method,PUT>> or the <<mod_tokens_patch_method,PATCH>> on the CPO's Tokens endpoint with the updated Token(s).
 
@@ -317,7 +317,7 @@ The endpoint response contains a <<mod_tokens_authorizationinfo_object,Authoriza
 |uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Unique ID by which this Token can be identified. +
                                       This is the field used by CPO system (RFID reader on the Charge Point) to identify this token. +
                                       Currently, in most cases: type=RFID, this is the RFID hidden ID as read by the RFID reader, but that is not a requirement. +
-                                      If this is a type=APP_USER Token, it will be a uniquely, by the MSP, generated ID. +
+                                      If this is a type=APP_USER Token, it will be a uniquely, by the eMSP, generated ID. +
                                       This field is named `uid` instead of `id` to prevent confusion with: `contract_id`.
 |type |<<mod_tokens_tokentype_enum,TokenType>> |1 |Type of the token 
 |contract_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Uniquely identifies the EV Driver contract token within the eMSP's platform (and suboperator platforms). Recommended to follow the specification for eMA ID from "eMI3 standard version V1.0" (http://emi3group.com/documents-links/[http://emi3group.com/documents-links/]) "Part 2: business objects."

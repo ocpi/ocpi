@@ -310,9 +310,9 @@ include::examples/transport_and_format_get_token_list_example.json[]
 [[transport_and_format_message_routing]]
 ==== Message Routing Headers
 
-When developement of OCPI was started, it was designed for peer-to-peer communication between CPO and MSP.
+When developement of OCPI was started, it was designed for peer-to-peer communication between CPO and eMSP.
 This has advantages, but also disadvantages. Having to setup and maintain OCPI connections to a lot of parties requires more effort then doing for only a couple of connections.
-By communication via one or more Hubs, the amount of OCPI connections is limit, while still being able to offer roaming to a lot of different parties to customers.
+By communication via one or more Hubs, the amount of OCPI connections is limited, while still being able to offer roaming to a lot of different parties to customers.
 
 With the introduction of Message Routing, OCPI is now better usable for communication via Hubs.
 With this same functionality is also becomes possible to implement virtual CPO/eMSPs.
@@ -331,7 +331,7 @@ When OCPI is used to communicatie via a Hub or to a virtual CPO/eMSP the followi
 |OCPI-from-country-code |'country code' of the connected party this messages is send from.
 |===
 
-.Example sequence diagram of a GET for 1 Object from a CPO to an MSP.
+.Example sequence diagram of a GET for 1 Object from a CPO to an eMSP.
 image::images/sd_get_simple.svg[OCPI Sequence Diagram Hub GET]
 
 .Example sequence diagram of a PUT via 2 Hubs.
@@ -359,13 +359,14 @@ connected to the Hub that have implemented the corresponding module.
 This means only 1 request to the Hub, not having to worry about the number of connected clients.
 
 To send a Broadcast push, the client uses to Hubs party-id and country-code in the 'OCPI-to-' headers.
-The Hub parses the request and send a response to the client, with optionally its own party-id and country-code in the 'OCPI-from-' headers.
-The Hub then send to push to any client implementing the applicable module, using its own party-id and country-code in the 'OCPI-from-' headers.
+The Hub parses the request and sends a response to the client, with optionally its own party-id and country-code in the 'OCPI-from-' headers.
+The Hub then sends the push to any client implementing the applicable module, using its own party-id and country-code in the 'OCPI-from-' headers.
 The client receiving a push from a Hub (with the Hubs information in the 'OCPI-from-' headers) will respond to
 this push with the Hubs party-id and country-code in the 'OCPI-to-' headers.
 
 GET SHALL NOT be used in combination with Broadcast push.
-If the requesting party wants to GET information of which it does not know the receiving party, to <<transport_and_format_message_routing_open_routing_request,Open routing request>> should be used. (see below)
+If the requesting party wants to GET information of which it does not know the receiving party,
+to <<transport_and_format_message_routing_open_routing_request,Open routing request>> MUST be used. (see below)
 
 Broadcast push SHALL only be used with information that is meant to be send to all other parties. It is useful for things like:
 <<mod_tokens.asciidoc#mod_tokens_tokens_module,Tokens>> and <<mod_locations.asciidoc#mod_locations_locations_module,Locations>>,
@@ -373,7 +374,7 @@ but not for <<mod_cdrs.asciidoc#mod_cdrs_cdrs_module,CDRs>> and <<mod_sessions.a
 
 NOTE: For "Client owned objects" the party-id and country-code in the URL segments will still be the original party-id and country-code from the original client sending the Broadcast push to the Hub.
 
-.Example sequence diagram of a broadcast PUT from a CPO to multiple MSPs.
+.Example sequence diagram of a broadcast PUT from a CPO to multiple eMSPs.
 image::images/sd_put_boardcast.svg[OCPI Sequence Diagram Hub PUT]
 
 
@@ -395,8 +396,8 @@ Examples:
 - A CPO cannot ask the Hub for all the Tokens a hub knows from all connected eMSPs.
 
 The Tokens example: When the Hub would combine all the Tokens it knows and return them in one (paginated) response to the client,
-there will be Tokens from different MSPs in the same response, but there can only be one set of 'OCPI-from-' headers,
-which means the CPO cannot determine which Token belongs to which (virtual) MSP.
+there will be Tokens from different eMSPs in the same response, but there can only be one set of 'OCPI-from-' headers,
+which means the CPO cannot determine which Token belongs to which (virtual) eMSP.
 
 
 ===== Overview of required/optional routing headers for different scenarios

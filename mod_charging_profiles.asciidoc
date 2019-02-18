@@ -22,7 +22,7 @@ ChargingProfile can be created by the owner of a Token on Sessions that belong t
 If another party sends a ChargingProfile and the CPO has no contract that allows that party to set profiles on sessions,
 the CPO is allowed to reject such profiles.
 
-This module can be used by the MSP, but can also be used by another party that provide "Smart Charging Services" (Smart Charging Service Provider (SCSP) / Aggregator / Energy Service Broker etc.)
+This module can be used by the eMSP, but can also be used by another party that provide "Smart Charging Services" (Smart Charging Service Provider (SCSP) / Aggregator / Energy Service Broker etc.)
 These SCSPs then depend on the CPO sending session information to them. They need to know which session is ongoing to be able to influence it.
 If a SCSP uses this module, read eMSP as SCSP.
 
@@ -41,8 +41,8 @@ It is the result of the calculation of all smart charging inputs present in the 
 TODO
 
 - An eMSP sends a ChargingProfile to manipulate an ongoing charging session of one of its customers.
-- An eMSP request the planned ChargingProfile for an ongoing charging session for a customer of the MSP.
-- An eMSP request to remove the set ChargingProfile from an ongoing charging session for a customer of the MSP.
+- An eMSP request the planned ChargingProfile for an ongoing charging session for a customer of the eMSP.
+- An eMSP request to remove the set ChargingProfile from an ongoing charging session for a customer of the eMSP.
 - The CPO updates the eMSP of changes to an CompositeSchedule.
 
 - Energy contract meenemen naar publieke laadpaal
@@ -211,7 +211,7 @@ The response contains the direct response from the CPO, not the response from th
 [[mod_charging_profiles_cpo_delete_method]]
 ===== *DELETE* Method
 
-Clears the ChargingProfile set by the MSP on the given session.
+Clears the ChargingProfile set by the eMSP on the given session.
 
 Endpoint structure definition:
 
@@ -261,7 +261,7 @@ The eMSP interface receives the asynchronous responses.
 |GET |n/a
 |<<mod_charging_profiles_msp_post_method,POST>> |Receive the asynchronous response from the Charge Point.
 |<<mod_charging_profiles_msp_put_method,PUT>> |CPO can send an updated composite schedule when other inputs have made changes to existing schedule.
-        When the CPO sends a update schedule to the EVSE, for an other reason then the MSP, the CPO SHALL post an update to this interface.
+        When the CPO sends a update schedule to the EVSE, for an other reason then the eMSP, the CPO SHALL post an update to this interface.
         When a local input influence the CompositeSchedule in the EVSE AND the CPO is made aware of this, the CPO SHALL post an update to this interface.
 |PUT |n/a
 |PATCH |n/a
@@ -277,7 +277,7 @@ The eMSP interface receives the asynchronous responses.
 
 There are no URL segment parameters required by OCPI.
 
-As the eMSP interface is called by the CPO on the URL given `response_url` in the MSP request to the CPO interface,
+As the eMSP interface is called by the CPO on the URL given `response_url` in the eMSP request to the CPO interface,
 It is up to the implementation of the eMSP to determine what parameters are put in the URL.
 The eMSP sends a URL in the POST method body to the CPO.
 The CPO is required to use this URL for the asynchronous response by the Charge Point.
@@ -286,7 +286,7 @@ for example by adding a unique id as a URL segment.
 
 Endpoint structure definition:
 
-No structure defined. This is open to the MSP to define, the URL is provided to the CPO by the MSP.
+No structure defined. This is open to the eMSP to define, the URL is provided to the CPO by the eMSP.
 Therefor OCPI does not define variables.
 
 Examples:
@@ -299,7 +299,7 @@ Examples:
 
 `+https://www.server.com/ocpi/2.2/12345678+`
 
-The content of the request body depends on the original request by the MSP to which this POST is send as a result.
+The content of the request body depends on the original request by the eMSP to which this POST is send as a result.
 
 [[mod_charging_profiles_cpo_post_request_body]]
 ===== Request Body
@@ -398,7 +398,7 @@ For the eMSP to be able to reject to timeouts, it is important for the eMSP to k
 ==== _CompositeProfileResult_ Object
 
 The CompositeProfileResult object is send by the CPO to the given `response_url` in a POST request.
-It contains the result of the GET (GetCompositeProfile) request send by the MSP.
+It contains the result of the GET (GetCompositeProfile) request send by the eMSP.
 
 [cols="2,4,1,10",options="header"]
 |===
@@ -412,7 +412,7 @@ It contains the result of the GET (GetCompositeProfile) request send by the MSP.
 ==== _ChargingProfileResult_ Object
 
 The ChargingProfileResult object is send by the CPO to the given `response_url` in a POST request.
-It contains the result of the PUT (SetChargingProfile) request send by the MSP.
+It contains the result of the PUT (SetChargingProfile) request send by the eMSP.
 
 [cols="2,4,1,10",options="header"]
 |===
@@ -425,7 +425,7 @@ It contains the result of the PUT (SetChargingProfile) request send by the MSP.
 ==== _ClearProfileResult_ Object
 
 The ClearProfileResult object is send by the CPO to the given `response_url` in a POST request.
-It contains the result of the DELETE (ClearProfile) request send by the MSP.
+It contains the result of the DELETE (ClearProfile) request send by the eMSP.
 
 [cols="2,4,1,10",options="header"]
 |===
@@ -511,14 +511,14 @@ Charging schedule period structure defines a time period in a charging schedule,
 [[mod_charging_profiles_responsetype_enum]]
 ==== ResponseType _enum_
 
-Response to the ChargingProfile request from the MSP to the CPO.
+Response to the ChargingProfile request from the eMSP to the CPO.
 
 [cols="3,10",options="header"]
 |===
 |Value |Description
 
 |NOT_SUPPORTED |The ChargingProfiles not supported by this CPO, Charge Point, EVSE etc.
-|REJECTED |ChargingProfile request rejected by the CPO. (Session might not be from a customer of the MSP that send this request)
+|REJECTED |ChargingProfile request rejected by the CPO. (Session might not be from a customer of the eMSP that send this request)
 |ACCEPTED |ChargingProfile request accepted by the CPO, request will be forwarded to the EVSE.
 |UNKNOWN_SESSION |The Session in the requested command is not known by this CPO.
 |===
@@ -527,7 +527,7 @@ Response to the ChargingProfile request from the MSP to the CPO.
 [[mod_charging_profiles_resulttype_enum]]
 ==== ResultType _enum_
 
-Result of a ChargingProfile request that the EVSE sends via the CPO to the MSP.
+Result of a ChargingProfile request that the EVSE sends via the CPO to the eMSP.
 
 [cols="3,10",options="header"]
 |===

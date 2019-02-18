@@ -25,7 +25,7 @@ Minor
 |Minimal / +
 Minimal
 |- Added `session_id` field, making it easier to match a CDR to a Session. +
-- Changed `total_cost` field from type: `number` to `Price`, this provides the MSP with the total cost including VAT. +
+- Changed `total_cost` field from type: `number` to `Price`, this provides the eMSP with the total cost including VAT. +
 - Replaced `auth_id` field with `CdrToken`. `auth_id` alone could not be used to uniquely identify a <<mod_tokens.asciidoc#mod_tokens_token_object,Token>>. By copying the information for the dynamic Token object, the CDR will always reflect the 'true' status of Token at the start of the charging session. +
 - Replaced `location` field with `cdr_location`, this also changed type, from `Location` to `CdrLocation`. Reusing the `Location` object always caused a lot of confusing, things were not clear. By creating a deticated object `CdrLocation` with only the relevant fields, things should be much clearer. +
 - Added `credit` and `credit_reference_id` fields, to allow for Credit CDRs to be send. +
@@ -248,7 +248,7 @@ Minor
 |Minimal / +
 Minimal
 |- Field `id` is changed from string to CiString, making it now case-insensitive, which had always been the idea. +
-- Changed `total_cost` field from type: `number` to `Price`, this provides the MSP with the total cost including VAT. +
+- Changed `total_cost` field from type: `number` to `Price`, this provides the eMSP with the total cost including VAT. +
 - Replaced `auth_id` with `CdrToken` class. `auth_id` alone could not be used to uniquely identify a <<mod_tokens.asciidoc#mod_tokens_token_object,Token>>. +
 - Replaced `location` object with `location_id`, `evse_uid` and `connector_id`. Having the `Location` Object in the `Session` was overkill, only reference is more inline with the rest.
 
@@ -338,7 +338,7 @@ TokenType enum
 Minor
 |Minimal / +
 Minimal
-|Added value `APP_USER`. As more and more MSPs are launching Apps, this becomes more common, so a special category is useful.
+|Added value `APP_USER`. As more and more eMSPs are launching Apps, this becomes more common, so a special category is useful.
 
 |Versions / +
 Endpoint class
@@ -346,7 +346,7 @@ Endpoint class
 Medium
 |Minimal / +
 Minimal
-|Field `role` added, making it possible to have one OCPI version end-point for both MSP and CPO role, so one OCPI connection when both CPO and MSP implemented by the same party.
+|Field `role` added, making it possible to have one OCPI version end-point for both eMSP and CPO role, so one OCPI connection when both CPO and eMSP implemented by the same party.
 
 |Transport & Format
 |Medium / +

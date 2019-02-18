@@ -4,9 +4,9 @@ hide footbox
 
 participant "CPO1" as CPO1
 participant "HUB" as HUB
-participant "MSP1" as MSP1
-participant "MSP2" as MSP2
-participant "MSP3" as MSP3
+participant "eMSP1" as MSP1
+participant "eMSP2" as MSP2
+participant "eMSP3" as MSP3
 
 CPO1 -> HUB: HTTP: GET\nFROM: CPO1
 activate CPO1
