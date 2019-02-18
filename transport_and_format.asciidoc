@@ -384,11 +384,22 @@ When a Hub has the intelligence to route messages, based on the content of the r
 or the requesting party does not know the destination of a request, the 'OCPI-to-' headers can be omitted in the request towards a hub.
 The Hub can then decide to which part a request needs to be routed, or that it needs to be broadcasted.
 
+This is not a derived/sub-version version of <<transport_and_format_message_routing_broadcast_push,Broadcast push>>,
+<<transport_and_format_message_routing_broadcast_push,Broadcast push>> is only for the 'push' <<transport_and_format_pull_and_push,model>>,
+so not for <<transport_and_format_get,GET>> requests.
+
+Open routing requests are possible for GET (<<transport_and_format_get_all_for_hub_not_possible,Not GET ALL>>), POST, PUT, PATCH and DELETE.
+
 .Example sequence diagram of a open routing GET from a CPO via the Hub.
 image::images/sd_get_openrouting.svg[OCPI Sequence Diagram Hub GET]
 
-====== GET All from Hub not possible
+[[transport_and_format_get_all_for_hub_not_possible]]
+====== GET All not possible via Hubs
 It is not possible for a client to ask the Hub for all objects within a certain module from all other parties.
+This is also the case for a ?? TODO Name for CPO/eMSP Service Providers
+
+When the Hub would combine the objects of different parties in one response, that response will only contain one set of routing headers.
+Which will result in the client being unable to determine which object belongs to which party.
 
 Examples:
 
