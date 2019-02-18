@@ -7,12 +7,34 @@
 [cols="2s,10",options="header"]
 |===
 |Abbr. |Description
-|OCPI  |Open Charge Point Interface
-|OCPP  |Open Charge Point Protocol
 |CDR   |Charge Detail Record
 |CPO   |Charging Point Operator
 |eMSP  |e-Mobility Service Provider
+|NSP   |Navigation Service Provider
+|OCPP  |Open Charge Point Protocol
 |===
+
+
+[[terminology_roles]]
+=== EV Charging Market Roles
+
+In the EV Charging landscape, different market roles can be identified.
+
+[cols="3s,9",options="header"]
+|===
+|Role  |Description
+|CPO   |Charging Point Operator
+|eMSP  |e-Mobility Service Provider
+|Hub   |Can connector one or more CPOs to one or more eMSPs.
+|Virtual CPO  |eMSP that does not host its own Charge Point Management software, but use a white-label service of another company.
+|Virtual eMSP |eMSP that does not host its own eMSP software, but use a white-label service of another company.
+|?? CPO  |TODO Provides CPO services to Virtual CPOs
+|?? eMSP |TODO Provides eMSP services to Virtual eMSPs
+|NSP   |Provides EV drivers with location information of Charge Points.
+|===
+
+Some of these roles can be combined in one company.
+
 
 [[terminology_provider_and_operator_abbreviation]]
 === Provider and Operator abbreviation
