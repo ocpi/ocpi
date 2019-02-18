@@ -55,6 +55,16 @@ Example of a `START_SESSION` that is accepted and results in a new Session.
 .START_SESSION successful
 image::images/command_start_session_succesful.svg[START_SESSION successful]
 
+
+Example of a `START_SESSION` with a Token that is Whitelist: NEVER.
+
+The CPO does not check the Token in the START_SESSION. If needed, the Charge Point does an OCPP Authorize request.
+In case of a Token whitelist NEVER or ALLOWED_OFFLINE, the CPO does an <<mod_tokens.asciidoc#mod_tokens_real-time_authorization,realtime authorization>>.
+
+.START_SESSION whitelist NEVER
+image::images/command_start_session_whitelist_never.svg[START_SESSION whitelist NEVER]
+
+
 Example of a `UNLOCK_CONNECTOR` that fails because the Location is not known by the CPO.
 
 .UNLOCK_CONNECTOR Unknown Location
@@ -272,6 +282,17 @@ A reservation can be replaced/updated by sending a `RESERVE_NOW` request with th
 ==== _StartSession_ Object
 
 The `evse_uid` is optional. If no EVSE is specified, the Charge Point can itself decide on which EVSE to start a new session. (this might not be supported by all Charge Points).
+
+The eMSP provides a Token that has to be used by the Charge Point.
+If this is an OCPP Charge Point, the Charge Point decides if it needs to validate the given Token.
+The fact that the Token is provided by the eMSP for the StartSession, does not mean that the CPO can assume that it is a valid Token,
+but it would illogical that the Token would be not valid.
+The CPO does not need to check the validity of the Token provided before sending the request to the Charge Point.
+
+If the Charge Points sends an Authorize request to the CPO, the CPO needs to check it, as if it was a Token provided at the Charge Point.
+So if the token is Whitelist: NEVER or ALLOWED_OFFLINE, the CPO will need to do a <<mod_tokens.asciidoc#mod_tokens_real-time_authorization,realtime authorization>> at the MSP.
+
+If the CPO receives a Token in the StartSession Object that is unknown to the CPO, the CPO shall store that Token as if it was pushed by the eMSP.
 
 [cols="3,2,1,10",options="header"]
 |===
