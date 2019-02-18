@@ -707,7 +707,7 @@ Opening and access hours of the location.
 |Property |Type |Card. |Description
 
 |twentyfourseven |boolean |1 |True to represent 24 hours a day and 7 days a week, except the given exceptions. 
-|regular_hours |<<mod_locations_regularhours_class,RegularHours>> |* |Regular hours, weekday-based. Only to be used if `twentyfourseven=false`. 
+|regular_hours |<<mod_locations_regularhours_class,RegularHours>> |* |Regular hours, weekday-based. Only to be used if `twentyfourseven=false`, then this field needs to contain at least one <<mod_locations_regularhours_class,RegularHours>> object.
 |exceptional_openings |<<mod_locations_exceptionalperiod_class,ExceptionalPeriod>> |* |Exceptions for specified calendar dates, time-range based. Periods the station is operating/accessible. Additional to regular hours. May overlap regular rules. 
 |exceptional_closings |<<mod_locations_exceptionalperiod_class,ExceptionalPeriod>> |* |Exceptions for specified calendar dates, time-range based. Periods the station is not operating/accessible. Overwriting regularHours and exceptionalOpenings. Should not overlap exceptionalOpenings. 
 |===
