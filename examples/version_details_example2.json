@@ -14,7 +14,7 @@
     {
       "identifier": "tokens",
       "role": "CPO",
-      "url": "https://example.com/ocpi/cpo/2.2/locations/"
+      "url": "https://example.com/ocpi/cpo/2.2/tokens/"
     },
     {
       "identifier": "locations",
@@ -24,7 +24,7 @@
     {
       "identifier": "tokens",
       "role": "MSP",
-      "url": "https://example.com/ocpi/msp/2.2/locations/"
+      "url": "https://example.com/ocpi/msp/2.2/tokens/"
     }
   ]
 }
