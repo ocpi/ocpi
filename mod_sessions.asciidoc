@@ -279,6 +279,11 @@ include::examples/session_patch_example_total_cost.json[]
 [[mod_sessions_session_object]]
 ==== _Session_ Object
 
+The Session object describes one charging session. That does not mean that it is required that energy has been transferred between EV and Charge Point.
+It is possible that the EV never takes energy from the Charge Point because it was instructed not to take energy by the driver.
+But as the EV was connected to the Charge Point, some form of start tariff, reservation cost and park tariff might be relevant.
+OCPI allows this, local laws might not allow this.
+
 [cols="3,3,1,10",options="header"]
 |===
 |Property |Type |Card. |Description 

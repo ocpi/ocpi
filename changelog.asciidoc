@@ -32,6 +32,14 @@ Minimal
 - Field `id` changed in length from 36 to 39, to allow for something to be appended after the original id in case of a Credit CDR.
 
 |CDRs / +
+CdrDimensionType enum
+|Medium / +
+Medium
+|Minimal / +
+Minimal
+|Added `RESERVATION_TIME` value, to enable reporting of cost for a reservation in a Session or CDR.
+
+|CDRs / +
 ChargingPeriod class
 |Medium / +
 Medium
