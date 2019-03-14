@@ -5,27 +5,27 @@
 |Version |Date |Author |Description
 
 |2.2 RC1 |04-02-2019 | Robert de Leeuw +
-_IHomer_ |Release Candidate 1 of OCPI 2.2: Adds Smart Charging Profiles, Hub Support, Credit CDRs and some more minor changes. +
+_ihomer_ |Release Candidate 1 of OCPI 2.2: Adds Smart Charging Profiles, Hub Support, Credit CDRs and some more minor changes. +
         See <<changelog.asciidoc#changelog_changelog,changelog>>
 |2.2 DRAFT1 |10-12-2018 | Robert de Leeuw +
-_IHomer_ |First draft of OCPI 2.2: contains lots of minor changes, some new features, but still misses Smart Charging Profiles and Hub Support.
+_ihomer_ |First draft of OCPI 2.2: contains lots of minor changes, some new features, but still misses Smart Charging Profiles and Hub Support.
         Proposals for the last 2 are ready, but still need some work and need to be integrated into this document.  +
         See <<changelog.asciidoc#changelog_changelog,changelog>>
 |2.1.1 |08-06-2017 | Robert de Leeuw +
-                  _IHomer_  |Fixed 4 bugs found in OCPI 2.1, lots of small textual improvements: see <<changelog.asciidoc#changelog_changelog,changelog>>
+                  _ihomer_  |Fixed 4 bugs found in OCPI 2.1, lots of small textual improvements: see <<changelog.asciidoc#changelog_changelog,changelog>>
 |2.1 |08-04-2016 | Robert de Leeuw +
-                _IHomer_  |Added <<mod_commands.asciidoc#mod_commands_commands_module,command module>>. +
+                _ihomer_  |Added <<mod_commands.asciidoc#mod_commands_commands_module,command module>>. +
  Added support for <<mod_tokens.asciidoc#mod_tokens_real-time_authorization,real-time authorization>>. + 
  Lots of small improvements: see <<changelog.asciidoc#changelog_changelog,changelog>> 
 |2.0-d2 |15-02-2016 | Robert de Leeuw +
-                   _IHomer_  |2nd documentation revision of the OCPI 2.0 spec. +
+                   _ihomer_  |2nd documentation revision of the OCPI 2.0 spec. +
  Only documentation updated: ConnectorType of Connector + 
  was not visible, credentials clarified, location URL + 
  segments incorrect (now string, was int), + 
  minor textual updates. + 
  DateTime with timezones is still an issue 
 |2.0 |30-12-2015 | Robert de Leeuw +
-                _IHomer_ +
+                _ihomer_ +
                  Simon Philips +
                  _Becharged_ +
                  Chris Zwirello +
