@@ -729,12 +729,12 @@ _* These fields can be used to look-up energy qualification or to show it direct
 			{ "source": "GENERAL_GREEN",  "percentage": 35.9 },
 			{ "source": "GAS",            "percentage": 6.3  },
 			{ "source": "COAL",           "percentage": 33.2 },
-			{ "source": "GENERAL_FOSSIL", "percentage": 2.9, },
+			{ "source": "GENERAL_FOSSIL", "percentage": 2.9  },
 			{ "source": "NUCLEAR",        "percentage": 21.7 }
 		],
 	"environ_impact": [
-			{ "source": "NUCLEAR_WASTE",  "amount": 0.00006, },
-			{ "source": "CARBON_DIOXIDE", "amount": 372,     }
+			{ "source": "NUCLEAR_WASTE",  "amount": 0.00006  },
+			{ "source": "CARBON_DIOXIDE", "amount": 372      }
 		],
 	"supplier_name":       "E.ON Energy Deutschland",
 	"energy_product_name": "E.ON DirektStrom eco"
