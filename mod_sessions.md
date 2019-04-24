@@ -249,12 +249,12 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
 	"auth_id": "DE8ACC12E46L89",
 	"location": {
 		"id": "LOC1",
-		"type": "on_street",
+		"type": "ON_STREET",
 		"name": "Gent Zuid",
 		"address": "F.Rooseveltlaan 3A",
 		"city": "Gent",
 		"postal_code": "9000",
-		"country": "BE",
+		"country": "BEL",
 		"coordinates": {
 			"latitude": "3.72994",
 			"longitude": "51.04759"
@@ -262,7 +262,7 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/sessions/NL/TNM/101
 		"evses": [{
 			"uid": "3256",
 			"evse_id": "BE-BEC-E041503003",
-			"STATUS": "AVAILABLE",
+			"status": "AVAILABLE",
 			"connectors": [{
 				"id": "1",
 				"standard": "IEC_62196_T2",
