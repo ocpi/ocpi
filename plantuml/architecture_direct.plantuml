@@ -1,0 +1,11 @@
+@startuml
+
+skinparam agent {
+	roundCorner 8
+}
+
+agent eMSP
+agent CPO
+eMSP -- CPO
+
+@enduml

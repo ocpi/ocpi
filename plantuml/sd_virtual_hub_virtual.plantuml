@@ -1,0 +1,31 @@
+@startuml
+skinparam dpi 100
+hide footbox
+
+box "CPO Platform Provider" #LightBlue
+  participant "Virtual\nCPO1" as VCPO
+  participant "CPOPP" as CPOPP
+end box
+  participant "Hub" as HUB
+box "CPO Platform Provider" #LightBlue
+  participant "MSPPP" as MSPPP
+  participant "Virtual\neMSP1" as VMSP
+end box
+
+VCPO --> CPOPP:
+activate CPOPP
+CPOPP -> HUB: HTTP: GET\nTO: Virtual eMSP1\nFROM: Virtual CPO1
+activate HUB
+HUB -> MSPPP: HTTP: GET\nTO: Virtual eMSP1\nFROM: Virtual CPO1
+activate MSPPP
+MSPPP --> VMSP:
+activate VMSP
+MSPPP <-- VMSP:
+deactivate VMSP
+MSPPP -> HUB: HTTP: RESPONSE\nTO: Virtual CPO1\nFROM: Virtual eMSP1
+deactivate MSPPP
+HUB -> CPOPP: HTTP: RESPONSE\nTO: Virtual CPO1\nFROM: Virtual eMSP1
+deactivate HUB
+VCPO <-- CPOPP:
+deactivate CPOPP
+@enduml

@@ -26,28 +26,61 @@ In the EV Charging landscape, different market roles can be identified.
 |CPO   |Charging Point Operator
 |eMSP  |e-Mobility Service Provider
 |Hub   |Can connector one or more CPOs to one or more eMSPs.
-|Virtual CPO  |eMSP that does not host its own Charge Point Management software, but use a white-label service of another company.
-|Virtual eMSP |eMSP that does not host its own eMSP software, but use a white-label service of another company.
-|?? CPO  |TODO Provides CPO services to Virtual CPOs
-|?? eMSP |TODO Provides eMSP services to Virtual eMSPs
 |NSP   |Provides EV drivers with location information of Charge Points.
+|Roaming Hub |See: Hub
 |===
 
-Some of these roles can be combined in one company.
+Some of these roles can be combined in one company. A Platform can provides service for multiple CPOs or eMSP,
+but also for both eMSPs and CPOs.
+
+OCPI 2.0/2.1.1 had a very strict definition or roles: only CPO and eMSP. But this is rare in the real world,
+there are almost no parties that are strict CPO or eMSP and have there own platform. In the real-world, lots of
+parties provide service to CPOs that are not running their own platform.
+A lot of CPOs are also eMSP. With OCPI 2.1.1 and earlier that mend having to setup a OCPI connection per role.
+
+OCPI 2.2 introduces more roles and abstracts the role from the OCPI connection.
+OCPI 2.2 talks about Platforms connection to Platforms, or Platforms connecting via Hubs to other Platforms.
+The Platform itself is not a role. The Platform provides services for 1 or more roles.
+
+Examples of platforms:
+
+* A pure CPO, not providing services to other CPOs, not being an eMSP, running its own software that connects via OCPI.
+  Is defined in OCPI as a Platform has 1 CPO role, the CPO role of that company.
+* A Company that has a cloud based eMSP software solution,
+  it offers to companies that want to be eMSP, but don't want to host/run their own software,
+  is a Platform that has a number of eMSP roles, one for each eMSP the company is providing services for.
+  But not for the company itself because the company itself is not an eMSP.
+* A Company that operates public Charge Points, also provides eMSP service to EV drivers, running their own software platform,
+  is seen in OCPI as a Platform that has 2 roles: CPO and eMSP for this company.
+* If the company above starts to offer their service to other CPOs and eMSP, it is still seen as 1 platform,
+  but then with multiple CPO and eMSP roles.
+
+
+[[terminology_terms]]
+=== Terminology
+
+[cols="3s,9",options="header"]
+|===
+|Term  |Description
+|Platform | Software that provides services via OCPI.
+            A platform can provide service for a single eMSP or CPO, or for multiple CPOs or eMSPs.
+            It can even provide services for both eMSPs and CPOs at the same time.
+|===
 
 
 [[terminology_provider_and_operator_abbreviation]]
 === Provider and Operator abbreviation
 
-In OCPI it is advised to use eMI3 compliant names for Contract IDs and EVSE IDs. The provider and the operator name is important here, in order to target the right provider or operator, they need to be known up front, at least between the cooperating parties. 
+In OCPI it is advised to use eMI3 compliant names for Contract IDs and EVSE IDs. The provider and the operator name is important here,
+in order to target the right provider or operator, they need to be known up front, at least between the cooperating parties.
 
 In several standards, an issuing authority is mentioned that will keep a central registry of known Providers and Operators.
 At this moment, the following countries have an authority that keeps track of the known providers and operators:
 
 [[terminology_the_netherlands]]
-==== The Netherlands
+==== The Netherlands, Belgium and Luxembourg (BeNeLux)
 
-The Dutch foundation, named http://www.eviolin.nl[eViolin] keeps the registry for The Netherlands. 
+The Dutch foundation, named http://www.eviolin.nl[eViolin] keeps the registry for The Netherlands, Belgium and Luxembourg.
 
 * The list of operator IDs and provider IDs can be viewed on their website http://www.eviolin.nl/index.php/leden/[eViolin/Leden].
 

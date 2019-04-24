@@ -46,14 +46,14 @@ For more information on detailedchanges see <<changelog.asciidoc#changelog_chang
 
 The Open Charge Point Interface (OCPI) enables a scalable, automated EV roaming setup between Charge Point Operators and e-Mobility Service Providers.
 It supports authorization, charge point information exchange (including live status updates and transaction events),
-charge detail record exchange, remote charge point commands and, finally, the exchange of smart-charging commands between parties.
+charge detail record exchange, remote charge point commands and, the exchange of smart-charging related information between parties.
 
 It offers market participants in EV an attractive and scalable solution for (international) roaming between networks,
 avoiding the costs and innovation-limiting complexities involved with today's non-automated solutions or with central roaming hubs.
 As such it helps to enable EV drivers to charge everywhere in a fully-informed way,
 helps the market to develop quickly and helps market players to execute their business models in the best way.
 
-What does it offer (main functionalities):
+What does it offer (main functionality):
 * A good roaming system (for bilateral usage and/or via a hub).
 * Real-time information about location, availability and price.
 * A uniform way of exchanging data (Notification Data Records and Charge Data Records), before during and after the transaction.
@@ -76,3 +76,66 @@ This document describes a combined set of standards based on the work done in th
 the evolution of these standards and their use is taken into account and some elements have been updated to match nowadays use.
 
 The latest version of this specification can be found here: https://github.com/ocpi/ocpi[https://github.com/ocpi/ocpi]
+
+
+[[introduction_Supported Topologies]]
+=== Supported Topologies
+
+OCPI started out as a bilateral protocol, for pair-to-pair communication.
+Soon parties started to use OCPI via Hubs, but OCPI 2.1.1 and earlier where not designed for that.
+OCPI 2.2 introduces a solution for this: <<transport_and_format.asciidoc#transport_and_format_message_routing,message routing>>.
+
+OCPI 2.2 introduces Platforms that connect via OCPI instead of CPO and eMSP, more on this in: <<terminology.asciidoc#terminology_roles,EV Charging Market Roles>>
+
+==== Pair-to-pair
+
+The simplest topology is a bilateral connection: pair-to-pair between two platforms,
+and in the most simple version each platform only has 1 role.
+
+.Pair-to-pair topology example
+image::images/architecture_direct.svg[Pair-to-pair topology example]
+
+
+==== Multiple Pair-to-pair connections
+
+A more real world topology where multiple parties connect their platforms,
+and each platform only has 1 role.
+(not every party connects with all the other parties with the other role).
+
+.Multiple pair-to-pair topology example
+image::images/architecture_multiple_direct_modified.svg[Multiple pair-to-pair topology example]
+
+
+==== Pair-to-pair multiple roles
+
+The simplest topology is a bilateral connection: pair-to-pair between two platforms,
+and both platforms can have multiple roles.
+
+.Pair-to-pair with multiple roles topology example
+image::images/architecture_platform_direct.svg[Pair-to-pair with multiple roles topology example]
+
+
+==== Multiple Pair-to-pair
+
+More a real-world topology when OCPI is used between market parties without a hub.
+
+TODO Visio diagram
+
+It is easy to notice that the amount of connections between platforms explodes.
+
+
+==== Platforms via Hub
+
+This topology show all Platforms only connect via a Hub, all communication goes via the Hub.
+
+TODO Visio diagram
+
+==== Platforms via Hub and direct
+
+Not all Platforms will only communicate via a Hub.
+There might be different reasons for Platforms to still have pair-to-pair connections.
+The Hub might not yet support new functionality.
+The Platforms use a custom module for some new project, which is not supported by the Hub.
+etc.
+
+TODO Visio diagram

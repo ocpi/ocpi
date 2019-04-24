@@ -1,0 +1,25 @@
+@startuml
+
+skinparam agent {
+	roundCorner 8
+}
+
+agent eMSP1
+agent eMSP2
+agent eMSP3
+agent eMSP4
+agent CPO1
+agent CPO2
+agent CPO3
+eMSP1 -- CPO1
+eMSP2 -- CPO2
+eMSP1 -- CPO2
+eMSP2 -- CPO1
+eMSP2 -- CPO3
+eMSP3 -- CPO1
+eMSP3 -- CPO2
+eMSP4 -- CPO1
+eMSP4 -- CPO2
+eMSP4 -- CPO3
+
+@enduml
