@@ -712,12 +712,20 @@ include::examples/tariff_14_step_size.json[]
 
 ===== Example switch to different price:
 
-An EV driver plugs in at 16:55, charges for 10 min (TIME), stops charging but stays plugged in for 2 min (PARKING TIME), and then leaves. Total session time = 12min.
+An EV driver plugs in at 16:55, charges for 10 minutes (TIME), stops charging but stays plugged in for 2 min (PARKING TIME), and then leaves. Total session time = 12min.
 
 - 5 billable minutes charging time before 17:00: 1.20 euro p/hour = 0.10 euro
 - 10 billable minutes charging time after 17:00: 2.40 euro p/hour = 0.40 euro (10 minutes billed instead of 5: step_size is 15 minutes in the last tariff element, so total charging time is billed for 15 minutes)
 - 15 billable minutes parking time: 1 euro p/hour = 0.25 euro
 - 0.75 euro total for this session.
+
+
+Other example: if the EV driver plugs in at 16h35, and charges for 35 minutes (TIME) :
+
+- 25 billable minutes charging time before 17:00: 1.20 euro p/hour = 0.50 euro
+- 20 billable minutes charging time after 17:00: 2.40 euro p/hour = 0.80 euro (20 minutes billed instead of 10: step_size is 15 minutes in the last tariff element, so total charging time is billed for 45 minutes)
+- 45 billable minutes parking time: 1 euro p/hour = 0.75 euro
+- 2.05 euro total for this session.
 
 
 ===== Example switching to free tariff element:
