@@ -251,6 +251,15 @@ This guarantees that CDR will be recognized as correct by the driver and not con
 
 The _CDR_ object shall always contain information like location, EVSE, Tariffs and Token as they were at the START of the Charging Session.
 
+The CPO SHALL at least start (and add) a ChargingPeriode every moment/event that has relevance for the total cost of this CDR.
+When the price of a Tariff changes, the CPO SHALL add a new ChargingPeriod with at least all the relevant information for the change of the price of a Tariff.
+The CPO is allowed to add more "in-between" ChargingPeriods to a CDR then these required ChargingPeriods.
+For examples:
+
+- When an ENERGY based Tariff changes in price after 17:00. The CPO SHALL start a new ChargingPeriod at 17:00, and the ENERGY in kWh consumed until 17:00.
+- When the price of a Tariff is higher when the EV is charging faster than: 32A, a new ChargingPeriod SHALL be added the moment the Charging goes over 32A.
+
+
 [cols="3,3,1,10",options="header"]
 |===
 |Property |Type |Card. |Description 
