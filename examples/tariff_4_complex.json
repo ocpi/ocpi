@@ -2,7 +2,7 @@
   "id": "14",
   "currency": "EUR",
   "type": "REGULAR",
-  "tariff_alt_url": "https://company.com/tariffs/11",
+  "tariff_alt_url": "https://company.com/tariffs/14",
   "elements": [{
     "price_components": [{
       "type": "FLAT",

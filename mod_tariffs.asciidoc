@@ -793,6 +793,8 @@ Can also be used in combination with <<mod_tariffs_tariffrestrictions_class,rese
 [[mod_tariffs_tariffrestrictions_class]]
 ==== TariffRestrictions _class_
 
+These restrictions are not for the entire Charging Session, but the TariffRestrictions make a TariffElement become active or inactive during a Charging Session.
+
 [cols="3,2,1,10",options="header"]
 |===
 |Property |Type |Card. |Description 
@@ -803,15 +805,78 @@ Can also be used in combination with <<mod_tariffs_tariffrestrictions_class,rese
 |end_date |<<types.asciidoc#types_string_type,string>>(10) |? |End date, for example: 2015-12-27, valid until this day (excluding this day) 
 |min_kwh |<<types.asciidoc#types_number_type,number>> |? |Minimum used energy in kWh, for example 20, valid from this amount of energy is used 
 |max_kwh |<<types.asciidoc#types_number_type,number>> |? |Maximum used energy in kWh, for example 50, valid until this amount of energy is used 
-|min_power |<<types.asciidoc#types_number_type,number>> |? |Minimum power in kW, for example 0, valid from this charging speed 
-|max_power |<<types.asciidoc#types_number_type,number>> |? |Maximum power in kW, for example 20, valid up to this charging speed 
-|min_duration |int |? |Minimum duration in seconds, valid for a duration from x seconds 
-|max_duration |int |? |Maximum duration in seconds, valid for a duration up to x seconds 
-|day_of_week |<<mod_tariffs_dayofweek_enum,DayOfWeek>> |* |Which day(s) of the week this tariff is valid 
+|min_power |<<types.asciidoc#types_number_type,number>> |? |Minimum power in kW, for example 5. When the Charging Session is consuming more then this amount of power,
+                                                            this TariffElement is/becomes active. Is the charging power is lower, this TariffElement is not valid.
+                                                            This is NOT the minimum power over the entire Charging Session.
+                                                            This restriction can make a TariffElement become active when the charging power is above this value,
+                                                            but the TariffElement is no longer active when charging drops below this power.
+|max_power |<<types.asciidoc#types_number_type,number>> |? |Maximum power in kW, for example 20. When the Charging Session is consuming less then this amount of power,
+                                                         this TariffElement becomes/is active. Is the charging power is higher, this TariffElement is not valid.
+                                                         This is NOT the maximum power over the entire Charging Session.
+                                                         This restriction can make a TariffElement become active when the charging power is below this value,
+                                                         but the TariffElement is no longer active when charging comes above this power.
+|min_duration |int |? |Minimum duration in seconds the Charging Session is ongoing. When the duration of the ongoing Charging Session is longer then this value,
+                      this TariffElement is active, before that moment this TariffElement is not yet active. Duration in seconds.
+|max_duration |int |? |Maximum duration in seconds the Charging Session is ongoing. When the duration of the ongoing Charging Session is shorted then this value,
+                      this TariffElement is active, after that moment this TariffElement is no longer active. Duration in seconds.
+|day_of_week |<<mod_tariffs_dayofweek_enum,DayOfWeek>> |* |Which day(s) of the week this TariffElement is active.
 |reservation |<<mod_tariffs_reservation_restriction_type,ReservationRestrictionType>> |? |When this field is present, this tariffElement is for a reservation.
 A reservation starts when the reservation is made, and ends when the drivers start charging on the reserved EVSE/Location, or when the reservation expires.
 A reservation can only have: <<mod_tariffs_tariffdimensiontype_enum,FLAT>> and <<mod_tariffs_tariffdimensiontype_enum,TIME>> TariffDimensions, where TIME is for the duration of the reservation.
 |===
+
+===== Examples tariffRestriction max_power
+
+- Charging slower then 16 kW cost 1.00 euro p/hour (ex VAT)
+- Charging between 16 kW and 32 kW cost 1.50 euro p/hour (ex VAT)
+- Charging faster then 32 kW cost 2.00 euro p/hour (ex VAT) (no restriction: fallback tariff)
+
+[source,json]
+----
+include::examples/tariffrestriction_example_max_power.json[]
+----
+
+Using this example: when a charging session starts with the first kWh at 6 kW,
+then goes to 48 kWh charging and charges 40 kWh, then the EV is almost full and charging slows down to 4 kW,
+0.5 kWh is charged at this slower speed before the EV is unplugged.
+
+The cost will be:
+
+- 1 kWh at 6 kW: 0.20 euro
+- 40 kWh at 48 kW: 20.00 euro
+- 0.5 kWh at: 4 kW: 0.10 euro
+
+Total: 20.30 euro.
+
+
+===== Examples tariffRestriction max_duration
+
+A supermarket wants to allow their customer to charge for free.
+
+As most customers will be out of the store in 20 minutes, they allow free charging for 30 minutes.
+If a customer charger longer they will charge him the normal price per kWh.
+But they also don't want customers to use their Charge Points and thus parking space for too long.
+So to discourage long use, charging becomes much more expensive after 1 hour:
+
+- First 30 minutes charging is free.
+- After that: 0.25 euro per kWh (ex VAT)
+- After 60 minutes: 0.40 euro per kWh (ex VAT)
+
+[source,json]
+----
+include::examples/tariffrestriction_example_max_duration.json[]
+----
+
+Using this example: an EV charges for 40 minutes.
+The first half hour: 5 kWh is charged, then the last 10 minutes: 1.2 kWh is charged
+
+The cost will be:
+
+- 5 kWh for free: 0.00 euro
+- 1.2 kWh at 0.25/kWh: 0.30 euro
+
+Total: 0.30 euro.
+
 
 [[mod_tariffs_tariff_type]]
 ==== TariffType _enum_
