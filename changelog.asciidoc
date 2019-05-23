@@ -40,6 +40,14 @@ Minimal
 |Added `RESERVATION_TIME` value, to enable reporting of cost for a reservation in a Session or CDR.
 
 |CDRs / +
+CdrDimensionType enum
+|Medium / +
+Medium
+|Minimal / +
+Minimal
+|Removed `FLAT` value, that is of no use on a CDR, only causes confusion, should have been removed when CdrDimensionType was created from DimensionType of OCPI 2.0.
+
+|CDRs / +
 ChargingPeriod class
 |Medium / +
 Medium

@@ -338,8 +338,7 @@ include::examples/cdr_example.json[]
 |Value |Description 
 
 |ENERGY |defined in kWh, default step_size is 1 Wh 
-|FLAT |flat fee, no unit 
-|MAX_CURRENT |defined in A (Ampere), Maximum current reached during charging session 
+|MAX_CURRENT |defined in A (Ampere), Maximum current reached during charging session
 |MIN_CURRENT |defined in A (Ampere), Minimum current used during charging session 
 |PARKING_TIME |time not charging: defined in hours, default step_size is 1 second
 |RESERVATION_TIME |time charging station is reserved, and not yet in use for this customer: defined in hours, default step_size is 1 second
