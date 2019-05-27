@@ -361,7 +361,7 @@ The _Location_ object describes the location and its properties where a group of
 |country |<<types.asciidoc#types_string_type,string>>(3) |1 |ISO 3166-1 alpha-3 code for the country of this location.
 |coordinates |<<mod_locations_geolocation_class,GeoLocation>> |1 |Coordinates of the location. 
 |related_locations |<<mod_locations_additionalgeolocation_class,AdditionalGeoLocation>> |* |Geographical location of related points relevant to the user. 
-|evses |<<mod_locations_evse_object,Location>> |* |List of EVSEs that belong to this Location. 
+|evses |<<mod_locations_evse_object,EVSE>> |* |List of EVSEs that belong to this Location. 
 |directions |<<types.asciidoc#types_displaytext_class,DisplayText>> |* |Human-readable directions on how to reach the location. 
 |operator |<<mod_locations_businessdetails_class,BusinessDetails>> |? |Information of the operator. When not specified, the information retrieved from the <<credentials.asciidoc#credentials_credentials_endpoint,Credentials>> module should be used instead.
 |suboperator |<<mod_locations_businessdetails_class,BusinessDetails>> |? |Information of the suboperator if available.
