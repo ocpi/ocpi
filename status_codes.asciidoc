@@ -2,22 +2,24 @@
 == Status codes
 
 There are two types of status codes:
+
 - Transport related (HTTP)
 - Content related (OCPI)
 
 The transport layer ends after a message is correctly parsed into a (semantically unvalidated) JSON structure.
-When a message does not contain a valid JSON string, the HTTP error `400 - Bad request` is returned.
+When a message does not contain a valid JSON string, the HTTP error `400 - Bad request` MUST be returned.
 
-If a request is syntactically valid JSON and addresses an existing resource, no HTTP error should be returned.
-Those requests are supposed to have reached the OCPI layer. As is customary for RESTful APIs:
-if the resource does NOT exist, the server should return a HTTP `404 - Not Found`.
+If a request is syntactically valid JSON and addresses an existing resource, a HTTP error MUST NOT be returned.
+Those requests are supposed to have reached the OCPI layer. 
 
-When the server receives a valid OCPI object it should respond with:
+If the requested resource does NOT exist, the server SHOULD return a HTTP `404 - Not Found`.
 
-* HTTP `200 - Ok` when the object already existed and is successfully updated.
-* HTTP `201 - Created` when the object is newly created in the server system.
+When the server receives a valid OCPI object it SHOULD respond with:
 
-Requests that reach the OCPI layer should return an OCPI response message with a `status_code` field as defined below.
+* HTTP `200 - Ok` when the object already existed and has successfully been updated.
+* HTTP `201 - Created` when the object has been newly created in the server system.
+
+Requests that reach the OCPI layer SHOULD return an OCPI response message with a `status_code` field as defined below.
 
 [cols="3,10",options="header"]
 |===
@@ -28,7 +30,7 @@ Requests that reach the OCPI layer should return an OCPI response message with a
 |3xxx |Server errors – The server encountered an internal error 
 |===
 
-When the status code is in the success range (1xxx), the `data` field in the response message should contain the information as specified in the protocol. Otherwise the `data` field is unspecified and may be omitted, `null` or something else that could help to debug the problem from a programmer's perspective. For example, it could specify which fields contain an error or are missing.
+When the status code is in the success range (1xxx), the `data` field in the response message SHOULD contain the information as specified in the protocol. Otherwise the `data` field is unspecified and MAY be omitted, set to `null` or something else that could help to debug the problem from a programmer's perspective. For example, it could specify which fields contain an error or are missing.
 
 [[status_codes_1xxx_success]]
 === 1xxx: Success
@@ -43,7 +45,7 @@ When the status code is in the success range (1xxx), the `data` field in the res
 [[status_codes_2xxx_client_errors]]
 === 2xxx: Client errors
 
-Errors detected by a server in the message sent by a client: The client did something wrong
+Errors detected by the server in the message sent by a client where the client did something wrong.
 
 [cols="3,10",options="header"]
 |===
@@ -66,24 +68,24 @@ Error during processing of the OCPI payload in the server. The message was synta
 
 |3000 |Generic server error 
 |3001 |Unable to use the client's API. For example during the credentials registration: When the initializing party requests data from the other party during the open POST call to its credentials endpoint. If one of the GETs can not be processed, the party should return this error in the POST response. 
-|3002 |Unsupported version. 
-|3003 |No matching endpoints or expected endpoints missing between parties. Used during the registration process if the two parties do not have any mutual modules or endpoints available, or the minimum expected by the other party implementation. 
+|3002 |Unsupported version 
+|3003 |No matching endpoints or expected endpoints missing between parties. Used during the registration process if the two parties do not have any mutual modules or endpoints available, or the minimal implementation expected by the other party is not been met. 
 |===
 
 
 [[status_codes_4xxx_hub_errors]]
 === 4xxx: Hub errors
 
-When a server encounters an error, client side error (2xxx) or server side error (3xxx), it is send to status code to the Hub,
-the Hub SHALL forward this error to the client sending the request (when the request was not a broadcast push).
+When a server encounters an error, client side error (2xxx) or server side error (3xxx), it sends the status code to the Hub.
+The Hub SHALL then forward this error to the client which sent the request (when the request was not a Broadcast push).
 
-For errors that a Hub encounters when routing messages, the following OCPI status codes shall be used.
+For errors that a Hub encounters while routing messages, the following OCPI status codes shall be used.
 
 [cols="3,10",options="header"]
 |===
 |Code |Description
 
-|4001 |Unknown receiver (TO address is unknown).
-|4002 |Timeout on forwarded request (Message is forwarded, but request times out.)
-|4003 |Connection problem (Receiving party is not connected)
+|4001 |Unknown receiver (TO address is unknown)
+|4002 |Timeout on forwarded request (message is forwarded, but request times out)
+|4003 |Connection problem (receiving party is not connected)
 |===
