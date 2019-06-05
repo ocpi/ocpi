@@ -64,7 +64,7 @@ It is therefor advised to clients 'pulling' lists from a server to do this on a 
 [[transport_and_format_request_format]]
 ==== Request format
 
-The request method can be any of <<transport_and_format_get,GET>>, <<transport_and_format_put,PUT>>, <<transport_and_format_patch,PATCH>> or DELETE. The OCPI protocol uses them in a way similar to REST APIs.
+The request method can be any of <<transport_and_format_get,GET>>, POST, <<transport_and_format_put,PUT>>, <<transport_and_format_patch,PATCH>> or DELETE. The OCPI protocol uses them in a way similar to REST APIs.
 
 [cols="2,12",options="header"]
 |===
@@ -312,38 +312,38 @@ include::examples/transport_and_format_get_token_list_example.json[]
 
 When developement of OCPI was started, it was designed for peer-to-peer communication between CPO and eMSP.
 This has advantages, but also disadvantages. Having to setup and maintain OCPI connections to a lot of parties requires more effort then doing for only a couple of connections.
-By communication via one or more Hubs, the amount of OCPI connections is limited, while still being able to offer roaming to a lot of different parties to customers.
+By communication via one or more Hubs, the amount of OCPI connections is reduced, while still being able to offer roaming to a lot of different parties and customers.
 
 With the introduction of Message Routing, OCPI is now better usable for communication via Hubs.
-With this same functionality is also becomes possible to implement virtual CPO/eMSPs.
-A Virtual party is a party that does not has its own back-office, but relies on another parties IT systems.
+With this same functionality it also becomes possible to implement virtual CPO/eMSPs.
+A virtual party is a party that does not have its own back-office, but relies on another parties IT systems.
 This is sometimes also called white-label CPO/eMSP.
 
-When OCPI is used to communicatie via a Hub or to a virtual CPO/eMSP the following 4 HTTP headers can be used, in requests and responses.
+When OCPI is used to communicatie via a Hub or to a virtual CPO/eMSP, the following 4 HTTP headers can be used in requests and responses.
 
 [cols="4,14",options="header"]
 |===
 |HTTP Header |Description
 
-|OCPI-to-party-id |'party id' of the connected party this messages is to be send to.
-|OCPI-to-country-code |'country code' of the connected party this messages is to be send to.
-|OCPI-from-party-id |'party id' of the connected party this messages is send from.
-|OCPI-from-country-code |'country code' of the connected party this messages is send from.
+|OCPI-to-party-id |'party id' of the connected party this message is to be sent to.
+|OCPI-to-country-code |'country code' of the connected party this message is to be sent to.
+|OCPI-from-party-id |'party id' of the connected party this message is sent from.
+|OCPI-from-country-code |'country code' of the connected party this message is sent from.
 |===
 
 .Example sequence diagram of a GET for 1 Object from a CPO to an eMSP.
 image::images/sd_get_simple.svg[OCPI Sequence Diagram Hub GET]
 
 .Example sequence diagram of a PUT via 2 Hubs.
-image::images/sd_put_2_hubs.svg[OCPI Sequence Diagram Hub PUT with 2 hubs]
+image::images/sd_put_2_hubs.svg[OCPI Sequence Diagram Hub PUT with 2 Hubs]
 
 
 ===== Omitting from address in responses
 
-When a party responses to a request (via a hub), and it was a request that contained the 'OCPI-to-' headers,
-the 'OCPI-from-' headers might be omitted. The requesting party knows to which party the request was send.
-It might be good practice to always provide the 'OCPI-from-' headers in a response,
-just to be complete and to give a requesting party to change to validate if the request was routed correctly by the Hub.
+When a party responds to a request (via a Hub), and it has been a request that contained the 'OCPI-to-' header,
+the 'OCPI-from-' header MAY be omitted. The requesting party knows to which party the request was sent.
+It might be good practice to always provide the 'OCPI-from-' header in a response though,
+just to be complete and to give the requesting party a chance to validate if the request has been routed correctly by the Hub.
 
 
 [[transport_and_format_message_routing_broadcast_push]]
@@ -351,28 +351,30 @@ just to be complete and to give a requesting party to change to validate if the 
 
 For simplicity, connected clients might PUSH (POST, PUT, PATCH) information to all connected clients with an "opposite role",
 CPO pushing information to all eMSPs and NSPs. eMSP pushing information to all CPOs.
-(the role "Other" is seen as an eMSP type of role, so broadcast push from a CPO is also send to Other,
-messages from "Other" are send to CPOs, not the eMSPs.)
+(The role "Other" is seen as an eMSP type of role, so broadcast push from a CPO is also sent to "Other".
+Messages from "Other" are only sent to CPOs and not to eMSPs though.)
 
-Broadcast push might be very useful to push information like Locations or Tokens to all parties,
+Broadcast pushing data through a Hub might be very useful to share information like Locations or Tokens with all parties
 connected to the Hub that have implemented the corresponding module.
-This means only 1 request to the Hub, not having to worry about the number of connected clients.
+This means only one request to the Hub will be necessary, as all connected clients will be served by the Hub.
+In other words: the Hub broadcasts received information to all connected clients.
 
-To send a Broadcast push, the client uses to Hubs party-id and country-code in the 'OCPI-to-' headers.
-The Hub parses the request and sends a response to the client, with optionally its own party-id and country-code in the 'OCPI-from-' headers.
-The Hub then sends the push to any client implementing the applicable module, using its own party-id and country-code in the 'OCPI-from-' headers.
-The client receiving a push from a Hub (with the Hubs information in the 'OCPI-from-' headers) will respond to
-this push with the Hubs party-id and country-code in the 'OCPI-to-' headers.
+To send a broadcast push, the client uses the party-id and country-code of the Hub in the 'OCPI-to-' header.
+The Hub parses the request and sends a response to the client, which optionally contains its own party-id and country-code in the 'OCPI-from-' header.
+The Hub then sends the pushed data to any client implementing the corresponding applicable module, using its own party-id and country-code in the 'OCPI-from-' header.
+The client receiving a PUSH from a Hub (with the Hubs information in the 'OCPI-from-' header) will respond to
+this PUSH with the Hubs party-id and country-code in the 'OCPI-to-' header.
 
-GET SHALL NOT be used in combination with Broadcast push.
+GET SHALL NOT be used in combination with broadcast pushing.
 If the requesting party wants to GET information of which it does not know the receiving party,
-to <<transport_and_format_message_routing_open_routing_request,Open routing request>> MUST be used. (see below)
+an <<transport_and_format_message_routing_open_routing_request,open routing request>> MUST be used. (see below)
 
-Broadcast push SHALL only be used with information that is meant to be send to all other parties. It is useful for things like:
+Broadcast pushing SHALL only be used with information that is meant to be sent to all other parties. It is useful to share data like
 <<mod_tokens.asciidoc#mod_tokens_tokens_module,Tokens>> and <<mod_locations.asciidoc#mod_locations_locations_module,Locations>>,
-but not for <<mod_cdrs.asciidoc#mod_cdrs_cdrs_module,CDRs>> and <<mod_sessions.asciidoc#mod_sessions_sessions_module,Sessions>>.
+but not so much for <<mod_cdrs.asciidoc#mod_cdrs_cdrs_module,CDRs>> and <<mod_sessions.asciidoc#mod_sessions_sessions_module,Sessions>>
+as these pieces of information are specific to only one party and are possibly even protected by GDPR or other laws.
 
-NOTE: For "Client owned objects" the party-id and country-code in the URL segments will still be the original party-id and country-code from the original client sending the Broadcast push to the Hub.
+NOTE: For "client owned objects", the party-id and country-code in the URL segments will still be the original party-id and country-code from the original client sending the Broadcast push to the Hub.
 
 .Example sequence diagram of a broadcast PUT from a CPO to multiple eMSPs.
 image::images/sd_put_boardcast.svg[OCPI Sequence Diagram Hub PUT]
@@ -380,13 +382,13 @@ image::images/sd_put_boardcast.svg[OCPI Sequence Diagram Hub PUT]
 
 [[transport_and_format_message_routing_open_routing_request]]
 ===== Open routing request
-When a Hub has the intelligence to route messages, based on the content of the request,
-or the requesting party does not know the destination of a request, the 'OCPI-to-' headers can be omitted in the request towards a hub.
-The Hub can then decide to which part a request needs to be routed, or that it needs to be broadcasted.
+When a Hub has the intelligence to route messages based on the content of the request,
+or the requesting party does not know the destination of a request, the 'OCPI-to-' header can be omitted in the request towards the Hub.
+The Hub can then decide to which party a request needs to be routed, or that it needs to be broadcasted if the destination cannot be determined.
 
-This is not a derived/sub-version version of <<transport_and_format_message_routing_broadcast_push,Broadcast push>>,
-<<transport_and_format_message_routing_broadcast_push,Broadcast push>> is only for the 'push' <<transport_and_format_pull_and_push,model>>,
-so not for <<transport_and_format_get,GET>> requests.
+This has nothing to do with <<transport_and_format_message_routing_broadcast_push,Broadcast push>> though,
+as <<transport_and_format_message_routing_broadcast_push,Broadcast push>> only works for the 'push' <<transport_and_format_pull_and_push,model>>,
+not for <<transport_and_format_get,GET>> requests.
 
 Open routing requests are possible for GET (<<transport_and_format_get_all_for_hub_not_possible,Not GET ALL>>), POST, PUT, PATCH and DELETE.
 
@@ -396,36 +398,36 @@ image::images/sd_get_openrouting.svg[OCPI Sequence Diagram Hub GET]
 [[transport_and_format_get_all_for_hub_not_possible]]
 ====== GET All not possible via Hubs
 It is not possible for a client to ask the Hub for all objects within a certain module from all other parties.
-This is also the case for a ?? TODO Name for CPO/eMSP Service Providers
+This is also the case for a ?? TODO Name for CPO/eMSP Service Providers.
 
-When the Hub would combine the objects of different parties in one response, that response will only contain one set of routing headers.
-Which will result in the client being unable to determine which object belongs to which party.
+When the Hub would combine the objects of different parties in one response, the response would also only contain one set of routing headers,
+which would result in the client being unable to determine which objects belong to which party.
 
 Examples:
 
-- A eMSP cannot ask the Hub for all the Locations the hub knows from all connected CPOs.
-- A CPO cannot ask the Hub for all the Tokens a hub knows from all connected eMSPs.
+- An eMSP cannot ask the Hub for all the Locations the Hub knows from all connected CPOs.
+- A CPO cannot ask the Hub for all the Tokens a Hub knows from all connected eMSPs.
 
-The Tokens example: When the Hub would combine all the Tokens it knows and return them in one (paginated) response to the client,
-there will be Tokens from different eMSPs in the same response, but there can only be one set of 'OCPI-from-' headers,
-which means the CPO cannot determine which Token belongs to which (virtual) eMSP.
+To elaborate on the Tokens example: When the Hub would combine all the Tokens it knows and returned them in one (paginated) response to the client,
+there would be Tokens from different eMSPs in the same response. But as there can only be one 'OCPI-from-' header,
+the CPO would not be able to determine which Token belongs to which (virtual) eMSP.
 
 
 ===== Overview of required/optional routing headers for different scenarios
 
-The following sections shows which headers are required/optional to be used, and which 'OCPI-to-'/OCPI-from-' IDs need to be used.
+The following section shows which headers are required/optional and which 'OCPI-to-'/'OCPI-from-' IDs need to be used.
 
 This is not an exclusive list, combinations are possible.
 
-When the hub sends something to a virtual-party, the 'OCPI-to-' headers are required.
+When the Hub sends something to a virtual-party, the 'OCPI-to-' header is required.
 
-When the hub receives something from a virtual-party, the 'OCPI-from-' headers are required.
+When the Hub receives something from a virtual-party, the 'OCPI-from-' header is required.
 
 
-====== Virtual-party to virtual-party (without hub)
+====== Virtual-party to virtual-party (without Hub)
 
-This table contains the description of which headers are required to be used for which message when a request is
-directly send from one platform provider to another platform provider for the virtual parties they provides services for, without a hub in between.
+This table contains the description of which headers are required to be used for which message when a request is sent
+directly from one platform provider to another platform provider for the virtual parties they provide services for, without a Hub in between.
 
 [cols="8,10,8,8",options="header"]
 |===
@@ -445,22 +447,22 @@ This table contains the description of which headers are required to be used for
 [cols="8,10,8,8,10",options="header"]
 |===
 | Name | Route | TO Header | FROM Header | Description
-| Direct request | Requesting party to Hub | Receiving-party | | FROM headers are optional, Hub knows the requesting party
-| Direct request | Hub to receiving party | | Requesting-party | TO headers are optional, party knows this request is for the party itself.
-| Direct response | receiving party to Hub | Requesting-party | | FROM headers are optional, Hub knows the responding party
-| Direct response | Hub to requesting party | | Receiving-party | TO headers are optional, party knows this response is for the party itself.
+| Direct request | Requesting party to Hub | Receiving-party | | FROM header is optional, Hub knows the requesting party.
+| Direct request | Hub to receiving party | | Requesting-party | TO header is optional, party knows this request is for the party itself.
+| Direct response | Receiving party to Hub | Requesting-party | | FROM header is optional, Hub knows the responding party.
+| Direct response | Hub to requesting party | | Receiving-party | TO header is optional, party knows this response is for the party itself.
 |===
 
 ====== Virtual-party to Virtual-Party via Hub
 
-This table contains the description of which header are required to be used for which message when a request is directly routed from a virtual party to a virtual party.
+This table contains the description of which headers are required to be used for which message when a request is directly routed from a virtual party to a virtual party.
 In this scenario all headers are needed because the receiving/sending party is not the virtual-party themselves.
 [cols="8,10,8,8",options="header"]
 |===
 | Name | Route | TO Header | FROM Header | Description
 | Direct request | Requesting party to Hub | Receiving-virtual-party | Requesting-virtual-party
 | Direct request | Hub to receiving party | Receiving-virtual-party | Requesting-virtual-party
-| Direct response | receiving party to Hub | Requesting-virtual-party | Receiving-virtual-party
+| Direct response | Receiving party to Hub | Requesting-virtual-party | Receiving-virtual-party
 | Direct response | Hub to requesting party | Requesting-virtual-party | Receiving-virtual-party
 |===
 
@@ -470,42 +472,42 @@ image::images/sd_virtual_hub_virtual.svg[Example sequence diagram of a GET for 1
 
 ====== Party to Party broadcast push
 
-This table contains the description of which header are required to be used for which message when a request is a
-<<transport_and_format_message_routing_broadcast_push,broadcast push>> to the hub.
+This table contains the description of which headers are required to be used for which message when a request is a
+<<transport_and_format_message_routing_broadcast_push,Broadcast push>> to the Hub.
 [cols="8,10,8,8,10",options="header"]
 |===
 | Name | Route | TO Header | FROM Header | Description
-| Broadcast request | Requesting party to Hub | Hub | | FROM headers are optional, Hub knows the requesting party
-| Broadcast response | Hub to requesting party | | Hub | TO headers are optional, party knows this response is for the party itself.
-| Broadcast request | Hub to receiving party | | Hub | TO headers are optional, party knows this request is for the party itself.
-| Broadcast response | receiving party to Hub | Hub | | FROM headers are optional, Hub knows the responding party
+| Broadcast request | Requesting party to Hub | Hub | | FROM header is optional, Hub knows the requesting party.
+| Broadcast response | Hub to requesting party | | Hub | TO header is optional, party knows this response is for the party itself.
+| Broadcast request | Hub to receiving party | | Hub | TO header is optional, party knows this request is for the party itself.
+| Broadcast response | Receiving party to Hub | Hub | | FROM header is optional, Hub knows the responding party.
 |===
 
 ====== Virtual-party to Virtual-Party broadcast push
 
-This table contains the description of which header are required to be used for which message when a request is to be broadcasted by the hub and both parties are virtual parties.
-For a broadcast, the TO headers in the request from the requesting party to the Hub should contain the information of the Hub.
+This table contains the description of which headers are required to be used for which message when a request is to be broadcasted by the Hub and both parties are virtual parties.
+For a broadcast, the TO header in the request from the requesting party to the Hub should contain the information of the Hub.
 [cols="8,10,8,8",options="header"]
 |===
 | Name | Route | TO Header | FROM Header | Description
 | Broadcast request | Requesting party to Hub | Hub | Requesting-virtual-party
 | Broadcast response | Hub to requesting party | Requesting-virtual-party | Hub
 | Broadcast request | Hub to receiving party | Receiving-virtual-party | Hub
-| Broadcast response | receiving party to Hub | Hub | Receiving-virtual-party
+| Broadcast response | Receiving party to Hub | Hub | Receiving-virtual-party
 |===
 
 
 ====== Party to Party open routing request
 
-This table contains the description of which header are required to be used for which message when a request <<transport_and_format_message_routing_open_routing_request,to be routed by the Hub itself>>.
-For an Open Request, the TO headers in the request from the requesting party to the Hub has to omitted.
+This table contains the description of which headers are required to be used for which message when <<transport_and_format_message_routing_open_routing_request,the routing of a request needs to be determined by the Hub itself>>.
+For an Open routing request, the TO header in the request from the requesting party to the Hub MUST be omitted.
 [cols="8,10,8,8,10",options="header"]
 |===
 | Name | Route | TO Header | FROM Header | Description
-| Open request | Requesting party to Hub | | | Omitting the TO headers indicates to the Hub that the Hub has to figure out the routing.
-| Open request | Hub to receiving party | | Requesting-party | TO headers can be omitted, when the receiving party is NOT a virtual party.
-| Open response | receiving party to Hub | Requesting-party | Receiving-party | FROM headers can be omitted, when the receiving party is NOT a virtual party.
-| Open response | Hub to requesting party | Requesting-party | Receiving-party | TO headers can be omitted, when the requesting party is NOT a virtual party.
+| Open request | Requesting party to Hub | | | Omitting the TO header indicates to the Hub that the Hub has to figure out the routing itself.
+| Open request | Hub to receiving party | | Requesting-party | TO header can be omitted when the receiving party is NOT a virtual party.
+| Open response | Receiving party to Hub | Requesting-party | Receiving-party | FROM header can be omitted when the receiving party is NOT a virtual party.
+| Open response | Hub to requesting party | Requesting-party | Receiving-party | TO header can be omitted when the requesting party is NOT a virtual party.
 |===
 
 
@@ -519,15 +521,15 @@ For debugging issues, OCPI implementations are required to include unique IDs vi
 |HTTP Header |Description
 
 |X-Request-ID     |Every request SHALL contain a unique request ID, the response to this request SHALL contain the same ID.
-|X-Correlation-ID |Every request/response send via a Hub SHALL contain a unique correlation-ID, every response to this request SHALL contain the same ID.
+|X-Correlation-ID |Every request/response sent via a Hub SHALL contain a unique correlation ID, every response to this request SHALL contain the same ID.
 |===
 
 It is advised to used GUID/UUID as values for X-Request-ID and X-Correlation-ID.
 
-When a Hub forwards a request to a party, the request to the other party SHALL a new/unique value in the X-Request-ID HTTP header,
-not copy the X-Request-ID HTTP header from the incoming request that was forwarded.
+When a Hub forwards a request to a party, the request to this party SHALL contain a new unique value in the X-Request-ID HTTP header,
+not a copy of the X-Request-ID HTTP header taken from the incoming request that is being forwarded.
 
-When a Hub forwards a request to a party, the request SHALL contain the same X-Correlation-ID HTTP header (with the same value)
+When a Hub forwards a request to a party, the request SHALL contain the same X-Correlation-ID HTTP header (with the same value).
 
 TODO Add sequence diagram to show how X-Request-ID and X-Correlation-ID work together
 
@@ -562,13 +564,15 @@ The URLs of the endpoints in this document are descriptive only. The exact URL c
 [[transport_and_format_offline_behaviour]]
 === Offline behaviour
 
-During communication over OCPI, it might happen that one of the communication parties is unreachable for an amount of time.
+During communication over OCPI, it might happen that one of the communicating parties is unreachable for an undefined amount of time.
 OCPI works event based, new messages and status are pushed from one party to another. When communication is lost, updates cannot be delivered.
 
-OCPI messages should not be queued. When a client does a POST, PUT or PATCH request and that requests fails or times out,
-the client should not queue the message and retry the same message again on a later time. 
+OCPI messages SHOULD NOT be queued. When a client does a POST, PUT or PATCH request and that request fails or times out,
+the client should not queue the message and retry the same message again later. 
 
-When the connection is re-established, it is up to the target-server of a connection to GET the current status from to source-server to get back in-sync.
+When the connection is re-established, it is up to the target-server of a connection to GET the current status from to source-server in order to get back to a synchronized state.
+
 For example:
-- CDRs of the period of communication loss can be rerieved with a GET command on the CDRs module, with filters to retrieve only CDRs of the period since the last CDR was received.
+
+- CDRs of the period of communication loss can be rerieved with a GET command on the CDRs module, with filters to retrieve only CDRs of the period since the last CDR has been received.
 - Status of EVSEs (or Locations) can be retrieved by calling a GET on the Locations module.
