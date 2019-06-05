@@ -6,43 +6,44 @@
 
 *Data owner: `CPO`*
 
-The Location objects live in the CPO back-end system. They describe the charging locations of that operator.
+The Location objects live in the CPO back-end system. They describe the charging locations of one operator (or of multiple operators in case of virtual CPOs).
 
 *Module dependency:* the eMSP endpoint is dependent on the <<mod_tariffs.asciidoc#mod_tariffs_tariffs_module,Tariffs module>>
 
 [[mod_locations_flow_and_lifecycle]]
 === Flow and Lifecycle
 
-The Locations module has Locations as base object, Locations have EVSEs, EVSEs have Connectors.
+The Locations module has Location as base object. Locations can have multiple EVSEs and EVSEs can have multiple Connectors.
 With the methods in the <<mod_locations_emsp_interface,eMSP interface>>,
 Location information/statuses can be shared with the eMSP.
-Updates can be done to the Location, but also to only an EVSE or a Connector.
+Updates can be made to a whole Location, but also to only an EVSE or a Connector.
 
-When a CPO creates Location objects it pushes them to the eMSPs by calling <<mod_locations_put_method,PUT>> on the eMSPs Locations endpoint.
-Providers who do not support push mode need to call <<mod_locations_get_method,GET>> on the CPOs Locations endpoint to receive the new object.
+When a CPO creates Location objects, it pushes them to the eMSPs by calling <<mod_locations_put_method,PUT>> on the eMSPs Locations endpoint.
+Providers who do not support PUSH mode need to call <<mod_locations_get_method,GET>> on the CPOs Locations endpoint to receive the new object.
 
 If the CPO wants to replace a Location related object,
 they push it to the eMSP systems by calling <<mod_locations_put_method,PUT>> on their Locations endpoint.
 
 Any changes to a Location related object can also be pushed to the eMSP by calling the <<mod_locations_patch_method,PATCH>>
-on the eMSPs Locations endpoint. Providers who do not support push mode need to
+on the eMSPs Locations endpoint. Providers who do not support PUSH mode need to
 call <<mod_locations_get_method,GET>> on the CPOs Locations endpoint to receive the updates.
 
-When the CPO wants to delete an EVSE they must update by setting the `status` field to `REMOVED`
+When the CPO wants to delete an EVSE from the list of active EVSEs, they MUST update by setting the `status` field to `REMOVED`
 and call the <<mod_locations_put_method,PUT>> or <<mod_locations_patch_method,PATCH>> on the eMSP system.
 A _Location_ without valid _EVSE_ objects can be considered as expired and should no longer be displayed.
-There is no direct way to delete a location, EVSE or Connector, there are other modules like <<mod_sessions.asciidoc#mod_sessions_sessions_module,`sessions`>> that link to
-location, EVSE and Connector IDs. If they were removed, these links would no longer work.
+There is no way to entirely delete a Location, EVSE or Connector as there are other modules like <<mod_sessions.asciidoc#mod_sessions_sessions_module,`sessions`>> 
+that depend on Locations, EVSEs and Connector IDs. If they were removed, these links would no longer work.
 
 When the CPO is not sure about the state or existence of a Location, EVSE or Connector object in the eMSPs system,
-the CPO can call the <<mod_locations_get_method_eMSP,GET>> to validate the object in the eMSP system.
+the CPO can perform a <<mod_locations_get_method_eMSP,GET>> request to validate the object in the eMSP system.
 
 [[mod_locations_interfaces_and_endpoints]]
 === Interfaces and endpoints
 
-There is both a CPO and an eMSP interface for Locations. Advised is to use the push direction from CPO to eMSP during normal operation.
-The CPO interface is meant to be used when the connection between 2 parties is established, to retrieve the current list of Location objects with the current status, and when the eMSP is not 100% sure the Locations cache is completely correct.
-The eMSP can use the CPO GET Object interface to retrieve a specific Location, EVSE or Connector, this might be used by a eMSP that wants information about a specific Location, but has not implemented the eMSP Locations interface (cannot receive push).
+There is both a CPO and an eMSP interface for Locations. It is advised to use the PUSH direction from CPO to eMSP during normal operation.
+The CPO interface is meant to be used when the connection between two parties is established, to retrieve the current list of Location objects with the current status, and when the eMSP is not 100% sure the Location cache is entirely up-to-date.
+The eMSP can use the CPO GET Object interface to retrieve a specific Location, EVSE or Connector.
+This feature might be used by an eMSP that wants information about a specific Location, but has not implemented the eMSP Locations interface (i.e. cannot receive PUSH).
 
 [[mod_locations_cpo_interface]]
 ==== CPO Interface
@@ -51,7 +52,7 @@ The eMSP can use the CPO GET Object interface to retrieve a specific Location, E
 |===
 |Method |Description 
 
-|<<mod_locations_get_method,GET>> |Fetch a list locations, last updated between the {date_from} and {date_to} (<<transport_and_format.asciidoc#transport_and_format_pagination,paginated>>), or get a specific location, EVSE or Connector. 
+|<<mod_locations_get_method,GET>> |Fetch a list of Locations, last updated between the {date_from} and {date_to} (<<transport_and_format.asciidoc#transport_and_format_pagination,paginated>>), or get a specific Location, EVSE or Connector. 
 |POST |n/a 
 |PUT |n/a 
 |PATCH |n/a 
@@ -62,8 +63,8 @@ The eMSP can use the CPO GET Object interface to retrieve a specific Location, E
 ===== *GET* Method
 
 Depending on the URL Segments provided, the GET request can either be used to retrieve
-information about a list of available locations and EVSEs at this CPO: <<mod_locations_get_list_request_parameters,GET List>>
-Or it can be used to get information about a specific Location, EVSE or Connector: <<mod_locations_get_object_request_parameters,GET Object>>
+information about a list of available Locations (with EVSEs and Connectors) at this CPO (<<mod_locations_get_list_request_parameters,GET List>>)
+or it can be used to get information about one specific Location, EVSE or Connector (<<mod_locations_get_object_request_parameters,GET Object>>).
 
 [[mod_locations_get_list_request_parameters]]
 ====== GET List Request Parameters
@@ -83,8 +84,8 @@ Examples:
 `+https://www.server.com/ocpi/cpo/2.2/locations/?offset=50&amp;limit=100+`
 
 
-If additional parameters: {date_from} and/or {date_to} are provided, only Locations with (`last_updated`) between the given date_from and date_to will be returned.
-If an EVSE is updated, also the 'parent' Location's `last_updated` fields is updated. If a Connector is updated, the EVSE's `last_updated` and the Location's `last_updated` field are updated.
+If additional parameters `{date_from}` and/or `{date_to}` are provided, only Locations with (`last_updated`) between the given `{date_from}` and `{date_to}` will be returned.
+If an EVSE is updated, also the 'parent' Location's `last_updated` field needs to be updated. Analogously, if a Connector is updated, the EVSE's `last_updated` and the Location's `last_updated` fields need to be updated updated.
 
 This request is <<transport_and_format.asciidoc#transport_and_format_pagination,paginated>>, it supports the <<transport_and_format.asciidoc#transport_and_format_paginated_request,pagination>> related URL parameters.
 
