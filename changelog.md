@@ -1,5 +1,18 @@
 # Changelog
 
+## Changes between OCPI 2.1.1 and 2.1.1-d2
+
+Lots of typos in text and examples fixed.
+
+<div><!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --></div>
+
+| Context (Module / Object)              | Expected Impact: eMSP / CPO | Expected Effort: eMSP / CPO | Description                                                                         
+|----------------------------------------|-----------------------------|-----------------------------|------------------------------------------------------------------------------------|
+| Commands / CPO POST method             | Minor / Minor               | Minimal / Minimal           | correct incorrect type of response, was: CommandResponseType but should have been: CommandResponse.
+| Commands / eMSP POST method            | Minor / Minor               | Minimal / Minimal           | correct incorrect type of request body, was: CommandResponseType but should have been: CommandResponse.
+<div><!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --></div>
+
+
 ## Changes between OCPI 2.1 and 2.1.1
 
 Lots of typos fixed and textual improvements.

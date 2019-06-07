@@ -9,6 +9,18 @@ It should be a small effort to upgrade an existing 2.1 implementation to 2.1.1.
 
 For more information on message level changes see [changelog](changelog.md#changelog).
 
+### OCPI 2.1.1-d2
+
+The original documentation of OCPI 2.1.1 contained an some unclearities in the [command module](mod_command.md#commands-module)e.
+This resulted in incompatible implementations of the OCPI 2.1.1 [command module](mod_command.md#commands-module). 
+This updated documentation should clarify prevent and clarify these. 
+
+This new documentation of OCPI 2.1.1 also contains 
+a lot of minor fixes to JSON examples texts that have been contributed by the OCPI community.
+Many thanks to all that have take the time and effort to commit issues. 
+ 
+For more details see: changes see [changelog](changelog.md#changelog).
+
 
 ## Introduction and background
 The Open Charge Point Interface (OCPI) enables a scalable, automated EV roaming setup between Charge Point Operators and e-Mobility Service Providers. It supports authorization, charge point information exchange (including live status updates and transaction events), charge detail record exchange, remote charge point commands and, finally, the exchange of smart-charging commands between parties.
