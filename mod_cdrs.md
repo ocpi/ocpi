@@ -200,7 +200,7 @@ Example: Location: /ocpi/emsp/2.0/cdrs/123456
 
 ### 3.1 _CDR_ Object
 
-The *CDR* object describes the Charging Session and its costs, hHow these costs are built up, etc. 
+The *CDR* object describes the Charging Session and its costs, how these costs are built up, etc. 
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
