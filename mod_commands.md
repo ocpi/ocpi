@@ -109,7 +109,7 @@ The following parameters can be provided as URL segments.
 | command     | [CommandType](#42-commandtype-enum) | yes      | Type of command that is requested.                                            |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
-#### Request Body
+##### Request Body
 
 Depending on the `command` parameter the body SHALL contain the applicable object for that command. 
 
@@ -183,7 +183,10 @@ Example:
 `/ocpi/emsp/2.0/commands/RESERVE_NOW/1234`
 `/ocpi/emsp/2.0/commands/UNLOCK_CONNECTOR/2`
 
-#### Request Body
+
+##### Request Body
+
+The request body contains the result of the command.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
@@ -191,6 +194,7 @@ Example:
 |-----------------------------------------------------|-------|--------------------------------------------------------------------------|
 | [CommandResponse](#31-commandresponse-object)       | 1     | Result of the command request, from the Charge Point.         |
 <div><!-- ---------------------------------------------------------------------------- --></div>
+
 
 
 ## 3. Object description
@@ -201,7 +205,7 @@ Example:
 
 | Property         | Type                                                | Card. | Description                                                           |
 |------------------|-----------------------------------------------------|-------|-----------------------------------------------------------------------|
-| result           | [CommandResponseType](#42-commandresponsetype-enum) | 1     | Result of the command request as sent by the Charge Point to the CPO. |
+| result           | [CommandResponseType](#41-commandresponsetype-enum) | 1     | Result of the command request as sent by the Charge Point to the CPO. |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 
@@ -284,7 +288,7 @@ The `evse_uid` is optional. If no EVSE is specified, the Charge Point can itself
 
 ### 4.1 CommandResponseType *enum*
 
-The command requested.
+The response/result of the requested command.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
@@ -326,7 +330,7 @@ The command requested.
 | UNLOCK_CONNECTOR      | Request the Charge Point to unlock the connector (if applicable). This functionality is for help desk operators only! |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
-**The command `UNLOCK_CONNECTOR` may only be used by an operator or the eMSP. This command SHALL never be allowed to be sent directly by the EV-Driver. 
+**The command `UNLOCK_CONNECTOR` may only be used by an help desk operator working for the eMSP. This command SHALL never be allowed to be sent directly by the EV-Driver. 
 The `UNLOCK_CONNECTOR` is intended to be used in the rare situation that the connector is not unlocked successfully after a transaction is stopped. The mechanical unlock of the lock mechanism might get stuck, for example: fail when there is tension on the charging cable when the Charge Point tries to unlock the connector.
 In such a situation the EV-Driver can call either the CPO or the eMSP to retry the unlocking.** 
 
