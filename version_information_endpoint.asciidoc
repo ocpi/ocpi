@@ -195,7 +195,7 @@ For example:
 [[version_information_get_endpoint]]
 ==== GET
 
-Fetch information about the supported endpoints and their URLs for this OICP version.
+Fetch information about the supported endpoints and their URLs for this OCPI version.
 
 [[version_information_get_details_endpoint_example]]
 ===== Examples
