@@ -367,7 +367,7 @@ this PUSH with the Hubs party-id and country-code in the 'OCPI-to-' headers.
 
 GET SHALL NOT be used in combination with Broadcast Push.
 If the requesting party wants to GET information of which it does not know the receiving party,
-an <<transport_and_format_message_routing_open_routing_request,open routing request>> MUST be used. (see below)
+an <<transport_and_format_message_routing_open_routing_request,Open Routing Request>> MUST be used. (see below)
 
 Broadcast Push SHALL only be used with information that is meant to be sent to all other parties. It is useful to share data like
 <<mod_tokens.asciidoc#mod_tokens_tokens_module,Tokens>> and <<mod_locations.asciidoc#mod_locations_locations_module,Locations>>,
@@ -381,7 +381,7 @@ image::images/sd_put_boardcast.svg[OCPI Sequence Diagram Hub PUT]
 
 
 [[transport_and_format_message_routing_open_routing_request]]
-===== Open routing request
+===== Open Routing Request
 When a Hub has the intelligence to route messages based on the content of the request,
 or the requesting party does not know the destination of a request, the 'OCPI-to-' headers can be omitted in the request towards the Hub.
 The Hub can then decide to which party a request needs to be routed, or that it needs to be broadcasted if the destination cannot be determined.
@@ -390,7 +390,7 @@ This has nothing to do with <<transport_and_format_message_routing_broadcast_pus
 as <<transport_and_format_message_routing_broadcast_push,Broadcast Push>> only works for the 'push' <<transport_and_format_pull_and_push,model>>,
 not for <<transport_and_format_get,GET>> requests.
 
-Open routing requests are possible for GET (<<transport_and_format_get_all_for_hub_not_possible,Not GET ALL>>), POST, PUT, PATCH and DELETE.
+Open Routing Requests are possible for GET (<<transport_and_format_get_all_for_hub_not_possible,Not GET ALL>>), POST, PUT, PATCH and DELETE.
 
 .Example sequence diagram of a open routing GET from a CPO via the Hub.
 image::images/sd_get_openrouting.svg[OCPI Sequence Diagram Hub GET]
@@ -497,10 +497,10 @@ For a broadcast, the TO headers in the request from the requesting party to the 
 |===
 
 
-====== Party to Party open routing request
+====== Party to Party Open Routing Request
 
 This table contains the description of which headers are required to be used for which message when <<transport_and_format_message_routing_open_routing_request,the routing of a request needs to be determined by the Hub itself>>.
-For an Open routing request, the TO headers in the request from the requesting party to the Hub MUST be omitted.
+For an Open Routing Request, the TO headers in the request from the requesting party to the Hub MUST be omitted.
 [cols="8,10,8,8,10",options="header"]
 |===
 | Name | Route | TO Headers | FROM Headers | Description
