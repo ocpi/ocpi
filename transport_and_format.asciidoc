@@ -347,34 +347,34 @@ just to be complete and to give the requesting party a chance to validate if the
 
 
 [[transport_and_format_message_routing_broadcast_push]]
-===== Broadcast push
+===== Broadcast Push
 
 For simplicity, connected clients might PUSH (POST, PUT, PATCH) information to all connected clients with an "opposite role",
 CPO pushing information to all eMSPs and NSPs. eMSP pushing information to all CPOs.
-(The role "Other" is seen as an eMSP type of role, so broadcast push from a CPO is also sent to "Other".
+(The role "Other" is seen as an eMSP type of role, so Broadcast Push from a CPO is also sent to "Other".
 Messages from "Other" are only sent to CPOs and not to eMSPs though.)
 
-Broadcast pushing data through a Hub might be very useful to share information like Locations or Tokens with all parties
+Using Broadcast Push to send data through a Hub might be very useful to share information like Locations or Tokens with all parties
 connected to the Hub that have implemented the corresponding module.
 This means only one request to the Hub will be necessary, as all connected clients will be served by the Hub.
 In other words: the Hub broadcasts received information to all connected clients.
 
-To send a broadcast push, the client uses the party-id and country-code of the Hub in the 'OCPI-to-' header.
+To send a Broadcast Push, the client uses the party-id and country-code of the Hub in the 'OCPI-to-' header.
 The Hub parses the request and sends a response to the client, which optionally contains its own party-id and country-code in the 'OCPI-from-' header.
 The Hub then sends the pushed data to any client implementing the corresponding applicable module, using its own party-id and country-code in the 'OCPI-from-' header.
 The client receiving a PUSH from a Hub (with the Hubs information in the 'OCPI-from-' header) will respond to
 this PUSH with the Hubs party-id and country-code in the 'OCPI-to-' header.
 
-GET SHALL NOT be used in combination with broadcast pushing.
+GET SHALL NOT be used in combination with Broadcast Push.
 If the requesting party wants to GET information of which it does not know the receiving party,
 an <<transport_and_format_message_routing_open_routing_request,open routing request>> MUST be used. (see below)
 
-Broadcast pushing SHALL only be used with information that is meant to be sent to all other parties. It is useful to share data like
+Broadcast Push SHALL only be used with information that is meant to be sent to all other parties. It is useful to share data like
 <<mod_tokens.asciidoc#mod_tokens_tokens_module,Tokens>> and <<mod_locations.asciidoc#mod_locations_locations_module,Locations>>,
 but not so much for <<mod_cdrs.asciidoc#mod_cdrs_cdrs_module,CDRs>> and <<mod_sessions.asciidoc#mod_sessions_sessions_module,Sessions>>
 as these pieces of information are specific to only one party and are possibly even protected by GDPR or other laws.
 
-NOTE: For "client owned objects", the party-id and country-code in the URL segments will still be the original party-id and country-code from the original client sending the Broadcast push to the Hub.
+NOTE: For "client owned objects", the party-id and country-code in the URL segments will still be the original party-id and country-code from the original client sending the Broadcast Push to the Hub.
 
 .Example sequence diagram of a broadcast PUT from a CPO to multiple eMSPs.
 image::images/sd_put_boardcast.svg[OCPI Sequence Diagram Hub PUT]
@@ -386,8 +386,8 @@ When a Hub has the intelligence to route messages based on the content of the re
 or the requesting party does not know the destination of a request, the 'OCPI-to-' header can be omitted in the request towards the Hub.
 The Hub can then decide to which party a request needs to be routed, or that it needs to be broadcasted if the destination cannot be determined.
 
-This has nothing to do with <<transport_and_format_message_routing_broadcast_push,Broadcast push>> though,
-as <<transport_and_format_message_routing_broadcast_push,Broadcast push>> only works for the 'push' <<transport_and_format_pull_and_push,model>>,
+This has nothing to do with <<transport_and_format_message_routing_broadcast_push,Broadcast Push>> though,
+as <<transport_and_format_message_routing_broadcast_push,Broadcast Push>> only works for the 'push' <<transport_and_format_pull_and_push,model>>,
 not for <<transport_and_format_get,GET>> requests.
 
 Open routing requests are possible for GET (<<transport_and_format_get_all_for_hub_not_possible,Not GET ALL>>), POST, PUT, PATCH and DELETE.
@@ -470,10 +470,10 @@ In this scenario all headers are needed because the receiving/sending party is n
 image::images/sd_virtual_hub_virtual.svg[Example sequence diagram of a GET for 1 Object from a Virtual CPO to Virtual MSP via a Hub]
 
 
-====== Party to Party broadcast push
+====== Party to Party Broadcast Push
 
 This table contains the description of which headers are required to be used for which message when a request is a
-<<transport_and_format_message_routing_broadcast_push,Broadcast push>> to the Hub.
+<<transport_and_format_message_routing_broadcast_push,Broadcast Push>> to the Hub.
 [cols="8,10,8,8,10",options="header"]
 |===
 | Name | Route | TO Header | FROM Header | Description
@@ -483,7 +483,7 @@ This table contains the description of which headers are required to be used for
 | Broadcast response | Receiving party to Hub | Hub | | FROM header is optional, Hub knows the responding party.
 |===
 
-====== Virtual-party to Virtual-Party broadcast push
+====== Virtual-party to Virtual-Party Broadcast Push
 
 This table contains the description of which headers are required to be used for which message when a request is to be broadcasted by the Hub and both parties are virtual parties.
 For a broadcast, the TO header in the request from the requesting party to the Hub should contain the information of the Hub.

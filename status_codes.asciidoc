@@ -77,7 +77,7 @@ Error during processing of the OCPI payload in the server. The message was synta
 === 4xxx: Hub errors
 
 When a server encounters an error, client side error (2xxx) or server side error (3xxx), it sends the status code to the Hub.
-The Hub SHALL then forward this error to the client which sent the request (when the request was not a Broadcast push).
+The Hub SHALL then forward this error to the client which sent the request (when the request was not a Broadcast Push).
 
 For errors that a Hub encounters while routing messages, the following OCPI status codes shall be used.
 
