@@ -52,7 +52,7 @@ The eMSP interface is meant to be used when the CPO is not 100% sure the Token c
 ==== CPO Interface
 
 With this interface the eMSP can push the Token information to the CPO.
-Tokens is a <<transport_and_format.asciidoc#transport_and_format_client_owned_object_push,client owned object>>, so the end-points need to contain the required extra fields: {<<credentials.asciidoc#credentials_credentials_object,party_id>>} and {<<credentials.asciidoc#credentials_credentials_object,country_code>>}.
+Tokens is a <<transport_and_format.asciidoc#transport_and_format_client_owned_object_push,Client Owned Object>>, so the end-points need to contain the required extra fields: {<<credentials.asciidoc#credentials_credentials_object,party_id>>} and {<<credentials.asciidoc#credentials_credentials_object,country_code>>}.
 
 Endpoint structure definition:
 

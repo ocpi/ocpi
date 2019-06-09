@@ -94,7 +94,7 @@ and an eMSP interface to receive the response from the Location/EVSE asynchronou
 [[mod_charging_profiles_cpo_interface]]
 ==== CPO Interface
 
-ChargingProfiles is a <<transport_and_format.asciidoc#transport_and_format_client_owned_object_push,client owned object>>, so the end-points need to contain the required extra fields: {<<credentials.asciidoc#credentials_credentials_object,party_id>>} and {<<credentials.asciidoc#credentials_credentials_object,country_code>>}.
+ChargingProfiles is a <<transport_and_format.asciidoc#transport_and_format_client_owned_object_push,Client Owned Object>>, so the end-points need to contain the required extra fields: {<<credentials.asciidoc#credentials_credentials_object,party_id>>} and {<<credentials.asciidoc#credentials_credentials_object,country_code>>}.
 
 Example endpoint structures:
 

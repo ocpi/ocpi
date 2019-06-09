@@ -211,7 +211,7 @@ The mimetype of the request body is `application/json` and may contain the data 
 In case a PATCH request fails, the client is expected to call the <<transport_and_format_get,GET>> method to check the state of the object in the other party's system. If the object doesn't exist, the client should do a <<transport_and_format_put,PUT>>. 
 
 [[transport_and_format_client_owned_object_push]]
-==== Client owned object push
+==== Client Owned Object push
 
 Normal client/server RESTful services work in a way where the Server is the owner of the objects that are created. The client requests a POST method with an object to the end-point URL. The response send by the server will contain the URL to the new object. The client will request only one server to create a new object, not multiple servers.
 
@@ -221,9 +221,9 @@ For example: the CPO owns the Tariff objects and pushes them to a couple of eMSP
 The distinction between objects from different CPOs/eMSPs is made based on a {<<credentials.asciidoc#credentials_credentials_object,country_code>>} and {<<credentials.asciidoc#credentials_credentials_object,party_id>>}.
 The <<credentials.asciidoc#credentials_credentials_object,country_code>> and <<credentials.asciidoc#credentials_credentials_object,party_id>> of the other party are received during the <<credentials.asciidoc#credentials_credentials_endpoint,credentials>> handshake, so that a server might know the values a client will use in an URL.
 
-Client owned object URL definition: {base-ocpi-url}/{end-point}/{country-code}/{party-id}/{object-id}
+Client Owned Object URL definition: {base-ocpi-url}/{end-point}/{country-code}/{party-id}/{object-id}
 
-Example of a URL to a client owned object
+Example of a URL to a Client Owned Object
 
 [source]
 ----
@@ -240,7 +240,7 @@ To identified the owner of data, the party generating the information that is pr
 [[transport_and_format_errors]]
 ===== Errors
 
-When a client pushes a client owned object, but the {object-id} in the URL is different from the id in the object being pushed. A Server implementation is advised to return an <<status_codes.asciidoc#status_codes_status_codes,OCPI status code>>: <<status_codes.asciidoc#status_codes_status_codes,2001>>.
+When a client pushes a Client Owned Object, but the {object-id} in the URL is different from the id in the object being pushed. A Server implementation is advised to return an <<status_codes.asciidoc#status_codes_status_codes,OCPI status code>>: <<status_codes.asciidoc#status_codes_status_codes,2001>>.
 
 [[transport_and_format_response_format]]
 ==== Response format
@@ -374,7 +374,7 @@ Broadcast Push SHALL only be used with information that is meant to be sent to a
 but not so much for <<mod_cdrs.asciidoc#mod_cdrs_cdrs_module,CDRs>> and <<mod_sessions.asciidoc#mod_sessions_sessions_module,Sessions>>
 as these pieces of information are specific to only one party and are possibly even protected by GDPR or other laws.
 
-NOTE: For "client owned objects", the party-id and country-code in the URL segments will still be the original party-id and country-code from the original client sending the Broadcast Push to the Hub.
+NOTE: For "Client Owned Objects", the party-id and country-code in the URL segments will still be the original party-id and country-code from the original client sending the Broadcast Push to the Hub.
 
 .Example sequence diagram of a broadcast PUT from a CPO to multiple eMSPs.
 image::images/sd_put_boardcast.svg[OCPI Sequence Diagram Hub PUT]

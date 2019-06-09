@@ -175,7 +175,7 @@ The response contains the requested object.
 [[mod_locations_emsp_interface]]
 ===== eMSP Interface
 
-Locations are <<transport_and_format.asciidoc#transport_and_format_client_owned_object_push,client owned objects>>,
+Locations are <<transport_and_format.asciidoc#transport_and_format_client_owned_object_push,Client Owned Objects>>,
 so the end-points need to contain the required extra fields: 
 {<<credentials.asciidoc#credentials_credentials_object,party_id>>} and {<<credentials.asciidoc#credentials_credentials_object,country_code>>}.
 
