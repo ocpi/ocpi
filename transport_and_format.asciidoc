@@ -33,7 +33,7 @@ To prevent confusion, when talking about the token used here in the HTTP Authori
 Its parameter is a string consisting of printable, non-whitespace ASCII characters.
 
 The credentials token must uniquely identify the requesting party.
-This way, the server can use the information in the Authorization header to the link the request to the correct requesting party's account.
+This way, the server can use the information in the Authorization header to link the request to the correct requesting party's account.
 
 If the header is missing or the credentials token doesn't match any known party then the server SHALL respond with a HTTP `401 - Unauthorized` status code.
 
