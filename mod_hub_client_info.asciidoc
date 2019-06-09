@@ -18,7 +18,7 @@ This section will describe what the expected behavior is when a party receive in
 ==== Another Party becomes CONNECTED
 
 Party is (back) online. Request can be send again.
-Every party receiving Client Owned Objects from this party should be prepared to received Client Owned Objects with URLs
+Every party receiving Client Owned Objects from this party should be prepared to receive Client Owned Objects with URLs
 that contain the party_id and country_code of this party.
 
 ==== Another Party goes OFFLINE
