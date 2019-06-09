@@ -6,7 +6,10 @@
 
 *Data owner: `CPO`*
 
-The Location objects live in the CPO back-end system. They describe the charging locations of one operator (or of multiple operators in case of virtual CPOs).
+The Location objects live in the CPO back-end system. They describe the charging locations of an operator.
+
+In a multitenant system the Location objects of multiple virtual CPOs live in one back-end system,
+but from the interface perspective there is no interconnection between the data of individual CPOs.
 
 *Module dependency:* the eMSP endpoint is dependent on the <<mod_tariffs.asciidoc#mod_tariffs_tariffs_module,Tariffs module>>
 
