@@ -285,7 +285,7 @@ Each object must contain all required fields. Fields that are not specified may 
 |Value |Description
 
 |CPO   |Charging Point Operator.
-|EMPS  |e-Mobility Service Provider.
+|EMSP  |e-Mobility Service Provider.
 |NSP   |Navigation Service Provider, role like an eMSP (probably only interested in Location information)
 |OTHER |Other role
 |===
