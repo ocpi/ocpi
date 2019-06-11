@@ -154,7 +154,7 @@ In the body, a <<mod_sessions_charging_preferences_object,ChargingPreferences>> 
 |===
 |Type |Card. |Description
 
-|<<mod_sessions_charging_preferences_object,ChargingPreferences>> |1 | Updated Charging Preferences for the driver of this Session.
+|<<mod_sessions_charging_preferences_object,ChargingPreferences>> |1 | Updated Charging Preferences of the driver for this Session.
 |===
 
 [[mod_sessions_cpo_post_response_data]]
