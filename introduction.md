@@ -11,13 +11,15 @@ For more information on message level changes see [changelog](changelog.md#chang
 
 ### OCPI 2.1.1-d2
 
-The original documentation of OCPI 2.1.1 contained an some unclearities in the [command module](mod_command.md#commands-module)e.
+The original documentation of OCPI 2.1.1 contained some unclarities in the [command module](mod_command.md#commands-module).
 This resulted in incompatible implementations of the OCPI 2.1.1 [command module](mod_command.md#commands-module). 
-This updated documentation should clarify prevent and clarify these. 
+This updated documentation should clarify the usage of commands and prevent incompatibilities. 
+
+Note that although the protocol version remains 2.1.1, this update might translate into a breaking change for some existing implementations, albeit a very minor one. 
 
 This new documentation of OCPI 2.1.1 also contains 
 a lot of minor fixes to JSON examples texts that have been contributed by the OCPI community.
-Many thanks to all that have take the time and effort to commit issues. 
+Many thanks to all that have taken the time and effort to commit issues. 
  
 For more details see: changes see [changelog](changelog.md#changelog).
 
