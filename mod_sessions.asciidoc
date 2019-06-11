@@ -28,7 +28,7 @@ When the CPO is not sure about the state or existence of a Session object in the
 
 eMSPs who do not support the Push model need to call <<mod_sessions_cpo_get_method,GET>> on the CPO's Sessions endpoint to receive a list of Sessions.
 
-This <<mod_sessions_cpo_get_method,GET>> method can also be used in combination with the Push model to retrieve Sessions after the system (re-)connects to a CPO, to get a list Sessions 'missed' during a downtime of the eMSP's system.
+This <<mod_sessions_cpo_get_method,GET>> method can also be used in combination with the Push model to retrieve Sessions after the system (re-)connects to a CPO, to get a list Sessions _missed_ during a downtime of the eMSP's system.
 
 
 [[mod_sessions_set_charging_preferences]]
