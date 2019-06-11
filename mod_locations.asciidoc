@@ -674,14 +674,18 @@ Specifies one exceptional period for opening or access hours.
 |RECREATION_AREA |A Recreation area. 
 |NATURE |Located in, or close to, a park, nature reserve/park etc. 
 |MUSEUM |A museum. 
-|BUS_STOP |A bus stop. 
+|BIKE_SHARING |A bike/e-bike/e-scooter sharing location.
+|BUS_STOP |A bus stop.
 |TAXI_STAND |A taxi stand. 
-|TRAIN_STATION |A train station. 
+|TRAM_STOP | A tram stop/station.
+|TRAIN_STATION |A train station.
 |AIRPORT |An airport. 
-|CARPOOL_PARKING |A carpool parking. 
+|PARKING_LOT | A parking lot.
+|CARPOOL_PARKING |A carpool parking.
 |FUEL_STATION |A Fuel station. 
 |WIFI |Wifi or other type of internet available. 
 |===
+
 
 [[mod_locations_geolocation_class]]
 ==== GeoLocation _class_

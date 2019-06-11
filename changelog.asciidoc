@@ -225,6 +225,14 @@ Minimal
 |Changed field name from `source` to `category`, this was a copy/past error in an older version of OCPI, as this is not used (much) yet, it is better for understandability of OCPI for correct the field name.
 
 |Locations / +
+Facility enum
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|added new values for: `BIKE_SHARING`, `PARKING_LOT` and `TRAM_STOP`.
+
+|Locations / +
 GeoLocation class
 |Minor / +
 Minor
