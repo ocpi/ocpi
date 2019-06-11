@@ -173,7 +173,7 @@ The response contains the requested object.
 
 
 [[mod_locations_emsp_interface]]
-===== eMSP Interface
+==== eMSP Interface
 
 Locations are <<transport_and_format.asciidoc#transport_and_format_client_owned_object_push,Client Owned Objects>>,
 so the end-points need to contain the required extra fields: 
