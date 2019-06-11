@@ -335,12 +335,12 @@ include::examples/cdr_example.json[]
 |===
 |Value |Description 
 
-|ENERGY |Defined in kWh, default step size is 1 Wh
+|ENERGY |Defined in kWh, default step_size multiplier is 1 Wh
 |MAX_CURRENT |Maximum current reached during a charging session: defined in A (Ampere)
 |MIN_CURRENT |Minimum current reached during a charging session: defined in A (Ampere)
-|PARKING_TIME |Time not charging: defined in hours, default step size is 1 second
-|RESERVATION_TIME |Time charging station has been reserved and not yet been in use for this customer: defined in hours, default step size is 1 second
-|TIME |Time charging: defined in hours, default step size is 1 second
+|PARKING_TIME |Time not charging: defined in hours, default step_size multiplier is 1 second
+|RESERVATION_TIME |Time charging station has been reserved and not yet been in use for this customer: defined in hours, default step_size multiplier is 1 second
+|TIME |Time charging: defined in hours, default step_size multiplier is 1 second
 |===
 
 
