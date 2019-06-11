@@ -24,7 +24,7 @@ that contain the party_id and country_code of this party.
 ==== Another Party goes OFFLINE
 
 Connection to party is not available: No requests can be send.
-Do not queue push messages. When the other parties comes back online, it is their responsibility to do a GET to get back in sync.
+Do not queue Push messages. When the other parties comes back online, it is their responsibility to do a GET to get back in sync.
 
 ==== Another Party becomes PLANNED
 
@@ -82,7 +82,7 @@ This method is not for operational flow.
 === Interfaces
 
 There is both a Hub interface as a connected client (eMSP/CPO etc) interface for ClientInfo.
-It is advised to use the push direction from Hub to connected clients during normal operation.
+It is advised to use the Push direction from Hub to connected clients during normal operation.
 The Hub interface is meant to be used when the connected client is not 100% sure the ClientInfo cache is still correct.
 
 [[mod_hub_client_info_client_interface]]

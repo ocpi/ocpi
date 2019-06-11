@@ -23,7 +23,7 @@ Location data and status information can be shared with the eMSP.
 Updates can be made to a whole Location, but also only to an EVSE or a single Connector.
 
 When a CPO creates Location objects, it pushes them to connected eMSPs by calling <<mod_locations_put_method,PUT>> on the eMSPs Locations endpoint.
-eMSPs who do not support PUSH mode need to call <<mod_locations_get_method,GET>> on the CPOs Locations endpoint to receive the new object.
+eMSPs who do not support Push mode need to call <<mod_locations_get_method,GET>> on the CPOs Locations endpoint to receive the new object.
 This should be done regularly to stay up to date with the CPOs data, but not too often in order to keep the load low.
 
 If the CPO wants to replace a Location related object,
@@ -31,7 +31,7 @@ they again push it to the eMSP systems by calling <<mod_locations_put_method,PUT
 
 Any changes to a Location related object can also be pushed to connected eMSPs by calling the <<mod_locations_patch_method,PATCH>> method
 on the eMSPs Locations endpoint, but using PATCH mode, only actual changes should be pushed.
-Providers who do not support PUSH mode need to call <<mod_locations_get_method,GET>> on the CPOs Locations endpoint to receive the updates.
+Providers who do not support Push mode need to call <<mod_locations_get_method,GET>> on the CPOs Locations endpoint to receive the updates.
 
 When the CPO wants to delete an EVSE from the list of active EVSEs, they MUST update the EVSE's `status` field to `REMOVED`
 and call the <<mod_locations_put_method,PUT>> or <<mod_locations_patch_method,PATCH>> on the eMSP system.
@@ -47,12 +47,12 @@ the CPO can perform a <<mod_locations_get_method_eMSP,GET>> request to validate 
 === Interfaces and endpoints
 
 There are both, a CPO and an eMSP interface for Locations.
-It is advised to use the PUSH direction from CPO to eMSP during normal operation in order to keep the latency of updates low.
+It is advised to use the Push direction from CPO to eMSP during normal operation in order to keep the latency of updates low.
 The CPO interface is meant to be used when the connection between two parties is established for the first time,
 to retrieve the current list of Location objects with the current status,
 and when the eMSP is not 100% sure the Location cache is entirely up-to-date (i.e. to perform a full sync).
 The eMSP can also use the CPO <<mod_locations_get_object_request_parameters,GET Object interface>> to retrieve a specific Location, EVSE or Connector.
-This feature might be used by an eMSP that wants information about a specific Location, but has not implemented the eMSP Locations interface (i.e. cannot receive PUSH).
+This feature might be used by an eMSP that wants information about a specific Location, but has not implemented the eMSP Locations interface (i.e. cannot receive Push).
 
 [[mod_locations_cpo_interface]]
 ==== CPO Interface
@@ -253,7 +253,7 @@ PUT can be used to send new Location objects to the eMSP but also to replace exi
 [[mod_locations_request_parameters_msp]]
 ====== Request Parameters
 
-This is an information push message, the objects pushed will not be owned by the eMSP.
+This is an information Push message, the objects pushed will not be owned by the eMSP.
 To make distinctions between objects being pushed to an eMSP from different CPOs, 
 the {<<credentials.asciidoc#credentials_credentials_object,party_id>>} and {<<credentials.asciidoc#credentials_credentials_object,country_code>>} 
 have to be included in the URL (as URL segments, as described in the <<mod_locations_emsp_interface,eMSP Interface>>).

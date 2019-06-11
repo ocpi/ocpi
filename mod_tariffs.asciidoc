@@ -29,7 +29,7 @@ CPO can call the <<mod_tariffs_msp_get_method,GET>> to validate the Tariff objec
 [[mod_tariffs_pull_model]]
 ==== Pull model
 
-eMSPs who do not support the push model need to call
+eMSPs who do not support the Push model need to call
 <<mod_tariffs_cpo_get_method,GET>> on the CPOs Tariff endpoint to receive
 all Tariffs, replacing the current list of known Tariffs with the newly received list.
 

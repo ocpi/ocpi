@@ -13,7 +13,7 @@ The Session object is owned by the CPO back-end system, and can be GET from the 
 === Flow and Lifecycle
 
 [[mod_sessions_push_model]]
-==== PUSH model
+==== Push model
 
 When the CPO creates a Session object they push it to the corresponding eMSP by calling <<mod_sessions_msp_put_method,PUT>> on the eMSP's Sessions endpoint with the newly created Session object.
 
@@ -24,11 +24,11 @@ Sessions cannot be deleted, final status of a session is: `COMPLETED`.
 When the CPO is not sure about the state or existence of a Session object in the eMSP's system, the CPO can call <<mod_sessions_msp_get_method,GET>> on the eMSP's Sessions endpoint to validate the Session object in the eMSP's system.
 
 [[mod_sessions_pull_model]]
-==== PULL model
+==== Pull model
 
-eMSPs who do not support the PUSH model need to call <<mod_sessions_cpo_get_method,GET>> on the CPO's Sessions endpoint to receive a list of Sessions.
+eMSPs who do not support the Push model need to call <<mod_sessions_cpo_get_method,GET>> on the CPO's Sessions endpoint to receive a list of Sessions.
 
-This <<mod_sessions_cpo_get_method,GET>> method can also be used in combination with the PUSH model to retrieve Sessions after the system (re-)connects to a CPO, to get a list Sessions 'missed' during a downtime of the eMSP's system.
+This <<mod_sessions_cpo_get_method,GET>> method can also be used in combination with the Push model to retrieve Sessions after the system (re-)connects to a CPO, to get a list Sessions 'missed' during a downtime of the eMSP's system.
 
 
 [[mod_sessions_set_charging_preferences]]

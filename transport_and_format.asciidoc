@@ -46,19 +46,19 @@ the server SHALL respond with a HTTP `401 - Unauthorized` status code.
 [[transport_and_format_pull_and_push]]
 ==== Pull and Push
 
-OCPI supports both 'pull' and 'push' models. 
+OCPI supports both *Pull* and *Push* models. 
 
-* Push: Changes in objects, and new objects are send (semi) real-time to receiver.
-* Pull: Receiver request a (full) list of objects every X times.
+* *Push:* Changes in objects, and new objects are send (semi) real-time to receiver.
+* *Pull:* Receiver request a (full) list of objects every X times.
 
-OCPI doesn't require parties to implement 'push'.
-'pull' is required, a receiver needs to be able to get 'in-sync' after a period of connection loss.
+OCPI doesn't require parties to implement Push.
+Pull is required, a receiver needs to be able to get _in-sync_ after a period of connection loss.
 
-It is possible to implement a 'pull' only OCPI implementation, it might be a good starting point for an OCPI implementation.
-However, it is strongly advised to implement 'push' for production systems that have to handle some load,
+It is possible to implement a Pull only OCPI implementation, it might be a good starting point for an OCPI implementation.
+However, it is strongly advised to implement Push for production systems that have to handle some load,
 especially when a number of clients are requesting long lists frequently.
-'Push' implementation tend to use much less resources.
-It is therefor advised to clients 'pulling' lists from a server to do this on a relative low polling interval: think in hours, not minutes, and to introduce some splay (randomize the length of the poll interface a bit). 
+Push implementation tend to use much less resources.
+It is therefor advised to clients _pulling_ lists from a server to do this on a relative low polling interval: think in hours, not minutes, and to introduce some splay (randomize the length of the poll interface a bit). 
 
 
 [[transport_and_format_request_format]]
@@ -211,7 +211,7 @@ The mimetype of the request body is `application/json` and may contain the data 
 In case a PATCH request fails, the client is expected to call the <<transport_and_format_get,GET>> method to check the state of the object in the other party's system. If the object doesn't exist, the client should do a <<transport_and_format_put,PUT>>. 
 
 [[transport_and_format_client_owned_object_push]]
-==== Client Owned Object push
+==== Client Owned Object Push
 
 Normal client/server RESTful services work in a way where the Server is the owner of the objects that are created. The client requests a POST method with an object to the end-point URL. The response send by the server will contain the URL to the new object. The client will request only one server to create a new object, not multiple servers.
 
@@ -349,7 +349,7 @@ just to be complete and to give the requesting party a chance to validate if the
 [[transport_and_format_message_routing_broadcast_push]]
 ===== Broadcast Push
 
-For simplicity, connected clients might PUSH (POST, PUT, PATCH) information to all connected clients with an "opposite role",
+For simplicity, connected clients might push (POST, PUT, PATCH) information to all connected clients with an "opposite role",
 CPO pushing information to all eMSPs and NSPs. eMSP pushing information to all CPOs.
 (The role "Other" is seen as an eMSP type of role, so Broadcast Push from a CPO is also sent to "Other".
 Messages from "Other" are only sent to CPOs and not to eMSPs though.)
@@ -362,8 +362,8 @@ In other words: the Hub broadcasts received information to all connected clients
 To send a Broadcast Push, the client uses the party-id and country-code of the Hub in the 'OCPI-to-' headers.
 The Hub parses the request and sends a response to the client, which optionally contains its own party-id and country-code in the 'OCPI-from-' headers.
 The Hub then sends the pushed data to any client implementing the corresponding applicable module, using its own party-id and country-code in the 'OCPI-from-' headers.
-The client receiving a PUSH from a Hub (with the Hubs information in the 'OCPI-from-' headers) will respond to
-this PUSH with the Hubs party-id and country-code in the 'OCPI-to-' headers.
+The client receiving a Push from a Hub (with the Hubs information in the 'OCPI-from-' headers) will respond to
+this Push with the Hubs party-id and country-code in the 'OCPI-to-' headers.
 
 GET SHALL NOT be used in combination with Broadcast Push.
 If the requesting party wants to GET information of which it does not know the receiving party,
@@ -387,7 +387,7 @@ or the requesting party does not know the destination of a request, the 'OCPI-to
 The Hub can then decide to which party a request needs to be routed, or that it needs to be broadcasted if the destination cannot be determined.
 
 This has nothing to do with <<transport_and_format_message_routing_broadcast_push,Broadcast Push>> though,
-as <<transport_and_format_message_routing_broadcast_push,Broadcast Push>> only works for the 'push' <<transport_and_format_pull_and_push,model>>,
+as <<transport_and_format_message_routing_broadcast_push,Broadcast Push>> only works for the <<transport_and_format_pull_and_push,Push model>>,
 not for <<transport_and_format_get,GET>> requests.
 
 Open Routing Requests are possible for GET (<<transport_and_format_get_all_for_hub_not_possible,Not GET ALL>>), POST, PUT, PATCH and DELETE.
