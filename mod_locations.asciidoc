@@ -678,6 +678,7 @@ Specifies one exceptional period for opening or access hours.
 |BUS_STOP |A bus stop.
 |TAXI_STAND |A taxi stand. 
 |TRAM_STOP | A tram stop/station.
+|METRO_STATION |A metro station.
 |TRAIN_STATION |A train station.
 |AIRPORT |An airport. 
 |PARKING_LOT | A parking lot.

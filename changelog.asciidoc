@@ -230,7 +230,7 @@ Facility enum
 Minor
 |Minimal / +
 Minimal
-|added new values for: `BIKE_SHARING`, `PARKING_LOT` and `TRAM_STOP`.
+|added new values for: `BIKE_SHARING`, `PARKING_LOT`, `TRAM_STOP` and `METRO_STATION`.
 
 |Locations / +
 GeoLocation class
