@@ -114,6 +114,8 @@ The following table lists all the parameters that have to be supported, but migh
 |limit |Maximum number of objects to GET. Note: the server might decide to return fewer objects, either because there are no more objects, or the server limits the maximum number of objects to return. This is to prevent, for example, overloading the system. 
 |===
 
+
+
 Example: With offset=0 and limit=10 the server shall return the first 10 records (if 10 objects match the request). Then next page starts with offset=10.
 
 [[transport_and_format_paginated_response]]
@@ -211,7 +213,7 @@ The mimetype of the request body is `application/json` and may contain the data 
 In case a PATCH request fails, the client is expected to call the <<transport_and_format_get,GET>> method to check the state of the object in the other party's system. If the object doesn't exist, the client should do a <<transport_and_format_put,PUT>>. 
 
 [[transport_and_format_client_owned_object_push]]
-==== Client owned object push
+==== Client Owned Object push
 
 Normal client/server RESTful services work in a way where the Server is the owner of the objects that are created. The client requests a POST method with an object to the end-point URL. The response send by the server will contain the URL to the new object. The client will request only one server to create a new object, not multiple servers.
 
