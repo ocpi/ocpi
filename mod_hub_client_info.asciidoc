@@ -7,7 +7,7 @@
 *Data owner: `Hub`*
 
 This module provides parties connected to a hub with the connection status of other parties that are connected to a hub that they can communicate with.
-So, CPOs know which eMPS and other parties are online and vice versa.
+So, CPOs know which eMSP and other parties are online and vice versa.
 
 It is like any other OCPI module, but then not between eMSP and CPO, but between eMSP/CPO and Hub.
 

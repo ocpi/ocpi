@@ -190,7 +190,7 @@ Endpoint structure definition:
 
 Examples:
 
-`+https://www.server.com/ocpi/emps/2.2/tokens/?date_from=2019-01-28T12:00:00&date_to=2019-01-29T12:00:00+`
+`+https://www.server.com/ocpi/emsp/2.2/tokens/?date_from=2019-01-28T12:00:00&date_to=2019-01-29T12:00:00+`
 
 `+https://ocpi.server.com/2.2/tokens/?offset=50+`
 
@@ -246,7 +246,7 @@ The `/authorize` is required for the real-time authorize request.
 
 Examples:
 
-`+https://www.server.com/ocpi/emps/2.2/tokens/012345678/authorize+`
+`+https://www.server.com/ocpi/emsp/2.2/tokens/012345678/authorize+`
 
 `+https://ocpi.server.com/2.2/tokens/012345678/authorize?type=RFID+`
 
