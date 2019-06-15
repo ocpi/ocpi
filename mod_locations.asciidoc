@@ -94,7 +94,7 @@ Examples:
 
 
 If the optional parameters `{date_from}` and/or `{date_to}` are provided, only Locations with 
-(`last_updated`) between the given `{date_from}` and `{date_to}` will be returned.
+(`last_updated`) between the given `{date_from}` (including) and `{date_to}` (excluding) will be returned.
 In order for this to work properly, the following logic MUST be implemented accordingly:
 If an EVSE is updated, also the 'parent' Location's `last_updated` field needs to be updated. 
 Similarly, if a Connector is updated, the EVSE's `last_updated` and the Location's `last_updated` fields need to be updated.
@@ -105,8 +105,8 @@ This request is <<transport_and_format.asciidoc#transport_and_format_pagination,
 |===
 |Parameter |Datatype |Required |Description 
 
-|date_from |<<types.asciidoc#types_datetime_type,DateTime>> |no |Only return Locations that have `last_updated` after this Date/Time. 
-|date_to |<<types.asciidoc#types_datetime_type,DateTime>> |no |Only return Locations that have `last_updated` before this Date/Time. 
+|date_from |<<types.asciidoc#types_datetime_type,DateTime>> |no |Only return Locations that have `last_updated` after or equal to this Date/Time (inclusive).
+|date_to |<<types.asciidoc#types_datetime_type,DateTime>> |no |Only return Locations that have `last_updated` up to this Date/Time, but not including (exclusive).
 |offset |int |no |The offset of the first object returned. Default is 0. 
 |limit |int |no |Maximum number of objects to GET. 
 |===

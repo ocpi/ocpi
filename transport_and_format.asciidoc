@@ -110,11 +110,14 @@ The following table lists all the parameters that have to be supported, but migh
 |===
 |Parameter |Description 
 
-|offset |The offset of the first object returned. Default is 0 (the first object). 
+|date_from |Only return objects that have `last_updated` after or equal to this Date/Time (inclusive).
+|date_to |Only return objects that have `last_updated` up to this Date/Time, but not including (exclusive).
+|offset |The offset of the first object returned. Default is 0 (the first object).
 |limit |Maximum number of objects to GET. Note: the server might decide to return fewer objects, either because there are no more objects, or the server limits the maximum number of objects to return. This is to prevent, for example, overloading the system. 
 |===
 
-
+The `date_from` is inclusive and `date_to` exclusive, this way, when sequential requests with to the same end-point are done,
+the next interval will have no overlap and the `date_from` of the next interval is simply the `date_to` of the previous interval.
 
 Example: With offset=0 and limit=10 the server shall return the first 10 records (if 10 objects match the request). Then next page starts with offset=10.
 

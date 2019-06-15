@@ -79,7 +79,8 @@ Examples:
 [[mod_tariffs_cpo_get_request_parameters]]
 ====== Request Parameters
 
-If additional parameters: {date_from} and/or {date_to} are provided, only Tariffs with (`last_updated`) between the given date_from and date_to will be returned.
+If additional parameters: `{date_from}` and/or `{date_to}` are provided,
+only Tariffs with (`last_updated`) between the given `{date_from}` (including) and `{date_to}` (excluding) will be returned.
 
 This request is <<transport_and_format.asciidoc#transport_and_format_pagination,paginated>>, it supports the <<transport_and_format.asciidoc#transport_and_format_paginated_request,pagination>> related URL parameters.
 
@@ -87,8 +88,8 @@ This request is <<transport_and_format.asciidoc#transport_and_format_pagination,
 |===
 |Parameter |Datatype |Required |Description 
 
-|date_from |<<types.asciidoc#types_datetime_type,DateTime>> |no |Only return Tariffs that have `last_updated` after this Date/Time. 
-|date_to |<<types.asciidoc#types_datetime_type,DateTime>> |no |Only return Tariffs that have `last_updated` before this Date/Time. 
+|date_from |<<types.asciidoc#types_datetime_type,DateTime>> |no |Only return Tariffs that have `last_updated` after or equal to this Date/Time (inclusive).
+|date_to |<<types.asciidoc#types_datetime_type,DateTime>> |no |Only return Tariffs that have `last_updated` up to this Date/Time, but not including (exclusive).
 |offset |int |no |The offset of the first object returned. Default is 0. 
 |limit |int |no |Maximum number of objects to GET. 
 |===
