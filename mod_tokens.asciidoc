@@ -196,7 +196,7 @@ Examples:
 
 `+https://www.server.com/ocpi/2.2/tokens/?date_from=2019-01-29T12:00:00&limit=100+`
 
-`+https://www.server.com/ocpi/emsp/2.2/tokens/?offset=50&amp;limit=100+`
+`+https://www.server.com/ocpi/emsp/2.2/tokens/?offset=50&limit=100+`
 
 
 [[mod_tokens_msp_get_request_parameters]]
