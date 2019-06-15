@@ -25,6 +25,7 @@ Minor
 |Minimal / +
 Minimal
 |- Added `session_id` field, making it easier to match a CDR to a Session. +
+- Renamed `stop_date_time` field to `end_date_time`, to bring the naming inline with the rest of OCPI. +
 - Changed `total_cost` field from type: `number` to `Price`, this provides the eMSP with the total cost including VAT. +
 - Replaced `auth_id` field with `CdrToken`. `auth_id` alone could not be used to uniquely identify a <<mod_tokens.asciidoc#mod_tokens_token_object,Token>>. By copying the information for the dynamic Token object, the CDR will always reflect the 'true' status of Token at the start of the charging session. +
 - Replaced `location` field with `cdr_location`, this also changed type, from `Location` to `CdrLocation`. Reusing the `Location` object always caused a lot of confusing, things were not clear. By creating a deticated object `CdrLocation` with only the relevant fields, things should be much clearer. +
@@ -273,6 +274,8 @@ Minor
 Minimal
 |- Field `id` is changed from string to CiString, making it now case-insensitive, which had always been the idea. +
 - Changed `total_cost` field from type: `number` to `Price`, this provides the eMSP with the total cost including VAT. +
+- Renamed `start_datetime` field to `start_date_time`, to bring the naming inline with the rest of OCPI. +
+- Renamed `end_datetime` field to `end_date_time`, to bring the naming inline with the rest of OCPI. +
 - Replaced `auth_id` with `CdrToken` class. `auth_id` alone could not be used to uniquely identify a <<mod_tokens.asciidoc#mod_tokens_token_object,Token>>. +
 - Replaced `location` object with `location_id`, `evse_uid` and `connector_id`. Having the `Location` Object in the `Session` was overkill, only reference is more inline with the rest.
 
@@ -291,6 +294,8 @@ Minor
 |Minimal / +
 Minimal
 |- Field `id` is changed from string to CiString, making it now case-insensitive, which had always been the idea. +
+- Renamed `start_datetime` field to `start_date_time`, to bring the naming inline with the rest of OCPI. +
+- Renamed `end_datetime` field to `end_date_time`, to bring the naming inline with the rest of OCPI. +
 - Added optional `min_price` field, making it possible to set a minimum price on a Charging Session. +
 - Added optional `max_price` field, making it possible to set a maximum price on a Charging Session. +
 - Added `type` field to make it possible to make different tariffs for different Smart Charging Preferences and also for ad hoc payment.

@@ -304,8 +304,8 @@ see <<mod_cdrs.asciidoc#mod_cdrs_cdr_object,CDR description>> for more informati
 |Property |Type |Card. |Description 
 
 |id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |The unique id that identifies the charging session in the CPO platform.
-|start_datetime |<<types.asciidoc#types_datetime_type,DateTime>> |1 |The time when the session became active. 
-|end_datetime |<<types.asciidoc#types_datetime_type,DateTime>> |? |The time when the session was completed. 
+|start_date_time |<<types.asciidoc#types_datetime_type,DateTime>> |1 |The time when the session became active.
+|end_date_time |<<types.asciidoc#types_datetime_type,DateTime>> |? |The time when the session was completed.
 |kwh |<<types.asciidoc#types_number_type,number>> |1 |How many kWh were charged. 
 |cdr_token |<<mod_cdrs.asciidoc#mod_cdrs_cdr_token_object,CdrToken>> |1 |Token used to start this charging session, including all the relevant information to identify the unique token.
 |auth_method |<<mod_cdrs.asciidoc#mod_cdrs_authmethod_enum,AuthMethod>> |1 |Method used for authentication.

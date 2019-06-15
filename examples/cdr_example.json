@@ -1,7 +1,7 @@
 {
   "id": "12345",
   "start_date_time": "2015-06-29T21:39:09Z",
-  "stop_date_time": "2015-06-29T23:37:32Z",
+  "end_date_time": "2015-06-29T23:37:32Z",
   "token": {
     "uid": "012345678",
     "type": "RFID",

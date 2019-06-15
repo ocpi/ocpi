@@ -277,8 +277,8 @@ See: <<mod_tariffs_free_of_charge_tariff_example,Free of Charge Tariff example>>
       A Minimum price means that when the cost of a Charging Session is lower then this amount, the cost of the Session will be equal to this amount. Also see note below.
 |max_price |<<types.asciidoc#types_price_class,Price>> |? |When this field is set, a Charging Session with this tariff will NOT cost more then this amount. See note below.
 |elements |<<mod_tariffs_tariffelement_class,TariffElement>> |+ |List of tariff elements
-|start_datetime |<<types.asciidoc#types_datetime_type,DateTime>> |? |The time when this tariff becomes active. Typically used for a new tariff that is already given with the location, before it becomes active. (See note below)
-|end_datetime |<<types.asciidoc#types_datetime_type,DateTime>> |? |The time after which this tariff is no longer valid. Typically used when this tariff is going to be replaced with a different tariff in the near future. (See note below)
+|start_date_time |<<types.asciidoc#types_datetime_type,DateTime>> |? |The time when this tariff becomes active. Typically used for a new tariff that is already given with the location, before it becomes active. (See note below)
+|end_date_time |<<types.asciidoc#types_datetime_type,DateTime>> |? |The time after which this tariff is no longer valid. Typically used when this tariff is going to be replaced with a different tariff in the near future. (See note below)
 |energy_mix |<<mod_locations.asciidoc#mod_locations_energymix_class,EnergyMix>> |? |Details on the energy supplied with this tariff.
 |last_updated |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Timestamp when this Tariff was last updated (or created). 
 |===
@@ -293,7 +293,7 @@ So as a rule: they both apply:
  - Total cost of a Charging Session including VAT can never be higher than the max_price including VAT.
  - Total cost of a Charging Session excluding VAT can never be higher than the max_price excluding VAT.
 
-NOTE: `start_datetime` and `end_datetime`: When the tariff of a Charge Point (Location) is changed with an ongoing charging session,
+NOTE: `start_date_time` and `end_date_time`: When the tariff of a Charge Point (Location) is changed with an ongoing charging session,
 it is common to not switch the tariff until the ongoing session is finished. But this is NOT a rule of OCPI.
 The driver has started charging and might have read the tariff info before charging. When the tariff is then changed during the session,
 the driver might get a bill that is higher then expected.

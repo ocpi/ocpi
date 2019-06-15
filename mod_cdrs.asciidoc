@@ -270,7 +270,7 @@ but it can be interpolated by the CPO using the metering information before and 
 
 |id |<<types.asciidoc#types_cistring_type,CiString>>(39) |1 |Uniquely identifies the CDR within the CPO's platform (and suboperator platforms). This field is longer than the usual 36 characters to allow for credit CDRs to have <<mod_cdrs_credit_cdrs,something appended>> to the original ID. Normal (non-credit) CDRs SHALL only have an ID with a maximum length of 36.
 |start_date_time |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Start timestamp of the charging session. 
-|stop_date_time |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Stop timestamp of the charging session. 
+|end_date_time |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Stop timestamp of the charging session.
 |session_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |Unique ID of the Session for which this CDR is sent. Is only allowed to be omitted when the CPO has not implemented the Sessions module. 
 |cdr_token |<<mod_cdrs_cdr_token_object,CdrToken>> |1 |Token used to start this charging session, includes all the relevant information to identify the unique token.
 |auth_method |<<mod_cdrs_authmethod_enum,AuthMethod>> |1 |Method used for authentication. 
