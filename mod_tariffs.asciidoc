@@ -29,7 +29,7 @@ CPO can call the <<mod_tariffs_msp_get_method,GET>> to validate the Tariff objec
 [[mod_tariffs_pull_model]]
 ==== Pull model
 
-eMSPs who do not support the push model need to call
+eMSPs who do not support the Push model need to call
 <<mod_tariffs_cpo_get_method,GET>> on the CPOs Tariff endpoint to receive
 all Tariffs, replacing the current list of known Tariffs with the newly received list.
 
@@ -111,7 +111,7 @@ Each object must contain all required fields. Fields that are not specified may 
 [[mod_tariffs_emsp_interface]]
 ==== eMSP Interface
 
-Tariffs is a <<transport_and_format.asciidoc#transport_and_format_client_owned_object_push,client owned object>>, so the end-points need to contain the required extra fields: {<<credentials.asciidoc#credentials_credentials_object,party_id>>} and {<<credentials.asciidoc#credentials_credentials_object,country_code>>}.
+Tariffs is a <<transport_and_format.asciidoc#transport_and_format_client_owned_object_push,Client Owned Object>>, so the end-points need to contain the required extra fields: {<<credentials.asciidoc#credentials_credentials_object,party_id>>} and {<<credentials.asciidoc#credentials_credentials_object,country_code>>}.
 
 Endpoint structure definition:
 
