@@ -331,7 +331,7 @@ If the CPO doesn't know the composite schedule has changed (EVSE does not notify
 The CPO SHALL NOT call this interface for any session where the eMSP has never, successfully called the charging profile CPO PUT interface for this session (SetChargingProfile).
 
 The CPO SHALL send a useful relevant duration of CompositeSchedule to send to the eMSP. As a guide: between 5 and 60 minutes.
-If the eMSP wants a longer CompositeSchedule the eMSP can always do a GEt with a longer duration.
+If the eMSP wants a longer CompositeSchedule the eMSP can always do a GET with a longer duration.
 
 Endpoint structure definition:
 
@@ -357,13 +357,13 @@ The following parameters can be provided as URL segments.
 [[mod_charging_profiles_cpo_put_request_body]]
 ===== Request Body
 
-The body contains an SetChargingProfile object, that contains the new ChargingProfile and a response URL.
+The body contains the update CompositeProfile, The CompositeProfile is the charging schedule as calculated by the EVSE.
 
 [cols="4,1,12",options="header"]
 |===
 |Type |Card. |Description
 
-|schedule | <<mod_charging_profiles_composite_profile_class,CompositeProfile>> | 1 | The new composite profile. If there is no longer any charging profile active, the Composite Schedule SHALL reflect this by showing the maximum charging capacity of the EVSE.
+| <<mod_charging_profiles_composite_profile_class,CompositeProfile>> | 1 | The new composite profile. If there is no longer any charging profile active, the Composite Schedule SHALL reflect this by showing the maximum charging capacity of the EVSE.
 |===
 
 ===== Response Body
@@ -438,10 +438,10 @@ It contains the result of the DELETE (ClearProfile) request send by the eMSP.
 
 Object set to a CPO to set a Charging Profile.
 
-[cols="2,4,1,10",options="header"]
+[cols="3,4,1,9",options="header"]
 |===
 |Property |Type |Card. |Description
-|charging_schedule |<<mod_charging_profiles_charging_schedule_object,>> |1 | Contains limits for the available power or current over time.
+|charging_schedule |<<mod_charging_profiles_charging_schedule_class,ChargingSchedule>> |1 | Contains limits for the available power or current over time.
 |response_url      | <<types.asciidoc#types_url_type,URL>> |1 |URL that the ChargingProfileResult POST should be send to. This URL might contain an unique ID to be able to distinguish between GET Composite ChargingProfile requests.
 |===
 
@@ -473,7 +473,7 @@ It is usually more convenient to use this for AC charging.
 
 Charging schedule class defines a list of charging periods.
 
-[cols="3,2,1,10",options="header"]
+[cols="4,4,1,7",options="header"]
 |===
 |Property                 |Type       |Card. |Description
 |start_schedule_period    | <<types.asciidoc#types_datetime_type,DateTime>>           | ?    | Starting point of an absolute schedule. If absent the schedule will be relative to start of charging.
@@ -500,7 +500,7 @@ Charging schedule period structure defines a time period in a charging schedule,
 [[mod_charging_profiles_composite_profile_class]]
 ==== CompositeProfile _class_
 
-[cols="3,2,1,10",options="header"]
+[cols="3,3,1,9",options="header"]
 |===
 |Property           |Type |Card. |Description
 |start_date_time    |<<types.asciidoc#types_datetime_type,DateTime>> | 1 | Date and time at which the schedule becomes active. All time measurements within the schedule are relative to this timestamp.
