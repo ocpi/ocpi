@@ -389,7 +389,7 @@ For the eMSP to be able to reject to timeouts, it is important for the eMSP to k
 |===
 |Property |Type |Card. |Description
 
-|result |<<mod_charging_profiles_responsetype_enum,ResponseType>> |1 |Response from the CPO on the ChargingProfile request.
+|result |<<mod_charging_profiles_responsetype_enum,ChargingProfileResponseType>> |1 |Response from the CPO on the ChargingProfile request.
 |timeout |int |1 |Timeout for this ChargingProfile request in seconds. When the Result is not received within this timeout, the eMSP can assume that the message might never be send.
 |===
 
@@ -403,7 +403,7 @@ It contains the result of the GET (GetCompositeProfile) request send by the eMSP
 [cols="2,4,1,10",options="header"]
 |===
 |Property |Type |Card. |Description
-|result | <<mod_charging_profiles_resulttype_enum,ResultType>> | 1 | The EVSE will indicate if it was able to process the request for the Composite Profile
+|result | <<mod_charging_profiles_resulttype_enum,ChargingProfileResultType>> | 1 | The EVSE will indicate if it was able to process the request for the Composite Profile
 |schedule | <<mod_charging_profiles_composite_profile_class,CompositeProfile>> | ? | The requested composite profile, if the result field is set to: `ACCEPTED`
 |===
 
@@ -417,7 +417,7 @@ It contains the result of the PUT (SetChargingProfile) request send by the eMSP.
 [cols="2,4,1,10",options="header"]
 |===
 |Property |Type |Card. |Description
-|result | <<mod_charging_profiles_resulttype_enum,ResultType>> | 1 | The EVSE will indicate if it was able to process the new/updated charging profile.
+|result | <<mod_charging_profiles_resulttype_enum,ChargingProfileResultType>> | 1 | The EVSE will indicate if it was able to process the new/updated charging profile.
 |===
 
 
@@ -429,7 +429,8 @@ It contains the result of the DELETE (ClearProfile) request send by the eMSP.
 
 [cols="2,4,1,10",options="header"]
 |===
-|result | <<mod_charging_profiles_resulttype_enum,ResultType>> | 1 | The EVSE will indicate if it was able to process the removal of the charging profile (ClearChargingProfile).
+|Property |Type |Card. |Description
+|result | <<mod_charging_profiles_resulttype_enum,ChargingProfileResultType>> | 1 | The EVSE will indicate if it was able to process the removal of the charging profile (ClearChargingProfile).
 |===
 
 
@@ -509,7 +510,7 @@ Charging schedule period structure defines a time period in a charging schedule,
 
 
 [[mod_charging_profiles_responsetype_enum]]
-==== ResponseType _enum_
+==== ChargingProfileResponseType _enum_
 
 Response to the ChargingProfile request from the eMSP to the CPO.
 
@@ -525,7 +526,7 @@ Response to the ChargingProfile request from the eMSP to the CPO.
 
 
 [[mod_charging_profiles_resulttype_enum]]
-==== ResultType _enum_
+==== ChargingProfileResultType _enum_
 
 Result of a ChargingProfile request that the EVSE sends via the CPO to the eMSP.
 
