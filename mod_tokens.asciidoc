@@ -38,9 +38,18 @@ It is intended for getting in-sync with the server, or to get a list of all toke
 [[mod_tokens_real-time_authorization]]
 ==== Real-time authorization
 
-An eMSP might want their Tokens to be authorized 'real-time', not white-listed. For this the eMSP has to implement the <<mod_tokens_post_method,POST Authorize request>> and set the Token.whitelist field to `NEVER` for Tokens they want to have authorized 'real-time'.
+An eMSP might want their Tokens to be authorized 'real-time', not white-listed.
+For this the eMSP has to implement the <<mod_tokens_post_method,POST Authorize request>>
+and set the Token.whitelist field to `NEVER` for Tokens they want to have authorized 'real-time'.
 
-If an eMSP doesn't want real-time authorization, the <<mod_tokens_post_method,POST Authorize request>> doesn't have to be implemented as long as all their Tokens have Token.whitelist set to `ALWAYS`. 
+If an eMSP doesn't want real-time authorization, the <<mod_tokens_post_method,POST Authorize request>> doesn't
+have to be implemented as long as all their Tokens have Token.whitelist set to `ALWAYS`.
+
+When an eMSP does not want to Push the full list of tokens to CPOs,
+the CPOs will need to call the <<mod_tokens_post_method,POST Authorize request>> to check if a Token is known by the eMSP, and if it is valid.
+
+NOTE: Doing real-time authorization of RFID will mean a longer delay of the authorization process, which might result in bad user experience at the Charge Point.
+So care should be taken to keep delays in processing the request to an absolute minimum.
 
 [[mod_tokens_interfaces_and_endpoints]]
 === Interfaces and endpoints
@@ -252,7 +261,9 @@ Examples:
 `+https://ocpi.server.com/2.2/tokens/012345678/authorize?type=RFID+`
 
 
-When the eMSP receives a 'real-time' authorization request from a CPO that contains too little information (no LocationReferences provided) to determine if the Token might be used, the eMSP SHOULD respond with the OCPI status: <<status_codes.asciidoc#status_codes_2xxx_client_errors,2002>>
+When the eMSP does not know the Token, the eMSP SHALL respond with an HTTP status code: 404 (Not Found).
+
+When the eMSP receives a 'real-time' authorization request from a CPO that contains too little information (no LocationReferences provided) to determine if the Token might be used, the eMSP SHALL respond with the OCPI status: <<status_codes.asciidoc#status_codes_2xxx_client_errors,2002>>
 
 [[mod_tokens_msp_post_request_parameters]]
 ====== Request Parameters
@@ -303,7 +314,8 @@ The endpoint response contains a <<mod_tokens_authorizationinfo_object,Authoriza
 |Property |Type |Card. |Description 
 
 |allowed |<<mod_tokens_allowed_enum,Allowed>> |1 |Status of the Token, and whether charging is allowed at the optionally given location. 
-|location |<<mod_tokens_locationreferences_class,LocationReferences>> |? |Optional reference to the location if it was included in the request, and if the EV driver is allowed to charge at that location. Only the EVSEs/Connectors the EV driver is allowed to charge at are returned. 
+|token   |<<mod_tokens_token_object,Token>> |1 |The complete Token object for which this authorization was requested.
+|location |<<mod_tokens_locationreferences_class,LocationReferences>> |? |Optional reference to the location if it was included in the request, and if the EV driver is allowed to charge at that location. Only the EVSEs/Connectors the EV driver is allowed to charge at are returned.
 |info |<<types.asciidoc#types_displaytext_class,DisplayText>> |? |Optional display text, additional information to the EV driver. 
 |===
 
@@ -318,7 +330,7 @@ The endpoint response contains a <<mod_tokens_authorizationinfo_object,Authoriza
 |uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Unique ID by which this Token can be identified. +
                                       This is the field used by CPO system (RFID reader on the Charge Point) to identify this token. +
                                       Currently, in most cases: type=RFID, this is the RFID hidden ID as read by the RFID reader, but that is not a requirement. +
-                                      If this is a type=APP_USER Token, it will be a uniquely, by the eMSP, generated ID. +
+                                      If this is a `APP_USER` or `AD_HOC_USER` Token, it will be a uniquely, by the eMSP, generated ID. +
                                       This field is named `uid` instead of `id` to prevent confusion with: `contract_id`.
 |type |<<mod_tokens_tokentype_enum,TokenType>> |1 |Type of the token 
 |contract_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Uniquely identifies the EV Driver contract token within the eMSP's platform (and suboperator platforms). Recommended to follow the specification for eMA ID from "eMI3 standard version V1.0" (http://emi3group.com/documents-links/[http://emi3group.com/documents-links/]) "Part 2: business objects."

@@ -282,14 +282,6 @@ Minimal
 - Replaced `auth_id` with `CdrToken` class. `auth_id` alone could not be used to uniquely identify a <<mod_tokens.asciidoc#mod_tokens_token_object,Token>>. +
 - Replaced `location` object with `location_id`, `evse_uid` and `connector_id`. Having the `Location` Object in the `Session` was overkill, only reference is more inline with the rest.
 
-|Tokens / +
-eMSP GET, PUT, PATCH & DELETE methods
-|Minor / +
-Minor
-|Minimal / +
-Minimal
-|Changed `country_code`, `party_id` and `tariff_id` from string to CiString, making them case-insensitive, which had always been the idea.
-
 |Tariffs / +
 Tariff Object
 |Minor / +
@@ -336,6 +328,14 @@ Minimal
 |Changed `country_code`, `party_id` and `token_uid` from string to CiString, making them case-insensitive, which had always been the idea.
 
 |Tokens / +
+eMSP GET, PUT, PATCH & DELETE methods
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Changed `country_code`, `party_id` and `tariff_id` from string to CiString, making them case-insensitive, which had always been the idea.
+
+|Tokens / +
 eMSP POST method
 |Minor / +
 Minor
@@ -354,6 +354,14 @@ Minimal
 - Added `group_id` field to enable support for OCPP GroupId/ParentId. +
 - Added `default_profile_type` field to enable a default Preference base Smart Charging ProfileType to be provided for a user. +
 - Added `energy_contract` field to make it possible, if allowed, to use a drivers energy supplier/contract at a Charge Point.
+
+|Tokens / +
+AuthorizationInfo Object
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Added `token` field to enable real-time authorization of unknown Tokens.
 
 |Tokens / +
 LocationReferences class
