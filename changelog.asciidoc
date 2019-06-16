@@ -95,7 +95,8 @@ ReserveNow Object
 Minor
 |Minimal / +
 Minimal
-|Changed `location_id` and `evse_uids` from string to CiString, making them case-insensitive, which had always been the idea. Lengths changed from 39 to 36, matching changes in the object definitions.
+|Changed `location_id` and `evse_uids` from string to CiString, making them case-insensitive, which had always been the idea. Lengths changed from 39 to 36, matching changes in the object definitions. +
+ Changed/added requirements in description of ReserveNow Object.
 
 |Commands / +
 StartSession Object
@@ -103,7 +104,8 @@ StartSession Object
 Minor
 |Minimal / +
 Minimal
-|Changed `location_id` and `evse_uids` from string to CiString, making them case-insensitive, which had always been the idea. Lengths changed from 39 to 36, matching changes in the object definitions.
+|Changed `location_id` and `evse_uids` from string to CiString, making them case-insensitive, which had always been the idea. Lengths changed from 39 to 36, matching changes in the object definitions. +
+ Changed/added requirements in description of StartSession Object.
 
 |Commands / +
 StopSession Object
