@@ -20,10 +20,10 @@ eMSP / CPO
 
 |CDRs / +
 CDR Object
-|Minor / +
-Minor
-|Minimal / +
-Minimal
+|Medium / +
+Major
+|Average / +
+Large
 |- Added `session_id` field, making it easier to match a CDR to a Session. +
 - Renamed `stop_date_time` field to `end_date_time`, to bring the naming inline with the rest of OCPI. +
 - Changed `total_cost` field from type: `number` to `Price`, this provides the eMSP with the total cost including VAT. +
@@ -31,6 +31,7 @@ Minimal
 - Replaced `location` field with `cdr_location`, this also changed type, from `Location` to `CdrLocation`. Reusing the `Location` object always caused a lot of confusing, things were not clear. By creating a deticated object `CdrLocation` with only the relevant fields, things should be much clearer. +
 - Added `credit` and `credit_reference_id` fields, to allow for Credit CDRs to be send. +
 - Added `total_fixed_cost`, `total_energy_cost`, `total_time_cost`, `total_parking_cost` and `total_reservation_cost` fields, to allow more cost details in the CDRs. +
+- Added `authorization_reference` field for binding an authorization to the resulting session. +
 - Field `id` changed in length from 36 to 39, to allow for something to be appended after the original id in case of a Credit CDR.
 
 |CDRs / +
@@ -87,25 +88,27 @@ Minor
 |Minimal / +
 Minimal
 |- Added `message` field, enables the CPO to send a message to the user when something goes wrong. +
-- Added `timeout` field, enables the eMSP to cleanup not responded outstanding commands.
+ - Added `timeout` field, enables the eMSP to cleanup not responded outstanding commands.
 
 |Commands / +
 ReserveNow Object
 |Minor / +
-Minor
+Medium
 |Minimal / +
-Minimal
-|Changed `location_id` and `evse_uids` from string to CiString, making them case-insensitive, which had always been the idea. Lengths changed from 39 to 36, matching changes in the object definitions. +
- Changed/added requirements in description of ReserveNow Object.
+Average
+|- Changed `location_id` and `evse_uids` from string to CiString, making them case-insensitive, which had always been the idea. Lengths changed from 39 to 36, matching changes in the object definitions. +
+ - Added `authorization_reference` field for binding an authorization to the resulting session. +
+ - Changed/added requirements in description of ReserveNow Object.
 
 |Commands / +
 StartSession Object
 |Minor / +
-Minor
+Medium
 |Minimal / +
-Minimal
-|Changed `location_id` and `evse_uids` from string to CiString, making them case-insensitive, which had always been the idea. Lengths changed from 39 to 36, matching changes in the object definitions. +
- Changed/added requirements in description of StartSession Object.
+Average
+|- Changed `location_id` and `evse_uids` from string to CiString, making them case-insensitive, which had always been the idea. Lengths changed from 39 to 36, matching changes in the object definitions. +
+ - Added `authorization_reference` field for binding an authorization to the resulting session. +
+ - Changed/added requirements in description of StartSession Object.
 
 |Commands / +
 StopSession Object
@@ -272,15 +275,16 @@ Minimal
 |Sessions / +
 Session Object
 |Minor / +
-Minor
+Medium
 |Minimal / +
-Minimal
+Average
 |- Field `id` is changed from string to CiString, making it now case-insensitive, which had always been the idea. +
 - Changed `total_cost` field from type: `number` to `Price`, this provides the eMSP with the total cost including VAT. +
 - Renamed `start_datetime` field to `start_date_time`, to bring the naming inline with the rest of OCPI. +
 - Renamed `end_datetime` field to `end_date_time`, to bring the naming inline with the rest of OCPI. +
 - Replaced `auth_id` with `CdrToken` class. `auth_id` alone could not be used to uniquely identify a <<mod_tokens.asciidoc#mod_tokens_token_object,Token>>. +
-- Replaced `location` object with `location_id`, `evse_uid` and `connector_id`. Having the `Location` Object in the `Session` was overkill, only reference is more inline with the rest.
+- Replaced `location` object with `location_id`, `evse_uid` and `connector_id`. Having the `Location` Object in the `Session` was overkill, only reference is more inline with the rest. +
+- Added `authorization_reference` field for binding an authorization to the resulting session.
 
 |Tariffs / +
 Tariff Object
@@ -358,10 +362,11 @@ Minimal
 |Tokens / +
 AuthorizationInfo Object
 |Minor / +
-Minor
+Medium
 |Minimal / +
-Minimal
-|Added `token` field to enable real-time authorization of unknown Tokens.
+Average
+|Added `token` field to enable real-time authorization of unknown Tokens. +
+ Added `authorization_reference` field for binding an authorization to the resulting session.
 
 |Tokens / +
 LocationReferences class

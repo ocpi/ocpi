@@ -309,6 +309,12 @@ see <<mod_cdrs.asciidoc#mod_cdrs_cdr_object,CDR description>> for more informati
 |kwh |<<types.asciidoc#types_number_type,number>> |1 |How many kWh were charged. 
 |cdr_token |<<mod_cdrs.asciidoc#mod_cdrs_cdr_token_object,CdrToken>> |1 |Token used to start this charging session, including all the relevant information to identify the unique token.
 |auth_method |<<mod_cdrs.asciidoc#mod_cdrs_authmethod_enum,AuthMethod>> |1 |Method used for authentication.
+|authorization_reference |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |Reference to the authorization given by the eMSP.
+                                             When the eMSP provided an `authorization_reference` in either:
+                                             <<mod_tokens.asciidoc#mod_tokens_real-time_authorization,real-time authorization>> or
+                                             <<mod_commands.asciidoc#mod_commands_startsession_object,StartSession>>, this field SHALL contain the same value.
+                                             When different `authorization_reference` values have been given by the eMSP that are relevant to this Session,
+                                             the last given value SHALL be used here.
 |location_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Location.id of the Location object of this CPO, on which the charging session is/was happening.
 |evse_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |EVSE.uid of the EVSE of this Location on which the charging session is/was happening.
 |connector_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Connector.id of the Connector of this Location the charging session is/was happening.
@@ -319,7 +325,6 @@ see <<mod_cdrs.asciidoc#mod_cdrs_cdr_object,CDR description>> for more informati
 |status |<<mod_sessions_sessionstatus_enum,SessionStatus>> |1 |The status of the session.
 |last_updated |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Timestamp when this Session was last updated (or created). 
 |===
-
 
 [[mod_sessions_examples]]
 ===== Examples

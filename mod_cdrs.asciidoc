@@ -275,6 +275,12 @@ but it can be interpolated by the CPO using the metering information before and 
 |session_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |Unique ID of the Session for which this CDR is sent. Is only allowed to be omitted when the CPO has not implemented the Sessions module. 
 |cdr_token |<<mod_cdrs_cdr_token_object,CdrToken>> |1 |Token used to start this charging session, includes all the relevant information to identify the unique token.
 |auth_method |<<mod_cdrs_authmethod_enum,AuthMethod>> |1 |Method used for authentication. 
+|authorization_reference |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |Reference to the authorization given by the eMSP.
+                                             When the eMSP provided an `authorization_reference` in either:
+                                             <<mod_tokens.asciidoc#mod_tokens_real-time_authorization,real-time authorization>> or
+                                             <<mod_commands.asciidoc#mod_commands_startsession_object,StartSession>>, this field SHALL contain the same value.
+                                             When different `authorization_reference` values have been given by the eMSP that are relevant to this Session,
+                                             the last given value SHALL be used here.
 |cdr_location |<<mod_cdrs_cdr_location_class,CdrLocation>> |1 |Location where the charging session took place, including only the relevant <<mod_locations.asciidoc#mod_locations_evse_object,EVSE>> and <<mod_locations.asciidoc#mod_locations_connector_object,Connector>>.
 |meter_id |<<types.asciidoc#types_string_type,string>>(255) |? |Identification of the Meter inside the Charge Point.
 |currency |<<types.asciidoc#types_string_type,string>>(3) |1 |Currency of the CDR in ISO 4217 Code. 
@@ -299,6 +305,10 @@ NOTE: The actual charging duration (energy being transferred between EVSE and EV
 
 NOTE: Having both a `credit` and a `credit_reference_id` might seem redundant.
 But it is seen as an advantage as a boolean flag used in queries is much faster than simple string comparison of references.
+
+Note: Different `authorization_reference` values might happen when for example a `ReserveNow` had a different
+`authorization_reference` then the value returned by a <<mod_tokens.asciidoc#mod_tokens_real-time_authorization,real-time authorization>>.
+
 
 [[mod_cdrs_example_of_a_cdr]]
 ===== Example of a CDR
