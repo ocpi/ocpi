@@ -368,7 +368,7 @@ TokenType enum
 Minor
 |Minimal / +
 Minimal
-|Added value `APP_USER`. As more and more eMSPs are launching Apps, this becomes more common, so a special category is useful.
+|Added value `AD_HOC_USER` and APP_USER`. As more and more eMSPs are launching Apps, this becomes more common, so a special categories are useful.
 
 |Versions / +
 Endpoint class
