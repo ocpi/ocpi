@@ -326,6 +326,10 @@ see <<mod_cdrs.asciidoc#mod_cdrs_cdr_object,CDR description>> for more informati
 |last_updated |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Timestamp when this Session was last updated (or created). 
 |===
 
+Note: Different `authorization_reference` values might happen when for example a <<mod_commands.asciidoc#mod_commands_reservenow_object,ReserveNow>>  had a different
+`authorization_reference` then the value returned by a <<mod_tokens.asciidoc#mod_tokens_real-time_authorization,real-time authorization>>.
+
+
 [[mod_sessions_examples]]
 ===== Examples
 

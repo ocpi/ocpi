@@ -306,7 +306,7 @@ NOTE: The actual charging duration (energy being transferred between EVSE and EV
 NOTE: Having both a `credit` and a `credit_reference_id` might seem redundant.
 But it is seen as an advantage as a boolean flag used in queries is much faster than simple string comparison of references.
 
-Note: Different `authorization_reference` values might happen when for example a `ReserveNow` had a different
+Note: Different `authorization_reference` values might happen when for example a <<mod_commands.asciidoc#mod_commands_reservenow_object,ReserveNow>>  had a different
 `authorization_reference` then the value returned by a <<mod_tokens.asciidoc#mod_tokens_real-time_authorization,real-time authorization>>.
 
 
@@ -329,7 +329,8 @@ include::examples/cdr_example.json[]
 |===
 |Value |Description 
 
-|AUTH_REQUEST |Authentication request from the eMSP.
+|AUTH_REQUEST |Authentication request has been send to the eMSP.
+|COMMAND |Command like <<mod_commands.asciidoc#mod_commands_startsession_object,StartSession>> or <<mod_commands.asciidoc#mod_commands_reservenow_object,ReserveNow>> used to start the Session, the Token provided in the Command used as authorization.
 |WHITELIST |Whitelist used for authentication, no request to the eMSP has been performed.
 |===
 

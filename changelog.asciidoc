@@ -34,6 +34,15 @@ Large
 - Added `authorization_reference` field for binding an authorization to the resulting session. +
 - Field `id` changed in length from 36 to 39, to allow for something to be appended after the original id in case of a Credit CDR.
 
+
+|Commands / +
+AuthMethod enum
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Added `COMMAND` value, to enable reporting authorization via Command like: StartSession or ReserveNow.
+
 |CDRs / +
 CdrDimensionType enum
 |Medium / +
