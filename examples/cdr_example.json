@@ -60,5 +60,9 @@
   },
   "total_energy": 15.342,
   "total_time": 1.973,
+  "total_time_cost": {
+    "excl_vat": 4.00,
+    "incl_vat": 4.40
+  },
   "last_updated": "2015-06-29T22:01:13Z"
 }

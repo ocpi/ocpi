@@ -280,10 +280,15 @@ but it can be interpolated by the CPO using the metering information before and 
 |currency |<<types.asciidoc#types_string_type,string>>(3) |1 |Currency of the CDR in ISO 4217 Code. 
 |tariffs |<<mod_tariffs.asciidoc#mod_tariffs_tariff_object,Tariff>> |* |List of relevant Tariff Elements, see: <<mod_tariffs.asciidoc#mod_tariffs_tariff_object,Tariff>>. When relevant, a _Free of Charge_ tariff should also be in this list, and point to a defined _Free of Charge_ Tariff. 
 |charging_periods |<<mod_cdrs_chargingperiod_class,ChargingPeriod>> |+ |List of Charging Periods that make up this charging session. A session consists of 1 or more periods, where each period has a different relevant Tariff. 
-|total_cost |<<types.asciidoc#types_price_class,Price>> |1 |Total cost of this transaction in the specified currency.
+|total_cost |<<types.asciidoc#types_price_class,Price>> |1 |Total sum of all the costs of this transaction in the specified currency.
+|total_fixed_cost |<<types.asciidoc#types_price_class,Price>> |? |Total sum of all the fixed costs in the specified currency, except fixed price components of parking and reservation. The cost not depending on amount of time/energy used etc. Can contain costs like a start tariff.
 |total_energy |<<types.asciidoc#types_number_type,number>> |1 |Total energy charged, in kWh.
-|total_time |<<types.asciidoc#types_number_type,number>> |1 |Total duration of the charging session (including the duration of charging and not charging), in hours. 
-|total_parking_time |<<types.asciidoc#types_number_type,number>> |? |Total duration of the charging session where the EV was not charging (no energy was transferred between EVSE and EV), in hours. 
+|total_energy_cost |<<types.asciidoc#types_price_class,Price>> |? |Total sum of all the cost of all the energy used, in the specified currency.
+|total_time |<<types.asciidoc#types_number_type,number>> |1 |Total duration of the charging session (including the duration of charging and not charging), in hours.
+|total_time_cost |<<types.asciidoc#types_price_class,Price>> |? |Total sum of all the cost related to duration of charging during this transaction, in the specified currency.
+|total_parking_time |<<types.asciidoc#types_number_type,number>> |? |Total duration of the charging session where the EV was not charging (no energy was transferred between EVSE and EV), in hours.
+|total_parking_cost |<<types.asciidoc#types_price_class,Price>> |? |Total sum of all the cost related to parking of this transaction, including fixed price components, in the specified currency.
+|total_reservation_cost |<<types.asciidoc#types_price_class,Price>> |? |Total sum of all the cost related to a reservation of a Charge Point, including fixed price components, in the specified currency.
 |remark |<<types.asciidoc#types_string_type,string>>(255) |? |Optional remark, can be used to provide additional human readable information to the CDR, for example: reason why a transaction was stopped.
 |credit |boolean |? |When set to `true`, this is a Credit CDR, and the field `credit_reference_id` needs to be set as well.
 |credit_reference_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |Is required to be set for a Credit CDR. This SHALL contain the `id` of the CDR for which this is a Credit CDR.
