@@ -54,8 +54,10 @@
     }],
     "tariff_id": "12"
   }],
-  "total_cost": 4.00,
-  "total_cost_incl_vat": 4.40,
+  "total_cost": {
+    "excl_vat": 4.00,
+    "incl_vat": 4.40
+  },
   "total_energy": 15.342,
   "total_time": 1.973,
   "last_updated": "2015-06-29T22:01:13Z"

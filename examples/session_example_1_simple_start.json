@@ -10,8 +10,7 @@
   "connector_id": "1",
   "currency": "EUR",
   "total_cost": {
-    "excl_vat": 2.50,
-    "incl_vat": 2.75
+    "excl_vat": 2.50
   },
   "status": "PENDING",
   "last_updated": "2015-06-29T22:39:09Z"

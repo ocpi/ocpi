@@ -61,7 +61,7 @@ Unless mentioned otherwise, numbers use 4 decimals and a _sufficiently large amo
 |Property |Type |Card. |Description
 
 |excl_vat |<<types_number_type,number>> |1 |Price/Cost excluding VAT.
-|incl_vat |<<types_number_type,number>> |1 |Price/Cost including VAT.
+|incl_vat |<<types_number_type,number>> |? |Price/Cost including VAT.
 |===
 
 
