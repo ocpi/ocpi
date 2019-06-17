@@ -65,6 +65,15 @@ Grouping Charge Points in the same location into one OCPI Location will show bet
 
 Note: De definition, an EVSE can only charge one EV at a time.
 
+==== OCPP 1.x Charge Points with multiple connectors per EVSE
+
+OCPP 1.x was not designed to support the 3-tier model. It had no notion of EVSEs.
+The Open Charge Alliance has written an Application Note: "Multiple Connectors per EVSE in a OCPP 1.x implementation"
+
+The workaround:
+
+- Define one 'virtual' EVSE per Connector.
+- When a connector of an hardware EVSE becomes unavailable, set all 'virtual' EVSEs for all the connectors of the hardware EVSE to unavailable. etc.
 
 
 [[mod_locations_interfaces_and_endpoints]]
