@@ -191,8 +191,8 @@ The following parameters can be provided as URL segments.
 |===
 |Parameter |Datatype |Required |Description 
 
-|country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |yes |Country code of the CPO requesting this PUT to the eMSP system.
-|party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |yes |Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system.
+|country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |yes |Country code of the CPO requesting this PUT to the eMSP system. This SHALL be the same value as the `country_code` in the Tariff object being pushed
+|party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |yes |Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system. This SHALL be the same value as the `party_id` in the Tariff object being pushed
 |tariff_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |Tariff.id of the (new) Tariff object (to replace).
 |===
 
@@ -268,6 +268,8 @@ See: <<mod_tariffs_free_of_charge_tariff_example,Free of Charge Tariff example>>
 |===
 |Property |Type |Card. |Description 
 
+|country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |1 |ISO-3166 alpha-2 country code of the CPO that 'owns' this Tariff.
+|party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |1 |CPO ID of the CPO that 'owns' this Tariff (following the ISO-15118 standard).
 |id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Uniquely identifies the tariff within the CPOs platform (and suboperator platforms).
 |currency |<<types.asciidoc#types_string_type,string>>(3) |1 |Currency of this tariff, ISO 4217 Code 
 |type |<<mod_tariffs_tariff_type,TariffType>> |? | Defines what type of tariff this is. This makes it possible to make distinction possible for different <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,Charging Preferences>>. When omitted, this tariff is valid for all sessions.

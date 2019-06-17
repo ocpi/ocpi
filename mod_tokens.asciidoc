@@ -141,8 +141,8 @@ The following parameters can be provided as URL segments.
 |===
 |Parameter |Datatype |Required |Description 
 
-|country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |yes |Country code of the eMSP sending this PUT request to the CPO system.
-|party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |yes |Party ID (Provider ID) of the eMSP sending this PUT request to the CPO system.
+|country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |yes |Country code of the eMSP sending this PUT request to the CPO system. This SHALL be the same value as the `country_code` in the `Token object being pushed.
+|party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |yes |Party ID (Provider ID) of the eMSP sending this PUT request to the CPO system. This SHALL be the same value as the `party_id` in the Token object being pushed.
 |token_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |Token.uid of the (new) Token object (to replace).
 |===
 
@@ -331,6 +331,8 @@ The endpoint response contains a <<mod_tokens_authorizationinfo_object,Authoriza
 |===
 |Property |Type |Card. |Description 
 
+|country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |1 |ISO-3166 alpha-2 country code of the MSP that 'owns' this Token.
+|party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |1 |CPO ID of the MSP that 'owns' this Token (following the ISO-15118 standard).
 |uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Unique ID by which this Token can be identified. +
                                       This is the field used by CPO system (RFID reader on the Charge Point) to identify this token. +
                                       Currently, in most cases: type=RFID, this is the RFID hidden ID as read by the RFID reader, but that is not a requirement. +

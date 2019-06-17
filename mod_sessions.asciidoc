@@ -254,8 +254,8 @@ The following parameters can be provided as URL segments.
 |===
 |Parameter |Datatype |Required |Description 
 
-|country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |yes |Country code of the CPO performing this PUT on the eMSP's system.
-|party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |yes |Party ID (Provider ID) of the CPO performing this PUT on the eMSP's system.
+|country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |yes |Country code of the CPO performing this PUT on the eMSP's system. This SHALL be the same value as the `country_code` in the Session object being pushed.
+|party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |yes |Party ID (Provider ID) of the CPO performing this PUT on the eMSP's system.  This SHALL be the same value as the `party_id` in the Session object being pushed.
 |session_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |id of the new or updated Session object.
 |===
 
@@ -303,6 +303,8 @@ see <<mod_cdrs.asciidoc#mod_cdrs_cdr_object,CDR description>> for more informati
 |===
 |Property |Type |Card. |Description 
 
+|country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |1 |ISO-3166 alpha-2 country code of the CPO that 'owns' this Session.
+|party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |1 |CPO ID of the CPO that 'owns' this Session (following the ISO-15118 standard).
 |id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |The unique id that identifies the charging session in the CPO platform.
 |start_date_time |<<types.asciidoc#types_datetime_type,DateTime>> |1 |The time when the session became active.
 |end_date_time |<<types.asciidoc#types_datetime_type,DateTime>> |? |The time when the session was completed.

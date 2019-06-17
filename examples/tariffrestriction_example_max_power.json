@@ -1,4 +1,6 @@
 {
+  "country_code": "DE",
+  "party_id": "ALL",
   "id": "1",
   "currency": "EUR",
   "type": "REGULAR",
