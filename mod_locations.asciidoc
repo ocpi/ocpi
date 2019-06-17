@@ -40,6 +40,33 @@ If it was possible to remove these objects, those links would no longer work.
 When the CPO is not sure about the state or existence of a Location, EVSE or Connector object in the eMSP's system,
 the CPO can perform a <<mod_locations_get_method_eMSP,GET>> request to validate the object in the eMSP's system.
 
+==== Group of Charge Points
+
+OCPP 2.0 supports a 3-tier model:
+
+- Highest level is a Charge Point
+- A Charge Point can have one or more EVSEs.
+- Every EVSE can have one or more Connectors.
+
+OCPI does not have this model:
+
+- OCPI has Location at the highest level.
+- Each location can have multiple EVSE
+- Every EVSE can have one or more Connectors.
+
+When mapping OCPP Charge Points to OCPI, there are 2 options:
+
+- One Location for a group of Charge Points at the same location. (preferred)
+- One Location per Charge Point at the same location.
+
+OCPI prefers the first method. An EV driver does not care if a Location consists of one Charge Point with a very large amount of EVSEs,
+or a large amount of Charge Points with only one EVSE. The EV driver wants to known how many EVSEs are available.
+Grouping Charge Points in the same location into one OCPI Location will show better on a map that shows Charging Locations.
+
+Note: De definition, an EVSE can only charge one EV at a time.
+
+
+
 [[mod_locations_interfaces_and_endpoints]]
 === Interfaces and endpoints
 
