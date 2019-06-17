@@ -341,7 +341,8 @@ CPO GET & PUT methods
 Minor
 |Minimal / +
 Minimal
-|Changed `country_code`, `party_id` and `token_uid` from string to CiString, making them case-insensitive, which had always been the idea.
+|Changed `country_code`, `party_id` and `token_uid` from string to CiString, making them case-insensitive, which had always been the idea. +
+Added `token_type` field, making it possible to make a distinction between different Token types with the same `uid`.
 
 |Tokens / +
 eMSP GET, PUT, PATCH & DELETE methods

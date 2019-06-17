@@ -68,7 +68,7 @@ Tokens is a <<transport_and_format.asciidoc#transport_and_format_client_owned_ob
 
 Endpoint structure definition:
 
-`{token_endpoint_url}{country_code}/{party_id}/{token_uid}`
+`{token_endpoint_url}{country_code}/{party_id}/{token_uid}?type={token_type}`
 
 Example:
 
@@ -103,6 +103,7 @@ The following parameters can be provided as URL segments.
 |country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |yes |Country code of the eMSP requesting this GET from the CPO system.
 |party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |yes |Party ID (Provider ID) of the eMSP requesting this GET from the CPO system.
 |token_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |Token.uid of the Token object to retrieve.
+|token_type |<<mod_tokens_tokentype_enum,TokenType>> |no |Token.type of the Token to retrieve. Default if omitted: <<mod_tokens_tokentype_enum,RFID>>
 |===
 
 [[mod_tokens_cpo_get_response_data]]
@@ -146,6 +147,7 @@ The following parameters can be provided as URL segments.
 |country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |yes |Country code of the eMSP sending this PUT request to the CPO system. This SHALL be the same value as the `country_code` in the `Token object being pushed.
 |party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |yes |Party ID (Provider ID) of the eMSP sending this PUT request to the CPO system. This SHALL be the same value as the `party_id` in the Token object being pushed.
 |token_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |Token.uid of the (new) Token object (to replace).
+|token_type |<<mod_tokens_tokentype_enum,TokenType>> |no |Token.type of the Token of the (new) Token object (to replace). Default if omitted: <<mod_tokens_tokentype_enum,RFID>>
 |===
 
 [[mod_tokens_example_put_a_new_token]]
