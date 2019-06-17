@@ -106,6 +106,7 @@ Medium
 |Minimal / +
 Average
 |- Changed `location_id` and `evse_uids` from string to CiString, making them case-insensitive, which had always been the idea. Lengths changed from 39 to 36, matching changes in the object definitions. +
+ - Changed `reservation_id` from int to CiString(36), making it possible to use UUIDs. +
  - Added `authorization_reference` field for binding an authorization to the resulting session. +
  - Changed/added requirements in description of ReserveNow Object.
 

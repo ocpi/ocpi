@@ -234,7 +234,7 @@ As there might be cost involved for a Reservation, canceling a reservation might
 |Property |Type |Card. |Description
 
 |response_url |<<types.asciidoc#types_url_type,URL>> |1 |URL that the CommandResponse POST should be send to. This URL might contain an unique ID to be able to distinguish between ReserveNow requests.
-|reservation_id |int |1 |Reservation id, unique for this reservation. If the Charge Point already has a reservation that matches this reservationId the Charge Point will replace the reservation.
+|reservation_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Reservation id, unique for this reservation. If the Charge Point already has a reservation that matches this reservationId the Charge Point will replace the reservation.
 |===
 
 
@@ -295,6 +295,10 @@ In other words, when a Token has been received via `ReserveNow`, the same `Token
 
 An eMSP sending a `ReserveNow` SHALL only use Token that are owned by this eMSP in `ReserveNow`, using Tokens of other eMSPs is not allowed.
 
+The `reservation_id` send by the Sender (eMSP) to the Receiver (CPO) SHALL NOT be send directly to a Charge Point.
+The CPO SHALL make sure the Reservation ID send to the Charge Point is unique, is not used by another Sender (eMSP).
+We don't want a Sender (eMSP) to replace or cancel a reservation of another Sender (eMSP).
+
 [cols="3,2,1,10",options="header"]
 |===
 |Property |Type |Card. |Description
@@ -302,7 +306,7 @@ An eMSP sending a `ReserveNow` SHALL only use Token that are owned by this eMSP 
 |response_url |<<types.asciidoc#types_url_type,URL>> |1 |URL that the CommandResponse POST should be send to. This URL might contain an unique ID to be able to distinguish between ReserveNow requests.
 |token |<<mod_tokens.asciidoc#mod_tokens_token_object,Token>> |1 |Token object for how to reserve this Charge Point (and specific EVSE).
 |expiry_date |<<types.asciidoc#types_datetime_type,DateTime>> |1 |The Date/Time when this reservation ends.
-|reservation_id |int |1 |Reservation id, unique for this reservation. If the Charge Point already has a reservation that matches this reservationId the Charge Point will replace the reservation.
+|reservation_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Reservation id, unique for this reservation. If the Receiver (typically CPO) Point already has a reservation that matches this reservationId for that Location it will replace the reservation.
 |location_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Location.id of the Location (belonging to the CPO this request is send to) for which to reserve an EVSE.
 |evse_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |Optional EVSE.uid of the EVSE of this Location if a specific EVSE has to be reserved.
 |authorization_reference |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |Reference to the authorization given by the eMSP, when given,
