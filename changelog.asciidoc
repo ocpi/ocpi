@@ -169,7 +169,7 @@ Medium
 |Added new HubClientInfo module.
 
 |Locations / +
-CPO GET Object method
+Sender GET Object method
 |Minor / +
 Minor
 |Minimal / +
@@ -178,7 +178,7 @@ Minimal
 - Length of `location_id` and `evse_uids` changed from 39 to 36, matching changes in the object definitions.
 
 |Locations / +
-CPO GET, PUT & PATCH methods
+Receiver GET, PUT & PATCH methods
 |Minor / +
 Minor
 |Minimal / +
@@ -266,7 +266,7 @@ Minimal
 |removed to option for either: twentyfourseven or regular_hours, now twentyfourseven is always required and regular_hours is required when twentyfourseven=false, this is much less confusing.
 
 |Sessions / +
-CPO PUT method
+Sender PUT method
 |Medium / +
 Medium
 | Large / +
@@ -275,7 +275,7 @@ Large
   For this the following data types are added: ChargingPreferences, ChargingPreferencesResponse, ProfileType,
 
 |Sessions / +
-eMSP GET, PUT, PATCH methods
+Receiver GET, PUT, PATCH methods
 |Minor / +
 Minor
 |Minimal / +
@@ -336,29 +336,21 @@ Minimal
 |Added optional `reservation` field, making it possible to define the tariff of a reservation (and an expired reservation).
 
 |Tokens / +
-CPO GET & PUT methods
+Sender GET & POST methods
 |Minor / +
 Minor
 |Minimal / +
 Minimal
-|Changed `country_code`, `party_id` and `token_uid` from string to CiString, making them case-insensitive, which had always been the idea. +
+|Changed `country_code`, `party_id` and `token_uid` from string to CiString, making them case-insensitive, which had always been the idea.
+
+|Tokens / +
+Receiver GET, PUT & PATCH methods
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Changed `country_code`, `party_id` and `tariff_id` from string to CiString, making them case-insensitive, which had always been the idea. +
 Added `token_type` field, making it possible to make a distinction between different Token types with the same `uid`.
-
-|Tokens / +
-eMSP GET, PUT, PATCH & DELETE methods
-|Minor / +
-Minor
-|Minimal / +
-Minimal
-|Changed `country_code`, `party_id` and `tariff_id` from string to CiString, making them case-insensitive, which had always been the idea.
-
-|Tokens / +
-eMSP POST method
-|Minor / +
-Minor
-|Minimal / +
-Minimal
-|Changed `token_uid` from string to CiString, making it case-insensitive, which had always been the idea.
 
 |Tokens / +
 Token Object
