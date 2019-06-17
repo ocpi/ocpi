@@ -40,6 +40,12 @@ If it was possible to remove these objects, those links would no longer work.
 When the CPO is not sure about the state or existence of a Location, EVSE or Connector object in the eMSP's system,
 the CPO can perform a <<mod_locations_get_method_eMSP,GET>> request to validate the object in the eMSP's system.
 
+
+==== No public charging or roaming
+
+When a Location is not available for either Public Charging or Roaming,
+it is RECOMMENDED to NOT send that Location via OCPI to receiving parties.
+
 ==== Group of Charge Points
 
 OCPP 2.0 supports a 3-tier model:
