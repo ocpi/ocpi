@@ -806,6 +806,16 @@ These restrictions are not for the entire Charging Session, but the TariffRestri
 |end_date |<<types.asciidoc#types_string_type,string>>(10) |? |End date, for example: 2015-12-27, valid until this day (excluding this day) 
 |min_kwh |<<types.asciidoc#types_number_type,number>> |? |Minimum used energy in kWh, for example 20, valid from this amount of energy is used 
 |max_kwh |<<types.asciidoc#types_number_type,number>> |? |Maximum used energy in kWh, for example 50, valid until this amount of energy is used 
+|min_current |<<types.asciidoc#types_number_type,number>> |? |Sum of the minimum current in A over all phases, for example 5. When the Charging Session is charging more then this amount of current,
+                                                            this TariffElement is/becomes active. Is the charging current is lower, this TariffElement is not valid.
+                                                            This is NOT the minimum current over the entire Charging Session.
+                                                            This restriction can make a TariffElement become active when the charging current is above this value,
+                                                            but the TariffElement is no longer active when charging drops below this current.
+|max_current |<<types.asciidoc#types_number_type,number>> |? |Sum of the maximum current in A over all phases, for example 20. When the Charging Session is charging less then this amount of current,
+                                                         this TariffElement becomes/is active. Is the charging current is higher, this TariffElement is not valid.
+                                                         This is NOT the maximum current over the entire Charging Session.
+                                                         This restriction can make a TariffElement become active when the charging current is below this value,
+                                                         but the TariffElement is no longer active when charging comes above this current.
 |min_power |<<types.asciidoc#types_number_type,number>> |? |Minimum power in kW, for example 5. When the Charging Session is consuming more then this amount of power,
                                                             this TariffElement is/becomes active. Is the charging power is lower, this TariffElement is not valid.
                                                             This is NOT the minimum power over the entire Charging Session.
@@ -825,6 +835,8 @@ These restrictions are not for the entire Charging Session, but the TariffRestri
 A reservation starts when the reservation is made, and ends when the drivers start charging on the reserved EVSE/Location, or when the reservation expires.
 A reservation can only have: <<mod_tariffs_tariffdimensiontype_enum,FLAT>> and <<mod_tariffs_tariffdimensiontype_enum,TIME>> TariffDimensions, where TIME is for the duration of the reservation.
 |===
+
+TODO: `min_current` and `max_current`: Should this NOT be the sum of the current over all used phases?
 
 ===== Examples tariffRestriction max_power
 

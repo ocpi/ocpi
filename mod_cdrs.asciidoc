@@ -353,8 +353,10 @@ include::examples/cdr_example.json[]
 |Value |Description 
 
 |ENERGY |Defined in kWh, default step_size multiplier is 1 Wh
-|MAX_CURRENT |Maximum current reached during a charging session: defined in A (Ampere)
-|MIN_CURRENT |Minimum current reached during a charging session: defined in A (Ampere)
+|MAX_CURRENT |Sum of the maximum current over all phases, reached during a charging session: defined in A (Ampere)
+|MIN_CURRENT |Sum of the minimum current over all phases, reached during a charging session: defined in A (Ampere)
+|MAX_POWER |Maximum power reached during a charging session: defined in kW (Kilowatt)
+|MIN_POWER |Minimum power reached during a charging session: defined in kW (Kilowatt)
 |PARKING_TIME |Time not charging: defined in hours, default step_size multiplier is 1 second
 |RESERVATION_TIME |Time charging station has been reserved and not yet been in use for this customer: defined in hours, default step_size multiplier is 1 second
 |TIME |Time charging: defined in hours, default step_size multiplier is 1 second
