@@ -24,7 +24,8 @@ CDR Object
 Major
 |Average / +
 Large
-|- Added `session_id` field, making it easier to match a CDR to a Session. +
+|- Added `county_code` and `party_id` fields, making it easier to determine the owner of a CDR. +
+- Added `session_id` field, making it easier to match a CDR to a Session. +
 - Renamed `stop_date_time` field to `end_date_time`, to bring the naming inline with the rest of OCPI. +
 - Changed `total_cost` field from type: `number` to `Price`, this provides the eMSP with the total cost including VAT. +
 - Replaced `auth_id` field with `CdrToken`. `auth_id` alone could not be used to uniquely identify a <<mod_tokens.asciidoc#mod_tokens_token_object,Token>>. By copying the information for the dynamic Token object, the CDR will always reflect the 'true' status of Token at the start of the charging session. +
@@ -33,7 +34,6 @@ Large
 - Added `total_fixed_cost`, `total_energy_cost`, `total_time_cost`, `total_parking_cost` and `total_reservation_cost` fields, to allow more cost details in the CDRs. +
 - Added `authorization_reference` field for binding an authorization to the resulting session. +
 - Field `id` changed in length from 36 to 39, to allow for something to be appended after the original id in case of a Credit CDR.
-
 
 |Commands / +
 AuthMethod enum
@@ -211,7 +211,8 @@ Location Object
 Minor
 |Minimal / +
 Minimal
-|- Field `id` is changed from string to CiString, making it now case-insensitive, which had always been the idea. +
+|- Added `county_code` and `party_id` fields, making it easier to determine the owner of a Location. +
+- Field `id` is changed from string to CiString, making it now case-insensitive, which had always been the idea. +
 - length changed from 39 to 36, as 36 is enough to store UUID and GUIDs. +
 - Added `state` field, optional, to allow as much different address schemes from around the world as possible.. +
 - Changed `postal_code` field from required to optional, with the remark that omitting is only allowed when location has no postal_code.
@@ -287,7 +288,8 @@ Session Object
 Medium
 |Minimal / +
 Average
-|- Field `id` is changed from string to CiString, making it now case-insensitive, which had always been the idea. +
+|- Added `county_code` and `party_id` fields, making it easier to determine the owner of a Session. +
+- Field `id` is changed from string to CiString, making it now case-insensitive, which had always been the idea. +
 - Changed `total_cost` field from type: `number` to `Price`, this provides the eMSP with the total cost including VAT. +
 - Renamed `start_datetime` field to `start_date_time`, to bring the naming inline with the rest of OCPI. +
 - Renamed `end_datetime` field to `end_date_time`, to bring the naming inline with the rest of OCPI. +
@@ -301,7 +303,8 @@ Tariff Object
 Minor
 |Minimal / +
 Minimal
-|- Field `id` is changed from string to CiString, making it now case-insensitive, which had always been the idea. +
+|- Added `county_code` and `party_id` fields, making it easier to determine the owner of a Tariff. +
+- Field `id` is changed from string to CiString, making it now case-insensitive, which had always been the idea. +
 - Renamed `start_datetime` field to `start_date_time`, to bring the naming inline with the rest of OCPI. +
 - Renamed `end_datetime` field to `end_date_time`, to bring the naming inline with the rest of OCPI. +
 - Added optional `min_price` field, making it possible to set a minimum price on a Charging Session. +
@@ -362,7 +365,8 @@ Token Object
 Minor
 |Minimal / +
 Minimal
-|- Fields `uid` changed from string to CiString, making it now case-insensitive, which had always been the idea. +
+|- Added `county_code` and `party_id` fields, making it easier to determine the owner of a Token. +
+- Fields `uid` changed from string to CiString, making it now case-insensitive, which had always been the idea. +
 - Fields `auth_id_` renamed to `contract_id`, a much more logical and less confusing name. Also changed from string to CiString, making it now case-insensitive, which had always been the idea. +
 - Added `group_id` field to enable support for OCPP GroupId/ParentId. +
 - Added `default_profile_type` field to enable a default Preference base Smart Charging ProfileType to be provided for a user. +
