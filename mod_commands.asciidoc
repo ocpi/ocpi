@@ -224,6 +224,10 @@ Examples:
 [[mod_commands_cancelreservation_object]]
 ==== _CancelReservation_ Object
 
+With CancelReservation the Sender can request the Cancel of an existing Reservation.
+The CancelReservation needs to contain the `reservation_id` that was given by the Sender to the `ReserveNow`.
+
+As there might be cost involved for a Reservation, canceling a reservation might still result in a CDR being send for the reservation.
 
 [cols="3,2,1,10",options="header"]
 |===
