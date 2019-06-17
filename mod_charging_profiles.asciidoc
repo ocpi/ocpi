@@ -57,25 +57,26 @@ The ChargingProfile creation is a request to activate a charging profile on a ru
 Most Charge Points are hooked up to the internet via a relative slow wireless connection. To prevent long blocking calls,
 the ChargingProfile module is designed to work asynchronously. (similar to the <<mod_commands.asciidoc#mod_commands_commands_module,`Commands`>> module.
 
-The eMSP send a request to a CPO, via the CPO Commands interface.
-The CPO checks if it can send the request to a Charge Point and will respond to the request with a status, indicating if the request can be sent to a Charge Point.
+The Sender (Typically SCSP) sends a request to a Receiver (Typically CPO), via the Receiver interface.
+The Receiver checks if it can send the request to a Charge Point and will respond to the request with a status, indicating if the request can be sent to a Charge Point.
 
-The CPO sends the requested command (via another protocol, for example: OCPP) to a Charge Point.
+The Receiver sends the requested command (via another protocol, for example: OCPP) to a Charge Point.
 The Charge Point will respond if it understands the command and will try to execute the command.
 This response doesn't always mean that the ChargingProfile will be executed.
-The CPO will forward the result in a new POST request to the eMSP ChargingProfile interface.
+The CPO will forward the result in a new POST request to the Sender (Typically SCSP) ChargingProfile interface.
 
-The eMSP can send the Charging Profile to the EVSE via the CPO by using the <<mod_charging_profiles_cpo_put_method,CPO PUT method>> for an ongoing session.
-The eMSP can request the current schedule the EVSE has calculated, based on different inputs, and is planned to be used for the ongoing session by calling the <<mod_charging_profiles_cpo_get_method,CPO GET method>>.
-The eMSP has the ability to remove the Charging Profile for the session by calling the <<mod_charging_profiles_cpo_delete_method,CPO DELETE method>>
+The Sender (Typically SCSP) can send the Charging Profile to the EVSE via the CPO by using the <<mod_charging_profiles_cpo_put_method,CPO PUT method>> for an ongoing session.
+The Sender can request the current schedule the EVSE has calculated, based on different inputs, and is planned to be used for the ongoing session by calling the <<mod_charging_profiles_cpo_get_method,CPO GET method>>.
+The Sender has the ability to remove the Charging Profile for the session by calling the <<mod_charging_profiles_cpo_delete_method,CPO DELETE method>>
 
-When the eMSP has (at least once) successfully send a Charging Profile for an ongoing charging session,
-the CPO keeps the eMSP updated of changes to the CompositeSchedule, if the CPO is aware of any changes, by calling the <<mod_charging_profiles_msp_put_method,MSP PUT method>>
+When the Sender has (at least once) successfully send a Charging Profile for an ongoing charging session,
+the Receiver (Typically CPO) keeps the Sender updated of changes to the CompositeSchedule, if the Receiver is aware of any changes,
+by calling the <<mod_charging_profiles_msp_put_method,MSP PUT method>>
 
-The CPO can cancel an existing ChargingProfile, it can let the eMSP know by calling the <<mod_charging_profiles_msp_put_method,MSP PUT method>>
+The Receiver can cancel an existing ChargingProfile, it can let the eMSP know by calling the <<mod_charging_profiles_msp_put_method,MSP PUT method>>
 
 
-TODO Added examples for:
+TODO Added SD examples for:
 
 - GetCompositeProfile
 - SetChargingProfile
@@ -88,11 +89,13 @@ TODO Add examples
 [[mod_charging_profiles_interfaces_and_endpoints]]
 === Interfaces and endpoints
 
-The ChargingProfiles module consists of two interfaces: a CPO interface that enables a eMSP (and its clients) to send ChargingProfiles to a Location/EVSE,
-and an eMSP interface to receive the response from the Location/EVSE asynchronously.
+The ChargingProfiles module consists of two interfaces: a Receiver interface that enables a Sender (and its clients) to send ChargingProfiles to a Location/EVSE,
+and an Sender interface to receive the response from the Location/EVSE asynchronously.
 
 [[mod_charging_profiles_cpo_interface]]
-==== CPO Interface
+==== Receiver Interface
+
+Typically implemented by market roles like: CPO.
 
 ChargingProfiles is a <<transport_and_format.asciidoc#transport_and_format_client_owned_object_push,Client Owned Object>>, so the end-points need to contain the required extra fields: {<<credentials.asciidoc#credentials_credentials_object,party_id>>} and {<<credentials.asciidoc#credentials_credentials_object,country_code>>}.
 
@@ -147,13 +150,16 @@ Longer might be less useful as lot can change during the time that will have inf
 [[mod_charging_profiles_get_response_data]]
 ====== Response Data
 
-The response contains the direct response from the CPO, not the response from the EVSE itself, that will be sent via an asynchronous POST on the eMSP interface if this response is `ACCEPTED`.
+The response contains the direct response from the Receiver, not the response from the EVSE itself,
+that will be sent via an asynchronous POST on the Sender interface if this response is `ACCEPTED`.
 
 [cols="4,1,12",options="header"]
 |===
 |Datatype |Card. |Description
 
-|<<mod_charging_profiles_response_object,ChargingProfileResponse>> |1 |Result of the Composite ChargingProfile request, by the CPO (not the location/EVSE). So this indicates if the CPO understood the ChargingProfile request and was able to send it to the EVSE. This is not the response by the Charge Point.
+|<<mod_charging_profiles_response_object,ChargingProfileResponse>> |1 |Result of the Composite ChargingProfile request,
+                                    by the Receiver (Typically CPO) (not the location/EVSE). So this indicates if the Receiver understood the ChargingProfile request and was able to send it to the EVSE.
+                                    This is not the response by the Charge Point.
 |===
 
 
@@ -198,7 +204,8 @@ The body contains an SetChargingProfile object, that contains the new ChargingPr
 [[mod_charging_profiles_put_response_data]]
 ====== Response Data
 
-The response contains the direct response from the CPO, not the response from the EVSE itself, that will be sent via an asynchronous POST on the eMSP interface if this response is `ACCEPTED`.
+The response contains the direct response from the Receiver (Typically CPO), not the response from the EVSE itself,
+that will be sent via an asynchronous POST on the Sender interface if this response is `ACCEPTED`.
 
 [cols="4,1,12",options="header"]
 |===
@@ -239,7 +246,8 @@ The following parameters can be provided as URL segments.
 [[mod_charging_profiles_delete_response_data]]
 ====== Response Data
 
-The response contains the direct response from the CPO, not the response from the EVSE itself, that will be sent via an asynchronous POST on the eMSP interface if this response is `ACCEPTED`.
+The response contains the direct response from the Receiver (typically CPO), not the response from the EVSE itself,
+that will be sent via an asynchronous POST on the Sender interface if this response is `ACCEPTED`.
 
 [cols="4,1,12",options="header"]
 |===
@@ -250,9 +258,11 @@ The response contains the direct response from the CPO, not the response from th
 
 
 [[mod_charging_profiles_emsp_interface]]
-==== eMSP Interface
+==== Sender Interface
 
-The eMSP interface receives the asynchronous responses.
+Typically implemented by market roles like: SCSP.
+
+The Sender interface receives the asynchronous responses.
 
 [cols="2,12",options="header"]
 |===
@@ -260,9 +270,9 @@ The eMSP interface receives the asynchronous responses.
 
 |GET |n/a
 |<<mod_charging_profiles_msp_post_method,POST>> |Receive the asynchronous response from the Charge Point.
-|<<mod_charging_profiles_msp_put_method,PUT>> |CPO can send an updated composite schedule when other inputs have made changes to existing schedule.
-        When the CPO sends a update schedule to the EVSE, for an other reason then the eMSP, the CPO SHALL post an update to this interface.
-        When a local input influence the CompositeSchedule in the EVSE AND the CPO is made aware of this, the CPO SHALL post an update to this interface.
+|<<mod_charging_profiles_msp_put_method,PUT>> |Receiver (typically CPO) can send an updated composite schedule when other inputs have made changes to existing schedule.
+        When the Receiver (typically CPO) sends a update schedule to the EVSE, for an other reason then the Sender (Typically SCSP) asking, the Sender SHALL post an update to this interface.
+        When a local input influence the CompositeSchedule in the EVSE AND the Receiver (typically CPO) is made aware of this, the Receiver SHALL post an update to this interface.
 |PUT |n/a
 |PATCH |n/a
 |DELETE |n/a
@@ -277,16 +287,16 @@ The eMSP interface receives the asynchronous responses.
 
 There are no URL segment parameters required by OCPI.
 
-As the eMSP interface is called by the CPO on the URL given `response_url` in the eMSP request to the CPO interface,
-It is up to the implementation of the eMSP to determine what parameters are put in the URL.
-The eMSP sends a URL in the POST method body to the CPO.
-The CPO is required to use this URL for the asynchronous response by the Charge Point.
+As the Sender interface is called by the Receiver (typically CPO) on the URL given `response_url` in the Sender request to the Receiver interface,
+It is up to the implementation of the Sender (typically SCSP) to determine what parameters are put in the URL.
+The Sender sends a URL in the POST method body to the Receiver.
+The Receiver is required to use this URL for the asynchronous response by the Charge Point.
 It is advised to make this URL unique for every request to differentiate simultaneous commands,
 for example by adding a unique id as a URL segment.
 
 Endpoint structure definition:
 
-No structure defined. This is open to the eMSP to define, the URL is provided to the CPO by the eMSP.
+No structure defined. This is open to the eMSP to define, the URL is provided to the Receiver by the Sender.
 Therefor OCPI does not define variables.
 
 Examples:
@@ -316,22 +326,22 @@ The content of the request body depends on the original request by the eMSP to w
 
 ===== Response Body
 
-The response to the POST on the eMSP interface SHALL contain the <<transport_and_format.asciidoc#transport_and_format_response_format,Response Format>> with the data field omitted.
+The response to the POST on the Sender interface SHALL contain the <<transport_and_format.asciidoc#transport_and_format_response_format,Response Format>> with the data field omitted.
 
 
 [[mod_charging_profiles_msp_put_method]]
 ===== *PUT* Method
 
-Updates the eMSP when the CPO knows the CompositeSchedule has changed.
+Updates the Sender (typically SCSP) when the Receiver (typically CPO) knows the CompositeSchedule has changed.
 
-The CPO SHALL call this interface every time it knows changes have been made that influence the CompositeProfile for an ongoing session AND
-the eMSP has at least once successfully called the charging profile CPO PUT interface for this session (SetChargingProfile).
-If the CPO doesn't know the composite schedule has changed (EVSE does not notify the CPO of the change) it is not required to call this interface.
+The Receiver SHALL call this interface every time it knows changes have been made that influence the CompositeProfile for an ongoing session AND
+the Sender has at least once successfully called the charging profile Receiver PUT interface for this session (SetChargingProfile).
+If the Receiver doesn't know the composite schedule has changed (EVSE does not notify the Receiver (typically CPO) of the change) it is not required to call this interface.
 
-The CPO SHALL NOT call this interface for any session where the eMSP has never, successfully called the charging profile CPO PUT interface for this session (SetChargingProfile).
+The Receiver SHALL NOT call this interface for any session where the Sender has never, successfully called the charging profile Receiver PUT interface for this session (SetChargingProfile).
 
-The CPO SHALL send a useful relevant duration of CompositeSchedule to send to the eMSP. As a guide: between 5 and 60 minutes.
-If the eMSP wants a longer CompositeSchedule the eMSP can always do a GET with a longer duration.
+The Receiver SHALL send a useful relevant duration of CompositeSchedule to send to the Sender. As a guide: between 5 and 60 minutes.
+If the Sender wants a longer CompositeSchedule the Sender can always do a GET with a longer duration.
 
 Endpoint structure definition:
 
@@ -339,7 +349,7 @@ Endpoint structure definition:
 
 Example:
 
- `https://www.server.com/ocpi/2.2/chargingprofiles/1234`
+`https://www.server.com/ocpi/2.2/chargingprofiles/1234`
 
 [[mod_charging_profiles_cpo_put_request_parameters]]
 ====== Request Parameters

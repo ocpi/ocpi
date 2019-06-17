@@ -65,14 +65,16 @@ A CPO is not required to return all known CDRs, the CPO is allowed to return onl
 [[mod_cdrs_interfaces_and_endpoints]]
 === Interfaces and Endpoints
 
-There are both, a CPO and an eMSP interface for CDRs. Depending on business requirements, parties can decide to use
-the CPO Interface (Pull model), or the eMSP Interface (Push model), or both.
-Push is the preferred model to use, because the eMSP will receive CDRs in semi-realtime when they are created by the CPO.
+There are both, a Sender and a Receiver interface for CDRs. Depending on business requirements, parties can decide to use
+the Sender Interface (Pull model), or the Receiver Interface (Push model), or both.
+Push is the preferred model to use, because the Receiver will receive CDRs in semi-realtime when they are created by the CPO.
 
 [[mod_cdrs_cpo_interface]]
-==== CPO Interface
+==== Sender Interface
 
-The CDRs endpoint can be used to create or retrieve CDRs.
+Typically implemented by market roles like: CPO.
+
+The CDRs endpoint can be used retrieve CDRs.
 
 Endpoint structure definition:
 
@@ -138,7 +140,9 @@ Each object must contain all required fields. Fields that are not specified may 
 |===
 
 [[mod_cdrs_emsp_interface]]
-==== eMSP Interface
+==== Receiver Interface
+
+Typically implemented by market roles like: eMSP.
 
 The CDRs endpoint can be used to create and retrieve CDRs.
 
@@ -156,7 +160,7 @@ The CDRs endpoint can be used to create and retrieve CDRs.
 [[mod_cdrs_msp_get_method]]
 ===== GET Method
 
-Fetch CDRs from the eMSP's system. 
+Fetch CDRs from the receivers system.
 
 Endpoint structure definition:
 

@@ -81,12 +81,14 @@ This method is not for operational flow.
 
 === Interfaces
 
-There is both a Hub interface as a connected client (eMSP/CPO etc) interface for ClientInfo.
-It is advised to use the Push direction from Hub to connected clients during normal operation.
+There is both a Sender (Typically Hub) as a Receiver interface for ClientInfo.
+It is advised to use the Push direction from Sender to connected clients during normal operation.
 The Hub interface is meant to be used when the connected client is not 100% sure the ClientInfo cache is still correct.
 
 [[mod_hub_client_info_client_interface]]
-==== Connected client Interface
+==== Receiver Interface
+
+Typically implemented by all parties connecting to a Hub.
 
 With this interface the Hub can push the ClientInfo information to a connected client (eMSP/CPO etc)
 Example endpoint structure:
@@ -190,9 +192,11 @@ PATCH To URL: https://www.server.com/ocpi/cpo/2.0/clientinfo/NL/ALL
 ----
 
 [[mod_hub_client_info_hub_interface]]
-==== Hub Interface
+==== Sender Interface
 
-This interface enables a connected party to request the current list of ClientInfo objects, when needed.
+Typically implemented by the Hub.
+
+This interface enables Receivers to request the current list of ClientInfo objects from the Sender, when needed.
 
 [cols="2,12",options="header"]
 |===

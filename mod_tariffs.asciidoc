@@ -36,13 +36,15 @@ all Tariffs, replacing the current list of known Tariffs with the newly received
 [[mod_tariffs_interfaces_and_endpoints]]
 === Interfaces and endpoints
 
-There is both a CPO and an eMSP interface for Tariffs. Advised is to use the push direction from CPO to eMSP during normal operation.
-The CPO interface is meant to be used when the connection between 2 parties is established to retrieve the current list of Tariffs objects, and when the eMSP is not 100% sure the Tariff cache is still correct.
+There is both a Sender and a Receiver interface for Tariffs. Advised is to use the push direction from Sender to Receiver during normal operation.
+The Sender interface is meant to be used when the connection between 2 parties is established to retrieve the current list of Tariffs objects, and when the Receiver is not 100% sure the Tariff cache is still correct.
 
 [[mod_tariffs_cpo_interface]]
-==== CPO Interface
+==== Sender Interface
 
-The CPO Tariffs interface gives the eMSP the ability to request tariffs.
+Typically implemented by market roles like: CPO.
+
+The Sender Tariffs interface gives the Receiver the ability to request tariffs.
 
 
 [cols="2,12",options="header"]
@@ -110,7 +112,9 @@ Each object must contain all required fields. Fields that are not specified may 
 |===
 
 [[mod_tariffs_emsp_interface]]
-==== eMSP Interface
+==== Receiver Interface
+
+Typically implemented by market roles like: eMSP and NSP.
 
 Tariffs is a <<transport_and_format.asciidoc#transport_and_format_client_owned_object_push,Client Owned Object>>, so the end-points need to contain the required extra fields: {<<credentials.asciidoc#credentials_credentials_object,party_id>>} and {<<credentials.asciidoc#credentials_credentials_object,country_code>>}.
 

@@ -55,13 +55,15 @@ So care should be taken to keep delays in processing the request to an absolute 
 [[mod_tokens_interfaces_and_endpoints]]
 === Interfaces and endpoints
 
-There is both a CPO and an eMSP interface for Tokens. It is advised to use the Push direction from eMSP to CPO during normal operation.
-The eMSP interface is meant to be used when the CPO is not 100% sure the Token cache is still correct.
+There is both a Sender and a Receiver interface for Tokens. It is advised to use the Push direction from Sender to Receiver during normal operation.
+The Sender interface is meant to be used when the Receiver is not 100% sure the Token cache is still correct.
 
 [[mod_tokens_cpo_interface]]
-==== CPO Interface
+==== Receiver Interface
 
-With this interface the eMSP can push the Token information to the CPO.
+Typically implemented by market roles like: CPO.
+
+With this interface the Sender can push the Token information to the Receiver.
 Tokens is a <<transport_and_format.asciidoc#transport_and_format_client_owned_object_push,Client Owned Object>>, so the end-points need to contain the required extra fields: {<<credentials.asciidoc#credentials_credentials_object,party_id>>} and {<<credentials.asciidoc#credentials_credentials_object,country_code>>}.
 
 Endpoint structure definition:
@@ -173,9 +175,11 @@ include::examples/token_patch_example.json[]
 ----
 
 [[mod_tokens_emsp_interface]]
-==== eMSP Interface
+==== Sender Interface
 
-This interface enables the CPO to request the current list of Tokens, when needed.
+Typically implemented by market roles like: eMSP.
+
+This interface enables the Receiver to request the current list of Tokens, when needed.
 Via the POST method it is possible to authorize a single token.
 
 [cols="2,12",options="header"]

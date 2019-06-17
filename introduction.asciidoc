@@ -78,7 +78,7 @@ the evolution of these standards and their use is taken into account and some el
 The latest version of this specification can be found here: https://github.com/ocpi/ocpi[https://github.com/ocpi/ocpi]
 
 
-[[introduction_Supported Topologies]]
+[[introduction_supported_topologies]]
 === Supported Topologies
 
 OCPI started out as a bilateral protocol, for pair-to-pair communication.
@@ -139,3 +139,6 @@ The Platforms use a custom module for some new project, which is not supported b
 etc.
 
 TODO Visio diagram
+
+
+

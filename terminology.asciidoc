@@ -56,6 +56,29 @@ Examples of platforms:
   but then with multiple CPO and eMSP roles.
 
 
+[[introduction_typical_roles]]
+==== Typical OCPI implementations per Role
+
+The following table shows the typical modules implemented by the different roles.
+These are not required.
+The table shows the typical communication role: Receiver, Sender or Both.
+
+[cols="6,4,4,4,4,4",options="header"]
+|===
+|Modules           |CPO      |eMSP     |Hub    |NSP       |SCSP
+|CDRs              |Sender   |Receiver |Both   |          |
+|Charging Profiles |Receiver |         |Both   |          |Sender
+|Commands          |Receiver |Sender   |Both   |          |
+|Credentials       |Both     |Both     |Both   |Both      |Both
+|Hub Client Info   |Receiver |Receiver |Sender |Receiver  |Receiver
+|Locations         |Sender   |Receiver |Both   |Receiver  |
+|Sessions          |Sender   |Receiver |Both   |          |Receiver
+|Tariffs           |Sender   |Receiver |Both   |Receiver  |
+|Tokens            |Receiver |Sender   |Both   |          |
+|Locations         |Sender   |Receiver |Both   |Receiver  |
+|===
+
+
 [[terminology_terms]]
 === Terminology
 

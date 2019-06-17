@@ -8,21 +8,18 @@
 
 The Location objects live in the CPO back-end system. They describe the charging locations of an operator.
 
-In a multitenant system the Location objects of multiple virtual CPOs live in one back-end system,
-but from the interface perspective there is no interconnection between the data of individual CPOs.
-
-*Module dependency:* the eMSP endpoint is dependent on the <<mod_tariffs.asciidoc#mod_tariffs_tariffs_module,Tariffs module>>
+*Module dependency:* the Receiver endpoint is dependent on the <<mod_tariffs.asciidoc#mod_tariffs_tariffs_module,Tariffs module>>
 
 [[mod_locations_flow_and_lifecycle]]
 === Flow and Lifecycle
 
 The Locations module has the <<mod_locations_location_object,Location>> as base object. 
 Each Location can have multiple EVSEs (1:n) and each EVSE can have multiple Connectors (1:n).
-With the methods in the <<mod_locations_emsp_interface,eMSP interface>>,
-Location data and status information can be shared with the eMSP.
+With the methods in the <<mod_locations_emsp_interface,Receiver interface>>,
+Location data and status information can be shared with for example an eMSP and NSP.
 Updates can be made to a whole Location, but also only to an EVSE or a single Connector.
 
-When a CPO creates Location objects, it pushes them to connected eMSPs by calling <<mod_locations_put_method,PUT>> on the eMSPs Locations endpoint.
+When a CPO creates Location objects, it pushes them to connected eMSP by calling <<mod_locations_put_method,PUT>> on the Receivers Locations endpoint.
 eMSPs who do not support Push mode need to call <<mod_locations_get_method,GET>> on the CPOs Locations endpoint to receive the new object.
 This should be done regularly to stay up to date with the CPOs data, but not too often in order to keep the load low.
 
@@ -46,16 +43,18 @@ the CPO can perform a <<mod_locations_get_method_eMSP,GET>> request to validate 
 [[mod_locations_interfaces_and_endpoints]]
 === Interfaces and endpoints
 
-There are both, a CPO and an eMSP interface for Locations.
-It is advised to use the Push direction from CPO to eMSP during normal operation in order to keep the latency of updates low.
-The CPO interface is meant to be used when the connection between two parties is established for the first time,
+There are both, a Sender and a Receiver interface for Locations.
+It is advised to use the Push direction from Sender to Receiver during normal operation in order to keep the latency of updates low.
+The Sender interface is meant to be used when the connection between two parties is established for the first time,
 to retrieve the current list of Location objects with the current status,
-and when the eMSP is not 100% sure the Location cache is entirely up-to-date (i.e. to perform a full sync).
-The eMSP can also use the CPO <<mod_locations_get_object_request_parameters,GET Object interface>> to retrieve a specific Location, EVSE or Connector.
-This feature might be used by an eMSP that wants information about a specific Location, but has not implemented the eMSP Locations interface (i.e. cannot receive Push).
+and when the Receiver is not 100% sure the Location cache is entirely up-to-date (i.e. to perform a full sync).
+The Receiver can also use the Sender <<mod_locations_get_object_request_parameters,GET Object interface>> to retrieve a specific Location, EVSE or Connector.
+This feature might be used by an Receiver that wants information about a specific Location, but has not implemented the Receiver Locations interface (i.e. cannot receive Push).
 
 [[mod_locations_cpo_interface]]
-==== CPO Interface
+==== Sender Interface
+
+Typically implemented by market roles like: CPO.
 
 [cols="2,12",options="header"]
 |===
@@ -173,7 +172,9 @@ The response contains the requested object.
 
 
 [[mod_locations_emsp_interface]]
-==== eMSP Interface
+==== Receiver Interface
+
+Typically implemented by market roles like: eMSP and NSP.
 
 Locations are <<transport_and_format.asciidoc#transport_and_format_client_owned_object_push,Client Owned Objects>>,
 so the end-points need to contain the required extra fields: 
@@ -256,7 +257,7 @@ PUT can be used to send new Location objects to the eMSP but also to replace exi
 This is an information Push message, the objects pushed will not be owned by the eMSP.
 To make distinctions between objects being pushed to an eMSP from different CPOs, 
 the {<<credentials.asciidoc#credentials_credentials_object,party_id>>} and {<<credentials.asciidoc#credentials_credentials_object,country_code>>} 
-have to be included in the URL (as URL segments, as described in the <<mod_locations_emsp_interface,eMSP Interface>>).
+have to be included in the URL (as URL segments, as described in the <<mod_locations_emsp_interface,Receiver Interface>>).
 
 [cols="3,2,1,10",options="header"]
 |===

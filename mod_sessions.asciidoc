@@ -37,7 +37,7 @@ This <<mod_sessions_cpo_get_method,GET>> method can also be used in combination 
 For a lot of smart charging use cases, input from the driver is needed.
 The smart charging algorithms need to be able to give certain session priority over others.
 In other words they need to know how much energy an EV needs before what time.
-Via a <<mod_sessions_cpo_put_method,PUT>> request on the CPO Interface, during an ongoing session,
+Via a <<mod_sessions_cpo_put_method,PUT>> request on the Sender Interface, during an ongoing session,
 the eMSP can send <<mod_sessions_charging_preferences_object,Charging Preferences>> on behalf of the driver.
 
 The eMSP can determine if an EVSE supports Charging Preferences by checking if the
@@ -53,7 +53,9 @@ one for each <<mod_sessions_profile_type_enum,ProfileType>>.
 === Interfaces and Endpoints
 
 [[mod_sessions_cpo_interface]]
-==== CPO Interface
+==== Sender Interface
+
+Typically implemented by market roles like: CPO.
 
 [cols="2,12",options="header"]
 |===
@@ -171,7 +173,9 @@ The response contains a <<mod_sessions_charging_preferences_response_enum,Chargi
 
 
 [[mod_sessions_emsp_interface]]
-===== eMSP Interface
+===== Receiver Interface
+
+Typically implemented by market roles like: eMSP and SCSP.
 
 Sessions are <<transport_and_format.asciidoc#transport_and_format_client_owned_object_push,Client Owned Objects>>,
 so the endpoints need to contain the required extra fields: {<<credentials.asciidoc#credentials_credentials_object,party_id>>} and {<<credentials.asciidoc#credentials_credentials_object,country_code>>}.
