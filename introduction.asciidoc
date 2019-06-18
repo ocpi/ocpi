@@ -106,22 +106,45 @@ and each platform only has 1 role.
 image::images/architecture_multiple_direct_modified.svg[Multiple pair-to-pair topology example]
 
 
-==== Pair-to-pair multiple roles
+==== Pair-to-pair multiple the same roles
 
-The simplest topology is a bilateral connection: pair-to-pair between two platforms,
+There are parties that provide for example CPO or eMSP services for other companies.
+So the platform hosts multiple parties with the same role.
+This topology is a bilateral connection: pair-to-pair between two platforms,
 and both platforms can have multiple roles.
 
 .Pair-to-pair with multiple roles topology example
-image::images/architecture_platform_direct.svg[Pair-to-pair with multiple roles topology example]
+image::images/architecture_platform_same_direct.svg[Pair-to-pair with multiple roles topology example]
+
+
+==== Pair-to-pair dual roles
+
+There are parties that have dual roles, most of the companies are CPO and eMSP.
+This topology is a bilateral connection: pair-to-pair between two platforms,
+and both platforms have the CPO and the eMSP roles.
+
+.Pair-to-pair with both CPO and eMSP roles topology example
+image::images/architecture_platform_dual_direct.svg[Pair-to-pair with both CPO and eMSP roles topology example]
+
+
+==== Pair-to-pair mixed roles
+
+There are parties that have dual roles, or provide them to other parties and then connect to other companies that do the same.
+This topology is a bilateral connection: pair-to-pair between two platforms,
+and both platforms have multiple different and also the same roles.
+
+.Pair-to-pair with mixed roles topology example
+image::images/architecture_platform_mixed_direct.svg[Pair-to-pair with mixed roles topology example]
 
 
 ==== Multiple Pair-to-pair
 
-More a real-world topology when OCPI is used between market parties without a hub.
-
-TODO Visio diagram
+More a real-world topology when OCPI is used between market parties without a hub, all parties are platforms with multiple roles.
 
 It is easy to notice that the amount of connections between platforms explodes.
+
+.Pair-to-pair with mixed roles topology example
+image::images/architecture_mutiple_platform_direct_modified.svg[Pair-to-pair with mixed roles topology example]
 
 
 ==== Platforms via Hub

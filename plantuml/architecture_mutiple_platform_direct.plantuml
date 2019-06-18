@@ -6,7 +6,7 @@ skinparam rectangleRoundCorner 8
 
 left to right direction
 
-  rectangle PLATFORM as MSP1 {
+  rectangle PLATFORM as MSPP1 {
     agent eMSP1
     agent eMSP2
   }
@@ -17,33 +17,22 @@ left to right direction
   }
 
 
-  rectangle PLATFORM as MSP2 {
+  rectangle PLATFORM as CPOMSP1 {
     agent eMSP3
-    agent eMSP4
+    agent CPO3
   }
 
-  rectangle PLATFORM as CPOP2 {
-    agent CPO3
+  rectangle PLATFORM as CPOMSP2 {
+    agent eMSP4
     agent CPO4
   }
 
-  rectangle PLATFORM as MSP3 {
-    agent eMSP5
-  }
 
-  rectangle PLATFORM as CPOP3 {
-    agent CPO5
- }
-
-MSP1 -- CPOP1
-MSP2 -- CPOP2
-MSP3 -- CPOP3
-
-MSP1 -- CPOP2
-MSP1 -- CPOP3
-MSP2 -- CPOP1
-MSP2 -- CPOP3
-MSP3 -- CPOP1
-MSP3 -- CPOP2
+MSPP1 -- CPOP1
+MSPP1 -- CPOMSP1
+MSPP1 -- CPOMSP2
+CPOP1 -- CPOMSP1
+CPOP1 -- CPOMSP2
+CPOMSP1 -- CPOMSP2
 
 @enduml
