@@ -33,7 +33,7 @@
       "type": "ENERGY",
       "price": 0.25,
       "vat": 10.0,
-      "step_size": 1
+      "step_size": 100
     }]
   }],
   "last_updated": "2019-02-03T17:00:11Z"
