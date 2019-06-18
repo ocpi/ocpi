@@ -456,7 +456,7 @@ include::examples/tariff_13_simple_3hour_5parking.json[]
 ====== Ad-Hoc simple Tariff example with multiple languages
 
 For ad-hoc charging (paying for charging without a contract, the tariff `elements` are less needed.
-Normally no CDR will be send to an eMSP for ad-hoc charging.
+The eMSP is not involved when a driver uses ad-hoc payment at the Charge Point, so no CDR is send to an EMSP.
 Having a good human readable text is much more useful.
 
 - 2 euro per hour charging (not per kWh) (including VAT)
