@@ -279,7 +279,7 @@ See: <<mod_tariffs_free_of_charge_tariff_example,Free of Charge Tariff example>>
 |type |<<mod_tariffs_tariff_type,TariffType>> |? | Defines what type of tariff this is. This makes it possible to make distinction possible for different <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,Charging Preferences>>. When omitted, this tariff is valid for all sessions.
 |tariff_alt_text |<<types.asciidoc#types_displaytext_class,DisplayText>> |* |List of multi language alternative tariff info text
 |tariff_alt_url |<<types.asciidoc#types_url_type,URL>> |? |Alternative URL to tariff info 
-|min_price |<<types.asciidoc#types_price_class,Price>> |? |When this field is set, a Charging Session with this tariff will minimum cost this amount.
+|min_price |<<types.asciidoc#types_price_class,Price>> |? |When this field is set, a Charging Session with this tariff will at least cost this amount.
       This is different from a `FLAT` fee (Start Tariff, Transaction Fee), such a fee is a fixed amount that has to be payed for any Charging Session.
       A Minimum price means that when the cost of a Charging Session is lower then this amount, the cost of the Session will be equal to this amount. Also see note below.
 |max_price |<<types.asciidoc#types_price_class,Price>> |? |When this field is set, a Charging Session with this tariff will NOT cost more then this amount. See note below.
