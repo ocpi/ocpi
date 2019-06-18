@@ -196,6 +196,7 @@ Minimal
 |- Field `id` is changed from string to CiString, making it now case-insensitive, which had always been the idea. +
 - Added `max_electric_power` field, some DC Fast Charger have a lower max power then can be calculated form `voltage` and `amperage`. +
 - Changed `tariff_id` field to `tariff_ids`, and changed cardinality from `?` to `*`. Making it possible to make provided tariffs for different Smart Charging Preferences and also for ad hoc payment. Changed type from string to CiString, matching the change to Tariff.id.
+- Changed `amperage` field to `max_amperage` and `voltage` field to `max_voltage`, to better reflect the real meaning of both fields.
 
 |Locations / +
 EVSE Object
