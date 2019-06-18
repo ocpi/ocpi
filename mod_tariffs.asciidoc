@@ -637,8 +637,8 @@ include::examples/tariff_17_reservation_with_expire_fee.json[]
 
 * Reservation
 [disc]
-** 2.00 euro per hour (excluding VAT)
-** 4.00 euro per hour (excluding VAT) (When reservation expires, EV driver never starts to charge)
+** 3.00 euro per hour (excluding VAT)
+** 6.00 euro per hour (excluding VAT) (When reservation expires, EV driver never starts to charge)
 ** 20% VAT
 ** Billed per 10 minutes (600 seconds)
 * Start or transaction fee
@@ -659,7 +659,7 @@ include::examples/tariff_17_reservation_with_expire_fee.json[]
 Example of cost:
 
 - EV driver reserves the EVSE for half an hour (30 minutes).
-- When the driver would start charging after 9 minutes, and charges 48.03 kWh: 0.50 + 0.50 + 12 = 13.00 euro (excluding VAT)
+- When the driver would start charging after 9 minutes, and charges 47.92 kWh: 0.50 + 0.50 + 12 = 13.00 euro (excluding VAT)
 - When the driver would start charging after 12 minutes, and charges 62.98 kWh: 1.00 + 0.50 + 15.75 = 17.25 euro (excluding VAT)
 - When the driver never start to charge before the reservation expires, cost: 3.00 euro (excluding VAT)
 
