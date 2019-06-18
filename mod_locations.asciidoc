@@ -619,8 +619,10 @@ The socket or plug standard of the charging point.
 |IEC_62196_T2_COMBO |Combo Type 2 based, DC 
 |IEC_62196_T3A |IEC 62196 Type 3A 
 |IEC_62196_T3C |IEC 62196 Type 3C "Scame" 
-|TESLA_R |Tesla Connector "Roadster"-type (round, 4 pin) 
-|TESLA_S |Tesla Connector "Model-S"-type (oval, 5 pin) 
+|PANTOGRAPH_BOTTOM_UP|On-board Bottom-up-Pantograph typically for bus charging
+|PANTOGRAPH_TOP_DOWN|Off-board Top-down-Pantograph typically for bus charging
+|TESLA_R |Tesla Connector "Roadster"-type (round, 4 pin)
+|TESLA_S |Tesla Connector "Model-S"-type (oval, 5 pin)
 |===
 
 [[mod_locations_energymix_class]]

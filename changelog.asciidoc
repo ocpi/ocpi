@@ -236,6 +236,14 @@ Minimal
 |added new values for: `CHARGING_PREFERENCES_CAPABLE`, `DEBIT_CARD_PAYABLE` and `TOKEN_GROUP_CAPABLE`.
 
 |Locations / +
+ConnectorType enum
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|added new values for: `PANTOGRAPH_TOP_DOWN` and `PANTOGRAPH_BOTTOM_UP`.
+
+|Locations / +
 EnvironmentalImpact class
 |Minor / +
 Minor
