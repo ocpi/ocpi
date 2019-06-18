@@ -276,28 +276,15 @@ Each object must contain all required fields. Fields that are not specified may 
 
 |party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |1 |CPO or eMSP ID of this party. (following the 15118 ISO standard), as used in the credentials exchange.
 |country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |1 |Country code of the country this party is operating in, as used in the credentials exchange.
-|role |<<mod_hub_client_info_role_type_enum,RoleType>> |1 |The role of the connected party.
-|status |<<mod_hub_client_info_hub_connection_type_enum,ConnectionStatusType>> |1 |Status of the connection to the party.
+|role |<<types.asciidoc#types_role_enum,Role>> |1 |The role of the connected party.
+|status |<<mod_hub_client_info_hub_connection_type_enum,ConnectionStatus>> |1 |Status of the connection to the party.
 |last_updated |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Timestamp when this ClientInfo object was last updated.
 |===
 
 === Data types
 
-[[mod_hub_client_info_role_type_enum]]
-==== RoleType _enum_
-
-[cols="3,10",options="header"]
-|===
-|Value |Description
-
-|CPO   |Charging Point Operator.
-|EMSP  |e-Mobility Service Provider.
-|NSP   |Navigation Service Provider, role like an eMSP (probably only interested in Location information)
-|OTHER |Other role
-|===
-
 [[mod_hub_client_info_hub_connection_type_enum]]
-==== ConnectionStatusType _enum_
+==== ConnectionStatus _enum_
 
 [cols="3,10",options="header"]
 |===
