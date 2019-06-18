@@ -73,11 +73,31 @@ image::images/command_unlock_unknow_location.svg["UNLOCK_CONNECTOR Unknown Locat
 
 Example of a `RESERVE_NOW` that is rejected by the Charge Point.
 
-.RESERVE_NEW rejected by Charge Point
+.RESERVE_NOW rejected by Charge Point
 image::images/command_reservenow_rejected.svg[RESERVE_NEW rejected by Charge Point]
 
+Example of a successful `RESERVE_NOW`.
 
-_These examples use OCPP 1.6 based commands between CPO and Charge Point, but that is not a requirement for OCPI._
+.Successful RESERVE_NOW
+image::images/command_reservenow_successful.svg[Successful RESERVE_NOW]
+
+
+Reservation canceled by the CPO. +
+OCPI makes it possible for a CPO to cancel a reservation.
+This is not to be taken lightly. When a driver makes a reservation of a Charge Point/EVSE, he/she wants to be sure to have a charging location.
+So if the CPO cancel the reservation, the driver will for sure not like it.
+But there are some circumstances where the CPO is forced to cancel a reservation.
+For example: Charge Point has become defect, or the CPO is notified of ongoing roadworks which makes the Charge Point unreachable etc.
+
+To Cancel a reservation the CPO call the Senders interface with the same URL as was given by the Sender (eMSP) when the `RESERVE_NOW` command was send.
+
+
+The sequence diagram below continues after the sequence diagram above.
+
+.Reservation canceled by the CPO
+image::images/command_reservenow_canceled_by_cpo.svg[Reservation canceled by the CPO]
+
+_These examples use OCPP 1.6 based commands between CPO and Charge Point, but that is not a requirement for OCPI.
 
 
 [[mod_commands_interfaces_and_endpoints]]
@@ -408,6 +428,7 @@ Result of the command that was send to the Charge Point.
 |Value |Description
 
 |ACCEPTED |Command request accepted by the Charge Point.
+|CANCELED_RESERVATION |The Reservation has been canceled by the CPO.
 |EVSE_OCCUPIED |EVSE is currently occupied, another session is ongoing. Cannot start a new session
 |EVSE_INOPERATIVE | EVSE is currently inoperative or faulted.
 |FAILED |Execution of the command failed at the Charge Point.

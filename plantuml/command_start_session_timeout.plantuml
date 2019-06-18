@@ -1,5 +1,4 @@
 @startuml
-title OCPI Command START_SESSION -> ACCEPTED but EV never plugged in
 hide footbox
 
 participant eMSP

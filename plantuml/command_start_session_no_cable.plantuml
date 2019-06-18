@@ -1,5 +1,4 @@
 @startuml
-title OCPI Command START_SESSION -> REJECT by Charge Point: no cable plugged in
 hide footbox
 
 participant eMSP

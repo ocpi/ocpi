@@ -1,5 +1,4 @@
 @startuml
-title OCPI Command START_SESSION, Token whitelist: NEVER
 hide footbox
 
 participant eMSP

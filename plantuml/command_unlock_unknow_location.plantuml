@@ -1,5 +1,4 @@
 @startuml
-title OCPI Command UNLOCK_CONNECTOR -> Unknown Location
 hide footbox
 
 participant eMSP

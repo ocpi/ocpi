@@ -1,5 +1,4 @@
 @startuml
-title OCPI Command START_SESSION -> ACCEPTED and Session started
 hide footbox
 
 participant eMSP
