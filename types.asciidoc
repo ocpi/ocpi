@@ -10,9 +10,11 @@ Case Insensitive String. Only printable ASCII allowed.
 [[types_datetime_type]]
 === DateTime _type_
 
-All timestamps are formatted as string(25) using the combined date and time format from the ISO 8601 standard.
+All timestamps are formatted as string(25) following RFC 3339, with some additional limitations.
+
 All timestamps SHALL be in UTC.
 The absence of the timezone designator implies a UTC timestamp.
+Fractional seconds MAY be used.
 
 Example of how timestamps shall be formatted in OCPI, other formats/patterns are not allowed:
 
@@ -20,10 +22,10 @@ Example of how timestamps shall be formatted in OCPI, other formats/patterns are
 ----
 2015-06-29T20:39:09Z
 2015-06-29T20:39:09
-2016-12-29T17:45:09Z
-2016-12-29T17:45:09
-2018-01-01T01:08:01Z
-2018-01-01T01:08:01
+2016-12-29T17:45:09.2Z
+2016-12-29T17:45:09.2
+2018-01-01T01:08:01.123Z
+2018-01-01T01:08:01.123
 ----
 
 Note: +00:00 is not the same as UTC.

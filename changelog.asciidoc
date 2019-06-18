@@ -429,9 +429,16 @@ Medium
 Minor
 |Minimal / +
 Minimal
-|Unique message ID header is now required in every request/response. +
-Correlation message ID header in required for any request via a Hub.
+|Unique message ID and Correlation message ID headers are now required in every request/response.
 
+|Types / +
+ DateTime
+|Minor / +
+Minor
+|Minimum / +
+Minimum
+|Changed to: RFC 3339 (was ISO 8601) this does not change the OCPI format, RFC 3339 is more limited, and therefor more inline with OCPI then ISO 8601 was. +
+ Fractional seconds are now allowed.
 |===
 
 
