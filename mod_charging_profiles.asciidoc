@@ -349,7 +349,7 @@ Endpoint structure definition:
 
 Example:
 
-`https://www.server.com/ocpi/2.2/chargingprofiles/1234`
+`+https://www.server.com/ocpi/2.2/chargingprofiles/1234+`
 
 [[mod_charging_profiles_cpo_put_request_parameters]]
 ====== Request Parameters
