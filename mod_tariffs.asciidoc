@@ -637,8 +637,8 @@ include::examples/tariff_17_reservation_with_expire_fee.json[]
 
 * Reservation
 [disc]
-** 3.00 euro per hour (excluding VAT)
-** 6.00 euro per hour (excluding VAT) (When reservation expires, EV driver never starts to charge)
+** 2.00 euro per hour (excluding VAT)
+** 4.00 euro per hour (excluding VAT) (When reservation expires, EV driver never starts to charge)
 ** 20% VAT
 ** Billed per 10 minutes (600 seconds)
 * Start or transaction fee
