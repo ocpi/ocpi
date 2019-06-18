@@ -303,7 +303,7 @@ It is also recommended to add Charging Periods for all moments that are relevant
 see <<mod_cdrs.asciidoc#mod_cdrs_cdr_object,CDR description>> for more information.
 
 
-[cols="3,3,1,10",options="header"]
+[cols="4,3,1,9",options="header"]
 |===
 |Property |Type |Card. |Description 
 

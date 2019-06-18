@@ -267,7 +267,7 @@ a new Charging Period SHALL be added the moment the charging power goes over 32A
 This may be a moment that is calculated by the CPO, as the Charge Point might not send the information to the CPO,
 but it can be interpolated by the CPO using the metering information before and after that moment.
 
-[cols="3,3,1,10",options="header"]
+[cols="4,3,1,9",options="header"]
 |===
 |Property |Type |Card. |Description 
 

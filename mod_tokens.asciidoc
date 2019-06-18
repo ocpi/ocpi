@@ -316,7 +316,7 @@ The endpoint response contains a <<mod_tokens_authorizationinfo_object,Authoriza
 [[mod_tokens_authorizationinfo_object]]
 ==== _AuthorizationInfo_ Object
 
-[cols="3,2,1,10",options="header"]
+[cols="4,2,1,9",options="header"]
 |===
 |Property |Type |Card. |Description 
 

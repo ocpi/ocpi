@@ -299,7 +299,7 @@ The `reservation_id` send by the Sender (eMSP) to the Receiver (CPO) SHALL NOT b
 The CPO SHALL make sure the Reservation ID send to the Charge Point is unique, is not used by another Sender (eMSP).
 We don't want a Sender (eMSP) to replace or cancel a reservation of another Sender (eMSP).
 
-[cols="3,2,1,10",options="header"]
+[cols="4,2,1,9",options="header"]
 |===
 |Property |Type |Card. |Description
 
@@ -339,7 +339,7 @@ However, the information of the Token SHALL be put in the `Session` and `CDR`.
 
 An eMSP sending a `StartSession` SHALL only use Token that are owned by this eMSP in `StartSession`, using Tokens of other eMSPs is not allowed.
 
-[cols="3,2,1,10",options="header"]
+[cols="4,2,1,9",options="header"]
 |===
 |Property |Type |Card. |Description
 
