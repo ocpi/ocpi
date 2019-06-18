@@ -146,6 +146,14 @@ Minimal
 |removed `TIMEOUT` as possible value. This is moved to the new CommandResult object.
 
 |Commands / +
+CommandResultType Enum
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|added `CANCELED_RESERVATION` value. Make it possible for a CPO to cancel an existing reservation in case of issues with the Charge Point.
+
+|Commands / +
 CommandResult Object
 |Medium / +
 Medium
