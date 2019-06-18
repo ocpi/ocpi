@@ -55,6 +55,8 @@ and a GET to the versions endpoint does not have any side effects, this is seen 
 [[mod_hub_client_info_flow]]
 === Flow and Life-cycle
 
+TODO
+
 [[mod_hub_client_info_push_model]]
 === Push model
 
@@ -263,10 +265,10 @@ Each object must contain all required fields. Fields that are not specified may 
 |<<mod_hub_client_info_hub_client_info_object,ClientInfo>> |* |List of all (or matching) ClientInfo objects.
 |===
 
-==== Object description
+=== Object description
 
 [[mod_hub_client_info_hub_client_info_object]]
-=== _ClientInfo_ Object
+==== _ClientInfo_ Object
 
 [cols="3,2,1,10",options="header"]
 |===
@@ -279,10 +281,10 @@ Each object must contain all required fields. Fields that are not specified may 
 |last_updated |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Timestamp when this ClientInfo object was last updated.
 |===
 
-== Data types
+=== Data types
 
 [[mod_hub_client_info_role_type_enum]]
-=== RoleType _enum_
+==== RoleType _enum_
 
 [cols="3,10",options="header"]
 |===
@@ -295,7 +297,7 @@ Each object must contain all required fields. Fields that are not specified may 
 |===
 
 [[mod_hub_client_info_hub_connection_type_enum]]
-=== ConnectionStatusType _enum_
+==== ConnectionStatusType _enum_
 
 [cols="3,10",options="header"]
 |===
