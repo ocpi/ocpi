@@ -140,8 +140,8 @@ NOTE: for the `credentials` module, the role is not relevant as this module is t
 |===
 |Value |Description
 
-|CPO |CPO Interface implementation
-|MSP |MSP Interface implementation
+|SENDER   |Sender Interface implementation, interface implemented by the owner of data, so the Receiver can Pull information from the data Sender/owner.
+|RECEIVER |Receiver Interface implementation, interface implemented by the receiver of data, so the Sender/owner can Push information to the Receiver.
 |===
 
 
