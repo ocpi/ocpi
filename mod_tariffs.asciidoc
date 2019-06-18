@@ -474,8 +474,9 @@ include::examples/tariff_2_alt_text.json[]
 
 For this example, credit card start tariff is 0.50 euro, but when using a debit card it is only 0.25 euro.
 
-Such a tariff cannot be modeled with OCPI, but by modeling it as 0.50 euro start tariff,
-using a debit card as a discount of 0.25 euro. Nobody is likely to complain. But the `tariff_alt_text` explains this clearly.
+Such a tariff cannot be modeled with OCPI. +
+But by modeling it as 0.50 euro start tariff, and giving using a debit card a discount in the final CDR of 0.25 euro, nobody is likely to complain.
+The `tariff_alt_text` explains this clearly.
 
 [source,json]
 ----
