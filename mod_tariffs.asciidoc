@@ -905,7 +905,7 @@ Total: 0.30 euro.
 |===
 |Value |Description
 
-|AD_HOC_PAYMENT |This tariff is valid when ad hoc payment is used at the Charge Point. Instead of an RFID token or APP.
+|AD_HOC_PAYMENT |This tariff is valid when ad hoc payment is used at the Charge Point, for example Debit or Credit card payment terminal. Instead of an RFID token or APP.
 |PROFILE_CHEAP |This tariff is valid when <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,Charging Preference>>: <<mod_sessions.asciidoc#mod_sessions_profile_type_enum,CHEAP>> is set on the session.
 |PROFILE_FAST |This tariff is valid when <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,Charging Preference>>: <<mod_sessions.asciidoc#mod_sessions_profile_type_enum,FAST>> is set on the session.
 |PROFILE_GREEN |This tariff is valid when <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,Charging Preference>>: <<mod_sessions.asciidoc#mod_sessions_profile_type_enum,GREEN>> is set on the session.
