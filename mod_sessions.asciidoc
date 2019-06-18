@@ -310,8 +310,11 @@ see <<mod_cdrs.asciidoc#mod_cdrs_cdr_object,CDR description>> for more informati
 |country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |1 |ISO-3166 alpha-2 country code of the CPO that 'owns' this Session.
 |party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |1 |CPO ID of the CPO that 'owns' this Session (following the ISO-15118 standard).
 |id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |The unique id that identifies the charging session in the CPO platform.
-|start_date_time |<<types.asciidoc#types_datetime_type,DateTime>> |1 |The time when the session became active.
-|end_date_time |<<types.asciidoc#types_datetime_type,DateTime>> |? |The time when the session was completed.
+|start_date_time |<<types.asciidoc#types_datetime_type,DateTime>> |1 |The time when the session became <<mod_sessions_sessionstatus_enum,ACTIVE>> in the Charge Point. +
+                                                       When the session is still <<mod_sessions_sessionstatus_enum,PENDING>>, this field SHALL be set to the time the Session was created at the Charge Point.
+                                                       When a Session goes from <<mod_sessions_sessionstatus_enum,PENDING>> to <<mod_sessions_sessionstatus_enum,ACTIVE>>,
+                                                       this field SHALL be update to the moment the Session went to <<mod_sessions_sessionstatus_enum,ACTIVE>> in the Charge Point.
+|end_date_time |<<types.asciidoc#types_datetime_type,DateTime>> |? |The time when the session was completed/finished, charging might have finished before the session ends, for example: EV is full, but parking cost also has to be payed.
 |kwh |<<types.asciidoc#types_number_type,number>> |1 |How many kWh were charged. 
 |cdr_token |<<mod_cdrs.asciidoc#mod_cdrs_cdr_token_object,CdrToken>> |1 |Token used to start this charging session, including all the relevant information to identify the unique token.
 |auth_method |<<mod_cdrs.asciidoc#mod_cdrs_authmethod_enum,AuthMethod>> |1 |Method used for authentication.
@@ -423,7 +426,7 @@ Defines the state of a session.
 |===
 |Value |Description
 
-|ACTIVE |The session has been accepted and is active. All pre-conditions were met: Communication between EV and EVSE (for example: cable plugged in correctly), EV or driver is authorized. EV is being charged, or can be charged. Energy is, or is not, being transfered. 
+|ACTIVE |The session has been accepted and is active. All pre-conditions were met: Communication between EV and EVSE (for example: cable plugged in correctly), EV or driver is authorized. EV is being charged, or can be charged. Energy is, or is not, being transfered.
 |COMPLETED |The session has been finished successfully. No more modifications will be made to the Session object using this state. 
 |INVALID |The Session object using this state is declared invalid and will not be billed. 
 |PENDING |The session is pending, it has not yet started. Not all pre-conditions are met. This is the initial state. The session might never become an _active_ session. 
