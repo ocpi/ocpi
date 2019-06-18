@@ -29,9 +29,9 @@ In the EV Charging landscape, different market roles can be identified.
 [cols="3s,9",options="header"]
 |===
 |Role  |Description
-|CPO   |Charging Point Operator
-|eMSP  |e-Mobility Service Provider
-|Hub   |Can connector one or more CPOs to one or more eMSPs.
+|CPO   |Charging Point Operator: Operates a network of Charge Points.
+|eMSP  |e-Mobility Service Provider: gives EV drivers access to charging services.
+|Hub   |Can connect one or more CPOs to one or more eMSPs.
 |NAP   |Provides a national Database with all (public) Charging Locations, information can be send and retrieved from the NAP (that makes it different from a typical NSP).
 |NSP   |Provides EV drivers with location information of Charge Points.
 |Roaming Hub |See: Hub
