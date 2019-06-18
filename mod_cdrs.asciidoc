@@ -48,8 +48,6 @@ CDRs should contain enough information (dimensions) to allow the eMSP to validat
 It is advised to send enough information to the eMSP so that they can calculate their own costs for billing their customers.
 An eMSP might have a very different contract/pricing model with their EV drivers than the tariff structure of the CPO.
 
-_NOTE: CDRs can not yet be updated or removed. This might be added in a future version of OCPI._
-
 If the CPO, for any reason, wants to view a CDR it has posted to an eMSP's system, the CPO can retrieve the CDR by performing a <<mod_cdrs_msp_get_method,GET>> request on the eMSP's CDRs endpoint at the URL returned in the response to the <<mod_cdrs_post_method,POST>>.
 
 [[mod_cdrs_pull_model]]
