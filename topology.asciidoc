@@ -69,9 +69,10 @@ image::images/architecture_mutiple_platform_direct_modified.svg[Pair-to-pair wit
 
 === Platforms via Hub
 
-This topology show all Platforms only connect via a Hub, all communication goes via the Hub.
+This topology has all Platforms only connect via a Hub, all communication goes via the Hub.
 
-TODO Visio diagram
+.Platforms connected via a Hub topology example
+image::images/architecture_hub_simple_modified.svg[Platforms connected via a Hub topology example]
 
 === Platforms via Hub and direct
 
@@ -81,4 +82,5 @@ The Hub might not yet support new functionality.
 The Platforms use a custom module for some new project, which is not supported by the Hub.
 etc.
 
-TODO Visio diagram
+.Platforms connected via a Hub and directly topology example
+image::images/architecture_hub_and_direct_modified.svg[Platforms connected via a Hub and directly topology example]
