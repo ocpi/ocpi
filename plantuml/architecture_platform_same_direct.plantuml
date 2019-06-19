@@ -4,6 +4,10 @@ skinparam agent {
 	roundCorner 8
 }
 
+skinparam rectangle {
+	roundCorner 8
+}
+
 left to right direction
 
 rectangle PLATFORM as MSPPP {
