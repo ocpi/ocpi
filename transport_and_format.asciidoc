@@ -315,18 +315,27 @@ include::examples/transport_and_format_get_token_list_example.json[]
 [[transport_and_format_message_routing]]
 ==== Message Routing Headers
 
-When developement of OCPI was started, it was designed for peer-to-peer communication between CPO and eMSP.
-This has advantages, but also disadvantages. Having to setup and maintain OCPI connections to a lot of parties requires more effort then doing for only a couple of connections.
+When development of OCPI was started, it was designed for peer-to-peer communication between CPO and eMSP.
+This has advantages, but also disadvantages. Having to setup and maintain OCPI connections to a lot of parties requires more effort then doing it for only a couple of connections.
 By communication via one or more Hubs, the amount of OCPI connections is reduced, while still being able to offer roaming to a lot of different parties and customers.
 
 With the introduction of Message Routing, OCPI is now better usable for communication via Hubs.
-With this same functionality it also becomes possible to implement virtual CPO/eMSPs.
-A virtual party is a party that does not have its own back-office, but relies on another parties IT systems.
-This is sometimes also called white-label CPO/eMSP.
-
-When OCPI is used to communicatie via a Hub or to a virtual CPO/eMSP, the following 4 HTTP headers can be used in requests and responses.
 
 All examples/sequence diagrams in this section use the roles CPO and eMSP as examples, they could be switched, it could be other roles.
+
+===== Platforms
+With Message Routing functionality it also becomes possible to support Platforms that host multiple roles.
+A lot of parties are not only CPO or eMSP. Most are both CPO and eMSP.
+Some parties have a platform on which the host service for other CPOs/eMSPs.
+Some parties are themselves CPO and host CPO services for others, but other parties are them selves not a CPO or other role in the EV charging landscape, but do
+provide service to CPOs/eMSPs etc.
+
+===== Message Routing Headers
+When OCPI is used to communicate via a Hub or to/from a Platform, the following four HTTP headers are to be used in requests and responses.
+
+When implementing OCPI these four headers SHALL be implemented.
+This does not mean they always have to be present in all request.
+There are situation/special request where some headers can or shall be omitted, more on this later.
 
 [cols="4,14",options="header"]
 |===
@@ -337,6 +346,7 @@ All examples/sequence diagrams in this section use the roles CPO and eMSP as exa
 |OCPI-from-party-id |'party id' of the connected party this message is sent from.
 |OCPI-from-country-code |'country code' of the connected party this message is sent from.
 |===
+
 
 .Example sequence diagram of a GET for 1 Object from a CPO to an eMSP.
 image::images/sd_get_simple.svg[OCPI Sequence Diagram Hub GET]
@@ -427,36 +437,24 @@ When the Hub sends something to a virtual-party, the 'OCPI-to-' headers are requ
 When the Hub receives something from a virtual-party, the 'OCPI-from-' headers are required.
 
 
-====== Virtual-party to virtual-party (without Hub)
+====== Party to Party (without Hub)
 
 This table contains the description of which headers are required to be used for which message when a request is sent
-directly from one platform provider to another platform provider for the virtual parties they provide services for, without a Hub in between.
+directly from one platform provider to another platform provider, without a Hub in between.
+The headers are addressing the parties to/from which the message is sent, not the platform itself.
 
 [cols="8,10,8,8",options="header"]
 |===
 | Name | Route | TO Headers | FROM Headers
-| Direct request | Requesting platform provider to Receiving platform provider | Receiving-virtual-party | Requesting-virtual-party
-| Direct response | Receiving platform provider to Requesting platform provider | Requesting-virtual-party | Receiving-virtual-party
+| Direct request | Requesting platform provider to Receiving platform provider | Receiving-party | Requesting-party
+| Direct response | Receiving platform provider to Requesting platform provider | Requesting-party | Receiving-party
 |===
 
-.Example sequence diagram of a GET for 1 Object from a Virtual CPO to Virtual MSP directly (without a Hub)
-image::images/sd_virtual_virual_direct.svg[Example sequence diagram of a GET for 1 Object from a Virtual CPO to Virtual MSP directly (without a Hub]
+.Example sequence diagram of a GET for 1 Object from a CPO on one platform to an MSP on another platform directly (without a Hub)
+image::images/sd_platform_to_platform_direct.svg[Example sequence diagram of a GET for 1 Object from a CPO on one platform to an MSP on another platform directly (without a Hub)]
 
 
 ====== Party to Party via Hub
-
-This table contains the description of which headers are required to be used for which message when a request is directly routed to a receiving party (and both parties are real CPO/eMSP, not virtual CPOs/eMSPs).
-
-[cols="8,10,8,8,10",options="header"]
-|===
-| Name | Route | TO Headers | FROM Headers | Description
-| Direct request | Requesting party to Hub | Receiving-party | | FROM headers are optional, Hub knows the requesting party.
-| Direct request | Hub to receiving party | | Requesting-party | TO headers are optional, party knows this request is for the party itself.
-| Direct response | Receiving party to Hub | Requesting-party | | FROM headers are optional, Hub knows the responding party.
-| Direct response | Hub to requesting party | | Receiving-party | TO headers are optional, party knows this response is for the party itself.
-|===
-
-====== Virtual-party to Virtual-Party via Hub
 
 This table contains the description of which headers are required to be used for which message when a request is directly routed from a virtual party to a virtual party.
 In this scenario all headers are needed because the receiving/sending party is not the virtual-party themselves.
@@ -470,7 +468,7 @@ In this scenario all headers are needed because the receiving/sending party is n
 |===
 
 .Example sequence diagram of a GET for 1 Object from a Virtual CPO to Virtual MSP via a Hub
-image::images/sd_virtual_hub_virtual.svg[Example sequence diagram of a GET for 1 Object from a Virtual CPO to Virtual MSP via a Hub]
+image::images/sd_platform_hub_platform.svg[Example sequence diagram of a GET for 1 Object from a Virtual CPO to Virtual MSP via a Hub]
 
 
 ====== Party to Party Broadcast Push
