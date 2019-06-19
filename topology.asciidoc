@@ -1,0 +1,84 @@
+[[supported_topologies]]
+== Supported Topologies
+
+OCPI started out as a bilateral protocol, for pair-to-pair communication.
+Soon parties started to use OCPI via Hubs, but OCPI 2.1.1 and earlier where not designed for that.
+OCPI 2.2 introduces a solution for this: <<transport_and_format.asciidoc#transport_and_format_message_routing,message routing>>.
+
+OCPI 2.2 introduces Platforms that connect via OCPI instead of CPO and eMSP, more on this in: <<terminology.asciidoc#terminology_roles,EV Charging Market Roles>>
+
+=== Pair-to-pair
+
+The simplest topology is a bilateral connection: pair-to-pair between two platforms,
+and in the most simple version each platform only has 1 role.
+
+.Pair-to-pair topology example
+image::images/architecture_direct.svg[Pair-to-pair topology example]
+
+
+=== Multiple Pair-to-pair connections
+
+A more real world topology where multiple parties connect their platforms,
+and each platform only has 1 role.
+(not every party connects with all the other parties with the other role).
+
+.Multiple pair-to-pair topology example
+image::images/architecture_multiple_direct_modified.svg[Multiple pair-to-pair topology example]
+
+
+=== Pair-to-pair multiple the same roles
+
+There are parties that provide for example CPO or eMSP services for other companies.
+So the platform hosts multiple parties with the same role.
+This topology is a bilateral connection: pair-to-pair between two platforms,
+and both platforms can have multiple roles.
+
+.Pair-to-pair with multiple roles topology example
+image::images/architecture_platform_same_direct.svg[Pair-to-pair with multiple roles topology example]
+
+
+=== Pair-to-pair dual roles
+
+There are parties that have dual roles, most of the companies are CPO and eMSP.
+This topology is a bilateral connection: pair-to-pair between two platforms,
+and both platforms have the CPO and the eMSP roles.
+
+.Pair-to-pair with both CPO and eMSP roles topology example
+image::images/architecture_platform_dual_direct.svg[Pair-to-pair with both CPO and eMSP roles topology example]
+
+
+=== Pair-to-pair mixed roles
+
+There are parties that have dual roles, or provide them to other parties and then connect to other companies that do the same.
+This topology is a bilateral connection: pair-to-pair between two platforms,
+and both platforms have multiple different and also the same roles.
+
+.Pair-to-pair with mixed roles topology example
+image::images/architecture_platform_mixed_direct.svg[Pair-to-pair with mixed roles topology example]
+
+
+=== Multiple Pair-to-pair
+
+More a real-world topology when OCPI is used between market parties without a hub, all parties are platforms with multiple roles.
+
+It is easy to notice that the amount of connections between platforms explodes.
+
+.Pair-to-pair with mixed roles topology example
+image::images/architecture_mutiple_platform_direct_modified.svg[Pair-to-pair with mixed roles topology example]
+
+
+=== Platforms via Hub
+
+This topology show all Platforms only connect via a Hub, all communication goes via the Hub.
+
+TODO Visio diagram
+
+=== Platforms via Hub and direct
+
+Not all Platforms will only communicate via a Hub.
+There might be different reasons for Platforms to still have pair-to-pair connections.
+The Hub might not yet support new functionality.
+The Platforms use a custom module for some new project, which is not supported by the Hub.
+etc.
+
+TODO Visio diagram

@@ -12,6 +12,7 @@ my @ocpi_parts = qw( pdf_layout
                      version_history
                      introduction
                      terminology
+                     topology
                      transport_and_format
                      status_codes
                      version_information_endpoint
@@ -34,6 +35,7 @@ foreach my $file (@ocpi_parts) {
             $line =~ s/version_history.asciidoc#//g;
             $line =~ s/introduction.asciidoc#//g;
             $line =~ s/terminology.asciidoc#//g;
+            $line =~ s/topology.asciidoc#//g;
             $line =~ s/transport_and_format.asciidoc#//g;
             $line =~ s/status_codes.asciidoc#//g;
             $line =~ s/version_information_endpoint.asciidoc#//g;

@@ -6,6 +6,7 @@ This branch contains the development of the next version of OCPI, currently it i
  * [__Version History__](version_history.asciidoc)
  * [__Introduction__](introduction.asciidoc)
    - [Terminology and Definitions](terminology.asciidoc)
+   - [Supported Topologies](topology.asciidoc)
  * __Protocol Meta Information__, describes the connections between the parties
    - [Transport and Format](transport_and_format.asciidoc)
    - [Status codes](status_codes.asciidoc)
