@@ -326,6 +326,8 @@ This is sometimes also called white-label CPO/eMSP.
 
 When OCPI is used to communicatie via a Hub or to a virtual CPO/eMSP, the following 4 HTTP headers can be used in requests and responses.
 
+All examples/sequence diagrams in this section use the roles CPO and eMSP as examples, they could be switched, it could be other roles.
+
 [cols="4,14",options="header"]
 |===
 |HTTP Header |Description
@@ -382,7 +384,7 @@ as these pieces of information are specific to only one party and are possibly e
 NOTE: For "Client Owned Objects", the party-id and country-code in the URL segments will still be the original party-id and country-code from the original client sending the Broadcast Push to the Hub.
 
 .Example sequence diagram of a broadcast PUT from a CPO to multiple eMSPs.
-image::images/sd_put_boardcast.svg[OCPI Sequence Diagram Hub PUT]
+image::images/sd_put_boardcast.svg[OCPI Sequence Diagram of a broadcast PUT from a CPO to multiple eMSPs]
 
 
 [[transport_and_format_message_routing_open_routing_request]]
@@ -395,27 +397,23 @@ This has nothing to do with <<transport_and_format_message_routing_broadcast_pus
 as <<transport_and_format_message_routing_broadcast_push,Broadcast Push>> only works for the <<transport_and_format_pull_and_push,Push model>>,
 not for <<transport_and_format_get,GET>> requests.
 
-Open Routing Requests are possible for GET (<<transport_and_format_get_all_for_hub_not_possible,Not GET ALL>>), POST, PUT, PATCH and DELETE.
+Open Routing Requests are possible for GET (<<transport_and_format_get_all_via_hubs,Not GET ALL>>), POST, PUT, PATCH and DELETE.
 
 .Example sequence diagram of a open routing GET from a CPO via the Hub.
-image::images/sd_get_openrouting.svg[OCPI Sequence Diagram Hub GET]
+image::images/sd_get_openrouting.svg[Example sequence diagram of a open routing GET from a CPO via the Hub]
 
-[[transport_and_format_get_all_for_hub_not_possible]]
-====== GET All not possible via Hubs
-It is not possible for a client to ask the Hub for all objects within a certain module from all other parties.
-This is also the case for a ?? TODO Name for CPO/eMSP Service Providers.
+[[transport_and_format_get_all_via_hubs]]
+===== GET All via Hubs
+A client (Receiver) can request a GET on the Sender interface of a module implemented by a Hub.
+To request a GET All from a Hub, the client uses the party-id and country-code of the Hub in the 'OCPI-to-' headers,
+and calls the GET method on a Sender interface of a module.
 
-When the Hub would combine the objects of different parties in one response, the response would also only contain one set of routing headers,
-which would result in the client being unable to determine which objects belong to which party.
+The Hub then can then combine objects from different connected parties and return them to the client.
 
-Examples:
+The client can determine the owner of the objects by looking at the `county_code` and `party_id` in the individual objects returned by the hub.
 
-- An eMSP cannot ask the Hub for all the Locations the Hub knows from all connected CPOs.
-- A CPO cannot ask the Hub for all the Tokens a Hub knows from all connected eMSPs.
-
-To elaborate on the Tokens example: When the Hub would combine all the Tokens it knows and returned them in one (paginated) response to the client,
-there would be Tokens from different eMSPs in the same response. But as there can only be one 'OCPI-from-' headers,
-the CPO would not be able to determine which Token belongs to which (virtual) eMSP.
+.Example sequence diagram of a GET All via the Hub, .
+image::images/sd_get_all.svg[OCPI Sequence Diagram of a GET All via the Hub.]
 
 
 ===== Overview of required/optional routing headers for different scenarios
@@ -536,8 +534,8 @@ not a copy of the X-Request-ID HTTP header taken from the incoming request that 
 
 When a Hub forwards a request to a party, the request SHALL contain the same X-Correlation-ID HTTP header (with the same value).
 
-.Example sequence diagram of the uses of X-Request-ID and X-Correlation-ID in a pair-to-pair topology.
-image::images/unqiue_ids_pair2pair.svg[Example sequence diagram of the uses of X-Request-ID and X-Correlation-ID in a pair-to-pair topology.]
+.Example sequence diagram of the uses of X-Request-ID and X-Correlation-ID in a peer-to-peer topology.
+image::images/unqiue_ids_pair2pair.svg[Example sequence diagram of the uses of X-Request-ID and X-Correlation-ID in a peer-to-peer topology.]
 
 .Example sequence diagram of the uses of X-Request-ID and X-Correlation-ID in a topology with a Hub.
 image::images/unqiue_ids_via_hub.svg[Example sequence diagram of the uses of X-Request-ID and X-Correlation-ID in a topology with a Hub.]
