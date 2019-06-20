@@ -326,12 +326,15 @@ All examples/sequence diagrams in this section use the roles CPO and eMSP as exa
 ===== Platforms
 With Message Routing functionality it also becomes possible to support Platforms that host multiple roles.
 A lot of parties are not only CPO or eMSP. Most are both CPO and eMSP.
+Some parties are doing business in multiple counties, which means to operate with different `country_codes`
 Some parties have a platform on which the host service for other CPOs/eMSPs.
 Some parties are themselves CPO and host CPO services for others, but other parties are them selves not a CPO or other role in the EV charging landscape, but do
 provide service to CPOs/eMSPs etc.
 
+
 ===== Message Routing Headers
-When OCPI is used to communicate via a Hub or to/from a Platform, the following four HTTP headers are to be used in requests and responses.
+When OCPI is used to communicate to/from a Platform or via a Hub (which is almost always the case)
+the following four HTTP headers are to be added to any request/response to allow message to be routed.
 
 When implementing OCPI these four headers SHALL be implemented.
 This does not mean they always have to be present in all request.
@@ -353,14 +356,6 @@ image::images/sd_get_simple.svg[OCPI Sequence Diagram Hub GET]
 
 .Example sequence diagram of a PUT via 2 Hubs.
 image::images/sd_put_2_hubs.svg[OCPI Sequence Diagram Hub PUT with 2 Hubs]
-
-
-===== Omitting from address in responses
-
-When a party responds to a request (via a Hub), and it has been a request that contained the 'OCPI-to-' headers,
-the 'OCPI-from-' headers MAY be omitted. The requesting party knows to which party the request was sent.
-It might be good practice to always provide the 'OCPI-from-' headers in a response though,
-just to be complete and to give the requesting party a chance to validate if the request has been routed correctly by the Hub.
 
 
 [[transport_and_format_message_routing_broadcast_push]]
@@ -412,6 +407,7 @@ Open Routing Requests are possible for GET (<<transport_and_format_get_all_via_h
 .Example sequence diagram of a open routing GET from a CPO via the Hub.
 image::images/sd_get_openrouting.svg[Example sequence diagram of a open routing GET from a CPO via the Hub]
 
+
 [[transport_and_format_get_all_via_hubs]]
 ===== GET All via Hubs
 A client (Receiver) can request a GET on the Sender interface of a module implemented by a Hub.
@@ -456,15 +452,15 @@ image::images/sd_platform_to_platform_direct.svg[Example sequence diagram of a G
 
 ====== Party to Party via Hub
 
-This table contains the description of which headers are required to be used for which message when a request is directly routed from a virtual party to a virtual party.
-In this scenario all headers are needed because the receiving/sending party is not the virtual-party themselves.
+This table contains the description of which headers are required to be used for which message when a request is routed from one platform to another platform via a Hub.
+
 [cols="8,10,8,8",options="header"]
 |===
-| Name | Route | TO Headers | FROM Headers | Description
-| Direct request | Requesting party to Hub | Receiving-virtual-party | Requesting-virtual-party
-| Direct request | Hub to receiving party | Receiving-virtual-party | Requesting-virtual-party
-| Direct response | Receiving party to Hub | Requesting-virtual-party | Receiving-virtual-party
-| Direct response | Hub to requesting party | Requesting-virtual-party | Receiving-virtual-party
+| Name | Route | TO Headers | FROM Headers
+| Direct request | Requesting platform to Hub | Receiving-party | Requesting-party
+| Direct request | Hub to receiving platform | Receiving-party | Requesting-party
+| Direct response | Receiving platform to Hub | Requesting-party | Receiving-party
+| Direct response | Hub to requesting platform | Requesting-party | Receiving-party
 |===
 
 .Example sequence diagram of a GET for 1 Object from a Virtual CPO to Virtual MSP via a Hub
@@ -475,41 +471,48 @@ image::images/sd_platform_hub_platform.svg[Example sequence diagram of a GET for
 
 This table contains the description of which headers are required to be used for which message when a request is a
 <<transport_and_format_message_routing_broadcast_push,Broadcast Push>> to the Hub.
-[cols="8,10,8,8,10",options="header"]
-|===
-| Name | Route | TO Headers | FROM Headers | Description
-| Broadcast request | Requesting party to Hub | Hub | | FROM headers are optional, Hub knows the requesting party.
-| Broadcast response | Hub to requesting party | | Hub | TO headers are optional, party knows this response is for the party itself.
-| Broadcast request | Hub to receiving party | | Hub | TO headers are optional, party knows this request is for the party itself.
-| Broadcast response | Receiving party to Hub | Hub | | FROM headers are optional, Hub knows the responding party.
-|===
-
-====== Virtual-party to Virtual-Party Broadcast Push
-
-This table contains the description of which headers are required to be used for which message when a request is to be broadcasted by the Hub and both parties are virtual parties.
-For a broadcast, the TO headers in the request from the requesting party to the Hub should contain the information of the Hub.
 [cols="8,10,8,8",options="header"]
 |===
-| Name | Route | TO Headers | FROM Headers | Description
-| Broadcast request | Requesting party to Hub | Hub | Requesting-virtual-party
-| Broadcast response | Hub to requesting party | Requesting-virtual-party | Hub
-| Broadcast request | Hub to receiving party | Receiving-virtual-party | Hub
-| Broadcast response | Receiving party to Hub | Hub | Receiving-virtual-party
+| Name | Route | TO Headers | FROM Headers
+| Broadcast request | Requesting platform to Hub | Hub | Requesting-party
+| Broadcast response | Hub to requesting platform | Requesting-party | Hub
+| Broadcast request | Hub to receiving platform | Receiving-party| Hub
+| Broadcast response | Receiving platform to Hub | Hub | Receiving-party
 |===
+
+.Example sequence diagram of a GET for 1 Object from a Virtual CPO to Virtual MSP via a Hub
+image::images/sd_platform_hub_platform.svg[Example sequence diagram of a GET for 1 Object from a Virtual CPO to Virtual MSP via a Hub]
 
 
 ====== Party to Party Open Routing Request
 
 This table contains the description of which headers are required to be used for which message when <<transport_and_format_message_routing_open_routing_request,the routing of a request needs to be determined by the Hub itself>>.
 For an Open Routing Request, the TO headers in the request from the requesting party to the Hub MUST be omitted.
-[cols="8,10,8,8,10",options="header"]
+[cols="8,10,8,8",options="header"]
 |===
-| Name | Route | TO Headers | FROM Headers | Description
-| Open request | Requesting party to Hub | | | Omitting the TO headers indicates to the Hub that the Hub has to figure out the routing itself.
-| Open request | Hub to receiving party | | Requesting-party | TO headers can be omitted when the receiving party is NOT a virtual party.
-| Open response | Receiving party to Hub | Requesting-party | Receiving-party | FROM headers can be omitted when the receiving party is NOT a virtual party.
-| Open response | Hub to requesting party | Requesting-party | Receiving-party | TO headers can be omitted when the requesting party is NOT a virtual party.
+| Name | Route | TO Headers | FROM Headers
+| Open request | Requesting platform to Hub | | Requesting-party
+| Open request | Hub to receiving platform | Receiving-party | Requesting-party
+| Open response | Receiving platform to Hub | Requesting-party | Receiving-party
+| Open response | Hub to requesting platform | Requesting-party | Receiving-party
 |===
+
+.Example sequence diagram of a open routing between platforms  GET from a CPO via the Hub
+image::images/sd_get_openrouting_platform.svg[Example sequence diagram of a open routing between platforms  GET from a CPO via the Hub]
+
+===== GET All via Hubs
+This table contains the description of which headers are required to be used when doing a <<transport_and_format_get_all_via_hubs,GET All via a Hub>>.
+For a GET All via Hub: The HTTP Method SHALL be GET, The call is to a Senders Interface, the TO headers in the request to the Hub has to be set to the Hub.
+
+[cols="8,10,8,8",options="header"]
+|===
+| Name | Route | TO Headers | FROM Headers
+| GET All via Hubs request | Requesting platform to Hub | Hub | Requesting-party
+| GET All via Hubs response | Hub to receiving platform | Requesting-party | Hub
+|===
+
+.Example sequence diagram of a GET All via the Hub, .
+image::images/sd_get_all_platform.svg[OCPI Sequence Diagram of a GET All via the Hub.]
 
 
 [[transport_and_format_unique_messageg_ids]]
