@@ -1,6 +1,6 @@
 This repository contains the OCPI specification, latest release: OCPI 2.1.1-d2
 
-The branch with the latest fixes to the 2.1.1 documentation is [`release-2.1.1-bugfixes`](https://github.com/ocpi/ocpi/tree/release-2.1.1-bugfixes)
+The branch with the latest fixes to the 2.1.1-d2 documentation is [`release-2.1.1-bugfixes`](https://github.com/ocpi/ocpi/tree/release-2.1.1-bugfixes)
 
 The `master` branch always contains the latest official release.
 
