@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 command -v perl >/dev/null 2>&1 || { echo >&2 "I require perl but it's not installed.  Aborting."; exit 1; };
 command -v pandoc >/dev/null 2>&1 || { echo >&2 "I require pandoc >1.9.2 but it's not installed. Visit http://pandoc.org/.  Aborting."; exit 1; };
 
@@ -7,7 +8,7 @@ alias pandoc='pandoc +RTS -V0 -RTS'
 #############################################
 # adjust these before you release
 PROTOCOL_VERSION="2.1.1";
-DOCUMENT_VERSION="${PROTOCOL_VERSION}-d2-RC1";
+DOCUMENT_VERSION="${PROTOCOL_VERSION}-d2";
 OUTFILE="OCPI_${DOCUMENT_VERSION}.pdf";
 RELEASE_DATE=$(date +%d.%m.%Y);
 RELEASE_DIR=${DOCUMENT_VERSION};
