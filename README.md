@@ -1,5 +1,7 @@
-This branch contains the development of the next version of OCPI, currently it is expected to be OCPI 2.2.
+This branch contains the development of OCPI 3.0
 
+
+TODO Update readme.
 
 ## Contents
 
@@ -52,15 +54,6 @@ Release 2.2:
 - Credit CDRs
 - Improved Reservation support (Cancel & Tariff)
 - Lots of minor improvements
-
-
-__Planned releases:__
-
-Release 3.0:
-
-- ISO 15118 Plug&Charge
-- Eichrecht support
-- Performance improvements
 
 
 __Building Process__:
