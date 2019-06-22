@@ -1,0 +1,6 @@
+[[architecture]]
+== Architecture
+
+This section will describe the EV Charging landscape, by using the ECISS Architecture diagrams.
+
+TODO

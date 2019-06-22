@@ -1,0 +1,17 @@
+[[uc_smartcharging]]
+== Smart Charging
+
+This section will contains the Smart Charging Use Cases.
+
+TODO
+
+=== Setting a Charging Profile
+
+
+=== Getting the Active Charging Profile
+
+
+
+=== EV Driver changes his charging preferences
+
+

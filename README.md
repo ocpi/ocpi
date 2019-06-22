@@ -3,28 +3,28 @@ This branch contains the development of the next version of OCPI, currently it i
 
 ## Contents
 
- * [__Version History__](version_history.asciidoc)
- * [__Introduction__](introduction.asciidoc)
-   - [Terminology and Definitions](terminology.asciidoc)
-   - [Supported Topologies](topology.asciidoc)
+ * [__Version History__](_common/version_history.asciidoc)
+ * [__Introduction__](A_introduction/introduction.asciidoc)
+   - [Terminology and Definitions](A_introduction/terminology.asciidoc)
+   - [Supported Topologies](A_introduction/topology.asciidoc)
  * __Protocol Meta Information__, describes the connections between the parties
-   - [Transport and Format](transport_and_format.asciidoc)
-   - [Status codes](status_codes.asciidoc)
-   - [Version information endpoint](version_information_endpoint.asciidoc)
-   - [Credentials & registration](credentials.asciidoc)
+   - [Transport and Format](C_transport_modules/transport_and_format.asciidoc)
+   - [Status codes](C_transport_modules/status_codes.asciidoc)
+   - [Version information endpoint](C_transport_modules/version_information_endpoint.asciidoc)
+   - [Credentials & registration](C_transport_modules/credentials.asciidoc)
  * __Overview of Modules__, each section describes one module.
-   - [Locations](mod_locations.asciidoc)
-   - [Sessions](mod_sessions.asciidoc)
-   - [CDRs](mod_cdrs.asciidoc)
-   - [Tariffs](mod_tariffs.asciidoc)
-   - [Tokens](mod_tokens.asciidoc)
-   - [Commands](mod_commands.asciidoc)
-   - [Charging Profiles](mod_charging_profiles.asciidoc)
-   - [Hub Client Info](mod_hub_client_info.asciidoc)
+   - [Locations](C_transport_modules/mod_locations.asciidoc)
+   - [Sessions](C_transport_modules/mod_sessions.asciidoc)
+   - [CDRs](C_transport_modules/mod_cdrs.asciidoc)
+   - [Tariffs](C_transport_modules/mod_tariffs.asciidoc)
+   - [Tokens](C_transport_modules/mod_tokens.asciidoc)
+   - [Commands](C_transport_modules/mod_commands.asciidoc)
+   - [Charging Profiles](C_transport_modules/mod_charging_profiles.asciidoc)
+   - [Hub Client Info](C_transport_modules/mod_hub_client_info.asciidoc)
 
  * __Generic Types__, describing all data types that are used by multiple objects
-   - [Types](types.asciidoc)
- * [__Changelog__](changelog.asciidoc)
+   - [Types](C_transport_modules/types.asciidoc)
+ * [__Changelog__](C_transport_modules/changelog.asciidoc)
 
 __Current versions:__
 
@@ -79,7 +79,7 @@ The Java files are annotated so the Swagger tools can generate Swagger documenta
 The Swagger documentation is then converted to asciidoc. 
 This is only the Object/Class/Type/Enum definitions, not all the rest of the text.
 
-![build process diagram](images/specification_build_process.png "build process")
+![build process diagram](A_introduction/images/specification_build_process.png "build process")
 
 The Plantuml is no longer converted to PNG images, but the SVG, making them much better readable, and even searchable in the PDF.
 

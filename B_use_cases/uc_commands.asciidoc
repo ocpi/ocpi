@@ -1,0 +1,105 @@
+[[uc_commands]]
+== Commands
+
+This section will contains the Commands Use Cases.
+
+TODO
+
+
+_These examples use OCPP 1.6 based commands between CPO and Charge Point, but that is not a requirement for OCPI.
+
+
+=== Starting a new session using an RFID Token
+
+Example of a `START_SESSION` that is accepted and results in a new Session.
+
+.START_SESSION successful
+image::images/command_start_session_succesful.svg[START_SESSION successful]
+
+
+=== Starting a new session with whitelist NEVER Token
+
+Example of a `START_SESSION` with a Token that is Whitelist: NEVER.
+
+The CPO does not check the Token in the START_SESSION. If needed, the Charge Point does an OCPP Authorize request.
+In case of a Token whitelist NEVER or ALLOWED_OFFLINE, the CPO does an <<mod_tokens.asciidoc#mod_tokens_real-time_authorization,realtime authorization>>.
+
+.START_SESSION whitelist NEVER
+image::images/command_start_session_whitelist_never.svg[START_SESSION whitelist NEVER]
+
+
+=== Starting a new session using an application Token
+
+Example of a `START_SESSION` that is accepted and results in a new Session.
+
+.START_SESSION successful
+image::images/command_start_session_succesful.svg[START_SESSION successful]
+
+The following examples try to give insight into the message flow and the asynchronous nature of the OCPI Commands.
+
+Example of a `START_SESSION` that is accepted, but no new Session is started because EV not plugged in before end of time-out.
+This is an example for Charge Point that allows a remote start when the cable is not yet plugged in.
+Some Charge Points even require this, there might, for example, be a latch in front of the socket to prevent vandalism.
+
+.START_SESSION failed
+image::images/command_start_session_timeout.svg[START_SESSION failed]
+
+
+Example of a `START_SESSION` that is accepted, but no new Session is started because the EV is not plugged in,
+and this Charge Point does not allow a remote start without a cable already being plugged in.
+
+.START_SESSION failed
+image::images/command_start_session_no_cable.svg[START_SESSION failed]
+
+
+
+=== Stopping a session
+
+
+=== Making a reservation
+EV driver wants to make a reservation.
+
+Example of a successful `RESERVE_NOW`.
+
+.Successful RESERVE_NOW
+image::images/command_reservenow_successful.svg[Successful RESERVE_NOW]
+
+Example of a `RESERVE_NOW` that is rejected by the Charge Point.
+
+.RESERVE_NOW rejected by Charge Point
+image::images/command_reservenow_rejected.svg[RESERVE_NEW rejected by Charge Point]
+
+
+=== Canceling a reservation
+EV driver wants to cancel his/her reservation.
+
+
+=== CPO Cancels a reservation
+Issue with the Charge Point, CPO has to cancel the reservation.
+
+
+Reservation canceled by the CPO. +
+OCPI makes it possible for a CPO to cancel a reservation.
+This is not to be taken lightly. When a driver makes a reservation of a Charge Point/EVSE, he/she wants to be sure to have a charging location.
+So if the CPO cancel the reservation, the driver will for sure not like it.
+But there are some circumstances where the CPO is forced to cancel a reservation.
+For example: Charge Point has become defect, or the CPO is notified of ongoing roadworks which makes the Charge Point unreachable etc.
+
+To Cancel a reservation the CPO call the Senders interface with the same URL as was given by the Sender (eMSP) when the `RESERVE_NOW` command was send.
+
+
+The sequence diagram below continues after the sequence diagram above.
+
+.Reservation canceled by the CPO
+image::images/command_reservenow_canceled_by_cpo.svg[Reservation canceled by the CPO]
+
+
+=== Unlocking a connector
+
+Example of a `UNLOCK_CONNECTOR` that fails because the Location is not known by the CPO.
+
+.UNLOCK_CONNECTOR Unknown Location
+image::images/command_unlock_unknow_location.svg["UNLOCK_CONNECTOR Unknown Location"]
+
+
+

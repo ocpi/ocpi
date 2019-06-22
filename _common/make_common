@@ -1,0 +1,14 @@
+TOOL = asciidoctor-pdf
+PLANTUML_TOOL = java -Xms256m -Xmx512m -jar ../scripts/plantuml.jar -tsvg -nometadata -charset UTF-8
+
+STYLE_DIR = ../_common/style
+THEME = -a pdf-style=theme.yml
+STYLES_DIR = -a pdf-stylesdir=$(STYLE_DIR)
+STYLING = $(THEME) $(STYLES_DIR)
+
+MERGE = merge_$(DOCUMENT_NAME).pl
+SOURCE = ocpi_merged
+INTERMEDIATE_DIR = ../generated/$(DOCUMENT_NAME)
+ASCIIDOC = $(INTERMEDIATE_DIR)/$(SOURCE).adoc
+TARGET_DIR = ../releases/$(DOCUMENT_VERSION)
+TARGET = $(TARGET_DIR)/OCPI_$(VERSION)_$(DOCUMENT_NAME).pdf

@@ -1,0 +1,18 @@
+:toc: macro
+:toclevels: 4
+:sectnumlevels: 4
+:numbered:
+:pagenums:
+:title-separator: |
+[separator=:]
+:year: 2019
+:revision_date: 06-21-{year}
+:document_header: OCPI {document_version}
+
+= OCPI {ocpi_version}: {ocpi_document}
+document version {document_version}, {revision_date}
+github.com/ocpi
+
+<<<
+:toc:
+

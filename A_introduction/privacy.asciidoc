@@ -1,0 +1,6 @@
+[[privacy]]
+== Privacy
+
+This section will describe the privacy concerns that have to be thought of/take into account when implementing OCPI 3.0.
+
+TODO

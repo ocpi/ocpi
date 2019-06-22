@@ -1,0 +1,19 @@
+[[uc_authorization]]
+== Authorization
+
+This section will contains the Authorization Use Cases.
+
+TODO
+
+=== Authorization use whitelist
+
+
+
+=== Authorization use real-time authorization
+
+
+
+=== Authorization use whitelist when offline
+
+
+

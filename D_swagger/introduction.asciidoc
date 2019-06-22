@@ -1,0 +1,14 @@
+
+[[introduction]]
+== Introduction
+
+This document introduces the OCPI Swagger files.
+
+The Swagger files can be used by implementers to generate code which will kick-start the development of an OCPI implementation
+
+=== Swagger / OpenApi
+
+The OCPI Swagger files are in OpenApi X.X format.
+
+TODO
+
