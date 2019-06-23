@@ -11,6 +11,8 @@ _ihomer_ |Release Candidate 1 of OCPI 2.2: Adds Smart Charging Profiles, Hub Sup
 _ihomer_ |First draft of OCPI 2.2: contains lots of minor changes, some new features, but still misses Smart Charging Profiles and Hub Support.
         Proposals for the last 2 are ready, but still need some work and need to be integrated into this document.  +
         See <<changelog.asciidoc#changelog_changelog,changelog>>
+|2.1.1-d2 |	21-06-2019 |Robert de Leeuw +
+                        ihomer |Fixes the command module documentation, fixes a lot of examples, lots of small textual improvements: see <<changelog.asciidoc#changelog_changelog,changelog>>
 |2.1.1 |08-06-2017 | Robert de Leeuw +
                   _ihomer_  |Fixed 4 bugs found in OCPI 2.1, lots of small textual improvements: see <<changelog.asciidoc#changelog_changelog,changelog>>
 |2.1 |08-04-2016 | Robert de Leeuw +
