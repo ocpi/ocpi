@@ -20,7 +20,7 @@ for jsonfile in *.json; do
     ((++FILE_COUNT));
 done
 
-echo "JSON files checked: $FILE_COUNT, errors: $ERROR_COUNT";
+echo "JSON files checked: $FILE_COUNT, errors: $ERROR_COUNT!";
 echo ""
 
 exit $RETVAL
