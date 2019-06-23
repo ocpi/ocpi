@@ -1,0 +1,16 @@
+@startuml
+
+skinparam rectangle {
+	roundCorner 8
+}
+
+left to right direction
+
+agent SCSP
+agent eMSP
+agent CPO
+
+SCSP <--> eMSP: OCPI
+eMSP <--> CPO: OCPI
+
+@enduml

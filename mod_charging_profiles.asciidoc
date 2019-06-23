@@ -7,7 +7,7 @@
 With the ChargingProfiles module, parties (MSPs) can send (Smart) Charging Profiles to a Location/EVSE.
 It is also possible to request the 'ActiveChargingProfile' from a Location/EVSE.
 
-The ActiveChargingProfile is the charging schedule as calculated by the EVSE.
+The ActiveChargingProfile is the charging profile as calculated by the EVSE.
 It is the result of the calculation of all smart charging inputs present in the EVSE, also Local Limits might be taken into account.
 
 The ChargingProfile is similar to the concept of Charging Profiles in OCPP,
@@ -35,22 +35,105 @@ Local laws might oblige explicit consent from the driver etc.
 
 *Module dependency:* <<mod_sessions.asciidoc#mod_sessions_sessions_module,Sessions module>>
 
+
+[[mod_charging_profiles_toplogies]]
+=== Smart Charging Topologies
+
+There are different Smart Charging Topologies possible. Which topology is/can be used depends on the contracts between different parties.
+
+NOTE: Care has to be taken to prevent mixing the different topologies.
+When multiple parties start sending Charging Profiles, the resulting charging speed might be unpredictable.
+In case of OCPP Charge Points, the result will be the minimum of all the Charging Profiles, resulting in a slower than needed charging speed.
+
+
+[[mod_charging_profiles_toplogies_emsp]]
+==== The eMSP generates ChargingProfiles.
+
+The most straight forward topology, the eMSP generates ChargingProfiles for its own customers, no SCSP is involved.
+The eMSP 'owns' the customer, so if the eMSP knows that its customer agrees with the eMSP manipulating the charging speed, the eMSP is free to do this.
+
+.Smart Charging Topology: The eMSP generates ChargingProfiles.
+image::images/topology_sc_emsp.svg[Smart Charging Topology: The eMSP generates ChargingProfiles]
+
+[cols="1,10",options="header"]
+|===
+| Interface | Role
+| Sender   | eMSP
+| Receiver | CPO
+|===
+
+
+[[mod_charging_profiles_toplogies_emsp_scspp]]
+==== The eMSP delegated Smart Charging to SCSP.
+
+In the topology, the eMSP has delegated the generation of ChargingProfiles to a SCSP.
+For this, the eMSP and SCSP have agreed to use OCPI as the interface.
+
+The eMSP 'owns' the customer, so if the eMSP knows that its customer agrees with the eMSP manipulating the charging speed, the eMSP is free to do this.
+The eMSP can forward OCPI <<mod_sessions.asciidoc#mod_sessions_session_object,Session>> Objects to the SCSP.
+the SCSP can act on the received/updated <<mod_sessions.asciidoc#mod_sessions_session_object,Session>> Objects, by sending Charging Profile commands via the eMSP to the CPO.
+
+The eMSP and SCSP have to take into account that they have to oblige to local privacy laws when exchanging information about eMSPs customers.
+
+From the CPO point of view, this topology is similar to the one above, the CPO will not know the difference.
+
+.Smart Charging Topology: The eMSP generates ChargingProfiles.
+image::images/topology_scsp_emsp.svg[Smart Charging Topology: The eMSP generates ChargingProfiles]
+
+[cols="3,1,10",options="header"]
+|===
+| Connection   | Interface | Role
+| SCSP - eMSP | Sender   | SCSP
+| SCSP - eMSP | Receiver | eMSP
+| eMSP - CPO  | Sender   | eMSP
+| eMSP - CPO  | Receiver | CPO
+|===
+
+
+[[mod_charging_profiles_toplogies_cpo_scspp]]
+==== The CPO delegated Smart Charging to SCSP.
+
+In this topology, the CPO has delegated the generation of ChargingProfiles to a SCSP.
+For this, the CPO and SCSP have agreed to use OCPI as the interface.
+
+The CPO 'owns' the EVSE on which charging happens.
+As the CPO does not 'own' the customers, the CPO needs to make sure the EV driver knows that the charging speed might not
+be the maximum the driver has expected, this could be something as simple as a sticker on the Charge Point,
+or might even be part of the tariff text.
+
+The CPO might generate ChargingProfiles themselves, but as OCPI is then not used this is not part of this document.
+
+The CPO can forward OCPI <<mod_sessions.asciidoc#mod_sessions_session_object,Session>> Objects to the SCSP.
+the SCSP can act on the received/updated <<mod_sessions.asciidoc#mod_sessions_session_object,Session>> Objects, by sending Charging Profile commands to the CPO.
+
+The CPO and SCSP have to take into account that they have to oblige to local privacy laws when exchanging information about eMSPs customers.
+
+In this topology, the eMSP is not aware that the CPO is using OCPI to receive Charging Profiles from the SCSP.
+
+.Smart Charging Topology: The eMSP generates ChargingProfiles.
+image::images/topology_scsp_cpo.svg[Smart Charging Topology: The eMSP generates ChargingProfiles]
+
+[cols="3,1,10",options="header"]
+|===
+| Interface | Role
+| Sender   | SCSP
+| Receiver | CPO
+|===
+
+
 [[mod_charging_profiles_use_cases]]
 === Use Cases
 
-TODO
+This module is designed to support the following use cases, for all the above mentioned topologies.
 
-- An SCSP sends a ChargingProfile to manipulate an ongoing charging session of one of its customers.
-- An SCSP request the planned ChargingProfile for an ongoing charging session for a customer of the eMSP.
-- An SCSP request to remove the set ChargingProfile from an ongoing charging session for a customer of the eMSP.
+- The eMSP/SCSP sends/updates a ChargingProfile to manipulate an ongoing charging session.
+- The eMSP/SCSP request the ActiveChargingProfile for an ongoing charging session.
+- The eMSP/SCSP request to remove the set ChargingProfile from an ongoing charging session.
 - The CPO updates the eMSP/SCSP of changes to an ActiveChargingProfile.
 
-- Energy contract meenemen naar publieke laadpaal
--
 
 [[mod_charging_profiles_flow]]
 === Flow
-
 
 The ChargingProfile creation is a request to activate a charging profile on a running charging session.
 
@@ -66,7 +149,7 @@ This response doesn't always mean that the ChargingProfile will be executed.
 The CPO will forward the result in a new POST request to the Sender (Typically SCSP) ChargingProfile interface.
 
 The Sender (Typically SCSP) can send the Charging Profile to the EVSE via the CPO by using the <<mod_charging_profiles_cpo_put_method,CPO PUT method>> for an ongoing session.
-The Sender can request the current schedule the EVSE has calculated, based on different inputs, and is planned to be used for the ongoing session by calling the <<mod_charging_profiles_cpo_get_method,CPO GET method>>.
+The Sender can request the current profile the EVSE has calculated, based on different inputs, and is planned to be used for the ongoing session by calling the <<mod_charging_profiles_cpo_get_method,CPO GET method>>.
 The Sender has the ability to remove the Charging Profile for the session by calling the <<mod_charging_profiles_cpo_delete_method,CPO DELETE method>>
 
 When the Sender has (at least once) successfully send a Charging Profile for an ongoing charging session,
@@ -76,14 +159,76 @@ by calling the <<mod_charging_profiles_msp_put_method,MSP PUT method>>
 The Receiver can cancel an existing ChargingProfile, it can let the eMSP know by calling the <<mod_charging_profiles_msp_put_method,MSP PUT method>>
 
 
-TODO Added SD examples for:
+==== Example of a SetChargingProfile send by the Sender (typically the eMSP or SCSP)
 
-- GetActiveChargingProfile
-- SetChargingProfile
-- ClearChargingProfile
-- UpdateActiveChargingProfile
+When a new <<mod_sessions.asciidoc#mod_sessions_session_object,Session>> is started,
+or when an update to an existing <<mod_sessions.asciidoc#mod_sessions_session_object,Session>> is available,
+the CPO sends the Session object to the eMSP or SCSP.
+The eMSP or SCSP calculates a Charging Profile and sends it to the CPO by calling the Charging Profiles <<mod_charging_profiles_cpo_put_method,PUT>> interface.
 
-TODO Add examples
+The CPO responds to the eMSP or SCSP, the response body will contain the result of the request,
+acknowledging the request was understood an can be forwarded to the Charge Point.
+
+The CPO send the requests to the Charge Point.
+When the CPO receives a response from the Charge Point,
+that result is send to the eMSP or SCSP by call the POST method, on the URL provided by the eMSP of SCSP in the <<mod_charging_profiles_cpo_put_method,PUT>> request.
+
+.Example of a SetChargingProfile.
+image::images/sd_charging_profile_set.svg[Example of a SetChargingProfile]
+
+
+==== Example of a SetChargingProfile send by the SCSP via the eMSP
+
+When a new Session is started, the CPO sends the Session object to the eMSP, the eMSP forwards the Session object to the SCSP.
+
+When a new <<mod_sessions.asciidoc#mod_sessions_session_object,Session>> is started,
+or when an update to an existing <<mod_sessions.asciidoc#mod_sessions_session_object,Session>> is available,
+the CPO sends the Session object to the eMSP, the eMSP forwards the <<mod_sessions.asciidoc#mod_sessions_session_object,Session>> Object to the SCSP.
+The SCSP calculates a Charging Profile and sends it to the eMSP by calling the Charging Profiles <<mod_charging_profiles_cpo_put_method,PUT>> interface of the eMSP,
+the eMSP forwards it to the CPO by calling the Charging Profiles <<mod_charging_profiles_cpo_put_method,PUT>> interface of the CPO.
+
+The CPO responds to the eMSP, the response body will contain the result of the request,
+acknowledging the request was understood an can be forwarded to the Charge Point.
+The eMSP forwards this reponse to the SCSP.
+
+The CPO send the requests to the Charge Point.
+When the CPO receives a response from the Charge Point,
+that result is send to the eMSP by call the POST method, on the URL provided by the eMSP in the <<mod_charging_profiles_cpo_put_method,PUT>> request of the eMSP.
+The eMSP forwards this result to the the URL provided by the SCSP in the <<mod_charging_profiles_cpo_put_method,PUT>> request of the SCSP.
+
+.Example of a SetChargingProfile via the MSP.
+image::images/sd_charging_profile_set_via_msp.svg[Example of a SetChargingProfile via the MSP]
+
+
+==== Example of a GetActiveChargingProfile send by the Sender (typically the eMSP or SCSP)
+
+TODO
+
+
+==== Example of a GetActiveChargingProfile send by the SCSP via eMSP
+
+TODO
+
+
+====  Example of a ClearChargingProfile send by the Sender (typically the eMSP or SCSP)
+
+TODO
+
+
+====  Example of a ClearChargingProfile send by the SCSP via the eMSP
+
+TODO
+
+
+====  Example of a UpdateActiveChargingProfile send by the Receiver (typically the CPO)
+
+TODO
+
+
+====  Example of a UpdateActiveChargingProfile send by the Receiver (typically the CPO) via the eMSP
+
+TODO
+
 
 
 [[mod_charging_profiles_interfaces_and_endpoints]]
@@ -97,15 +242,13 @@ and an Sender interface to receive the response from the Location/EVSE asynchron
 
 Typically implemented by market roles like: CPO.
 
-ChargingProfiles is a <<transport_and_format.asciidoc#transport_and_format_client_owned_object_push,Client Owned Object>>, so the end-points need to contain the required extra fields: {<<credentials.asciidoc#credentials_credentials_object,party_id>>} and {<<credentials.asciidoc#credentials_credentials_object,country_code>>}.
-
 Example endpoint structures:
 
 [cols="2,12",options="header"]
 |===
 |Method |Description
 
-|<<mod_charging_profiles_cpo_get_method,GET>> |Gets the active ChargingProfile for a specific charging session.
+|<<mod_charging_profiles_cpo_get_method,GET>> |Gets the ActiveChargingProfile for a specific charging session.
 |POST |n/a
 |<<mod_charging_profiles_cpo_put_method,PUT>> |Creates/updates a ChargingProfile for a specific charging session.
 |PATCH |n/a
@@ -141,7 +284,7 @@ The following parameters can be provided as URL segments.
 |response_url |<<types.asciidoc#types_url_type,URL>> |1 |URL that the <<mod_charging_profiles_active_charging_profiles_result_object,ActiveChargingProfileResult>> POST should be send to. This URL might contain an unique ID to be able to distinguish between GET ActiveChargingProfile requests.
 |===
 
-NOTE: duration: Use this wisely. Asking for a schedule hours in advance might not be very useful.
+NOTE: duration: Use this wisely. Asking for a profile hours in advance might not be very useful.
 But will use more mobile data then really useful. Duration of half hour,
 one full hour can be really useful when checking the profile calculated by the Charging Station.
 Longer might be less useful as lot can change during the time that will have influence on the profile.
@@ -270,8 +413,8 @@ The Sender interface receives the asynchronous responses.
 
 |GET |n/a
 |<<mod_charging_profiles_msp_post_method,POST>> |Receive the asynchronous response from the Charge Point.
-|<<mod_charging_profiles_msp_put_method,PUT>> |Receiver (typically CPO) can send an updated active charging profile when other inputs have made changes to existing schedule.
-        When the Receiver (typically CPO) sends a update schedule to the EVSE, for an other reason then the Sender (Typically SCSP) asking, the Sender SHALL post an update to this interface.
+|<<mod_charging_profiles_msp_put_method,PUT>> |Receiver (typically CPO) can send an updated ActiveChargingProfile when other inputs have made changes to existing profile.
+        When the Receiver (typically CPO) sends a update profile to the EVSE, for an other reason then the Sender (Typically SCSP) asking, the Sender SHALL post an update to this interface.
         When a local input influence the ActiveChargingProfile in the EVSE AND the Receiver (typically CPO) is made aware of this, the Receiver SHALL post an update to this interface.
 |PUT |n/a
 |PATCH |n/a
@@ -367,7 +510,7 @@ The following parameters can be provided as URL segments.
 [[mod_charging_profiles_cpo_put_request_body]]
 ===== Request Body
 
-The body contains the update ActiveChargingProfile, The ActiveChargingProfile is the charging schedule as calculated by the EVSE.
+The body contains the update ActiveChargingProfile, The ActiveChargingProfile is the charging profile as calculated by the EVSE.
 
 [cols="4,1,12",options="header"]
 |===
@@ -414,7 +557,7 @@ It contains the result of the GET (GetActiveChargingProfile) request send by the
 |===
 |Property |Type |Card. |Description
 |result | <<mod_charging_profiles_resulttype_enum,ChargingProfileResultType>> | 1 | The EVSE will indicate if it was able to process the request for the ActiveChargingProfile
-|schedule | <<mod_charging_profiles_active_charging_profile_class,ActiveChargingProfile>> | ? | The requested ActiveChargingProfile, if the result field is set to: `ACCEPTED`
+|profile | <<mod_charging_profiles_active_charging_profile_class,ActiveChargingProfile>> | ? | The requested ActiveChargingProfile, if the result field is set to: `ACCEPTED`
 |===
 
 
@@ -452,7 +595,7 @@ Object set to a CPO to set a Charging Profile.
 [cols="3,4,1,9",options="header"]
 |===
 |Property |Type |Card. |Description
-|charging_schedule |<<mod_charging_profiles_charging_schedule_class,ChargingSchedule>> |1 | Contains limits for the available power or current over time.
+|charging_profile |<<mod_charging_profiles_charging_profile_class,ChargingProfile>> |1 | Contains limits for the available power or current over time.
 |response_url      | <<types.asciidoc#types_url_type,URL>> |1 |URL that the ChargingProfileResult POST should be send to. This URL might contain an unique ID to be able to distinguish between GET ActiveChargingProfile requests.
 |===
 
@@ -463,7 +606,7 @@ Object set to a CPO to set a Charging Profile.
 [[mod_charging_profiles_chargingrateunit]]
 ==== ChargingRateUnit _enum_
 
-Unit in which a charging schedule is defined.
+Unit in which a charging profile is defined.
 
 [cols="3,10",options="header"]
 |===
@@ -472,9 +615,9 @@ Unit in which a charging schedule is defined.
 This is the TOTAL allowed charging power.
 If used for AC Charging, the phase current should be calculated via: Current per phase = Power / (Line Voltage * Number of Phases).
 The "Line Voltage" used in the calculation is the Line to Neutral Voltage (VLN). In Europe and Asia VLN is typically 220V or 230V and the corresponding Line to Line Voltage (VLL) is 380V and 400V.
-The "Number of Phases" is the numberPhases from the ChargingSchedulePeriod.
+The "Number of Phases" is the numberPhases from the ChargingProfilePeriod.
 It is usually more convenient to use this for DC charging.
-Note that if numberPhases in a ChargingSchedulePeriod is absent, 3 SHALL be assumed.
+Note that if numberPhases in a ChargingProfilePeriod is absent, 3 SHALL be assumed.
 |A | Amperes (current) +
 The amount of Ampere per phase, not the sum of all phases.
 It is usually more convenient to use this for AC charging.
@@ -482,32 +625,32 @@ It is usually more convenient to use this for AC charging.
 
 
 
-[[mod_charging_profiles_charging_schedule_class]]
-==== ChargingSchedule _class_
+[[mod_charging_profiles_charging_profile_class]]
+==== ChargingProfile _class_
 
-Charging schedule class defines a list of charging periods.
+Charging profile class defines a list of charging periods.
 
 [cols="4,4,1,7",options="header"]
 |===
-|Property                 |Type       |Card. |Description
-|start_date_time          | <<types.asciidoc#types_datetime_type,DateTime>>           | ?    | Starting point of an absolute schedule. If absent the schedule will be relative to start of charging.
-|duration                 | int                                                       | ?    | Duration of the charging schedule in seconds. If the duration is left empty, the last period will continue indefinitely or until end of the transaction in case startSchedule is absent.
-|charging_rate_unit       | <<mod_charging_profiles_chargingrateunit,ChargingRateUnit>> | 1    |  The unit of measure.
-|min_charging_rate        | <<types.asciidoc#types_number_type,number>>               | ?    | Minimum charging rate supported by the EV. The unit of measure is defined by the chargingRateUnit. This parameter is intended to be used by a local smart charging algorithm to optimize the power allocation for in the case a charging process is inefficient at lower charging rates. Accepts at most one digit fraction (e.g. 8.1)
-|charging_schedule_period | <<mod_charging_profiles_charging_schedule_period_class,ChargingSchedulePeriod>> | * | List of ChargingSchedulePeriod elements defining maximum power or current usage over time.
+|Property                |Type       |Card. |Description
+|start_date_time         | <<types.asciidoc#types_datetime_type,DateTime>>           | ?    | Starting point of an absolute profile. If absent the profile will be relative to start of charging.
+|duration                | int                                                       | ?    | Duration of the charging profile in seconds. If the duration is left empty, the last period will continue indefinitely or until end of the transaction in case startProfile is absent.
+|charging_rate_unit      | <<mod_charging_profiles_chargingrateunit,ChargingRateUnit>> | 1    |  The unit of measure.
+|min_charging_rate       | <<types.asciidoc#types_number_type,number>>               | ?    | Minimum charging rate supported by the EV. The unit of measure is defined by the chargingRateUnit. This parameter is intended to be used by a local smart charging algorithm to optimize the power allocation for in the case a charging process is inefficient at lower charging rates. Accepts at most one digit fraction (e.g. 8.1)
+|charging_profile_period | <<mod_charging_profiles_charging_profile_period_class,ChargingProfilePeriod>> | * | List of ChargingProfilePeriod elements defining maximum power or current usage over time.
 |===
 
 
-[[mod_charging_profiles_charging_schedule_period_class]]
-==== ChargingSchedulePeriod _class_
+[[mod_charging_profiles_charging_profile_period_class]]
+==== ChargingprofilePeriod _class_
 
-Charging schedule period structure defines a time period in a charging schedule, as used in: <<mod_charging_profiles_charging_schedule_class,ChargingSchedule>>
+Charging profile period structure defines a time period in a charging profile, as used in: <<mod_charging_profiles_charging_profile_class,ChargingProfile>>
 
 [cols="3,2,1,10",options="header"]
 |===
 |Property      |Type     |Card. |Description
-|start_period  | int     | 1 | Start of the period, in seconds from the start of schedule. The value of StartPeriod also defines the stop time of the previous period.
-|limit         | <<types.asciidoc#types_number_type,number>> | 1 | Charging rate limit during the schedule period, in the applicable chargingRateUnit, for example in Amperes (A) or Watts (W). Accepts at most one digit fraction (e.g. 8.1).
+|start_period  | int     | 1 | Start of the period, in seconds from the start of profile. The value of StartPeriod also defines the stop time of the previous period.
+|limit         | <<types.asciidoc#types_number_type,number>> | 1 | Charging rate limit during the profile period, in the applicable chargingRateUnit, for example in Amperes (A) or Watts (W). Accepts at most one digit fraction (e.g. 8.1).
 |===
 
 
@@ -517,8 +660,8 @@ Charging schedule period structure defines a time period in a charging schedule,
 [cols="3,3,1,9",options="header"]
 |===
 |Property           |Type |Card. |Description
-|start_date_time    |<<types.asciidoc#types_datetime_type,DateTime>> | 1 | Date and time at which the schedule becomes active. All time measurements within the schedule are relative to this timestamp.
-|charging_schedule  |<<mod_charging_profiles_charging_schedule_class,ChargingSchedule>> | 1 | Charging schedule structure defines a list of charging periods.
+|start_date_time    |<<types.asciidoc#types_datetime_type,DateTime>> | 1 | Date and time at which the profile becomes active. All time measurements within the profile are relative to this timestamp.
+|charging_profile   |<<mod_charging_profiles_charging_profile_class,ChargingProfile>> | 1 | Charging profile structure defines a list of charging periods.
 |===
 
 
