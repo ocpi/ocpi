@@ -80,7 +80,7 @@ From the CPO point of view, this topology is similar to the one above, the CPO w
 .Smart Charging Topology: The eMSP generates ChargingProfiles.
 image::images/topology_scsp_emsp.svg[Smart Charging Topology: The eMSP generates ChargingProfiles]
 
-[cols="3,1,10",options="header"]
+[cols="3,2,10",options="header"]
 |===
 | Connection   | Interface | Role
 | SCSP - eMSP | Sender   | SCSP
@@ -113,7 +113,7 @@ In this topology, the eMSP is not aware that the CPO is using OCPI to receive Ch
 .Smart Charging Topology: The eMSP generates ChargingProfiles.
 image::images/topology_scsp_cpo.svg[Smart Charging Topology: The eMSP generates ChargingProfiles]
 
-[cols="3,1,10",options="header"]
+[cols="1,10",options="header"]
 |===
 | Interface | Role
 | Sender   | SCSP
@@ -127,8 +127,8 @@ image::images/topology_scsp_cpo.svg[Smart Charging Topology: The eMSP generates 
 This module is designed to support the following use cases, for all the above mentioned topologies.
 
 - The eMSP/SCSP sends/updates a ChargingProfile to manipulate an ongoing charging session.
-- The eMSP/SCSP request the ActiveChargingProfile for an ongoing charging session.
 - The eMSP/SCSP request to remove the set ChargingProfile from an ongoing charging session.
+- The eMSP/SCSP request the ActiveChargingProfile for an ongoing charging session.
 - The CPO updates the eMSP/SCSP of changes to an ActiveChargingProfile.
 
 
@@ -158,64 +158,105 @@ by calling the <<mod_charging_profiles_msp_put_method,MSP PUT method>>
 
 The Receiver can cancel an existing ChargingProfile, it can let the eMSP know by calling the <<mod_charging_profiles_msp_put_method,MSP PUT method>>
 
+If the Sender  (typically eMSP or SCSP) wants to have a reference between the calls send to the Receivers interface and the asynchronous result received from the Charge Point via the CPO,
+the Sender can make some unique identifier part of the`response_url` that is part of every method in the Receiver interface.
+The Receiver will call this URL when the result is received from the Charge Point. The Sender can then match the unique identifier from the URL called with the request.
 
-==== Example of a SetChargingProfile send by the Sender (typically the eMSP or SCSP)
+
+==== Example of setting/updating a ChargingProfile by the Sender (typically the eMSP or SCSP)
 
 When a new <<mod_sessions.asciidoc#mod_sessions_session_object,Session>> is started,
 or when an update to an existing <<mod_sessions.asciidoc#mod_sessions_session_object,Session>> is available,
 the CPO sends the Session object to the eMSP or SCSP.
-The eMSP or SCSP calculates a Charging Profile and sends it to the CPO by calling the Charging Profiles <<mod_charging_profiles_cpo_put_method,PUT>> interface.
+The eMSP or SCSP calculates a Charging Profile and sends it to the CPO by calling the Charging Profiles <<mod_charging_profiles_cpo_put_method,PUT>> method on the Receiver interface.
 
-The CPO responds to the eMSP or SCSP, the response body will contain the result of the request,
-acknowledging the request was understood an can be forwarded to the Charge Point.
+The CPO responds to the eMSP or SCSP, the response body will contain the response to the request,
+acknowledging the request was understood and can be forwarded to the Charge Point.
 
 The CPO send the requests to the Charge Point.
 When the CPO receives a response from the Charge Point,
-that result is send to the eMSP or SCSP by call the POST method, on the URL provided by the eMSP of SCSP in the <<mod_charging_profiles_cpo_put_method,PUT>> request.
+that result is send to the eMSP or SCSP by call the <<mod_charging_profiles_msp_post_methodm,POST>> method,
+on the URL provided by the eMSP of SCSP in the <<mod_charging_profiles_cpo_put_method,PUT>> request,
+this call will contain a <<mod_charging_profiles_charging_profiles_result_object,ChargingProfileResult>> Object.
 
 .Example of a SetChargingProfile.
 image::images/sd_charging_profile_set.svg[Example of a SetChargingProfile]
 
 
-==== Example of a SetChargingProfile send by the SCSP via the eMSP
+==== Example of a setting/updating a ChargingProfile by the SCSP via the eMSP
 
 When a new Session is started, the CPO sends the Session object to the eMSP, the eMSP forwards the Session object to the SCSP.
 
 When a new <<mod_sessions.asciidoc#mod_sessions_session_object,Session>> is started,
 or when an update to an existing <<mod_sessions.asciidoc#mod_sessions_session_object,Session>> is available,
 the CPO sends the Session object to the eMSP, the eMSP forwards the <<mod_sessions.asciidoc#mod_sessions_session_object,Session>> Object to the SCSP.
-The SCSP calculates a Charging Profile and sends it to the eMSP by calling the Charging Profiles <<mod_charging_profiles_cpo_put_method,PUT>> interface of the eMSP,
-the eMSP forwards it to the CPO by calling the Charging Profiles <<mod_charging_profiles_cpo_put_method,PUT>> interface of the CPO.
+The SCSP calculates a Charging Profile and sends it to the eMSP by calling the Charging Profiles <<mod_charging_profiles_cpo_put_method,PUT>> method on the Sender interface implemented by the eMSP,
+the eMSP forwards it to the CPO by calling the Charging Profiles <<mod_charging_profiles_cpo_put_method,PUT>> method on the Receiver interface.
 
-The CPO responds to the eMSP, the response body will contain the result of the request,
-acknowledging the request was understood an can be forwarded to the Charge Point.
-The eMSP forwards this reponse to the SCSP.
+The CPO responds to the eMSP, the response body will contain the response to the request,
+acknowledging the request was understood and can be forwarded to the Charge Point.
+The eMSP forwards this response to the SCSP.
 
 The CPO send the requests to the Charge Point.
 When the CPO receives a response from the Charge Point,
-that result is send to the eMSP by call the POST method, on the URL provided by the eMSP in the <<mod_charging_profiles_cpo_put_method,PUT>> request of the eMSP.
-The eMSP forwards this result to the the URL provided by the SCSP in the <<mod_charging_profiles_cpo_put_method,PUT>> request of the SCSP.
+that result is send to the eMSP by call the <<mod_charging_profiles_msp_post_methodm,POST>> method,
+on the URL provided by the eMSP in the <<mod_charging_profiles_cpo_put_method,PUT>> request of the eMSP.
+The eMSP forwards this result to the the URL provided by the SCSP in the <<mod_charging_profiles_cpo_put_method,PUT>> request of the SCSP,
+this call will contain a <<mod_charging_profiles_charging_profiles_result_object,ChargingProfileResult>> Object.
 
 .Example of a SetChargingProfile via the MSP.
 image::images/sd_charging_profile_set_via_msp.svg[Example of a SetChargingProfile via the MSP]
 
 
+====  Example of a ClearChargingProfile send by the Sender (typically the eMSP or SCSP)
+
+When the Sender wants to remove the charging profile, for example the EV driver has selected to switch to charging with the highest speed possible,
+the Sender can ask the CPO to remove the set charging profile by calling the <<mod_charging_profiles_cpo_delete_method,DELETE>> method on the Receiver interface.
+
+The CPO responds to the eMSP or SCSP, the response body will contain the response to the request,
+acknowledging the request was understood and can be forwarded to the Charge Point.
+
+The CPO send the clear requests to the Charge Point.
+When the CPO receives a response from the Charge Point,
+that result is send to the eMSP by call the <<mod_charging_profiles_msp_post_methodm,POST>> method,
+on the URL provided by the eMSP in the <<mod_charging_profiles_cpo_put_method,PUT>> request of the eMSP.
+The eMSP forwards this result to the the URL provided by the SCSP in the <<mod_charging_profiles_cpo_put_method,PUT>> request of the SCSP,
+this call will contain a <<mod_charging_profiles_clear_profiles_result_object,ClearProfileResult>> Object.
+
+.Example of a ClearChargingProfile.
+image::images/sd_charging_profile_clear.svg[Example of a ClearChargingProfile]
+
+
+====  Example of a ClearChargingProfile send by the SCSP via the eMSP
+
+When the SCSP wants to remove the charging profile, for example the EV driver has selected to switch to charging with the highest speed possible,
+the Sender can ask the eMSP to send ask the CPO to remove the set charging profile,
+by calling the <<mod_charging_profiles_cpo_delete_method,DELETE>> method on the eMSPs Charging Profile Receiver interface.
+The eMSP forwards this to the CPO by calling the <<mod_charging_profiles_cpo_delete_method,DELETE>> method on the CPOs Charging Profile Receiver interface.
+
+The CPO responds to the eMSP, the response body will contain the response to the request,
+acknowledging the request was understood and can be forwarded to the Charge Point.
+The eMSP forwards this response to the SCSP.
+
+The CPO send the clear requests to the Charge Point.
+When the CPO receives a response from the Charge Point,
+that result is send to the eMSP by call the <<mod_charging_profiles_msp_post_methodm,POST>> method,
+on the URL provided by the eMSP in the <<mod_charging_profiles_cpo_put_method,PUT>> request of the eMSP.
+The eMSP forwards this result to the the URL provided by the SCSP in the <<mod_charging_profiles_cpo_put_method,PUT>> request of the SCSP,
+this call will contain a <<mod_charging_profiles_clear_profiles_result_object,ClearProfileResult>> Object.
+
+.Example of a ClearChargingProfile via the MSP.
+image::images/sd_charging_profile_clear_via_msp.svg[Example of a ClearChargingProfile via the MSP]
+
+
 ==== Example of a GetActiveChargingProfile send by the Sender (typically the eMSP or SCSP)
+
+When the eMSP or SCSP a new Session is started, the CPO sends the Session object to the eMSP, the eMSP forwards the Session object to the SCSP.
 
 TODO
 
 
 ==== Example of a GetActiveChargingProfile send by the SCSP via eMSP
-
-TODO
-
-
-====  Example of a ClearChargingProfile send by the Sender (typically the eMSP or SCSP)
-
-TODO
-
-
-====  Example of a ClearChargingProfile send by the SCSP via the eMSP
 
 TODO
 
@@ -228,6 +269,7 @@ TODO
 ====  Example of a UpdateActiveChargingProfile send by the Receiver (typically the CPO) via the eMSP
 
 TODO
+
 
 
 

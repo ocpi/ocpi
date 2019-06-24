@@ -91,7 +91,6 @@ For example: Charge Point has become defect, or the CPO is notified of ongoing r
 
 To Cancel a reservation the CPO call the Senders interface with the same URL as was given by the Sender (eMSP) when the `RESERVE_NOW` command was send.
 
-
 The sequence diagram below continues after the sequence diagram above.
 
 .Reservation canceled by the CPO
@@ -99,6 +98,9 @@ image::images/command_reservenow_canceled_by_cpo.svg[Reservation canceled by the
 
 _These examples use OCPP 1.6 based commands between CPO and Charge Point, but that is not a requirement for OCPI.
 
+If the Sender (typically eMSP) wants to have a reference between the calls send to the Receivers interface and the asynchronous result received from the Charge Point via the CPO,
+the Sender can make some unique identifier part of the`response_url` that is part of every method in the Receiver interface.
+The Receiver will call this URL when the result is received from the Charge Point. The Sender can then match the unique identifier from the URL called with the request.
 
 [[mod_commands_interfaces_and_endpoints]]
 === Interfaces and endpoints

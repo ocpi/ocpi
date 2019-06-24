@@ -23,10 +23,10 @@ deactivate eMSP
 
 SCSP --> SCSP: Calculate ChargingProfile
 
-SCSP ->  eMSP:  PUT https://www.server.com/ocpi/2.2/chargingprofiles/15\n        SetChargingProfile
+SCSP ->  eMSP:  PUT https:~//emsp.com/ocpi/2.2/chargingprofiles/15\n        SetChargingProfile(response_url=https:~//client.com/12345)
 activate eMSP
 
-eMSP ->  CPO:  PUT https://www.server.com/ocpi/2.2/chargingprofiles/15\n        SetChargingProfile
+eMSP ->  CPO:  PUT https:~//cpo.com/ocpi/2.2/chargingprofiles/15\n        SetChargingProfile(response_url=https:~//emsp.com/4567)
 activate CPO
 CPO  --> eMSP: status_code = 1000,\n data: {ChargingProfileResponse { result = ACCEPTED }}
 eMSP  --> SCSP: status_code = 1000,\n data: {ChargingProfileResponse { result = ACCEPTED }}
@@ -40,12 +40,12 @@ CP   ->  CPO:  SetChargingProfile.conf
 deactivate CP
 
 activate CPO
-CPO  ->  eMSP: ChargingProfileResult(result = ACCEPTED)
+CPO  ->  eMSP: POST https:~//emsp.com/4567\nChargingProfileResult(result = ACCEPTED)
 activate eMSP
 eMSP --> CPO:
 deactivate CPO
 
-eMSP  ->  SCSP: ChargingProfileResult(result = ACCEPTED)
+eMSP  ->  SCSP: POST https:~//client.com/12345\nChargingProfileResult(result = ACCEPTED)
 activate SCSP
 SCSP --> eMSP:
 deactivate eMSP
