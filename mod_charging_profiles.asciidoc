@@ -156,7 +156,16 @@ When the Sender has (at least once) successfully send a Charging Profile for an 
 the Receiver (Typically CPO) keeps the Sender updated of changes to the ActiveChargingProfile, if the Receiver is aware of any changes,
 by calling the <<mod_charging_profiles_msp_put_method,MSP PUT method>>
 
-The Receiver can cancel an existing ChargingProfile, it can let the eMSP know by calling the <<mod_charging_profiles_msp_put_method,MSP PUT method>>
+The Receiver can cancel/remove an existing ChargingProfile, it can let the eMSP know by calling the <<mod_charging_profiles_msp_put_method,MSP PUT method>>
+
+For calculating optimum ChargingProfiles it might be useful for the eMSP or SCSP to known the ChargingProfile that the Charge Point has planned for the Session: ActiveChargingProfile.
+The ActiveChargingProfile might differ from ChargingProfile requested via OCPI. There might be other limiting factors being taken into account by the CPO and or Charging Station,
+that limit the ChargingProfile.
+The ActiveChargingProfile profile can be requested by the Sender by calling the <<mod_charging_profiles_cpo_get_method,CPO GET method>> on the Charging Profile Receiver interface.
+The CPO will then ask the Charging Station for the planned ActiveChargingProfile. When that is received it is forwarded to the URL given by the eMSP or SCSP.
+
+The CPO can limit the amount of request that can be done on the Charging Profiles interface, this too prevent creating a too high load or data usages.
+To do this the CPO can reject a request on the Charging Profile Receiver interface be responding with: TOO_OFTEN.
 
 If the Sender  (typically eMSP or SCSP) wants to have a reference between the calls send to the Receivers interface and the asynchronous result received from the Charge Point via the CPO,
 the Sender can make some unique identifier part of the`response_url` that is part of every method in the Receiver interface.
@@ -250,8 +259,6 @@ image::images/sd_charging_profile_clear_via_msp.svg[Example of a ClearChargingPr
 
 
 ==== Example of a GetActiveChargingProfile send by the Sender (typically the eMSP or SCSP)
-
-When the eMSP or SCSP a new Session is started, the CPO sends the Session object to the eMSP, the eMSP forwards the Session object to the SCSP.
 
 TODO
 
@@ -580,7 +587,7 @@ Because OCPI does not allow/require retries, it could happen that the asynchrono
 The eMSP might have had a glitch, HTTP 500 returned, was offline for a moment etc.
 For the eMSP to be able to reject to timeouts, it is important for the eMSP to known the timeout on a certain command.
 
-[cols="2,4,1,10",options="header"]
+[cols="2,5,1,9",options="header"]
 |===
 |Property |Type |Card. |Description
 
@@ -716,9 +723,10 @@ Response to the ChargingProfile request from the eMSP to the CPO.
 |===
 |Value |Description
 
-|NOT_SUPPORTED |The ChargingProfiles not supported by this CPO, Charge Point, EVSE etc.
-|REJECTED |ChargingProfile request rejected by the CPO. (Session might not be from a customer of the eMSP that send this request)
-|ACCEPTED |ChargingProfile request accepted by the CPO, request will be forwarded to the EVSE.
+|ACCEPTED        |ChargingProfile request accepted by the CPO, request will be forwarded to the EVSE.
+|NOT_SUPPORTED   |The ChargingProfiles not supported by this CPO, Charge Point, EVSE etc.
+|REJECTED        |ChargingProfile request rejected by the CPO. (Session might not be from a customer of the eMSP that send this request)
+|TOO_OFTEN       |ChargingProfile request rejected by the CPO, requests are send more often then allowed.
 |UNKNOWN_SESSION |The Session in the requested command is not known by this CPO.
 |===
 
