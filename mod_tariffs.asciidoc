@@ -843,7 +843,6 @@ A reservation starts when the reservation is made, and ends when the drivers sta
 A reservation can only have: <<mod_tariffs_tariffdimensiontype_enum,FLAT>> and <<mod_tariffs_tariffdimensiontype_enum,TIME>> TariffDimensions, where TIME is for the duration of the reservation.
 |===
 
-TODO: `min_current` and `max_current`: Should this NOT be the sum of the current over all used phases?
 
 ===== Examples tariffRestriction max_power
 
