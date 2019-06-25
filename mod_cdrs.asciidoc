@@ -453,12 +453,29 @@ Which encoding method is used, if needed, the public key and a list of signed va
 |===
 |Property |Type |Card. |Description
 
-|encoding_method         | <<types.asciidoc#types_cistring_type,CiString>>(36)  |1 |The name of the encoding used in the SignedData field. This is the name given to the encoding by a company or group of companies.
+|encoding_method         | <<types.asciidoc#types_cistring_type,CiString>>(36)  |1 |The name of the encoding used in the SignedData field. This is the name given to the encoding by a company or group of companies. See note below.
 |encoding_method_version | int                                                  |? |Version of the EncodingMethod (when applicable)
 |public_key              | <<types.asciidoc#types_cistring_type,CiString>>(512) |? |Public key used to sign the data, base64 encoded.
 |signed_values           | <<mod_cdrs_signed_value_class,SignedValue>>          |+ |One or more signed values.
 |url                     | <<types.asciidoc#types_cistring_type,CiString>>(512) |? |Link to portal where an EV driver can check the data from a charging session. (TODO: better description)
 |===
+
+NOTE: For the German Eichrecht, different solutions are used,
+all have (somewhat) different encodings. Below the table with known implementations and the contact information for more information.
+
+[cols="4,4,4",options="header"]
+|===
+|Name |Description |Contact
+
+|OCMF                      |Proposed by SAFE  |
+|Alfen                     |Alfen B.V. Format |
+|EDL40 E-Mobility Extension|eBee smart technologies implementation |
+|EDL40 Mennekes            |Mennekes implementation |
+|===
+
+TODO: All Are we missing solutions? If so, please let us know so we can add them.
+
+TODO: Editorial action item: Add contact information, e-mails have been send to the known organisations
 
 
 [[mod_cdrs_signed_value_class]]
