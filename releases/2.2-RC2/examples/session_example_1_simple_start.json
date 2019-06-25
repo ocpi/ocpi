@@ -1,0 +1,19 @@
+{
+  "country_code": "BE",
+  "party_id": "BEC",
+  "id": "101",
+  "start_date_time": "2015-06-29T22:39:09Z",
+  "kwh": 0.00,
+  "token_uid": "012345678",
+  "token_type": "RFID",
+  "auth_method": "WHITELIST",
+  "location_id": "LOC1",
+  "evse_uid": "3256",
+  "connector_id": "1",
+  "currency": "EUR",
+  "total_cost": {
+    "excl_vat": 2.50
+  },
+  "status": "PENDING",
+  "last_updated": "2015-06-29T22:39:09Z"
+}

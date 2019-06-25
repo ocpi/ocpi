@@ -1,0 +1,35 @@
+@startuml
+
+skinparam agent {
+	roundCorner 8
+}
+
+skinparam rectangle {
+	roundCorner 8
+}
+
+
+left to right direction
+
+rectangle PLATFORM as CPOMSP1 {
+  agent eMSP1
+  agent eMSP2
+  agent CPO1
+  agent CPO2
+}
+
+rectangle PLATFORM as CPOMSP2 {
+  agent eMSP4
+  agent CPO5
+  agent CPO6
+  agent CPO7
+}
+
+CPOMSP1 -- CPOMSP2: OCPI
+
+
+'following is only to fix layout
+eMSP1 -[hidden]- eMSP4
+CPO2 -[hidden]- CPO7
+
+@enduml

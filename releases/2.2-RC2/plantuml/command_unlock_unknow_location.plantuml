@@ -1,0 +1,19 @@
+@startuml
+hide footbox
+
+participant eMSP
+participant CPO
+
+
+eMSP ->  CPO:  Command(UNLOCK_CONNECTOR, location_id=1234, evse_uid=1234, connector=1)
+activate eMSP
+activate CPO
+CPO  --> eMSP: status_code = 2003, data: {CommandResponse { result = REJECTED }}
+
+note right of eMSP
+2003 = Unknown Location
+end note
+
+deactivate CPO
+deactivate eMSP
+@enduml
