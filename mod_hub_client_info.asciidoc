@@ -42,23 +42,11 @@ When for example CDRs still have to be delivered, so there is some unfinished bu
 parties are advised to get into contact with the other party in another way the OCPI: Call them, send an e-mail.
 
 
-=== Still alive check.
-
-The hubs needs to determine if a connection is still "alive".
-
-To do this, the Hub should keep track of the time that has passed since the last message was received from a connected party.
-When this is longer then X minutes (when unsure, start with 5 minutes) the Hub should send a: GET to the Version information endpoint.
-As the Version information endpoint is always required in OCPI,
-and this endpoint is provided by all parties,
-and a GET to the versions endpoint does not have any side effects, this is seen as the best way to do an "still-alive"check.
-
 [[mod_hub_client_info_flow]]
 === Flow and Life-cycle
 
-TODO
-
 [[mod_hub_client_info_push_model]]
-=== Push model
+==== Push model
 
 When the Hub creates a new ClientInfo object they push it to the connected parties by calling <<mod_hub_client_info_client_put,PUT>> 
 on the connected party ClientInfo endpoint with the newly created ClientInfo object.
@@ -73,13 +61,26 @@ on the connected party ClientInfo endpoint with the updated ClientInfo object.
 When the connected party is not sure about the state or existence of a ClientInfo object in the Hub system, the
 connected party can call the <<mod_hub_client_info_hub_get,GET>> to request to ClientInfo object from the Hub system.
 
+
 [[mod_hub_client_info_pull_model]]
-=== Pull model
+==== Pull model
 
 When a connected party is not sure about the state of the list of known connected parties of a Hub, or wants to request the full
 list at the start-up of their system, the connected party can call the <<mod_hub_client_info_hub_get,GET>> on the Hubs ClientInfo endpoint to receive
 all ClientInfo objects.
 This method is not for operational flow.
+
+
+==== Still alive check.
+
+The hubs needs to determine if a connection is still "alive".
+
+To do this, the Hub should keep track of the time that has passed since the last message was received from a connected party.
+When this is longer then X minutes (when unsure, start with 5 minutes) the Hub should send a: GET to the Version information endpoint.
+As the Version information endpoint is always required in OCPI,
+and this endpoint is provided by all parties,
+and a GET to the versions endpoint does not have any side effects, this is seen as the best way to do an "still-alive"check.
+
 
 === Interfaces
 
