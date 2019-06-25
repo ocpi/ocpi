@@ -47,7 +47,7 @@ parties are advised to get into contact with the other party in another way the 
 The hubs needs to determine if a connection is still "alive".
 
 To do this, the Hub should keep track of the time that has passed since the last message was received from a connected party.
-When this is longer then 5 minutes (TODO determine the best time for a keep alive) the Hub should send a: GET to the Version information endpoint.
+When this is longer then X minutes (when unsure, start with 5 minutes) the Hub should send a: GET to the Version information endpoint.
 As the Version information endpoint is always required in OCPI,
 and this endpoint is provided by all parties,
 and a GET to the versions endpoint does not have any side effects, this is seen as the best way to do an "still-alive"check.
