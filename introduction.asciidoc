@@ -23,19 +23,19 @@ If they are able to implement OCPI 2.2 and get it working with other parties, th
 ** <<transport_and_format.asciidoc#transport_and_format_message_routing,Message routing headers>>
 ** <<mod_hub_client_info.asciidoc#mod_hub_client_info_module,Hub Client Info>>
 
-* <<credentials.asciidoc#credentials_credentials_role_class,Support for Virtual CPO's and eMSP's and other roles>>
+* <<credentials.asciidoc#credentials_credentials_role_class,Support Platforms with multiple/different roles, additional roles>>
 * <<mod_charging_profiles.asciidoc#mod_charging_profiles_module,Charging Profiles>>
 * <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,Preference based Smart Charging>>
 * Improvements:
 [disc]
-** <<mod_cdrs.asciidoc#mod_cdrs_cdr_object,CDRs>>: Credit CDRs, VAT, Session_id, CdrLocation, CdrToken
-** <<mod_sessions.asciidoc#mod_sessions_session_object,Sessions>>: VAT, CdrToken
+** <<mod_cdrs.asciidoc#mod_cdrs_cdr_object,CDRs>>: Credit CDRs, VAT, Session_id, AuthorizationReference, CdrLocation, CdrToken
+** <<mod_sessions.asciidoc#mod_sessions_session_object,Sessions>>: VAT, CdrToken, How to add a Charging Period
 ** <<mod_tariffs.asciidoc#mod_tariffs_tariff_object,CDRs>>: Tariff types, Min/Max price, reservation tariff, Much more examples
 ** <<mod_locations.asciidoc#mod_locations_location_object,Locations>>: Multiple Tariffs, Lost of small improvements
 ** <<mod_tokens.asciidoc#mod_tokens_token_object,Tokens>>: Group_id, energy contract
 ** <<mod_commands.asciidoc#mod_commands_cancelreservation_object,Commands>>: Cancel Reservation added
 
-For more information on detailedchanges see <<changelog.asciidoc#changelog_changelog,changelog>>.
+For more information on detailed changes see <<changelog.asciidoc#changelog_changelog,changelog>>.
 
 [[introduction_introduction_and_background]]
 === Introduction and background

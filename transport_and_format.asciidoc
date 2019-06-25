@@ -428,11 +428,6 @@ The following section shows which headers are required/optional and which 'OCPI-
 
 This is not an exclusive list, combinations are possible.
 
-When the Hub sends something to a virtual-party, the 'OCPI-to-' headers are required.
-
-When the Hub receives something from a virtual-party, the 'OCPI-from-' headers are required.
-
-
 ====== Party to Party (without Hub)
 
 This table contains the description of which headers are required to be used for which message when a request is sent
@@ -463,8 +458,8 @@ This table contains the description of which headers are required to be used for
 | Direct response | Hub to requesting platform | Requesting-party | Receiving-party
 |===
 
-.Example sequence diagram of a GET for 1 Object from a Virtual CPO to Virtual MSP via a Hub
-image::images/sd_platform_hub_platform.svg[Example sequence diagram of a GET for 1 Object from a Virtual CPO to Virtual MSP via a Hub]
+.Example sequence diagram of a GET for 1 Object from one Platform to another Platform via a Hub
+image::images/sd_platform_hub_platform.svg[Example sequence diagram of a GET for 1 Object from one Platform to another Platform via a Hub]
 
 
 ====== Party to Party Broadcast Push
@@ -480,8 +475,8 @@ This table contains the description of which headers are required to be used for
 | Broadcast response | Receiving platform to Hub | Hub | Receiving-party
 |===
 
-.Example sequence diagram of a GET for 1 Object from a Virtual CPO to Virtual MSP via a Hub
-image::images/sd_platform_hub_platform.svg[Example sequence diagram of a GET for 1 Object from a Virtual CPO to Virtual MSP via a Hub]
+.Example sequence diagram of Boardcast Push from one Platform to another Platform via a Hub
+image::images/sd_platform_hub_platform.svg[Example sequence diagram of Boardcast Push from one Platform to another Platform via a Hub]
 
 
 ====== Party to Party Open Routing Request
