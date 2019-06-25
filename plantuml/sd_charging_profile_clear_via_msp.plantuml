@@ -1,10 +1,11 @@
 @startuml
 hide footbox
 
-participant "SCSP\nSender" as SCSP
 participant "eMSP\nSender\n&\nReceiver" as eMSP
 participant "CPO\nReceiver" as CPO
 participant "Charge Point" as CP
+
+NOTE over SCSP, CP: Ongoing Session with id=15
 
 activate eMSP
 SCSP -> eMSP: DELETE https:~//server.com/ocpi/2.2/chargingprofiles/15\n                     ?response_url=https:~//scsp.com/12345

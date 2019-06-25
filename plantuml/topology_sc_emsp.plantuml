@@ -8,7 +8,9 @@ left to right direction
 
 agent eMSP
 agent CPO
+agent "Charge Point" AS CP
 
 eMSP <--> CPO: OCPI
+CPO <--> CP
 
 @enduml
