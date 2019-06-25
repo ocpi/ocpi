@@ -4,7 +4,7 @@ The branch with the latest fixes to the 2.1.1-d2 documentation is [`release-2.1.
 
 The `master` branch always contains the latest official release.
 
-Development of the next version of OCPI, new functionality, is done in the  [`develop`](https://github.com/ocpi/ocpi/tree/develop) branch: [`OCPI 2.2` is now Release Candidate 2](https://github.com/ocpi/ocpi/releases/download/2.2-RC2/OCPI-2.2-RC2.pdf)
+Development of the next version of OCPI, new functionality, is done in the  [`develop`](https://github.com/ocpi/ocpi/tree/develop) branch: [`OCPI 2.2 is now Release Candidate 2`](https://github.com/ocpi/ocpi/releases/download/2.2-RC2/OCPI-2.2-RC2.pdf)
 
 ## Contents
 
