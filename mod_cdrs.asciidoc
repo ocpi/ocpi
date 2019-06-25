@@ -289,7 +289,8 @@ but it can be interpolated by the CPO using the metering information before and 
 |meter_id |<<types.asciidoc#types_string_type,string>>(255) |? |Identification of the Meter inside the Charge Point.
 |currency |<<types.asciidoc#types_string_type,string>>(3) |1 |Currency of the CDR in ISO 4217 Code. 
 |tariffs |<<mod_tariffs.asciidoc#mod_tariffs_tariff_object,Tariff>> |* |List of relevant Tariff Elements, see: <<mod_tariffs.asciidoc#mod_tariffs_tariff_object,Tariff>>. When relevant, a _Free of Charge_ tariff should also be in this list, and point to a defined _Free of Charge_ Tariff. 
-|charging_periods |<<mod_cdrs_chargingperiod_class,ChargingPeriod>> |+ |List of Charging Periods that make up this charging session. A session consists of 1 or more periods, where each period has a different relevant Tariff. 
+|charging_periods |<<mod_cdrs_chargingperiod_class,ChargingPeriod>> |+ |List of Charging Periods that make up this charging session. A session consists of 1 or more periods, where each period has a different relevant Tariff.
+|signed_data |<<mod_cdrs_signed_data_class,SignedData>> |? |Signed data that belongs to this charging Session.
 |total_cost |<<types.asciidoc#types_price_class,Price>> |1 |Total sum of all the costs of this transaction in the specified currency.
 |total_fixed_cost |<<types.asciidoc#types_price_class,Price>> |? |Total sum of all the fixed costs in the specified currency, except fixed price components of parking and reservation. The cost not depending on amount of time/energy used etc. Can contain costs like a start tariff.
 |total_energy |<<types.asciidoc#types_number_type,number>> |1 |Total energy charged, in kWh.
@@ -439,4 +440,43 @@ A Charging Period consists of a start timestamp and a list of possible values th
 |start_date_time |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Start timestamp of the charging period. A period ends when the next period starts. The last period ends when the session ends. 
 |dimensions |<<mod_cdrs_cdrdimension_class,CdrDimension>> |+ |List of relevant values for this charging period.
 |tariff_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |Unique identifier of the Tariff that is relevant for this Charging Period. If not provided, no Tariff is relevant during this period.
+|===
+
+
+[[mod_cdrs_signed_data_class]]
+==== SignedData _class_
+
+This class contains all the information of the signed data.
+Which encoding method is used, if needed, the public key and a list of signed values.
+
+[cols="3,2,1,10",options="header"]
+|===
+|Property |Type |Card. |Description
+
+|encoding_method         | <<types.asciidoc#types_cistring_type,CiString>>(36)  |1 |The name of the encoding used in the SignedData field. This is the name given to the encoding by a company or group of companies.
+|encoding_method_version | int                                                  |? |Version of the EncodingMethod (when applicable)
+|public_key              | <<types.asciidoc#types_cistring_type,CiString>>(512) |? |Public key used to sign the data, base64 encoded.
+|signed_values           | <<mod_cdrs_signed_value_class,SignedValue>>          |+ |One or more signed values.
+|url                     | <<types.asciidoc#types_cistring_type,CiString>>(512) |? |Link to portal where an EV driver can check the data from a charging session. (TODO: better description)
+|===
+
+
+[[mod_cdrs_signed_value_class]]
+==== SignedValue _class_
+
+This class contains the signed and the plain/unsigned data.
+By decoding the data, the receiver can check if the content has not been altered.
+
+[cols="3,2,1,10",options="header"]
+|===
+|Property |Type |Card. |Description
+
+|nature      |<<types.asciidoc#types_cistring_type,CiString>>(32)  |1 |Nature of the value, in other words, the event this value belongs to. +
+                                                                       Possible values at moment of writing: +
+                                                                       - Start (value at the start of the Session) +
+                                                                       - End (signed value at the end of the Session) +
+                                                                       - Intermediate (signed values take during the Session) +
+                                                                       Others might be added later.
+|plain_data  |<<types.asciidoc#types_cistring_type,CiString>>(512) |1 |The unencoded string of data. The format of the content depends on the EncodingMethod field.
+|signed_data |<<types.asciidoc#types_cistring_type,CiString>>(512) |1 |Blob of signed data, base64 encoded. The format of the content depends on the EncodingMethod field.
 |===
