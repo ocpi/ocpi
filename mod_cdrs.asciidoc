@@ -449,7 +449,7 @@ A Charging Period consists of a start timestamp and a list of possible values th
 This class contains all the information of the signed data.
 Which encoding method is used, if needed, the public key and a list of signed values.
 
-[cols="3,2,1,10",options="header"]
+[cols="4,2,1,9",options="header"]
 |===
 |Property |Type |Card. |Description
 
@@ -475,7 +475,7 @@ By decoding the data, the receiver can check if the content has not been altered
                                                                        Possible values at moment of writing: +
                                                                        - Start (value at the start of the Session) +
                                                                        - End (signed value at the end of the Session) +
-                                                                       - Intermediate (signed values take during the Session) +
+                                                                       - Intermediate (signed values take during the Session, after Start, before End) +
                                                                        Others might be added later.
 |plain_data  |<<types.asciidoc#types_cistring_type,CiString>>(512) |1 |The unencoded string of data. The format of the content depends on the EncodingMethod field.
 |signed_data |<<types.asciidoc#types_cistring_type,CiString>>(512) |1 |Blob of signed data, base64 encoded. The format of the content depends on the EncodingMethod field.
