@@ -306,8 +306,9 @@ Therefor the CPO SHALL NOT check the validity of the Token provided before sendi
 If this is an OCPP Charge Point, the Charge Point decides if it needs to validate the given Token, in such case,
 if this Token is of type: `AD_HOC_USER` or `APP_USER` the CPO SHALL NOT do a <<mod_tokens.asciidoc#mod_tokens_real-time_authorization,realtime authorization>> at the eMSP for this .
 
-TODO, what about RFID? RFID can also be provided locally, if the MSP requires realtime authorization,
-how can the CPO see if the authorization of the Charge Point is part of the ReserveNow or a local swipe of the RFID card? How long is the authorization valid?
+```
+TODO: Open Issue: what about RFID? RFID can also be provided locally, if the MSP requires realtime authorization, how can the CPO see if the authorization of the Charge Point is part of the ReserveNow or a local swipe of the RFID card? How long is the authorization given in the ReserveNow valid?
+```
 
 The eMSP MAY use Tokens that have not been pushed via the <<mod_tokens.asciidoc#mod_tokens_tokens_module,Token>> module,
 especially `AD_HOC_USER` or `APP_USER` Tokens are only used by commands send by an eMSP. As these are never used locally at the Charge Point like `RFID`.
@@ -349,8 +350,9 @@ Therefor the CPO SHALL NOT check the validity of the Token provided before sendi
 If this is an OCPP Charge Point, the Charge Point decides if it needs to validate the given Token, in such case,
 if this Token is of type: `AD_HOC_USER` or `APP_USER` the CPO SHALL NOT do a <<mod_tokens.asciidoc#mod_tokens_real-time_authorization,realtime authorization>> at the eMSP for this .
 
-TODO, what about RFID? RFID can also be provided locally, if the MSP requires realtime authorization,
-how can the CPO see if the authorization of the Charge Point is part of the StartSession or a local swipe of the RFID card? How long is the authorization valid?
+```
+TODO: Open Issue: what about RFID? RFID can also be provided locally, if the MSP requires realtime authorization, how can the CPO see if the authorization of the Charge Point is part of the StartSession or a local swipe of the RFID card? How long is the authorization given in the StartSession valid?
+```
 
 The eMSP MAY use Tokens that have not been pushed via the <<mod_tokens.asciidoc#mod_tokens_tokens_module,Token>> module,
 especially `AD_HOC_USER` or `APP_USER` Tokens are only used by commands send by an eMSP. As these are never used locally at the Charge Point like `RFID`.
