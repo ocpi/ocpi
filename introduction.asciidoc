@@ -53,7 +53,7 @@ What does it offer (main functionality):
 * A good roaming system (for bilateral usage and/or via a hub).
 * Real-time information about location, availability and price.
 * A uniform way of exchanging data (Notification Data Records and Charge Data Records), before during and after the transaction.
-* Remote mobile support to access any charge station without pre-registration.
+* Remote mobile support to access any Charge Point without pre-registration.
 
 Starting in 2009, e-laad foundation and the predecessor of the eViolin association specified 2 standards in order to retrieve
 charge point details and active state. These are called the VAS interface and the Amsterdam interface. In this same period,

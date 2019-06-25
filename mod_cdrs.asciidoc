@@ -370,7 +370,7 @@ Some of these values are not useful for `CDRs`, and SHALL therefor only be used 
 |MIN_POWER        | | Minimum power reached during this <<mod_cdrs_chargingperiod_class,ChargingPeriod>>: defined in kW (Kilowatt), when negative, the power has flowed from the EV to the grid.
 |PARKING_TIME     | | Time during this <<mod_cdrs_chargingperiod_class,ChargingPeriod>> not charging: defined in hours, default step_size multiplier is 1 second.
 |POWER            |Y| Average power during this <<mod_cdrs_chargingperiod_class,ChargingPeriod>>: defined in kW (Kilowatt). When negative, the power is flowing from the EV to the grid.
-|RESERVATION_TIME | | Time during this  <<mod_cdrs_chargingperiod_class,ChargingPeriod>> charging station has been reserved and not yet been in use for this customer: defined in hours, default step_size multiplier is 1 second.
+|RESERVATION_TIME | | Time during this  <<mod_cdrs_chargingperiod_class,ChargingPeriod>> Charge Point has been reserved and not yet been in use for this customer: defined in hours, default step_size multiplier is 1 second.
 |STATE_OF_CHARGE  |Y| Current state of charge of the EV. See note below.
 |TIME             | | Time charging during this <<mod_cdrs_chargingperiod_class,ChargingPeriod>>: defined in hours, default step_size multiplier is 1 second.
 |===

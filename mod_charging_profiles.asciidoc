@@ -161,10 +161,10 @@ and the Charge Point notifies the CPO of the Changes.
 The Receiver can cancel/remove an existing ChargingProfile, it can let the eMSP know by calling the <<mod_charging_profiles_msp_put_method,MSP PUT method>>
 
 For calculating optimum ChargingProfiles it might be useful for the eMSP or SCSP to known the ChargingProfile that the Charge Point has planned for the Session: ActiveChargingProfile.
-The ActiveChargingProfile might differ from ChargingProfile requested via OCPI. There might be other limiting factors being taken into account by the CPO and or Charging Station,
+The ActiveChargingProfile might differ from ChargingProfile requested via OCPI. There might be other limiting factors being taken into account by the CPO and or Charge Point,
 that limit the ChargingProfile.
 The ActiveChargingProfile profile can be requested by the Sender by calling the <<mod_charging_profiles_cpo_get_method,CPO GET method>> on the Charging Profile Receiver interface.
-The CPO will then ask the Charging Station for the planned ActiveChargingProfile. When that is received it is forwarded to the URL given by the eMSP or SCSP.
+The CPO will then ask the Charge Point   for the planned ActiveChargingProfile. When that is received it is forwarded to the URL given by the eMSP or SCSP.
 
 The CPO can limit the amount of request that can be done on the Charging Profiles interface, this too prevent creating a too high load or data usages.
 To do this the CPO can reject a request on the Charging Profile Receiver interface be responding with: TOO_OFTEN.
@@ -377,7 +377,7 @@ The following parameters can be provided as URL segments.
 
 NOTE: duration: Use this wisely. Asking for a profile hours in advance might not be very useful.
 But will use more mobile data then really useful. Duration of half hour,
-one full hour can be really useful when checking the profile calculated by the Charging Station.
+one full hour can be really useful when checking the profile calculated by the Charge Point.
 Longer might be less useful as lot can change during the time that will have influence on the profile.
 
 
