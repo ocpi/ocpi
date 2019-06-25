@@ -113,7 +113,7 @@ The following table lists all the parameters that have to be supported, but migh
 |date_from |Only return objects that have `last_updated` after or equal to this Date/Time (inclusive).
 |date_to |Only return objects that have `last_updated` up to this Date/Time, but not including (exclusive).
 |offset |The offset of the first object returned. Default is 0 (the first object).
-|limit |Maximum number of objects to GET. Note: the server might decide to return fewer objects, either because there are no more objects, or the server limits the maximum number of objects to return. This is to prevent, for example, overloading the system. 
+|limit |Maximum number of objects to GET. The server might decide to return fewer objects, either because there are no more objects, or the server limits the maximum number of objects to return. This is to prevent, for example, overloading the system.
 |===
 
 The `date_from` is inclusive and `date_to` exclusive, this way, when sequential requests with to the same end-point are done,
@@ -133,7 +133,7 @@ The client detects this: the `X-Total-Count` will be higher on the next call.
 But the client doesn't have to correct for this. Only the last page will be different (or an additional page).
 So the client will not be required to crawl all pages all over again, when the client has reached to last page it has retrieved all relevant pages and is up to date.
 
-Note: Some query parameters can cause concurrency problems. For example: the `date_to` query parameter.
+NOTE: Some query parameters can cause concurrency problems. For example: the `date_to` query parameter.
 When there are for example 1000 objects matching a query for all objects with `date_to` before 2016-01-01.
 While crawling over the pages one of these objects is update.
 The client detects this: `X-Total-Count` will be lower in a next request.

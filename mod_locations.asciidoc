@@ -69,7 +69,7 @@ OCPI prefers the first method. An EV driver does not care if a Location consists
 or a large amount of Charge Points with only one EVSE. The EV driver wants to known how many EVSEs are available.
 Grouping Charge Points in the same location into one OCPI Location will show better on a map that shows Charging Locations.
 
-Note: De definition, an EVSE can only charge one EV at a time.
+NOTE: The definition, an EVSE can only charge one EV at a time.
 
 ==== OCPP 1.x Charge Points with multiple connectors per EVSE
 
@@ -424,7 +424,7 @@ include::examples/location_patch_example_remove_evse.json[]
 ----
 
 
-_Note: To inform eMSPs that an EVSE is scheduled for removal, the status_schedule field can be used._
+NOTE: To inform eMSPs that an EVSE is scheduled for removal, the status_schedule field can be used._
 
 [[mod_locations_object_description]]
 === Object description

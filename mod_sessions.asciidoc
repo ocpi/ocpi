@@ -297,7 +297,7 @@ include::examples/session_patch_example_total_cost.json[]
 ----
 
 
-[[mod_sessions_example_update_the_total_cost]]
+[[mod_sessions_example_add_new_charging_period]]
 ====== Example: adding a new ChargingPeriod
 
 PATCH used to add a new <<mod_cdrs.asciidoc#mod_cdrs_chargingperiod_class,ChargingPeriod>> to the Session
@@ -368,7 +368,7 @@ see <<mod_cdrs.asciidoc#mod_cdrs_cdr_object,CDR description>> for more informati
 |last_updated |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Timestamp when this Session was last updated (or created). 
 |===
 
-Note: Different `authorization_reference` values might happen when for example a <<mod_commands.asciidoc#mod_commands_reservenow_object,ReserveNow>>  had a different
+NOTE: Different `authorization_reference` values might happen when for example a <<mod_commands.asciidoc#mod_commands_reservenow_object,ReserveNow>>  had a different
 `authorization_reference` then the value returned by a <<mod_tokens.asciidoc#mod_tokens_real-time_authorization,real-time authorization>>.
 
 

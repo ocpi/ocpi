@@ -28,7 +28,7 @@ Example of how timestamps shall be formatted in OCPI, other formats/patterns are
 2018-01-01T01:08:01.123
 ----
 
-Note: +00:00 is not the same as UTC.
+NOTE: +00:00 is not the same as UTC.
 
 [[types_displaytext_class]]
 === DisplayText _class_

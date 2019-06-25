@@ -311,7 +311,7 @@ NOTE: The actual charging duration (energy being transferred between EVSE and EV
 NOTE: Having both a `credit` and a `credit_reference_id` might seem redundant.
 But it is seen as an advantage as a boolean flag used in queries is much faster than simple string comparison of references.
 
-Note: Different `authorization_reference` values might happen when for example a <<mod_commands.asciidoc#mod_commands_reservenow_object,ReserveNow>>  had a different
+NOTE: Different `authorization_reference` values might happen when for example a <<mod_commands.asciidoc#mod_commands_reservenow_object,ReserveNow>>  had a different
 `authorization_reference` then the value returned by a <<mod_tokens.asciidoc#mod_tokens_real-time_authorization,real-time authorization>>.
 
 
@@ -376,7 +376,7 @@ Some of these values are not useful for `CDRs`, and SHALL therefor only be used 
 |TIME             | | Time charging during this <<mod_cdrs_chargingperiod_class,ChargingPeriod>>: defined in hours, default step_size multiplier is 1 second.
 |===
 
-note: OCPI makes it possible to provide SoC in the Session object.
+NOTE: OCPI makes it possible to provide SoC in the Session object.
 This information can be useful to show the current State of Charge to an EV driver during charging.
 Implementers should be aware that SoC is only available at some DC Chargers.
 Which is currently a small amount of the total amount of Charge Points.
