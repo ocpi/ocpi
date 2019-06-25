@@ -51,11 +51,11 @@ parties are advised to get into contact with the other party in another way the 
 When the Hub creates a new ClientInfo object they push it to the connected parties by calling <<mod_hub_client_info_client_put,PUT>> 
 on the connected party ClientInfo endpoint with the newly created ClientInfo object.
 
-Any changes to ClientInfo in the Hub system are send to the connected party system by calling, either the <<mod_hub_client_info_client_put,PUT>> 
-or the <<mod_hub_client_info_client_patch,PATCH>> on the connected party ClientInfo endpoint with the updated ClientInfo.
+Any changes to ClientInfo in the Hub system are send to the connected party system by calling the <<mod_hub_client_info_client_put,PUT>>
+method on the connected party ClientInfo endpoint with the updated ClientInfo.
 
 When the Hub invalidates a ClientInfo object (deleting is not possible), the Hub will send the updated ClientInfo object 
-(with the field: status set to SUSPENDED, by calling, either the <<mod_hub_client_info_client_put,PUT>> or the <<mod_hub_client_info_client_patch,PATCH>> 
+(with the field: status set to SUSPENDED, by calling the <<mod_hub_client_info_client_put,PUT>> method
 on the connected party ClientInfo endpoint with the updated ClientInfo object.
 
 When the connected party is not sure about the state or existence of a ClientInfo object in the Hub system, the
@@ -104,7 +104,7 @@ Example endpoint structure:
 |<<mod_hub_client_info_client_get,GET>> |Retrieve a ClientInfo object as it is stored in the connected clients system.
 |POST |n/a
 |<<mod_hub_client_info_client_put,PUT>> |Push new/updated ClientInfo object to the connect client.
-|<<mod_hub_client_info_client_patch,PATCH>> |Notify the connected client of partial updates to a ClientInfo object.
+|PATCH |n/a
 |DELETE |n/a, Use <<mod_hub_client_info_client_put,PUT>>, ClientInfo objects cannot be removed).
 |===
 
@@ -177,22 +177,6 @@ PUT To URL: https://www.server.com/ocpi/cpo/2.0/clientinfo/NL/ALL
 }
 ----
 
-[[mod_hub_client_info_client_patch]]
-===== *PATCH* Method
-
-Same as the <<mod_hub_client_info_client_put,PUT>> method, but only the fields/objects that have to be updated have to be present,
-other fields/objects that are not specified are considered unchanged.
-
-====== Example: invalidate a ClientInfo object
-
-[source,json]
-----
-PATCH To URL: https://www.server.com/ocpi/cpo/2.0/clientinfo/NL/ALL
-
-{
-  "status": "SUSPENDED"
-}
-----
 
 [[mod_hub_client_info_hub_interface]]
 ==== Sender Interface
@@ -271,7 +255,7 @@ Each object must contain all required fields. Fields that are not specified may 
 [[mod_hub_client_info_hub_client_info_object]]
 ==== _ClientInfo_ Object
 
-[cols="3,2,1,10",options="header"]
+[cols="3,3,1,9",options="header"]
 |===
 |Property |Type |Card. |Description
 

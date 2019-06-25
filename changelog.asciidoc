@@ -188,13 +188,24 @@ Minimal
 - Length of `location_id` and `evse_uids` changed from 39 to 36, matching changes in the object definitions.
 
 |Locations / +
-Receiver GET, PUT & PATCH methods
+Receiver GET & PUT methods
 |Minor / +
 Minor
 |Minimal / +
 Minimal
 |- Changed `country_code`, `party_id`, `location_id`, `evse_uids` and `connector_ids` from string to CiString, making them case-insensitive, which had always been the idea. +
 - Length of `location_id` and `evse_uids` changed from 39 to 36, matching changes in the object definitions.
+
+|Locations / +
+Receiver PATCH method
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|- Changed `country_code`, `party_id`, `location_id`, `evse_uids` and `connector_ids` from string to CiString, making them case-insensitive, which had always been the idea. +
+- Length of `location_id` and `evse_uids` changed from 39 to 36, matching changes in the object definitions. +
+- Added description on how to handle `last_updated`, and made it required for all PATCH requests.
+
 
 |Locations / +
 Connector Object
@@ -294,12 +305,21 @@ Large
   For this the following data types are added: ChargingPreferences, ChargingPreferencesResponse, ProfileType,
 
 |Sessions / +
-Receiver GET, PUT, PATCH methods
+Receiver GET and PUT methods
 |Minor / +
 Minor
 |Minimal / +
 Minimal
 |Changed `country_code`, `party_id` and `session_id` from string to CiString, making them case-insensitive, which had always been the idea.
+
+|Sessions / +
+Receiver PATCH method
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Changed `country_code`, `party_id` and `session_id` from string to CiString, making them case-insensitive, which had always been the idea. +
+Added description and requirements how to add `charging_periods` and made `last_updated` required for all PATCH requests.
 
 |Sessions / +
 Session Object
@@ -315,6 +335,14 @@ Average
 - Replaced `auth_id` with `CdrToken` class. `auth_id` alone could not be used to uniquely identify a <<mod_tokens.asciidoc#mod_tokens_token_object,Token>>. +
 - Replaced `location` object with `location_id`, `evse_uid` and `connector_id`. Having the `Location` Object in the `Session` was overkill, only reference is more inline with the rest. +
 - Added `authorization_reference` field for binding an authorization to the resulting session.
+
+|Tariffs / +
+Receiver PATCH method
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|PATCH is removed from Tariffs as this was seen is not useful, use PUT instead.
 
 |Tariffs / +
 Tariff Object
@@ -363,13 +391,23 @@ Minimal
 |Changed `country_code`, `party_id` and `token_uid` from string to CiString, making them case-insensitive, which had always been the idea.
 
 |Tokens / +
-Receiver GET, PUT & PATCH methods
+Receiver GET & PUT methods
 |Minor / +
 Minor
 |Minimal / +
 Minimal
 |Changed `country_code`, `party_id` and `tariff_id` from string to CiString, making them case-insensitive, which had always been the idea. +
 Added `token_type` field, making it possible to make a distinction between different Token types with the same `uid`.
+
+|Tokens / +
+Receiver PATCH method
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Changed `country_code`, `party_id` and `tariff_id` from string to CiString, making them case-insensitive, which had always been the idea. +
+Added `token_type` field, making it possible to make a distinction between different Token types with the same `uid`.
+Made `last_updated` required for all PATCH requests.
 
 |Tokens / +
 Token Object

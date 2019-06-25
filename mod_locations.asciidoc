@@ -293,6 +293,12 @@ The response contains the requested object.
 The CPO pushes available Location, EVSE or Connector objects to the eMSP.
 PUT can be used to send new Location objects to the eMSP but also to replace existing Locations.
 
+When the PUT only contains a <<mod_locations_connector_object,Connector>> Object,
+the Receiver SHALL also set the new `last_updated` value on the parent <<mod_locations_evse_object,EVSE>> and <<mod_locations_location_object,Location>> Objects.
+
+When the PUT only contains a <<mod_locations_evse_object,EVSE>> Object,
+the Receiver SHALL also set the new `last_updated` value on the parent <<mod_locations_location_object,Location>> Object.
+
 [[mod_locations_request_parameters_msp]]
 ====== Request Parameters
 
@@ -317,6 +323,12 @@ have to be included in the URL (as URL segments, as described in the <<mod_locat
 
 The request body contains the new/updated object.
 
+When the PUT contains a <<mod_locations_connector_object,Connector>> Object,
+the Receiver SHALL also set the new `last_updated` value on the parent <<mod_locations_evse_object,EVSE>> and <<mod_locations_location_object,Location>> Objects.
+
+When the PUT contains a <<mod_locations_evse_object,EVSE>> Object,
+the Receiver SHALL also set the new `last_updated` value on the parent <<mod_locations_location_object,Location>> Object.
+
 [cols="4,1,12",options="header"]
 |===
 |Type |Card. |Description 
@@ -327,6 +339,21 @@ The request body contains the new/updated object.
 |&gt; <<mod_locations_connector_object,Connector>> |1 |New Connector object, or Connector object to replace. 
 |===
 
+[[mod_locations_example_add_an_evse]]
+====== Example: add an EVSE
+
+To add an _EVSE_, simply put the full object in an update message, including all its required fields.
+Since the id will be new to the eMSP's system, the receiving party will know that it is a new object.
+When not all required fields are specified, the object may be discarded.
+
+[source,json]
+----
+PUT To URL: https://www.server.com/ocpi/emsp/2.2/locations/NL/TNM/1012/3256
+
+include::examples/location_put_example_add_evse.json[]
+----
+
+
 [[mod_locations_patch_method]]
 ===== *PATCH* Method
 
@@ -334,11 +361,20 @@ Same as the <<mod_locations_put_method,PUT>> method, but only the fields/objects
 Other fields/objects that are not specified as part of the request are considered unchanged.
 Therefore, this method is not suitable to remove information shared earlier.
 
+Any request to the PATCH method SHALL contain the `last_updated` field.
+
+When the PATCH is on a <<mod_locations_connector_object,Connector>> Object,
+the Receiver SHALL also set the new `last_updated` value on the parent <<mod_locations_evse_object,EVSE>> and <<mod_locations_location_object,Location>> Objects.
+
+When the PATCH is on a <<mod_locations_evse_object,EVSE>> Object,
+the Receiver SHALL also set the new `last_updated` value on the parent <<mod_locations_location_object,Location>> Object.
+
 [[mod_locations_example_a_simple_status_update]]
 ====== Example: a simple status update
 
 This is the most common type of update message. It is used to notify eMSPs that the status of an EVSE changed.
 In this case it is the EVSE with uid `3255` of the Location with id `1012`.
+
 
 [source,json]
 ----
@@ -372,21 +408,6 @@ In this example Connector `2` of EVSE `1` of Location `1012` receives a new pric
 PATCH To URL: https://www.server.com/ocpi/emsp/2.2/locations/NL/TNM/1012/3255/2
 
 include::examples/location_patch_example_tariff.json[]
-----
-
-
-[[mod_locations_example_add_an_evse]]
-====== Example: add an EVSE
-
-To add an _EVSE_, simply put the full object in an update message, including all its required fields.
-Since the id will be new to the eMSP's system, the receiving party will know that it is a new object.
-When not all required fields are specified, the object may be discarded.
-
-[source,json]
-----
-PUT To URL: https://www.server.com/ocpi/emsp/2.2/locations/NL/TNM/1012/3256
-
-include::examples/location_patch_example_add_evse.json[]
 ----
 
 

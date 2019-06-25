@@ -166,6 +166,8 @@ include::examples/token_put_example.json[]
 
 Same as the <<mod_tokens_put_method,PUT>> method, but only the fields/objects that have to be updated have to be present, other fields/objects that are not specified are considered unchanged.
 
+Any request to the PATCH method SHALL contain the `last_updated` field.
+
 [[mod_tokens_example_invalidate_a_token]]
 ====== Example: invalidate a Token
 

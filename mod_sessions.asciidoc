@@ -266,10 +266,28 @@ The following parameters can be provided as URL segments.
 [[mod_sessions_patch_method]]
 ===== *PATCH* Method
 
-Same as the <<mod_sessions_msp_put_method,PUT>> method, but only the fields/objects that need to be updated have to be present. Fields/objects which are not specified are considered unchanged.
+Same as the <<mod_sessions_msp_put_method,PUT>> method, but only the fields/objects that need to be updated have to be present.
+Fields/objects which are not specified are considered unchanged.
+
+Any request to the PATCH method SHALL contain the `last_updated` field.
+
+The PATCH method of the Session Receiver interface works on the <<mod_sessions_session_object,Session>> Object,
+it SHALL NOT be used with a URL that would try to PATCH an Object within the <<mod_sessions_session_object,Session>> Object.
+
+When a PATCH request contains the `charging_periods` field,
+this SHALL be processed as a request to add all the <<mod_cdrs.asciidoc#mod_cdrs_chargingperiod_class,ChargingPeriod>> Objects to the existing <<mod_sessions_session_object,Session>> Object.
+
+If existing <<mod_cdrs.asciidoc#mod_cdrs_chargingperiod_class,ChargingPeriod>> Objects in
+a <<mod_sessions_session_object,Session>> need to be replaced or removed, the Sender SHALL use the <<mod_sessions_msp_put_method,PUT>> method to replace
+the entire <<mod_sessions_session_object,Session>> Object.
+
+all the exiting `charging_periods` SHALL be replaced by the once in the PATCH request.
+
 
 [[mod_sessions_example_update_the_total_cost]]
 ====== Example: update the total cost
+
+Patching the `total_cost` needs to be done on the <<mod_sessions_session_object,Session>> Object.
 
 [source,json]
 ----
@@ -277,6 +295,21 @@ PATCH https://www.server.com/ocpi/cpo/2.2/sessions/NL/TNM/101
 
 include::examples/session_patch_example_total_cost.json[]
 ----
+
+
+[[mod_sessions_example_update_the_total_cost]]
+====== Example: adding a new ChargingPeriod
+
+PATCH used to add a new <<mod_cdrs.asciidoc#mod_cdrs_chargingperiod_class,ChargingPeriod>> to the Session
+and updating all related fields.
+
+[source,json]
+----
+PATCH https://www.server.com/ocpi/cpo/2.2/sessions/NL/TNM/101
+
+include::examples/session_patch_example_charging_period.json[]
+----
+
 
 [[mod_sessions_object_description]]
 === Object description

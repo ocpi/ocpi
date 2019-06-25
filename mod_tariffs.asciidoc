@@ -17,8 +17,8 @@ The Tariffs module gives eMSPs information about the tariffs used by the CPO.
 When the CPO creates a new Tariff they push them to the eMSPs by calling the <<mod_tariffs_put_method,PUT>> on the eMSPs
 Tariffs endpoint with the newly created Tariff object.
 
-Any changes to the Tariff(s) in the CPO system can be send to the eMSP system by calling either <<mod_tariffs_put_method,PUT>>
-or <<mod_tariffs_patch_method,PATCH>> on the eMSPs Tariffs endpoint with the updated Tariff object.
+Any changes to the Tariff(s) in the CPO system can be send to the eMSP system by calling the <<mod_tariffs_put_method,PUT>>
+method on the eMSPs Tariffs endpoint with the updated Tariff object.
 
 When the CPO deletes a Tariff, they will update the eMSPs systems by calling <<mod_tariffs_delete_method,DELETE>>
 on the eMSPs Tariffs endpoint, with the ID of the Tariff that is deleted.
@@ -134,7 +134,7 @@ Example:
 |<<mod_tariffs_msp_get_method,GET>> |Retrieve a Tariff as it is stored in the eMSP system. 
 |POST |n/a 
 |<<mod_tariffs_put_method,PUT>> |Push new/updated Tariff object to the eMSP. 
-|<<mod_tariffs_patch_method,PATCH>> |Notify the eMSP of partial updates to a Tariff. 
+|PATCH|n/a
 |<<mod_tariffs_delete_method,DELETE>> |Remove Tariff object which is no longer valid 
 |===
 
@@ -208,22 +208,6 @@ The following parameters can be provided as URL segments.
 PUT To URL: https://www.server.com/ocpi/emsp/2.2/tariffs/NL/TNM/12
 
 include::examples/tariff_put_example.json[]
-----
-
-[[mod_tariffs_patch_method]]
-===== *PATCH* Method
-
-The PATCH method works the same as the <<mod_tariffs_put_method,PUT>> method, except that the fields/objects that have to be updated have to be present,
-other fields/objects that are not specified are considered unchanged.
-
-[[mod_tariffs_example_change_tariff_to_2,50]]
-====== Example: Change Tariff to 2,50
-
-[source,json]
-----
-PUT To URL: https://www.server.com/ocpi/emsp/2.2/tariffs/NL/TNM/12
-
-include::examples/tariff_patch_example.json[]
 ----
 
 
