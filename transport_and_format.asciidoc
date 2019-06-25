@@ -510,6 +510,10 @@ For a GET All via Hub: The HTTP Method SHALL be GET, The call is to a Senders In
 image::images/sd_get_all_platform.svg[OCPI Sequence Diagram of a GET All via the Hub.]
 
 
+===== Timestamps and Objects send via Hubs
+When OCPI Objects are send via Hubs, the `last_updated` fields SHALL NOT be updated by the Hub.
+
+
 [[transport_and_format_unique_messageg_ids]]
 === Unique message IDs
 
