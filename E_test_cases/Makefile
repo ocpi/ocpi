@@ -12,8 +12,6 @@ copy:
 	cp ../_common/*.asciidoc $(INTERMEDIATE_DIR)
 	cp ../scripts/check_asciidoc_links.pl $(INTERMEDIATE_DIR)
 	cp ../scripts/$(MERGE) $(INTERMEDIATE_DIR)
-	cp -R images $(INTERMEDIATE_DIR)
-	cp -R plantuml $(INTERMEDIATE_DIR)
 
 gen_plantuml:
 	$(PLANTUML_TOOL) -o ../images/ plantuml/*
