@@ -8,7 +8,7 @@
 :revision_date: 06-21-{year}
 :revdate: 06-21-{year}
 :document_header: OCPI {document_version}
-:revnumber: document_version
+:revnumber: {document_version}
 
 = OCPI {ocpi_version}: {ocpi_document}
 https://github.com/ocpi & https://ocpi-protocol.org
