@@ -5,7 +5,8 @@
 |Version |Date |Author |Description
 
 |2.2 RC2 |26-06-2019 | Robert de Leeuw +
-_ihomer_ |Release Candidate 2 of OCPI 2.2: Rework for review comments. +
+_ihomer_ |Release Candidate 2 of OCPI 2.2: +
+        Rework for review comments. +
         Updated after Face-to-face meeting in Strasbourg. +
         Major overhaul of Topology and Message routing sections. +
         Added Charging Profile example sequence diagrams. +
