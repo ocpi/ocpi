@@ -468,7 +468,7 @@ all have (somewhat) different encodings. Below the table with known implementati
 |Name |Description |Contact
 
 |OCMF                      |Proposed by SAFE  |
-|Alfen                     |Alfen B.V. Format |
+| Alfen Eichrecht          | Alfen Eichrecht encoding / implementation. | TODO Alfen will provide a URL.
 |EDL40 E-Mobility Extension|eBee smart technologies implementation |
 |EDL40 Mennekes            |Mennekes implementation |
 |===
