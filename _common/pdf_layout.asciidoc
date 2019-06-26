@@ -3,15 +3,15 @@
 :sectnumlevels: 4
 :numbered:
 :pagenums:
-:title-separator: |
-[separator=:]
+:version-label: document version
 :year: 2019
 :revision_date: 06-21-{year}
+:revdate: 06-21-{year}
 :document_header: OCPI {document_version}
+:revnumber: document_version
 
 = OCPI {ocpi_version}: {ocpi_document}
-document version {document_version}, {revision_date}
-github.com/ocpi
+https://github.com/ocpi & https://ocpi-protocol.org
 
 <<<
 :toc:
