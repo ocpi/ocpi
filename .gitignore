@@ -3,7 +3,8 @@
 *~
 .DS_Store
 all.md
-releases/OCPI*.pdf
+releases/
+generated/
 /OCPI.iml
-/releases/2.2-DRAFT1/.bookmarks.txt
-/releases/2.2-DRAFT1/.references.txt
+.bookmarks.txt
+.references.txt
