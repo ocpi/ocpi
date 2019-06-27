@@ -17,3 +17,24 @@ TODO
 
 
 
+=== Authorization of an unknown token
+
+Charge Point request authorization for an RFID that the CPO does not know, not in a Whitelist. Ask every MSP
+
+
+=== Authorization of an unknown token via Hub
+
+Charge Point request authorization for an RFID that the CPO does not know, not in a Whitelist. Ask the Hub
+
+
+
+
+=== MSP adds a new Token to the Whitelist
+
+
+
+=== MSP blocks an existing Token in the Whitelist
+
+
+
+=== MSP reactivates an existing Token in the Whitelist

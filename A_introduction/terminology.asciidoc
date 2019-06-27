@@ -11,16 +11,44 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 [cols="2s,10",options="header"]
 |===
 |Abbr. |Description
+|ACPO  |Administrative Charging Point Operator
 |CDR   |Charge Detail Record
 |CPO   |Charging Point Operator
+|CSP   |Customer Service Provider
 |eMSP  |e-Mobility Service Provider
 |EV    |Electric Vehicle
 |EVSE  |Electric Vehicle Supply Equipment. Is considered as an independently operated and managed part of a Charge Point that can deliver energy to one EV at a time.
 |JSON  |JavaScript Simple Object Notation
+|LO    |Location Owner
 |NAP   |National Access Point
 |NSP   |Navigation Service Provider
 |OCPP  |Open Charge Point Protocol
 |SCSP  |Smart Charging Service Provider
+|TCPO  |Technical Charging Point Operator
+|===
+
+
+[[terminology_terms]]
+=== Terminology
+
+[cols="3s,9",options="header"]
+|===
+|Term  |Description
+|Broadcast Push | When communicating via a Hub, a data owner can do a single call to the Hub, the Hub then calls all receiving systems. +
+                  See: <<transport_and_format.asciidoc#transport_and_format_message_routing_broadcast_push,Broadcast push>>
+|Charge Point |The physical system where an EV can be charged. A Charge Point has one or more EVSEs. Sometimes called Charging Station
+|Client Owned Objects | In a normal REST interface, the server is the owner of data, when a new resource is created by call POST, the server creates the URL where the resource can be found by a client. +
+                        OCPI is different, in most modules the owner is the party pushing data to a server, to inform them of updates. +
+                        For example: Locations, the CPO owns a Location (Charge Point), when a new Charge Point is added, the CPO calls PUT on the eMSP systems to inform them about new locations. +
+                        See: <<transport_and_format.asciidoc#transport_and_format_client_owned_object_push,Client Owned Objects>>
+|Open Routing Request | Systems connected via Hub, system pulling information does not know, or care about, the owner of information, but asks the Hub GET, and the Hub fins the correct party and routes the request to that party. +
+                        See: <<transport_and_format.asciidoc#transport_and_format_message_routing_open_routing_request,Open Routing Request>>
+
+|Platform | Software that provides services via OCPI.
+            A platform can provide service for a single eMSP or CPO, or for multiple CPOs or eMSPs.
+            It can even provide services for both eMSPs and CPOs at the same time.
+|Pull | A system calls GET request to retrieve information from the system that owns the data.
+|Push | The system, owning the data, actively calls POST/PUT/PATCH to update other systems with new/update information.
 |===
 
 
@@ -32,13 +60,24 @@ In the EV Charging landscape, different market roles can be identified.
 [cols="3s,9",options="header"]
 |===
 |Role  |Description
+|ACPO  |Administrative CPO: Has roaming contracts with eMSPs.
+        Does not manage a network of Charge Points, they are using a TCPO for that.
+        From the point of view of MSPs and Hubs, this is the CPO.
+        The ACPO role is defined in OCPI for the use of OCPI between ACPO and TCPO only.
 |CPO   |Charging Point Operator: Operates a network of Charge Points.
+|CSP   |Customer Service Provider: Provides Customer Service services to parties like CPOs and eMSPs
 |eMSP  |e-Mobility Service Provider: gives EV drivers access to charging services.
 |Hub   |Can connect one or more CPOs to one or more eMSPs.
+|LO    |Location Owner, owner of the location where the Charge Point is located.
+        Typically interested in Location/Tariff information for their own locations,
+        and the Session that happen at their locations, most of the times for making dashboards or gathering statistics.
 |NAP   |Provides a national Database with all (public) Charging Locations, information can be send and retrieved from the NAP (that makes it different from a typical NSP).
 |NSP   |Provides EV drivers with location information of Charge Points.
 |Roaming Hub |See: Hub
 |SCSP  |Provided Smart Charging service to other parties, might use a lot of different inputs to calculate Smart Charging Profiles.
+|TCPO  |Technical CPO. Manages a network of Charge Points for a ACPO. Does not have roaming contracts with eMSPs.
+        From the point of view of MSPs and Hubs, the TCPO does not exist.
+        The TCPO role is defined in OCPI for the use of OCPI between TCPO and ACPO only.
 |===
 
 Some of these roles can be combined in one company. A Platform can provides service for multiple CPOs or eMSP,
@@ -72,50 +111,73 @@ Examples of platforms:
 
 The following table shows the typical modules implemented by the different roles.
 These are not required.
+
 The table shows the typical communication role: Receiver, Sender or Both.
 
-[cols="6,4,4,4,4,4,4",options="header"]
+[cols="6,4,4,4,4,4,4,4,4",options="header"]
 |===
 |Modules
   |<<types.asciidoc#types_role_enum,CPO>>
+  |<<types.asciidoc#types_role_enum,CSP>>
   |<<types.asciidoc#types_role_enum,eMSP>>
   |<<types.asciidoc#types_role_enum,Hub>>
+  |<<types.asciidoc#types_role_enum,LO>>
   |<<types.asciidoc#types_role_enum,NSP>>
   |<<types.asciidoc#types_role_enum,NAP>>
   |<<types.asciidoc#types_role_enum,SCSP>>
-|<<mod_cdrs.asciidoc#mod_cdrs_cdrs_module,CDRs>>                                   |Sender   |Receiver |Both   |          |          |
-|<<mod_charging_profiles.asciidoc#mod_charging_profiles_module,Charging Profiles>> |Receiver |         |Both   |          |          |Sender
-|<<mod_commands.asciidoc#mod_commands_commands_module,Commands>>                   |Receiver |Sender   |Both   |          |          |
-|<<credentials.asciidoc#credentials_credentials_endpoint,Credentials>>             |Both     |Both     |Both   |Both      |Both      |Both
-|<<mod_hub_client_info.asciidoc#mod_hub_client_info_module,Hub Client Info>>       |Receiver |Receiver |Sender |Receiver  |Receiver  |Receiver
-|<<mod_locations.asciidoc#mod_locations_locations_module,Locations>>               |Sender   |Receiver |Both   |Receiver  |Both      |
-|<<mod_sessions.asciidoc#mod_sessions_sessions_module,Sessions>>                   |Sender   |Receiver |Both   |          |          |Receiver
-|<<mod_tariffs.asciidoc#mod_tariffs_tariffs_module,Tariffs>>                       |Sender   |Receiver |Both   |Receiver  |Both      |
-|<<mod_tokens.asciidoc#mod_tokens_tokens_module,Tokens>>                           |Receiver |Sender   |Both   |          |          |
+|<<mod_cdrs.asciidoc#mod_cdrs_cdrs_module,CDRs>>                                   |Sender   |         |Receiver |Both   |         |          |          |
+|<<mod_charging_profiles.asciidoc#mod_charging_profiles_module,Charging Profiles>> |Receiver |         |         |Both   |         |          |          |Sender
+|<<mod_commands.asciidoc#mod_commands_commands_module,Commands>>                   |Receiver |Sender   |Sender   |Both   |         |          |          |
+|<<credentials.asciidoc#credentials_credentials_endpoint,Credentials>>             |Both     |Both     |Both     |Both   |Both     |Both      |Both      |Both
+|<<mod_hub_client_info.asciidoc#mod_hub_client_info_module,Hub Client Info>>       |Receiver |         |Receiver |Sender |Receiver |Receiver  |Receiver  |Receiver
+|<<mod_locations.asciidoc#mod_locations_locations_module,Locations>>               |Sender   |Receiver |Receiver |Both   |Receiver |Receiver  |Both      |
+|<<mod_sessions.asciidoc#mod_sessions_sessions_module,Sessions>>                   |Sender   |Receiver |Receiver |Both   |Receiver |          |          |Receiver
+|<<mod_tariffs.asciidoc#mod_tariffs_tariffs_module,Tariffs>>                       |Sender   |         |Receiver |Both   |Receiver |Receiver  |Both      |
+|<<mod_tokens.asciidoc#mod_tokens_tokens_module,Tokens>>                           |Receiver |? TODO   |Sender   |Both   |         |          |          |
 |===
 
 
-[[terminology_terms]]
-=== Terminology
+[[introduction_typical_roles]]
+==== Typical OCPI implementations for TCPO to ACPO communication
 
-[cols="3s,9",options="header"]
+This section is only a guideline, as different ACPO/TCPO combinations might have different ways of working together.
+This section is based on some examples that have been observed in the real world.
+
+The TCPO and ACPO roles SHALL only be used in a peer-to-peer connection to each other
+
+The following table shows the typical modules implemented by the TCPO and ACPO role.
+For completeness, also the CPO role has been added to the table, showing the difference between the ACPO side and CPO side of the ACPO system.
+
+The table shows the typical communication role: Receiver, Sender or Both.
+
+[cols="6,4,4,4",options="header"]
 |===
-|Term  |Description
-|Broadcast Push | When communicating via a Hub, a data owner can do a single call to the Hub, the Hub then calls all receiving systems. +
-                  See: <<transport_and_format.asciidoc#transport_and_format_message_routing_broadcast_push,Broadcast push>>
-|Charge Point |The physical system where an EV can be charged. A Charge Point has one or more EVSEs. Sometimes called Charging Station
-|Client Owned Objects | In a normal REST interface, the server is the owner of data, when a new resource is created by call POST, the server creates the URL where the resource can be found by a client. +
-                        OCPI is different, in most modules the owner is the party pushing data to a server, to inform them of updates. +
-                        For example: Locations, the CPO owns a Location (Charge Point), when a new Charge Point is added, the CPO calls PUT on the eMSP systems to inform them about new locations. +
-                        See: <<transport_and_format.asciidoc#transport_and_format_client_owned_object_push,Client Owned Objects>>
-|Open Routing Request | Systems connected via Hub, system pulling information does not know, or care about, the owner of information, but asks the Hub GET, and the Hub fins the correct party and routes the request to that party. +
-                        See: <<transport_and_format.asciidoc#transport_and_format_message_routing_open_routing_request,Open Routing Request>>
+|Modules
+  |<<types.asciidoc#types_role_enum,TCPO>>
+  |<<types.asciidoc#types_role_enum,ACPO>>
+  |<<types.asciidoc#types_role_enum,CPO>>
+|<<mod_cdrs.asciidoc#mod_cdrs_cdrs_module,CDRs>>                                   |         |         |Sender
+|<<mod_charging_profiles.asciidoc#mod_charging_profiles_module,Charging Profiles>> |Receiver |Sender   |Receiver
+|<<mod_commands.asciidoc#mod_commands_commands_module,Commands>>                   |Receiver |Sender   |Receiver
+|<<credentials.asciidoc#credentials_credentials_endpoint,Credentials>>             |Both     |Both     |Both
+|<<mod_hub_client_info.asciidoc#mod_hub_client_info_module,Hub Client Info>>       |         |         |Receiver
+|<<mod_locations.asciidoc#mod_locations_locations_module,Locations>>               |Sender   |Receiver |Sender
+|<<mod_sessions.asciidoc#mod_sessions_sessions_module,Sessions>>                   |Sender   |Receiver |Sender
+|<<mod_tariffs.asciidoc#mod_tariffs_tariffs_module,Tariffs>>                       |         |         |Sender
+|<<mod_tokens.asciidoc#mod_tokens_tokens_module,Tokens>>                           |         |Sender   |Receiver
+|===
 
-|Platform | Software that provides services via OCPI.
-            A platform can provide service for a single eMSP or CPO, or for multiple CPOs or eMSPs.
-            It can even provide services for both eMSPs and CPOs at the same time.
-|Pull | A system calls GET request to retrieve information from the system that owns the data.
-|Push | The system, owning the data, actively calls POST/PUT/PATCH to update other systems with new/update information.
+Remarks for the different modules:
+
+[cols="2,8",options="header"]
+|===
+|Module  |Remark
+
+|<<mod_cdrs.asciidoc#mod_cdrs_cdrs_module,CDRs>>                 |CDRs are generated by the ACPO based on the information send in the Sessions.
+|<<mod_commands.asciidoc#mod_commands_commands_module,Commands>> |ACPO is allowed to send `StartSession` and `ReserveNow` for any `Token`, not limited to `Tokens` it owns,
+                                                                  as ACPO can forward commands for a lot of different eMSPs.
+|<<mod_tariffs.asciidoc#mod_tariffs_tariffs_module,Tariffs>>     |Tariff information is provided by the ACPO, TCPO has no knowledge of tariffs.
+|<<mod_tokens.asciidoc#mod_tokens_tokens_module,Tokens>>         |The ACPO does not forward tokens, TCPO does a real-time authorization request for all authorizations.
 |===
 
 

@@ -73,13 +73,16 @@ Unless mentioned otherwise, numbers use 4 decimals and a _sufficiently large amo
 |===
 |Value |Description
 
-|CPO |Charge Point Operator Role
-|EMSP |eMobility Service Provider Role
+|CPO |Charge Point Operator role (in case of a peer-to-peer connection to a TCPO this is the ACPO)
+|CSP |Customer Service Provider role.
+|EMSP |eMobility Service Provider role
 |HUB |Hub role
-|NAP |National Access Point Role (national Database with all Location information of a country)
-|NSP |Navigation Service Provider Role, role like an eMSP (probably only interested in Location information)
+|LO  |Location Owner
+|NAP |National Access Point role (national Database with all Location information of a country)
+|NSP |Navigation Service Provider role, role like an eMSP (probably only interested in Location information)
 |OTHER |Other role
-|SCSP|Smart Charging Service Provider Role
+|SCSP|Smart Charging Service Provider role
+|TCPO  |Technical CPO role, SHALL only be used to connect to a ACPO (which is then using the CPO role).
 |===
 
 

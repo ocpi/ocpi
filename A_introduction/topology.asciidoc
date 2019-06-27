@@ -7,6 +7,7 @@ OCPI 2.2 introduces a solution for this: <<transport_and_format.asciidoc#transpo
 
 OCPI 2.2 introduces Platforms that connect via OCPI instead of CPO and eMSP, more on this in: <<terminology.asciidoc#terminology_roles,EV Charging Market Roles>>
 
+[[supported_topologies_peer_to_peer]]
 === Peer-to-peer
 
 The simplest topology is a bilateral connection: peer-to-peer between two platforms,
@@ -16,6 +17,7 @@ and in the most simple version each platform only has 1 role.
 image::images/architecture_direct.svg[peer-to-peer topology example]
 
 
+[[supported_topologies_multiple_peer_to_peer]]
 === Multiple peer-to-peer connections
 
 A more real world topology where multiple parties connect their platforms,
@@ -26,6 +28,7 @@ and each platform only has 1 role.
 image::images/architecture_multiple_direct_modified.svg[Multiple peer-to-peer topology example]
 
 <<<
+[[supported_topologies_multiple_same_roles]]
 === Peer-to-peer multiple the same roles
 
 There are parties that provide for example CPO or eMSP services for other companies.
@@ -37,6 +40,7 @@ and both platforms can have multiple roles.
 image::images/architecture_platform_same_direct.svg[peer-to-peer with multiple roles topology example]
 
 
+[[supported_topologies_multiple_same_roles]]
 === Peer-to-peer dual roles
 
 There are parties that have dual roles, most of the companies are CPO and eMSP.
@@ -47,6 +51,7 @@ and both platforms have the CPO and the eMSP roles.
 image::images/architecture_platform_dual_direct.svg[peer-to-peer with both CPO and eMSP roles topology example]
 
 <<<
+[[supported_topologies_mixed_roles]]
 === Peer-to-peer mixed roles
 
 There are parties that have dual roles, or provide them to other parties and then connect to other companies that do the same.
@@ -57,6 +62,7 @@ and both platforms have multiple different and also the same roles.
 image::images/architecture_platform_mixed_direct.svg[peer-to-peer with mixed roles topology example]
 
 <<<
+[[supported_topologies_multiple_peer_to_peer]]
 === Multiple peer-to-peer
 
 More a real-world topology when OCPI is used between market parties without a hub, all parties are platforms with multiple roles.
@@ -67,6 +73,7 @@ It is easy to notice that the amount of connections between platforms explodes.
 image::images/architecture_mutiple_platform_direct_modified.svg[peer-to-peer with mixed roles topology example]
 
 <<<
+[[supported_topologies_plaftorms_via_hub]]
 === Platforms via Hub
 
 This topology has all Platforms only connect via a Hub, all communication goes via the Hub.
@@ -75,6 +82,7 @@ This topology has all Platforms only connect via a Hub, all communication goes v
 image::images/architecture_hub_simple_modified.svg[Platforms connected via a Hub topology example]
 
 <<<
+[[supported_topologies_plaftorms_via_hub_and_direct]]
 === Platforms via Hub and direct
 
 Not all Platforms will only communicate via a Hub.
