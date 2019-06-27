@@ -4,8 +4,8 @@
   "id": "16",
   "currency": "EUR",
   "max_price": {
-    "excl_vat": 25.00,
-    "incl_vat": 27.50
+    "excl_vat": 10.00,
+    "incl_vat": 11.00
   },
   "elements": [{
     "price_components": [{

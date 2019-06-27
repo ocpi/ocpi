@@ -15,7 +15,7 @@
       "type": "ENERGY",
       "price": 0.25,
       "vat": 10.0,
-      "step_size": 1
+      "step_size": 100
     }]
   }],
   "last_updated": "2015-06-29T20:39:09Z"
