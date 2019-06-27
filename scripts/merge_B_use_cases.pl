@@ -13,6 +13,7 @@ my @ocpi_parts = qw( pdf_layout
                      introduction
                      uc_registration
                      uc_authorization
+                     uc_session
                      uc_commands
                      uc_smart_charging);
               
@@ -24,6 +25,7 @@ foreach my $file (@ocpi_parts) {
             $line =~ s/introduction.asciidoc#//g;
             $line =~ s/uc_registration.asciidoc#//g;
             $line =~ s/uc_authorization.asciidoc#//g;
+            $line =~ s/uc_session.asciidoc#//g;
             $line =~ s/uc_commands.asciidoc#//g;
             $line =~ s/uc_smart_charging.asciidoc#//g;
             print $out $line;

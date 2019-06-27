@@ -27,12 +27,13 @@ TODO
                           *3.* Step 3 +
                           *4.* Step 4 +
                           *5.* Step 5
-|*5* | *Postconditions* | `CREDENTIALS_TOKEN_B` is known to Platform 1. +
+|*5* | *Preconditions*  | TODO
+|*6* | *Postconditions* | `CREDENTIALS_TOKEN_B` is known to Platform 1. +
                           `CREDENTIALS_TOKEN_C` is known to Platform 2. +
                           Platforms have exchanged which version of OCPI they will be using. +
                           Platforms known which modules the other party has implemented, and where (URL) to find them. +
-|*6* | *Error handling* | TODO
-|*7* | *Remark(s)*      | Due to its symmetric nature, the registration use case can be started by any platform, platforms should agree before hand which platform starts the handshake.
+|*7* | *Error handling* | TODO
+|*8* | *Remark(s)*      | Due to its symmetric nature, the registration use case can be started by any platform, platforms should agree before hand which platform starts the handshake.
 |=======================================================================
 
 .Sequence Diagram: {UC_TITLE}

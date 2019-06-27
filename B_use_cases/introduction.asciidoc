@@ -36,9 +36,10 @@ The number and name of the use case are not part of the table, but are in the he
                           *3.* Step 3 +
                           *4.* Step 4 +
                           *5.* Step 5
-|*5* | *Postconditions* | Contains the Post condition of the use case.
-|*6* | *Error handling* | Contains the error handling if applicable, error handling is not part of the requirements
-|*7* | *Remark(s)*      | space for adding remarks to a use case.
+|*5* | *Preconditions*  | Contains the pre-condition of the use case.
+|*6* | *Postconditions* | Contains the post-condition of the use case.
+|*7* | *Error handling* | Contains the error handling if applicable, error handling is not part of the requirements
+|*8* | *Remark(s)*      | space for adding remarks to a use case.
 |=======================================================================
 
 .Sequence Diagram: {UC_TITLE}

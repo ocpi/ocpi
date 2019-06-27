@@ -5,36 +5,74 @@ This section will contains the Authorization Use Cases.
 
 TODO
 
-=== Authorization use whitelist
+[[uc_authorization_use_whitelist]]
+:UC_NR: 01
+:UC_TITLE: As a CPO I want to authorize a Token using the Whitelist
+=== UC: {UC_NR} - {UC_TITLE}
+
+TODO
 
 
 
-=== Authorization use real-time authorization
+
+[[uc_authorization_make_a_token_known_to_cpos]]
+:UC_NR: 02
+:UC_TITLE: As an eMSP I want to make Token(s) known to CPOs
+=== UC: {UC_NR} - {UC_TITLE}
+
+TODO:
+Push tokens to whitelist
+
+
+[[uc_authorization_make_a_token_known_to_cpos]]
+:UC_NR: 03
+:UC_TITLE: As an eMSP I want to send updated Token information to CPOs
+=== UC: {UC_NR} - {UC_TITLE}
+
+TODO:
+Push tokens to whitelist
+Block a token.
+Reactive a Token.
+Or should this be 2 used cases?
+
+
+[[uc_authorization_using_realtime_authorization]]
+:UC_NR: 04
+:UC_TITLE: As a CPO I want to authorize a known Token (real-time authorization)
+=== UC: {UC_NR} - {UC_TITLE}
+
+TODO
 
 
 
-=== Authorization use whitelist when offline
+
+[[uc_authorization_using_whitelist_when_offline]]
+:UC_NR: 05
+:UC_TITLE: As a CPO I want to authorize a known Token when the eMSP is offline
+=== UC: {UC_NR} - {UC_TITLE}
+
+TODO
 
 
 
-=== Authorization of an unknown token
+[[uc_authorization_using_realtime_authorization_via_hub]]
+:UC_NR: 06
+:UC_TITLE: As a CPO I want to authorize a unknown Token via a Hub (real-time authorization)
+=== UC: {UC_NR} - {UC_TITLE}
 
-Charge Point request authorization for an RFID that the CPO does not know, not in a Whitelist. Ask every MSP
-
-
-=== Authorization of an unknown token via Hub
-
+TODO:
 Charge Point request authorization for an RFID that the CPO does not know, not in a Whitelist. Ask the Hub
 
 
 
+[[uc_authorization_using_realtime_authorization]]
+:UC_NR: 07
+:UC_TITLE: As a CPO I want to authorize a unknown Token (real-time authorization)
+=== UC: {UC_NR} - {UC_TITLE}
 
-=== MSP adds a new Token to the Whitelist
+TODO:
+Charge Point request authorization for an RFID that the CPO does not know, not in a Whitelist. Ask every MSP
 
 
 
-=== MSP blocks an existing Token in the Whitelist
 
-
-
-=== MSP reactivates an existing Token in the Whitelist
