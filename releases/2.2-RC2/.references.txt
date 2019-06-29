@@ -1,0 +1,814 @@
+changelog_changelog,"changelog",47
+changelog_changelog,"changelog",50
+changelog_changelog,"changelog",54
+changelog_changelog,"changelog",56
+changelog_changelog,"changelog",58
+changelog_changelog,"changelog",62
+changelog_changelog,"changelog",136
+credentials_credentials_endpoint,"Credentials",279
+credentials_credentials_endpoint,"credentials module",517
+credentials_credentials_endpoint,"`credentials`",529
+credentials_credentials_endpoint,"credentials",715
+credentials_credentials_endpoint,"credentials",729
+credentials_credentials_endpoint,"Credentials &amp; Registration",1322
+credentials_credentials_endpoint,"Credentials &amp; Registration",1332
+credentials_credentials_endpoint,"Credentials",2061
+credentials_credentials_object,"'Credentials tokens'",517
+credentials_credentials_object,"country_code",714
+credentials_credentials_object,"party_id",714
+credentials_credentials_object,"country_code",715
+credentials_credentials_object,"party_id",715
+credentials_credentials_object,"country_code",729
+credentials_credentials_object,"party_id",729
+credentials_credentials_object,"party_id",1822
+credentials_credentials_object,"country_code",1822
+credentials_credentials_object,"party_id",1906
+credentials_credentials_object,"country_code",1906
+credentials_credentials_object,"party_id",2823
+credentials_credentials_object,"country_code",2823
+credentials_credentials_object,"party_id",3733
+credentials_credentials_object,"country_code",3733
+credentials_credentials_object,"party_id",4581
+credentials_credentials_object,"country_code",4581
+credentials_credentials_role_class,"Support Platforms with multiple/different roles, additional roles",124
+credentials_credentials_role_class,"CredentialsRole",1530
+credentials_delete_method,"DELETE",1480
+credentials_get_method,"GET",1476
+credentials_post_method,"POST",1477
+credentials_put_method,"PUT",1478
+credentials_registration,"`CREDENTIALS_TOKEN_A`",528
+mod_cdrs_authmethod_enum,"AuthMethod",2995
+mod_cdrs_authmethod_enum,"AuthMethod",3392
+mod_cdrs_cdr_location_class,"CdrLocation",3399
+mod_cdrs_cdr_object,"CDRs",129
+mod_cdrs_cdr_object,"CDR description",2978
+mod_cdrs_cdr_object,"`credit`",3140
+mod_cdrs_cdr_object,"`credit_reference_id`",3141
+mod_cdrs_cdr_object,"`id`",3142
+mod_cdrs_cdr_object,"`total_cost`",3144
+mod_cdrs_cdr_object,"`credit`",3147
+mod_cdrs_cdr_object,"`credit_reference_id`",3147
+mod_cdrs_cdr_object,"CDR",3248
+mod_cdrs_cdr_object,"CDR",3297
+mod_cdrs_cdr_object,"CDR",3326
+mod_cdrs_cdr_object,"CDR",4844
+mod_cdrs_cdr_object,"CDR",5320
+mod_cdrs_cdr_object,"CDR",5359
+mod_cdrs_cdr_token_object,"CdrToken",2994
+mod_cdrs_cdr_token_object,"CdrToken",3391
+mod_cdrs_cdrdimension_class,"CdrDimension",3552
+mod_cdrs_cdrdimensiontype_enum,"CdrDimensionType",3460
+mod_cdrs_cdrs_module,"CDRs",276
+mod_cdrs_cdrs_module,"CDRs",874
+mod_cdrs_cdrs_module,"CDRs",1329
+mod_cdrs_chargingperiod_class,"ChargingPeriod",2920
+mod_cdrs_chargingperiod_class,"ChargingPeriod",2922
+mod_cdrs_chargingperiod_class,"ChargingPeriod",2945
+mod_cdrs_chargingperiod_class,"ChargingPeriod",3007
+mod_cdrs_chargingperiod_class,"ChargingPeriod",3403
+mod_cdrs_chargingperiod_class,"ChargingPeriod",3475
+mod_cdrs_chargingperiod_class,"ChargingPeriod",3476
+mod_cdrs_chargingperiod_class,"ChargingPeriod",3479
+mod_cdrs_chargingperiod_class,"ChargingPeriod",3480
+mod_cdrs_chargingperiod_class,"ChargingPeriod",3481
+mod_cdrs_chargingperiod_class,"ChargingPeriod",3482
+mod_cdrs_chargingperiod_class,"ChargingPeriod",3483
+mod_cdrs_chargingperiod_class,"ChargingPeriod",3484
+mod_cdrs_chargingperiod_class,"ChargingPeriod",3485
+mod_cdrs_chargingperiod_class,"ChargingPeriod",3487
+mod_cdrs_cpo_get_method,"GET",3168
+mod_cdrs_cpo_get_method,"GET",3170
+mod_cdrs_cpo_get_method,"GET",3207
+mod_cdrs_credit_cdrs,"Credit CDR",3130
+mod_cdrs_credit_cdrs,"something appended",3387
+mod_cdrs_msp_get_method,"GET",3162
+mod_cdrs_msp_get_method,"GET",3262
+mod_cdrs_post_method,"POST",3156
+mod_cdrs_post_method,"POST",3162
+mod_cdrs_post_method,"POST",3263
+mod_cdrs_signed_data_class,"SignedData",3404
+mod_cdrs_signed_value_class,"SignedValue",3570
+mod_charging_profiles_active_charging_profile_class,"ActiveChargingProfile",5754
+mod_charging_profiles_active_charging_profile_class,"ActiveChargingProfile",5764
+mod_charging_profiles_active_charging_profile_class,"ActiveChargingProfile",5767
+mod_charging_profiles_active_charging_profile_class,"ActiveChargingProfile",6059
+mod_charging_profiles_active_charging_profile_class,"ActiveChargingProfile",6100
+mod_charging_profiles_active_charging_profiles_result_object,"ActiveChargingProfileResult",5723
+mod_charging_profiles_active_charging_profiles_result_object,"ActiveChargingProfileResult",5743
+mod_charging_profiles_active_charging_profiles_result_object,"ActiveChargingProfileResult",5745
+mod_charging_profiles_active_charging_profiles_result_object,"ActiveChargingProfileResult",5824
+mod_charging_profiles_active_charging_profiles_result_object,"ActiveChargingProfileResult",6005
+mod_charging_profiles_charging_profile_class,"ChargingProfile",6138
+mod_charging_profiles_charging_profile_class,"ChargingProfile",6153
+mod_charging_profiles_charging_profile_class,"ChargingProfile",6198
+mod_charging_profiles_charging_profile_period_class,"ChargingProfilePeriod",6191
+mod_charging_profiles_charging_profiles_result_object,"ChargingProfileResult",5640
+mod_charging_profiles_charging_profiles_result_object,"ChargingProfileResult",5665
+mod_charging_profiles_charging_profiles_result_object,"ChargingProfileResult",6006
+mod_charging_profiles_chargingrateunit,"ChargingRateUnit",6189
+mod_charging_profiles_clear_profiles_result_object,"ClearProfileResult",5683
+mod_charging_profiles_clear_profiles_result_object,"ClearProfileResult",5705
+mod_charging_profiles_clear_profiles_result_object,"ClearProfileResult",5926
+mod_charging_profiles_clear_profiles_result_object,"ClearProfileResult",6007
+mod_charging_profiles_cpo_delete_method,"CPO DELETE method",5602
+mod_charging_profiles_cpo_delete_method,"DELETE",5674
+mod_charging_profiles_cpo_delete_method,"DELETE",5693
+mod_charging_profiles_cpo_delete_method,"DELETE",5694
+mod_charging_profiles_cpo_delete_method,"DELETE",5795
+mod_charging_profiles_cpo_get_method,"CPO GET method",5601
+mod_charging_profiles_cpo_get_method,"CPO GET method",5615
+mod_charging_profiles_cpo_get_method,"GET",5714
+mod_charging_profiles_cpo_get_method,"GET",5732
+mod_charging_profiles_cpo_get_method,"GET",5733
+mod_charging_profiles_cpo_get_method,"GET",5791
+mod_charging_profiles_cpo_put_method,"CPO PUT method",5600
+mod_charging_profiles_cpo_put_method,"PUT",5631
+mod_charging_profiles_cpo_put_method,"PUT",5639
+mod_charging_profiles_cpo_put_method,"PUT",5653
+mod_charging_profiles_cpo_put_method,"PUT",5654
+mod_charging_profiles_cpo_put_method,"PUT",5663
+mod_charging_profiles_cpo_put_method,"PUT",5664
+mod_charging_profiles_cpo_put_method,"PUT",5682
+mod_charging_profiles_cpo_put_method,"PUT",5703
+mod_charging_profiles_cpo_put_method,"PUT",5704
+mod_charging_profiles_cpo_put_method,"PUT",5722
+mod_charging_profiles_cpo_put_method,"PUT",5742
+mod_charging_profiles_cpo_put_method,"PUT",5744
+mod_charging_profiles_cpo_put_method,"PUT",5793
+mod_charging_profiles_module,"Charging Profiles",125
+mod_charging_profiles_module,"Charging Profiles",277
+mod_charging_profiles_module,"Charging Profiles",1330
+mod_charging_profiles_msp_post_method,"POST",5638
+mod_charging_profiles_msp_post_method,"POST",5662
+mod_charging_profiles_msp_post_method,"POST",5681
+mod_charging_profiles_msp_post_method,"POST",5702
+mod_charging_profiles_msp_post_method,"POST",5721
+mod_charging_profiles_msp_post_method,"POST",5741
+mod_charging_profiles_msp_post_method,"POST",5955
+mod_charging_profiles_msp_put_method,"MSP PUT method",5606
+mod_charging_profiles_msp_put_method,"MSP PUT method",5610
+mod_charging_profiles_msp_put_method,"PUT",5755
+mod_charging_profiles_msp_put_method,"PUT",5765
+mod_charging_profiles_msp_put_method,"PUT",5768
+mod_charging_profiles_msp_put_method,"PUT",5956
+mod_charging_profiles_response_object,"ChargingProfileResponse",5843
+mod_charging_profiles_response_object,"ChargingProfileResponse",5897
+mod_charging_profiles_response_object,"ChargingProfileResponse",5939
+mod_charging_profiles_responsetype_enum,"ChargingProfileResponseType",6085
+mod_charging_profiles_resulttype_enum,"ChargingProfileResultType",6099
+mod_charging_profiles_resulttype_enum,"ChargingProfileResultType",6113
+mod_charging_profiles_resulttype_enum,"ChargingProfileResultType",6126
+mod_charging_profiles_set_charging_profile_object,"SetChargingProfile",5883
+mod_commands_cancelreservation_object,"Commands",134
+mod_commands_cancelreservation_object,"CancelReservation",5150
+mod_commands_commandresponse_object,"CommandResponse",5167
+mod_commands_commandresponsetype_enum,"CommandResponseType",5259
+mod_commands_commandresult_object,"CommandResult",5222
+mod_commands_commandresulttype_enum,"CommandResultType",5272
+mod_commands_commands_module,"command module",60
+mod_commands_commands_module,"Commands",278
+mod_commands_commands_module,"Commands",1331
+mod_commands_commands_module,"`Commands`",5590
+mod_commands_commandtype_enum,"CommandType",4999
+mod_commands_commandtype_enum,"CommandType",5000
+mod_commands_commandtype_enum,"CommandType",5137
+mod_commands_cpo_post_method,"POST",5118
+mod_commands_msp_post_method,"POST",5193
+mod_commands_reservenow_object,"reserved",2190
+mod_commands_reservenow_object,"ReserveNow",3013
+mod_commands_reservenow_object,"ReserveNow",3425
+mod_commands_reservenow_object,"ReserveNow",3449
+mod_commands_reservenow_object,"expiry_date",4367
+mod_commands_reservenow_object,"ReserveNow",5151
+mod_commands_startsession_object,"started",2189
+mod_commands_startsession_object,"StartSession",2999
+mod_commands_startsession_object,"StartSession",3396
+mod_commands_startsession_object,"StartSession",3449
+mod_commands_startsession_object,"StartSession",5152
+mod_commands_stopsession_object,"stopped",2189
+mod_commands_stopsession_object,"StopSession",5153
+mod_commands_unlockconnector_object,"unlocked",2193
+mod_commands_unlockconnector_object,"UnlockConnector",5154
+mod_hub_client_info_client_get,"GET",6344
+mod_hub_client_info_client_put,"PUT",6291
+mod_hub_client_info_client_put,"PUT",6294
+mod_hub_client_info_client_put,"PUT",6298
+mod_hub_client_info_client_put,"PUT",6346
+mod_hub_client_info_client_put,"PUT",6348
+mod_hub_client_info_hub_client_info_object,"ClientInfo",6377
+mod_hub_client_info_hub_client_info_object,"ClientInfo",6392
+mod_hub_client_info_hub_client_info_object,"ClientInfo",6490
+mod_hub_client_info_hub_connection_type_enum,"ConnectionStatus",6505
+mod_hub_client_info_hub_get,"GET",6302
+mod_hub_client_info_hub_get,"GET",6309
+mod_hub_client_info_hub_get,"GET",6432
+mod_hub_client_info_module,"Hub Client Info",122
+mod_hub_client_info_module,"Hub Client Info",280
+mod_hub_client_info_module,"Hub Client Info",1333
+mod_locations_additionalgeolocation_class,"AdditionalGeoLocation",2058
+mod_locations_businessdetails_class,"BusinessDetails",1590
+mod_locations_businessdetails_class,"BusinessDetails",2061
+mod_locations_businessdetails_class,"BusinessDetails",2062
+mod_locations_businessdetails_class,"BusinessDetails",2063
+mod_locations_capability_enum,"Capability",2106
+mod_locations_capability_enum,"CHARGING_PREFERENCES_CAPABLE",2687
+mod_locations_connector_object,"Connector",1811
+mod_locations_connector_object,"Connector",1885
+mod_locations_connector_object,"Connector",1895
+mod_locations_connector_object,"Connector",1925
+mod_locations_connector_object,"Connector",1938
+mod_locations_connector_object,"Connector",1965
+mod_locations_connector_object,"Connector",2107
+mod_locations_connector_object,"Connector",2690
+mod_locations_connector_object,"Connector",3048
+mod_locations_connector_object,"Connector",3399
+mod_locations_connector_object,"Connector",4004
+mod_locations_connectorformat_enum,"ConnectorFormat",2131
+mod_locations_connectorformat_enum,"ConnectorFormat",3520
+mod_locations_connectortype_enum,"ConnectorType",2130
+mod_locations_connectortype_enum,"ConnectorType",3519
+mod_locations_emsp_interface,"Receiver interface",1617
+mod_locations_emsp_interface,"Receiver Interface",1907
+mod_locations_energymix_class,"EnergyMix",2069
+mod_locations_energymix_class,"EnergyMix",3887
+mod_locations_energysource_class,"EnergySource",2258
+mod_locations_energysourcecategory_enum,"EnergySourceCategory",2305
+mod_locations_environmentalimpact_class,"EnvironmentalImpact",2259
+mod_locations_environmentalimpactcategory_enum,"EnvironmentalImpactCategory",2337
+mod_locations_evse_object,"EVSE",1810
+mod_locations_evse_object,"EVSE",1884
+mod_locations_evse_object,"EVSE",1896
+mod_locations_evse_object,"EVSE",1898
+mod_locations_evse_object,"EVSE",1926
+mod_locations_evse_object,"EVSE",1928
+mod_locations_evse_object,"EVSE",1937
+mod_locations_evse_object,"EVSE",1966
+mod_locations_evse_object,"EVSE",1968
+mod_locations_evse_object,"EVSE",2059
+mod_locations_evse_object,"EVSE",2123
+mod_locations_evse_object,"EVSE capabilities",2686
+mod_locations_evse_object,"EVSE",3399
+mod_locations_exceptionalperiod_class,"ExceptionalPeriod",2424
+mod_locations_exceptionalperiod_class,"ExceptionalPeriod",2425
+mod_locations_facility_enum,"Facility",2064
+mod_locations_flow_and_lifecycle,"Flow and Lifecycle",1846
+mod_locations_geolocation_class,"GeoLocation",2057
+mod_locations_geolocation_class,"GeoLocation",2109
+mod_locations_geolocation_class,"GeoLocation",3515
+mod_locations_get_list_request_parameters,"GET List",1715
+mod_locations_get_method,"GET",1622
+mod_locations_get_method,"GET",1630
+mod_locations_get_method,"GET",1704
+mod_locations_get_method_eMSP,"GET",1640
+mod_locations_get_method_eMSP,"GET",1842
+mod_locations_get_object_request_parameters,"GET Object interface",1692
+mod_locations_get_object_request_parameters,"GET Object",1716
+mod_locations_hours_class,"Hours",2066
+mod_locations_image_class,"Image",2068
+mod_locations_image_class,"Image",2113
+mod_locations_image_class,"Image",2172
+mod_locations_imagecategory_enum,"ImageCategory",2496
+mod_locations_location_object,"Locations",132
+mod_locations_location_object,"Location",1615
+mod_locations_location_object,"Location",1769
+mod_locations_location_object,"Location",1809
+mod_locations_location_object,"Location",1883
+mod_locations_location_object,"Location",1896
+mod_locations_location_object,"Location",1899
+mod_locations_location_object,"Location",1926
+mod_locations_location_object,"Location",1929
+mod_locations_location_object,"Location",1936
+mod_locations_location_object,"Location",1966
+mod_locations_location_object,"Location",1969
+mod_locations_location_object,"Location",2087
+mod_locations_location_object,"Location",3503
+mod_locations_location_object,"Location",4004
+mod_locations_locations_module,"Locations",281
+mod_locations_locations_module,"Locations",873
+mod_locations_locations_module,"Locations",1334
+mod_locations_locations_module,"Locations module",5002
+mod_locations_locationtype_enum,"LocationType",2050
+mod_locations_parkingrestriction_enum,"ParkingRestriction",2112
+mod_locations_patch_method,"PATCH",1628
+mod_locations_patch_method,"PATCH",1633
+mod_locations_patch_method,"PATCH",1845
+mod_locations_patch_method,"PATCH",1846
+mod_locations_patch_method,"PATCH",1855
+mod_locations_powertype_enum,"PowerType",2132
+mod_locations_powertype_enum,"PowerType",3521
+mod_locations_put_method,"PUT",1621
+mod_locations_put_method,"PUT",1626
+mod_locations_put_method,"PUT",1633
+mod_locations_put_method,"PUT",1843
+mod_locations_put_method,"PUT",1844
+mod_locations_put_method,"PUT",1855
+mod_locations_put_method,"PUT",1959
+mod_locations_regularhours_class,"RegularHours",2423
+mod_locations_regularhours_class,"RegularHours",2423
+mod_locations_status_enum,"Status",2104
+mod_locations_status_enum,"Status",2635
+mod_locations_statusschedule_class,"StatusSchedule",2105
+mod_sessions_charging_preferences_object,"Charging Preferences",2683
+mod_sessions_charging_preferences_object,"ChargingPreferences",2795
+mod_sessions_charging_preferences_object,"ChargingPreferences",2801
+mod_sessions_charging_preferences_response_enum,"ChargingPreferencesResponse",2807
+mod_sessions_charging_preferences_response_enum,"ChargingPreferencesResponse",2813
+mod_sessions_cpo_get_method,"GET",2671
+mod_sessions_cpo_get_method,"GET",2673
+mod_sessions_cpo_get_method,"GET",2706
+mod_sessions_cpo_put_method,"PUT",2682
+mod_sessions_cpo_put_method,"PUT",2708
+mod_sessions_msp_get_method,"GET",2666
+mod_sessions_msp_get_method,"GET",2838
+mod_sessions_msp_put_method,"PUT",2660
+mod_sessions_msp_put_method,"PUT",2840
+mod_sessions_msp_put_method,"PUT",2911
+mod_sessions_msp_put_method,"PUT",2923
+mod_sessions_patch_method,"PATCH",2662
+mod_sessions_patch_method,"PATCH",2841
+mod_sessions_profile_type_enum,"ProfileType",2139
+mod_sessions_profile_type_enum,"ProfileType",2691
+mod_sessions_profile_type_enum,"ProfileType",3047
+mod_sessions_profile_type_enum,"ProfileType",3048
+mod_sessions_profile_type_enum,"ProfileType",3049
+mod_sessions_profile_type_enum,"`profile_type`",4311
+mod_sessions_profile_type_enum,"CHEAP",4506
+mod_sessions_profile_type_enum,"FAST",4507
+mod_sessions_profile_type_enum,"GREEN",4508
+mod_sessions_profile_type_enum,"REGULAR",4509
+mod_sessions_profile_type_enum,"ProfileType",4872
+mod_sessions_profile_type_enum,"ProfileType",4873
+mod_sessions_profile_type_enum,"ProfileType",4874
+mod_sessions_session_object,"Sessions",130
+mod_sessions_session_object,"Session",2761
+mod_sessions_session_object,"Session",2873
+mod_sessions_session_object,"Session",2890
+mod_sessions_session_object,"Session",2916
+mod_sessions_session_object,"Session",2917
+mod_sessions_session_object,"Session",2920
+mod_sessions_session_object,"Session",2923
+mod_sessions_session_object,"Session",2924
+mod_sessions_session_object,"Session",2932
+mod_sessions_session_object,"Session",3355
+mod_sessions_session_object,"Session",3356
+mod_sessions_session_object,"Session",4843
+mod_sessions_session_object,"Session",5319
+mod_sessions_session_object,"Session",5358
+mod_sessions_session_object,"Session",5522
+mod_sessions_session_object,"Session",5523
+mod_sessions_session_object,"Session",5555
+mod_sessions_session_object,"Session",5556
+mod_sessions_session_object,"Session",5628
+mod_sessions_session_object,"Session",5629
+mod_sessions_session_object,"Session",5650
+mod_sessions_session_object,"Session",5651
+mod_sessions_session_object,"Session",5652
+mod_sessions_sessions_module,"Sessions",282
+mod_sessions_sessions_module,"Sessions",874
+mod_sessions_sessions_module,"Sessions",1335
+mod_sessions_sessions_module,"`sessions`",1636
+mod_sessions_sessions_module,"Sessions module",5002
+mod_sessions_sessions_module,"Sessions module",5485
+mod_sessions_sessionstatus_enum,"ACTIVE",2988
+mod_sessions_sessionstatus_enum,"PENDING",2989
+mod_sessions_sessionstatus_enum,"PENDING",2990
+mod_sessions_sessionstatus_enum,"ACTIVE",2990
+mod_sessions_sessionstatus_enum,"ACTIVE",2991
+mod_sessions_sessionstatus_enum,"SessionStatus",3009
+mod_sessions_set_charging_preferences,"Preference based Smart Charging",126
+mod_sessions_set_charging_preferences,"charging preferences",2186
+mod_sessions_set_charging_preferences,"Charging Preferences",3877
+mod_sessions_set_charging_preferences,"Charging Preference",4311
+mod_sessions_set_charging_preferences,"Charging Preference",4506
+mod_sessions_set_charging_preferences,"Charging Preference",4507
+mod_sessions_set_charging_preferences,"Charging Preference",4508
+mod_sessions_set_charging_preferences,"Charging Preference",4509
+mod_sessions_set_charging_preferences,"Charging Preference",4872
+mod_sessions_set_charging_preferences,"Set Charging Preferences",4874
+mod_tariffs_cpo_get_method,"GET",3647
+mod_tariffs_cpo_get_method,"GET",3668
+mod_tariffs_dayofweek_enum,"DayOfWeek",4438
+mod_tariffs_delete_method,"DELETE",3637
+mod_tariffs_delete_method,"DELETE",3752
+mod_tariffs_free_of_charge_tariff_example,"Free of Charge Tariff example",3867
+mod_tariffs_msp_get_method,"GET",3641
+mod_tariffs_msp_get_method,"GET",3748
+mod_tariffs_pricecomponent_class,"`PriceComponents`",4308
+mod_tariffs_pricecomponent_class,"`PriceComponent`",4347
+mod_tariffs_pricecomponent_class,"`PriceComponent`",4348
+mod_tariffs_pricecomponent_class,"PriceComponent",4380
+mod_tariffs_put_method,"PUT",3631
+mod_tariffs_put_method,"PUT",3634
+mod_tariffs_put_method,"PUT",3750
+mod_tariffs_reservation_restriction_type,"ReservationRestrictionType",4439
+mod_tariffs_tariff_object,"CDRs",131
+mod_tariffs_tariff_object,"Tariffs",2689
+mod_tariffs_tariff_object,"Tariffs",2690
+mod_tariffs_tariff_object,"Tariff",3049
+mod_tariffs_tariff_object,"Tariff",3402
+mod_tariffs_tariff_object,"Tariff",3402
+mod_tariffs_tariff_object,"Tariff",3725
+mod_tariffs_tariff_object,"Tariff",3783
+mod_tariffs_tariff_object,"Tariff",3800
+mod_tariffs_tariff_type,"TariffType",3877
+mod_tariffs_tariffdimensiontype_enum,"TariffDimensionType",4291
+mod_tariffs_tariffdimensiontype_enum,"`PARKING_TIME`",4347
+mod_tariffs_tariffdimensiontype_enum,"`PARKING_TIME`",4348
+mod_tariffs_tariffdimensiontype_enum,"TIME",4370
+mod_tariffs_tariffdimensiontype_enum,"FLAT",4441
+mod_tariffs_tariffdimensiontype_enum,"TIME",4441
+mod_tariffs_tariffelement_class,"TariffElement",3884
+mod_tariffs_tariffelement_class,"`TariffElement`",4307
+mod_tariffs_tariffelement_class,"`TariffElement`",4308
+mod_tariffs_tariffelement_class,"`TariffElement`",4309
+mod_tariffs_tariffelement_class,"`TariffElement`",4315
+mod_tariffs_tariffelement_class,"`TariffElement`",4346
+mod_tariffs_tariffrestrictions_class,"TariffRestrictions",4381
+mod_tariffs_tariffrestrictions_class,"reservation",4395
+mod_tariffs_tariffs_module,"Tariffs",283
+mod_tariffs_tariffs_module,"Tariffs",1336
+mod_tariffs_tariffs_module,"Tariffs module",1610
+mod_tokens_allowed_enum,"Allowed",4839
+mod_tokens_authorizationinfo_object,"AuthorizationInfo",4820
+mod_tokens_authorizationinfo_object,"AuthorizationInfo",4826
+mod_tokens_cpo_get_method,"GET",4541
+mod_tokens_cpo_get_method,"GET",4596
+mod_tokens_energy_contract,"EnergyContract",4875
+mod_tokens_locationreferences_class,"LocationReferences",4807
+mod_tokens_locationreferences_class,"LocationReferences",4814
+mod_tokens_locationreferences_class,"LocationReferences",4841
+mod_tokens_msp_get_method,"GET",4547
+mod_tokens_msp_get_method,"GET",4707
+mod_tokens_patch_method,"PATCH",4536
+mod_tokens_patch_method,"PATCH",4538
+mod_tokens_patch_method,"PATCH",4599
+mod_tokens_post_method,"POST Authorize request",4556
+mod_tokens_post_method,"POST Authorize request",4559
+mod_tokens_post_method,"POST Authorize request",4563
+mod_tokens_post_method,"POST",4708
+mod_tokens_put_method,"PUT",4534
+mod_tokens_put_method,"PUT",4536
+mod_tokens_put_method,"PUT",4538
+mod_tokens_put_method,"PUT",4598
+mod_tokens_put_method,"PUT",4600
+mod_tokens_put_method,"PUT",4681
+mod_tokens_real-time_authorization,"real-time authorization",61
+mod_tokens_real-time_authorization,"real-time authorization",2998
+mod_tokens_real-time_authorization,"real-time authorization",3014
+mod_tokens_real-time_authorization,"real-time authorization",3395
+mod_tokens_real-time_authorization,"real-time authorization",3426
+mod_tokens_real-time_authorization,"realtime authorization",4976
+mod_tokens_real-time_authorization,"realtime authorization",4977
+mod_tokens_real-time_authorization,"realtime authorization",4978
+mod_tokens_real-time_authorization,"realtime authorization",4979
+mod_tokens_real-time_authorization,"realtime authorization",4979
+mod_tokens_real-time_authorization,"realtime authorization",5045
+mod_tokens_real-time_authorization,"realtime authorization",5290
+mod_tokens_real-time_authorization,"realtime authorization",5334
+mod_tokens_token_object,"Tokens",133
+mod_tokens_token_object,"Tokens",518
+mod_tokens_token_object,"Token",4632
+mod_tokens_token_object,"Token",4649
+mod_tokens_token_object,"Token",4765
+mod_tokens_token_object,"Token",4840
+mod_tokens_token_object,"Token",5313
+mod_tokens_token_object,"Token",5354
+mod_tokens_token_object,"Token",6658
+mod_tokens_token_object,"Token",6962
+mod_tokens_tokens_module,"Tokens",284
+mod_tokens_tokens_module,"Token Module",518
+mod_tokens_tokens_module,"Tokens",873
+mod_tokens_tokens_module,"Tokens",1337
+mod_tokens_tokens_module,"Token",5296
+mod_tokens_tokens_module,"Token",5299
+mod_tokens_tokens_module,"Token",5340
+mod_tokens_tokens_module,"Token",5343
+mod_tokens_tokentype_enum,"TokenType",3536
+mod_tokens_tokentype_enum,"TokenType",4620
+mod_tokens_tokentype_enum,"RFID",4620
+mod_tokens_tokentype_enum,"TokenType",4664
+mod_tokens_tokentype_enum,"RFID",4664
+mod_tokens_tokentype_enum,"TokenType",4801
+mod_tokens_tokentype_enum,"RFID",4801
+mod_tokens_tokentype_enum,"TokenType",4863
+mod_tokens_whitelisttype_enum,"WhitelistType",4870
+status_codes_2xxx_client_errors,"2002",4789
+status_codes_3xxx_server_errors,"3001",1449
+status_codes_3xxx_server_errors,"3003",1464
+status_codes_status_codes,"OCPI status code",736
+status_codes_status_codes,"2001",736
+status_codes_status_codes,"Status Codes",747
+terminology_roles,"EV Charging Market Roles",405
+transport_and_format_authorization_header,"HTTP Authorization header",1398
+transport_and_format_client_owned_object_push,"Client Owned Objects",300
+transport_and_format_client_owned_object_push,"Client Owned Objects",1538
+transport_and_format_client_owned_object_push,"Client Owned Object",1540
+transport_and_format_client_owned_object_push,"Client Owned Object",1542
+transport_and_format_client_owned_object_push,"Client Owned Objects",1820
+transport_and_format_client_owned_object_push,"Client Owned Objects",2822
+transport_and_format_client_owned_object_push,"Client Owned Object",3733
+transport_and_format_client_owned_object_push,"Client Owned Object",4581
+transport_and_format_get,"GET",555
+transport_and_format_get,"GET",561
+transport_and_format_get,"GET",704
+transport_and_format_get,"GET",891
+transport_and_format_get_all_via_hubs,"Not GET ALL",893
+transport_and_format_get_all_via_hubs,"GET All via a Hub",987
+transport_and_format_message_routing,"Message routing headers",121
+transport_and_format_message_routing,"message routing",403
+transport_and_format_message_routing_broadcast_push,"Broadcast push",295
+transport_and_format_message_routing_broadcast_push,"Broadcast Push",889
+transport_and_format_message_routing_broadcast_push,"Broadcast Push",890
+transport_and_format_message_routing_broadcast_push,"Broadcast Push",956
+transport_and_format_message_routing_open_routing_request,"Open Routing Request",302
+transport_and_format_message_routing_open_routing_request,"Open Routing Request",870
+transport_and_format_message_routing_open_routing_request,"the routing of a request needs to be determined by the Hub itself",972
+transport_and_format_paginated_request,"pagination",1742
+transport_and_format_paginated_request,"pagination",2738
+transport_and_format_paginated_request,"pagination",3225
+transport_and_format_paginated_request,"pagination",3701
+transport_and_format_paginated_request,"pagination",4740
+transport_and_format_paginated_request,"pagination",4741
+transport_and_format_paginated_request,"pagination",6466
+transport_and_format_paginated_response,"pagination",1758
+transport_and_format_paginated_response,"pagination",2753
+transport_and_format_paginated_response,"pagination",3240
+transport_and_format_paginated_response,"pagination",3716
+transport_and_format_paginated_response,"pagination",4756
+transport_and_format_paginated_response,"pagination",6482
+transport_and_format_pagination,"paginated",1704
+transport_and_format_pagination,"paginated",1742
+transport_and_format_pagination,"paginated",2706
+transport_and_format_pagination,"paginated",2738
+transport_and_format_pagination,"paginated",3207
+transport_and_format_pagination,"paginated",3225
+transport_and_format_pagination,"paginated",3668
+transport_and_format_pagination,"paginated",3701
+transport_and_format_pagination,"paginated",4707
+transport_and_format_pagination,"paginated",4740
+transport_and_format_pagination,"paginated",4741
+transport_and_format_pagination,"paginated",6433
+transport_and_format_pagination,"paginated",6465
+transport_and_format_patch,"PATCH",555
+transport_and_format_patch,"PATCH",564
+transport_and_format_pull_and_push,"Push model",890
+transport_and_format_put,"PUT",555
+transport_and_format_put,"PUT",563
+transport_and_format_put,"PUT",704
+transport_and_format_response_format,"Response Format",6012
+transport_and_format_response_format,"Response Format",6064
+types_cistring_type,"CiString",1591
+types_cistring_type,"CiString",1592
+types_cistring_type,"CiString",1794
+types_cistring_type,"CiString",1795
+types_cistring_type,"CiString",1796
+types_cistring_type,"CiString",1866
+types_cistring_type,"CiString",1867
+types_cistring_type,"CiString",1868
+types_cistring_type,"CiString",1869
+types_cistring_type,"CiString",1870
+types_cistring_type,"CiString",1913
+types_cistring_type,"CiString",1914
+types_cistring_type,"CiString",1915
+types_cistring_type,"CiString",1916
+types_cistring_type,"CiString",1917
+types_cistring_type,"CiString",2047
+types_cistring_type,"CiString",2048
+types_cistring_type,"CiString",2049
+types_cistring_type,"CiString",2101
+types_cistring_type,"CiString",2103
+types_cistring_type,"CiString",2129
+types_cistring_type,"CiString",2138
+types_cistring_type,"CiString",2789
+types_cistring_type,"CiString",2860
+types_cistring_type,"CiString",2861
+types_cistring_type,"CiString",2862
+types_cistring_type,"CiString",2903
+types_cistring_type,"CiString",2904
+types_cistring_type,"CiString",2905
+types_cistring_type,"CiString",2985
+types_cistring_type,"CiString",2986
+types_cistring_type,"CiString",2987
+types_cistring_type,"CiString",2996
+types_cistring_type,"CiString",3002
+types_cistring_type,"CiString",3003
+types_cistring_type,"CiString",3004
+types_cistring_type,"CiString",3385
+types_cistring_type,"CiString",3386
+types_cistring_type,"CiString",3387
+types_cistring_type,"CiString",3390
+types_cistring_type,"CiString",3393
+types_cistring_type,"CiString",3416
+types_cistring_type,"CiString",3509
+types_cistring_type,"CiString",3516
+types_cistring_type,"CiString",3517
+types_cistring_type,"CiString",3518
+types_cistring_type,"CiString",3532
+types_cistring_type,"CiString",3537
+types_cistring_type,"CiString",3553
+types_cistring_type,"CiString",3567
+types_cistring_type,"CiString",3569
+types_cistring_type,"CiString",3571
+types_cistring_type,"CiString",3602
+types_cistring_type,"CiString",3608
+types_cistring_type,"CiString",3609
+types_cistring_type,"CiString",3769
+types_cistring_type,"CiString",3770
+types_cistring_type,"CiString",3771
+types_cistring_type,"CiString",3812
+types_cistring_type,"CiString",3813
+types_cistring_type,"CiString",3814
+types_cistring_type,"CiString",3842
+types_cistring_type,"CiString",3843
+types_cistring_type,"CiString",3844
+types_cistring_type,"CiString",3873
+types_cistring_type,"CiString",3874
+types_cistring_type,"CiString",3875
+types_cistring_type,"CiString",4617
+types_cistring_type,"CiString",4618
+types_cistring_type,"CiString",4619
+types_cistring_type,"CiString",4661
+types_cistring_type,"CiString",4662
+types_cistring_type,"CiString",4663
+types_cistring_type,"CiString",4800
+types_cistring_type,"CiString",4842
+types_cistring_type,"CiString",4856
+types_cistring_type,"CiString",4857
+types_cistring_type,"CiString",4858
+types_cistring_type,"CiString",4864
+types_cistring_type,"CiString",4867
+types_cistring_type,"CiString",4946
+types_cistring_type,"CiString",4947
+types_cistring_type,"CiString",4948
+types_cistring_type,"CiString",5242
+types_cistring_type,"CiString",5315
+types_cistring_type,"CiString",5316
+types_cistring_type,"CiString",5317
+types_cistring_type,"CiString",5318
+types_cistring_type,"CiString",5355
+types_cistring_type,"CiString",5356
+types_cistring_type,"CiString",5357
+types_cistring_type,"CiString",5371
+types_cistring_type,"CiString",5383
+types_cistring_type,"CiString",5384
+types_cistring_type,"CiString",5385
+types_cistring_type,"CiString",5822
+types_cistring_type,"CiString",5871
+types_cistring_type,"CiString",5925
+types_cistring_type,"CiString",6047
+types_cistring_type,"CiString",6366
+types_cistring_type,"CiString",6367
+types_cistring_type,"CiString",6402
+types_cistring_type,"CiString",6403
+types_cistring_type,"CiString",6502
+types_cistring_type,"CiString",6503
+types_datetime_type,"DateTime",749
+types_datetime_type,"DateTime",1748
+types_datetime_type,"DateTime",1749
+types_datetime_type,"DateTime",2070
+types_datetime_type,"DateTime",2114
+types_datetime_type,"DateTime",2142
+types_datetime_type,"DateTime",2363
+types_datetime_type,"DateTime",2364
+types_datetime_type,"DateTime",2633
+types_datetime_type,"DateTime",2634
+types_datetime_type,"DateTime",2744
+types_datetime_type,"DateTime",2745
+types_datetime_type,"DateTime",2988
+types_datetime_type,"DateTime",2992
+types_datetime_type,"DateTime",3010
+types_datetime_type,"DateTime",3051
+types_datetime_type,"DateTime",3231
+types_datetime_type,"DateTime",3232
+types_datetime_type,"DateTime",3388
+types_datetime_type,"DateTime",3389
+types_datetime_type,"DateTime",3417
+types_datetime_type,"DateTime",3551
+types_datetime_type,"DateTime",3707
+types_datetime_type,"DateTime",3708
+types_datetime_type,"DateTime",3885
+types_datetime_type,"DateTime",3886
+types_datetime_type,"DateTime",3888
+types_datetime_type,"DateTime",4747
+types_datetime_type,"DateTime",4748
+types_datetime_type,"DateTime",4877
+types_datetime_type,"DateTime",5314
+types_datetime_type,"DateTime",6152
+types_datetime_type,"DateTime",6187
+types_datetime_type,"DateTime",6472
+types_datetime_type,"DateTime",6473
+types_datetime_type,"DateTime",6506
+types_displaytext_class,"DisplayText",2060
+types_displaytext_class,"DisplayText",2111
+types_displaytext_class,"DisplayText",2160
+types_displaytext_class,"DisplayText",3878
+types_displaytext_class,"DisplayText",4845
+types_displaytext_class,"DisplayText",5261
+types_displaytext_class,"DisplayText",5273
+types_number_type,"number",2306
+types_number_type,"number",2338
+types_number_type,"number",2993
+types_number_type,"number",3052
+types_number_type,"number",3407
+types_number_type,"number",3409
+types_number_type,"number",3411
+types_number_type,"number",3461
+types_number_type,"number",4292
+types_number_type,"number",4293
+types_number_type,"number",4412
+types_number_type,"number",4413
+types_number_type,"number",4414
+types_number_type,"number",4419
+types_number_type,"number",4424
+types_number_type,"number",4429
+types_number_type,"number",6190
+types_number_type,"number",6204
+types_number_type,"number",6593
+types_number_type,"number",6594
+types_price_class,"Price",3008
+types_price_class,"Price",3405
+types_price_class,"Price",3406
+types_price_class,"Price",3408
+types_price_class,"Price",3410
+types_price_class,"Price",3412
+types_price_class,"Price",3413
+types_price_class,"Price",3880
+types_price_class,"Price",3883
+types_role_enum,"CPO",270
+types_role_enum,"eMSP",271
+types_role_enum,"Hub",272
+types_role_enum,"NSP",273
+types_role_enum,"NAP",274
+types_role_enum,"SCSP",275
+types_role_enum,"Role",1589
+types_role_enum,"Role",6504
+types_string_type,"string",748
+types_string_type,"string",1528
+types_string_type,"string",2051
+types_string_type,"string",2052
+types_string_type,"string",2053
+types_string_type,"string",2054
+types_string_type,"string",2055
+types_string_type,"string",2056
+types_string_type,"string",2065
+types_string_type,"string",2108
+types_string_type,"string",2110
+types_string_type,"string",2158
+types_string_type,"string",2159
+types_string_type,"string",2170
+types_string_type,"string",2260
+types_string_type,"string",2261
+types_string_type,"string",2405
+types_string_type,"string",2406
+types_string_type,"string",2497
+types_string_type,"string",2576
+types_string_type,"string",2577
+types_string_type,"string",3005
+types_string_type,"string",3006
+types_string_type,"string",3400
+types_string_type,"string",3401
+types_string_type,"string",3414
+types_string_type,"string",3510
+types_string_type,"string",3511
+types_string_type,"string",3512
+types_string_type,"string",3513
+types_string_type,"string",3514
+types_string_type,"string",3876
+types_string_type,"string",4408
+types_string_type,"string",4409
+types_string_type,"string",4410
+types_string_type,"string",4411
+types_string_type,"string",4865
+types_string_type,"string",4866
+types_string_type,"string",4871
+types_string_type,"string",4932
+types_string_type,"string",4933
+types_string_type,"string",6568
+types_string_type,"string",6569
+types_url_type,"URL",1227
+types_url_type,"URL",1301
+types_url_type,"URL",1529
+types_url_type,"URL",2141
+types_url_type,"URL",2171
+types_url_type,"URL",2494
+types_url_type,"URL",2495
+types_url_type,"URL",3338
+types_url_type,"URL",3879
+types_url_type,"URL",5241
+types_url_type,"URL",5312
+types_url_type,"URL",5353
+types_url_type,"URL",5370
+types_url_type,"URL",5382
+types_url_type,"URL",5824
+types_url_type,"URL",5926
+types_url_type,"URL",6139
+version_information_endpoint_endpoint_class,"Endpoint",1288
+version_information_endpoint_interface_role_enum,"InterfaceRole",1300
+version_information_endpoint_moduleid_enum,"ModuleID",1299
+version_information_endpoint_moduleid_enum,"ModuleID enum",1359
+version_information_endpoint_version_class,"Version",1216
+version_information_endpoint_version_details_endpoint,"which modules",1178
+version_information_endpoint_version_information_endpoint,"which versions",1177
+version_information_endpoint_versionnumber_enum,"VersionNumber",1226
+version_information_endpoint_versionnumber_enum,"VersionNumber",1287
+versions_module,"`versions`",530

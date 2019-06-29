@@ -3,17 +3,16 @@
 :sectnumlevels: 4
 :numbered:
 :pagenums:
-:title-separator: |
-[separator=:]
+:version-label: document version
 :year: 2019
 :protocol_version: 2.2
 :document_version: {protocol_version}-RC2
-:revision_date: 25-06-{year}
+:revdate: 26-06-{year}
 :document_header: OCPI {document_version}
+:revnumber: {document_version}
 
 = OCPI {protocol_version}: Open Charge Point Interface
-document version {document_version}, {revision_date}
-github.com/ocpi
+https://github.com/ocpi & https://ocpi-protocol.org
 
 <<<
 :toc:
@@ -40,7 +39,8 @@ NoDerivatives 4.0 International Public License_
 |Version |Date |Author |Description
 
 |2.2 RC2 |26-06-2019 | Robert de Leeuw +
-_ihomer_ |Release Candidate 2 of OCPI 2.2: Rework for review comments. +
+_ihomer_ |Release Candidate 2 of OCPI 2.2: +
+        Rework for review comments. +
         Updated after Face-to-face meeting in Strasbourg. +
         Major overhaul of Topology and Message routing sections. +
         Added Charging Profile example sequence diagrams. +
@@ -126,7 +126,7 @@ If they are able to implement OCPI 2.2 and get it working with other parties, th
 * <<mod_sessions_set_charging_preferences,Preference based Smart Charging>>
 * Improvements:
 [disc]
-** <<mod_cdrs_cdr_object,CDRs>>: Credit CDRs, VAT, Session_id, AuthorizationReference, CdrLocation, CdrToken
+** <<mod_cdrs_cdr_object,CDRs>>: Credit CDRs, VAT, Calibration law/Eichrecht support, Session_id, AuthorizationReference, CdrLocation, CdrToken
 ** <<mod_sessions_session_object,Sessions>>: VAT, CdrToken, How to add a Charging Period
 ** <<mod_tariffs_tariff_object,CDRs>>: Tariff types, Min/Max price, reservation tariff, Much more examples
 ** <<mod_locations_location_object,Locations>>: Multiple Tariffs, Lost of small improvements
@@ -134,6 +134,7 @@ If they are able to implement OCPI 2.2 and get it working with other parties, th
 ** <<mod_commands_cancelreservation_object,Commands>>: Cancel Reservation added
 
 For more information on detailed changes see <<changelog_changelog,changelog>>.
+
 
 [[introduction_introduction_and_background]]
 === Introduction and background
@@ -168,6 +169,19 @@ and ensure development and results. Part of this project is to find a place to c
 
 This document describes a combined set of standards based on the work done in the past. Next to that,
 the evolution of these standards and their use is taken into account and some elements have been updated to match nowadays use.
+
+*OCPI is developed with support of:*
+
+evRoaming4EU project and its partners: +
+https://www.evroaming4.eu[https://www.evroaming4.eu]
+
+image::images/evroamingeu_logo.png[evRoaming4EU logo,scale=50%]
+
+ECISS project and its partners: +
+https://www.nklnederland.nl/eciss[https://www.nklnederland.nl/eciss]
+
+image::images/eciss_logo.png[ECISS logo]
+
 
 The latest version of this specification can be found here: https://github.com/ocpi/ocpi[https://github.com/ocpi/ocpi]
 
@@ -1710,13 +1724,13 @@ Endpoint structure definition:
 
 Examples:
 
-`+https://www.server.com/ocpi/cpo/2.2/locations/?date_from=2019-01-28T12:00:00&amp;date_to=2019-01-29T12:00:00+`
+`+https://www.server.com/ocpi/cpo/2.2/locations/?date_from=2019-01-28T12:00:00&date_to=2019-01-29T12:00:00+`
 
 `+https://ocpi.server.com/2.2/locations/?offset=50+`
 
-`+https://www.server.com/ocpi/2.2/locations/?date_from=2019-01-29T12:00:00&amp;limit=100+`
+`+https://www.server.com/ocpi/2.2/locations/?date_from=2019-01-29T12:00:00&limit=100+`
 
-`+https://www.server.com/ocpi/cpo/2.2/locations/?offset=50&amp;limit=100+`
+`+https://www.server.com/ocpi/cpo/2.2/locations/?offset=50&limit=100+`
 
 
 If the optional parameters `{date_from}` and/or `{date_to}` are provided, only Locations with 
@@ -2707,13 +2721,13 @@ Endpoint structure definition:
 
 Examples:
 
-`+https://www.server.com/ocpi/cpo/2.2/sessions/?date_from=2019-01-28T12:00:00&amp;date_to=2019-01-29T12:00:00+`
+`+https://www.server.com/ocpi/cpo/2.2/sessions/?date_from=2019-01-28T12:00:00&date_to=2019-01-29T12:00:00+`
 
 `+https://ocpi.server.com/2.2/sessions/?offset=50+`
 
-`+https://www.server.com/ocpi/2.2/sessions/?date_from=2019-01-29T12:00:00&amp;limit=100+`
+`+https://www.server.com/ocpi/2.2/sessions/?date_from=2019-01-29T12:00:00&limit=100+`
 
-`+https://www.server.com/ocpi/cpo/2.2/sessions/?offset=50&amp;limit=100+`
+`+https://www.server.com/ocpi/cpo/2.2/sessions/?offset=50&limit=100+`
 
 
 [[mod_sessions_cpo_get_request_parameters]]
@@ -3177,13 +3191,13 @@ Endpoint structure definition:
 
 Examples:
 
-`+https://www.server.com/ocpi/cpo/2.2/cdrs/?date_from=2019-01-28T12:00:00&amp;date_to=2019-01-29T12:00:00+`
+`+https://www.server.com/ocpi/cpo/2.2/cdrs/?date_from=2019-01-28T12:00:00&date_to=2019-01-29T12:00:00+`
 
 `+https://ocpi.server.com/2.2/cdrs/?offset=50+`
 
-`+https://www.server.com/ocpi/2.2/cdrs/?date_from=2019-01-29T12:00:00&amp;limit=100+`
+`+https://www.server.com/ocpi/2.2/cdrs/?date_from=2019-01-29T12:00:00&limit=100+`
 
-`+https://www.server.com/ocpi/cpo/2.2/cdrs/?offset=50&amp;limit=100+`
+`+https://www.server.com/ocpi/cpo/2.2/cdrs/?offset=50&limit=100+`
 
 
 [cols="2,12",options="header"]
@@ -3565,7 +3579,7 @@ all have (somewhat) different encodings. Below the table with known implementati
 |Name |Description |Contact
 
 |OCMF                      |Proposed by SAFE  |
-|Alfen                     |Alfen B.V. Format |
+| Alfen Eichrecht          | Alfen Eichrecht encoding / implementation. | TODO Alfen will provide a URL.
 |EDL40 E-Mobility Extension|eBee smart technologies implementation |
 |EDL40 Mennekes            |Mennekes implementation |
 |===
@@ -3675,7 +3689,7 @@ Examples:
 
 `+https://www.server.com/ocpi/2.2/tariffs/?date_from=2019-01-29T12:00:00&limit=100+`
 
-`+https://www.server.com/ocpi/cpo/2.2/tariffs/?offset=50&amp;limit=100+`
+`+https://www.server.com/ocpi/cpo/2.2/tariffs/?offset=50&limit=100+`
 
 
 [[mod_tariffs_cpo_get_request_parameters]]
@@ -6440,7 +6454,7 @@ Examples:
 
 `+https://www.server.com/ocpi/2.2/hubclientinfo/?date_from=2019-01-29T12:00:00&limit=100+`
 
-`+https://www.server.com/ocpi/cpo/2.2/hubclientinfo/?offset=50&amp;limit=100+`
+`+https://www.server.com/ocpi/cpo/2.2/hubclientinfo/?offset=50&limit=100+`
 
 
 ===== Request Parameters
@@ -6646,7 +6660,7 @@ Large
 - Added `credit` and `credit_reference_id` fields, to allow for Credit CDRs to be send. +
 - Added `total_fixed_cost`, `total_energy_cost`, `total_time_cost`, `total_parking_cost` and `total_reservation_cost` fields, to allow more cost details in the CDRs. +
 - Added `authorization_reference` field for binding an authorization to the resulting session. +
-- Added `signed_data` field, enabling OCPI to be used to transport signed meter data from the Charge Point to the eMSP and EV driver, can be used for Eichrecht.
+- Added `signed_data` field, enabling OCPI to be used to transport signed meter data from the Charge Point to the eMSP and EV driver, can be used for Eichrecht. +
 - Field `id` changed in length from 36 to 39, to allow for something to be appended after the original id in case of a Credit CDR.
 
 |Commands / +

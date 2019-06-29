@@ -80,13 +80,13 @@ Endpoint structure definition:
 
 Examples:
 
-`+https://www.server.com/ocpi/cpo/2.2/cdrs/?date_from=2019-01-28T12:00:00&amp;date_to=2019-01-29T12:00:00+`
+`+https://www.server.com/ocpi/cpo/2.2/cdrs/?date_from=2019-01-28T12:00:00&date_to=2019-01-29T12:00:00+`
 
 `+https://ocpi.server.com/2.2/cdrs/?offset=50+`
 
-`+https://www.server.com/ocpi/2.2/cdrs/?date_from=2019-01-29T12:00:00&amp;limit=100+`
+`+https://www.server.com/ocpi/2.2/cdrs/?date_from=2019-01-29T12:00:00&limit=100+`
 
-`+https://www.server.com/ocpi/cpo/2.2/cdrs/?offset=50&amp;limit=100+`
+`+https://www.server.com/ocpi/cpo/2.2/cdrs/?offset=50&limit=100+`
 
 
 [cols="2,12",options="header"]
@@ -468,7 +468,7 @@ all have (somewhat) different encodings. Below the table with known implementati
 |Name |Description |Contact
 
 |OCMF                      |Proposed by SAFE  |
-|Alfen                     |Alfen B.V. Format |
+| Alfen Eichrecht          | Alfen Eichrecht encoding / implementation. | TODO Alfen will provide a URL.
 |EDL40 E-Mobility Extension|eBee smart technologies implementation |
 |EDL40 Mennekes            |Mennekes implementation |
 |===
