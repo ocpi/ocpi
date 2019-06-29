@@ -214,7 +214,7 @@ Examples:
 
 `+https://www.server.com/ocpi/2.2/hubclientinfo/?date_from=2019-01-29T12:00:00&limit=100+`
 
-`+https://www.server.com/ocpi/cpo/2.2/hubclientinfo/?offset=50&amp;limit=100+`
+`+https://www.server.com/ocpi/cpo/2.2/hubclientinfo/?offset=50&limit=100+`
 
 
 ===== Request Parameters
