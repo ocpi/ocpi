@@ -37,6 +37,19 @@ If they are able to implement OCPI 2.2 and get it working with other parties, th
 
 For more information on detailed changes see <<changelog.asciidoc#changelog_changelog,changelog>>.
 
+*OCPI is developed with support of:*
+
+evRoaming4EU project and its partners: +
+https://www.evroaming4.eu[https://www.evroaming4.eu]
+
+image::images/evroamingeu_logo.png[evRoaming4EU logo,scale=50%]
+
+ECISS project and its partners: +
+https://www.nklnederland.nl/eciss[https://www.nklnederland.nl/eciss]
+
+image::images/eciss_logo.png[ECISS logo]
+
+
 [[introduction_introduction_and_background]]
 === Introduction and background
 
