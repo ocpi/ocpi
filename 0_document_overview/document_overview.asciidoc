@@ -1,7 +1,5 @@
 [[introduction_ocpi]]
-== OCPI {ocpi_version} Index
-
-(TODO: anybody got a better name for this document? Index?)
+== OCPI {ocpi_version} Document Overview
 
 Documentation version: {document_version}
 

@@ -1,8 +1,8 @@
 
-all: foreword introduction use_cases transport_modules swagger test_cases
+all: document_overview introduction use_cases transport_modules swagger test_cases
 
-foreword:
-	cd 0_foreword && $(MAKE)
+document_overview:
+	cd 0_document_overview && $(MAKE)
 
 introduction:
 	cd A_introduction && $(MAKE)
@@ -21,10 +21,10 @@ test_cases:
 
 
 
-pdf: foreword_pdf introduction_pdf use_cases_pdf transport_modules_pdf swagger_pdf swagger_zip test_cases_pdf
+pdf: document_overview_pdf introduction_pdf use_cases_pdf transport_modules_pdf swagger_pdf swagger_zip test_cases_pdf
 
-foreword_pdf:
-	cd 0_foreword && $(MAKE) make_pdf
+document_overview_pdf:
+	cd 0_document_overview && $(MAKE) make_pdf
 
 introduction_pdf:
 	cd A_introduction && $(MAKE) make_pdf

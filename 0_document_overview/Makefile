@@ -1,11 +1,11 @@
 include ../_common/version
 include ../_common/make_common
 
-SOURCE = foreword.asciidoc
-INTERMEDIATE_DIR = ../generated/0_foreword
+SOURCE = document_overview.asciidoc
+INTERMEDIATE_DIR = ../generated/0_document_overview
 ASCIIDOC = $(INTERMEDIATE_DIR)/$(SOURCE)
 TARGET_DIR = ../releases/$(DOCUMENT_VERSION)
-TARGET = $(TARGET_DIR)/OCPI_$(VERSION)_0_foreword.pdf
+TARGET = $(TARGET_DIR)/OCPI_$(VERSION)_0_document_overview.pdf
 
 all: copy check gen_pdf
 
