@@ -1,8 +1,8 @@
 
-all: document_overview introduction use_cases transport_modules swagger test_cases
+all: documentation_overview introduction use_cases transport_modules swagger test_cases
 
-document_overview:
-	cd 0_document_overview && $(MAKE)
+documentation_overview:
+	cd 0_documentation_overview && $(MAKE)
 
 introduction:
 	cd A_introduction && $(MAKE)
@@ -21,10 +21,10 @@ test_cases:
 
 
 
-pdf: document_overview_pdf introduction_pdf use_cases_pdf transport_modules_pdf swagger_pdf swagger_zip test_cases_pdf
+pdf: documentation_overview_pdf introduction_pdf use_cases_pdf transport_modules_pdf swagger_pdf swagger_zip test_cases_pdf
 
-document_overview_pdf:
-	cd 0_document_overview && $(MAKE) make_pdf
+documentation_overview_pdf:
+	cd 0_documentation_overview && $(MAKE) make_pdf
 
 introduction_pdf:
 	cd A_introduction && $(MAKE) make_pdf

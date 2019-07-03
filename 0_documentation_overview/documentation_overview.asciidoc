@@ -1,5 +1,5 @@
 [[introduction_ocpi]]
-== OCPI {ocpi_version} Document Overview
+== OCPI {ocpi_version} Documentation Overview
 
 Documentation version: {document_version}
 
