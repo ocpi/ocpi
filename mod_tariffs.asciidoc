@@ -939,7 +939,7 @@ These restrictions are not for the entire Charging Session. They only describe i
 
 |start_time |<<types.asciidoc#types_string_type,string>>(5) |? |Start time of day, for example 13:30, valid from this time of the day. Must be in 24h format with leading zeros. Hour/Minute separator: ":" Regex: `[0-2][0-9]:[0-5][0-9]`
 |end_time |<<types.asciidoc#types_string_type,string>>(5) |? |End time of day, for example 19:45, valid until this time of the day. Same syntax as `start_time`.
-|start_date |<<types.asciidoc#types_string_type,string>>(10) |? |Start date, for example: 2015-12-24, valid from this day. Regex: `([12][0-9]{3})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])`
+|start_date |<<types.asciidoc#types_string_type,string>>(10) |? |Start date, for example: 2015-12-24, valid from this day. Regex: `([12][0-9]{3})-(0[1-9]\|1[0-2])-(0[1-9]\|[12][0-9]\|3[01])`
 |end_date |<<types.asciidoc#types_string_type,string>>(10) |? |End date, for example: 2015-12-27, valid until this day (exclusive). Same syntax as `start_date`.
 |min_kwh |<<types.asciidoc#types_number_type,number>> |? |Minimum consumed energy in kWh, for example 20, valid from this amount of energy being used.
 |max_kwh |<<types.asciidoc#types_number_type,number>> |? |Maximum consumed energy in kWh, for example 50, valid until this amount of energy being used.
