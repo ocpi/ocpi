@@ -517,7 +517,8 @@ Drivers are able to select this tariff by setting the `profile_type` in their
 In such case, the price might not be fixed, but depend on the real-time energy prices.
 To explain this to the driver, a short text inside `tariff_alt_text` might not be the best solution.
 Showing a graph could be better.
-It is also possible to provide an URL to a site that explains the tariff better and in more detail.
+Therefore it is also possible to provide an URL in `tariff_alt_url` to a site that explains
+the tariff better and in more detail.
 
 * Energy
 [disc]
@@ -526,9 +527,15 @@ It is also possible to provide an URL to a site that explains the tariff better 
 ** Billed per 0.1 kWh (100 Wh)
 
 For a charging session where 20.45 kWh are charged,
-this tariff will result in costs of 5.50 euro (excl. VAT) or 6.05 euro (incl. VAT).
+this tariff will result in costs of 5.50 euro (excl. VAT) or 6.05 euro (incl. VAT)
+if the announced prices were billed.
 Because the energy is billed per 0.1 kWh, the driver has to pay for 20.5 kWh even though
 they only charged 20.45 kWh.
+
+The twist here is that this tariff makes use of `tariff_alt_url` which links to a page
+with real-time energy prices of the operator, where is shown that the actual price per kWh is different.
+With an assumed current energy price of 0.22 euro per kWh (excl. VAT), which is shown or explained on
+the page linked by `tariff_alt_url`, the resulting costs will be 4.51 euro (excl. VAT) or 4.96 euro (incl. VAT).
 
 [source,json]
 ----
