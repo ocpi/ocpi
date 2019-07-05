@@ -295,6 +295,9 @@ the driver might get billed something they didn't agree to when starting the ses
 [[mod_tariffs_examples]]
 ===== Examples
 
+In the following section, a few different pricing strategies will be explained with some Tariff examples.
+For simplicity, we will use euro as currency in all of the examples if not mentioned otherwise.
+
 [[mod_tariffs_simple_tariff_example_0_25_euro_per_kwh]]
 ====== Simple Tariff example 0.25 euro per kWh
 
