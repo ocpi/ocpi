@@ -388,7 +388,7 @@ include::examples/tariff_10_025kwh_parking_start.json[]
 [[mod_tariffs_tariff_example_0_25_euro_per_kwh_start_max_price]]
 ====== Tariff example 0.25 euro per kWh + start fee + max price + tariff end date
 
-* Minimum price
+* Maximum price
 [disc]
 ** 10 euro (excl. VAT)
 ** 11 euro (incl. VAT, which is 10%)
@@ -408,9 +408,9 @@ By assigning both, the old and the new tariff ID, they will automatically be rep
 It is not required to update all Locations at the same time, the old tariff can also be removed later.
 
 For a charging session where 50 kWh are charged,
-this tariff will result in costs of 13.00 euro (excl. VAT) or 14.35 euro (incl. VAT).
-If only 30 kWh were charged, the costs would be 10.00 euro (excl. VAT) and 11.00 euro (incl. VAT),
-as the start fee combined with the energy costs would be lower than the defined minimum price.
+this tariff will result in costs of 10.00 euro (excl. VAT) or 11.00 euro (incl. VAT) due to the price limit.
+If only 30 kWh were charged, the costs would be 8.00 euro (excl. VAT) and 8.85 euro (incl. VAT),
+as the start fee combined with the energy costs would be lower than the defined max price.
 
 [source,json]
 ----
