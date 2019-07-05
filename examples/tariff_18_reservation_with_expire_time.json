@@ -5,10 +5,10 @@
   "currency": "EUR",
   "elements": [{
     "price_components": [{
-      "type": "FLAT",
-      "price": 4.00,
+      "type": "TIME",
+      "price": 6.00,
       "vat": 20.0,
-      "step_size": 1
+      "step_size": 600
     }],
     "restrictions": {
       "reservation": "RESERVATION_EXPIRES"
@@ -16,7 +16,7 @@
   }, {
     "price_components": [{
       "type": "TIME",
-      "price": 2.00,
+      "price": 3.00,
       "vat": 20.0,
       "step_size": 600
     }],
