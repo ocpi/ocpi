@@ -458,6 +458,7 @@ to discourage the EV driver of leaving his EV connected when it is already full.
 ** Billed per 5 min (300 seconds)
 
 For a charging session of 2.5 hours where the vehicle is parked for 42 more minutes after charging ended,
+resulting in a total session time of 150 minutes (charging) + 42 minutes (parking),
 this tariff will result in costs of 11.25 euro (excl. VAT) or 12.75 euro (incl. VAT).
 Because the parking time is billed per 5 minutes, the driver has to pay for 45 minutes of parking even though
 they left 42 minutes after their vehicle stopped charging.
@@ -574,11 +575,13 @@ include::examples/tariff_3_alt_url.json[]
 
 For a charging session on a Monday morning starting at 09:30 which takes 2.5 hours,
 where the driver uses 16A of power and is parking for additional 45 minutes afterwards,
-this tariff will result in costs of 8.75 euro (excl. VAT) or 10 euro (incl. VAT).
+this tariff will result in costs of 8.75 euro (excl. VAT) or 10 euro (incl. VAT)
+for a total session time of 150 minutes (charging) + 45 minutes (parking).
 
 For a charging session on a Saturday afternoon starting at 13:30 which takes 2 hours,
 where the driver uses 43A of power and is parking for additional 75 minutes afterwards,
-this tariff will result in costs of 12.50 euro (excl. VAT) or 14,13 euro (incl. VAT).
+this tariff will result in costs of 12.50 euro (excl. VAT) or 14,13 euro (incl. VAT)
+for a total session time of 120 minutes (charging) + 75 minutes (parking).
 
 [source,json]
 ----
