@@ -65,17 +65,17 @@ Fetch information about all Tariffs.
 
 Endpoint structure definition:
 
-`{tariffs_endpoint_url}?[date_from={date_from}]&amp;[date_to={date_to}]&amp;[offset={offset}]&amp;[limit={limit}]`
+`{tariffs_endpoint_url}?[date_from={date_from}]&[date_to={date_to}]&[offset={offset}]&[limit={limit}]`
 
 Examples:
 
-`+https://www.server.com/ocpi/cpo/2.2/tariffs/?date_from=2019-01-28T12:00:00&amp;date_to=2019-01-29T12:00:00+`
+`+https://www.server.com/ocpi/cpo/2.2/tariffs/?date_from=2019-01-28T12:00:00&date_to=2019-01-29T12:00:00+`
 
 `+https://ocpi.server.com/2.2/tariffs/?offset=50+`
 
-`+https://www.server.com/ocpi/2.2/tariffs/?date_from=2019-01-29T12:00:00&amp;limit=100+`
+`+https://www.server.com/ocpi/2.2/tariffs/?date_from=2019-01-29T12:00:00&limit=100+`
 
-`+https://www.server.com/ocpi/cpo/2.2/tariffs/?offset=50&amp;limit=100+`
+`+https://www.server.com/ocpi/cpo/2.2/tariffs/?offset=50&limit=100+`
 
 
 [[mod_tariffs_cpo_get_request_parameters]]
