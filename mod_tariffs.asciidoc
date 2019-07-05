@@ -135,7 +135,7 @@ Example:
 |POST |n/a 
 |<<mod_tariffs_put_method,PUT>> |Push new/updated Tariff object to the eMSP. 
 |PATCH|n/a
-|<<mod_tariffs_delete_method,DELETE>> |Remove a Tariff object which is no longer valid. 
+|<<mod_tariffs_delete_method,DELETE>> |Remove a Tariff object which is no longer in use and will not be used in future either. 
 |===
 
 [[mod_tariffs_msp_get_method]]
@@ -215,7 +215,9 @@ include::examples/tariff_put_example.json[]
 [[mod_tariffs_delete_method]]
 ===== *DELETE* Method
 
-Delete a no longer valid Tariff object.
+Delete a Tariff object which is not used any more and will not be used in future either.
+
+NOTE: Before deleting a Tariff object, it is RECOMMENDED to ensure that the Tariff object is not referenced by any <<mod_locations.asciidoc#mod_locations_connector_object,Connector object>> within the `tariff_ids` anymore.
 
 [[mod_tariffs_msp_delete_request_parameters]]
 ====== Request Parameters
