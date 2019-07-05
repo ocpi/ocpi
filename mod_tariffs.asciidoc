@@ -581,12 +581,12 @@ include::examples/tariff_3_alt_url.json[]
 *** Billed per 5 min (300 seconds)
 
 For a charging session on a Monday morning starting at 09:30 which takes 2.5 hours,
-where the driver uses 16A of power and is parking for additional 45 minutes afterwards,
+where the driver uses a maximum of 16A of power and is parking for additional 45 minutes afterwards,
 this tariff will result in costs of 8.75 euro (excl. VAT) or 10 euro (incl. VAT)
 for a total session time of 150 minutes (charging) + 45 minutes (parking).
 
 For a charging session on a Saturday afternoon starting at 13:30 which takes 2 hours,
-where the driver uses 43A of power and is parking for additional 75 minutes afterwards,
+where the driver uses a minimum of 43A of power and is parking for additional 75 minutes afterwards,
 this tariff will result in costs of 12.50 euro (excl. VAT) or 14,13 euro (incl. VAT)
 for a total session time of 120 minutes (charging) + 75 minutes (parking).
 
