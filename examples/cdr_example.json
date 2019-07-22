@@ -4,16 +4,10 @@
   "id": "12345",
   "start_date_time": "2015-06-29T21:39:09Z",
   "end_date_time": "2015-06-29T23:37:32Z",
-  "token": {
+  "cdr_token": {
     "uid": "012345678",
     "type": "RFID",
-    "contract_id": "DE8ACC12E46L89",
-    "visual_number": "DF000-2001-8999-1",
-    "issuer": "TheNewMotion",
-    "group_id": "DF000-2001-8999",
-    "valid": true,
-    "whitelist": "ALLOWED",
-    "last_updated": "2015-06-29T22:39:09Z"
+    "contract_id": "DE8ACC12E46L89"
   },
   "auth_method": "WHITELIST",
   "cdr_location": {
