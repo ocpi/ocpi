@@ -550,7 +550,7 @@ For a "free of charge" tariff, this field should be set and point to a defined "
 [[mod_locations_additionalgeolocation_class]]
 ==== AdditionalGeoLocation _class_
 
-This class defines a geo location. The geodetic system to be used is WGS 84.
+This class defines an additional geo location that is relevant for the Charge Point. The geodetic system to be used is WGS 84.
 
 [cols="3,2,1,10",options="header"]
 |===
@@ -798,6 +798,8 @@ Specifies one exceptional period for opening or access hours.
 
 [[mod_locations_geolocation_class]]
 ==== GeoLocation _class_
+
+This class defines the geo location of the Charge Point. The geodetic system to be used is WGS 84.
 
 [cols="3,2,1,10",options="header"]
 |===
