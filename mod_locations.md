@@ -573,7 +573,7 @@ A connector is the socket or cable available for the EV to use. A single EVSE ma
 
 ### 4.1 AdditionalGeoLocation *class*
 
-This class defines a geo location. The geodetic system to be used is WGS 84.
+This class defines a additional geo location that is relevant for the Charge Point. The geodetic system to be used is WGS 84.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
@@ -867,6 +867,8 @@ Specifies one exceptional period for opening or access hours.
 
 
 ### 4.12 GeoLocation *class*
+
+This class defines the geo location of the Charge Point. The geodetic system to be used is WGS 84.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
