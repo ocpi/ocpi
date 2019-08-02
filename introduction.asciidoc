@@ -13,7 +13,7 @@ Even if you do not find any issues, please let us know you have checked the docu
 
 We encourage companies to start implementing OCPI 2.2 based on this release candidate.
 The proof is in the pudding, we need implementations to proof OCPI 2.2 is mature enough to be released as FINAL.
-When developers are implementing a specification they are the once finding real world issues, most of the times.
+When developers are implementing a specification they are the once finding real-world issues, most of the times.
 If they are able to implement OCPI 2.2 and get it working with other parties, that is the proof we need.
 
 ==== Changes/New functionality:
@@ -51,6 +51,7 @@ As such it helps to enable EV drivers to charge everywhere in a fully-informed w
 helps the market to develop quickly and helps market players to execute their business models in the best way.
 
 What does it offer (main functionality):
+
 * A good roaming system (for bilateral usage and/or via a hub).
 * Real-time information about location, availability and price.
 * A uniform way of exchanging data (Notification Data Records and Charge Data Records), before during and after the transaction.
@@ -60,7 +61,7 @@ Starting in 2009, e-laad foundation and the predecessor of the eViolin associati
 charge point details and active state. These are called the VAS interface and the Amsterdam interface. In this same period,
 a CDR format for the exchange of charge sessions between eViolin members was defined.
 This format is currently in use by the majority of the eViolin members.
-(eViolin is the branch organisation for EV operators and service providers in NL and responsible for national roaming and issuing of ID’s).
+(eViolin is the branch organization for EV operators and service providers in NL and responsible for national roaming and issuing of ID’s).
 This resulted in 2014 in the development of OCPI.
 
 An international group of companies already supports OCPI. Initiators are EV Box, The New Motion, ElaadNL, BeCharged,
@@ -70,7 +71,7 @@ The Netherlands Knowledge Platform for Charging Infrastructure (NKL) facilitates
 and ensure development and results. Part of this project is to find a place to continue development in the future.
 
 This document describes a combined set of standards based on the work done in the past. Next to that,
-the evolution of these standards and their use is taken into account and some elements have been updated to match nowadays use.
+the evolution of these standards and their use are taken into account and some elements have been updated to match nowadays use.
 
 *OCPI is developed with support of:*
 

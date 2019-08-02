@@ -1,8 +1,8 @@
 [[supported_topologies]]
 == Supported Topologies
 
-OCPI started out as a bilateral protocol, for peer-to-peer communication.
-Soon parties started to use OCPI via Hubs, but OCPI 2.1.1 and earlier where not designed for that.
+OCPI started as a bilateral protocol, for peer-to-peer communication.
+Soon parties started to use OCPI via Hubs, but OCPI 2.1.1 and earlier were not designed for that.
 OCPI 2.2 introduces a solution for this: <<transport_and_format.asciidoc#transport_and_format_message_routing,message routing>>.
 
 OCPI 2.2 introduces Platforms that connect via OCPI instead of CPO and eMSP, more on this in: <<terminology.asciidoc#terminology_roles,EV Charging Market Roles>>
@@ -18,7 +18,7 @@ image::images/architecture_direct.svg[peer-to-peer topology example]
 
 === Multiple peer-to-peer connections
 
-A more real world topology where multiple parties connect their platforms,
+A more real-world topology where multiple parties connect their platforms
 and each platform only has 1 role.
 (not every party connects with all the other parties with the other role).
 
@@ -28,7 +28,7 @@ image::images/architecture_multiple_direct_modified.svg[Multiple peer-to-peer to
 <<<
 === Peer-to-peer multiple the same roles
 
-There are parties that provide for example CPO or eMSP services for other companies.
+Some parties provide for example CPO or eMSP services for other companies.
 So the platform hosts multiple parties with the same role.
 This topology is a bilateral connection: peer-to-peer between two platforms,
 and both platforms can have multiple roles.
@@ -39,7 +39,7 @@ image::images/architecture_platform_same_direct.svg[peer-to-peer with multiple r
 
 === Peer-to-peer dual roles
 
-There are parties that have dual roles, most of the companies are CPO and eMSP.
+Some parties have dual roles, most of the companies are CPO and eMSP.
 This topology is a bilateral connection: peer-to-peer between two platforms,
 and both platforms have the CPO and the eMSP roles.
 
@@ -49,7 +49,7 @@ image::images/architecture_platform_dual_direct.svg[peer-to-peer with both CPO a
 <<<
 === Peer-to-peer mixed roles
 
-There are parties that have dual roles, or provide them to other parties and then connect to other companies that do the same.
+Some parties have dual roles, or provide them to other parties and then connect to other companies that do the same.
 This topology is a bilateral connection: peer-to-peer between two platforms,
 and both platforms have multiple different and also the same roles.
 
