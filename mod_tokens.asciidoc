@@ -453,7 +453,11 @@ Whitelists are very useful for RFID type Tokens, but the `AD_HOC_USER`/`APP_USER
 [[mod_tokens_whitelisttype_enum]]
 ==== WhitelistType _enum_
 
-Defines when authorization of a Token by the CPO is allowed. 
+Defines when authorization of a Token by the CPO is allowed.
+
+The validity of a Token has no influence on this. If a Token is: `valid = false`,
+when the `whitelist` field requires real-time authorization, the CPO SHALL do a <<mod_tokens_real-time_authorization,real-time authorization>>,
+the state of the Token might have changed.
 
 [cols="3,10",options="header"]
 |===
