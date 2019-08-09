@@ -51,6 +51,12 @@ the CPOs will need to call the <<mod_tokens_post_method,POST Authorize request>>
 NOTE: Doing real-time authorization of RFID will mean a longer delay of the authorization process, which might result in bad user experience at the Charge Point.
 So care should be taken to keep delays in processing the request to an absolute minimum.
 
+NOTE: Real-time authorization might be asked for a charging location that is not published via the <<mod_locations_locations_module,Location>> module,
+typically a private charger. In most cases this is expected to result in: `ALLOWED`.
+
+NOTE: If real-time authorization is asked for a location, the eMSP SHALL NOT validate that charging is possible based on information like opening hours or EVSE status etc,
+this information might not be update to date.
+
 
 [[mod_tokens_interfaces_and_endpoints]]
 === Interfaces and endpoints

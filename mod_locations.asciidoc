@@ -40,6 +40,8 @@ If it was possible to remove these objects, those links would no longer work.
 When the CPO is not sure about the state or existence of a Location, EVSE or Connector object in the eMSP's system,
 the CPO can perform a <<mod_locations_get_method_eMSP,GET>> request to validate the object in the eMSP's system.
 
+Private charging Locations, that are not to be used for public charging, SHALL NOT be published via OCPI.
+
 
 ==== No public charging or roaming
 

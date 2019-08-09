@@ -18,6 +18,10 @@ CDRs are created by the CPO. They most likely will be sent only to the eMSP that
 Because a CDR is for billing purposes, it cannot be changed or replaced once sent to the eMSP. Changes are simply not allowed.
 Instead, a <<mod_cdrs_credit_cdrs,Credit CDR>> can be sent.
 
+CDRs may be send for charging locations that have not been published via the <<mod_locations_locations_module,Location>> module.
+This is typically for home chargers.
+
+
 [[mod_cdrs_credit_cdrs]]
 ==== Credit CDRs
 
