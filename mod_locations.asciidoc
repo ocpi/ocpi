@@ -587,8 +587,11 @@ The capabilities of an EVSE.
 
 |CHARGING_PROFILE_CAPABLE |The EVSE supports charging profiles.
 |CHARGING_PREFERENCES_CAPABLE |The EVSE supports <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,charging preferences>>.
-|CREDIT_CARD_PAYABLE |Charging at this EVSE can be payed with a credit card.
-|DEBIT_CARD_PAYABLE |Charging at this EVSE can be payed with a debit card.
+|CHIP_CARD_SUPPORT |EVSE has a payment terminal that supports chip cards.
+|CONTACTLESS_CARD_SUPPORT |EVSE has a payment terminal that supports contactless cards.
+|CREDIT_CARD_PAYABLE |EVSE has a payment terminal that makes it possible to pay for charging using a credit card.
+|DEBIT_CARD_PAYABLE |EVSE has a payment terminal that makes it possible to pay for charging using a debit card.
+|PED_TERMINAL |EVSE has a payment terminal with a pin-code entry device.
 |REMOTE_START_STOP_CAPABLE |The EVSE can remotely be <<mod_commands.asciidoc#mod_commands_startsession_object,started>>/<<mod_commands.asciidoc#mod_commands_stopsession_object,stopped>>.
 |RESERVABLE |The EVSE can be <<mod_commands.asciidoc#mod_commands_reservenow_object,reserved>>.
 |RFID_READER |Charging at this EVSE can be authorized with an RFID token.
