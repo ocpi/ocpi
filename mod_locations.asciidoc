@@ -603,6 +603,9 @@ The capabilities of an EVSE.
 |UNLOCK_CAPABLE |Connectors have mechanical lock that can be requested by the eMSP to be <<mod_commands.asciidoc#mod_commands_unlockconnector_object,unlocked>>.
 |===
 
+When a Charge Point supports ad-hoc payments with a payment terminal, please use a combination of the following values to explain the possibilities of the terminal:
+CHIP_CARD_SUPPORT, CONTACTLESS_CARD_SUPPORT, CREDIT_CARD_PAYABLE, DEBIT_CARD_PAYABLE, PED_TERMINAL.
+
 
 [[mod_locations_connectorformat_enum]]
 ==== ConnectorFormat _enum_
