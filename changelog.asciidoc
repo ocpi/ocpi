@@ -34,6 +34,7 @@ Large
 - Added `total_fixed_cost`, `total_energy_cost`, `total_time_cost`, `total_parking_cost` and `total_reservation_cost` fields, to allow more cost details in the CDRs. +
 - Added `authorization_reference` field for binding an authorization to the resulting session. +
 - Added `signed_data` field, enabling OCPI to be used to transport signed meter data from the Charge Point to the eMSP and EV driver, can be used for Eichrecht. +
+- Added `invoice_reference_id` field (optional), to allow a CDRs to reference an invoice. +
 - Field `id` changed in length from 36 to 39, to allow for something to be appended after the original id in case of a Credit CDR.
 
 |Commands / +
