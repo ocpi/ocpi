@@ -306,7 +306,7 @@ but it can be interpolated by the CPO using the metering information before and 
 |total_reservation_cost |<<types.asciidoc#types_price_class,Price>> |? |Total sum of all the cost related to a reservation of a Charge Point, including fixed price components, in the specified currency.
 |remark |<<types.asciidoc#types_string_type,string>>(255) |? |Optional remark, can be used to provide additional human readable information to the CDR, for example: reason why a transaction was stopped.
 |credit |boolean |? |When set to `true`, this is a Credit CDR, and the field `credit_reference_id` needs to be set as well.
-|credit_reference_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |Is required to be set for a Credit CDR. This SHALL contain the `id` of the CDR for which this is a Credit CDR.
+|credit_reference_id |<<types.asciidoc#types_cistring_type,CiString>>(39) |? |Is required to be set for a Credit CDR. This SHALL contain the `id` of the CDR for which this is a Credit CDR.
 |last_updated |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Timestamp when this CDR was last updated (or created).
 |===
 
