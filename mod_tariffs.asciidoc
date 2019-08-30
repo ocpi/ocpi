@@ -271,8 +271,10 @@ See: <<mod_tariffs_free_of_charge_tariff_example,Free of Charge Tariff example>>
       A minimum price indicates that when the cost of a Charging Session is lower than this amount, the cost of the Session will be equal to this amount. (Also see note below)
 |max_price |<<types.asciidoc#types_price_class,Price>> |? |When this field is set, a Charging Session with this tariff will NOT cost more than this amount. (See note below)
 |elements |<<mod_tariffs_tariffelement_class,TariffElement>> |+ |List of Tariff Elements.
-|start_date_time |<<types.asciidoc#types_datetime_type,DateTime>> |? |The time when this tariff becomes active. Typically used for a new tariff that is already given with the location, before it becomes active. (See note below)
-|end_date_time |<<types.asciidoc#types_datetime_type,DateTime>> |? |The time after which this tariff is no longer valid. Typically used when this tariff is going to be replaced with a different tariff in the near future. (See note below)
+|start_date_time |<<types.asciidoc#types_datetime_type,DateTime>> |? |The time when this tariff becomes active, in UTC, `time_zone` field of the <<mod_locations.asciidoc#mod_locations_location_object,Location>> can be used to convert to local time.
+                                                                     Typically used for a new tariff that is already given with the location, before it becomes active. (See note below)
+|end_date_time |<<types.asciidoc#types_datetime_type,DateTime>> |? |The time after which this tariff is no longer valid, in UTC, `time_zone` field if the <<mod_locations.asciidoc#mod_locations_location_object,Location>> can be used to convert to local time.
+                                                                    Typically used when this tariff is going to be replaced with a different tariff in the near future. (See note below)
 |energy_mix |<<mod_locations.asciidoc#mod_locations_energymix_class,EnergyMix>> |? |Details on the energy supplied with this tariff.
 |last_updated |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Timestamp when this Tariff was last updated (or created). 
 |===
@@ -943,10 +945,18 @@ These restrictions are not for the entire Charging Session. They only describe i
 |===
 |Property |Type |Card. |Description 
 
-|start_time |<<types.asciidoc#types_string_type,string>>(5) |? |Start time of day, for example 13:30, valid from this time of the day. Must be in 24h format with leading zeros. Hour/Minute separator: ":" Regex: `[0-2][0-9]:[0-5][0-9]`
-|end_time |<<types.asciidoc#types_string_type,string>>(5) |? |End time of day, for example 19:45, valid until this time of the day. Same syntax as `start_time`.
-|start_date |<<types.asciidoc#types_string_type,string>>(10) |? |Start date, for example: 2015-12-24, valid from this day. Regex: `([12][0-9]{3})-(0[1-9]\|1[0-2])-(0[1-9]\|[12][0-9]\|3[01])`
-|end_date |<<types.asciidoc#types_string_type,string>>(10) |? |End date, for example: 2015-12-27, valid until this day (exclusive). Same syntax as `start_date`.
+|start_time |<<types.asciidoc#types_string_type,string>>(5) |? |Start time of day in local time, the time zone is defined in the `time_zone` field of the
+                                                                <<mod_locations.asciidoc#mod_locations_location_object,Location>>, for example 13:30,
+                                                                valid from this time of the day. Must be in 24h format with leading zeros. Hour/Minute separator: ":" Regex: `[0-2][0-9]:[0-5][0-9]`
+|end_time |<<types.asciidoc#types_string_type,string>>(5) |? |End time of day in local time, the time zone is defined in the `time_zone` field of the
+                                                              <<mod_locations.asciidoc#mod_locations_location_object,Location>>, for example 19:45,
+                                                              valid until this time of the day. Same syntax as `start_time`.
+|start_date |<<types.asciidoc#types_string_type,string>>(10) |? |Start date in local time, the time zone is defined in the `time_zone` field of the
+                                                                 <<mod_locations.asciidoc#mod_locations_location_object,Location>>, for example: 2015-12-24,
+                                                                 valid from this day. Regex: `([12][0-9]{3})-(0[1-9]\|1[0-2])-(0[1-9]\|[12][0-9]\|3[01])`
+|end_date |<<types.asciidoc#types_string_type,string>>(10) |? |End date in local time, the time zone is defined in the `time_zone` field of the
+                                                               <<mod_locations.asciidoc#mod_locations_location_object,Location>>, for example: 2015-12-27,
+                                                               valid until this day (exclusive). Same syntax as `start_date`.
 |min_kwh |<<types.asciidoc#types_number_type,number>> |? |Minimum consumed energy in kWh, for example 20, valid from this amount of energy being used.
 |max_kwh |<<types.asciidoc#types_number_type,number>> |? |Maximum consumed energy in kWh, for example 50, valid until this amount of energy being used.
 |min_current |<<types.asciidoc#types_number_type,number>> |? |Sum of the minimum current in A over all phases, for example 5.
