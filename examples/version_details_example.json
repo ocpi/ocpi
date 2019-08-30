@@ -3,12 +3,12 @@
   "endpoints": [
     {
       "identifier": "credentials",
-      "role": "CPO",
-      "url": "https://example.com/ocpi/cpo/2.2/credentials/"
+      "role": "SENDER",
+      "url": "https://example.com/ocpi/2.2/credentials/"
     },
     {
       "identifier": "locations",
-      "role": "CPO",
+      "role": "SENDER",
       "url": "https://example.com/ocpi/cpo/2.2/locations/"
     }
   ]

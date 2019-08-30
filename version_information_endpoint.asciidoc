@@ -158,7 +158,8 @@ If there are dependencies between modules, it will be mentioned in the affected 
 |<<mod_cdrs.asciidoc#mod_cdrs_cdrs_module,CDRs>> |cdrs |
 |<<mod_charging_profiles.asciidoc#mod_charging_profiles_module,Charging Profiles>> |chargingprofiles |
 |<<mod_commands.asciidoc#mod_commands_commands_module,Commands>> |commands |
-|<<credentials.asciidoc#credentials_credentials_endpoint,Credentials &amp; Registration>> |credentials |Required for all implementations 
+|<<credentials.asciidoc#credentials_credentials_endpoint,Credentials &amp; Registration>> |credentials |Required for all implementations. +
+                                                                   The `role` field has no function for this module.
 |<<mod_hub_client_info.asciidoc#mod_hub_client_info_module,Hub Client Info>> |hubclientinfo |
 |<<mod_locations.asciidoc#mod_locations_locations_module,Locations>> |locations |
 |<<mod_sessions.asciidoc#mod_sessions_sessions_module,Sessions>> |sessions |

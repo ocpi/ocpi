@@ -3,27 +3,27 @@
   "endpoints": [
     {
       "identifier": "credentials",
-      "role": "CPO",
+      "role": "RECEIVER",
       "url": "https://example.com/ocpi/2.2/credentials/"
     },
     {
       "identifier": "locations",
-      "role": "CPO",
+      "role": "SENDER",
       "url": "https://example.com/ocpi/cpo/2.2/locations/"
     },
     {
       "identifier": "tokens",
-      "role": "CPO",
+      "role": "RECEIVER",
       "url": "https://example.com/ocpi/cpo/2.2/tokens/"
     },
     {
       "identifier": "locations",
-      "role": "MSP",
+      "role": "RECEIVER",
       "url": "https://example.com/ocpi/msp/2.2/locations/"
     },
     {
       "identifier": "tokens",
-      "role": "MSP",
+      "role": "SENDER",
       "url": "https://example.com/ocpi/msp/2.2/tokens/"
     }
   ]
