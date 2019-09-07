@@ -2,7 +2,7 @@
 [[mod_charging_profiles_module]]
 == _ChargingProfiles_ module
 
-*Module Identifier: `charging_profiles`*
+*Module Identifier: `chargingprofiles`*
 
 With the ChargingProfiles module, parties (MSPs) can send (Smart) Charging Profiles to a Location/EVSE.
 It is also possible to request the 'ActiveChargingProfile' from a Location/EVSE.
