@@ -202,7 +202,7 @@ The following parameters can be provided as URL segments.
 |===
 
 [[mod_tariffs_example_new_tariff_2_euro_per_hour]]
-====== Example: New Tariff 2 euro per hour
+====== Example: New Tariff 2 euro per hour charging time (not parking).
 
 [source,json]
 ----
@@ -243,6 +243,9 @@ A Tariff object consists of a list of one or more Tariff Elements, which can be 
 
 When the list of Tariff Elements contains more than one Element with the same Tariff Dimension (ENERGY/FLAT/TIME etc.),
 than the first Tariff Element with that Dimension in the list with matching Tariff Restrictions will be used.
+Only one Tariff per Element type can be active at any point in time, but multiple Tariff Types can be active at once.
+IE you can have an `ENERGY` element and `TIME` element active at the same time, but only the first valid element of each.
+
 When no Tariff Element with a specific Dimension is found for which the Restrictions match,
 and there is no Tariff Element in the list with the given Dimension without Restrictions,
 there will be no costs for that Tariff Dimension.
@@ -264,7 +267,7 @@ See: <<mod_tariffs_free_of_charge_tariff_example,Free of Charge Tariff example>>
 |id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Uniquely identifies the tariff within the CPO's platform (and suboperator platforms).
 |currency |<<types.asciidoc#types_string_type,string>>(3) |1 |ISO-4217 code of the currency of this tariff.
 |type |<<mod_tariffs_tariff_type,TariffType>> |? | Defines the type of the tariff. This allows for distinction in case of given <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,Charging Preferences>>. When omitted, this tariff is valid for all sessions.
-|tariff_alt_text |<<types.asciidoc#types_displaytext_class,DisplayText>> |* |List of multi language alternative tariff info texts.
+|tariff_alt_text |<<types.asciidoc#types_displaytext_class,DisplayText>> |* |List of multi-language alternative tariff info texts.
 |tariff_alt_url |<<types.asciidoc#types_url_type,URL>> |? |Alternative URL to tariff information.
 |min_price |<<types.asciidoc#types_price_class,Price>> |? |When this field is set, a Charging Session with this tariff will at least cost this amount.
       This is different from a `FLAT` fee (Start Tariff, Transaction Fee), as a `FLAT` fee is a fixed amount that has to be payed for any Charging Session.
