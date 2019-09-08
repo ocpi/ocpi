@@ -12,9 +12,9 @@ We hope that people take the time to review this version and send feedback so we
 Even if you do not find any issues, please let us know you have checked the document.
 
 We encourage companies to start implementing OCPI 2.2 based on this release candidate.
-The proof is in the pudding, we need implementations to proof OCPI 2.2 is mature enough to be released as FINAL.
-When developers are implementing a specification they are the once finding real-world issues, most of the times.
-If they are able to implement OCPI 2.2 and get it working with other parties, that is the proof we need.
+The proof is in the pudding, we need implementations to prove OCPI 2.2 is mature enough to be released as FINAL.
+When developers are implementing a specification they are the ones finding real-world issues, most of the times.
+If they can implement OCPI 2.2 and get it working with other parties, that is the proof we need.
 
 ==== Changes/New functionality:
 
@@ -43,7 +43,7 @@ For more information on detailed changes see <<changelog.asciidoc#changelog_chan
 
 The Open Charge Point Interface (OCPI) enables a scalable, automated EV roaming setup between Charge Point Operators and e-Mobility Service Providers.
 It supports authorization, charge point information exchange (including live status updates and transaction events),
-charge detail record exchange, remote charge point commands and, the exchange of smart-charging related information between parties.
+charge detail record exchange, remote charge point commands and the exchange of smart-charging related information between parties.
 
 It offers market participants in EV an attractive and scalable solution for (international) roaming between networks,
 avoiding the costs and innovation-limiting complexities involved with today's non-automated solutions or with central roaming hubs.
@@ -65,7 +65,7 @@ This format is currently in use by the majority of the eViolin members.
 This resulted in 2014 in the development of OCPI.
 
 An international group of companies already supports OCPI. Initiators are EV Box, The New Motion, ElaadNL, BeCharged,
-Greenflux and Last Mile Solutions. Other participants include Next Charge, Freshmile, Plugsurfing, Charge-partner, Hubject, e-clearing.net,
+GreenFlux and Last Mile Solutions. Other participants include Next Charge, Freshmile, Plugsurfing, Charge-partner, Hubject, e-clearing.net,
 ihomer and Siemens. Several other major organizations and roaming platforms are interested in participating.
 The Netherlands Knowledge Platform for Charging Infrastructure (NKL) facilitates and coordinates this project to guarantee progress
 and ensure development and results. Part of this project is to find a place to continue development in the future.

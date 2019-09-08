@@ -358,7 +358,7 @@ A lot of parties are not only CPO or eMSP. Most are both CPO and eMSP.
 Some parties are doing business in multiple counties, which means to operate with different `country_codes`
 Some parties have a platform on which the host service for other CPOs/eMSPs.
 Some parties are themselves CPO and host CPO services for others,
-but other parties are themselves not a CPO or other role in the EV charging landscape
+but other parties are (themselves) not a CPO or other role in the EV charging landscape
 but do provide service to CPOs/eMSPs, etc.
 
 
@@ -392,14 +392,14 @@ image::images/sd_put_2_hubs.svg[OCPI Sequence Diagram Hub PUT with 2 Hubs]
 ===== Broadcast Push
 
 For simplicity, connected clients might push (POST, PUT, PATCH) information to all connected clients with an "opposite role",
-CPO pushing information to all eMSPs and NSPs. eMSP pushing information to all CPOs.
+for example: CPO pushing information to all eMSPs and NSPs, eMSP pushing information to all CPOs.
 (The role "Other" is seen as an eMSP type of role, so Broadcast Push from a CPO is also sent to "Other".
 Messages from "Other" are only sent to CPOs and not to eMSPs though.)
 
-Using Broadcast Push to send data through a Hub might be very useful to share information like Locations or Tokens with all parties
+When using Broadcast Push, the Hub broadcasts received information to all connected clients.
+To send data through a Hub might be very useful to share information like Locations or Tokens with all parties
 connected to the Hub that have implemented the corresponding module.
 This means only one request to the Hub will be necessary, as all connected clients will be served by the Hub.
-In other words: the Hub broadcasts received information to all connected clients.
 
 To send a Broadcast Push, the client uses the party-id and country-code of the Hub in the 'OCPI-to-' headers.
 The Hub parses the request and sends a response to the client, which optionally contains its own party-id and country-code in the 'OCPI-from-' headers.
@@ -444,7 +444,7 @@ A client (Receiver) can request a GET on the Sender interface of a module implem
 To request a GET All from a Hub, the client uses the party-id and country-code of the Hub in the 'OCPI-to-' headers,
 and calls the GET method on the Sender interface of a module.
 
-The Hub then can then combine objects from different connected parties and return them to the client.
+The Hub can then combine objects from different connected parties and return them to the client.
 
 The client can determine the owner of the objects by looking at the `county_code` and `party_id` in the individual objects returned by the hub.
 
@@ -574,7 +574,7 @@ image::images/unqiue_ids_via_hub.svg[Example sequence diagram of the uses of X-R
 [[transport_and_format_interface_endpoints]]
 === Interface endpoints
 
-As OCPI contains multiple interfaces, different endpoints are available for messaging.
+As OCPI contains multiple interfaces. Different endpoints are available for messaging.
 The protocol is designed such that the exact URLs of the endpoints can be defined by each party.
 It also supports an interface per version.
 

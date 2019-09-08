@@ -339,8 +339,10 @@ include::examples/cdr_example.json[]
 |===
 |Value |Description 
 
-|AUTH_REQUEST |Authentication request has been send to the eMSP.
-|COMMAND |Command like <<mod_commands.asciidoc#mod_commands_startsession_object,StartSession>> or <<mod_commands.asciidoc#mod_commands_reservenow_object,ReserveNow>> used to start the Session, the Token provided in the Command used as authorization.
+|AUTH_REQUEST |Authentication request has been sent to the eMSP.
+|COMMAND |Command like <<mod_commands.asciidoc#mod_commands_startsession_object,StartSession>>
+          or <<mod_commands.asciidoc#mod_commands_reservenow_object,ReserveNow>> used to start the Session,
+          the Token provided in the Command was used as authorization.
 |WHITELIST |Whitelist used for authentication, no request to the eMSP has been performed.
 |===
 

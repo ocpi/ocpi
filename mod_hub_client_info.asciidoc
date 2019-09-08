@@ -9,34 +9,34 @@
 This module provides parties connected to a hub with the connection status of other parties that are connected to a hub that they can communicate with.
 So, CPOs know which eMSP and other parties are online and vice versa.
 
-It is like any other OCPI module, but then not between eMSP and CPO, but between eMSP/CPO and Hub.
+Unlike the usual OCPI modules, this module is between eMSP/CPO and Hub instead of between eMSP and CPO.
 
 === Scenarios
 
-This section will describe what the expected behavior is when a party receive information of a ConnectionState change.
+This section will describe what the expected behavior is when a party receives information of a ConnectionState change.
 
 ==== Another Party becomes CONNECTED
 
-Party is (back) online. Request can be send again.
+Party is (back) online. Request can be sent again.
 Every party receiving Client Owned Objects from this party should be prepared to receive Client Owned Objects with URLs
 that contain the party_id and country_code of this party.
 
 ==== Another Party goes OFFLINE
 
-Connection to party is not available: No requests can be send.
-Do not queue Push messages. When the other parties comes back online, it is their responsibility to do a GET to get back in sync.
+Connection to party is not available: No requests can be sent.
+Do not queue Push messages. When the other party comes back online, it is their responsibility to do a GET to get back in sync.
 
 ==== Another Party becomes PLANNED
 
-No requests can be send to this new party yet.
-Might be a good idea to send some notification to an operator to get into contact with the new party so contracts can be setup.
+No requests can be sent to this new party yet.
+It can be a good idea to sent some notification to an operator to get into contact with the new party so contracts can be setup.
 This state may also be used when a Hub has some configuration indicating which parties have contracts which each other.
 When a company does not have a connection configured.
-This state may also be send to parties.
+This state may also be sent to parties.
 
 ==== Another Party becomes SUSPENDED
 
-Like with OFFLINE, no requests should be send to this party, they cannot be delivered.
+Like with OFFLINE, no requests should be sent to this party, they cannot be delivered.
 
 When for example CDRs still have to be delivered, so there is some unfinished business,
 parties are advised to get into contact with the other party in another way the OCPI: Call them, send an e-mail.

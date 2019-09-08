@@ -20,7 +20,7 @@ image::images/architecture_direct.svg[peer-to-peer topology example]
 
 A more real-world topology where multiple parties connect their platforms
 and each platform only has 1 role.
-(not every party connects with all the other parties with the other role).
+(Not every party necessarily connects with all the other parties with the other role).
 
 .Multiple peer-to-peer topology example
 image::images/architecture_multiple_direct_modified.svg[Multiple peer-to-peer topology example]

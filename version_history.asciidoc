@@ -56,6 +56,6 @@ These documentation revisions (not the first) will be named: d2, d3, d4 etc.
 
 Examples:
 
-- OCPI 2.1.1 is a different protocol version of OCPI then OCPI 2.1.
+- OCPI 2.1.1 is a different protocol version of OCPI than OCPI 2.1.
 
 - OCPI 2.0-d2 is the same protocol version as OCPI 2.0, but a newer documentation revision: same protocol, newer documentation.

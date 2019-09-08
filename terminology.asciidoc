@@ -35,35 +35,35 @@ In the EV Charging landscape, different market roles can be identified.
 |CPO   |Charging Point Operator: Operates a network of Charge Points.
 |eMSP  |e-Mobility Service Provider: gives EV drivers access to charging services.
 |Hub   |Can connect one or more CPOs to one or more eMSPs.
-|NAP   |Provides a national Database with all (public) Charging Locations, information can be sent and retrieved from the NAP (that makes it different from a typical NSP).
-|NSP   |Provides EV drivers with location information of Charge Points.
+|NAP   |National Access Point: Provides a national Database with all (public) Charging Locations, information can be sent and retrieved from the NAP (that makes it different from a typical NSP).
+|NSP   |Navigation Service Provider: Provides EV drivers with location information of Charge Points.
 |Roaming Hub |See: Hub
-|SCSP  |Provided Smart Charging service to other parties might use a lot of different inputs to calculate Smart Charging Profiles.
+|SCSP  |Smart Charging Service Provider: Provided Smart Charging service to other parties might use a lot of different inputs to calculate Smart Charging Profiles.
 |===
 
-Some of these roles can be combined in one company. A Platform can provide service for multiple CPOs or eMSP,
+Some of these roles can be combined in one company. A Platform can provide service for multiple CPOs or eMSPs,
 but also for both eMSPs and CPOs.
 
 OCPI 2.0/2.1.1 had a very strict definition of roles: only CPO and eMSP. But this is rare in the real world,
-there are almost no parties that are strict CPO or eMSP and have their own platform. In the real world, lots of
+there are almost no parties that are strictly CPO or eMSP and have their own platform. In the real world, lots of
 parties provide service to CPOs that are not running their own platform.
-A lot of CPOs are also eMSP. With OCPI 2.1.1 and earlier that mend having to set up an OCPI connection per role.
+A lot of CPOs are also eMSP. With OCPI 2.1.1 and earlier that meant having to set up an OCPI connection per role.
 
 OCPI 2.2 introduces more roles and abstracts the role from the OCPI connection itself.
-OCPI 2.2 talks about Platforms connection to Platforms, or Platforms connecting via Hubs to other Platforms.
+OCPI 2.2 talks about Platforms connecting to Platforms, or Platforms connecting via Hubs to other Platforms.
 The Platform itself is not a role. The Platform provides services for 1 or more roles.
 
 Examples of platforms:
 
-* A pure CPO, not providing services to other CPOs, not being an eMSP, running its own software that connects via OCPI.
+* A pure CPO: Not providing services to other CPOs. Not being an eMSP. Running its own software that connects via OCPI. +
   Is defined in OCPI as a Platform has 1 CPO role, the CPO role of that company.
 * A Company that has a cloud-based eMSP software solution,
-  it offers to companies that want to be eMSP, but don't want to host/run their own software,
-  is a Platform that has a number of eMSP roles, one for each eMSP the company is providing services for.
-  But not for the company itself because the company itself is not an eMSP.
-* A Company that operates public Charge Points, also provides eMSP service to EV drivers, running their own software platform,
-  is seen in OCPI as a Platform that has 2 roles: CPO and eMSP for this company.
-* If the company above starts to offer their service to other CPOs and eMSP, it is still seen as 1 platform,
+  it offers to companies that want to be eMSP, but don't want to host/run their own software. +
+  Is a Platform that has a number of eMSP roles, one for each eMSP the company is providing services for.
+  Not for this company itself because the company itself is not an eMSP.
+* A Company that operates public Charge Points, and also provides eMSP service to EV drivers and is running their own software platform. +
+  Is seen in OCPI as a Platform that has 2 roles: CPO and eMSP for this company.
+* If one the company above starts to offer their service to other CPOs and eMSP, it is still seen as 1 platform,
   but then with multiple CPO and eMSP roles.
 
 
@@ -104,18 +104,20 @@ The table shows the typical communication role: Receiver, Sender or Both.
 |Broadcast Push | When communicating via a Hub, a data owner can do a single call to the Hub, the Hub then calls all receiving systems. +
                   See: <<transport_and_format.asciidoc#transport_and_format_message_routing_broadcast_push,Broadcast push>>
 |Charge Point |The physical system where an EV can be charged. A Charge Point has one or more EVSEs. Sometimes called Charging Station
-|Client Owned Objects | In a normal REST interface, the server is the owner of data, when a new resource is created by call POST, the server creates the URL where the resource can be found by a client. +
+|Client Owned Objects | In a normal REST interface the server is the owner of data, when a new resource is created by call POST, the server creates the URL where the resource can be found by a client. +
                         OCPI is different, in most modules the owner is the party pushing data to a server, to inform them of updates. +
                         For example Locations, the CPO owns a Location (Charge Point), when a new Charge Point is added, the CPO calls PUT on the eMSP systems to inform them about new locations. +
                         See: <<transport_and_format.asciidoc#transport_and_format_client_owned_object_push,Client Owned Objects>>
-|Open Routing Request | Systems connected via Hub, system pulling information does not know, or care about, the owner of information, but asks the Hub GET, and the Hub fins the correct party and routes the request to that party. +
+|Open Routing Request | This is for Platforms that are connected via a Hub. When a system send a pull request to the Hub,
+                        and does not know, or care about, the owner of information, but asks the Hub to route the GET to the correct Platform.
+                        The Hub finds the correct Platform and routes the request to that Platform. +
                         See: <<transport_and_format.asciidoc#transport_and_format_message_routing_open_routing_request,Open Routing Request>>
 
 |Platform | Software that provides services via OCPI.
             A platform can provide service for a single eMSP or CPO, or for multiple CPOs or eMSPs.
             It can even provide services for both eMSPs and CPOs at the same time.
 |Pull | A system calls GET request to retrieve information from the system that owns the data.
-|Push | The system, owning the data, actively calls POST/PUT/PATCH to update other systems with new/updated information.
+|Push | The system (owning the data) actively calls POST/PUT/PATCH to update other systems with new/updated information.
 |===
 
 
@@ -173,7 +175,7 @@ A Location is typically the exact location of one or more EVSEs, but it can also
 [[terminology_variable_names]]
 === Variable names
 
-To prevent issues with Capitals in variable names, the naming in JSON is not CamelCase but snake_case. All variables are lowercase and include an underscore for a whitespace.
+To prevent issues with capitals in variable names, the naming in JSON is not CamelCase but snake_case. All variables are lowercase and include an underscore for a whitespace.
 
 [[terminology_cardinality]]
 === Cardinality
