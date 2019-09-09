@@ -391,6 +391,7 @@ Minor
 |Minimal / +
 Minimal
 |Added optional `reservation` field, making it possible to define the tariff of a reservation (and an expired reservation). +
+Added optional `min_current` and `max_current` field, making it possible to have a tariff that depends on the current being charged, instead of the power. +
 Improved the regex for time format.
 
 |Tokens / +
