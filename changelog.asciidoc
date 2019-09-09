@@ -297,6 +297,14 @@ Minor
 Minimal
 |removed to option for either: twentyfourseven or regular_hours, now twentyfourseven is always required and regular_hours is required when twentyfourseven=false, this is much less confusing.
 
+|Locations / +
+RegularHours class
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Improved the regex for time format.
+
 |Sessions / +
 Sender PUT method
 |Medium / +
@@ -382,7 +390,8 @@ TariffRestrictions class
 Minor
 |Minimal / +
 Minimal
-|Added optional `reservation` field, making it possible to define the tariff of a reservation (and an expired reservation).
+|Added optional `reservation` field, making it possible to define the tariff of a reservation (and an expired reservation). +
+Improved the regex for time format.
 
 |Tokens / +
 Sender GET & POST methods
