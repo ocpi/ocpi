@@ -1,10 +1,10 @@
-This repository contains the OCPI specification, latest release: OCPI 2.1.1-d2
+This repository contains the OCPI specification, latest release: [`OCPI 2.1.1-d2`](https://github.com/ocpi/ocpi/releases/download/2.1.1-d2/OCPI_2.1.1-d2.pdf)
 
-The branch with the latest fixes to the 2.1.1 documentation is [`release-2.1.1-bugfixes`](https://github.com/ocpi/ocpi/tree/release-2.1.1-bugfixes)
+The branch with the latest fixes to the 2.1.1-d2 documentation is [`release-2.1.1-bugfixes`](https://github.com/ocpi/ocpi/tree/release-2.1.1-bugfixes)
 
 The `master` branch always contains the latest official release.
 
-Development of the next version of OCPI, new functionality, is done in the  [`develop`](https://github.com/ocpi/ocpi/tree/develop) branch.
+Development of the next version of OCPI, new functionality, is done in the  [`develop`](https://github.com/ocpi/ocpi/tree/develop) branch: [`OCPI 2.2 is now Release Candidate 2`](https://github.com/ocpi/ocpi/releases/download/2.2-RC2/OCPI-2.2-RC2.pdf)
 
 ## Contents
 
