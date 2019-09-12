@@ -298,6 +298,14 @@ Minimal
 |removed to option for either: twentyfourseven or regular_hours, now twentyfourseven is always required and regular_hours is required when twentyfourseven=false, this is much less confusing.
 
 |Locations / +
+Image class
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Changed field `type` from string to CiString, is for machine to machine communication, so UTF-8 is not needed.
+
+|Locations / +
 RegularHours class
 |Minor / +
 Minor
@@ -490,6 +498,14 @@ Minor
 Minimum
 |Changed to: RFC 3339 (was ISO 8601) this does not change the OCPI format, RFC 3339 is more limited, and therefor more inline with OCPI then ISO 8601 was. +
  Fractional seconds are now allowed.
+
+|Types / +
+ string
+|Minor / +
+Minor
+|Minimum / +
+Minimum
+|Type string changed from ASCII to UTF-8. String is used for human-readable information and thus needed to support for a lot more character sets then only ASCII.
 |===
 
 

@@ -6,6 +6,7 @@
 === CiString _type_
 
 Case Insensitive String. Only printable ASCII allowed.
+(Non-printable characters like: Carriage returns, Tabs, Line breaks, etc are not allowed)
 
 [[types_datetime_type]]
 === DateTime _type_
@@ -86,8 +87,10 @@ Unless mentioned otherwise, numbers use 4 decimals and a _sufficiently large amo
 [[types_string_type]]
 === string _type_
 
-Case Sensitive String. Only printable ASCII allowed. All strings in
-messages and enumerations are case sensitive, unless explicitly stated
+Case Sensitive String. Only printable UTF-8 allowed.
+(Non-printable characters like: Carriage returns, Tabs, Line breaks, etc are not allowed)
+
+All strings in messages and enumerations are case sensitive, unless explicitly stated
 otherwise.
 
 [[types_url_type]]
