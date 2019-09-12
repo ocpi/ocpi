@@ -418,8 +418,8 @@ as these pieces of information are specific to only one party and are possibly e
 
 NOTE: For "Client Owned Objects", the party-id and country-code in the URL segments will still be the original party-id and country-code from the original client sending the Broadcast Push to the Hub.
 
-.Example sequence diagram of a broadcast PUT from a CPO to multiple eMSPs.
-image::images/sd_put_boardcast.svg[OCPI Sequence Diagram of a broadcast PUT from a CPO to multiple eMSPs]
+.Example sequence diagram of a Broadcast Push from a CPO to multiple eMSPs.
+image::images/sd_put_boardcast.svg[OCPI Sequence Diagram of a Broadcast Push from a CPO to multiple eMSPs]
 
 
 [[transport_and_format_message_routing_open_routing_request]]
@@ -505,8 +505,8 @@ This table contains the description of which headers are required to be used for
 | Broadcast response | Receiving platform to Hub | Hub | Receiving-party
 |===
 
-.Example sequence diagram of Boardcast Push from one Platform to another Platform via a Hub
-image::images/sd_platform_hub_platform.svg[Example sequence diagram of Boardcast Push from one Platform to another Platform via a Hub]
+.Example sequence diagram of Broadcast Push from one Platform to another Platform via a Hub
+image::images/sd_platform_hub_platform.svg[Example sequence diagram of Broadcast Push from one Platform to another Platform via a Hub]
 
 
 ====== Party to Party Open Routing Request
