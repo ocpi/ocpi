@@ -301,9 +301,9 @@ the driver might get billed something they didn't agree to when starting the ses
 NOTE: The fields: `tariff_alt_text` and `tariff_alt_url` may be used separately,
 or in combination with each other or even combined with the structured tariff `elements`.
 When a Tariff contains both the `tariff_alt_text` and `elements` fields,
-the `tariff_alt_text` SHALL only contain additional tariff information in human readable text,
+the `tariff_alt_text` SHALL only contain additional tariff information in human-readable text,
 not the price information that is also available via the `elements` field.
-Reason for this: the eMSP might have additional fees they want to including in communication with their customer.
+Reason for this: the eMSP might have additional fees they want to include in communication with their customer.
 
 
 [[mod_tariffs_examples]]
