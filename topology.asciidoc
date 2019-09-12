@@ -61,7 +61,7 @@ image::images/architecture_platform_mixed_direct.svg[peer-to-peer with mixed rol
 
 More a real-world topology when OCPI is used between market parties without a hub, all parties are platforms with multiple roles.
 
-It is easy to notice that the amount of connections between platforms explodes.
+Disadvantage of this: requires a lot of connections between platforms to be setup, tested and maintained.
 
 .peer-to-peer with mixed roles topology example
 image::images/architecture_mutiple_platform_direct_modified.svg[peer-to-peer with mixed roles topology example]

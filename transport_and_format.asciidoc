@@ -367,7 +367,7 @@ When OCPI is used to communicate to/from a Platform or via a Hub (which is almos
 the following four HTTP headers are to be added to any request/response to allow messages to be routed.
 
 When implementing OCPI these four headers SHALL be implemented.
-This does not mean they always have to be present in all request.
+This does not mean they have to be present in all request.
 There are situation/special request where some headers can or shall be omitted, more on this later.
 
 [cols="4,14",options="header"]

@@ -15,11 +15,12 @@ but exposes this functionality to third parties.
 These objects and the accompanying interfaces make certain abstractions that make them more suitable for energy parties to signal their intent.
 The data structures are base on OCPP 1.6 and 2.0 to make conversion of messages between OCPI and OCPP easy.
 
-NOTE: Charging Profiles set via this module are no garantue that the EV will charge with the exact given limit.
-A lot of factors influence the charging speed. The EV might not take the amount of energy that the EVSE is willing to provide to it.
-For Example: The battery might be too warm, too full etc. The cable might be one phase on a three phase charger etc.
-There can be local energy limits (load balancing between EVSE on a relative small energy connection to a group of EVSEs)
-that limit the energy offered by EVSE to the EV even further.
+NOTE: Charging Profiles set via this module are no guarantee that the EV will charge with the exact given limit,
+it is a maximum limit, not a target.
+A lot of factors influence the charging speed. The EV might not take the amount of energy that the EVSE is willing to provide to it,
+the battery might be too warm or almost full. A single phase cable might be used on a three phase Charge Point.
+There can be local energy limits (load balancing between EVSEs on a relative small energy connection to a group of EVSEs)
+that might limit the energy offered by the EVSE to the EV even further.
 
 ChargingProfile can be created by the owner of a Token on Sessions that belong to that token.
 If another party sends a ChargingProfile and the CPO has no contract that allows that party to set profiles on sessions,
@@ -222,8 +223,10 @@ image::images/sd_charging_profile_set_via_msp.svg[Example of a SetChargingProfil
 
 ====  Example of a removing/clearing ChargingProfile sent by the Sender (typically the eMSP or SCSP)
 
-When the Sender wants to remove the charging profile, for example the EV driver has selected to switch to charging with the highest speed possible,
-the Sender can ask the CPO to remove the set charging profile by calling the <<mod_charging_profiles_cpo_delete_method,DELETE>> method on the Receiver interface.
+The Sender might want to remove the charging profile,
+for example the EV driver has selected to switch to charging with the highest speed possible.
+The Sender can ask the CPO to remove the set charging profile by calling.
+This can be done by calling the <<mod_charging_profiles_cpo_delete_method,DELETE>> method on the Receiver interface.
 
 The CPO responds to the eMSP or SCSP, the response body will contain the response to the request,
 acknowledging the request was understood and can be forwarded to the Charge Point.
@@ -240,10 +243,12 @@ image::images/sd_charging_profile_clear.svg[Example of a ClearChargingProfile]
 
 ====  Example of a removing/clearing ChargingProfile send by the SCSP via the eMSP
 
-When the SCSP wants to remove the charging profile, for example the EV driver has selected to switch to charging with the highest speed possible,
-the Sender can ask the eMSP to send ask the CPO to remove the set charging profile,
-by calling the <<mod_charging_profiles_cpo_delete_method,DELETE>> method on the eMSPs Charging Profile Receiver interface.
-The eMSP forwards this to the CPO by calling the <<mod_charging_profiles_cpo_delete_method,DELETE>> method on the CPOs Charging Profile Receiver interface.
+The SCSP might want to remove the charging profile,
+for example the EV driver has selected to switch to charging with the highest speed possible.
+The SCSP can ask the eMSP to ask the CPO to remove the set charging profile.
+This can be done by calling the <<mod_charging_profiles_cpo_delete_method,DELETE>> method on the eMSPs Charging Profile Receiver interface.
+The eMSP forwards this to the CPO by calling
+the <<mod_charging_profiles_cpo_delete_method,DELETE>> method on the CPOs Charging Profile Receiver interface.
 
 The CPO responds to the eMSP, the response body will contain the response to the request,
 acknowledging the request was understood and can be forwarded to the Charge Point.
@@ -377,8 +382,7 @@ The following parameters can be provided as URL segments.
 |===
 
 NOTE: duration: Balance the duration between maximizing the information gained and the data usage and computation to execute on the request.
-Long durations might not be very useful, as situations might change during a long period.
-Sending this request much more frequent then the 'duration' might, result in a lot of duplicate data being sent, and thus unneeded data costs.
+Warning: asking for longer duration than necessary might result in additional data costs, while its added value diminishes with every change in the schedule.
 
 
 [[mod_charging_profiles_get_response_data]]

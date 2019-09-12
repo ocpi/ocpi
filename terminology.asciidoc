@@ -61,10 +61,10 @@ Examples of platforms:
   it offers to companies that want to be eMSP, but don't want to host/run their own software. +
   Is a Platform that has a number of eMSP roles, one for each eMSP the company is providing services for.
   Not for this company itself because the company itself is not an eMSP.
-* A Company that operates public Charge Points, and also provides eMSP service to EV drivers and is running their own software platform. +
+* A Company that operates public Charge Points and also provides eMSP service to EV drivers, running their own software platform. +
   Is seen in OCPI as a Platform that has 2 roles: CPO and eMSP for this company.
-* If one the company above starts to offer their service to other CPOs and eMSP, it is still seen as 1 platform,
-  but then with multiple CPO and eMSP roles.
+* If one the companies above starts to offer their service to other CPOs and eMSP, it is in OCPI still seen as 1 platform.
+  This platform then provides multiple CPO and eMSP roles.
 
 
 [[introduction_typical_roles]]
