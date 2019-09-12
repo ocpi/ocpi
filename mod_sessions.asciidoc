@@ -49,6 +49,19 @@ A <<mod_locations.asciidoc#mod_locations_connector_object,Connector>> can have m
 one for each <<mod_sessions_profile_type_enum,ProfileType>>.
 
 
+[[mod_sessions_reservation]]
+==== Reservation
+
+When a EV driver makes a Reservation for a Charge Point/EVSE, the Sender SHALL create a new Session object with `status` = `RESERVED`
+When the Push model is used, the CPO SHALL push the new Session object to the Receiver.
+
+When a reservation results in a charging session for the same `Token`, the Session object `status` to: `ACTIVE`
+
+When a reservation does not result in a charging session, the Session object `status` SHALL be set to: `COMPLETED`.
+
+A CDR might be created even if no energy was transferred to the EV, just for the costs of the reservation.
+
+
 [[mod_sessions_interfaces_and_endpoints]]
 === Interfaces and Endpoints
 
@@ -462,5 +475,7 @@ Defines the state of a session.
 |ACTIVE |The session has been accepted and is active. All pre-conditions were met: Communication between EV and EVSE (for example: cable plugged in correctly), EV or driver is authorized. EV is being charged, or can be charged. Energy is, or is not, being transfered.
 |COMPLETED |The session has been finished successfully. No more modifications will be made to the Session object using this state. 
 |INVALID |The Session object using this state is declared invalid and will not be billed. 
-|PENDING |The session is pending, it has not yet started. Not all pre-conditions are met. This is the initial state. The session might never become an _active_ session. 
+|PENDING |The session is pending, it has not yet started. Not all pre-conditions are met. This is the initial state. The session might never become an _active_ session.
+|RESERVATION |The session is started due to a reservation, charging has not yet started. The session might never become an _active_ session.
+
 |===

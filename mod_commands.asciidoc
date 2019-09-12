@@ -297,6 +297,8 @@ For the eMSP to be able to give a quick as possible response to another system o
 The `evse_uid` is optional. If no EVSE is specified, the Charge Point should keep one EVSE available for the EV Driver identified by the given Token. (This might not be supported by all Charge Points).
 A reservation can be replaced/updated by sending a `RESERVE_NOW` request with the same Location (Charge Point) and the same `reservation_id`.
 
+A successful reservation will result in a new `Session` object being created by the CPO.
+
 A not used Reservation of a Charge Point/EVSE MAY result in cost being made, thus also a CDR.
 
 The eMSP provides a Token that has to be used by the Charge Point.
