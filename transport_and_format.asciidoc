@@ -506,7 +506,7 @@ This table contains the description of which headers are required to be used for
 |===
 
 .Example sequence diagram of Broadcast Push from one Platform to another Platform via a Hub
-image::images/sd_platform_hub_platform.svg[Example sequence diagram of Broadcast Push from one Platform to another Platform via a Hub]
+image::images/sd_platform_hub_platform_broadcast.svg[Example sequence diagram of Broadcast Push from one Platform to another Platform via a Hub]
 
 
 ====== Party to Party Open Routing Request
