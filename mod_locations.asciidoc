@@ -517,6 +517,10 @@ This field is named `uid` instead of `id`, because `id` could be confused with `
 |last_updated |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Timestamp when this EVSE or one of its Connectors was last updated (or created). 
 |===
 
+NOTE: OCPP 1.x does not have good support for Charge Points that have multiple connectors per EVSE.
+To make `StartSession` over OCPI work, the CPO SHOULD present the different connectors of an EVSE as separate EVSE,
+as is also written by the OCA in the application note: "Multiple Connectors per EVSE in a OCPP 1.x implementation".
+
 
 [[mod_locations_connector_object]]
 ==== _Connector_ Object
