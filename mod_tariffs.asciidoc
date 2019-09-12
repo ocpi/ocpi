@@ -268,7 +268,7 @@ See: <<mod_tariffs_free_of_charge_tariff_example,Free of Charge Tariff example>>
 |currency |<<types.asciidoc#types_string_type,string>>(3) |1 |ISO-4217 code of the currency of this tariff.
 |type |<<mod_tariffs_tariff_type,TariffType>> |? | Defines the type of the tariff. This allows for distinction in case of given <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,Charging Preferences>>. When omitted, this tariff is valid for all sessions.
 |tariff_alt_text |<<types.asciidoc#types_displaytext_class,DisplayText>> |* |List of multi-language alternative tariff info texts.
-|tariff_alt_url |<<types.asciidoc#types_url_type,URL>> |? |Alternative URL to tariff information.
+|tariff_alt_url |<<types.asciidoc#types_url_type,URL>> |? |URL to a web page that contains an explanation of the tariff information in human readable form.
 |min_price |<<types.asciidoc#types_price_class,Price>> |? |When this field is set, a Charging Session with this tariff will at least cost this amount.
       This is different from a `FLAT` fee (Start Tariff, Transaction Fee), as a `FLAT` fee is a fixed amount that has to be payed for any Charging Session.
       A minimum price indicates that when the cost of a Charging Session is lower than this amount, the cost of the Session will be equal to this amount. (Also see note below)
@@ -297,6 +297,13 @@ it is common to not switch the Tariff until the ongoing session is finished. But
 When charging at a Charge Point, a driver accepts the tariff which is valid when they start their charging session.
 If the Tariff of the Charge Point would change during the charging session,
 the driver might get billed something they didn't agree to when starting the session.
+
+NOTE: The fields: `tariff_alt_text` and `tariff_alt_url` may be used separately,
+or in combination with each other or even combined with the structured tariff `elements`.
+When a Tariff contains both the `tariff_alt_text` and `elements` fields,
+the `tariff_alt_text` SHALL only contain additional tariff information in human readable text,
+not the price information that is also available via the `elements` field.
+Reason for this: the eMSP might have additional fees they want to including in communication with their customer.
 
 
 [[mod_tariffs_examples]]
