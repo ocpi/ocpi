@@ -283,7 +283,7 @@ The content that is sent with all the response messages is an 'application/json'
 |Property |Type |Card. |Description 
 
 |data |Array or Object or String |* or ? |Contains the actual response data object or list of objects from each request, depending on the cardinality of the response data, this is an array (card. * or +), or a single object (card. 1 or ?) 
-|status_code |int |1 |Response code, as listed in <<status_codes.asciidoc#status_codes_status_codes,Status Codes>>, indicates how the request was handled. To avoid confusion with HTTP codes, at least four digits are used. 
+|status_code |int |1 |OCPI status code, as listed in <<status_codes.asciidoc#status_codes_status_codes,Status Codes>>, indicates how the request was handled. To avoid confusion with HTTP codes, OCPI status codes consist of four digits.
 |status_message |<<types.asciidoc#types_string_type,string>> |? |An optional status message which may help when debugging. 
 |timestamp |<<types.asciidoc#types_datetime_type,DateTime>> |1 |The time this message was generated. 
 |===
