@@ -309,7 +309,9 @@ The object with valid Location and EVSEs/Connectors will be returned in the resp
 [[mod_tokens_post_response_data]]
 ====== Response Data
 
-The endpoint response contains a <<mod_tokens_authorizationinfo_object,AuthorizationInfo>> object.
+When the token is known by the Sender, the response SHALL contain a <<mod_tokens_authorizationinfo_object,AuthorizationInfo>> object.
+
+If the token is not known, the response SHALL contain the status code: `2004: Unknown Token`, and no `data` field.
 
 [cols="4,1,12",options="header"]
 |===
