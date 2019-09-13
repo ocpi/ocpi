@@ -2,8 +2,8 @@
 title OCPI Update process
 hide footbox
 
-participant CPO
-participant eMSP
+participant eMSP AS "Sender"
+participant CPO AS "Receiver"
 
 CPO <- eMSP: GET /ocpi/cpo/versions
 activate eMSP
@@ -25,12 +25,12 @@ CPO <-- eMSP: Available versions
 CPO -> eMSP: GET /ocpi/emsp/2.0/
 CPO <-- eMSP: Available endpoints for v2.0
 note right
-    The CPO knows it's version 2.0 because
-    of the endpoint the eMSP has used. The URL
+    The Receiver knows it's version 2.0 because
+    of the endpoint the Sender has used. The URL
     is retrieved from the available versions.
 end note
 CPO -> CPO: Store version and endpoints
-CPO --> eMSP: Return updated credentials for eMSP
+CPO --> eMSP: Return updated credentials for Sender
 deactivate CPO
 
 eMSP -> eMSP: Store updated credentials
