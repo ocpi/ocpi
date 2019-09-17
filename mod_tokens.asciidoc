@@ -310,7 +310,7 @@ The object with valid Location and EVSEs/Connectors will be returned in the resp
 |===
 |Type |Card. |Description 
 
-|<<mod_tokens_locationreferences_class,LocationReferences>> |? |Location and EVSEs/Connectos for which the Token is requested to be authorized. 
+|<<mod_tokens_locationreferences_class,LocationReferences>> |? |Location and EVSEs/Connectors for which the Token is requested to be authorized.
 |===
 
 [[mod_tokens_post_response_data]]
