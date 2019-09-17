@@ -446,7 +446,7 @@ References to location details.
 
 |location_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Unique identifier for the location.
 |evse_uids |<<types.asciidoc#types_cistring_type,CiString>>(36) |* |Unique identifier for EVSEs within the CPO's platform for the EVSE within the given location.
-|connector_ids |<<types.asciidoc#types_cistring_type,CiString>>(36) |* |Identifies the connectors within the given EVSEs. |
+|connector_ids |<<types.asciidoc#types_cistring_type,CiString>>(36) |* |Identifies the connectors within the given EVSEs.
 |===
 
 [[mod_tokens_tokentype_enum]]
