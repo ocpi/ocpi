@@ -296,7 +296,7 @@ The parameter: `type` may be provided as an URL parameter
 |===
 |Parameter |Datatype |Required |Description 
 
-|token_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |Token.uid of the Token for which this authorization is.
+|token_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |Token.uid of the Token for which authorization is requested.
 |type |<<mod_tokens_tokentype_enum,TokenType>> |no |Token.type of the Token for which this authorization is. Default if omitted: <<mod_tokens_tokentype_enum,RFID>>
 |===
 
