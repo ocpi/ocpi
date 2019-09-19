@@ -107,14 +107,14 @@ headers need to be added to the response.
 
 The following table lists all the parameters that have to be supported but might be omitted by a client request.
 
-[cols="2,12",options="header"]
+[cols="2,2,12",options="header"]
 |===
-|Parameter |Description 
+|Parameter |Datatype |Description
 
-|date_from |Only return objects that have `last_updated` after or equal to this Date/Time (inclusive).
-|date_to |Only return objects that have `last_updated` up to this Date/Time, but not including (exclusive).
-|offset |The offset of the first object returned. Default is 0 (the first object).
-|limit |The maximum number of objects to GET. The server might decide to return fewer objects, either because there are no more objects, or the server limits the maximum number of objects to return. This is to prevent, for example, overloading the system.
+|date_from |<<types.asciidoc#types_datetime_type,DateTime>> |Only return objects that have `last_updated` after or equal to this Date/Time (inclusive).
+|date_to |<<types.asciidoc#types_datetime_type,DateTime>> |Only return objects that have `last_updated` up to this Date/Time, but not including (exclusive).
+|offset |int |The offset of the first object returned. Default is 0 (the first object).
+|limit |int |The maximum number of objects to GET. The server might decide to return fewer objects, either because there are no more objects, or the server limits the maximum number of objects to return. This is to prevent, for example, overloading the system.
 |===
 
 The `date_from` is inclusive and `date_to` exclusive, this way, when sequential requests with to the same end-point are done,
@@ -145,20 +145,19 @@ When an object before this page has been updated, then the client has missed 1 o
 
 HTTP headers that have to be added to any paginated GET response.
 
-[cols="3,10",options="header"]
+[cols="3,2,10",options="header"]
 |===
-|HTTP Header |Description
+|HTTP Header |Datatype |Description
 
-|Link |Link to the 'next' page should be provided when this is NOT the last page.
+|Link |String |Link to the 'next' page should be provided when this is NOT the last page.
        The Link should also contain any filters present in the original request. See the examples below.
-|X-Total-Count |(Custom HTTP Header) The total number of objects available in the server system that match the given query
+|X-Total-Count |int |(Custom HTTP Header) The total number of objects available in the server system that match the given query
                 (including the given query parameters, for example: `date_to` and `date_from` but excluding `limit` and `offset`)
                 and that are available to this client. For example: The CPO server might return less CDR objects to an eMSP then the total number of CDRs available in the CPO system.
-|X-Limit |(Custom HTTP Header) The maximum number of objects that the server can return.
+|X-Limit |int |(Custom HTTP Header) The maximum number of objects that the server can return.
           Note that this is an upper limit. If there are not enough remaining objects to return,
           fewer objects than this upper limit number will be returned, X-Limit SHALL then still show the upper limit, not the number of objects returned.
 |===
-
 
 
 [[transport_and_format_pagination_examples]]
@@ -370,14 +369,14 @@ When implementing OCPI these four headers SHALL be implemented.
 This does not mean they have to be present in all request.
 There are situation/special request where some headers can or shall be omitted, more on this later.
 
-[cols="4,14",options="header"]
+[cols="4,2,14",options="header"]
 |===
-|HTTP Header |Description
+|HTTP Header |Datatype |Description
 
-|OCPI-to-party-id |'party id' of the connected party this message is to be sent to.
-|OCPI-to-country-code |'country code' of the connected party this message is to be sent to.
-|OCPI-from-party-id |'party id' of the connected party this message is sent from.
-|OCPI-from-country-code |'country code' of the connected party this message is sent from.
+|OCPI-to-party-id |<<types.asciidoc#types_cistring_type,CiString>>(3)|'party id' of the connected party this message is to be sent to.
+|OCPI-to-country-code |<<types.asciidoc#types_cistring_type,CiString>>(2)|'country code' of the connected party this message is to be sent to.
+|OCPI-from-party-id |<<types.asciidoc#types_cistring_type,CiString>>(3)|'party id' of the connected party this message is sent from.
+|OCPI-from-country-code |<<types.asciidoc#types_cistring_type,CiString>>(2)|'country code' of the connected party this message is sent from.
 |===
 
 
