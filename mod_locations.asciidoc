@@ -6,6 +6,8 @@
 
 *Data owner: `CPO`*
 
+*Type:* Functional Module
+
 The Location objects live in the CPO back-end system. They describe the charging locations of an operator.
 
 *Module dependency:* the Receiver endpoint is dependent on the <<mod_tariffs.asciidoc#mod_tariffs_tariffs_module,Tariffs module>>

@@ -339,7 +339,7 @@ include::examples/transport_and_format_get_token_list_example.json[]
 
 
 [[transport_and_format_message_routing]]
-==== Message Routing Headers
+==== Message Routing
 
 When the development of OCPI was started, it was designed for peer-to-peer communication between CPO and eMSP.
 This has advantages, but also disadvantages.
@@ -360,14 +360,23 @@ Some parties are themselves CPO and host CPO services for others,
 but other parties are (themselves) not a CPO or other role in the EV charging landscape
 but do provide service to CPOs/eMSPs, etc.
 
-
 ===== Message Routing Headers
 When OCPI is used to communicate to/from a Platform or via a Hub (which is almost always the case)
 the following four HTTP headers are to be added to any request/response to allow messages to be routed.
 
-When implementing OCPI these four headers SHALL be implemented.
+When implementing OCPI these four headers SHALL be implemented for any request/response to/from a Functional Module.
 This does not mean they have to be present in all request.
 There are situation/special request where some headers can or shall be omitted, more on this later.
+
+Only requests/responses from Function Modules: such as: <<mod_tokens.asciidoc#mod_tokens_tokens_module,Tokens>>,
+<<mod_locations.asciidoc#mod_locations_locations_module,Locations>>, <<mod_cdrs.asciidoc#mod_cdrs_cdrs_module,CDRs>> etc.
+SHALL be routed, so need the routing headers.
+
+The requests/responses to/from Configuration Modules: <<credentials.asciidoc#credentials_credentials_endpoint,Credentials>>,
+<<version_information_endpoint.asciidoc#versions_module,Versions>> and
+<<mod_hub_client_info.asciidoc#mod_hub_client_info_module,Hub Client Info>> are not to be routed, and are for Platform-to-Platform
+or Platform-to-Hub communication. Thus reading headers SHALL NOT be used with these modules.
+
 
 [cols="4,2,14",options="header"]
 |===

@@ -92,6 +92,7 @@ The table shows the typical communication role: Receiver, Sender or Both.
 |<<mod_sessions.asciidoc#mod_sessions_sessions_module,Sessions>>                   |Sender   |Receiver |Both   |          |          |Receiver
 |<<mod_tariffs.asciidoc#mod_tariffs_tariffs_module,Tariffs>>                       |Sender   |Receiver |Both   |Receiver  |Both      |
 |<<mod_tokens.asciidoc#mod_tokens_tokens_module,Tokens>>                           |Receiver |Sender   |Both   |          |          |
+|<<version_information_endpoint.asciidoc#versions_module,Versions>>                |Both     |Both     |Both   |Both      |Both      |Both
 |===
 
 
@@ -108,11 +109,17 @@ The table shows the typical communication role: Receiver, Sender or Both.
                         OCPI is different, in most modules the owner is the party pushing data to a server, to inform them of updates. +
                         For example Locations, the CPO owns a Location (Charge Point), when a new Charge Point is added, the CPO calls PUT on the eMSP systems to inform them about new locations. +
                         See: <<transport_and_format.asciidoc#transport_and_format_client_owned_object_push,Client Owned Objects>>
+|Configuration Module | OCPI Module needed to setup en maintain OCPI connections, but does not provide information for the EV driver:
+                        <<credentials.asciidoc#credentials_credentials_endpoint,Credentials>>, <<version_information_endpoint.asciidoc#versions_module,Versions>>
+                        and <<mod_hub_client_info.asciidoc#mod_hub_client_info_module,Hub Client Info>>. +
+                        Configuration Modules use <<transport_and_format.asciidoc#transport_and_format_message_routing,message routing>>.
+|Functional Module | OCPI Module that provides functionality/information for the EV Driver, such as: <<mod_tokens.asciidoc#mod_tokens_tokens_module,Tokens>>,
+                     <<mod_locations.asciidoc#mod_locations_locations_module,Locations>>, <<mod_cdrs.asciidoc#mod_cdrs_cdrs_module,CDRs>> etc. +
+                     Functional Modules do NOT use message routing.
 |Open Routing Request | This is for Platforms that are connected via a Hub. When a system send a pull request to the Hub,
                         and does not know, or care about, the owner of information, but asks the Hub to route the GET to the correct Platform.
                         The Hub finds the correct Platform and routes the request to that Platform. +
                         See: <<transport_and_format.asciidoc#transport_and_format_message_routing_open_routing_request,Open Routing Request>>
-
 |Platform | Software that provides services via OCPI.
             A platform can provide service for a single eMSP or CPO, or for multiple CPOs or eMSPs.
             It can even provide services for both eMSPs and CPOs at the same time.

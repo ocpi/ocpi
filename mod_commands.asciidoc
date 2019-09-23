@@ -4,6 +4,8 @@
 
 *Module Identifier: `commands`*
 
+*Type:* Functional Module
+
 The Commands module enables remote commands to be sent to a Location/EVSE.
 The following commands are supported:
 

@@ -2,6 +2,8 @@
 [[versions_module]]
 == _Versions_ module
 
+*Type:* Configuration Module
+
 This is the required base module of OCPI. This module is the starting point for any OCPI connection.
 Via this module, clients can learn <<version_information_endpoint_version_information_endpoint,which versions>>
 of OCPI a server supports, and <<version_information_endpoint_version_details_endpoint,which modules>> it supports for each of the versions.

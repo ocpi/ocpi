@@ -4,6 +4,8 @@
 
 *Module Identifier: `chargingprofiles`*
 
+*Type:* Functional Module
+
 With the ChargingProfiles module, parties (SCSP but also MSPs) can send (Smart) Charging Profiles to a Location/EVSE.
 It is also possible to request the 'ActiveChargingProfile' from a Location/EVSE.
 

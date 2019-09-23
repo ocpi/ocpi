@@ -6,6 +6,8 @@
 
 *Data owner: `Hub`*
 
+*Type:* Configuration Module
+
 This module provides parties connected to a hub with the connection status of other parties that are connected to a hub that they can communicate with.
 So, CPOs know which eMSP and other parties are online and vice versa.
 

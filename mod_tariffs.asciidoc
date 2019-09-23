@@ -6,6 +6,8 @@
 
 *Data owner: `CPO`*
 
+*Type:* Functional Module
+
 The Tariffs module gives eMSPs information about the tariffs used by the CPO.
 
 [[mod_tariffs_flow_and_lifecycle]]
