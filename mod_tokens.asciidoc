@@ -305,14 +305,14 @@ The parameter: `type` may be provided as an URL parameter
 [[mod_tokens_post_request_body]]
 ====== Request Body
 
-In the body an optional <<mod_tokens_locationreferences_class,LocationReferences>> object can be given. The eMSP SHALL then validate if the Token is allowed to be used at this Location, and if applicable: which of the Locations EVSEs/Connectors.
-The object with valid Location and EVSEs/Connectors will be returned in the response.
+In the body an optional <<mod_tokens_locationreferences_class,LocationReferences>> object can be given. The eMSP SHALL then validate if the Token is allowed to be used at this Location, and if applicable: which of the Locations EVSEs.
+The object with valid Location and EVSEs will be returned in the response.
 
 [cols="4,1,12",options="header"]
 |===
 |Type |Card. |Description 
 
-|<<mod_tokens_locationreferences_class,LocationReferences>> |? |Location and EVSEs/Connectors for which the Token is requested to be authorized.
+|<<mod_tokens_locationreferences_class,LocationReferences>> |? |Location and EVSEs for which the Token is requested to be authorized.
 |===
 
 [[mod_tokens_post_response_data]]
@@ -326,7 +326,7 @@ If the token is not known, the response SHALL contain the status code: `2004: Un
 |===
 |Type |Card. |Description 
 
-|<<mod_tokens_authorizationinfo_object,AuthorizationInfo>> |1 |Contains information about the authorization, if the Token is allowed to charge and optionally which EVSEs/Connectors are allowed to be used. 
+|<<mod_tokens_authorizationinfo_object,AuthorizationInfo>> |1 |Contains information about the authorization, if the Token is allowed to charge and optionally which EVSEs are allowed to be used.
 |===
 
 [[mod_tokens_object_description]]
@@ -341,7 +341,7 @@ If the token is not known, the response SHALL contain the status code: `2004: Un
 
 |allowed |<<mod_tokens_allowed_enum,Allowed>> |1 |Status of the Token, and whether charging is allowed at the optionally given location. 
 |token   |<<mod_tokens_token_object,Token>> |1 |The complete Token object for which this authorization was requested.
-|location |<<mod_tokens_locationreferences_class,LocationReferences>> |? |Optional reference to the location if it was included in the request, and if the EV driver is allowed to charge at that location. Only the EVSEs/Connectors the EV driver is allowed to charge at are returned.
+|location |<<mod_tokens_locationreferences_class,LocationReferences>> |? |Optional reference to the location if it was included in the request, and if the EV driver is allowed to charge at that location. Only the EVSEs the EV driver is allowed to charge at are returned.
 |authorization_reference |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |Reference to the authorization given by the eMSP, when given,
                                              this reference will be provided in the relevant <<mod_sessions.asciidoc#mod_sessions_session_object,Session>>
                                              and/or <<mod_cdrs.asciidoc#mod_cdrs_cdr_object,CDR>>.
@@ -448,7 +448,6 @@ References to location details.
 
 |location_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Unique identifier for the location.
 |evse_uids |<<types.asciidoc#types_cistring_type,CiString>>(36) |* |Unique identifier for EVSEs within the CPO's platform for the EVSE within the given location.
-|connector_ids |<<types.asciidoc#types_cistring_type,CiString>>(36) |* |Identifies the connectors within the given EVSEs.
 |===
 
 [[mod_tokens_tokentype_enum]]
