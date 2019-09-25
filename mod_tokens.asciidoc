@@ -339,7 +339,7 @@ If the token is not known, the response SHALL contain the status code: `2004: Un
 |===
 |Property |Type |Card. |Description 
 
-|allowed |<<mod_tokens_allowed_enum,Allowed>> |1 |Status of the Token, and whether charging is allowed at the optionally given location. 
+|allowed |<<mod_tokens_allowed_enum,AllowedType>> |1 |Status of the Token, and whether charging is allowed at the optionally given location.
 |token   |<<mod_tokens_token_object,Token>> |1 |The complete Token object for which this authorization was requested.
 |location |<<mod_tokens_locationreferences_class,LocationReferences>> |? |Optional reference to the location if it was included in the request, and if the EV driver is allowed to charge at that location. Only the EVSEs the EV driver is allowed to charge at are returned.
 |authorization_reference |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |Reference to the authorization given by the eMSP, when given,
@@ -409,16 +409,16 @@ include::examples/token_example_2_full_rfid.json[]
 === Data types
 
 [[mod_tokens_allowed_enum]]
-==== Allowed _enum_
+==== AllowedType _enum_
 
 [cols="3,10",options="header"]
 |===
 |Value |Description 
 
-|ALLOWED |This Token is allowed to charge at this location. 
+|ALLOWED |This Token is allowed to charge (at this location).
 |BLOCKED |This Token is blocked. 
 |EXPIRED |This Token has expired. 
-|NO_CREDIT |This Token belongs to an account that has not enough credits to charge at the given location. 
+|NO_CREDIT |This Token belongs to an account that has not enough credits to charge (at the given location).
 |NOT_ALLOWED |Token is valid, but is not allowed to charge at the given location. 
 |===
 
