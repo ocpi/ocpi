@@ -1,6 +1,8 @@
+:title-page:
 :toc: macro
 :toclevels: 4
 :sectnumlevels: 4
+:outlinelevels: 4:0
 :numbered:
 :pagenums:
 :version-label: document version
