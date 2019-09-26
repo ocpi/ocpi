@@ -445,6 +445,16 @@ The _Location_ object describes the location and its properties where a group of
 Typically, the _Location_ object is the exact location of the group of EVSEs, but it can also be the entrance of a parking garage which contains these EVSEs.
 The exact way to reach each EVSE can be further specified by its own properties.
 
+Locations may be shown in apps or on websites etc. when the flag: `publish` is set to `true`.
+Locations that have this flag set to `false` SHALL not be shown in an app or on a website etc. unless
+it is to the owner of a <<mod_tokens.asciidoc#mod_tokens_token_object,Token>> in the `publish_allowed_to` list.
+Even parties like NSP or eMSP that do not 'own' this Token MAY show this location on an app or website,
+but only to the owner of that Token.
+If the user of their app/website has provided information about his/her <<mod_tokens.asciidoc#mod_tokens_token_object,Token>>,
+And that information matches all the fields of one of the <<mod_locations_publish_token_class,PublishToken>> tokens in the list,
+then they are allowed to show this location to their user.
+It is not allowed in OCPI to use a Token that is not 'owned' by the eMSP itself to start a charging session.
+
 [cols="7,7,2,16",options="header"]
 |===
 |Property |Type |Card. |Description 
@@ -453,7 +463,10 @@ The exact way to reach each EVSE can be further specified by its own properties.
 |party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |1 |CPO ID of the CPO that 'owns' this Location (following the ISO-15118 standard).
 |id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Uniquely identifies the location within the CPOs platform (and suboperator platforms). This field can never be changed, modified or renamed.
 |publish |boolean |1 |Defines if a Location may be published on an website or app etc. +
+                      When this is set to `false`, only tokens identified in the field: `publish_allowed_to` are allowed to be shown this Location. +
                       When the same location has EVSEs that may be published and may not be published, two 'Locations' should be created.
+|publish_allowed_to |<<mod_locations_publish_token_class,PublishTokenType>> |* |This field may only be used when the `publish` field is set to `false` +
+                      Only owners of Tokens that match all the set fields of one PublishToken in the list are allowed to be shown this location.
 |name |<<types.asciidoc#types_string_type,string>>(255) |? |Display name of the location.
 |address |<<types.asciidoc#types_string_type,string>>(45) |1 |Street/block name and house number if available. 
 |city |<<types.asciidoc#types_string_type,string>>(45) |1 |City or town. 
@@ -476,7 +489,6 @@ The exact way to reach each EVSE can be further specified by its own properties.
 |energy_mix |<<mod_locations_energymix_class,EnergyMix>> |? |Details on the energy supplied at this location. 
 |last_updated |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Timestamp when this Location or one of its EVSEs or Connectors were last updated (or created). 
 |===
-
 
 [[mod_locations_example]]
 ===== Example
@@ -985,6 +997,30 @@ Reflects the general type of the charge point's location. May be used for user i
 |AC_3_PHASE |AC three phase. 
 |DC |Direct Current. 
 |===
+
+
+[[mod_locations_publish_token_class]]
+==== PublishTokenType _class_
+
+Defines set of values that identify a token to which a Location might be published
+
+At least on of the following fields SHALL be set: `uid`, `visual_numer` or `group_id`
+
+When the field: `uid` is set, the field: `type` SHALL also be set.
+
+When the field: `visual_number` is set, the field: `issuer` SHALL also be set.
+
+[cols="3,2,1,10",options="header"]
+|===
+|Property |Type |Card. |Description
+
+|uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |Unique ID by which this Token can be identified.
+|type |<<mod_tokens_tokentype_enum,TokenType>> |? |Type of the token
+|visual_number |<<types.asciidoc#types_string_type,string>>(64) |? |Visual readable number/identification as printed on the Token (RFID card).
+|issuer |<<types.asciidoc#types_string_type,string>>(64) |? |Issuing company, most of the times the name of the company printed on the token (RFID card), not necessarily the eMSP.
+|group_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |This ID groups a couple of tokens. This can be used to make two or more tokens work as one.
+|===
+
 
 [[mod_locations_regularhours_class]]
 ==== RegularHours _class_

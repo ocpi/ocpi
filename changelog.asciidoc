@@ -242,6 +242,7 @@ Minimal
 - Changed `time_zone` field from optional to required, as the opening hours and tariff start/end depend on this, they are more and more important. +
 - Renamed `type` field to `parking_type` and made it optional. It better reflects what this field really describes. +
 - Added `publish` field, required, to control which locations may or may not be publish in apps etc.
+- Added `publish_allowed_to` field, optional, to give access to locations to only a limited set of users.
 
 |Locations / +
 AdditionalGeoLocation class
