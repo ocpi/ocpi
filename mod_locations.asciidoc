@@ -452,7 +452,7 @@ The exact way to reach each EVSE can be further specified by its own properties.
 |country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |1 |ISO-3166 alpha-2 country code of the CPO that 'owns' this Location.
 |party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |1 |CPO ID of the CPO that 'owns' this Location (following the ISO-15118 standard).
 |id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Uniquely identifies the location within the CPOs platform (and suboperator platforms). This field can never be changed, modified or renamed.
-|type |<<mod_locations_locationtype_enum,LocationType>> |1 |The general type of the charge point location. 
+|parking_type |<<mod_locations_parkingtype_enum,ParkingType>> |? |The general type of parking at the charge point location.
 |name |<<types.asciidoc#types_string_type,string>>(255) |? |Display name of the location. 
 |address |<<types.asciidoc#types_string_type,string>>(45) |1 |Street/block name and house number if available. 
 |city |<<types.asciidoc#types_string_type,string>>(45) |1 |City or town. 
@@ -545,9 +545,9 @@ A Connector always belongs to an <<mod_locations_evse_object,EVSE>> object.
 For example: A DC Charge Point which can delivers up to 920V and up to 400A can be limited to a maximum of 150kW. Depending on the car, it may supply max voltage or current, but not both at the same time. +
 For AC Charge Points, the amount of phases used can also have influence on the maximum power.
 |tariff_ids |<<types.asciidoc#types_cistring_type,CiString>>(36) |* |Identifiers of the currently valid charging tariffs.
-                    Multiple tariffs are possible, but only one of each <<mod_tariffs#mod_tariffs_tariff_object,Tariff.type>> can be active at the same time.
+                    Multiple tariffs are possible, but only one of each <<mod_tariffs.asciidoc#mod_tariffs_tariff_object,Tariff.type>> can be active at the same time.
                     Tariffs with the same type are only allowed, if they are not active at the same time:
-                    <<mod_tariffs#mod_tariffs_tariff_object,start_date_time>> and <<mod_tariffs#mod_tariffs_tariff_object,end_date_time>> period not overlapping. +
+                    <<mod_tariffs.asciidoc#mod_tariffs_tariff_object,start_date_time>> and <<mod_tariffs.asciidoc#mod_tariffs_tariff_object,end_date_time>> period not overlapping. +
                     When preference-based smart charging is supported, one tariff for every possible <<mod_sessions.asciidoc#mod_sessions_profile_type_enum,ProfileType>> should be provided.
                     These tell the user about the options they have at this Connector, and what the tariff is for every option. +
                     For a "free of charge" tariff, this field should be set and point to a defined "free of charge" tariff.
@@ -939,23 +939,6 @@ The category has to be set accordingly to the image content in order to guarante
 |OWNER |Logo of the charge point owner, for example a local store, to be displayed in the EVSEs detailed information view.
 |===
 
-[[mod_locations_locationtype_enum]]
-==== LocationType _enum_
-
-Reflects the general type of the charge point's location. May be used for user information.
-
-[cols="4,9",options="header"]
-|===
-|Value |Description 
-
-|ON_STREET |Parking in public space. 
-|PARKING_GARAGE |Multistorey car park. 
-|UNDERGROUND_GARAGE |Multistorey car park, mainly underground. 
-|PARKING_LOT |A cleared area that is intended for parking vehicles, i.e. at super markets, bars, etc.
-|OTHER |None of the given possibilities. 
-|UNKNOWN |Parking location type is not known by the operator (default). 
-|===
-
 [[mod_locations_parkingrestriction_enum]]
 ==== ParkingRestriction _enum_
 
@@ -970,6 +953,23 @@ This value, if provided, represents the restriction to the parking spot for diff
 |DISABLED |Reserved parking spot for disabled people with valid ID. 
 |CUSTOMERS |Parking spot for customers/guests only, for example in case of a hotel or shop.
 |MOTORCYCLES |Parking spot only suitable for (electric) motorcycles or scooters. 
+|===
+
+[[mod_locations_parkingtype_enum]]
+==== ParkingType _enum_
+
+Reflects the general type of the charge point's location. May be used for user information.
+
+[cols="4,9",options="header"]
+|===
+|Value |Description
+
+|ALONG_MOTORWAY |Location on a parking facility/rest area along a motorway, freeway, interstate, highway etc.
+|PARKING_GARAGE |Multistorey car park.
+|PARKING_LOT |A cleared area that is intended for parking vehicles, i.e. at super markets, bars, etc.
+|ON_DRIVEWAY |Location is on the driveway of a house/building.
+|ON_STREET |Parking in public space along a street.
+|UNDERGROUND_GARAGE |Multistorey car park, mainly underground.
 |===
 
 [[mod_locations_powertype_enum]]

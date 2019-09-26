@@ -240,6 +240,7 @@ Minimal
 - Added `state` field, optional, to allow as much different address schemes from around the world as possible.. +
 - Changed `postal_code` field from required to optional, with the remark that omitting is only allowed when location has no postal_code.
 - Changed `time_zone` field from optional to required, as the opening hours and tariff start/end depend on this, they are more and more important.
+- Renamed `type` field to `parking_type` and made it optional. It better reflects what this field really describes.
 
 |Locations / +
 AdditionalGeoLocation class
@@ -312,6 +313,16 @@ Minor
 |Minimal / +
 Minimal
 |Improved the regex for time format.
+
+|Locations / +
+LocationType enum
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Renamed to: `ParkingType` +
+Added the values: `ON_DRIVEWAY` and `ALONG_MOTORWAY` +
+Removed the values: `OTHER` and `UNKNOWN`, no longer needed as this is now optional.
 
 |Sessions / +
 Sender PUT method
