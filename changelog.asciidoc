@@ -238,9 +238,10 @@ Minimal
 - Field `id` is changed from string to CiString, making it now case-insensitive, which had always been the idea. +
 - length changed from 39 to 36, as 36 is enough to store UUID and GUIDs. +
 - Added `state` field, optional, to allow as much different address schemes from around the world as possible.. +
-- Changed `postal_code` field from required to optional, with the remark that omitting is only allowed when location has no postal_code.
-- Changed `time_zone` field from optional to required, as the opening hours and tariff start/end depend on this, they are more and more important.
-- Renamed `type` field to `parking_type` and made it optional. It better reflects what this field really describes.
+- Changed `postal_code` field from required to optional, with the remark that omitting is only allowed when location has no postal_code. +
+- Changed `time_zone` field from optional to required, as the opening hours and tariff start/end depend on this, they are more and more important. +
+- Renamed `type` field to `parking_type` and made it optional. It better reflects what this field really describes. +
+- Added `publish` field, required, to control which locations may or may not be publish in apps etc.
 
 |Locations / +
 AdditionalGeoLocation class

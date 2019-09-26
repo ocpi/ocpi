@@ -2,7 +2,7 @@
   "country_code": "BE",
   "party_id": "BEC",
   "id": "LOC1",
-  "type": "ON_STREET",
+  "publish": true,
   "name": "Gent Zuid",
   "address": "F.Rooseveltlaan 3A",
   "city": "Gent",
@@ -12,6 +12,7 @@
     "latitude": "51.047599",
     "longitude": "3.729944"
   },
+  "parking_type": "ON_STREET",
   "evses": [{
     "uid": "3256",
     "evse_id": "BE*BEC*E041503001",

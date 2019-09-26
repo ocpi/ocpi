@@ -452,6 +452,8 @@ The exact way to reach each EVSE can be further specified by its own properties.
 |country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |1 |ISO-3166 alpha-2 country code of the CPO that 'owns' this Location.
 |party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |1 |CPO ID of the CPO that 'owns' this Location (following the ISO-15118 standard).
 |id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Uniquely identifies the location within the CPOs platform (and suboperator platforms). This field can never be changed, modified or renamed.
+|publish |boolean |1 |Defines if a Location may be published on an website or app etc. +
+                      When the same location has EVSEs that may be published and may not be published, two 'Locations' should be created.
 |name |<<types.asciidoc#types_string_type,string>>(255) |? |Display name of the location.
 |address |<<types.asciidoc#types_string_type,string>>(45) |1 |Street/block name and house number if available. 
 |city |<<types.asciidoc#types_string_type,string>>(45) |1 |City or town. 
