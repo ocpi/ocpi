@@ -452,16 +452,16 @@ The exact way to reach each EVSE can be further specified by its own properties.
 |country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |1 |ISO-3166 alpha-2 country code of the CPO that 'owns' this Location.
 |party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |1 |CPO ID of the CPO that 'owns' this Location (following the ISO-15118 standard).
 |id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Uniquely identifies the location within the CPOs platform (and suboperator platforms). This field can never be changed, modified or renamed.
-|parking_type |<<mod_locations_parkingtype_enum,ParkingType>> |? |The general type of parking at the charge point location.
-|name |<<types.asciidoc#types_string_type,string>>(255) |? |Display name of the location. 
+|name |<<types.asciidoc#types_string_type,string>>(255) |? |Display name of the location.
 |address |<<types.asciidoc#types_string_type,string>>(45) |1 |Street/block name and house number if available. 
 |city |<<types.asciidoc#types_string_type,string>>(45) |1 |City or town. 
 |postal_code |<<types.asciidoc#types_string_type,string>>(10) |? |Postal code of the location, may only be omitted when the location has no postal code: in some countries charging locations at highways don't have postal codes.
 |state |<<types.asciidoc#types_string_type,string>>(20) |? |State or province of the location, only to be used when relevant.
 |country |<<types.asciidoc#types_string_type,string>>(3) |1 |ISO 3166-1 alpha-3 code for the country of this location.
 |coordinates |<<mod_locations_geolocation_class,GeoLocation>> |1 |Coordinates of the location. 
-|related_locations |<<mod_locations_additionalgeolocation_class,AdditionalGeoLocation>> |* |Geographical location of related points relevant to the user. 
-|evses |<<mod_locations_evse_object,EVSE>> |* |List of EVSEs that belong to this Location. 
+|related_locations |<<mod_locations_additionalgeolocation_class,AdditionalGeoLocation>> |* |Geographical location of related points relevant to the user.
+|parking_type |<<mod_locations_parkingtype_enum,ParkingType>> |? |The general type of parking at the charge point location.
+|evses |<<mod_locations_evse_object,EVSE>> |* |List of EVSEs that belong to this Location.
 |directions |<<types.asciidoc#types_displaytext_class,DisplayText>> |* |Human-readable directions on how to reach the location. 
 |operator |<<mod_locations_businessdetails_class,BusinessDetails>> |? |Information of the operator. When not specified, the information retrieved from the <<credentials.asciidoc#credentials_credentials_endpoint,Credentials>> module should be used instead.
 |suboperator |<<mod_locations_businessdetails_class,BusinessDetails>> |? |Information of the suboperator if available.
