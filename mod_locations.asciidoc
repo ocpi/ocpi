@@ -490,14 +490,108 @@ It is not allowed in OCPI to use a Token that is not 'owned' by the eMSP itself 
 |last_updated |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Timestamp when this Location or one of its EVSEs or Connectors were last updated (or created). 
 |===
 
+Private Charge Points, home or business that do not need to be published on apps, and do not require remote control via OCPI,
+SHOULD not be PUT via the OCPI Locations module.  Reimbursement via eMSP is still possible by sending <<mod_cdrs.asciidoc#mod_cdrs_cdr_object,CDRs>> to eMSP, the Locations module is not needed for this..
+
 [[mod_locations_example]]
-===== Example
+===== Example public charging location
+
+This is an example of a public charging location.
+Can be used by any EV Driver as long as his eMSP has a roaming agreement with the CPO.
+Or the Charge Point has an ad-hoc payment possibility
+
+- `publish` = `true`
+- `parking_type` = `ON_STREET` but could also be another value.
+- `EVSE.parking_restrictions` not used.
 
 [source,json]
 ----
 include::examples/location_example.json[]
 ----
 
+[[mod_locations_example_uc2]]
+===== Example destination charging location
+
+This is an example of a destination charging location.
+This is a Location where only guests, employees or customers can charge.
+For an EV driver, it can be useful to know if he/she can charge at his destination.
+
+For example at a restaurant, only customers of the restaurant can charge their EV.
+Or at an office building where employees and guest of the office can charge their EV.
+
+Locations you can think of where this is useful:
+restaurants, bars, clubs, theme parks, stores, supermarkets, company building, office buildings, etc.
+
+- `publish` = `true`
+- `parking_type` = `PARKING_LOT` (but could also be `PARKING_GARAGE`, `ON_DRIVEWAY` or `UNDERGROUND_GARAGE`)
+- `EVSE.parking_restrictions` = `CUSTOMERS`
+
+[source,json]
+----
+include::examples/location_example_uc2_destination_charger.json[]
+----
+
+[[mod_locations_example_uc3]]
+===== Example destination charging location not published, but payed guest usage possible
+
+This is an example of a destination charging location.
+But the owner of the location has requested not to publish the location in Apps or on websites.
+
+Charging is still possible: EV drivers of an eMSP with a roaming agreement can still charge their EV.
+The eMSP helpdesk can use the information from the Location module to help the driver, maybe even start a session for a driver.
+Starting a session from an App is not possible, because the driver will not be able to select the Charge Point on a map.
+
+In case the EV driver is not billed for charging, there is, in such a case, no reason to publish the location via OCPI.
+
+- `publish` = `false`
+- `publish_allowed_to` not used
+- `parking_type` = not used`
+- `EVSE.parking_restrictions` = `CUSTOMERS` May still be useful so a support desk can also tell this to a customer.
+
+[source,json]
+----
+include::examples/location_example_uc3_destination_charger_not_published.json[]
+----
+
+[[mod_locations_example_uc4]]
+===== Example charging location with limited visibility
+
+This is an example of a charging location that only a limit group can see (and use) via an App or website.
+
+Typical examples where this is useful:
+
+- Charge Points in the parking garage of an apartment building. Only owners can see/control the Charge Points.
+- Charge Points at an office, for employees only. Only employees can see/control the Charge Points.
+- Charge Points at vehicle depot. Any employee can see/control an charge point, even transaction they did not start. Use `group_id` for this.
+
+The locations SHALL NOT be published to the general public.
+Only selected <<mod_tokens.asciidoc#mod_tokens_token_object,Tokens>> can see (and control) the Charge Points via eMSP app.
+
+- `publish` = `false`
+- `publish_allowed_to` contains list with information of <<mod_tokens.asciidoc#mod_tokens_token_object,Tokens>> that are allowed to be shown the `Location`.
+- `parking_type` = `UNDERGROUND_GARAGE` (but could also be `PARKING_GARAGE`, `ON_DRIVEWAY` or `PARKING_LOT`)
+
+[source,json]
+----
+include::examples/location_example_uc4_limited_visibility.json[]
+----
+
+[[mod_locations_example_uc5]]
+===== Example private charge point with eMSP app control
+
+This is an example of a private/home charge point that needs to be controlled via an eMSP App.
+
+The locations SHALL NOT be published to the general public.
+Only the owner, identified by his/her <<mod_tokens.asciidoc#mod_tokens_token_object,Token>> can see (and control) the Charge Points via an eMSP app.
+
+- `publish` = `false`
+- `publish_allowed_to` contains the information of the <<mod_tokens.asciidoc#mod_tokens_token_object,Tokens>> of the owner.
+- `parking_type` = not used, not relevant, owner knows where his Charge Point is.
+
+[source,json]
+----
+include::examples/location_example_uc5_home_charge_point.json[]
+----
 
 [[mod_locations_evse_object]]
 ==== _EVSE_ Object

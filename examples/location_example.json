@@ -28,7 +28,7 @@
       "power_type": "AC_3_PHASE",
       "voltage": 220,
       "amperage": 16,
-      "tariff_id": "11",
+      "tariff_ids": ["11"],
       "last_updated": "2015-03-16T10:10:02Z"
     }, {
       "id": "2",
@@ -67,5 +67,6 @@
   "operator": {
     "name": "BeCharged"
   },
+  "time_zone": "Europe/Brussels",
   "last_updated": "2015-06-29T20:39:09Z"
 }
