@@ -593,6 +593,26 @@ Only the owner, identified by his/her <<mod_tokens.asciidoc#mod_tokens_token_obj
 include::examples/location_example_uc5_home_charge_point.json[]
 ----
 
+[[mod_locations_example_parking_garage_with_opening_hours]]
+===== Example charge point in a parking garage with opening hours
+
+This is an example of a charge point, located in a parking garage with limited opening hours:
+7:00 - 18:00.
+
+If the EV is left in the parking garage overnight, the car will still be charged.
+
+- `publish` = `true`
+- `parking_type` = `PARKING_GARAGE` but could also be another value.
+- `EVSE.parking_restrictions` not used.
+- `opening_times` is used.
+- `charging_when_closed` = `true`
+
+[source,json]
+----
+include::examples/location_example_parking_garage_opening_hours.json[]
+----
+
+
 [[mod_locations_evse_object]]
 ==== _EVSE_ Object
 
