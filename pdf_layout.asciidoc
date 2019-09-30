@@ -8,8 +8,8 @@
 :version-label: document version
 :year: 2019
 :protocol_version: 2.2
-:document_version: {protocol_version}-Draft4
-:revdate: 29-06-{year}
+:document_version: {protocol_version}
+:revdate: 30-09-{year}
 :document_header: OCPI {document_version}
 :revnumber: {document_version}
 
