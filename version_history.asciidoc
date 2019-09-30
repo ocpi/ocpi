@@ -1,22 +1,14 @@
 *Version History*
 
-[cols="2,2,3,8",options="header"]
+[cols="4,5,6,16",options="header"]
 |===
 |Version |Date |Author |Description
 
-|2.2 RC2 |26-06-2019 | Robert de Leeuw +
-_ihomer_ |Release Candidate 2 of OCPI 2.2: +
-        Rework for review comments. +
-        Updated after Face-to-face meeting in Strasbourg. +
-        Major overhaul of Topology and Message routing sections. +
-        Added Charging Profile example sequence diagrams. +
-        See <<changelog.asciidoc#changelog_changelog,changelog>>
-|2.2 RC1 |04-02-2019 | Robert de Leeuw +
-_ihomer_ |Release Candidate 1 of OCPI 2.2: Adds Smart Charging Profiles, Hub Support, Credit CDRs and some more minor changes. +
-        See <<changelog.asciidoc#changelog_changelog,changelog>>
-|2.2 DRAFT1 |10-12-2018 | Robert de Leeuw +
-_ihomer_ |First draft of OCPI 2.2: contains lots of minor changes, some new features, but still misses Smart Charging Profiles and Hub Support.
-        Proposals for the last 2 are ready, but still need some work and need to be integrated into this document.  +
+|2.2 |30-09-06-2019 | Robert de Leeuw +
+_ihomer_ |Added support for Roaming Hubs +
+        Adds support for Platforms with multiple/different roles, additional roles +
+        Adds support for smart charging +
+        Lots of improvements to existing modules +
         See <<changelog.asciidoc#changelog_changelog,changelog>>
 |2.1.1-d2 |	21-06-2019 |Robert de Leeuw +
                         ihomer |Fixes the command module documentation, fixes a lot of examples, lots of small textual improvements: see <<changelog.asciidoc#changelog_changelog,changelog>>
