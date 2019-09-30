@@ -5,4 +5,5 @@
 all.md
 releases/OCPI*.pdf
 /OCPI.iml
-/releases/all.md.bak
+**/.bookmarks.txt
+**/.references.txt

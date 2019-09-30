@@ -1,0 +1,7 @@
+@startuml
+title Locations class diagram
+
+Location "1" *-- "0..n" EVSE
+EVSE     "1" *-- "1..n" Connector
+
+@enduml

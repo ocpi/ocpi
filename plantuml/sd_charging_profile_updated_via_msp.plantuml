@@ -1,0 +1,25 @@
+@startuml
+hide footbox
+
+participant "Charge Point" as CP
+participant "CPO\nReceiver" as CPO
+participant "Sender\neMSP or SCSP" as eMSP
+participant "SCSP\nSender" as SCSP
+
+NOTE over SCSP, CP: Ongoing Session with id=15
+
+activate CP
+CP   ->  CPO:  update ChargingProfile
+deactivate CP
+activate CPO
+CPO  ->  eMSP: PUT https://www.server.com/ocpi/2.2/chargingprofiles/15\n        ActiveChargingProfile()
+activate eMSP
+eMSP --> CPO
+deactivate CPO
+eMSP  ->  SCSP: PUT https://www.server.com/ocpi/2.2/chargingprofiles/15\n        ActiveChargingProfile()
+activate SCSP
+SCSP --> eMSP
+deactivate eMSP
+deactivate SCSP
+
+@enduml

@@ -1,0 +1,26 @@
+@startuml
+hide footbox
+
+participant eMSP
+participant CPO
+participant "Charge Point" as CP
+
+eMSP ->  CPO:  Command(RESERVE_NOW, location_id=1234, token=200,\n                  reservationId=ABC123,\n                  response_url=https://server.com/reservation/ABC123)
+activate eMSP
+activate CPO
+CPO  --> eMSP: status_code = 1000, data: {CommandResponse { result = ACCEPTED }}
+deactivate eMSP
+
+CPO  ->  CP:   ReserveNow.req(idTag=200, reservationId=456)
+deactivate CPO
+activate CP
+CP   ->  CPO:  ReserveNow.conf(Accepted)
+deactivate CP
+activate CPO
+CPO  ->  eMSP: POST: https://server.com/reservation/ABC123\n     CommandResult(result = ACCEPTED)
+activate eMSP
+eMSP --> CPO: 
+deactivate CPO
+deactivate eMSP
+
+@enduml

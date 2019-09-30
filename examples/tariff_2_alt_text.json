@@ -1,0 +1,23 @@
+{
+  "country_code": "DE",
+  "party_id": "ALL",
+  "id": "12",
+  "currency": "EUR",
+  "type": "AD_HOC_PAYMENT",
+  "tariff_alt_text": [{
+    "language": "en",
+    "text": "2.00 euro p/hour including VAT."
+  }, {
+    "language": "nl",
+    "text": "2.00 euro p/uur inclusief BTW."
+  }],
+  "elements": [{
+    "price_components": [{
+      "type": "TIME",
+      "price": 1.90,
+      "vat": 5.2,
+      "step_size": 300
+    }]
+  }],
+  "last_updated": "2015-06-29T20:39:09Z"
+}

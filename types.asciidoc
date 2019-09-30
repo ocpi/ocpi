@@ -1,0 +1,99 @@
+:numbered:
+[[types_types]]
+== Types
+
+[[types_cistring_type]]
+=== CiString _type_
+
+Case Insensitive String. Only printable ASCII allowed.
+(Non-printable characters like: Carriage returns, Tabs, Line breaks, etc are not allowed)
+
+[[types_datetime_type]]
+=== DateTime _type_
+
+All timestamps are formatted as string(25) following RFC 3339, with some additional limitations.
+
+All timestamps SHALL be in UTC.
+The absence of the timezone designator implies a UTC timestamp.
+Fractional seconds MAY be used.
+
+Example of how timestamps shall be formatted in OCPI, other formats/patterns are not allowed:
+
+[source]
+----
+2015-06-29T20:39:09Z
+2015-06-29T20:39:09
+2016-12-29T17:45:09.2Z
+2016-12-29T17:45:09.2
+2018-01-01T01:08:01.123Z
+2018-01-01T01:08:01.123
+----
+
+NOTE: +00:00 is not the same as UTC.
+
+[[types_displaytext_class]]
+=== DisplayText _class_
+
+[cols="3,2,1,10",options="header"]
+|===
+|Property |Type |Card. |Description 
+
+|language |<<types_string_type,string>>(2) |1 |Language Code ISO 639-1 
+|text |<<types_string_type,string>>(512) |1 |Text to be displayed to a end user. No markup, html etc. allowed. 
+|===
+
+Example:
+
+[source]
+----
+include::examples/type_displaytext_example.json[]
+----
+
+
+[[types_number_type]]
+=== number _type_
+
+Numbers in OCPI are formatted as JSON numbers.
+Unless mentioned otherwise, numbers use 4 decimals and a _sufficiently large amount_ of digits.
+
+[[types_price_class]]
+=== Price _class_
+
+[cols="3,2,1,10",options="header"]
+|===
+|Property |Type |Card. |Description
+
+|excl_vat |<<types_number_type,number>> |1 |Price/Cost excluding VAT.
+|incl_vat |<<types_number_type,number>> |? |Price/Cost including VAT.
+|===
+
+[[types_role_enum]]
+==== Role _enum_
+
+[cols="3,10",options="header"]
+|===
+|Value |Description
+
+|CPO |Charge Point Operator Role
+|EMSP |eMobility Service Provider Role
+|HUB |Hub role
+|NAP |National Access Point Role (national Database with all Location information of a country)
+|NSP |Navigation Service Provider Role, role like an eMSP (probably only interested in Location information)
+|OTHER |Other role
+|SCSP|Smart Charging Service Provider Role
+|===
+
+
+[[types_string_type]]
+=== string _type_
+
+Case Sensitive String. Only printable UTF-8 allowed.
+(Non-printable characters like: Carriage returns, Tabs, Line breaks, etc are not allowed)
+
+All strings in messages and enumerations are case sensitive, unless explicitly stated
+otherwise.
+
+[[types_url_type]]
+=== URL _type_
+
+An URL a string(255) type following the http://www.w3.org/Addressing/URL/uri-spec.html[w3.org spec].

@@ -1,0 +1,15 @@
+@startuml
+hide footbox
+
+participant eMSP
+participant CPO
+
+activate CPO
+CPO --> CPO: Problem with Location 1234
+CPO  ->  eMSP: POST: https://server.com/reservation/ABC123\n     CommandResult(result = CANCELED_RESERVATION)
+activate eMSP
+eMSP --> CPO: 
+deactivate CPO
+deactivate eMSP
+
+@enduml

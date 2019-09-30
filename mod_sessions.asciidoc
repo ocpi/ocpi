@@ -1,0 +1,483 @@
+:numbered:
+[[mod_sessions_sessions_module]]
+== _Sessions_ module
+
+*Module Identifier: `sessions`*
+
+*Data owner: `CPO`*
+
+*Type:* Functional Module
+
+The Session object describes one charging session.
+The Session object is owned by the CPO back-end system, and can be GET from the CPO system, or pushed by the CPO to another system.
+
+[[mod_sessions_flow_and_lifecycle]]
+=== Flow and Lifecycle
+
+[[mod_sessions_push_model]]
+==== Push model
+
+When the CPO creates a Session object they push it to the corresponding eMSP by calling <<mod_sessions_msp_put_method,PUT>> on the eMSP's Sessions endpoint with the newly created Session object.
+
+Any changes to a Session in the CPO system are sent to the eMSP system by calling <<mod_sessions_patch_method,PATCH>> on the eMSP's Sessions endpoint with the updated Session object.
+
+Sessions cannot be deleted, final status of a session is: `COMPLETED`.
+
+When the CPO is not sure about the state or existence of a Session object in the eMSP's system, the CPO can call <<mod_sessions_msp_get_method,GET>> on the eMSP's Sessions endpoint to validate the Session object in the eMSP's system.
+
+[[mod_sessions_pull_model]]
+==== Pull model
+
+eMSPs who do not support the Push model need to call <<mod_sessions_cpo_get_method,GET>> on the CPO's Sessions endpoint to receive a list of Sessions.
+
+This <<mod_sessions_cpo_get_method,GET>> method can also be used in combination with the Push model to retrieve Sessions after the system (re-)connects to a CPO, to get a list Sessions _missed_ during a downtime of the eMSP's system.
+
+
+[[mod_sessions_set_charging_preferences]]
+==== Set: Charging Preferences
+
+For a lot of smart charging use cases, input from the driver is needed.
+The smart charging algorithms need to be able to give certain session priority over others.
+In other words they need to know how much energy an EV needs before what time.
+Via a <<mod_sessions_cpo_put_method,PUT>> request on the Sender Interface, during an ongoing session,
+the eMSP can send <<mod_sessions_charging_preferences_object,Charging Preferences>> on behalf of the driver.
+
+The eMSP can determine if an EVSE supports Charging Preferences by checking if the
+<<mod_locations.asciidoc#mod_locations_evse_object,EVSE capabilities>> contains:
+<<mod_locations.asciidoc#mod_locations_capability_enum,CHARGING_PREFERENCES_CAPABLE>>.
+
+Via <<mod_tariffs.asciidoc#mod_tariffs_tariff_object,Tariffs>> the CPO can give different Charging Preferences different prices.
+A <<mod_locations.asciidoc#mod_locations_connector_object,Connector>> can have multiple <<mod_tariffs.asciidoc#mod_tariffs_tariff_object,Tariffs>>,
+one for each <<mod_sessions_profile_type_enum,ProfileType>>.
+
+
+[[mod_sessions_reservation]]
+==== Reservation
+
+When a EV driver makes a Reservation for a Charge Point/EVSE, the Sender SHALL create a new Session object with `status` = `RESERVED`
+When the Push model is used, the CPO SHALL push the new Session object to the Receiver.
+
+When a reservation results in a charging session for the same `Token`, the Session object `status` to: `ACTIVE`
+
+When a reservation does not result in a charging session, the Session object `status` SHALL be set to: `COMPLETED`.
+
+A CDR might be created even if no energy was transferred to the EV, just for the costs of the reservation.
+
+
+[[mod_sessions_interfaces_and_endpoints]]
+=== Interfaces and Endpoints
+
+[[mod_sessions_cpo_interface]]
+==== Sender Interface
+
+Typically implemented by market roles like: CPO.
+
+[cols="2,12",options="header"]
+|===
+|Method |Description 
+
+|<<mod_sessions_cpo_get_method,GET>> |Fetch Session objects of charging sessions last updated between the `{date_from}` and `{date_to}`(<<transport_and_format.asciidoc#transport_and_format_pagination,paginated>>).
+|POST |n/a
+|<<mod_sessions_cpo_put_method,PUT>> |Setting Charging Preferences of an ongoing session.
+|PATCH |n/a
+|DELETE |n/a 
+|===
+
+[[mod_sessions_cpo_get_method]]
+===== *GET* Method
+
+Fetch Sessions from a CPO system.
+
+Endpoint structure definition:
+
+`{sessions_endpoint_url}?[date_from={date_from}]&amp;[date_to={date_to}]&amp;[offset={offset}]&amp;[limit={limit}]`
+
+Examples:
+
+`+https://www.server.com/ocpi/cpo/2.2/sessions/?date_from=2019-01-28T12:00:00&date_to=2019-01-29T12:00:00+`
+
+`+https://ocpi.server.com/2.2/sessions/?offset=50+`
+
+`+https://www.server.com/ocpi/2.2/sessions/?date_from=2019-01-29T12:00:00&limit=100+`
+
+`+https://www.server.com/ocpi/cpo/2.2/sessions/?offset=50&limit=100+`
+
+
+[[mod_sessions_cpo_get_request_parameters]]
+====== Request Parameters
+
+Only Sessions with `last_update` between the given `{date_from}` (including) and `{date_to}` (excluding) will be returned.
+
+This request is <<transport_and_format.asciidoc#transport_and_format_pagination,paginated>>, it supports the <<transport_and_format.asciidoc#transport_and_format_paginated_request,pagination>> related URL parameters.
+
+[cols="3,2,1,10",options="header"]
+|===
+|Parameter |Datatype |Required |Description 
+
+|date_from |<<types.asciidoc#types_datetime_type,DateTime>> |yes |Only return Sessions that have `last_updated` after or equal to this Date/Time (inclusive).
+|date_to |<<types.asciidoc#types_datetime_type,DateTime>> |no |Only return Sessions that have `last_updated` up to this Date/Time, but not including (exclusive).
+|offset |int |no |The offset of the first object returned. Default is 0. 
+|limit |int |no |Maximum number of objects to GET. 
+|===
+
+[[mod_sessions_cpo_get_response_data]]
+====== Response Data
+
+The response contains a list of Session objects that match the given parameters in the request, the header will contain the <<transport_and_format.asciidoc#transport_and_format_paginated_response,pagination>> related headers. 
+
+Any older information that is not specified in the response is considered no longer valid.
+Each object must contain all required fields. Fields that are not specified may be considered as null values.
+
+|===
+|Datatype |Card. |Description 
+
+|<<mod_sessions_session_object,Session>> |* |List of Session objects that match the request parameters.
+|===
+
+
+[[mod_sessions_cpo_put_method]]
+===== *PUT* Method
+
+Set/update the drivers Charging Preferences for this charging session.
+
+Endpoint structure definition:
+
+`{sessions_endpoint_url}/{session_id}/charging_preferences`
+
+Examples:
+
+`+https://www.server.com/ocpi/cpo/2.2/sessions/1234/charging_preferences+`
+
+NOTE: The `/charging_preferences` URL suffix is required when setting Charging Preferences.
+
+[[mod_sessions_cpo_post_request_parameters]]
+====== Request Parameters
+
+The following parameter has to be provided as URL segments.
+
+[cols="3,2,1,10",options="header"]
+|===
+|Parameter |Datatype |Required |Description
+
+|session_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |Session.id of the Session for which the Charging Preferences are to be set.
+|===
+
+[[mod_sessions_cpo_post_request_body]]
+====== Request Body
+
+In the body, a <<mod_sessions_charging_preferences_object,ChargingPreferences>> object has to be provided.
+
+[cols="4,1,12",options="header"]
+|===
+|Type |Card. |Description
+
+|<<mod_sessions_charging_preferences_object,ChargingPreferences>> |1 | Updated Charging Preferences of the driver for this Session.
+|===
+
+[[mod_sessions_cpo_post_response_data]]
+====== Response Data
+
+The response contains a <<mod_sessions_charging_preferences_response_enum,ChargingPreferencesResponse>> value.
+
+[cols="4,1,12",options="header"]
+|===
+|Type |Card. |Description
+
+|<<mod_sessions_charging_preferences_response_enum,ChargingPreferencesResponse>> |1 |Response to the Charging Preferences PUT request.
+|===
+
+
+[[mod_sessions_emsp_interface]]
+===== Receiver Interface
+
+Typically implemented by market roles like: eMSP and SCSP.
+
+Sessions are <<transport_and_format.asciidoc#transport_and_format_client_owned_object_push,Client Owned Objects>>,
+so the endpoints need to contain the required extra fields: {<<credentials.asciidoc#credentials_credentials_object,party_id>>} and {<<credentials.asciidoc#credentials_credentials_object,country_code>>}.
+
+Endpoint structure definition:
+
+`{sessions_endpoint_url}/{country_code}/{party_id}/{session_id}`
+
+Example:
+
+`+https://www.server.com/ocpi/cpo/2.2/sessions/BE/BEC/1234+`
+
+
+[cols="2,12",options="header"]
+|===
+|Method |Description 
+
+|<<mod_sessions_msp_get_method,GET>> |Retrieve a Session object from the eMSP's system with Session.id equal to `{session_id}`.
+|POST |n/a 
+|<<mod_sessions_msp_put_method,PUT>> |Send a new/updated Session object to the eMSP.
+|<<mod_sessions_patch_method,PATCH>> |Update the Session object with Session.id equal to `{session_id}`.
+|DELETE |n/a 
+|===
+
+[[mod_sessions_msp_get_method]]
+===== *GET* Method
+
+The CPO system might request the current version of a Session object from the eMSP's system to,
+for example, validate the state, or because the CPO has received an error during a PATCH operation.
+
+[[mod_sessions_msp_get_request_parameters]]
+====== Request Parameters
+
+The following parameters can be provided as URL segments.
+
+[cols="3,2,1,10",options="header"]
+|===
+|Parameter |Datatype |Required |Description 
+
+|country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |yes |Country code of the CPO performing the GET on the eMSP's system.
+|party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |yes |Party ID (Provider ID) of the CPO performing the GET on the eMSP's system.
+|session_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |id of the Session object to get from the eMSP's system.
+|===
+
+[[mod_sessions_msp_get_response_data]]
+====== Response Data
+
+The response contains the requested Session object.
+
+|===
+|Datatype |Card. |Description 
+
+|<<mod_sessions_session_object,Session>> |1 |Requested Session object. 
+|===
+
+[[mod_sessions_msp_put_method]]
+===== *PUT* Method
+
+Inform the eMSP's system about a new/updated Session object in the CPO's system.
+
+[[mod_sessions_request_body]]
+====== Request Body
+
+The request contains the new or updated Session object.
+
+[cols="4,1,12",options="header"]
+|===
+|Type |Card. |Description 
+
+|<<mod_sessions_session_object,Session>> |1 |New or updated Session object.
+|===
+
+
+[[mod_sessions_cpo_put_request_parameters]]
+====== Request Parameters
+
+The following parameters can be provided as URL segments.
+
+[cols="3,2,1,10",options="header"]
+|===
+|Parameter |Datatype |Required |Description 
+
+|country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |yes |Country code of the CPO performing this PUT on the eMSP's system. This SHALL be the same value as the `country_code` in the Session object being pushed.
+|party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |yes |Party ID (Provider ID) of the CPO performing this PUT on the eMSP's system.  This SHALL be the same value as the `party_id` in the Session object being pushed.
+|session_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |id of the new or updated Session object.
+|===
+
+[[mod_sessions_patch_method]]
+===== *PATCH* Method
+
+Same as the <<mod_sessions_msp_put_method,PUT>> method, but only the fields/objects that need to be updated have to be present.
+Fields/objects which are not specified are considered unchanged.
+
+Any request to the PATCH method SHALL contain the `last_updated` field.
+
+The PATCH method of the Session Receiver interface works on the <<mod_sessions_session_object,Session>> Object,
+it SHALL NOT be used with a URL that would try to PATCH an Object within the <<mod_sessions_session_object,Session>> Object.
+
+When a PATCH request contains the `charging_periods` field,
+this SHALL be processed as a request to add all the <<mod_cdrs.asciidoc#mod_cdrs_chargingperiod_class,ChargingPeriod>> Objects to the existing <<mod_sessions_session_object,Session>> Object.
+
+If existing <<mod_cdrs.asciidoc#mod_cdrs_chargingperiod_class,ChargingPeriod>> Objects in
+a <<mod_sessions_session_object,Session>> need to be replaced or removed, the Sender SHALL use the <<mod_sessions_msp_put_method,PUT>> method to replace
+the entire <<mod_sessions_session_object,Session>> Object.
+
+all the exiting `charging_periods` SHALL be replaced by the once in the PATCH request.
+
+
+[[mod_sessions_example_update_the_total_cost]]
+====== Example: update the total cost
+
+Patching the `total_cost` needs to be done on the <<mod_sessions_session_object,Session>> Object.
+
+[source,json]
+----
+PATCH https://www.server.com/ocpi/cpo/2.2/sessions/NL/TNM/101
+
+include::examples/session_patch_example_total_cost.json[]
+----
+
+
+[[mod_sessions_example_add_new_charging_period]]
+====== Example: adding a new ChargingPeriod
+
+PATCH used to add a new <<mod_cdrs.asciidoc#mod_cdrs_chargingperiod_class,ChargingPeriod>> to the Session
+and updating all related fields.
+
+[source,json]
+----
+PATCH https://www.server.com/ocpi/cpo/2.2/sessions/NL/TNM/101
+
+include::examples/session_patch_example_charging_period.json[]
+----
+
+
+[[mod_sessions_object_description]]
+=== Object description
+
+[[mod_sessions_session_object]]
+==== _Session_ Object
+
+The Session object describes one charging session. That doesn't mean it is required that energy has been transferred between EV and the Charge Point.
+It is possible that the EV never took energy from the Charge Point because it was instructed not to take energy by the driver.
+But as the EV was connected to the Charge Point, some form of start tariff, park tariff or reservation cost might be relevant.
+
+NOTE: Although OCPI supports such pricing mechanisms, local laws might not allow this.
+
+It is recommended to add enough `ChargingPeriods` to a Session so that the eMSP is able to provide feedback to the EV driver
+about the progress of the charging session.
+The ideal amount of transmitted Charging Periods depends on the charging speed.
+The Charging Periods should be sufficient for useful feedback but they should not generate too much unneeded traffic either.
+How many Charging Periods are transmitted is left to the CPO to decide. The following are just some points to consider:
+
+- Adding a new Charging Period every minute for an AC charging session can be too much as it will yield 180 Charging Periods for an (assumed to be) average 3h session.
+- A new Charging Period every 30 minutes for a DC fast charging session is not enough as it will yield only one Charging Period for an (assumed to be) average 30min session.
+
+It is also recommended to add Charging Periods for all moments that are relevant for the Tariff changes,
+see <<mod_cdrs.asciidoc#mod_cdrs_cdr_object,CDR description>> for more information.
+
+
+[cols="4,3,1,9",options="header"]
+|===
+|Property |Type |Card. |Description 
+
+|country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |1 |ISO-3166 alpha-2 country code of the CPO that 'owns' this Session.
+|party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |1 |CPO ID of the CPO that 'owns' this Session (following the ISO-15118 standard).
+|id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |The unique id that identifies the charging session in the CPO platform.
+|start_date_time |<<types.asciidoc#types_datetime_type,DateTime>> |1 |The timestamp when the session became <<mod_sessions_sessionstatus_enum,ACTIVE>> in the Charge Point. +
+                                                       When the session is still <<mod_sessions_sessionstatus_enum,PENDING>>, this field SHALL be set to the time the Session was created at the Charge Point.
+                                                       When a Session goes from <<mod_sessions_sessionstatus_enum,PENDING>> to <<mod_sessions_sessionstatus_enum,ACTIVE>>,
+                                                       this field SHALL be update to the moment the Session went to <<mod_sessions_sessionstatus_enum,ACTIVE>> in the Charge Point.
+|end_date_time |<<types.asciidoc#types_datetime_type,DateTime>> |? |The timestamp when the session was completed/finished, charging might have finished before the session ends, for example: EV is full, but parking cost also has to be payed.
+|kwh |<<types.asciidoc#types_number_type,number>> |1 |How many kWh were charged. 
+|cdr_token |<<mod_cdrs.asciidoc#mod_cdrs_cdr_token_object,CdrToken>> |1 |Token used to start this charging session, including all the relevant information to identify the unique token.
+|auth_method |<<mod_cdrs.asciidoc#mod_cdrs_authmethod_enum,AuthMethod>> |1 |Method used for authentication.
+|authorization_reference |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |Reference to the authorization given by the eMSP.
+                                             When the eMSP provided an `authorization_reference` in either:
+                                             <<mod_tokens.asciidoc#mod_tokens_real-time_authorization,real-time authorization>> or
+                                             <<mod_commands.asciidoc#mod_commands_startsession_object,StartSession>>, this field SHALL contain the same value.
+                                             When different `authorization_reference` values have been given by the eMSP that are relevant to this Session,
+                                             the last given value SHALL be used here.
+|location_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Location.id of the Location object of this CPO, on which the charging session is/was happening.
+|evse_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |EVSE.uid of the EVSE of this Location on which the charging session is/was happening.
+|connector_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Connector.id of the Connector of this Location the charging session is/was happening.
+|meter_id |<<types.asciidoc#types_string_type,string>>(255) |? |Optional identification of the kWh meter. 
+|currency |<<types.asciidoc#types_string_type,string>>(3) |1 |ISO 4217 code of the currency used for this session. 
+|charging_periods |<<mod_cdrs.asciidoc#mod_cdrs_chargingperiod_class,ChargingPeriod>> |* |An optional list of Charging Periods that can be used to calculate and verify the total cost. 
+|total_cost |<<types.asciidoc#types_price_class,Price>> |? |The total cost of the session in the specified currency. This is the price that the eMSP will have to pay to the CPO. A total_cost of 0.00 means free of charge. When omitted, i.e. no price information is given in the Session object, it does not imply the session is/was free of charge.
+|status |<<mod_sessions_sessionstatus_enum,SessionStatus>> |1 |The status of the session.
+|last_updated |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Timestamp when this Session was last updated (or created). 
+|===
+
+NOTE: Different `authorization_reference` values might happen when for example a <<mod_commands.asciidoc#mod_commands_reservenow_object,ReserveNow>>  had a different
+`authorization_reference` then the value returned by a <<mod_tokens.asciidoc#mod_tokens_real-time_authorization,real-time authorization>>.
+
+
+[[mod_sessions_examples]]
+===== Examples
+
+[[mod_sessions_simple_session_example_of_a_just_starting_session]]
+====== Simple Session example of just starting a session
+
+[source,json]
+----
+include::examples/session_example_1_simple_start.json[]
+----
+
+
+[[mod_sessions_simple_session_example_of_a_short_finished_session]]
+====== Simple Session example of a short finished session
+
+[source,json]
+----
+include::examples/session_example_2_short_finished.json[]
+----
+
+
+[[mod_sessions_charging_preferences_object]]
+==== _ChargingPreferences_ Object
+
+Contains the charging preferences of an EV driver.
+
+[cols="3,2,1,10",options="header"]
+|===
+|Property |Type |Card. |Description
+
+|profile_type |<<mod_sessions_profile_type_enum,ProfileType>> |1 |Type of Smart Charging Profile selected by the driver.
+The <<mod_sessions_profile_type_enum,ProfileType>> has to be supported at the <<mod_locations.asciidoc#mod_locations_connector_object,Connector>> and
+for every supported <<mod_sessions_profile_type_enum,ProfileType>>, a <<mod_tariffs.asciidoc#mod_tariffs_tariff_object,Tariff>> MUST be provided.
+This gives the EV driver the option between different pricing options.
+|departure_time |<<types.asciidoc#types_datetime_type,DateTime>> |? |Expected departure. The driver has given this Date/Time as expected departure moment. It is only an estimation and not necessarily the Date/Time of the actual departure.
+|energy_need |<<types.asciidoc#types_number_type,number>> |? |Requested amount of energy in kWh. The EV driver wants to have this amount of energy charged.
+|discharge_allowed |boolean |? |The driver allows their EV to be discharged when needed, as long as the other preferences are met: EV is charged with the preferred energy (`energy_need`) until the preferred departure moment (`departure_time`). Default if omitted: *false*
+|===
+
+
+[[mod_sessions_data_types]]
+=== Data types
+
+[[mod_sessions_charging_preferences_response_enum]]
+==== ChargingPreferencesResponse _enum_
+
+Different smart charging profile types.
+
+No value should be returned instead of `NOT_SUPPORTED` when a PUT with `ChargingPreferences` is received for an EVSE that does not have the capability `CHARGING_PROFILE_CAPABLE`. Use HTTP 404 instead.
+
+[cols="5,8",options="header"]
+|===
+|Value |Description
+
+|ACCEPTED |Charging Preferences accepted, EVSE will try to accomplish them, although this is no guarantee that they will be fulfilled.
+|DEPARTURE_REQUIRED |CPO requires `departure_time` to be able to perform Charging Preference based Smart Charging.
+|ENERGY_NEED_REQUIRED |CPO requires `energy_need` to be able to perform Charging Preference based Smart Charging.
+|NOT_POSSIBLE |Charging Preferences contain a demand that the EVSE knows it cannot fulfill.
+|PROFILE_TYPE_NOT_SUPPORTED |`profile_type` contains a value that is not supported by the EVSE.
+|===
+
+
+[[mod_sessions_profile_type_enum]]
+==== ProfileType _enum_
+
+Different smart charging profile types.
+
+[cols="3,10",options="header"]
+|===
+|Value |Description
+
+|CHEAP   |Driver wants to use the cheapest charging profile possible.
+|FAST    |Driver wants his EV charged as quickly as possible and is willing to pay a premium for this, if needed.
+|GREEN   |Driver wants his EV charged with as much regenerative (green) energy as possible.
+|REGULAR |Driver does not have special preferences.
+|===
+
+
+[[mod_sessions_sessionstatus_enum]]
+==== SessionStatus _enum_
+
+Defines the state of a session.
+
+[cols="3,10",options="header"]
+|===
+|Value |Description
+
+|ACTIVE |The session has been accepted and is active. All pre-conditions were met: Communication between EV and EVSE (for example: cable plugged in correctly), EV or driver is authorized. EV is being charged, or can be charged. Energy is, or is not, being transfered.
+|COMPLETED |The session has been finished successfully. No more modifications will be made to the Session object using this state. 
+|INVALID |The Session object using this state is declared invalid and will not be billed. 
+|PENDING |The session is pending, it has not yet started. Not all pre-conditions are met. This is the initial state. The session might never become an _active_ session.
+|RESERVATION |The session is started due to a reservation, charging has not yet started. The session might never become an _active_ session.
+
+|===
