@@ -67,16 +67,6 @@ Release 2.0:
 - Session Info exchange (cdr & ndr)
 - Registration (How to connect) & Security
 
-Release 2.2:
-
-- Charging Profiles
-- Preferences based Smart Charging
-- Support for Hubs
-- VAT
-- Credit CDRs
-- Improved Reservation support (Cancel & Tariff)
-- Lots of minor improvements
-
 
 __Planned releases:__
 
