@@ -6,16 +6,6 @@
 
 OCPI 2.2 includes new functionality and improvements, compared to OCPI 2.1.1.
 
-==== Editorial note
-This is OCPI 2.2 Release Candidate 2. This is hopefully the last release candidate of OCPI 2.2.
-We hope that people take the time to review this version and send feedback so we can improve this version.
-Even if you do not find any issues, please let us know you have checked the document.
-
-We encourage companies to start implementing OCPI 2.2 based on this release candidate.
-The proof is in the pudding, we need implementations to prove OCPI 2.2 is mature enough to be released as FINAL.
-When developers are implementing a specification they are the ones finding real-world issues, most of the times.
-If they can implement OCPI 2.2 and get it working with other parties, that is the proof we need.
-
 ==== Changes/New functionality:
 
 * Support for Hubs
