@@ -1,10 +1,12 @@
-This repository contains the OCPI specification, latest release: [`OCPI 2.1.1-d2`](https://github.com/ocpi/ocpi/releases/download/2.1.1-d2/OCPI_2.1.1-d2.pdf)
+This repository contains the OCPI specification, latest release: [`OCPI 2.2`](https://github.com/ocpi/ocpi/releases/download/2.2/OCPI_2.2.pdf)
+
+The branch with the latest fixes to the 2.2 documentation is [`release-2.2-bugfixes`](https://github.com/ocpi/ocpi/tree/release-2.2-bugfixes)
 
 The branch with the latest fixes to the 2.1.1-d2 documentation is [`release-2.1.1-bugfixes`](https://github.com/ocpi/ocpi/tree/release-2.1.1-bugfixes)
 
 The `master` branch always contains the latest official release.
 
-Development of the next version of OCPI, new functionality, is done in the  [`develop`](https://github.com/ocpi/ocpi/tree/develop) branch: [`OCPI 2.2 is now Release Candidate 2`](https://github.com/ocpi/ocpi/releases/download/2.2-RC2/OCPI-2.2-RC2.pdf)
+Development of the next version of OCPI, new functionality, is done in the  [`develop`](https://github.com/ocpi/ocpi/tree/develop) branch.
 
 ## Contents
 
@@ -32,6 +34,23 @@ Development of the next version of OCPI, new functionality, is done in the  [`de
  * [__Changelog__](changelog.asciidoc)
 
 __Current versions:__
+
+Release 2.2:
+
+- Support for Hubs 
+  - Message routing headers 
+  - Hub Client Info 
+- Support Platforms with multiple/different roles, additional roles 
+- Charging Profiles 
+- based Smart Charging 
+- Improvements:
+  - CDRs: Credit CDRs, VAT, Calibration law/Eichrecht support, Session_id, AuthorizationReference, CdrLocation, CdrToken
+  - Sessions: VAT, CdrToken, How to add a Charging Period
+  - Tariffs: Tariff types, Min/Max price, reservation tariff, Much more examples
+  - Locations: Multiple Tariffs, Lost of small improvements
+  - Tokens: Group_id, energy contract
+  - Commands: Cancel Reservation added
+- fixes some bugs of 2.1.1
 
 Release 2.1.1-d2:
 
@@ -75,27 +94,11 @@ The OCPI Build Process has been improved. OCPI 2.0/2.1.1 was in markdown format,
 For OCPI 2.2, the text of OCPI has been converted to asciidoc. 
 Asciidoc is easier to format the output, and chapter numbering and internal links are much easier to work with.
 
-A lot of implementers asked for Swagger files, they will become available for OCPI 2.2 and onwards. 
-We wanted to generate the specification and Swagger files from one source, 
-so the different end-products: PDF and Swagger cannot be "out-of-sync". 
-
-As a source, Java class files were created. 
-The Java files are annotated so the Swagger tools can generate Swagger documentation from them. 
-The Swagger documentation is then converted to asciidoc. 
-This is only the Object/Class/Type/Enum definitions, not all the rest of the text.
-
-![build process diagram](images/specification_build_process.png "build process")
-
 The Plantuml is no longer converted to PNG images, but the SVG, making them much better readable, and even searchable in the PDF.
 
 In OCPI 2.0 and 2.1.1, the JSON examples contained a lot of mistakes, where outdated compared to the text, or not even valid JSON. 
 To prevent issues with the examples in the specification, the examples are not placed in separate JSON files. 
-These files are check in a unit test, together with the Java source files. This way we know for sure that the JSON examples are valid OCPI.
-In the PDF generation step, all the asciidoc files are merged into one file, 
-this file is checked for broken internal links before the PDF is generated.
-The final result that will be published: the PDF, the Swagger files and the Java source files. 
-We hope the Swagger and Java files will decrease the development time and issues created by having to manually code all the OCPI classes and types. 
-When needed, Swagger Codegen can be used by implementers to generate similar code for other programming languages.
+At the moment, the JSON files are check if they are valid JSON.
 
 ----
 1 Dec 2014 [Draft v4](releases/old/OCPI-Draftv4.pdf) is published
