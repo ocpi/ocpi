@@ -1,0 +1,54 @@
+@startuml
+hide footbox
+
+participant "SCSP\nSender" as SCSP
+participant "eMSP\nSender\n&\nReceiver" as eMSP
+participant "CPO\nReceiver" as CPO
+participant "Charge Point" as CP
+
+
+activate CP
+CP   ->  CPO:  StartTransaction.req(Token=200)
+activate CPO
+CPO  ->  CP:   StartTransaction.conf(TransactionId=15)
+deactivate CP
+CPO  ->  eMSP: Session(id=15)
+activate eMSP
+eMSP --> CPO: 
+deactivate CPO
+eMSP  ->  SCSP: Session(id=15)
+activate SCSP
+SCSP --> eMSP:
+deactivate eMSP
+
+SCSP --> SCSP: Calculate ChargingProfile
+
+SCSP ->  eMSP:  PUT https:~//emsp.com/ocpi/2.2/chargingprofiles/15\n        SetChargingProfile(response_url=https:~//client.com/12345)
+activate eMSP
+
+eMSP ->  CPO:  PUT https:~//cpo.com/ocpi/2.2/chargingprofiles/15\n        SetChargingProfile(response_url=https:~//emsp.com/4567)
+activate CPO
+CPO  --> eMSP: status_code = 1000,\n data: {ChargingProfileResponse { result = ACCEPTED }}
+eMSP  --> SCSP: status_code = 1000,\n data: {ChargingProfileResponse { result = ACCEPTED }}
+deactivate SCSP
+deactivate eMSP
+
+CPO  ->  CP:   SetChargingProfile.req
+deactivate CPO
+activate CP
+CP   ->  CPO:  SetChargingProfile.conf
+deactivate CP
+
+activate CPO
+CPO  ->  eMSP: POST https:~//emsp.com/4567\nChargingProfileResult(result = ACCEPTED)
+activate eMSP
+eMSP --> CPO:
+deactivate CPO
+
+eMSP  ->  SCSP: POST https:~//client.com/12345\nChargingProfileResult(result = ACCEPTED)
+activate SCSP
+SCSP --> eMSP:
+deactivate eMSP
+deactivate SCSP
+
+@enduml

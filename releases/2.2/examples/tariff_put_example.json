@@ -1,0 +1,14 @@
+{
+  "country_code": "DE",
+  "party_id": "ALL",
+  "id": "12",
+  "currency": "EUR",
+  "elements": [{
+    "price_components": [{
+      "type": "TIME",
+      "price": 2.00,
+      "vat": 10.0,
+      "step_size": 300
+    }]
+  }]
+}

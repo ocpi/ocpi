@@ -1,0 +1,1070 @@
+:numbered:
+[[mod_tariffs_tariffs_module]]
+== _Tariffs_ module
+
+*Module Identifier: `tariffs`*
+
+*Data owner: `CPO`*
+
+*Type:* Functional Module
+
+The Tariffs module gives eMSPs information about the tariffs used by the CPO.
+
+[[mod_tariffs_flow_and_lifecycle]]
+=== Flow and Lifecycle
+
+[[mod_tariffs_push_model]]
+==== Push model
+
+When the CPO creates a new Tariff they push them to the eMSPs by calling the <<mod_tariffs_put_method,PUT>> method on the eMSPs
+Tariffs endpoint with the newly created Tariff object.
+
+Any changes to the Tariff(s) in the CPO's system can be sent to the eMSPs systems by calling the <<mod_tariffs_put_method,PUT>>
+method on the eMSPs Tariffs endpoint with the updated Tariff object.
+
+When the CPO deletes a Tariff, they will update the eMSPs systems by calling <<mod_tariffs_delete_method,DELETE>>
+on the eMSPs Tariffs endpoint with the ID of the Tariff that was deleted.
+
+When the CPO is not sure about the state or existence of a Tariff object in the system of an eMSP, the
+CPO can use a <<mod_tariffs_msp_get_method,GET>> request to validate the Tariff object in the eMSP's system. 
+
+[[mod_tariffs_pull_model]]
+==== Pull model
+
+eMSPs who do not support the Push model need to call
+<<mod_tariffs_cpo_get_method,GET>> on the CPO's Tariff endpoint to receive
+all Tariffs, replacing the current list of known Tariffs with the newly received list.
+
+[[mod_tariffs_interfaces_and_endpoints]]
+=== Interfaces and Endpoints
+
+There is both a Sender and a Receiver interface for Tariffs. Advised is to use the push direction from Sender to Receiver during normal operation.
+The Sender interface is meant to be used when the connection between two parties is established to retrieve the current list of Tariffs objects, and when the Receiver is not 100% sure the Tariff cache is still up-to-date.
+
+[[mod_tariffs_cpo_interface]]
+==== Sender Interface
+
+Typically implemented by market roles like: CPO.
+
+The Sender's Tariffs interface gives the Receiver the ability to request Tariffs information.
+
+
+[cols="2,12",options="header"]
+|===
+|Method |Description 
+
+|<<mod_tariffs_cpo_get_method,GET>> |Returns Tariff objects from the CPO, last updated between the `{date_from}` and `{date_to}` (<<transport_and_format.asciidoc#transport_and_format_pagination,paginated>>) 
+|POST |n/a 
+|PUT |n/a 
+|PATCH |n/a 
+|DELETE |n/a 
+|===
+
+[[mod_tariffs_cpo_get_method]]
+===== *GET* Method
+
+Fetch information about all Tariffs.
+
+Endpoint structure definition:
+
+`{tariffs_endpoint_url}?[date_from={date_from}]&[date_to={date_to}]&[offset={offset}]&[limit={limit}]`
+
+Examples:
+
+`+https://www.server.com/ocpi/cpo/2.2/tariffs/?date_from=2019-01-28T12:00:00&date_to=2019-01-29T12:00:00+`
+
+`+https://ocpi.server.com/2.2/tariffs/?offset=50+`
+
+`+https://www.server.com/ocpi/2.2/tariffs/?date_from=2019-01-29T12:00:00&limit=100+`
+
+`+https://www.server.com/ocpi/cpo/2.2/tariffs/?offset=50&limit=100+`
+
+
+[[mod_tariffs_cpo_get_request_parameters]]
+====== Request Parameters
+
+If additional parameters: `{date_from}` and/or `{date_to}` are provided,
+only Tariffs with `last_updated` between the given `{date_from}` (including) and `{date_to}` (excluding) will be returned.
+
+This request is <<transport_and_format.asciidoc#transport_and_format_pagination,paginated>>, it supports the <<transport_and_format.asciidoc#transport_and_format_paginated_request,pagination>> related URL parameters.
+
+[cols="3,2,1,10",options="header"]
+|===
+|Parameter |Datatype |Required |Description 
+
+|date_from |<<types.asciidoc#types_datetime_type,DateTime>> |no |Only return Tariffs that have `last_updated` after or equal to this Date/Time (inclusive).
+|date_to |<<types.asciidoc#types_datetime_type,DateTime>> |no |Only return Tariffs that have `last_updated` up to this Date/Time, but not including (exclusive).
+|offset |int |no |The offset of the first object returned. Default is 0. 
+|limit |int |no |Maximum number of objects to GET. 
+|===
+
+[[mod_tariffs_cpo_get_response_data]]
+====== Response Data
+
+The endpoint returns an object with a list of valid Tariffs, the header will contain the <<transport_and_format.asciidoc#transport_and_format_paginated_response,pagination>> related headers.
+
+Any older information that is not specified in the response is considered no longer valid.
+Each object must contain all required fields. Fields that are not specified may be considered as null values.
+
+[cols="4,1,12",options="header"]
+|===
+|Type |Card. |Description 
+
+|<<mod_tariffs_tariff_object,Tariff>> |* |List of all tariffs. 
+|===
+
+[[mod_tariffs_emsp_interface]]
+==== Receiver Interface
+
+Typically implemented by market roles like: eMSP and NSP.
+
+Tariffs are <<transport_and_format.asciidoc#transport_and_format_client_owned_object_push,Client Owned Objects>>, so the endpoints need to contain the required extra fields: {<<credentials.asciidoc#credentials_credentials_object,party_id>>} and {<<credentials.asciidoc#credentials_credentials_object,country_code>>}.
+
+Endpoint structure definition:
+
+`{tariffs_endpoint_url}/{country_code}/{party_id}/{tariff_id}`
+
+Example:
+
+`+https://www.server.com/ocpi/cpo/2.2/tariffs/BE/BEC/12+`
+
+
+[cols="2,12",options="header"]
+|===
+|Method |Description 
+
+|<<mod_tariffs_msp_get_method,GET>> |Retrieve a Tariff as it is stored in the eMSP's system. 
+|POST |n/a 
+|<<mod_tariffs_put_method,PUT>> |Push new/updated Tariff object to the eMSP. 
+|PATCH|n/a
+|<<mod_tariffs_delete_method,DELETE>> |Remove a Tariff object which is no longer in use and will not be used in future either. 
+|===
+
+[[mod_tariffs_msp_get_method]]
+===== *GET* Method
+
+If the CPO wants to check the status of a Tariff in the eMSP's system, it might GET the object from the eMSP's system for validation purposes.
+After all, the CPO is the owner of the object, so it would be illogical if the eMSP's system had a different status or was missing the object entirely.
+
+[[mod_tariffs_msp_get_request_parameters]]
+====== Request Parameters
+
+The following parameters can be provided as URL segments.
+
+[cols="3,2,1,10",options="header"]
+|===
+|Parameter |Datatype |Required |Description 
+
+|country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |yes |Country code of the CPO performing the PUT request on the eMSP's system.
+|party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |yes |Party ID (Provider ID) of the CPO performing the PUT request on the eMSP's system.
+|tariff_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |Tariff.id of the Tariff object to retrieve.
+|===
+
+[[mod_tariffs_msp_get_response_data]]
+====== Response Data
+
+The response contains the requested object.
+
+[cols="4,1,12",options="header"]
+|===
+|Type |Card. |Description 
+
+|<<mod_tariffs_tariff_object,Tariff>> |1 |The requested Tariff object. 
+|===
+
+[[mod_tariffs_put_method]]
+===== *PUT* Method
+
+New or updated Tariff objects are pushed from the CPO to the eMSP.
+
+[[mod_tariffs_request_body]]
+====== Request Body
+
+In the PUT request, the new or updated Tariff object is sent in the body.
+
+[cols="4,1,12",options="header"]
+|===
+|Type |Card. |Description 
+
+|<<mod_tariffs_tariff_object,Tariff>> |1 |New or updated Tariff object.
+|===
+
+[[mod_tariffs_msp_put_request_parameters]]
+====== Request Parameters
+
+The following parameters can be provided as URL segments.
+
+[cols="3,2,1,10",options="header"]
+|===
+|Parameter |Datatype |Required |Description 
+
+|country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |yes |Country code of the CPO performing the PUT request on the eMSP's system. This SHALL be the same value as the `country_code` in the Tariff object being pushed.
+|party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |yes |Party ID (Provider ID) of the CPO performing the PUT request on the eMSP's system. This SHALL be the same value as the `party_id` in the Tariff object being pushed.
+|tariff_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |Tariff.id of the Tariff object to create or replace.
+|===
+
+[[mod_tariffs_example_new_tariff_2_euro_per_hour]]
+====== Example: New Tariff 2 euro per hour charging time (not parking).
+
+[source,json]
+----
+PUT To URL: https://www.server.com/ocpi/emsp/2.2/tariffs/NL/TNM/12
+
+include::examples/tariff_put_example.json[]
+----
+
+
+[[mod_tariffs_delete_method]]
+===== *DELETE* Method
+
+Delete a Tariff object which is not used any more and will not be used in future either.
+
+NOTE: Before deleting a Tariff object, it is RECOMMENDED to ensure that the Tariff object is not referenced by any <<mod_locations.asciidoc#mod_locations_connector_object,Connector object>> within the `tariff_ids` anymore.
+
+[[mod_tariffs_msp_delete_request_parameters]]
+====== Request Parameters
+
+The following parameters can be provided as URL segments.
+
+[cols="3,2,1,10",options="header"]
+|===
+|Parameter |Datatype |Required |Description 
+
+|country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |yes |Country code of the CPO performing the PUT request on the eMSP's system.
+|party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |yes |Party ID (Provider ID) of the CPO performing the PUT request on the eMSP's system.
+|tariff_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |Tariff.id of the Tariff object to delete.
+|===
+
+[[mod_tariffs_object_description]]
+=== Object description
+
+[[mod_tariffs_tariff_object]]
+==== _Tariff_ Object
+
+A Tariff object consists of a list of one or more Tariff Elements, which can be used to create complex Tariff structures.
+
+When the list of Tariff Elements contains more than one Element with the same Tariff Dimension (ENERGY/FLAT/TIME etc.),
+than the first Tariff Element with that Dimension in the list with matching Tariff Restrictions will be used.
+Only one Tariff per Element type can be active at any point in time, but multiple Tariff Types can be active at once.
+IE you can have an `ENERGY` element and `TIME` element active at the same time, but only the first valid element of each.
+
+When no Tariff Element with a specific Dimension is found for which the Restrictions match,
+and there is no Tariff Element in the list with the given Dimension without Restrictions,
+there will be no costs for that Tariff Dimension.
+
+It is advised to always add a "default" Tariff Element per Dimension (ENERGY/FLAT/TIME etc.).
+This can be achieved by adding a Tariff Element without Restrictions after all other occurrences of the same Dimension
+in the list of Tariff Elements (the order is important).
+Such a Tariff Element will act as fallback when no other Tariff Element of a specific Dimension matches the relevant parameters (Restrictions).
+
+To define a "Free of Charge" tariff in OCPI, a Tariff with `type` = `FLAT` and `price` = `0.00` has to be provided.
+See: <<mod_tariffs_free_of_charge_tariff_example,Free of Charge Tariff example>>
+
+[cols="3,2,1,10",options="header"]
+|===
+|Property |Type |Card. |Description 
+
+|country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |1 |ISO-3166 alpha-2 country code of the CPO that _owns_ this Tariff.
+|party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |1 |CPO ID of the CPO that _owns_ this Tariff (following the ISO-15118 standard).
+|id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Uniquely identifies the tariff within the CPO's platform (and suboperator platforms).
+|currency |<<types.asciidoc#types_string_type,string>>(3) |1 |ISO-4217 code of the currency of this tariff.
+|type |<<mod_tariffs_tariff_type,TariffType>> |? | Defines the type of the tariff. This allows for distinction in case of given <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,Charging Preferences>>. When omitted, this tariff is valid for all sessions.
+|tariff_alt_text |<<types.asciidoc#types_displaytext_class,DisplayText>> |* |List of multi-language alternative tariff info texts.
+|tariff_alt_url |<<types.asciidoc#types_url_type,URL>> |? |URL to a web page that contains an explanation of the tariff information in human readable form.
+|min_price |<<types.asciidoc#types_price_class,Price>> |? |When this field is set, a Charging Session with this tariff will at least cost this amount.
+      This is different from a `FLAT` fee (Start Tariff, Transaction Fee), as a `FLAT` fee is a fixed amount that has to be payed for any Charging Session.
+      A minimum price indicates that when the cost of a Charging Session is lower than this amount, the cost of the Session will be equal to this amount. (Also see note below)
+|max_price |<<types.asciidoc#types_price_class,Price>> |? |When this field is set, a Charging Session with this tariff will NOT cost more than this amount. (See note below)
+|elements |<<mod_tariffs_tariffelement_class,TariffElement>> |+ |List of Tariff Elements.
+|start_date_time |<<types.asciidoc#types_datetime_type,DateTime>> |? |The time when this tariff becomes active, in UTC, `time_zone` field of the <<mod_locations.asciidoc#mod_locations_location_object,Location>> can be used to convert to local time.
+                                                                     Typically used for a new tariff that is already given with the location, before it becomes active. (See note below)
+|end_date_time |<<types.asciidoc#types_datetime_type,DateTime>> |? |The time after which this tariff is no longer valid, in UTC, `time_zone` field if the <<mod_locations.asciidoc#mod_locations_location_object,Location>> can be used to convert to local time.
+                                                                    Typically used when this tariff is going to be replaced with a different tariff in the near future. (See note below)
+|energy_mix |<<mod_locations.asciidoc#mod_locations_energymix_class,EnergyMix>> |? |Details on the energy supplied with this tariff.
+|last_updated |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Timestamp when this Tariff was last updated (or created). 
+|===
+
+NOTE: `min_price`: As the VAT might be built up of different parts, there might be situations where minimum cost including VAT is reached earlier or later than the minimum cost excluding VAT.
+So as a rule, they both apply:
+ - The total cost of a Charging Session excluding VAT can never be lower than the `min_price` excluding VAT.
+ - The total cost of a Charging Session including VAT can never be lower than the `min_price` including VAT.
+
+NOTE: `max_price`: As the VAT might be built up of different parts, there might be situations where maximum cost including VAT is reached earlier or later than the maximum cost excluding VAT.
+So as a rule, they both apply:
+ - The total cost of a Charging Session excluding VAT can never be higher than the `max_price` excluding VAT.
+ - The total cost of a Charging Session including VAT can never be higher than the `max_price` including VAT.
+
+NOTE: `start_date_time` and `end_date_time`: When the Tariff of a Charge Point (Location) is changed during an ongoing charging session,
+it is common to not switch the Tariff until the ongoing session is finished. But this is NOT a rule of OCPI.
+When charging at a Charge Point, a driver accepts the tariff which is valid when they start their charging session.
+If the Tariff of the Charge Point would change during the charging session,
+the driver might get billed something they didn't agree to when starting the session.
+
+NOTE: The fields: `tariff_alt_text` and `tariff_alt_url` may be used separately,
+or in combination with each other or even combined with the structured tariff `elements`.
+When a Tariff contains both the `tariff_alt_text` and `elements` fields,
+the `tariff_alt_text` SHALL only contain additional tariff information in human-readable text,
+not the price information that is also available via the `elements` field.
+Reason for this: the eMSP might have additional fees they want to include in communication with their customer.
+
+
+[[mod_tariffs_examples]]
+===== Examples
+
+In the following section, a few different pricing strategies will be explained with some Tariff examples.
+For simplicity, we will use euro as currency in all of the examples if not mentioned otherwise.
+
+[[mod_tariffs_simple_tariff_example_0_25_euro_per_kwh]]
+====== Simple Tariff example 0.25 euro per kWh
+
+* Energy
+[disc]
+** 0.25 euro per kWh (excl. VAT)
+** 10% VAT
+** Billed per 1 Wh
+
+This tariff will result in costs of 5.00 euro (excl. VAT) or 5.50 euro (incl. VAT) when 20 kWh are charged.
+
+[source,json]
+----
+include::examples/tariff_8_simple_025kwh.json[]
+----
+
+
+[[mod_tariffs_tariff_example_0_25_euro_per_kwh_start]]
+====== Tariff example 0.25 euro per kWh + start fee
+
+* Start or transaction fee
+[disc]
+** 0.50 euro (excl. VAT)
+** 20% VAT
+* Energy
+[disc]
+** 0.25 euro per kWh (excl. VAT)
+** 10% VAT
+** Billed per 1 Wh
+
+This tariff will result in total cost of 5.50 euro (excl. VAT) or 6.10 euro (incl. VAT) when 20 kWh are charged.
+
+[source,json]
+----
+include::examples/tariff_9_025kwh_start.json[]
+----
+
+
+[[mod_tariffs_tariff_example_0_25_euro_per_kwh_min_price]]
+====== Tariff example 0.25 euro per kWh + minimum price
+
+* Minimum price
+** 0.50 euro (excl. VAT)
+** 0.55 euro (incl. VAT, which is 10%)
+* Energy
+[disc]
+** 0.25 euro per kWh (excl. VAT)
+** 10% VAT
+** Billed per 1 Wh
+
+This tariff will result in costs of 5.00 euro (excl. VAT) or 5.50 euro (incl. VAT) when 20 kWh are charged.
+But if less than 2 kWh is charged, 0.50 euro (excl. VAT) or 0.55 euro (incl. VAT) will be billed.
+
+This is different from a start fee as can be seen when compared to the example above.
+
+[source,json]
+----
+include::examples/tariff_12_025kwh_min_price.json[]
+----
+
+
+[[mod_tariffs_tariff_example_0_25_euro_per_kwh_parking_start]]
+====== Tariff example 0.25 euro per kWh + parking fee + start fee
+
+* Start or transaction fee
+[disc]
+** 0.50 euro (excl. VAT)
+** 20% VAT
+* Energy
+[disc]
+** 0.25 euro per kWh (excl. VAT)
+** 10% VAT
+** Billed per 1 Wh
+* Parking
+[disc]
+** 2.00 euro per hour (excl. VAT)
+** 20% VAT
+** Billed per 15 min (900 seconds)
+
+For a charging session where 20 kWh are charged and the vehicle is parked for 40 minutes after the session ended,
+this tariff will result in costs of 7.00 euro (excl. VAT) or 7.90 euro (incl. VAT).
+Because the parking time is billed per 15 minutes, the driver has to pay for 45 minutes of parking even though
+they left 40 minutes after their vehicle stopped charging.
+
+[source,json]
+----
+include::examples/tariff_10_025kwh_parking_start.json[]
+----
+
+
+[[mod_tariffs_tariff_example_0_25_euro_per_kwh_start_max_price]]
+====== Tariff example 0.25 euro per kWh + start fee + max price + tariff end date
+
+* Maximum price
+[disc]
+** 10 euro (excl. VAT)
+** 11 euro (incl. VAT, which is 10%)
+* Start or transaction fee
+[disc]
+** 0.50 euro (excl. VAT)
+** 20% VAT
+* Energy
+[disc]
+** 0.25 euro per kWh (excl. VAT)
+** 10% VAT
+** Billed per 1 Wh
+
+This tariff has an end date: 30 June 2019, which is typically used when a tariff is going to be replaced by a new tariff.
+A <<mod_locations.asciidoc#mod_locations_connector_object,Connector>> of a <<mod_locations.asciidoc#mod_locations_location_object,Location>> can have multiple Tariffs (IDs) assigned.
+By assigning both, the old and the new tariff ID, they will automatically be replaced.
+It is not required to update all Locations at the same time, the old tariff can also be removed later.
+
+For a charging session where 50 kWh are charged,
+this tariff will result in costs of 10.00 euro (excl. VAT) or 11.00 euro (incl. VAT) due to the price limit.
+If only 30 kWh were charged, the costs would be 8.00 euro (excl. VAT) and 8.85 euro (incl. VAT),
+as the start fee combined with the energy costs would be lower than the defined max price.
+
+[source,json]
+----
+include::examples/tariff_6_025kwh_start_max_price.json[]
+----
+
+
+[[mod_tariffs_simple_tariff_example_2_euro_per_hour]]
+====== Simple Tariff example 2 euro per hour
+
+An example of a tariff where the driver does not pay per kWh, but for the time of using the Charge Point.
+
+* Charging Time
+[disc]
+** 2.00 euro per hour (excl. VAT)
+** 10% VAT
+** Billed per 1 min (60 seconds)
+
+As this is tariff only has a `TIME` price_component, the driver will not be billed for time they are not charging: `PARKING_TIME`
+
+For a charging session of 2.5 hours,
+this tariff will result in costs of 5.00 euro (excl. VAT) or 5.50 euro (incl. VAT).
+
+[source,json]
+----
+include::examples/tariff_1_simple_2hour.json[]
+----
+
+
+[[mod_tariffs_simple_tariff_example_3_euro_per_hour_5_euro_parking]]
+====== Simple Tariff example 3 euro per hour, 5 euro per hour parking
+
+Example of a tariff where the driver pays for the time of using the Charge Point, but pays more when the car is no longer charging,
+to discourage the EV driver of leaving his EV connected when it is already full.
+
+* Charging Time
+[disc]
+** 3.00 euro per hour (excl. VAT)
+** 10% VAT
+** Billed per 1 min (60 seconds)
+* Parking
+[disc]
+** 5.00 euro per hour (excl. VAT)
+** 20% VAT
+** Billed per 5 min (300 seconds)
+
+For a charging session of 2.5 hours where the vehicle is parked for 42 more minutes after charging ended,
+resulting in a total session time of 150 minutes (charging) + 42 minutes (parking),
+this tariff will result in costs of 11.25 euro (excl. VAT) or 12.75 euro (incl. VAT).
+Because the parking time is billed per 5 minutes, the driver has to pay for 45 minutes of parking even though
+they left 42 minutes after their vehicle stopped charging.
+
+[source,json]
+----
+include::examples/tariff_13_simple_3hour_5parking.json[]
+----
+
+
+[[mod_tariffs_simple_tariff_example_with_alternative_multi_language_text]]
+====== Ad-Hoc simple Tariff example with multiple languages
+
+For ad-hoc charging (paying for charging without a contract), the tariff `elements` are less needed.
+The eMSP is not involved when a driver uses ad-hoc payment at the Charge Point, so no CDR is send to an eMSP.
+Having a good human readable text is much more useful.
+
+* Charging Time
+[disc]
+** 1.9 euro per hour (excl. VAT)
+** 5.2% VAT
+** Billed per 5 minutes (300 seconds)
+
+For a charging session of 2.5 hours,
+this tariff will result in costs of 4.75 euro (excl. VAT) or 5.00 euro (incl. VAT).
+
+[source,json]
+----
+include::examples/tariff_2_alt_text.json[]
+----
+
+
+[[mod_tariffs_adhoc_tariff_example_not_possible_with_ocpi]]
+====== Ad-Hoc Tariff example not possible with OCPI
+
+For this example, the credit card start tariff is 0.50 euro, but when using a debit card it is only 0.25 euro.
+
+Such a tariff cannot be modeled with OCPI. +
+But by modeling it as 0.50 euro start tariff where debit card users are given a discount in the final CDR of 0.25 euro, nobody is likely to complain.
+The `tariff_alt_text` explains this clearly.
+
+[source,json]
+----
+include::examples/tariff_11_not_possible_alt_text.json[]
+----
+
+
+[[mod_tariffs_simple_tariff_example_with_alternative_url]]
+====== Simple Tariff example with alternative URL
+
+This examples shows the use of `tariff_alt_url`.
+
+This examples shows a `PROFILE_CHEAP` tariff, which is a smart charging tariff.
+Drivers are able to select this tariff by setting the `profile_type` in their
+<<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,Charging Preferences>> to `CHEAP`.
+In such case, the price might not be fixed, but depend on the real-time energy prices.
+To explain this to the driver, a short text inside `tariff_alt_text` might not be the best solution.
+Showing a graph could be better.
+Therefore it is also possible to provide an URL in `tariff_alt_url` to a site that explains
+the tariff better and in more detail.
+
+* Energy
+[disc]
+** 0.25 euro per kWh (excl. VAT)
+** 10% VAT
+** Billed per 0.1 kWh (100 Wh)
+
+For a charging session where 20.45 kWh are charged,
+this tariff will result in costs of 5.50 euro (excl. VAT) or 6.05 euro (incl. VAT)
+if the announced prices were billed.
+Because the energy is billed per 0.1 kWh, the driver has to pay for 20.5 kWh even though
+they only charged 20.45 kWh.
+
+The twist here is that this tariff makes use of `tariff_alt_url` which links to a page
+with real-time energy prices of the operator, where is shown that the actual price per kWh is different.
+With an assumed current energy price of 0.22 euro per kWh (excl. VAT), which is shown or explained on
+the page linked by `tariff_alt_url`, the resulting costs will be 4.51 euro (excl. VAT) or 4.96 euro (incl. VAT).
+
+[source,json]
+----
+include::examples/tariff_3_alt_url.json[]
+----
+
+
+[[mod_tariffs_complex_tariff_example]]
+====== Complex Tariff example
+
+* Start or transaction fee
+[disc]
+** 2.50 euro (excl. VAT)
+** 15% VAT
+* Charging Time
+[disc]
+** When charging with less than 32A
+[disc]
+*** 1.00 euro per hour (excl. VAT)
+*** 20% VAT
+*** Billed per 15 min (900 seconds)
+** When charging with more than 32A on weekdays
+[disc]
+*** 2.00 euro per hour (excl. VAT)
+*** 20% VAT
+*** Billed per 10 min (600 seconds)
+** When charging with more than 32A on weekends
+[disc]
+*** 1.25 euro per hour (excl. VAT)
+*** 20% VAT
+*** Billed per 10 min (600 seconds)
+* Parking
+[disc]
+** On weekdays between 09:00 and 18:00
+[disc]
+*** 5 euro per hour (excl. VAT)
+*** 10% VAT
+*** Billed per 5 min (300 seconds)
+** On Saturday between 10:00 and 17:00
+[disc]
+*** 6 euro per hour (excl. VAT)
+*** 10% VAT
+*** Billed per 5 min (300 seconds)
+
+For a charging session on a Monday morning starting at 09:30 which takes 2.45 hours,
+where the driver uses a maximum of 16A of power and is parking for additional 42 minutes afterwards,
+this tariff will result in costs of 8.75 euro (excl. VAT) or 10 euro (incl. VAT)
+for a total session time of 147 minutes (charging) + 42 minutes (parking).
+Because charging is billed per 15 minutes, the driver has to pay for 150 minutes.
+Similarly, the driver has to pay for 45 minutes of parking as its billed per 5 minutes.
+
+For a charging session on a Saturday afternoon starting at 13:30 which takes 1.9 hours,
+where the driver uses a minimum of 43A of power and is parking for additional 71 minutes afterwards,
+this tariff will result in costs of 12.50 euro (excl. VAT) or 14,13 euro (incl. VAT)
+for a total session time of 114 minutes (charging) + 71 minutes (parking).
+Because charging is billed per 10 minutes, the driver has to pay for 120 minutes.
+Similarly, the driver has to pay for 75 minutes of parking as its billed per 5 minutes.
+
+[source,json]
+----
+include::examples/tariff_4_complex.json[]
+----
+
+
+[[mod_tariffs_free_of_charge_tariff_example]]
+====== Free of Charge Tariff example
+In this example no VAT is given because it is not necessary (as the `price` is `0.00`).
+This might not always be the case though and it is of course permitted to add a VAT,
+even if the `price` is set to zero.
+
+[source,json]
+----
+include::examples/tariff_5_free_of_charge.json[]
+----
+
+
+[[mod_tariffs_first_hour_free_energy]]
+====== First hour free energy example
+
+In this example, we have the following scenario:
+
+* The first hour of parking time is free.
+* From the second to the fourth hour, parking costs 2.00 euro per hour
+* From the fourth hour on, parking costs 3.00 euro per hour.
+* The first kWh of energy is free, every additional kWh costs 0.20 euro.
+
+Translated into our tariff schema, the pricing model looks like this:
+
+* Energy
+[disc]
+** First kWh: free
+** Any additional energy
+[disc]
+*** 0.20 euro per kWh (excl. VAT)
+*** Billed per 1 Wh
+* Parking
+[disc]
+** First hour of parking: free
+** Second to fourth hours of parking
+[disc]
+*** 2.00 euro per hour (excl. VAT)
+*** Billed per 1 min (60 seconds)
+** Any parking after four hours
+[disc]
+*** 3.00 euro per hour (excl. VAT)
+*** Billed per 1 min (60 seconds)
+
+For a charging session where the driver charges 20 kWh and where the vehicle is parked for 2.75 more hours after charging ended,
+this tariff will result in costs of 7.30 euro (excl. VAT).
+As no VAT information is given, it is not possible to calculate total costs including VAT.
+
+[source,json]
+----
+include::examples/tariff_7_first_hour_kwh_free.json[]
+----
+
+
+[[mod_tariffs_tariff_example_15_reservation_5_euro_per_hour]]
+====== Tariff example with reservation price
+
+* Reservation
+[disc]
+** 5.00 euro per hour (excl. VAT)
+** 20% VAT
+** Billed per 1 min (60 seconds)
+* Start or transaction fee
+[disc]
+** 0.50 euro (excl. VAT)
+** 20% VAT
+* Energy
+[disc]
+** 0.25 euro per kWh (excl. VAT)
+** 10% VAT
+** Billed per 1 Wh
+
+For a charging session that was started 15 minutes after the reservation time, where the driver charges 20 kWh,
+this tariff will result in costs of 6.75 euro (excl. VAT) or 7.60 euro (incl. VAT).
+
+[source,json]
+----
+include::examples/tariff_15_reservation_5_euro_per_hour.json[]
+----
+
+
+[[mod_tariffs_tariff_example_16_reservation_2_euro_fee_5_euro_per_hour]]
+====== Tariff example with reservation price and fee
+
+* Reservation
+[disc]
+** 2.00 euro reservation fee (excl. VAT)
+** 5.00 euro per hour (excl. VAT)
+** 20% VAT
+** Billed per 5 min (300 seconds)
+* Start or transaction fee
+[disc]
+** 0.50 euro (excl. VAT)
+** 20% VAT
+* Energy
+[disc]
+** 0.25 euro per kWh (excl. VAT)
+** 10% VAT
+** Billed per 1 Wh
+
+For a charging session that was started 13 minutes after the reservation time, where the driver charges 20 kWh,
+this tariff will result in costs of 8.75 euro (excl. VAT) or 10.00 euro (incl. VAT).
+Because the reservation fee is billed per 5 minutes, the driver has to pay for 15 minutes of reservation even though
+they started the charging session 13 minutes after the reservation time.
+
+[source,json]
+----
+include::examples/tariff_16_reservation_2_euro_fee_5_euro_per_hour.json[]
+----
+
+
+[[mod_tariffs_tariff_example_17_reservation_with_expire_fee]]
+====== Tariff example with reservation price and expire fee
+
+* Reservation
+[disc]
+** 4.00 euro reservation expiration fee (excl. VAT) (_billed when a reservation expires and is not followed by a charging session_)
+** 2.00 euro per hour (excl. VAT)
+** 20% VAT
+** Billed per 10 min (600 seconds)
+* Start or transaction fee
+[disc]
+** 0.50 euro (excl. VAT)
+** 20% VAT
+* Energy
+[disc]
+** 0.25 euro per kWh (excl. VAT)
+** 10% VAT
+** Billed per 1 Wh
+
+This example is very similar to <<mod_tariffs_tariff_example_15_reservation_5_euro_per_hour,Tariff example with reservation price>>
+with the difference that expired reservations cost something and that reservation time is billed per 10 minutes.
+Also, the price for reservation is different.
+
+For a charging session that was started 22 minutes after the reservation time, where the driver charges 20 kWh,
+this tariff will result in costs of 6.50 euro (excl. VAT) or 7.30 euro (incl. VAT).
+Because the reservation fee is billed per 10 minutes, the driver has to pay for 30 minutes of reservation even though
+they started the charging session 22 minutes after the reservation time.
+
+If the driver did not start a charging session and the reservation expired after the reserved time of 1 hour,
+the tariff would have resulted in costs of 6.00 euro (excl. VAT) or 7.20 euro (incl. VAT).
+In case a reservation is not used, the driver has to pay the full amount of reserved time
+as well as an additional expiration fee as compensation for not charging at all.
+
+
+[source,json]
+----
+include::examples/tariff_17_reservation_with_expire_fee.json[]
+----
+
+
+[[mod_tariffs_tariff_example_18_reservation_with_expire_time]]
+====== Tariff example with reservation time and expire time
+
+* Reservation
+[disc]
+** 3.00 euro per hour (excl. VAT)
+** 6.00 euro per hour (excl. VAT) (_billed when a reservation expires and is not followed by a charging session_)
+** 20% VAT
+** Billed per 10 min (600 seconds)
+* Start or transaction fee
+[disc]
+** 0.50 euro (excl. VAT)
+** 20% VAT
+* Energy
+[disc]
+** 0.25 euro per kWh (excl. VAT)
+** 10% VAT
+** Billed per 1 Wh
+
+This example is very similar to <<mod_tariffs_tariff_example_15_reservation_5_euro_per_hour,Tariff example with reservation price>>
+with the difference that expired reservations cost something and that reservation time is billed per 10 minutes.
+Also, the price for reservation is different.
+
+For a charging session that was started 22 minutes after the reservation time, where the driver charges 20 kWh,
+this tariff will result in costs of 7.00 euro (excl. VAT) or 7.90 euro (incl. VAT).
+Because the reservation fee is billed per 10 minutes, the driver has to pay for 30 minutes of reservation even though
+they started the charging session 22 minutes after the reservation time.
+
+If the driver did not start a charging session and the reservation expired after the reserved time of 1.5 hours,
+the tariff would have resulted in costs of 9.00 euro (excl. VAT) or 10.80 euro (incl. VAT).
+In case a reservation is not used, the driver has to pay the expiration fee as compensation for not charging at all.
+
+[source,json]
+----
+include::examples/tariff_18_reservation_with_expire_time.json[]
+----
+
+
+[[mod_tariffs_data_types]]
+=== Data types
+
+[[mod_tariffs_dayofweek_enum]]
+==== DayOfWeek _enum_
+
+[cols="3,10",options="header"]
+|===
+|Value |Description 
+
+|MONDAY |Monday 
+|TUESDAY |Tuesday 
+|WEDNESDAY |Wednesday 
+|THURSDAY |Thursday 
+|FRIDAY |Friday 
+|SATURDAY |Saturday 
+|SUNDAY |Sunday 
+|===
+
+[[mod_tariffs_pricecomponent_class]]
+==== PriceComponent _class_
+
+[cols="3,4,1,10",options="header"]
+|===
+|Property |Type |Card. |Description 
+
+|type |<<mod_tariffs_tariffdimensiontype_enum,TariffDimensionType>> |1 |Type of tariff dimension.
+|price |<<types.asciidoc#types_number_type,number>> |1 |Price per unit (excl. VAT) for this tariff dimension.
+|vat |<<types.asciidoc#types_number_type,number>> |? |Applicable VAT percentage for this tariff dimension. If omitted, no VAT is applicable. Not providing a VAT is different from 0% VAT, which would be a value of 0.0 here.
+|step_size |int |1 |Minimum amount to be billed. This unit will be billed in this `step_size` blocks. For example: if `type` is `TIME` and `step_size` has a value of `300`, then time will be billed in blocks of 5 minutes. If 6 minutes were used, 10 minutes (2 blocks of `step_size`) will be billed.
+|===
+
+NOTE: `step_size`: depends on the `type` and every `type` (except `FLAT`) defines a `step_size` multiplier, which is the size of every _step_ for that `type` in the givgen unit. +
+ +
+For example: `PARKING_TIME` has the `step_size` multiplier: _1 second_, which means that the `step_size` of a `PriceComponent` is multiplied by _1 second_.
+Thus a `step_size = 300` means `300 seconds` (`5 minutes`). This means that when someone parked for 8 minutes they will be billed for 10 minutes.
+The parking time will be simply rounded up to the next larger chunk of `step_size` (i.e. blocks of `300 seconds` in this example). +
+ +
+Another example: `ENERGY` has the `step_size` multiplied: _1 Wh_, which means that the `step_size` of a `PriceComponent` is multiplied by _1 Wh_.
+Thus a `step_size = 1` with a `price = 0.25` will result in a cost calculation that uses the charged Wh as precision. +
+If someone charges their EV with 115.2 Wh, then they are billed for 116 Wh, resulting in total cost of 0.029 euro. +
+When `step_size = 25`, then the same amount would be billed for 101 to 125 Wh: 0.031 euro. +
+When `step_size = 500`, then the same amount will be billed for 1 to 500 Wh: 0.125 euro.
+
+NOTE: `step_size` SHALL only be taken into account for the last <<mod_tariffs_tariffelement_class,`TariffElement`>>
+and when switching to another <<mod_tariffs_tariffelement_class,`TariffElement`>> for the <<mod_tariffs_pricecomponent_class,`PriceComponents`>>
+that is not in the new <<mod_tariffs_tariffelement_class,`TariffElement`>>.
+The same rule applies in case there is a switch between 2 Tariffs
+(for example when a driver selects a different <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,Charging Preference>> <<mod_sessions.asciidoc#mod_sessions_profile_type_enum,`profile_type`>>).
+
+
+===== Example Tariff
+Example Tariff to explain the `step_size` when switching from one <<mod_tariffs_tariffelement_class,`TariffElement`>> to another:
+
+- Charging fee of 1.20 euro per hour (excl. VAT) before 17:00 with a `step_size` of 30 minutes (1800 seconds)
+- Charging fee of 2.40 euro per hour (excl. VAT) after 17:00 with a `step_size` of 15 minutes (900 seconds)
+- Parking fee of 1.00 euro per hour (excl. VAT) before 20:00 with a `step_size` of 15 minutes (900 seconds)
+
+[source,json]
+----
+include::examples/tariff_14_step_size.json[]
+----
+
+====== Example: switching to different Tariff Element #1
+
+An EV driver plugs in at 16:55 and charges for 10 minutes (`TIME`).
+They then stop charging but stay plugged in for 2 more minutes (`PARKING_TIME`).
+The total session time is therefore 12 minutes, resulting in the following costs:
+
+- 5 billable minutes of charging time before 17:00, generating costs of 0.10 euro.
+- 10 billable minutes of charging time after 17:00, generating costs of 0.40 euro. As the Price Component of the last Tariff Element being used has a `step_size` of 15 minutes, we bill a total charging duration of 15 minutes. When considering the already billed 5 minutes of charging time before 17:00, we are left with 10 minutes to bill after 17:00.
+- 15 billable minutes of parking time, generating costs of 0.25 euro.
+- The total for this charging session is therefore *0.75 euro* (excl. VAT).
+
+====== Example: switching to different Tariff Element #2
+
+An EV driver plugs in at 16:35 and charges for 35 minutes (`TIME`).
+After that they immediately unplug, leaving with a total session time of 35 minutes and a bill over the following costs:
+
+- 25 billable minutes of charging time before 17:00, generating costs of 0.50 euro.
+- 20 billable minutes of charging time after 17:00, generating costs of 0.80 euro. As the Price Component of the last Tariff Element being used has a `step_size` of 15 minutes, we bill a total charging duration of 45 minutes. When considering the already billed 25 minutes of charging time before 17:00, we are left with 20 minutes to bill after 17:00.
+- 45 billable minutes of parking time, generating costs of 0.75 euro.
+- The total for this charging session is therefore *2.05 euro* (excl. VAT).
+
+====== Example: switching to Free-of-Charge Tariff Element
+
+When parking becomes free after 20:00, the new <<mod_tariffs_tariffelement_class,`TariffElement`>> after 20:00 will not contain a
+<<mod_tariffs_tariffdimensiontype_enum,`PARKING_TIME`>> <<mod_tariffs_pricecomponent_class,`PriceComponent`>>.
+So the last parking period that needs to be payed, which is before 20:00, will be billed according to the `step_size`
+of the <<mod_tariffs_tariffdimensiontype_enum,`PARKING_TIME`>> <<mod_tariffs_pricecomponent_class,`PriceComponent`>> before 20:00.
+
+An EV driver plugs in at 19:55 and charges for 10 minutes (`TIME`).
+They then stop charging but stay plugged in for 2 more minutes (`PARKING_TIME`).
+The total session time is therefore 12 minutes, resulting in the following costs:
+
+- 5 billable minutes of charging time before 20:00, generating costs of 0.20 euro.
+- 10 billable minutes of charging time after 20:00, generating costs of 0.40 euro. As the Price Component of the last Tariff Element being used has a `step_size` of 15 minutes, we bill a total charging duration of 15 minutes. When considering the already billed 5 minutes of charging time before 20:00, we are left with 10 minutes to bill after 20:00.
+- 15 billable minutes of parking time, generating costs of 0.25 euro. As the last Price Component with `type = PARKING_TIME` has a `step_size` of 15 minutes, we do round up to the `step_size` of 15 minutes even though only 5 minutes of parking that happened before 20:00.
+- The total for this charging session is therefore *0.85 euro* (excl. VAT).
+
+
+[[mod_tariffs_reservation_restriction_type]]
+==== ReservationRestrictionType _enum_
+
+[cols="3,10",options="header"]
+|===
+|Value |Description
+|RESERVATION |Used in TariffElements to describe costs for a reservation.
+|RESERVATION_EXPIRES |Used in TariffElements to describe costs for a reservation that expires (i.e. driver does not start a charging session before <<mod_commands.asciidoc#mod_commands_reservenow_object,expiry_date>> of the reservation).
+|===
+
+NOTE: When a Tariff has both, `RESERVATION` and `RESERVATION_EXPIRES` TariffElements,
+where both TariffElements have a <<mod_tariffs_tariffdimensiontype_enum,TIME>> PriceComponent,
+then the time based cost of an expired reservation will be calculated based on the `RESERVATION_EXPIRES` TariffElement.
+
+[[mod_tariffs_tariffelement_class]]
+==== TariffElement _class_
+
+[cols="3,4,1,10",options="header"]
+|===
+|Property |Type |Card. |Description 
+
+|price_components |<<mod_tariffs_pricecomponent_class,PriceComponent>> |+ |List of price components that describe the pricing of a tariff.
+|restrictions |<<mod_tariffs_tariffrestrictions_class,TariffRestrictions>> |? |Restrictions that describe the applicability of a tariff.
+|===
+
+[[mod_tariffs_tariffdimensiontype_enum]]
+==== TariffDimensionType _enum_
+
+[cols="3,10",options="header"]
+|===
+|Value |Description 
+
+|ENERGY |Defined in kWh, `step_size` multiplier: 1 Wh 
+|FLAT |Flat fee without unit for `step_size`
+|PARKING_TIME |Time not charging: defined in hours, `step_size` multiplier: 1 second 
+|TIME |Time charging: defined in hours, `step_size` multiplier: 1 second +
+Can also be used in combination with a <<mod_tariffs_tariffrestrictions_class,RESERVATION>> restriction to describe the price of the reservation time.
+|===
+
+
+[[mod_tariffs_tariffrestrictions_class]]
+==== TariffRestrictions _class_
+
+These restrictions are not for the entire Charging Session. They only describe if and when a TariffElement becomes active or inactive during a Charging Session.
+
+[cols="3,2,1,10",options="header"]
+|===
+|Property |Type |Card. |Description 
+
+|start_time |<<types.asciidoc#types_string_type,string>>(5) |? |Start time of day in local time, the time zone is defined in the `time_zone` field of the
+                                                                <<mod_locations.asciidoc#mod_locations_location_object,Location>>, for example 13:30,
+                                                                valid from this time of the day. Must be in 24h format with leading zeros. Hour/Minute separator: ":" Regex: `([0-1][0-9]\|2[1-3]):[0-5][0-9]`
+|end_time |<<types.asciidoc#types_string_type,string>>(5) |? |End time of day in local time, the time zone is defined in the `time_zone` field of the
+                                                              <<mod_locations.asciidoc#mod_locations_location_object,Location>>, for example 19:45,
+                                                              valid until this time of the day. Same syntax as `start_time`.
+|start_date |<<types.asciidoc#types_string_type,string>>(10) |? |Start date in local time, the time zone is defined in the `time_zone` field of the
+                                                                 <<mod_locations.asciidoc#mod_locations_location_object,Location>>, for example: 2015-12-24,
+                                                                 valid from this day. Regex: `([12][0-9]{3})-(0[1-9]\|1[0-2])-(0[1-9]\|[12][0-9]\|3[01])`
+|end_date |<<types.asciidoc#types_string_type,string>>(10) |? |End date in local time, the time zone is defined in the `time_zone` field of the
+                                                               <<mod_locations.asciidoc#mod_locations_location_object,Location>>, for example: 2015-12-27,
+                                                               valid until this day (exclusive). Same syntax as `start_date`.
+|min_kwh |<<types.asciidoc#types_number_type,number>> |? |Minimum consumed energy in kWh, for example 20, valid from this amount of energy being used.
+|max_kwh |<<types.asciidoc#types_number_type,number>> |? |Maximum consumed energy in kWh, for example 50, valid until this amount of energy being used.
+|min_current |<<types.asciidoc#types_number_type,number>> |? |Sum of the minimum current in A over all phases, for example 5.
+      When the EV is charging with more than the defined amount of current, this TariffElement is/becomes active.
+      If the charging current is or becomes lower, this TariffElement is not or no longer valid and becomes inactive.
+      This describes NOT the minimum current over the entire Charging Session.
+      This restriction can make a TariffElement become active when the charging current is above the defined value,
+      but the TariffElement MUST no longer be active when the charging current drops below the defined value.
+|max_current |<<types.asciidoc#types_number_type,number>> |? |Sum of the maximum current in A over all phases, for example 20.
+      When the EV is charging with less than the defined amount of current, this TariffElement becomes/is active.
+      If the charging current is or becomes higher, this TariffElement is not or no longer valid and becomes inactive.
+      This describes NOT the maximum current over the entire Charging Session.
+      This restriction can make a TariffElement become active when the charging current is below this value,
+      but the TariffElement MUST no longer be active when the charging current raises above the defined value.
+|min_power |<<types.asciidoc#types_number_type,number>> |? |Minimum power in kW, for example 5.
+      When the EV is charging with more than the defined amount of power, this TariffElement is/becomes active.
+      If the charging power is or becomes lower, this TariffElement is not or no longer valid and becomes inactive.
+      This describes NOT the minimum power over the entire Charging Session.
+      This restriction can make a TariffElement become active when the charging power is above this value,
+      but the TariffElement MUST no longer be active when the charging power drops below the defined value.
+|max_power |<<types.asciidoc#types_number_type,number>> |? |Maximum power in kW, for example 20.
+      When the EV is charging with less than the defined amount of power, this TariffElement becomes/is active.
+      If the charging power is or becomes higher, this TariffElement is not or no longer valid and becomes inactive.
+      This describes NOT the maximum power over the entire Charging Session.
+      This restriction can make a TariffElement become active when the charging power is below this value,
+      but the TariffElement MUST no longer be active when the charging power raises above the defined value.
+|min_duration |int |? |Minimum duration in seconds the Charging Session MUST last (inclusive).
+      When the duration of a Charging Session is longer than the defined value, this TariffElement is or becomes active.
+      Before that moment, this TariffElement is not yet active.
+|max_duration |int |? |Maximum duration in seconds the Charging Session MUST last (exclusive).
+      When the duration of a Charging Session is shorter than the defined value, this TariffElement is or becomes active.
+      After that moment, this TariffElement is no longer active.
+|day_of_week |<<mod_tariffs_dayofweek_enum,DayOfWeek>> |* |Which day(s) of the week this TariffElement is active.
+|reservation |<<mod_tariffs_reservation_restriction_type,ReservationRestrictionType>> |? |When this field is present, the TariffElement describes reservation costs.
+A reservation starts when the reservation is made, and ends when the drivers starts charging on the reserved EVSE/Location, or when the reservation expires.
+A reservation can only have: <<mod_tariffs_tariffdimensiontype_enum,FLAT>> and <<mod_tariffs_tariffdimensiontype_enum,TIME>> TariffDimensions, where `TIME` is for the duration of the reservation.
+|===
+
+
+===== Example: Tariff with max_power Tariff Restrictions
+
+Example Tariff to explain the `max_power` Tariff Restriction:
+
+- Charging fee of 1.00 euro per kWh (excl. VAT) when charging with a power of less than 16 kW.
+- Charging fee of 1.50 euro per kWh (excl. VAT) when charging with a power between 16 and 32 kW.
+- Charging fee of 2.00 euro per kWh (excl. VAT) when charging with a power above 32 kW (implemented as fallback tariff without Restriction).
+
+For a charging session where the EV charges the first kWh with a power of 6 kW,
+increases the power to 48 kW for the next 40 kWh and reduces it again to 4 kW after that for another 0.5 kWh
+(probably due to physical limitations, i.e. temperature of the battery),
+this tariff will result in costs of 20.30 euro (excl. VAT). The costs are composed of the following components:
+
+- 1 kWh at 6 kW: 0.20 euro
+- 40 kWh at 48 kW: 20.00 euro
+- 0.5 kWh at 4 kW: 0.10 euro
+
+[source,json]
+----
+include::examples/tariffrestriction_example_max_power.json[]
+----
+
+
+===== Example: Tariff with max_duration Tariff Restrictions
+
+A supermarket wants to allow their customer to charge for free.
+As most customers will be out of the store in 20 minutes, they allow free charging for 30 minutes.
+If a customer charges longer than that, they will charge them the normal price per kWh.
+But as they want to discourage long usage of their Charge Points, charging becomes much more expensive after 1 hour:
+
+- First 30 minutes of charging is free.
+- Charging fee of 0.25 euro per kWh (excl. VAT) after 30 minutes.
+- Charging fee of 0.40 euro per kWh (excl. VAT) after 60 minutes.
+
+For a charging session with a duration of 40 minutes where 5 kWh are charged during the first 30 minutes
+and another 1.2 kWh in the remaining 10 minutes of the session,
+this tariff will result in costs of 0.30 euro (excl. VAT). The costs are composed of the following components:
+
+- 5 kWh for free: 0.00 euro
+- 1.2 kWh at 0.25/kWh: 0.30 euro
+
+[source,json]
+----
+include::examples/tariffrestriction_example_max_duration.json[]
+----
+
+
+[[mod_tariffs_tariff_type]]
+==== TariffType _enum_
+
+[cols="3,10",options="header"]
+|===
+|Value |Description
+
+|AD_HOC_PAYMENT |Used to describe that a Tariff is valid when ad-hoc payment is used at the Charge Point (for example: Debit or Credit card payment terminal).
+|PROFILE_CHEAP |Used to describe that a Tariff is valid when <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,Charging Preference>>: <<mod_sessions.asciidoc#mod_sessions_profile_type_enum,CHEAP>> is set for the session.
+|PROFILE_FAST |Used to describe that a Tariff is valid when <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,Charging Preference>>: <<mod_sessions.asciidoc#mod_sessions_profile_type_enum,FAST>> is set for the session.
+|PROFILE_GREEN |Used to describe that a Tariff is valid when <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,Charging Preference>>: <<mod_sessions.asciidoc#mod_sessions_profile_type_enum,GREEN>> is set for the session.
+|REGULAR |Used to describe that a Tariff is valid when using an RFID, without any Charging Preference, or when <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,Charging Preference>>: <<mod_sessions.asciidoc#mod_sessions_profile_type_enum,REGULAR>> is set for the session.
+|===

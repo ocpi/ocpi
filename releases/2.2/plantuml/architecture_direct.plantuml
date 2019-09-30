@@ -1,0 +1,22 @@
+@startuml
+
+skinparam agent {
+	roundCorner 8
+}
+
+skinparam rectangle {
+	roundCorner 8
+}
+
+left to right direction
+
+rectangle PLATFORM as eMSPP {
+  agent eMSP
+}
+
+rectangle PLATFORM as CPOP {
+  agent CPO
+}
+eMSPP -- CPOP: OCPI
+
+@enduml

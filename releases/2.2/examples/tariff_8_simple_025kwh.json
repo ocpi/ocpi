@@ -1,0 +1,15 @@
+{
+  "country_code": "DE",
+  "party_id": "ALL",
+  "id": "16",
+  "currency": "EUR",
+  "elements": [{
+    "price_components": [{
+      "type": "ENERGY",
+      "price": 0.25,
+      "vat": 10.0,
+      "step_size": 1
+    }]
+  }],
+  "last_updated": "2018-12-17T11:16:55Z"
+}
