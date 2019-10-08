@@ -1118,7 +1118,7 @@ Reflects the general type of the charge point's location. May be used for user i
 
 Defines set of values that identify a token to which a Location might be published
 
-At least on of the following fields SHALL be set: `uid`, `visual_numer` or `group_id`
+At least on of the following fields SHALL be set: `uid`, `visual_number` or `group_id`
 
 When the field: `uid` is set, the field: `type` SHALL also be set.
 
