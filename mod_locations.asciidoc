@@ -556,7 +556,7 @@ include::examples/location_example_uc3_destination_charger_not_published.json[]
 [[mod_locations_example_uc4]]
 ===== Example charging location with limited visibility
 
-This is an example of a charging location that only a limit group can see (and use) via an App or website.
+This is an example of a charging location that only a limited group can see (and use) via an App or website.
 
 Typical examples where this is useful:
 
