@@ -70,7 +70,7 @@ When mapping OCPP Charge Points to OCPI, there are 2 options:
 - One Location per Charge Point at the same location.
 
 OCPI prefers the first method. An EV driver does not care if a Location consists of one Charge Point with a very large amount of EVSEs,
-or a large amount of Charge Points with only one EVSE. The EV driver wants to known how many EVSEs are available.
+or a large amount of Charge Points with only one EVSE. The EV driver wants to know how many EVSEs are available.
 Grouping Charge Points in the same location into one OCPI Location will show better on a map that shows Charging Locations.
 
 NOTE: The definition, an EVSE can only charge one EV at a time.
@@ -556,7 +556,7 @@ include::examples/location_example_uc3_destination_charger_not_published.json[]
 [[mod_locations_example_uc4]]
 ===== Example charging location with limited visibility
 
-This is an example of a charging location that only a limit group can see (and use) via an App or website.
+This is an example of a charging location that only a limited group can see (and use) via an App or website.
 
 Typical examples where this is useful:
 
