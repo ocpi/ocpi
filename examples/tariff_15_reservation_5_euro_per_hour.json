@@ -6,7 +6,7 @@
   "elements": [{
     "price_components": [{
       "type": "TIME",
-      "price": 6.00,
+      "price": 5.00,
       "vat": 20.0,
       "step_size": 60
     }],
