@@ -20,7 +20,7 @@
       "step_size": 900
     }],
     "restrictions": {
-      "max_power": 32.00
+      "max_current": 32.00
     }
   }, {
     "price_components": [{
@@ -30,7 +30,7 @@
       "step_size": 600
     }],
     "restrictions": {
-      "min_power": 32.00,
+      "min_current": 32.00,
       "day_of_week": ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY"]
     }
   }, {
@@ -41,7 +41,7 @@
       "step_size": 600
     }],
     "restrictions": {
-      "min_power": 32.00,
+      "min_current": 32.00,
       "day_of_week": ["SATURDAY", "SUNDAY"]
     }
   }, {
