@@ -281,11 +281,11 @@ that ActiveChargingProfile is send to the eMSP by call the <<mod_charging_profil
 on the URL provided by the eMSP in the <<mod_charging_profiles_cpo_put_method,PUT>> request of the eMSP,
 this call will contain a <<mod_charging_profiles_active_charging_profiles_result_object,ActiveChargingProfileResult>> Object.
 
-.Example of a Get ActiveClearChargingProfile.
-image::images/sd_charging_profile_get.svg[Example of a Get ActiveClearChargingProfile]
+.Example of a GET ActiveChargingProfile.
+image::images/sd_charging_profile_get.svg[Example of a GET ActiveChargingProfile]
 
 
-==== Example of a GetActiveChargingProfile send by the SCSP via eMSP
+==== Example of a GET ActiveChargingProfile send by the SCSP via eMSP
 
 When the SCSP wants to known the current planned charging profile for a session,
 the SCSP can ask the the eMSP to ask the CPO for the ActiveChargingProfile by calling the <<mod_charging_profiles_cpo_get_method,GET>> method on the eMSPs Charging Profile Receiver interface.
@@ -298,13 +298,13 @@ The eMSP forwards this response to the SCSP.
 The CPO sends a message to the Charge Point to retrieve the current active charging profile.
 When the CPO receives a response from the Charge Point,
 that ActiveChargingProfile is send to the eMSP by call the <<mod_charging_profiles_msp_post_method,POST>> method,
-on the URL provided by the eMSP in the <<mod_charging_profiles_cpo_put_method,PUT>> request of the eMSP,
+on the URL provided by the eMSP in the <<mod_charging_profiles_cpo_get_method,GET>> request of the eMSP,
 this call will contain a <<mod_charging_profiles_active_charging_profiles_result_object,ActiveChargingProfileResult>> Object.
-The eMSP forwards this result to the the URL provided by the SCSP in the <<mod_charging_profiles_cpo_put_method,PUT>> request of the SCSP,
+The eMSP forwards this result to the the URL provided by the SCSP in the <<mod_charging_profiles_cpo_get_method,GET>> request of the SCSP,
 this call will contain a <<mod_charging_profiles_active_charging_profiles_result_object,ActiveChargingProfileResult>> Object.
 
-.Example of a Get ActiveClearChargingProfile via the MSP.
-image::images/sd_charging_profile_get_via_msp.svg[Example of a Get ActiveClearChargingProfile via the MSP]
+.Example of a GET ActiveChargingProfile via the MSP.
+image::images/sd_charging_profile_get_via_msp.svg[Example of a GET ActiveChargingProfile via the MSP]
 
 
 ====  Example of the Receiver (typically the CPO) sending an updated ActiveChargingProfile
@@ -313,21 +313,21 @@ When the CPO knows the ActiveChargingProfile of a Charge Point has changed,
 the Receiver (typically the CPO) sends this update <<mod_charging_profiles_active_charging_profile_class,ActiveChargingProfile>> to the Sender (typically the eMSP or SCSP),
 by calling the <<mod_charging_profiles_msp_put_method,PUT>> method on the Sender interface.
 
-.Example of an ActiveClearChargingProfile being send by the CPO
-image::images/sd_charging_profile_updated.svg[Example of an ActiveClearChargingProfile being send by the CPO]
+.Example of an ActiveChargingProfile being send by the CPO
+image::images/sd_charging_profile_updated.svg[Example of an ActiveChargingProfile being send by the CPO]
 
 
 ====  Example of the Receiver (typically the CPO) sending an updated ActiveChargingProfile to the SCSP via the eMSP
 
 When the CPO knows the ActiveChargingProfile of a Charge Point has changed,
-the Receiver (typically the CPO) sends this update <<mod_charging_profiles_active_charging_profile_class,ActiveChargingProfile>> to the Sender (typically the eMSP or SCSP),
+the Receiver (typically the CPO) sends this update <<mod_charging_profiles_active_charging_profile_class,ActiveChargingProfile>> to the Sender (SCSP),
 by calling the <<mod_charging_profiles_msp_put_method,PUT>> method on the eMSPs Sender interface.
 
 The eMSP forwards this <<mod_charging_profiles_active_charging_profile_class,ActiveChargingProfile>> to the SCSP,
 by calling the <<mod_charging_profiles_msp_put_method,PUT>> method on the SCSPs Sender interface.
 
-.Example of an ActiveClearChargingProfile being sent by the CPO via the eMSP
-image::images/sd_charging_profile_updated_via_msp.svg[Example of an ActiveClearChargingProfile being sent by the CPO to the SCSP via the eMSP]
+.Example of an ActiveChargingProfile being sent by the CPO via the eMSP
+image::images/sd_charging_profile_updated_via_msp.svg[Example of an ActiveChargingProfile being sent by the CPO to the SCSP via the eMSP]
 
 
 [[mod_charging_profiles_interfaces_and_endpoints]]
@@ -648,7 +648,7 @@ For the eMSP to be able to reject to timeouts, it is important for the eMSP to k
 ==== _ActiveChargingProfileResult_ Object
 
 The ActiveChargingProfileResult object is send by the CPO to the given `response_url` in a POST request.
-It contains the result of the GET (GetActiveChargingProfile) request send by the eMSP.
+It contains the result of the GET (ActiveChargingProfile) request send by the eMSP.
 
 [cols="2,4,1,10",options="header"]
 |===
