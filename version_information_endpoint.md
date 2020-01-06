@@ -23,9 +23,9 @@ Both the CPO and the eMSP must have this endpoint.
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
-| Property  | Type                       | Card.  | Description                               |
-|-----------|----------------------------|--------|-------------------------------------------|
-| versions  | [Version](#version-class)  | +      | A list of supported OCPI versions.        |
+| Type                       | Card.  | Description                               |
+|----------------------------|--------|-------------------------------------------|
+| [Version](#version-class)  | +      | A list of supported OCPI versions.        |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 

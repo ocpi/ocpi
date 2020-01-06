@@ -40,11 +40,11 @@ Both, CPOs and eMSPs MUST implement such a version endpoint.
 [[version_information_get_versions_endpoint_data]]
 ==== Data
 
-[cols="3,2,1,10",options="header"]
+[cols="2,1,10",options="header"]
 |===
-|Property |Type |Card. |Description 
+|Type |Card. |Description 
 
-|versions |<<version_information_endpoint_version_class,Version>> |+ |A list of supported OCPI versions. 
+|<<version_information_endpoint_version_class,Version>> |+ |A list of supported OCPI versions. 
 |===
 
 [[version_information_endpoint_version_class]]
