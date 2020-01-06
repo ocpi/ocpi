@@ -42,7 +42,7 @@ Both, CPOs and eMSPs MUST implement such a version endpoint.
 
 [cols="2,1,10",options="header"]
 |===
-|Type |Card. |Description
+|Type |Card. |Description 
 
 |<<version_information_endpoint_version_class,Version>> |+ |A list of supported OCPI versions. 
 |===
