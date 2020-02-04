@@ -1,0 +1,27 @@
+[[introduction_ocpi]]
+== OCPI {ocpi_version} Documentation Overview
+
+Documentation version: {document_version}
+
+This is the OCPI {ocpi_version} documentation, it consists of the following documents:
+
+*Introduction* +
+This document introduces OCPI, the terms and abbreviations,
+it has sections on architecture, topologies, security, privacy and data retention.
+
+*Use Cases* +
+This document contains all the OCPI {ocpi_version} use cases.
+These use cases explain how OCPI can/shall be used.
+
+*Transport & Modules* +
+This document contains al the technical details needed to implement OCPI.
+It contains a description on how data is transported, request/response formats
+and all the different Modules supported by OCPI.
+It contains all the interfaces, objects, class and datatypes definitions.
+
+*Swagger files* +
+The Swagger files can be used by implementers to generate OCPI boiler plating.
+This safe a lot of typing and development work.
+
+*Test Cases* +
+This document describes all the test cases defined for OCPI.

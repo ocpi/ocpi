@@ -1,0 +1,14 @@
+@startuml
+skinparam dpi 100
+hide footbox
+
+participant "CPO" as CPO1
+participant "MSP" as MSP1
+
+CPO1 -> MSP1: Request\nX-Request-ID: 774321\nX-Correlation-ID: 123456
+activate CPO1
+activate MSP1
+MSP1 -> CPO1: Request\nX-Request-ID: 774321\nX-Correlation-ID: 123456
+deactivate MSP1
+deactivate CPO1
+@enduml

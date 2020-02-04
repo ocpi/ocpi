@@ -1,0 +1,41 @@
+:numbered:
+[[changelog_changelog]]
+== Changelog
+
+[[changelog_changes_between_ocpi_2.2_and_3.0]]
+=== Changes between OCPI 2.2 and 3.0
+
+Lots of typos fixed and textual improvements.
+
+The following changes to messages/objects etc.
+
+[cols="6,2,2,12",options="header"]
+|===
+|Context (Module / Object)
+|Expected Impact: +
+eMSP / CPO
+|Expected Effort: +
+eMSP / CPO
+|Description
+
+|CDRs / +
+CDR Object
+|Medium / +
+Major
+|Average / +
+Large
+|- Added `county_code` and `party_id` fields, making it easier to determine the owner of a CDR. +
+TODO
+
+|Commands / +
+AuthMethod enum
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Added `COMMAND` value, to enable reporting authorization via Command like: StartSession or ReserveNow. +
+TODO
+
+|===
+
+

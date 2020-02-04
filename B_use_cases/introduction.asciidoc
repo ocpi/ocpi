@@ -1,0 +1,54 @@
+[[introduction_ocpi]]
+== OCPI
+
+=== OCPI {ocpi_version} Use Cases
+
+This document contains the OCPI {ocpi_version} use cases.
+
+TODO
+
+
+
+
+
+
+[[use_case_template]]
+=== Use Case Template
+
+This section contains the proposed Use Case template for OCPI 3.0.
+The number and name of the use case are not part of the table, but are in the header before the use case table.
+
+[[uc_example_use_case]]
+:UC_NR: 01
+:UC_TITLE: Example Use Case
+=== UC: {UC_NR} - {UC_TITLE}
+
+[cols="1,4,18",options="header"]
+|=======================================================================
+|No. | Type             | Description
+|*1* | *Objective(s)*   | *1.* Objective 1 (optionally numbered) +
+                          *2.* Objective 2 (but might also just contain a text.)+
+                          *3.* Objective 3
+|*2* | *Description*    | This contains a short description of the use case in words.
+|*3* | *Actors*         | the actors involved in this use case: CPO, eMSP, Hub etc.
+|*4* | *Flow*           | *1.* Step 1 +
+                          *2.* Step 2 +
+                          *3.* Step 3 +
+                          *4.* Step 4 +
+                          *5.* Step 5
+|*5* | *Preconditions*  | Contains the pre-condition of the use case.
+|*6* | *Postconditions* | Contains the post-condition of the use case.
+|*7* | *Error handling* | Contains the error handling if applicable, error handling is not part of the requirements
+|*8* | *Remark(s)*      | space for adding remarks to a use case.
+|=======================================================================
+
+.Sequence Diagram: {UC_TITLE}
+image::images/command_unlock_unknow_location.svg[{UC_TITLE},scaledwidth="100%",align="center"]
+
+.UC: {UC_NR} Requirements
+[width="100%", cols="1,5,6",options="header"]
+|=======================================================================
+| ID           | Precondition  | Requirement
+| R.{UC_NR}.01 |Pre condition of first requirement, if applicable | The first requirement itself.
+| R.{UC_NR}.02 |Pre condition of second requirement, if applicable | The second requirement itself.
+|=======================================================================

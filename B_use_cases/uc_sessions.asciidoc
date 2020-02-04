@@ -1,0 +1,41 @@
+[[uc_session]]
+== Session
+
+This section will contains the Session Use Cases
+
+TODO
+
+[[uc_session_sending_new_session]]
+:UC_NR: 01
+:UC_TITLE: As a CPO I want to send the information of a new session to the eMSP
+=== UC: {UC_NR} - {UC_TITLE}
+
+
+
+TODO
+
+[[uc_session_sending_session_updates]]
+:UC_NR: 02
+:UC_TITLE: As a CPO I want to send updated information of an ongoing session to the eMSP
+=== UC: {UC_NR} - {UC_TITLE}
+
+TODO
+
+
+
+[[uc_session_sending_signed_data]]
+:UC_NR: 03
+:UC_TITLE: As a CPO I want to send the signed data of a specific ended session to the eMSP
+=== UC: {UC_NR} - {UC_TITLE}
+
+TODO
+
+
+
+[[uc_session_sending_url_to_signed_data]]
+:UC_NR: 04
+:UC_TITLE: As a CPO I want to send a URL that points to signed data of a specific ended session to the eMSP.
+=== UC: {UC_NR} - {UC_TITLE}
+
+TODO
+

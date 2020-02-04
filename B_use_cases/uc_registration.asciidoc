@@ -1,0 +1,102 @@
+[[uc_registration]]
+== Registration
+
+This section will contains the Registration Use Cases.
+
+TODO
+
+[[uc_registration]]
+:UC_NR: 01
+:UC_TITLE: First Time Registration between systems
+=== UC: {UC_NR} - {UC_TITLE}
+
+[cols="1,4,18",options="header"]
+|=======================================================================
+|No. | Type             | Description
+|*1* | *Objective(s)*   | *1.* Setup a secure connection for the first time between two platforms that have implemented OCPI.
+                          *2.* Do a handshake the agree on which OCPI version to use.
+                          *3.* Known which modules the other party has implemented.
+                          *4.* Learn for which parties/roles the other Platform is providing services.
+|*2* | *Description*    | To setup a secure connection between two OCPI platforms, this starts with the exchange of an initial: `CREDENTIALS_TOKEN_A`.
+                          `CREDENTIALS_TOKEN_A` is a one-time use credentials token. The platforms use this token fir the first connection, to exchange new credentials tokens.
+                          During the credentials exchange, the Platforms also exchange information about where the `Version information module` can be found,
+                          and for which parties and roles the platforms are providing services.
+|*3* | *Actors*         | Any
+|*4* | *Flow*           | *1.* Step 1 +
+                          *2.* Step 2 +
+                          *3.* Step 3 +
+                          *4.* Step 4 +
+                          *5.* Step 5
+|*5* | *Preconditions*  | TODO
+|*6* | *Postconditions* | `CREDENTIALS_TOKEN_B` is known to Platform 1. +
+                          `CREDENTIALS_TOKEN_C` is known to Platform 2. +
+                          Platforms have exchanged which version of OCPI they will be using. +
+                          Platforms known which modules the other party has implemented, and where (URL) to find them. +
+|*7* | *Error handling* | TODO
+|*8* | *Remark(s)*      | Due to its symmetric nature, the registration use case can be started by any platform, platforms should agree before hand which platform starts the handshake.
+|=======================================================================
+
+.Sequence Diagram: {UC_TITLE}
+image::images/registration-sequence.svg[{UC_TITLE},scaledwidth="100%",align="center"]
+
+.UC: {UC_NR} Requirements
+[width="100%", cols="1,5,6",options="header"]
+|=======================================================================
+| ID           | Precondition  | Requirement
+| R.{UC_NR}.01 | |Platform 2 SHALL every time generate a unique `CREDENTIALS_TOKEN_A`, using a cryptographic random number generator,
+| R.{UC_NR}.01 | |`CREDENTIALS_TOKEN_A` SHALL NOT be exchanged via OCPI, it SHOULD be exchanged in a secure way, for example in an encrypted file send via e-mail, without the password in the same e-mail.
+| R.{UC_NR}.02 |When a Platform receives an incoming connection with a `CREDENTIALS_TOKEN_A` | That connection SHALL only be allowed to connect to the `Version information`, ` `Version details` and `Credentials` module.
+| R.{UC_NR}.03 |After having send `CREDENTIALS_TOKEN_B` to a platform | `CREDENTIALS_TOKEN_A` SHALL never be allowed to connect.
+| R.{UC_NR}.04 | | TODO add more requirements
+|=======================================================================
+
+TODO Change this text to use case or requirements:
+To register a CPO in an eMSP platform (or vice versa), the CPO must create a unique credentials token that can be used to authenticate the eMSP.
+This credentials token along with the versions endpoint SHOULD be sent to the eMSP in a secure way that is outside the scope of this protocol.
+
+The eMSP starts the registration process, retrieves the version information and details (using `CREDENTIALS_TOKEN_A` in the HTTP Authorization header).
+The eMSP generates `CREDENTIALS_TOKEN_B`, sends it to the CPO in a POST request to the `credentials` module of the CPO.
+The CPO stores `CREDENTIALS_TOKEN_B` and uses it for any requests to the eMSP, including the version information and details.
+
+
+
+
+
+=== Renewing a registration
+
+The credentials (or parts thereof, such as the credentials token) can be updated by sending the new credentials via
+a PUT request to the credentials endpoint of the current version, similar to the update procedure described above.
+
+
+=== Updating to newer version of OCPI.
+
+At some point, both parties will have implemented a newer OCPI version/new modules. To start using the newer version, one party has to send a PUT request to the credentials endpoint of the other party.
+
+This can be done by following the update procedure for the same version. By sending a PUT request to the credentials endpoint of this version, the other party will fetch and store the corresponding set of endpoints.
+
+.The OCPI update process
+image::images/update-sequence.svg[The OCPI update process]
+
+
+
+
+[[credentials_errors_during_registration]]
+==== Errors during registration
+
+When the server connects back to the client during the credentials registration, it might encounter problems.
+When this happens, the server should add the status code <<status_codes.asciidoc#status_codes_3xxx_server_errors,3001>>
+in the response to the POST from the client.
+
+[[credentials_required_endpoints_not_available]]
+==== Required endpoints not available
+
+When two parties connect, it might happen that one of the parties expects a certain endpoint to be available at the other party.
+
+For example: a CPO could only want to connect when the CDRs endpoint is available in an eMSP system.
+
+In case the client is starting the credentials exchange process and cannot find the endpoints it expects,
+it is expected NOT to send the POST request with credentials to the server.
+Log a message/notify the administrator to contact the administrator of the server system.
+
+In case the server receiving the request from a client cannot find the endpoints it expects,
+then it is expected to respond to the request with the status code <<status_codes.asciidoc#status_codes_3xxx_server_errors,3003>>.

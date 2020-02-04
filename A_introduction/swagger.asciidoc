@@ -1,0 +1,6 @@
+[[swagger]]
+== Swagger
+
+This section will introduce readers to Swagger, what it is, and what the advantages are when implementing OCPI 3.0.
+
+TODO
