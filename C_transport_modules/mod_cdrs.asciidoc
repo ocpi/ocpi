@@ -403,6 +403,7 @@ The _CdrLocation_ class contains only the relevant information from the <<mod_lo
 |coordinates |<<mod_locations_geolocation_class,GeoLocation>> |1 |Coordinates of the location.
 |evse_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Uniquely identifies the EVSE within the CPO's platform (and suboperator platforms). For example a database unique ID or the actual _EVSE ID_. This field can never be changed, modified or renamed. This is the _technical_ identification of the EVSE, not to be used as _human readable_ identification, use the field: `evse_id` for that.
 |evse_id |<<types.asciidoc#types_cistring_type,CiString>>(48) |1 |Compliant with the following specification for EVSE ID from "eMI3 standard version V1.0" (http://emi3group.com/documents-links/[http://emi3group.com/documents-links/]) "Part 2: business objects.".
+|evse_physical_reference |<<types.asciidoc#types_string_type,string>>(16) |? |A number/string printed on the outside of the EVSE for visual identification.
 |connector_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Identifier of the connector within the EVSE.
 |connector_standard |<<mod_locations.asciidoc#mod_locations_connectortype_enum,ConnectorType>> |1 |The standard of the installed connector.
 |connector_format |<<mod_locations.asciidoc#mod_locations_connectorformat_enum,ConnectorFormat>> |1 |The format (socket/cable) of the installed connector.
