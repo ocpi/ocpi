@@ -19,6 +19,15 @@ eMSP / CPO
 |Description
 
 |CDRs / +
+CdrLocation
+|Minor / +
+Minor
+|Minor / +
+Minor
+|- Added optional `evse_physical_reference` field for easier matching of CDRs to driver's recollection of charging activity. +
+TODO
+
+|CDRs / +
 CDR Object
 |Medium / +
 Major
