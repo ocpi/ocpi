@@ -259,8 +259,8 @@ The eMSP forwards this response to the SCSP.
 The CPO send the clear requests to the Charge Point.
 When the CPO receives a response from the Charge Point,
 that result is send to the eMSP by call the <<mod_charging_profiles_msp_post_method,POST>> method,
-on the URL provided by the eMSP in the <<mod_charging_profiles_cpo_put_method,PUT>> request of the eMSP.
-The eMSP forwards this result to the the URL provided by the SCSP in the <<mod_charging_profiles_cpo_put_method,PUT>> request of the SCSP,
+on the URL provided by the eMSP in the <<mod_charging_profiles_cpo_get_method,GET>> request of the eMSP.
+The eMSP forwards this result to the the URL provided by the SCSP in the <<mod_charging_profiles_cpo_get_method,GET>> request of the SCSP,
 this call will contain a <<mod_charging_profiles_clear_profiles_result_object,ClearProfileResult>> Object.
 
 .Example of a ClearChargingProfile via the MSP.
