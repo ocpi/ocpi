@@ -504,7 +504,7 @@ Thus a `step_size = 300` means 300 seconds.
 
 | Property                | Type                                  | Card. | Description                                                                           |
 |-------------------------|---------------------------------------|-------|---------------------------------------------------------------------------------------|
-| start_time              | [string](types.md#15-string-type)(5)  | ?     | Start time of day, for example 13:30, valid from this time of the day. Must be in 24h format with leading zeros. Hour/Minute separator: ":" Regex: ([0-1][0-9]\|2[1-3]):[0-5][0-9] |
+| start_time              | [string](types.md#15-string-type)(5)  | ?     | Start time of day, for example 13:30, valid from this time of the day. Must be in 24h format with leading zeros. Hour/Minute separator: ":" Regex: ([0-1][0-9]\|2[0-3]):[0-5][0-9] |
 | end_time                | [string](types.md#15-string-type)(5)  | ?     | End time of day, for example 19:45, valid until this time of the day. Same syntax as start_time |
 | start_date              | [string](types.md#15-string-type)(10) | ?     | Start date, for example: 2015-12-24, valid from this day                              |
 | end_date                | [string](types.md#15-string-type)(10) | ?     | End date, for example: 2015-12-27, valid until this day (excluding this day)          |
