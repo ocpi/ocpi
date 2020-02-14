@@ -365,7 +365,7 @@ include::examples/cdr_example.json[]
 This enumeration contains allowed values for CdrDimensions, which are used to define dimensions of ChargingPeriods in both `CDRs` and `Sessions`.
 Some of these values are not useful for `CDRs`, and SHALL therefor only be used in `Sessions`, these are marked in the column: Session Only
 
-[cols="4,2,8",options="header"]
+[cols="7,3,24",options="header"]
 |===
 |Value |Session +
         Only| Description
