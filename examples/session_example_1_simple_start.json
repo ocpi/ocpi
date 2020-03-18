@@ -7,7 +7,7 @@
     "cdr_token": {
         "uid": "123abc",
         "type": "RFID",
-        "contract_id": "NL-TST-123-1"
+        "contract_id": "NL-TST-C12345678-S"
     },
     "auth_method": "WHITELIST",
     "location_id": "LOC1",
