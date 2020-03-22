@@ -5,8 +5,11 @@
   "start_date_time": "2015-06-29T22:39:09Z",
   "end_date_time": "2015-06-29T23:50:16Z",
   "kwh": 41.00,
-  "token_uid": "012345678",
-  "token_type": "RFID",
+   "cdr_token": {
+        "uid": "123abc",
+        "type": "RFID",
+        "contract_id": "NL-TST-C12345678-S"
+    },
   "auth_method": "WHITELIST",
   "location_id": "LOC1",
   "evse_uid": "3256",
