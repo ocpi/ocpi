@@ -670,7 +670,7 @@ A Connector always belongs to an <<mod_locations_evse_object,EVSE>> object.
 |max_voltage |int |1 |Maximum voltage of the connector (line to neutral for AC_3_PHASE), in volt [V]. For example: DC Chargers might vary the voltage during charging when battery almost full.
 |max_amperage |int |1 |Maximum amperage of the connector, in ampere [A].
 |max_electric_power |int |? |Maximum electric power that can be delivered by this connector, in watt [W]. When the maximum electric power is lower than the calculated value from `voltage` and `amperage`, this value should be set. +
-For example: A DC Charge Point which can delivers up to 920V and up to 400A can be limited to a maximum of 150kW. Depending on the car, it may supply max voltage or current, but not both at the same time. +
+For example: A DC Charge Point which can delivers up to 920V and up to 400A can be limited to a maximum of 150kW (max_electric_power = 150000). Depending on the car, it may supply max voltage or current, but not both at the same time. +
 For AC Charge Points, the amount of phases used can also have influence on the maximum power.
 |tariff_ids |<<types.asciidoc#types_cistring_type,CiString>>(36) |* |Identifiers of the currently valid charging tariffs.
                     Multiple tariffs are possible, but only one of each <<mod_tariffs.asciidoc#mod_tariffs_tariff_object,Tariff.type>> can be active at the same time.
