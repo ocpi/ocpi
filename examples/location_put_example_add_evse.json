@@ -8,7 +8,7 @@
       "id": "1",
       "standard": "IEC_62196_T2",
       "format": "SOCKET",
-      "tariff_id": "14"
+      "tariff_ids": ["14"]
     }
   ],
   "floor": -1,

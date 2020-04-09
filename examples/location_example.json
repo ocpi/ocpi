@@ -57,7 +57,7 @@
       "power_type": "AC_3_PHASE",
       "voltage": 220,
       "amperage": 16,
-      "tariff_id": "12",
+      "tariff_ids": ["12"],
       "last_updated": "2015-06-29T20:39:09Z"
     }],
     "physical_reference": "2",
