@@ -29,7 +29,7 @@ Large
 - Renamed `stop_date_time` field to `end_date_time`, to bring the naming inline with the rest of OCPI. +
 - Changed `total_cost` field from type: `number` to `Price`, this provides the eMSP with the total cost including VAT. +
 - Replaced `auth_id` field with `CdrToken`. `auth_id` alone could not be used to uniquely identify a <<mod_tokens.asciidoc#mod_tokens_token_object,Token>>. By copying the information for the dynamic Token object, the CDR will always reflect the 'true' status of Token at the start of the charging session. +
-- Replaced `location` field with `cdr_location`, this also changed type, from `Location` to `CdrLocation`. Reusing the `Location` object always caused a lot of confusing, things were not clear. By creating a deticated object `CdrLocation` with only the relevant fields, things should be much clearer. +
+- Replaced `location` field with `cdr_location`, this also changed type, from `Location` to `CdrLocation`. Reusing the `Location` object always caused a lot of confusing, things were not clear. By creating a dedicated object `CdrLocation` with only the relevant fields, things should be much clearer. +
 - Added `credit` and `credit_reference_id` fields, to allow for Credit CDRs to be send. +
 - Added `total_fixed_cost`, `total_energy_cost`, `total_time_cost`, `total_parking_cost` and `total_reservation_cost` fields, to allow more cost details in the CDRs. +
 - Added `authorization_reference` field for binding an authorization to the resulting session. +
