@@ -30,6 +30,8 @@
   },
   "currency": "EUR",
   "tariffs": [{
+    "country_code": "BE",
+    "party_id": "BEC",
     "id": "12",
     "currency": "EUR",
     "elements": [{
