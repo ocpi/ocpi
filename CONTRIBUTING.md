@@ -33,9 +33,8 @@ When fixing something in an existing version of OCPI, use the correct bug fix br
 1. Ensure you have branched off (or forked) from the correct branch (e.g. `release-2.2-bugfixes`), NEVER use `master`.
 2. Make your changes.
 3. Create a pull request to the correct branch.
-4. Ask at least two other developers for a review.
-5. You may merge the Pull Request in once you have the sign-off of two other developers, or if you 
-   do not have permission to do that, you may request the second reviewer to merge it for you.
+4. One of the core team members will review your pull request.
+5. When the core team member accept the pull request, he/she will merge the Pull Request.
 
 
 ## OCPI Specification release process
