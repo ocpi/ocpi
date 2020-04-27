@@ -12,7 +12,7 @@ you are required to send us the signed Contributor License Agreement (CLA) docum
 To get the CLA, ask for it by send an e-mail to: [ocpi@nklnederland.nl](MAILTO:ocpi@nklnederland.nl).
 
 If you have send us the signed CLA, create a feature branch, 
-branching of from the development branch: `develop`
+branching off from the development branch: `develop`
 
 Effort should be made to assure backward compatibility. If this is not possible, this should always be
 explicitly mentioned and provide upgrade path
@@ -25,16 +25,16 @@ New functionality/modules will take into account security and privacy.
 ## Fixing bugs/typos
 Anybody (also without a signed Contributor License Agreement (CLA)) is welcome to fix an editorial issue, typo, improve example etc. 
 Please use Pull Requests for this.
-When fixing something in an existing version of OCPI, use the correct bug fix branch, for example: `release-2.1.1-bugfixes`.
+When fixing something in an existing version of OCPI, use the correct bug fix branch, for example: `release-2.2-bugfixes`.
 
 
 ## Pull Request Process
 
-1. Ensure you have branched of from the correct branch, NEVER use `master`. 
-2. Create a pull request to the correct branch 
-3. Ask at least two other developers for a review.
-4. You may merge the Pull Request in once you have the sign-off of two other developers, or if you 
-   do not have permission to do that, you may request the second reviewer to merge it for you.
+1. Ensure you have branched off (or forked) from the correct branch (e.g. `release-2.2-bugfixes`), NEVER use `master`.
+2. Make your changes.
+3. Create a pull request to the correct branch.
+4. One of the core team members will review your pull request.
+5. When the core team member accept the pull request, he/she will merge the Pull Request.
 
 
 ## OCPI Specification release process

@@ -4,7 +4,7 @@
 |===
 |Version |Date |Author |Description
 
-|2.2 |30-09-06-2019 | Robert de Leeuw +
+|2.2 |30-09-2019 | Robert de Leeuw +
 _ihomer_ |Added support for Roaming Hubs +
         Adds support for Platforms with multiple/different roles, additional roles +
         Adds support for smart charging +
