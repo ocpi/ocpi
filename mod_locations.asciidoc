@@ -1043,9 +1043,9 @@ If not squared, thumbnails should have the same orientation as the original.
 |url |<<types.asciidoc#types_url_type,URL>> |1 |URL from where the image data can be fetched through a web browser. 
 |thumbnail |<<types.asciidoc#types_url_type,URL>> |? |URL from where a thumbnail of the image can be fetched through a webbrowser. 
 |category |<<mod_locations_imagecategory_enum,ImageCategory>> |1 |Describes what the image is used for. 
-|type |<<types.asciidoc#types_string_type,CiString>>(4) |1 |Image type like: gif, jpeg, png, svg
-|width |int(5) |? |Width of the full scale image 
-|height |int(5) |? |Height of the full scale image 
+|type |<<types.asciidoc#types_string_type,CiString>>(4) |1 |Image type like: gif, jpeg, png, svg.
+|width |int(5) |? |Width of the full scale image. 
+|height |int(5) |? |Height of the full scale image. 
 |===
 
 [[mod_locations_imagecategory_enum]]
