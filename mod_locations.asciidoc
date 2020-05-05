@@ -1116,20 +1116,20 @@ Reflects the general type of the charge point's location. May be used for user i
 [[mod_locations_publish_token_class]]
 ==== PublishTokenType _class_
 
-Defines set of values that identify a token to which a Location might be published
+Defines the set of values that identify a token to which a Location might be published.
 
-At least on of the following fields SHALL be set: `uid`, `visual_number` or `group_id`
+At least one of the following fields SHALL be set `uid`, `visual_number`, or `group_id`.
 
-When the field: `uid` is set, the field: `type` SHALL also be set.
+When `uid` is set, `type` SHALL also be set.
 
-When the field: `visual_number` is set, the field: `issuer` SHALL also be set.
+When `visual_number` is set, `issuer` SHALL also be set.
 
 [cols="3,2,1,10",options="header"]
 |===
 |Property |Type |Card. |Description
 
 |uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |Unique ID by which this Token can be identified.
-|type |<<mod_tokens_tokentype_enum,TokenType>> |? |Type of the token
+|type |<<mod_tokens_tokentype_enum,TokenType>> |? |Type of the token.
 |visual_number |<<types.asciidoc#types_string_type,string>>(64) |? |Visual readable number/identification as printed on the Token (RFID card).
 |issuer |<<types.asciidoc#types_string_type,string>>(64) |? |Issuing company, most of the times the name of the company printed on the token (RFID card), not necessarily the eMSP.
 |group_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |This ID groups a couple of tokens. This can be used to make two or more tokens work as one.
