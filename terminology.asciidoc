@@ -36,7 +36,7 @@ In the EV Charging landscape, different market roles can be identified.
 |eMSP  |e-Mobility Service Provider. Gives EV drivers access to charging services.
 |Hub   |Can connect one or more CPOs to one or more eMSPs.
 |NAP   |National Access Point. Provides a national database with all (public) charging locations. Information can be sent and retrieved from the NAP. This makes it different from a typical NSP.
-|NSP   |Navigation Service Provider. Similar to an eMSP. Provides EV drivers with location information of Charge Points. Usually only interested in Location information.
+|NSP   |Navigation Service Provider. Provides EV drivers with location information of Charge Points. Usually only interested in Location information.
 |Roaming Hub |See: Hub.
 |SCSP  |Smart Charging Service Provider. Provides Smart Charging service to other parties. Might use a lot of different inputs to calculate Smart Charging Profiles.
 |===
