@@ -138,7 +138,7 @@ Each object must contain all required fields. Fields that are not specified may 
 [[mod_sessions_cpo_put_method]]
 ===== *PUT* Method
 
-Set/update the drivers Charging Preferences for this charging session.
+Set/update the driver's Charging Preferences for this charging session.
 
 Endpoint structure definition:
 

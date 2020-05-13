@@ -11,16 +11,16 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 [cols="2s,10",options="header"]
 |===
 |Abbr. |Description
-|CDR   |Charge Detail Record
-|CPO   |Charging Point Operator
-|eMSP  |e-Mobility Service Provider
-|EV    |Electric Vehicle
+|CDR   |Charge Detail Record.
+|CPO   |Charging Point Operator.
+|eMSP  |e-Mobility Service Provider.
+|EV    |Electric Vehicle.
 |EVSE  |Electric Vehicle Supply Equipment. Is considered as an independently operated and managed part of a Charge Point that can deliver energy to one EV at a time.
-|JSON  |JavaScript Simple Object Notation
-|NAP   |National Access Point
-|NSP   |Navigation Service Provider
-|OCPP  |Open Charge Point Protocol
-|SCSP  |Smart Charging Service Provider
+|JSON  |JavaScript Simple Object Notation.
+|NAP   |National Access Point.
+|NSP   |Navigation Service Provider.
+|OCPP  |Open Charge Point Protocol.
+|SCSP  |Smart Charging Service Provider.
 |===
 
 
@@ -32,13 +32,13 @@ In the EV Charging landscape, different market roles can be identified.
 [cols="3s,9",options="header"]
 |===
 |Role  |Description
-|CPO   |Charging Point Operator: Operates a network of Charge Points.
-|eMSP  |e-Mobility Service Provider: gives EV drivers access to charging services.
+|CPO   |Charging Point Operator. Operates a network of Charge Points.
+|eMSP  |e-Mobility Service Provider. Gives EV drivers access to charging services.
 |Hub   |Can connect one or more CPOs to one or more eMSPs.
-|NAP   |National Access Point: Provides a national Database with all (public) Charging Locations, information can be sent and retrieved from the NAP (that makes it different from a typical NSP).
-|NSP   |Navigation Service Provider: Provides EV drivers with location information of Charge Points.
-|Roaming Hub |See: Hub
-|SCSP  |Smart Charging Service Provider: Provided Smart Charging service to other parties might use a lot of different inputs to calculate Smart Charging Profiles.
+|NAP   |National Access Point. Provides a national database with all (public) charging locations. Information can be sent and retrieved from the NAP. This makes it different from a typical NSP.
+|NSP   |Navigation Service Provider. Provides EV drivers with location information of Charge Points. Usually only interested in Location information.
+|Roaming Hub |See: Hub.
+|SCSP  |Smart Charging Service Provider. Provides Smart Charging service to other parties. Might use a lot of different inputs to calculate Smart Charging Profiles.
 |===
 
 Some of these roles can be combined in one company. A Platform can provide service for multiple CPOs or eMSPs,

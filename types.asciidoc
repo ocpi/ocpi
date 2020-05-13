@@ -38,7 +38,7 @@ NOTE: +00:00 is not the same as UTC.
 |===
 |Property |Type |Card. |Description 
 
-|language |<<types_string_type,string>>(2) |1 |Language Code ISO 639-1 
+|language |<<types_string_type,string>>(2) |1 |Language Code ISO 639-1. 
 |text |<<types_string_type,string>>(512) |1 |Text to be displayed to a end user. No markup, html etc. allowed. 
 |===
 
@@ -74,13 +74,13 @@ Unless mentioned otherwise, numbers use 4 decimals and a _sufficiently large amo
 |===
 |Value |Description
 
-|CPO |Charge Point Operator Role
-|EMSP |eMobility Service Provider Role
-|HUB |Hub role
-|NAP |National Access Point Role (national Database with all Location information of a country)
-|NSP |Navigation Service Provider Role, role like an eMSP (probably only interested in Location information)
-|OTHER |Other role
-|SCSP|Smart Charging Service Provider Role
+|CPO |Charge Point Operator Role.
+|EMSP |eMobility Service Provider Role.
+|HUB |Hub role.
+|NAP |National Access Point Role (national Database with all Location information of a country).
+|NSP |Navigation Service Provider Role, role like an eMSP (probably only interested in Location information).
+|OTHER |Other role.
+|SCSP|Smart Charging Service Provider Role.
 |===
 
 
