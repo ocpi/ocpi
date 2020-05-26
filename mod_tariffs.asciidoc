@@ -539,22 +539,37 @@ Showing a graph could be better.
 Therefore it is also possible to provide an URL in `tariff_alt_url` to a site that explains
 the tariff better and in more detail.
 
+* Start or transaction fee
+[disc]
+** 0.50 euro (excl. VAT)
+** 20% VAT
 * Energy
 [disc]
 ** 0.25 euro per kWh (excl. VAT)
 ** 10% VAT
 ** Billed per 0.1 kWh (100 Wh)
 
-For a charging session where 20.45 kWh are charged,
-this tariff will result in costs of 5.50 euro (excl. VAT) or 6.05 euro (incl. VAT)
+For a charging session where 20.45 kWh are charged:
+this tariff will result in:
+
+* Start fee: 0.50 euro (excl. VAT), 0.60 euro (incl. VAT)
+* Energy costs: 5.13 euro (excl. VAT), 5.64 euro (incl. VAT)
+* Total: 5.63 euro (excl. VAT), 6.24 euro (incl. VAT)
+
 if the announced prices were billed.
 Because the energy is billed per 0.1 kWh, the driver has to pay for 20.5 kWh even though
 they only charged 20.45 kWh.
+Total cost of this session including the transaction fee:
 
 The twist here is that this tariff makes use of `tariff_alt_url` which links to a page
 with real-time energy prices of the operator, where is shown that the actual price per kWh is different.
 With an assumed current energy price of 0.22 euro per kWh (excl. VAT), which is shown or explained on
-the page linked by `tariff_alt_url`, the resulting costs will be 4.51 euro (excl. VAT) or 4.96 euro (incl. VAT).
+the page linked by `tariff_alt_url`, the resulting costs:
+
+* Start fee: 0.50 euro (excl. VAT), 0.60 euro (incl. VAT)
+* Energy costs: 4.51 euro (excl. VAT), 4.96 (incl. VAT)
+* Total: 5.01 euro (excl. VAT), 5.56 euro (incl. VAT)
+
 
 [source,json]
 ----
