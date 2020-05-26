@@ -1013,9 +1013,9 @@ A reservation can only have: <<mod_tariffs_tariffdimensiontype_enum,FLAT>> and <
 
 Example Tariff to explain the `max_power` Tariff Restriction:
 
-- Charging fee of 1.00 euro per kWh (excl. VAT) when charging with a power of less than 16 kW.
-- Charging fee of 1.50 euro per kWh (excl. VAT) when charging with a power between 16 and 32 kW.
-- Charging fee of 2.00 euro per kWh (excl. VAT) when charging with a power above 32 kW (implemented as fallback tariff without Restriction).
+- Charging fee of 0.20 euro per kWh (excl. VAT) when charging with a power of less than 16 kW.
+- Charging fee of 0.35 euro per kWh (excl. VAT) when charging with a power between 16 and 32 kW.
+- Charging fee of 0.50 euro per kWh (excl. VAT) when charging with a power above 32 kW (implemented as fallback tariff without Restriction).
 
 For a charging session where the EV charges the first kWh with a power of 6 kW,
 increases the power to 48 kW for the next 40 kWh and reduces it again to 4 kW after that for another 0.5 kWh
