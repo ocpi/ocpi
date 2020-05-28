@@ -8,7 +8,8 @@
     "price_components": [{
       "type": "ENERGY",
       "price": 0.20,
-      "vat": 20.0
+      "vat": 20.0,
+      "step_size": 1
     }],
     "restrictions": {
       "max_power": 16.00
@@ -17,7 +18,8 @@
     "price_components": [{
       "type": "ENERGY",
       "price": 0.35,
-      "vat": 20.0
+      "vat": 20.0,
+      "step_size": 1
     }],
     "restrictions": {
       "max_power": 32.00
@@ -26,7 +28,8 @@
     "price_components": [{
       "type": "ENERGY",
       "price": 0.50,
-      "vat": 20.0
+      "vat": 20.0,
+      "step_size": 1
     }]
   }],
   "last_updated": "2018-12-05T12:01:09Z"
