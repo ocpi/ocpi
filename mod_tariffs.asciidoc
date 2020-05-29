@@ -272,7 +272,7 @@ See: <<mod_tariffs_free_of_charge_tariff_example,Free of Charge Tariff example>>
 |tariff_alt_text |<<types.asciidoc#types_displaytext_class,DisplayText>> |* |List of multi-language alternative tariff info texts.
 |tariff_alt_url |<<types.asciidoc#types_url_type,URL>> |? |URL to a web page that contains an explanation of the tariff information in human readable form.
 |min_price |<<types.asciidoc#types_price_class,Price>> |? |When this field is set, a Charging Session with this tariff will at least cost this amount.
-      This is different from a `FLAT` fee (Start Tariff, Transaction Fee), as a `FLAT` fee is a fixed amount that has to be payed for any Charging Session.
+      This is different from a `FLAT` fee (Start Tariff, Transaction Fee), as a `FLAT` fee is a fixed amount that has to be paid for any Charging Session.
       A minimum price indicates that when the cost of a Charging Session is lower than this amount, the cost of the Session will be equal to this amount. (Also see note below)
 |max_price |<<types.asciidoc#types_price_class,Price>> |? |When this field is set, a Charging Session with this tariff will NOT cost more than this amount. (See note below)
 |elements |<<mod_tariffs_tariffelement_class,TariffElement>> |+ |List of Tariff Elements.
@@ -911,7 +911,7 @@ After that they immediately unplug, leaving with a total session time of 35 minu
 
 When parking becomes free after 20:00, the new <<mod_tariffs_tariffelement_class,`TariffElement`>> after 20:00 will not contain a
 <<mod_tariffs_tariffdimensiontype_enum,`PARKING_TIME`>> <<mod_tariffs_pricecomponent_class,`PriceComponent`>>.
-So the last parking period that needs to be payed, which is before 20:00, will be billed according to the `step_size`
+So the last parking period that needs to be paid, which is before 20:00, will be billed according to the `step_size`
 of the <<mod_tariffs_tariffdimensiontype_enum,`PARKING_TIME`>> <<mod_tariffs_pricecomponent_class,`PriceComponent`>> before 20:00.
 
 An EV driver plugs in at 19:55 and charges for 10 minutes (`TIME`).
