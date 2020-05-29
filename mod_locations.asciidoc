@@ -674,7 +674,7 @@ For example: A DC Charge Point which can delivers up to 920V and up to 400A can 
 For AC Charge Points, the amount of phases used can also have influence on the maximum power.
 |tariff_ids |<<types.asciidoc#types_cistring_type,CiString>>(36) |* |Identifiers of the currently valid charging tariffs.
                     Multiple tariffs are possible, but only one of each <<mod_tariffs.asciidoc#mod_tariffs_tariff_object,Tariff.type>> can be active at the same time.
-                    Tariffs with the same type are only allowed, if they are not active at the same time:
+                    Tariffs with the same type are only allowed if they are not active at the same time:
                     <<mod_tariffs.asciidoc#mod_tariffs_tariff_object,start_date_time>> and <<mod_tariffs.asciidoc#mod_tariffs_tariff_object,end_date_time>> period not overlapping. +
                     When preference-based smart charging is supported, one tariff for every possible <<mod_sessions.asciidoc#mod_sessions_profile_type_enum,ProfileType>> should be provided.
                     These tell the user about the options they have at this Connector, and what the tariff is for every option. +
