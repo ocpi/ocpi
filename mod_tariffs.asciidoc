@@ -1019,7 +1019,7 @@ These restrictions are not for the entire Charging Session. They only describe i
       After that moment, this TariffElement is no longer active.
 |day_of_week |<<mod_tariffs_dayofweek_enum,DayOfWeek>> |* |Which day(s) of the week this TariffElement is active.
 |reservation |<<mod_tariffs_reservation_restriction_type,ReservationRestrictionType>> |? |When this field is present, the TariffElement describes reservation costs.
-A reservation starts when the reservation is made, and ends when the drivers starts charging on the reserved EVSE/Location, or when the reservation expires.
+A reservation starts when the reservation is made, and ends when the driver starts charging on the reserved EVSE/Location, or when the reservation expires.
 A reservation can only have: <<mod_tariffs_tariffdimensiontype_enum,FLAT>> and <<mod_tariffs_tariffdimensiontype_enum,TIME>> TariffDimensions, where `TIME` is for the duration of the reservation.
 |===
 
