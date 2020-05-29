@@ -987,13 +987,13 @@ These restrictions are not for the entire Charging Session. They only describe i
                                                                valid until this day (exclusive). Same syntax as `start_date`.
 |min_kwh |<<types.asciidoc#types_number_type,number>> |? |Minimum consumed energy in kWh, for example 20, valid from this amount of energy being used.
 |max_kwh |<<types.asciidoc#types_number_type,number>> |? |Maximum consumed energy in kWh, for example 50, valid until this amount of energy being used.
-|min_current |<<types.asciidoc#types_number_type,number>> |? |Sum of the minimum current in A over all phases, for example 5.
+|min_current |<<types.asciidoc#types_number_type,number>> |? |Sum of the minimum current (in Amperes) over all phases, for example 5.
       When the EV is charging with more than the defined amount of current, this TariffElement is/becomes active.
       If the charging current is or becomes lower, this TariffElement is not or no longer valid and becomes inactive.
       This describes NOT the minimum current over the entire Charging Session.
       This restriction can make a TariffElement become active when the charging current is above the defined value,
       but the TariffElement MUST no longer be active when the charging current drops below the defined value.
-|max_current |<<types.asciidoc#types_number_type,number>> |? |Sum of the maximum current in A over all phases, for example 20.
+|max_current |<<types.asciidoc#types_number_type,number>> |? |Sum of the maximum current (in Amperes) over all phases, for example 20.
       When the EV is charging with less than the defined amount of current, this TariffElement becomes/is active.
       If the charging current is or becomes higher, this TariffElement is not or no longer valid and becomes inactive.
       This describes NOT the maximum current over the entire Charging Session.
