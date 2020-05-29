@@ -532,7 +532,7 @@ include::examples/location_example_uc2_destination_charger.json[]
 ----
 
 [[mod_locations_example_uc3]]
-===== Example destination charging location not published, but payed guest usage possible
+===== Example destination charging location not published, but paid guest usage possible
 
 This is an example of a destination charging location.
 But the owner of the location has requested not to publish the location in Apps or on websites.
