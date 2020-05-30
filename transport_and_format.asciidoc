@@ -375,7 +375,7 @@ SHALL be routed, so need the routing headers.
 The requests/responses to/from Configuration Modules: <<credentials.asciidoc#credentials_credentials_endpoint,Credentials>>,
 <<version_information_endpoint.asciidoc#versions_module,Versions>> and
 <<mod_hub_client_info.asciidoc#mod_hub_client_info_module,Hub Client Info>> are not to be routed, and are for Platform-to-Platform
-or Platform-to-Hub communication. Thus reading headers SHALL NOT be used with these modules.
+or Platform-to-Hub communication. Thus routing headers SHALL NOT be used with these modules.
 
 
 [cols="4,2,14",options="header"]
