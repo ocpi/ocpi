@@ -109,7 +109,7 @@ The table shows the typical communication role: Receiver, Sender or Both.
                         OCPI is different, in most modules the owner is the party pushing data to a server, to inform them of updates. +
                         For example Locations, the CPO owns a Location (Charge Point), when a new Charge Point is added, the CPO calls PUT on the eMSP systems to inform them about new locations. +
                         See: <<transport_and_format.asciidoc#transport_and_format_client_owned_object_push,Client Owned Objects>>
-|Configuration Module | OCPI Module needed to setup en maintain OCPI connections, but does not provide information for the EV driver:
+|Configuration Module | OCPI Module needed to setup and maintain OCPI connections, but does not provide information for the EV driver:
                         <<credentials.asciidoc#credentials_credentials_endpoint,Credentials>>, <<version_information_endpoint.asciidoc#versions_module,Versions>>
                         and <<mod_hub_client_info.asciidoc#mod_hub_client_info_module,Hub Client Info>>. +
                         Configuration Modules use <<transport_and_format.asciidoc#transport_and_format_message_routing,message routing>>.
