@@ -116,7 +116,7 @@ The table shows the typical communication role: Receiver, Sender or Both.
 |Functional Module | OCPI Module that provides functionality/information for the EV Driver, such as: <<mod_tokens.asciidoc#mod_tokens_tokens_module,Tokens>>,
                      <<mod_locations.asciidoc#mod_locations_locations_module,Locations>>, <<mod_cdrs.asciidoc#mod_cdrs_cdrs_module,CDRs>> etc. +
                      Functional Modules do NOT use message routing.
-|Open Routing Request | This is for Platforms that are connected via a Hub. When a system send a pull request to the Hub,
+|Open Routing Request | This is for Platforms that are connected via a Hub. When a system sends a pull request to the Hub,
                         and does not know, or care about, the owner of information, but asks the Hub to route the GET to the correct Platform.
                         The Hub finds the correct Platform and routes the request to that Platform. +
                         See: <<transport_and_format.asciidoc#transport_and_format_message_routing_open_routing_request,Open Routing Request>>
