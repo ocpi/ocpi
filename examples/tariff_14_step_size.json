@@ -50,7 +50,7 @@
       ],
       "restrictions" : {
         "start_time" : "20:00",
-        "end_time" : "23:59"
+        "end_time" : "00:00"
       }
     }
   ],
