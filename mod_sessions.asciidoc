@@ -362,7 +362,7 @@ see <<mod_cdrs.asciidoc#mod_cdrs_cdr_object,CDR description>> for more informati
                                                        When the session is still <<mod_sessions_sessionstatus_enum,PENDING>>, this field SHALL be set to the time the Session was created at the Charge Point.
                                                        When a Session goes from <<mod_sessions_sessionstatus_enum,PENDING>> to <<mod_sessions_sessionstatus_enum,ACTIVE>>,
                                                        this field SHALL be update to the moment the Session went to <<mod_sessions_sessionstatus_enum,ACTIVE>> in the Charge Point.
-|end_date_time |<<types.asciidoc#types_datetime_type,DateTime>> |? |The timestamp when the session was completed/finished, charging might have finished before the session ends, for example: EV is full, but parking cost also has to be payed.
+|end_date_time |<<types.asciidoc#types_datetime_type,DateTime>> |? |The timestamp when the session was completed/finished, charging might have finished before the session ends, for example: EV is full, but parking cost also has to be paid.
 |kwh |<<types.asciidoc#types_number_type,number>> |1 |How many kWh were charged. 
 |cdr_token |<<mod_cdrs.asciidoc#mod_cdrs_cdr_token_object,CdrToken>> |1 |Token used to start this charging session, including all the relevant information to identify the unique token.
 |auth_method |<<mod_cdrs.asciidoc#mod_cdrs_authmethod_enum,AuthMethod>> |1 |Method used for authentication.

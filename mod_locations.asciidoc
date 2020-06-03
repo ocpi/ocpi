@@ -532,7 +532,7 @@ include::examples/location_example_uc2_destination_charger.json[]
 ----
 
 [[mod_locations_example_uc3]]
-===== Example destination charging location not published, but payed guest usage possible
+===== Example destination charging location not published, but paid guest usage possible
 
 This is an example of a destination charging location.
 But the owner of the location has requested not to publish the location in Apps or on websites.
@@ -669,12 +669,12 @@ A Connector always belongs to an <<mod_locations_evse_object,EVSE>> object.
 |power_type |<<mod_locations_powertype_enum,PowerType>> |1 | 
 |max_voltage |int |1 |Maximum voltage of the connector (line to neutral for AC_3_PHASE), in volt [V]. For example: DC Chargers might vary the voltage during charging when battery almost full.
 |max_amperage |int |1 |Maximum amperage of the connector, in ampere [A].
-|max_electric_power |int |? |Maximum electric power that can be delivered by this connector, in watt [W]. When the maximum electric power is lower than the calculated value from `voltage` and `amperage`, this value should be set. +
+|max_electric_power |int |? |Maximum electric power that can be delivered by this connector, in Watts (W). When the maximum electric power is lower than the calculated value from `voltage` and `amperage`, this value should be set. +
 For example: A DC Charge Point which can delivers up to 920V and up to 400A can be limited to a maximum of 150kW (max_electric_power = 150000). Depending on the car, it may supply max voltage or current, but not both at the same time. +
 For AC Charge Points, the amount of phases used can also have influence on the maximum power.
 |tariff_ids |<<types.asciidoc#types_cistring_type,CiString>>(36) |* |Identifiers of the currently valid charging tariffs.
                     Multiple tariffs are possible, but only one of each <<mod_tariffs.asciidoc#mod_tariffs_tariff_object,Tariff.type>> can be active at the same time.
-                    Tariffs with the same type are only allowed, if they are not active at the same time:
+                    Tariffs with the same type are only allowed if they are not active at the same time:
                     <<mod_tariffs.asciidoc#mod_tariffs_tariff_object,start_date_time>> and <<mod_tariffs.asciidoc#mod_tariffs_tariff_object,end_date_time>> period not overlapping. +
                     When preference-based smart charging is supported, one tariff for every possible <<mod_sessions.asciidoc#mod_sessions_profile_type_enum,ProfileType>> should be provided.
                     These tell the user about the options they have at this Connector, and what the tariff is for every option. +

@@ -272,7 +272,7 @@ See: <<mod_tariffs_free_of_charge_tariff_example,Free of Charge Tariff example>>
 |tariff_alt_text |<<types.asciidoc#types_displaytext_class,DisplayText>> |* |List of multi-language alternative tariff info texts.
 |tariff_alt_url |<<types.asciidoc#types_url_type,URL>> |? |URL to a web page that contains an explanation of the tariff information in human readable form.
 |min_price |<<types.asciidoc#types_price_class,Price>> |? |When this field is set, a Charging Session with this tariff will at least cost this amount.
-      This is different from a `FLAT` fee (Start Tariff, Transaction Fee), as a `FLAT` fee is a fixed amount that has to be payed for any Charging Session.
+      This is different from a `FLAT` fee (Start Tariff, Transaction Fee), as a `FLAT` fee is a fixed amount that has to be paid for any Charging Session.
       A minimum price indicates that when the cost of a Charging Session is lower than this amount, the cost of the Session will be equal to this amount. (Also see note below)
 |max_price |<<types.asciidoc#types_price_class,Price>> |? |When this field is set, a Charging Session with this tariff will NOT cost more than this amount. (See note below)
 |elements |<<mod_tariffs_tariffelement_class,TariffElement>> |+ |List of Tariff Elements.
@@ -854,7 +854,7 @@ include::examples/tariff_18_reservation_with_expire_time.json[]
 |step_size |int |1 |Minimum amount to be billed. This unit will be billed in this `step_size` blocks. For example: if `type` is `TIME` and `step_size` has a value of `300`, then time will be billed in blocks of 5 minutes. If 6 minutes were used, 10 minutes (2 blocks of `step_size`) will be billed.
 |===
 
-NOTE: `step_size`: depends on the `type` and every `type` (except `FLAT`) defines a `step_size` multiplier, which is the size of every _step_ for that `type` in the givgen unit. +
+NOTE: `step_size`: depends on the `type` and every `type` (except `FLAT`) defines a `step_size` multiplier, which is the size of every _step_ for that `type` in the given unit. +
  +
 For example: `PARKING_TIME` has the `step_size` multiplier: _1 second_, which means that the `step_size` of a `PriceComponent` is multiplied by _1 second_.
 Thus a `step_size = 300` means `300 seconds` (`5 minutes`). This means that when someone parked for 8 minutes they will be billed for 10 minutes.
@@ -911,7 +911,7 @@ After that they immediately unplug, leaving with a total session time of 35 minu
 
 When parking becomes free after 20:00, the new <<mod_tariffs_tariffelement_class,`TariffElement`>> after 20:00 will not contain a
 <<mod_tariffs_tariffdimensiontype_enum,`PARKING_TIME`>> <<mod_tariffs_pricecomponent_class,`PriceComponent`>>.
-So the last parking period that needs to be payed, which is before 20:00, will be billed according to the `step_size`
+So the last parking period that needs to be paid, which is before 20:00, will be billed according to the `step_size`
 of the <<mod_tariffs_tariffdimensiontype_enum,`PARKING_TIME`>> <<mod_tariffs_pricecomponent_class,`PriceComponent`>> before 20:00.
 
 An EV driver plugs in at 19:55 and charges for 10 minutes (`TIME`).
@@ -987,13 +987,13 @@ These restrictions are not for the entire Charging Session. They only describe i
                                                                valid until this day (exclusive). Same syntax as `start_date`.
 |min_kwh |<<types.asciidoc#types_number_type,number>> |? |Minimum consumed energy in kWh, for example 20, valid from this amount of energy being used.
 |max_kwh |<<types.asciidoc#types_number_type,number>> |? |Maximum consumed energy in kWh, for example 50, valid until this amount of energy being used.
-|min_current |<<types.asciidoc#types_number_type,number>> |? |Sum of the minimum current in A over all phases, for example 5.
+|min_current |<<types.asciidoc#types_number_type,number>> |? |Sum of the minimum current (in Amperes) over all phases, for example 5.
       When the EV is charging with more than the defined amount of current, this TariffElement is/becomes active.
       If the charging current is or becomes lower, this TariffElement is not or no longer valid and becomes inactive.
       This describes NOT the minimum current over the entire Charging Session.
       This restriction can make a TariffElement become active when the charging current is above the defined value,
       but the TariffElement MUST no longer be active when the charging current drops below the defined value.
-|max_current |<<types.asciidoc#types_number_type,number>> |? |Sum of the maximum current in A over all phases, for example 20.
+|max_current |<<types.asciidoc#types_number_type,number>> |? |Sum of the maximum current (in Amperes) over all phases, for example 20.
       When the EV is charging with less than the defined amount of current, this TariffElement becomes/is active.
       If the charging current is or becomes higher, this TariffElement is not or no longer valid and becomes inactive.
       This describes NOT the maximum current over the entire Charging Session.
@@ -1019,7 +1019,7 @@ These restrictions are not for the entire Charging Session. They only describe i
       After that moment, this TariffElement is no longer active.
 |day_of_week |<<mod_tariffs_dayofweek_enum,DayOfWeek>> |* |Which day(s) of the week this TariffElement is active.
 |reservation |<<mod_tariffs_reservation_restriction_type,ReservationRestrictionType>> |? |When this field is present, the TariffElement describes reservation costs.
-A reservation starts when the reservation is made, and ends when the drivers starts charging on the reserved EVSE/Location, or when the reservation expires.
+A reservation starts when the reservation is made, and ends when the driver starts charging on the reserved EVSE/Location, or when the reservation expires.
 A reservation can only have: <<mod_tariffs_tariffdimensiontype_enum,FLAT>> and <<mod_tariffs_tariffdimensiontype_enum,TIME>> TariffDimensions, where `TIME` is for the duration of the reservation.
 |===
 
