@@ -979,6 +979,8 @@ These restrictions are not for the entire Charging Session. They only describe i
 |end_time |<<types.asciidoc#types_string_type,string>>(5) |? |End time of day in local time, the time zone is defined in the `time_zone` field of the
                                                               <<mod_locations.asciidoc#mod_locations_location_object,Location>>, for example 19:45,
                                                               valid until this time of the day. Same syntax as `start_time`.
+                                                              If end_time < start_time then the period wraps around to the next day.
+                                                              To stop at end of the day use: 00:00.
 |start_date |<<types.asciidoc#types_string_type,string>>(10) |? |Start date in local time, the time zone is defined in the `time_zone` field of the
                                                                  <<mod_locations.asciidoc#mod_locations_location_object,Location>>, for example: 2015-12-24,
                                                                  valid from this day. Regex: `([12][0-9]{3})-(0[1-9]\|1[0-2])-(0[1-9]\|[12][0-9]\|3[01])`
