@@ -289,7 +289,9 @@ The content that is sent with all the response messages is an 'application/json'
 
 For brevity's sake, any further examples used in this specification will only contain the value of the "data" field. In reality, it will always have to be wrapped in the above response format.
 
-When a request cannot be accepted, an HTTP error response code is expected, including the response format above, that contains more details. HTTP status codes are described on http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html[w3.org].
+When a request cannot be accepted, the type response depends on the type of error. For more information see: <<status_codes.asciidoc#status_codes_status_codes,Status codes>>
+
+For errors on the HTTP layer, use HTTP error response codes, including the response format above, that contains more details. HTTP status codes are described on http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html[w3.org].
 
 
 [[transport_and_format_example_version_information_response_list_of_objects]]
