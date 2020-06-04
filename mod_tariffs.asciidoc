@@ -983,14 +983,14 @@ These restrictions are not for the entire Charging Session. They only describe i
                                                               To stop at end of the day use: 00:00.
 |start_date |<<types.asciidoc#types_string_type,string>>(10) |? |Start date in local time, the time zone is defined in the `time_zone` field of the
                                                                  <<mod_locations.asciidoc#mod_locations_location_object,Location>>, for example: 2015-12-24,
-                                                                 valid from this day. Regex: `([12][0-9]{3})-(0[1-9]\|1[0-2])-(0[1-9]\|[12][0-9]\|3[01])`
+                                                                 valid from this day (inclusive). Regex: `([12][0-9]{3})-(0[1-9]\|1[0-2])-(0[1-9]\|[12][0-9]\|3[01])`
 |end_date |<<types.asciidoc#types_string_type,string>>(10) |? |End date in local time, the time zone is defined in the `time_zone` field of the
                                                                <<mod_locations.asciidoc#mod_locations_location_object,Location>>, for example: 2015-12-27,
                                                                valid until this day (exclusive). Same syntax as `start_date`.
-|min_kwh |<<types.asciidoc#types_number_type,number>> |? |Minimum consumed energy in kWh, for example 20, valid from this amount of energy being used.
-|max_kwh |<<types.asciidoc#types_number_type,number>> |? |Maximum consumed energy in kWh, for example 50, valid until this amount of energy being used.
+|min_kwh |<<types.asciidoc#types_number_type,number>> |? |Minimum consumed energy in kWh, for example 20, valid from this amount of energy (inclusive) being used.
+|max_kwh |<<types.asciidoc#types_number_type,number>> |? |Maximum consumed energy in kWh, for example 50, valid until this amount of energy (exclusive) being used.
 |min_current |<<types.asciidoc#types_number_type,number>> |? |Sum of the minimum current (in Amperes) over all phases, for example 5.
-      When the EV is charging with more than the defined amount of current, this TariffElement is/becomes active.
+      When the EV is charging with more than, or equal to, the defined amount of current, this TariffElement is/becomes active.
       If the charging current is or becomes lower, this TariffElement is not or no longer valid and becomes inactive.
       This describes NOT the minimum current over the entire Charging Session.
       This restriction can make a TariffElement become active when the charging current is above the defined value,
@@ -1002,7 +1002,7 @@ These restrictions are not for the entire Charging Session. They only describe i
       This restriction can make a TariffElement become active when the charging current is below this value,
       but the TariffElement MUST no longer be active when the charging current raises above the defined value.
 |min_power |<<types.asciidoc#types_number_type,number>> |? |Minimum power in kW, for example 5.
-      When the EV is charging with more than the defined amount of power, this TariffElement is/becomes active.
+      When the EV is charging with more than, or equal to, the defined amount of power, this TariffElement is/becomes active.
       If the charging power is or becomes lower, this TariffElement is not or no longer valid and becomes inactive.
       This describes NOT the minimum power over the entire Charging Session.
       This restriction can make a TariffElement become active when the charging power is above this value,
