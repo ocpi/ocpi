@@ -1,4 +1,4 @@
-Copyright © 2014 – 2019 NKL. All rights reserved.
+Copyright © 2014 – 2020 NKL. All rights reserved.
 
 This document is made available under the _Creative Commons Attribution-
 NoDerivatives 4.0 International Public License_

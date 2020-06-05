@@ -6,6 +6,7 @@
 
 OCPI 2.2 includes new functionality and improvements, compared to OCPI 2.1.1.
 
+
 ==== Changes/New functionality:
 
 * Support for Hubs
@@ -26,6 +27,11 @@ OCPI 2.2 includes new functionality and improvements, compared to OCPI 2.1.1.
 ** <<mod_commands.asciidoc#mod_commands_cancelreservation_object,Commands>>: Cancel Reservation added
 
 For more information on detailed changes see <<changelog.asciidoc#changelog_changelog,changelog>>.
+
+
+==== OCPI 2.2-d2
+This new documentation of OCPI 2.2 contains of textual improvements and fixes to JSON examples, that have been contributed by the OCPI community.
+Many thanks to all that have taken the time and effort to commit issues.
 
 
 [[introduction_introduction_and_background]]

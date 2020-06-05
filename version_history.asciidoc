@@ -4,6 +4,9 @@
 |===
 |Version |Date |Author |Description
 
+|2.2-d2 Draft |05-06-2020 | Robert de Leeuw +
+_ihomer_ | 2nd documentation revision of the OCPI 2.2 spec. +
+           Contains textual improvements and fixes some of the examples.
 |2.2 |30-09-2019 | Robert de Leeuw +
 _ihomer_ |Added support for Roaming Hubs +
         Adds support for Platforms with multiple/different roles, additional roles +
@@ -50,4 +53,4 @@ Examples:
 
 - OCPI 2.1.1 is a different protocol version of OCPI than OCPI 2.1.
 
-- OCPI 2.0-d2 is the same protocol version as OCPI 2.0, but a newer documentation revision: same protocol, newer documentation.
+- OCPI 2.2-d2 is the same protocol version as OCPI 2.2, but a newer documentation revision: same protocol, newer documentation.
