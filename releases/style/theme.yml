@@ -41,26 +41,48 @@ table:
 
 header:
   height: 0.7cm
-  border_color: #BBBBBB
+  line_height: 1
+  border_color: BBBBBB
   border_width: 0.2
-  recto_content:
-    center: '*{document_header}*'
-  verso_content:
-    center: '*{document_header}*'
+  verso:
+    left:
+      content: ''
+    center:
+      content: '{document_header}'
+    right:
+      content: ''
+  recto:
+    left:
+      content: ''
+    center:
+      content: '{document_header}'
+    right:
+      content: ''
   font:
     size: 8
-    border_color: #666666
+    border_color: 666666
     style: bold
 
 footer:
   height: 0.7cm
-  border_color: #BBBBBB
+  line_height: 1
+  border_color: BBBBBB
   border_width: 0.2
-  recto_content:
-    center: '*{page-number}*'
-  verso_content:
-    center: '*{page-number}*'
+  verso:
+    left:
+      content: ''
+    center:
+      content: '{page-number}'
+    right:
+      content: ''
+  recto:
+    left:
+      content: ''
+    center:
+      content: '{page-number}'
+    right:
+      content: ''
   font:
     size: 8
-    border_color: #666666
+    border_color: 666666
     style: bold

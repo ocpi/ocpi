@@ -236,7 +236,7 @@ acknowledging the request was understood and can be forwarded to the Charge Poin
 The CPO sends the clear requests to the Charge Point.
 When the CPO receives a response from the Charge Point,
 that result is sent to the eMSP by call the <<mod_charging_profiles_msp_post_method,POST>> method,
-on the URL provided by the eMSP in the <<<mod_charging_profiles_cpo_delete_method,DELETE>> request of the eMSP,
+on the URL provided by the eMSP in the <<mod_charging_profiles_cpo_delete_method,DELETE>> request of the eMSP,
 this call will contain a <<mod_charging_profiles_clear_profiles_result_object,ClearProfileResult>> Object.
 
 .Example of a ClearChargingProfile.

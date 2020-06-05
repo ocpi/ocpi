@@ -1,15 +1,13 @@
-:title-page:
-:toc: macro
+:toc:
 :toclevels: 4
 :sectnumlevels: 4
 :outlinelevels: 4:0
+:title-page:
 :numbered:
-:pagenums:
 :version-label: document version
-:year: 2019
+:year: 2020
 :protocol_version: 2.2
-:document_version: {protocol_version}
-:revdate: 30-09-{year}
+:revdate: 04-06-{year}
 :document_header: OCPI {document_version}
 :revnumber: {document_version}
 
