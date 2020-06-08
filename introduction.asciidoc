@@ -53,15 +53,7 @@ What does it offer (main functionality):
 * A uniform way of exchanging data (Notification Data Records and Charge Data Records), before during and after the transaction.
 * Remote mobile support to access any Charge Point without pre-registration.
 
-Starting in 2009, e-laad foundation and the predecessor of the eViolin association specified 2 standards in order to retrieve
-charge point details and active state. These are called the VAS interface and the Amsterdam interface. In this same period,
-a CDR format for the exchange of charge sessions between eViolin members was defined.
-This format is currently in use by the majority of the eViolin members.
-(eViolin is the branch organization for EV operators and service providers in NL and responsible for national roaming and issuing of ID’s).
-This resulted in 2014 in the development of OCPI.
-
-
-An international group of over 200 companies from all over the world supports OCPI. Initiators are EV Box, New Motion, ElaadNL, BeCharged, GreenFlux and Last Mile Solutions.
+An international group of over 200 companies from all over the world already supports OCPI. Initiators are EV Box, New Motion, ElaadNL, BeCharged, GreenFlux and Last Mile Solutions.
 Other participants include: Next Charge, Freshmile, Plugsurfing, E55C, GIREVE, OCN, ihomer, Rexel, Stromnetz Hamburg, Enervalis, Place to plug,
 Plugsurfing, Ecomovement, Allego, Gronn Kontakt Norway, ENIO, Fastned, AvantIT, Chargemap, Involtum, Capitol Region Denmark,
 Vattenfall, EON, ECY Conseil Emeric Chardiny, Eneco Mobility, Jedlix, MTC, Smartlab, Sodetrel, XXIMO, Mnemonics, Share & Charge,
@@ -69,7 +61,7 @@ Service House, Alfen / ICU, PI2 Consultancy, Pitpoint, Blue Corner, Building Ene
 MUVEXT, Next Green Car / Zap Map, Be Mo Tech, Parking Eagle, GraphDefined, Chargecloud, Rutgerplantengaconsulting, Everon, Tanqyou,
 Electric Vehicle Association Scotland (EVA NCS), EV-Tech, Plugin Power, Last Mile Solutions, BIA Power, IBIL, Gridscape, Maxem, Virta,
 EasyCharger, Total EV Charge, Gowithflow, EKAROS, Rexel US, Stekker App, Travelcard, Emobility Consulting.
-The EV Roaming foundation supported by the Netherlands Knowledge Platform for Charging Infrastructure (NKL)
+The EVRoaming foundation supported by the Netherlands Knowledge Platform for Charging Infrastructure (NKL)
 facilitates and coordinates this protocol to guarantee progress and ensure development and results.
 
 This document describes a combined set of standards based on the work done in the past. Next to that,

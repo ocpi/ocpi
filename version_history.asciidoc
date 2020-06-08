@@ -53,4 +53,4 @@ Examples:
 
 - OCPI 2.1.1 is a different protocol version of OCPI than OCPI 2.1.
 
-- OCPI 2.2-d2 is the same protocol version as OCPI 2.2, but a newer documentation revision: same protocol, newer documentation.
+- OCPI 2.2-d2 is the same protocol version as OCPI 2.2, but a newer documentation revision.
