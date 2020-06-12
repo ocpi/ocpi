@@ -868,6 +868,11 @@ When `step_size = 500`, then the same amount will be billed for 1 to 500 Wh: 0.1
 
 NOTE: For more information about how `step_size` impacts the calculation of the cost of charging see: <<mod_cdrs.asciidoc#mod_cdrs_step_size,CDR object description>>
 
+NOTE: Take into account that using `step_size` can be confusing for customers/drivers.
+There may be local or national regulations that define max `step_size`.
+E.g. in The Netherlands telecom companies are required to at least offer one subscription which is paid per second.
+To prevent confusion by the customer, we recommend to keep the `step_size` as small as possible and mention them clearly in your offering.
+
 ===== Example Tariff
 Example Tariff to explain the `step_size` when switching from one <<mod_tariffs_tariffelement_class,`TariffElement`>> to another:
 
