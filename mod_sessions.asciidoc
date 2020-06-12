@@ -348,7 +348,9 @@ How many Charging Periods are transmitted is left to the CPO to decide. The foll
 - A new Charging Period every 30 minutes for a DC fast charging session is not enough as it will yield only one Charging Period for an (assumed to be) average 30min session.
 
 It is also recommended to add Charging Periods for all moments that are relevant for the Tariff changes,
-see <<mod_cdrs.asciidoc#mod_cdrs_cdr_object,CDR description>> for more information.
+see <<mod_cdrs.asciidoc#mod_cdrs_cdr_object,CDR object description>> for more information.
+
+For more information about how `step_size` impacts the calculation of the cost of charging also see the <<mod_cdrs.asciidoc#mod_cdrs_step_size,CDR object description>>.
 
 
 [cols="4,3,1,9",options="header"]
