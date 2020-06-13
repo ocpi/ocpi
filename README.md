@@ -1,4 +1,4 @@
-This repository contains the OCPI specification, latest release: [`OCPI 2.2`](https://github.com/ocpi/ocpi/releases/download/2.2/OCPI_2.2.pdf)
+This repository contains the OCPI specification, latest release: [`OCPI 2.2`](https://github.com/ocpi/ocpi/releases/download/2.2/OCPI-2.2.pdf)
 
 The branch with the latest fixes to the 2.2 documentation is [`release-2.2-bugfixes`](https://github.com/ocpi/ocpi/tree/release-2.2-bugfixes)
 
@@ -6,7 +6,7 @@ The branch with the latest fixes to the 2.1.1-d2 documentation is [`release-2.1.
 
 The `master` branch always contains the latest official release.
 
-Development of the next version of OCPI, new functionality, is done in the  [`develop`](https://github.com/ocpi/ocpi/tree/develop) branch.
+Development of the next version of OCPI, new functionality, is done in the  [`develop-3.0`](https://github.com/ocpi/ocpi/tree/develop-3.0) branch.
 
 ## Contents
 
@@ -66,16 +66,6 @@ Release 2.0:
 - Tariffing
 - Session Info exchange (cdr & ndr)
 - Registration (How to connect) & Security
-
-Release 2.2:
-
-- Charging Profiles
-- Preferences based Smart Charging
-- Support for Hubs
-- VAT
-- Credit CDRs
-- Improved Reservation support (Cancel & Tariff)
-- Lots of minor improvements
 
 
 __Planned releases:__
