@@ -1,0 +1,1211 @@
+:numbered:
+[[mod_locations_locations_module]]
+== _Locations_ module
+
+*Module Identifier: `locations`*
+
+*Data owner: `CPO`*
+
+*Type:* Functional Module
+
+The Location objects live in the CPO back-end system. They describe the charging locations of an operator.
+
+*Module dependency:* the Receiver endpoint is dependent on the <<mod_tariffs.asciidoc#mod_tariffs_tariffs_module,Tariffs module>>
+
+[[mod_locations_flow_and_lifecycle]]
+=== Flow and Lifecycle
+
+The Locations module has the <<mod_locations_location_object,Location>> as base object. 
+Each Location can have multiple EVSEs (1:n) and each EVSE can have multiple Connectors (1:n).
+With the methods in the <<mod_locations_emsp_interface,Receiver interface>>,
+Location data and status information can be shared with for example an eMSP and NSP.
+Updates can be made to a whole Location, but also only to an EVSE or a single Connector.
+
+When a CPO creates Location objects, it pushes them to connected eMSP by calling <<mod_locations_put_method,PUT>> on the Receivers Locations endpoint.
+eMSPs who do not support Push mode need to call <<mod_locations_get_method,GET>> on the CPOs Locations endpoint to receive the new object.
+This should be done regularly to stay up to date with the CPOs data, but not too often in order to keep the load low.
+
+If the CPO wants to replace a Location related object,
+they again push it to the eMSP systems by calling <<mod_locations_put_method,PUT>> on their Locations endpoint.
+
+Any changes to a Location related object can also be pushed to connected eMSPs by calling the <<mod_locations_patch_method,PATCH>> method
+on the eMSPs Locations endpoint, but using PATCH mode, only actual changes should be pushed.
+Providers who do not support Push mode need to call <<mod_locations_get_method,GET>> on the CPOs Locations endpoint to receive the updates.
+
+When the CPO wants to delete an EVSE from the list of active EVSEs, they MUST update the EVSE's `status` field to `REMOVED`
+and call the <<mod_locations_put_method,PUT>> or <<mod_locations_patch_method,PATCH>> on the eMSP system.
+A Location without any valid EVSE object can be considered expired and should no longer be displayed.
+There is no way to entirely delete Locations, EVSEs and Connectors as there are other modules like 
+<<mod_sessions.asciidoc#mod_sessions_sessions_module,`sessions`>> that depend on them. 
+If it was possible to remove these objects, those links would no longer work.
+
+When the CPO is not sure about the state or existence of a Location, EVSE or Connector object in the eMSP's system,
+the CPO can perform a <<mod_locations_get_method_eMSP,GET>> request to validate the object in the eMSP's system.
+
+Private charging Locations, that are not to be used for public charging, SHALL NOT be published via OCPI.
+
+
+==== No public charging or roaming
+
+When a Location is not available for either Public Charging or Roaming,
+it is RECOMMENDED to NOT send that Location via OCPI to receiving parties.
+
+==== Group of Charge Points
+
+OCPP 2.0 supports a 3-tier model:
+
+- Highest level is a Charge Point
+- A Charge Point can have one or more EVSEs.
+- Every EVSE can have one or more Connectors.
+
+OCPI does not have this model:
+
+- OCPI has Location at the highest level.
+- Each location can have multiple EVSE
+- Every EVSE can have one or more Connectors.
+
+When mapping OCPP Charge Points to OCPI, there are 2 options:
+
+- One Location for a group of Charge Points at the same location. (preferred)
+- One Location per Charge Point at the same location.
+
+OCPI prefers the first method. An EV driver does not care if a Location consists of one Charge Point with a very large amount of EVSEs,
+or a large amount of Charge Points with only one EVSE. The EV driver wants to know how many EVSEs are available.
+Grouping Charge Points in the same location into one OCPI Location will show better on a map that shows Charging Locations.
+
+NOTE: The definition, an EVSE can only charge one EV at a time.
+
+==== OCPP 1.x Charge Points with multiple connectors per EVSE
+
+OCPP 1.x was not designed to support the 3-tier model. It had no notion of EVSEs.
+The Open Charge Alliance has written an Application Note: "Multiple Connectors per EVSE in a OCPP 1.x implementation"
+
+The workaround:
+
+- Define one 'virtual' EVSE per Connector.
+- When a connector of an hardware EVSE becomes unavailable, set all 'virtual' EVSEs for all the connectors of the hardware EVSE to unavailable. etc.
+
+
+[[mod_locations_interfaces_and_endpoints]]
+=== Interfaces and endpoints
+
+There are both, a Sender and a Receiver interface for Locations.
+It is advised to use the Push direction from Sender to Receiver during normal operation in order to keep the latency of updates low.
+The Sender interface is meant to be used when the connection between two parties is established for the first time,
+to retrieve the current list of Location objects with the current status,
+and when the Receiver is not 100% sure the Location cache is entirely up-to-date (i.e. to perform a full sync).
+The Receiver can also use the Sender <<mod_locations_get_object_request_parameters,GET Object interface>> to retrieve a specific Location, EVSE or Connector.
+This feature might be used by an Receiver that wants information about a specific Location, but has not implemented the Receiver Locations interface (i.e. cannot receive Push).
+
+[[mod_locations_cpo_interface]]
+==== Sender Interface
+
+Typically implemented by market roles like: CPO.
+
+[cols="2,12",options="header"]
+|===
+|Method |Description 
+
+|<<mod_locations_get_method,GET>> |Fetch a list of Locations, last updated between the {date_from} and {date_to} (<<transport_and_format.asciidoc#transport_and_format_pagination,paginated>>), or get a specific Location, EVSE or Connector. 
+|POST |n/a 
+|PUT |n/a 
+|PATCH |n/a 
+|DELETE |n/a 
+|===
+
+[[mod_locations_get_method]]
+===== *GET* Method
+
+Depending on the URL Segments provided, the GET request can either be used to retrieve
+information about a list of available Locations (with EVSEs and Connectors) at a CPO (<<mod_locations_get_list_request_parameters,GET List>>)
+or it can be used to retrieve information about one specific Location, EVSE or Connector (<<mod_locations_get_object_request_parameters,GET Object>>).
+
+[[mod_locations_get_list_request_parameters]]
+====== GET List: Request Parameters
+
+Endpoint structure definition:
+
+`{locations_endpoint_url}?[date_from={date_from}]&amp;[date_to={date_to}]&amp;[offset={offset}]&amp;[limit={limit}]`
+
+Examples:
+
+`+https://www.server.com/ocpi/cpo/2.2/locations/?date_from=2019-01-28T12:00:00&date_to=2019-01-29T12:00:00+`
+
+`+https://ocpi.server.com/2.2/locations/?offset=50+`
+
+`+https://www.server.com/ocpi/2.2/locations/?date_from=2019-01-29T12:00:00&limit=100+`
+
+`+https://www.server.com/ocpi/cpo/2.2/locations/?offset=50&limit=100+`
+
+
+If the optional parameters `{date_from}` and/or `{date_to}` are provided, only Locations with 
+(`last_updated`) between the given `{date_from}` (including) and `{date_to}` (excluding) will be returned.
+In order for this to work properly, the following logic MUST be implemented accordingly:
+If an EVSE is updated, also the 'parent' Location's `last_updated` field needs to be updated. 
+Similarly, if a Connector is updated, the EVSE's `last_updated` and the Location's `last_updated` fields need to be updated.
+
+This request is <<transport_and_format.asciidoc#transport_and_format_pagination,paginated>>, it supports the <<transport_and_format.asciidoc#transport_and_format_paginated_request,pagination>> related URL parameters.
+
+[cols="3,2,1,10",options="header"]
+|===
+|Parameter |Datatype |Required |Description 
+
+|date_from |<<types.asciidoc#types_datetime_type,DateTime>> |no |Only return Locations that have `last_updated` after or equal to this Date/Time (inclusive).
+|date_to |<<types.asciidoc#types_datetime_type,DateTime>> |no |Only return Locations that have `last_updated` up to this Date/Time, but not including (exclusive).
+|offset |int |no |The offset of the first object returned. Default is 0. 
+|limit |int |no |Maximum number of objects to GET. 
+|===
+
+[[mod_locations_get_list_response_data]]
+====== GET List: Response Data
+
+This endpoint returns a list of Location objects.
+The header will contain the <<transport_and_format.asciidoc#transport_and_format_paginated_response,pagination>> related headers.
+
+Each object must contain all required fields. Fields that are not specified may be considered as null values.
+Any old information that is not specified in the response is considered no longer valid.
+For requests that use pagination, the response data provided by all the pages together is the new truth.
+Any old information not contained in any of the pages needs to be considered no longer valid.
+
+[cols="4,1,12",options="header"]
+|===
+|Type |Card. |Description 
+
+|<<mod_locations_location_object,Location>> |* |List of all Locations with valid EVSEs. 
+|===
+
+[[mod_locations_get_object_request_parameters]]
+====== GET Object: Request Parameters
+
+Endpoint structure definition for retrieving a Location, EVSE or Connector:
+
+`{locations_endpoint_url}/{location_id}[/{evse_uid}][/{connector_id}]`
+
+Examples:
+
+`+https://www.server.com/ocpi/cpo/2.2/locations/LOC1+`
+
+`+https://www.server.com/ocpi/cpo/2.2/locations/LOC1/3256+`
+
+`+https://www.server.com/ocpi/cpo/2.2/locations/LOC1/3256/1+`
+
+
+The following parameters can be provided as URL segments in the same order.
+
+[cols="3,2,1,10",options="header"]
+|===
+|Parameter |Datatype |Required |Description 
+
+|location_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |Location.id of the Location object to retrieve.
+|evse_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |no |Evse.uid, required when requesting an EVSE or Connector object.
+|connector_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |no |Connector.id, required when requesting a Connector object.
+|===
+
+[[mod_locations_get_object_response_data]]
+====== GET Object: Response Data
+
+The response contains the requested object. 
+
+[cols="4,1,12",options="header"]
+|===
+|Type |Card. |Description 
+
+|_Choice: one of three_ | | 
+|&gt; <<mod_locations_location_object,Location>> |1 |If a Location object was requested: the Location object. 
+|&gt; <<mod_locations_evse_object,EVSE>> |1 |If an EVSE object was requested: the EVSE object. 
+|&gt; <<mod_locations_connector_object,Connector>> |1 |If a Connector object was requested: the Connector object. 
+|===
+
+
+[[mod_locations_emsp_interface]]
+==== Receiver Interface
+
+Typically implemented by market roles like: eMSP and NSP.
+
+Locations are <<transport_and_format.asciidoc#transport_and_format_client_owned_object_push,Client Owned Objects>>,
+so the end-points need to contain the required extra fields: 
+{<<credentials.asciidoc#credentials_credentials_object,party_id>>} and {<<credentials.asciidoc#credentials_credentials_object,country_code>>}.
+
+Endpoint structure definition:
+
+`{locations_endpoint_url}/{country_code}/{party_id}/{location_id}[/{evse_uid}][/{connector_id}]`
+
+
+Examples:
+
+`+https://www.server.com/ocpi/emsp/2.2/locations/BE/BEC/LOC1+`
+
+`+https://server.com/ocpi/2.2/locations/BE/BEC/LOC1/3256+`
+
+`+https://ocpi.server.com/2.2/locations/BE/BEC/LOC1/3256/1+`
+
+
+[cols="2,12",options="header"]
+|===
+|Method |Description 
+
+|<<mod_locations_get_method_eMSP,GET>> |Retrieve a Location as it is stored in the eMSP system. 
+|POST |n/a _(use <<mod_locations_put_method,PUT>>)_ 
+|<<mod_locations_put_method,PUT>> |Push new/updated Location, EVSE and/or Connector to the eMSP. 
+|<<mod_locations_patch_method,PATCH>> |Notify the eMSP of partial updates to a Location, EVSE or Connector (such as the status). 
+|DELETE |n/a _(use <<mod_locations_patch_method,PATCH>> to update the `status` to `REMOVED` as described in <<mod_locations_flow_and_lifecycle,Flow and Lifecycle>>)_ 
+|===
+
+[[mod_locations_get_method_eMSP]]
+===== *GET* Method
+
+If the CPO wants to check the status of a Location, EVSE or Connector object in the eMSP system,
+it might GET the object from the eMSP system for validation purposes.
+The CPO is the owner of the objects, so it would be illogical if the eMSP system had a different status or was missing an object.
+If a discrepancy is found, the CPO might push an update to the eMSP via a <<mod_locations_put_method,PUT>> or <<mod_locations_patch_method,PATCH>> call.
+
+[[mod_locations_request_parameters]]
+====== Request Parameters
+
+The following parameters can be provided as URL segments.
+
+[cols="3,2,1,10",options="header"]
+|===
+|Parameter |Datatype |Required |Description 
+
+|country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |yes |Country code of the CPO requesting data from the eMSP system.
+|party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |yes |Party ID (Provider ID) of the CPO requesting data from the eMSP system.
+|location_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |Location.id of the Location object to retrieve.
+|evse_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |no |Evse.uid, required when requesting an EVSE or Connector object.
+|connector_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |no |Connector.id, required when requesting a Connector object.
+|===
+
+[[mod_locations_response_data]]
+====== Response Data
+
+The response contains the requested object. 
+
+[cols="4,1,12",options="header"]
+|===
+|Type |Card. |Description 
+
+|_Choice: one of three_ | | 
+|&gt; <<mod_locations_location_object,Location>> |1 |If a Location object was requested: the Location object. 
+|&gt; <<mod_locations_evse_object,EVSE>> |1 |If an EVSE object was requested: the EVSE object. 
+|&gt; <<mod_locations_connector_object,Connector>> |1 |If a Connector object was requested: the Connector object. 
+|===
+
+
+[[mod_locations_put_method]]
+===== *PUT* Method
+
+The CPO pushes available Location, EVSE or Connector objects to the eMSP.
+PUT can be used to send new Location objects to the eMSP but also to replace existing Locations.
+
+When the PUT only contains a <<mod_locations_connector_object,Connector>> Object,
+the Receiver SHALL also set the new `last_updated` value on the parent <<mod_locations_evse_object,EVSE>> and <<mod_locations_location_object,Location>> Objects.
+
+When the PUT only contains a <<mod_locations_evse_object,EVSE>> Object,
+the Receiver SHALL also set the new `last_updated` value on the parent <<mod_locations_location_object,Location>> Object.
+
+[[mod_locations_request_parameters_msp]]
+====== Request Parameters
+
+This is an information Push message, the objects pushed will not be owned by the eMSP.
+To make distinctions between objects being pushed to an eMSP from different CPOs, 
+the {<<credentials.asciidoc#credentials_credentials_object,party_id>>} and {<<credentials.asciidoc#credentials_credentials_object,country_code>>} 
+have to be included in the URL (as URL segments, as described in the <<mod_locations_emsp_interface,Receiver Interface>>).
+
+[cols="3,2,1,10",options="header"]
+|===
+|Parameter |Datatype |Required |Description 
+
+|country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |yes |Country code of the CPO requesting this PUT to the eMSP system. This SHALL be the same value as the `country_code` in the Location object being pushed.
+|party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |yes |Party ID (Provider ID) of the CPO requesting this PUT to the eMSP system. This SHALL be the same value as the `party_id` in the Location object being pushed.
+|location_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |Location.id of the new Location object, or the Location of which an EVSE or Connector object is pushed.
+|evse_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |no |Evse.uid, required when an EVSE or Connector object is pushed.
+|connector_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |no |Connector.id, required when a Connector object is pushed.
+|===
+
+[[mod_locations_request_body]]
+====== Request Body
+
+The request body contains the new/updated object.
+
+When the PUT contains a <<mod_locations_connector_object,Connector>> Object,
+the Receiver SHALL also set the new `last_updated` value on the parent <<mod_locations_evse_object,EVSE>> and <<mod_locations_location_object,Location>> Objects.
+
+When the PUT contains a <<mod_locations_evse_object,EVSE>> Object,
+the Receiver SHALL also set the new `last_updated` value on the parent <<mod_locations_location_object,Location>> Object.
+
+[cols="4,1,12",options="header"]
+|===
+|Type |Card. |Description 
+
+|_Choice: one of three_ | | 
+|&gt; <<mod_locations_location_object,Location>> |1 |New Location object, or Location object to replace. 
+|&gt; <<mod_locations_evse_object,EVSE>> |1 |New EVSE object, or EVSE object to replace. 
+|&gt; <<mod_locations_connector_object,Connector>> |1 |New Connector object, or Connector object to replace. 
+|===
+
+[[mod_locations_example_add_an_evse]]
+====== Example: add an EVSE
+
+To add an _EVSE_, simply put the full object in an update message, including all its required fields.
+Since the id will be new to the eMSP's system, the receiving party will know that it is a new object.
+When not all required fields are specified, the object may be discarded.
+
+[source,json]
+----
+PUT To URL: https://www.server.com/ocpi/emsp/2.2/locations/NL/TNM/1012/3256
+
+include::examples/location_put_example_add_evse.json[]
+----
+
+
+[[mod_locations_patch_method]]
+===== *PATCH* Method
+
+Same as the <<mod_locations_put_method,PUT>> method, but only the fields/objects that have to be updated have to be present.
+Other fields/objects that are not specified as part of the request are considered unchanged.
+Therefore, this method is not suitable to remove information shared earlier.
+
+Any request to the PATCH method SHALL contain the `last_updated` field.
+
+When the PATCH is on a <<mod_locations_connector_object,Connector>> Object,
+the Receiver SHALL also set the new `last_updated` value on the parent <<mod_locations_evse_object,EVSE>> and <<mod_locations_location_object,Location>> Objects.
+
+When the PATCH is on a <<mod_locations_evse_object,EVSE>> Object,
+the Receiver SHALL also set the new `last_updated` value on the parent <<mod_locations_location_object,Location>> Object.
+
+[[mod_locations_example_a_simple_status_update]]
+====== Example: a simple status update
+
+This is the most common type of update message. It is used to notify eMSPs that the status of an EVSE changed.
+In this case it is the EVSE with uid `3255` of the Location with id `1012`.
+
+
+[source,json]
+----
+PATCH To URL: https://www.server.com/ocpi/emsp/2.2/locations/NL/TNM/1012/3255
+
+include::examples/location_patch_example_status.json[]
+----
+
+
+[[mod_locations_example_change_the_location_name]]
+====== Example: change the location name
+
+In this example the name of the Location with id `1012` is being updated.
+
+[source,json]
+----
+PATCH To URL: https://www.server.com/ocpi/emsp/2.2/locations/NL/TNM/1012
+
+
+include::examples/location_patch_example_location.json[]
+----
+
+
+[[mod_locations_example_set_tariff_update]]
+====== Example: set tariff update
+
+In this example Connector `2` of EVSE `1` of Location `1012` receives a new pricing scheme.
+
+[source,json]
+----
+PATCH To URL: https://www.server.com/ocpi/emsp/2.2/locations/NL/TNM/1012/3255/2
+
+include::examples/location_patch_example_tariff.json[]
+----
+
+
+[[mod_locations_example_delete_an_evse]]
+====== Example: delete an EVSE
+
+An EVSE can be deleted by updating its `status` property.
+
+[source,json]
+----
+PATCH To URL: https://www.server.com/ocpi/emsp/2.2/locations/NL/TNM/1012/3256
+
+include::examples/location_patch_example_remove_evse.json[]
+----
+
+
+NOTE: To inform eMSPs that an EVSE is scheduled for removal, the status_schedule field can be used._
+
+[[mod_locations_object_description]]
+=== Object description
+
+Location, EVSE and Connector have the following relation.
+
+.Location class diagram
+image::images/locations-class-diagram.svg[Location class diagram]
+
+[[mod_locations_location_object]]
+==== _Location_ Object
+
+The _Location_ object describes the location and its properties where a group of EVSEs that belong together are installed.
+Typically, the _Location_ object is the exact location of the group of EVSEs, but it can also be the entrance of a parking garage which contains these EVSEs.
+The exact way to reach each EVSE can be further specified by its own properties.
+
+Locations may be shown in apps or on websites etc. when the flag: `publish` is set to `true`.
+Locations that have this flag set to `false` SHALL not be shown in an app or on a website etc. unless
+it is to the owner of a <<mod_tokens.asciidoc#mod_tokens_token_object,Token>> in the `publish_allowed_to` list.
+Even parties like NSP or eMSP that do not 'own' this Token MAY show this location on an app or website,
+but only to the owner of that Token.
+If the user of their app/website has provided information about his/her <<mod_tokens.asciidoc#mod_tokens_token_object,Token>>,
+And that information matches all the fields of one of the <<mod_locations_publish_token_class,PublishToken>> tokens in the list,
+then they are allowed to show this location to their user.
+It is not allowed in OCPI to use a Token that is not 'owned' by the eMSP itself to start a charging session.
+
+[cols="7,7,2,16",options="header"]
+|===
+|Property |Type |Card. |Description 
+
+|country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |1 |ISO-3166 alpha-2 country code of the CPO that 'owns' this Location.
+|party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |1 |CPO ID of the CPO that 'owns' this Location (following the ISO-15118 standard).
+|id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Uniquely identifies the location within the CPOs platform (and suboperator platforms). This field can never be changed, modified or renamed.
+|publish |boolean |1 |Defines if a Location may be published on an website or app etc. +
+                      When this is set to `false`, only tokens identified in the field: `publish_allowed_to` are allowed to be shown this Location. +
+                      When the same location has EVSEs that may be published and may not be published, two 'Locations' should be created.
+|publish_allowed_to |<<mod_locations_publish_token_class,PublishTokenType>> |* |This field may only be used when the `publish` field is set to `false` +
+                      Only owners of Tokens that match all the set fields of one PublishToken in the list are allowed to be shown this location.
+|name |<<types.asciidoc#types_string_type,string>>(255) |? |Display name of the location.
+|address |<<types.asciidoc#types_string_type,string>>(45) |1 |Street/block name and house number if available. 
+|city |<<types.asciidoc#types_string_type,string>>(45) |1 |City or town. 
+|postal_code |<<types.asciidoc#types_string_type,string>>(10) |? |Postal code of the location, may only be omitted when the location has no postal code: in some countries charging locations at highways don't have postal codes.
+|state |<<types.asciidoc#types_string_type,string>>(20) |? |State or province of the location, only to be used when relevant.
+|country |<<types.asciidoc#types_string_type,string>>(3) |1 |ISO 3166-1 alpha-3 code for the country of this location.
+|coordinates |<<mod_locations_geolocation_class,GeoLocation>> |1 |Coordinates of the location. 
+|related_locations |<<mod_locations_additionalgeolocation_class,AdditionalGeoLocation>> |* |Geographical location of related points relevant to the user.
+|parking_type |<<mod_locations_parkingtype_enum,ParkingType>> |? |The general type of parking at the charge point location.
+|evses |<<mod_locations_evse_object,EVSE>> |* |List of EVSEs that belong to this Location.
+|directions |<<types.asciidoc#types_displaytext_class,DisplayText>> |* |Human-readable directions on how to reach the location. 
+|operator |<<mod_locations_businessdetails_class,BusinessDetails>> |? |Information of the operator. When not specified, the information retrieved from the <<credentials.asciidoc#credentials_credentials_endpoint,Credentials>> module should be used instead.
+|suboperator |<<mod_locations_businessdetails_class,BusinessDetails>> |? |Information of the suboperator if available.
+|owner |<<mod_locations_businessdetails_class,BusinessDetails>> |? |Information of the owner if available. 
+|facilities |<<mod_locations_facility_enum,Facility>> |* |Optional list of facilities this charging location directly belongs to. 
+|time_zone |<<types.asciidoc#types_string_type,string>>(255) |1 |One of IANA tzdata's TZ-values representing the time zone of the location. Examples: "Europe/Oslo", "Europe/Zurich". (http://www.iana.org/time-zones[http://www.iana.org/time-zones])
+|opening_times |<<mod_locations_hours_class,Hours>> |? |The times when the EVSEs at the location can be accessed for charging. 
+|charging_when_closed |boolean |? |Indicates if the EVSEs are still charging outside the opening hours of the location. E.g. when the parking garage closes its barriers over night, is it allowed to charge till the next morning? Default: *true* 
+|images |<<mod_locations_image_class,Image>> |* |Links to images related to the location such as photos or logos. 
+|energy_mix |<<mod_locations_energymix_class,EnergyMix>> |? |Details on the energy supplied at this location. 
+|last_updated |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Timestamp when this Location or one of its EVSEs or Connectors were last updated (or created). 
+|===
+
+Private Charge Points, home or business that do not need to be published on apps, and do not require remote control via OCPI,
+SHOULD not be PUT via the OCPI Locations module.  Reimbursement via eMSP is still possible by sending <<mod_cdrs.asciidoc#mod_cdrs_cdr_object,CDRs>> to eMSP, the Locations module is not needed for this..
+
+[[mod_locations_example]]
+===== Example public charging location
+
+This is an example of a public charging location.
+Can be used by any EV Driver as long as his eMSP has a roaming agreement with the CPO.
+Or the Charge Point has an ad-hoc payment possibility
+
+- `publish` = `true`
+- `parking_type` = `ON_STREET` but could also be another value.
+- `EVSE.parking_restrictions` not used.
+
+[source,json]
+----
+include::examples/location_example.json[]
+----
+
+[[mod_locations_example_uc2]]
+===== Example destination charging location
+
+This is an example of a destination charging location.
+This is a Location where only guests, employees or customers can charge.
+For an EV driver, it can be useful to know if he/she can charge at his destination.
+
+For example at a restaurant, only customers of the restaurant can charge their EV.
+Or at an office building where employees and guest of the office can charge their EV.
+
+Locations you can think of where this is useful:
+restaurants, bars, clubs, theme parks, stores, supermarkets, company building, office buildings, etc.
+
+- `publish` = `true`
+- `parking_type` = `PARKING_LOT` (but could also be `PARKING_GARAGE`, `ON_DRIVEWAY` or `UNDERGROUND_GARAGE`)
+- `EVSE.parking_restrictions` = `CUSTOMERS`
+
+[source,json]
+----
+include::examples/location_example_uc2_destination_charger.json[]
+----
+
+[[mod_locations_example_uc3]]
+===== Example destination charging location not published, but paid guest usage possible
+
+This is an example of a destination charging location.
+But the owner of the location has requested not to publish the location in Apps or on websites.
+
+Charging is still possible: EV drivers of an eMSP with a roaming agreement can still charge their EV.
+The eMSP helpdesk can use the information from the Location module to help the driver, maybe even start a session for a driver.
+Starting a session from an App is not possible, because the driver will not be able to select the Charge Point on a map.
+
+In case the EV driver is not billed for charging, there is, in such a case, no reason to publish the location via OCPI.
+
+- `publish` = `false`
+- `publish_allowed_to` not used
+- `parking_type` = not used`
+- `EVSE.parking_restrictions` = `CUSTOMERS` May still be useful so a support desk can also tell this to a customer.
+
+[source,json]
+----
+include::examples/location_example_uc3_destination_charger_not_published.json[]
+----
+
+[[mod_locations_example_uc4]]
+===== Example charging location with limited visibility
+
+This is an example of a charging location that only a limited group can see (and use) via an App or website.
+
+Typical examples where this is useful:
+
+- Charge Points in the parking garage of an apartment building. Only owners can see/control the Charge Points.
+- Charge Points at an office, for employees only. Only employees can see/control the Charge Points.
+- Charge Points at vehicle depot. Any employee can see/control an charge point, even transaction they did not start. Use `group_id` for this.
+
+The locations SHALL NOT be published to the general public.
+Only selected <<mod_tokens.asciidoc#mod_tokens_token_object,Tokens>> can see (and control) the Charge Points via eMSP app.
+
+- `publish` = `false`
+- `publish_allowed_to` contains list with information of <<mod_tokens.asciidoc#mod_tokens_token_object,Tokens>> that are allowed to be shown the `Location`.
+- `parking_type` = `UNDERGROUND_GARAGE` (but could also be `PARKING_GARAGE`, `ON_DRIVEWAY` or `PARKING_LOT`)
+
+[source,json]
+----
+include::examples/location_example_uc4_limited_visibility.json[]
+----
+
+[[mod_locations_example_uc5]]
+===== Example private charge point with eMSP app control
+
+This is an example of a private/home charge point that needs to be controlled via an eMSP App.
+
+The locations SHALL NOT be published to the general public.
+Only the owner, identified by his/her <<mod_tokens.asciidoc#mod_tokens_token_object,Token>> can see (and control) the Charge Points via an eMSP app.
+
+- `publish` = `false`
+- `publish_allowed_to` contains the information of the <<mod_tokens.asciidoc#mod_tokens_token_object,Tokens>> of the owner.
+- `parking_type` = not used, not relevant, owner knows where his Charge Point is.
+
+[source,json]
+----
+include::examples/location_example_uc5_home_charge_point.json[]
+----
+
+[[mod_locations_example_parking_garage_with_opening_hours]]
+===== Example charge point in a parking garage with opening hours
+
+This is an example of a charge point, located in a parking garage with limited opening hours:
+7:00 - 18:00.
+
+If the EV is left in the parking garage overnight, the car will still be charged.
+
+- `publish` = `true`
+- `parking_type` = `PARKING_GARAGE` but could also be another value.
+- `EVSE.parking_restrictions` not used.
+- `opening_times` is used.
+- `charging_when_closed` = `true`
+
+[source,json]
+----
+include::examples/location_example_parking_garage_opening_hours.json[]
+----
+
+
+[[mod_locations_evse_object]]
+==== _EVSE_ Object
+
+The _EVSE_ object describes the part that controls the power supply to a single EV in a single session.
+It always belongs to a <<mod_locations_location_object,Location>> object. 
+The object only contains directions to get from the location itself
+to the EVSE (i.e. _floor_, _physical_reference_ or _directions_).
+
+When the directional properties of an EVSE are insufficient to reach the EVSE from the _Location_ point,
+then it typically indicates that the EVSE should be put in a different _Location_ object
+(sometimes with the same address but with different coordinates/directions).
+
+An _EVSE_ object has a list of Connectors which can not be used simultaneously: only one connector per EVSE can be used at the time.
+
+[cols="7,5,2,18",options="header"]
+|===
+|Property |Type |Card. |Description 
+
+|uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Uniquely identifies the EVSE within the CPOs platform (and suboperator platforms). For example a database ID or the actual "EVSE ID". This field can never be changed, modified or renamed. This is the 'technical' identification of the EVSE, not to be used as 'human readable' identification, use the field `evse_id` for that. +
+This field is named `uid` instead of `id`, because `id` could be confused with `evse_id` which is an eMI3 defined field.
+|evse_id |<<types.asciidoc#types_cistring_type,CiString>>(48) |? |Compliant with the following specification for EVSE ID from "eMI3 standard version V1.0" (http://emi3group.com/documents-links/[http://emi3group.com/documents-links/]) "Part 2: business objects." Optional because: if an `evse_id` is to be re-used in the real world, the `evse_id` can be removed from an EVSE object if the `status` is set to `REMOVED`.
+|status |<<mod_locations_status_enum,Status>> |1 |Indicates the current status of the EVSE. 
+|status_schedule |<<mod_locations_statusschedule_class,StatusSchedule>> |* |Indicates a planned status update of the EVSE. 
+|capabilities |<<mod_locations_capability_enum,Capability>> |* |List of functionalities that the EVSE is capable of. 
+|connectors |<<mod_locations_connector_object,Connector>> |+ |List of available connectors on the EVSE. 
+|floor_level |<<types.asciidoc#types_string_type,string>>(4) |? |Level on which the Charge Point is located (in garage buildings) in the locally displayed numbering scheme.
+|coordinates |<<mod_locations_geolocation_class,GeoLocation>> |? |Coordinates of the EVSE. 
+|physical_reference |<<types.asciidoc#types_string_type,string>>(16) |? |A number/string printed on the outside of the EVSE for visual identification. 
+|directions |<<types.asciidoc#types_displaytext_class,DisplayText>> |* |Multi-language human-readable directions when more detailed information on how to reach the EVSE from the _Location_ is required. 
+|parking_restrictions |<<mod_locations_parkingrestriction_enum,ParkingRestriction>> |* |The restrictions that apply to the parking spot. 
+|images |<<mod_locations_image_class,Image>> |* |Links to images related to the EVSE such as photos or logos. 
+|last_updated |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Timestamp when this EVSE or one of its Connectors was last updated (or created). 
+|===
+
+NOTE: OCPP 1.x does not have good support for Charge Points that have multiple connectors per EVSE.
+To make `StartSession` over OCPI work, the CPO SHOULD present the different connectors of an EVSE as separate EVSE,
+as is also written by the OCA in the application note: "Multiple Connectors per EVSE in a OCPP 1.x implementation".
+
+
+[[mod_locations_connector_object]]
+==== _Connector_ Object
+
+A _Connector_ is the _socket_ or _cable and plug_ available for the EV to use. 
+A single EVSE may provide multiple Connectors but only one of them can be in use at the same time.
+A Connector always belongs to an <<mod_locations_evse_object,EVSE>> object.
+
+[cols="7,5,2,18",options="header"]
+|===
+|Property |Type |Card. |Description 
+
+|id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Identifier of the Connector within the EVSE. Two Connectors may have the same id as long as they do not belong to the same _EVSE_ object.
+|standard |<<mod_locations_connectortype_enum,ConnectorType>> |1 |The standard of the installed connector. 
+|format |<<mod_locations_connectorformat_enum,ConnectorFormat>> |1 |The format (socket/cable) of the installed connector. 
+|power_type |<<mod_locations_powertype_enum,PowerType>> |1 | 
+|max_voltage |int |1 |Maximum voltage of the connector (line to neutral for AC_3_PHASE), in volt [V]. For example: DC Chargers might vary the voltage during charging when battery almost full.
+|max_amperage |int |1 |Maximum amperage of the connector, in ampere [A].
+|max_electric_power |int |? |Maximum electric power that can be delivered by this connector, in Watts (W). When the maximum electric power is lower than the calculated value from `voltage` and `amperage`, this value should be set. +
+For example: A DC Charge Point which can delivers up to 920V and up to 400A can be limited to a maximum of 150kW (max_electric_power = 150000). Depending on the car, it may supply max voltage or current, but not both at the same time. +
+For AC Charge Points, the amount of phases used can also have influence on the maximum power.
+|tariff_ids |<<types.asciidoc#types_cistring_type,CiString>>(36) |* |Identifiers of the currently valid charging tariffs.
+                    Multiple tariffs are possible, but only one of each <<mod_tariffs.asciidoc#mod_tariffs_tariff_object,Tariff.type>> can be active at the same time.
+                    Tariffs with the same type are only allowed if they are not active at the same time:
+                    <<mod_tariffs.asciidoc#mod_tariffs_tariff_object,start_date_time>> and <<mod_tariffs.asciidoc#mod_tariffs_tariff_object,end_date_time>> period not overlapping. +
+                    When preference-based smart charging is supported, one tariff for every possible <<mod_sessions.asciidoc#mod_sessions_profile_type_enum,ProfileType>> should be provided.
+                    These tell the user about the options they have at this Connector, and what the tariff is for every option. +
+                    For a "free of charge" tariff, this field should be set and point to a defined "free of charge" tariff.
+|terms_and_conditions |<<types.asciidoc#types_url_type,URL>> |? |URL to the operator's terms and conditions. 
+|last_updated |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Timestamp when this Connector was last updated (or created). 
+|===
+
+
+[[mod_locations_data_types]]
+=== Data types
+
+[[mod_locations_additionalgeolocation_class]]
+==== AdditionalGeoLocation _class_
+
+This class defines an additional geo location that is relevant for the Charge Point. The geodetic system to be used is WGS 84.
+
+[cols="3,2,1,10",options="header"]
+|===
+|Property |Type |Card. |Description 
+
+|latitude |<<types.asciidoc#types_string_type,string>>(10) |1 |Latitude of the point in decimal degree. Example: 50.770774. Decimal separator: "." Regex: `-?[0-9]{1,2}\.[0-9]{5,7}`
+|longitude |<<types.asciidoc#types_string_type,string>>(11) |1 |Longitude of the point in decimal degree. Example: -126.104965. Decimal separator: "." Regex: `-?[0-9]{1,3}\.[0-9]{5,7}`
+|name |<<types.asciidoc#types_displaytext_class,DisplayText>> |? |Name of the point in local language or as written at the location. For example the street name of a parking lot entrance or it's number. 
+|===
+
+[[mod_locations_businessdetails_class]]
+==== BusinessDetails _class_
+
+[cols="3,2,1,10",options="header"]
+|===
+|Property |Type |Card. |Description 
+
+|name |<<types.asciidoc#types_string_type,string>>(100) |1 |Name of the operator. 
+|website |<<types.asciidoc#types_url_type,URL>> |? |Link to the operator's website. 
+|logo |<<mod_locations_image_class,Image>> |? |Image link to the operator's logo. 
+|===
+
+
+[[mod_locations_capability_enum]]
+==== Capability _enum_
+
+The capabilities of an EVSE.
+
+[cols="5,8",options="header"]
+|===
+|Value |Description 
+
+|CHARGING_PROFILE_CAPABLE |The EVSE supports charging profiles.
+|CHARGING_PREFERENCES_CAPABLE |The EVSE supports <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,charging preferences>>.
+|CHIP_CARD_SUPPORT |EVSE has a payment terminal that supports chip cards.
+|CONTACTLESS_CARD_SUPPORT |EVSE has a payment terminal that supports contactless cards.
+|CREDIT_CARD_PAYABLE |EVSE has a payment terminal that makes it possible to pay for charging using a credit card.
+|DEBIT_CARD_PAYABLE |EVSE has a payment terminal that makes it possible to pay for charging using a debit card.
+|PED_TERMINAL |EVSE has a payment terminal with a pin-code entry device.
+|REMOTE_START_STOP_CAPABLE |The EVSE can remotely be <<mod_commands.asciidoc#mod_commands_startsession_object,started>>/<<mod_commands.asciidoc#mod_commands_stopsession_object,stopped>>.
+|RESERVABLE |The EVSE can be <<mod_commands.asciidoc#mod_commands_reservenow_object,reserved>>.
+|RFID_READER |Charging at this EVSE can be authorized with an RFID token.
+|TOKEN_GROUP_CAPABLE |This EVSE supports token groups, two or more tokens work as one, so that a session can be started with one token and stopped with another (handy when a card and key-fob are given to the EV-driver).
+|UNLOCK_CAPABLE |Connectors have mechanical lock that can be requested by the eMSP to be <<mod_commands.asciidoc#mod_commands_unlockconnector_object,unlocked>>.
+|===
+
+When a Charge Point supports ad-hoc payments with a payment terminal, please use a combination of the following values to explain the possibilities of the terminal:
+CHIP_CARD_SUPPORT, CONTACTLESS_CARD_SUPPORT, CREDIT_CARD_PAYABLE, DEBIT_CARD_PAYABLE, PED_TERMINAL.
+
+
+[[mod_locations_connectorformat_enum]]
+==== ConnectorFormat _enum_
+
+The format of the connector, whether it is a socket or a plug.
+
+[cols="3,10",options="header"]
+|===
+|Value |Description 
+
+|SOCKET |The connector is a socket; the EV user needs to bring a fitting plug. 
+|CABLE |The connector is an attached cable; the EV users car needs to have a fitting inlet. 
+|===
+
+[[mod_locations_connectortype_enum]]
+==== ConnectorType _enum_
+
+The socket or plug standard of the charging point.
+
+[cols="3,10",options="header"]
+|===
+|Value |Description 
+
+|CHADEMO |The connector type is CHAdeMO, DC 
+|DOMESTIC_A |Standard/Domestic household, type "A", NEMA 1-15, 2 pins 
+|DOMESTIC_B |Standard/Domestic household, type "B", NEMA 5-15, 3 pins 
+|DOMESTIC_C |Standard/Domestic household, type "C", CEE 7/17, 2 pins 
+|DOMESTIC_D |Standard/Domestic household, type "D", 3 pin 
+|DOMESTIC_E |Standard/Domestic household, type "E", CEE 7/5 3 pins 
+|DOMESTIC_F |Standard/Domestic household, type "F", CEE 7/4, Schuko, 3 pins 
+|DOMESTIC_G |Standard/Domestic household, type "G", BS 1363, Commonwealth, 3 pins 
+|DOMESTIC_H |Standard/Domestic household, type "H", SI-32, 3 pins 
+|DOMESTIC_I |Standard/Domestic household, type "I", AS 3112, 3 pins 
+|DOMESTIC_J |Standard/Domestic household, type "J", SEV 1011, 3 pins 
+|DOMESTIC_K |Standard/Domestic household, type "K", DS 60884-2-D1, 3 pins 
+|DOMESTIC_L |Standard/Domestic household, type "L", CEI 23-16-VII, 3 pins 
+|IEC_60309_2_single_16 |IEC 60309-2 Industrial Connector single phase 16 amperes (usually blue) 
+|IEC_60309_2_three_16 |IEC 60309-2 Industrial Connector three phase 16 amperes (usually red) 
+|IEC_60309_2_three_32 |IEC 60309-2 Industrial Connector three phase 32 amperes (usually red) 
+|IEC_60309_2_three_64 |IEC 60309-2 Industrial Connector three phase 64 amperes (usually red) 
+|IEC_62196_T1 |IEC 62196 Type 1 "SAE J1772" 
+|IEC_62196_T1_COMBO |Combo Type 1 based, DC 
+|IEC_62196_T2 |IEC 62196 Type 2 "Mennekes" 
+|IEC_62196_T2_COMBO |Combo Type 2 based, DC 
+|IEC_62196_T3A |IEC 62196 Type 3A 
+|IEC_62196_T3C |IEC 62196 Type 3C "Scame" 
+|PANTOGRAPH_BOTTOM_UP|On-board Bottom-up-Pantograph typically for bus charging
+|PANTOGRAPH_TOP_DOWN|Off-board Top-down-Pantograph typically for bus charging
+|TESLA_R |Tesla Connector "Roadster"-type (round, 4 pin)
+|TESLA_S |Tesla Connector "Model-S"-type (oval, 5 pin)
+|===
+
+[[mod_locations_energymix_class]]
+==== EnergyMix _class_
+
+This type is used to specify the energy mix and environmental impact of the supplied energy at a location or in a tariff.
+
+[cols="3,3,1,9",options="header"]
+|===
+|Property |Type |Card. |Description 
+
+|is_green_energy |boolean |1 |True if 100% from regenerative sources. (CO2 and nuclear waste is zero) 
+|energy_sources |<<mod_locations_energysource_class,EnergySource>> |* |Key-value pairs (enum + percentage) of energy sources of this location's tariff. 
+|environ_impact |<<mod_locations_environmentalimpact_class,EnvironmentalImpact>> |* |Key-value pairs (enum + percentage) of nuclear waste and CO2 exhaust of this location's tariff. 
+|supplier_name |<<types.asciidoc#types_string_type,string>>(64) |? |Name of the energy supplier, delivering the energy for this location or tariff.* 
+|energy_product_name |<<types.asciidoc#types_string_type,string>>(64) |? |Name of the energy suppliers product/tariff plan used at this location.* 
+|===
+
+_* These fields can be used to look-up energy qualification or to show it directly to the customer (for well-known brands like Greenpeace Energy, etc.)_
+
+[[mod_locations_examples]]
+===== Examples
+
+[[mod_locations_simple]]
+====== Simple:
+
+[source,json]
+----
+include::examples/location_energymix_example_simple.json[lines=2..4]
+----
+
+
+[[mod_locations_energy_provider_name]]
+====== Tariff energy provider name:
+
+[source,json]
+----
+include::examples/location_energymix_example_energy_provider.json[lines=2..6]
+----
+
+
+[[mod_locations_complete]]
+====== Complete:
+
+[source,json]
+----
+include::examples/location_energymix_example_complete.json[lines=2..17]
+----
+
+
+[[mod_locations_energysource_class]]
+==== EnergySource _class_
+
+Key-value pairs (enum + percentage) of energy sources. All given values of all categories should add up to 100 percent.
+
+[cols="2,4,1,10",options="header"]
+|===
+|Property |Type |Card. |Description 
+
+|source |<<mod_locations_energysourcecategory_enum,EnergySourceCategory>> |1 |The type of energy source. 
+|percentage |<<types.asciidoc#types_number_type,number>> |1 |Percentage of this source (0-100) in the mix. 
+|===
+
+[[mod_locations_energysourcecategory_enum]]
+==== EnergySourceCategory _enum_
+
+Categories of energy sources.
+
+[cols="3,10",options="header"]
+|===
+|Value |Description 
+
+|NUCLEAR |Nuclear power sources. 
+|GENERAL_FOSSIL |All kinds of fossil power sources. 
+|COAL |Fossil power from coal. 
+|GAS |Fossil power from gas. 
+|GENERAL_GREEN |All kinds of regenerative power sources. 
+|SOLAR |Regenerative power from PV. 
+|WIND |Regenerative power from wind turbines. 
+|WATER |Regenerative power from water turbines. 
+|===
+
+[[mod_locations_environmentalimpact_class]]
+==== EnvironmentalImpact _class_
+
+Amount of waste produced/emitted per kWh.
+
+[cols="2,5,1,9",options="header"]
+|===
+|Property |Type |Card. |Description 
+
+|category |<<mod_locations_environmentalimpactcategory_enum,EnvironmentalImpactCategory>> |1 |The environmental impact category of this value.
+|amount |<<types.asciidoc#types_number_type,number>> |1 |Amount of this portion in g/kWh. 
+|===
+
+[[mod_locations_environmentalimpactcategory_enum]]
+==== EnvironmentalImpactCategory _enum_
+
+Categories of environmental impact values.
+
+[cols="3,10",options="header"]
+|===
+|Value |Description 
+
+|NUCLEAR_WASTE |Produced nuclear waste in grams per kilowatthour.
+|CARBON_DIOXIDE |Exhausted carbon dioxide in grams per kilowatthour.
+|===
+
+[[mod_locations_exceptionalperiod_class]]
+==== ExceptionalPeriod _class_
+
+Specifies one exceptional period for opening or access hours.
+
+[cols="3,2,1,10",options="header"]
+|===
+|Property |Type |Card. |Description
+
+|period_begin |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Begin of the exception. In UTC, `time_zone` field can be used to convert to local time.
+|period_end |<<types.asciidoc#types_datetime_type,DateTime>> |1 |End of the exception. In UTC, `time_zone` field can be used to convert to local time.
+|===
+
+
+[[mod_locations_facility_enum]]
+==== Facility _enum_
+
+[cols="3,10",options="header"]
+|===
+|Value |Description 
+
+|HOTEL |A hotel. 
+|RESTAURANT |A restaurant. 
+|CAFE |A cafe. 
+|MALL |A mall or shopping center. 
+|SUPERMARKET |A supermarket. 
+|SPORT |Sport facilities: gym, field etc. 
+|RECREATION_AREA |A recreation area. 
+|NATURE |Located in, or close to, a park, nature reserve etc. 
+|MUSEUM |A museum. 
+|BIKE_SHARING |A bike/e-bike/e-scooter sharing location.
+|BUS_STOP |A bus stop.
+|TAXI_STAND |A taxi stand. 
+|TRAM_STOP | A tram stop/station.
+|METRO_STATION |A metro station.
+|TRAIN_STATION |A train station.
+|AIRPORT |An airport. 
+|PARKING_LOT | A parking lot.
+|CARPOOL_PARKING |A carpool parking.
+|FUEL_STATION |A Fuel station. 
+|WIFI |Wifi or other type of internet available. 
+|===
+
+
+[[mod_locations_geolocation_class]]
+==== GeoLocation _class_
+
+This class defines the geo location of the Charge Point. The geodetic system to be used is WGS 84.
+
+[cols="3,2,1,10",options="header"]
+|===
+|Property |Type |Card. |Description 
+
+|latitude |<<types.asciidoc#types_string_type,string>>(10) |1 |Latitude of the point in decimal degree. Example: 50.770774. Decimal separator: "." Regex: `-?[0-9]{1,2}\.[0-9]{5,7}`
+|longitude |<<types.asciidoc#types_string_type,string>>(11) |1 |Longitude of the point in decimal degree. Example: -126.104965. Decimal separator: "." Regex: `-?[0-9]{1,3}\.[0-9]{5,7}`
+|===
+
+NOTE: Five decimal places is seen as a minimum for GPS coordinates of the Charge Point as this gives approximately 1 meter precision.
+More is always better. Seven decimal places gives approximately 1cm precision.
+
+
+[[mod_locations_hours_class]]
+==== Hours _class_
+
+Opening and access hours of the location.
+
+[cols="3,3,1,9",options="header"]
+|===
+|Property |Type |Card. |Description
+
+|twentyfourseven |boolean |1 |True to represent 24 hours a day and 7 days a week, except the given exceptions. 
+|regular_hours |<<mod_locations_regularhours_class,RegularHours>> |* |Regular hours, weekday-based. Only to be used if `twentyfourseven=false`, then this field needs to contain at least one <<mod_locations_regularhours_class,RegularHours>> object.
+|exceptional_openings |<<mod_locations_exceptionalperiod_class,ExceptionalPeriod>> |* |Exceptions for specified calendar dates, time-range based. Periods the station is operating/accessible. Additional to `regular_hours`. May overlap regular rules. 
+|exceptional_closings |<<mod_locations_exceptionalperiod_class,ExceptionalPeriod>> |* |Exceptions for specified calendar dates, time-range based. Periods the station is not operating/accessible. Overwriting `regular_hours` and `exceptional_openings`. Should not overlap `exceptional_openings`. 
+|===
+
+[[mod_locations_hours_example_1]]
+===== Example: 24/7 open with exceptional closing.
+
+Open 24 hours per day, 7 days a week, except for 25th of December 2018 between 03:00 and 05:00.
+
+[source,json]
+----
+include::examples/location_hours_247_open_exception_closing.json[]
+----
+
+.Diagram showing a representation of the example 24/7 open with exception closing.
+image::images/location_hours_247_open_exception_closing.svg[24/7 open with exception closing.]
+
+
+[[mod_locations_hours_example_2]]
+===== Example: Opening Hours with exceptional closing.
+
+Regular opening hours between 01:00 and 06:00. With exceptional closing on 25th of December 2018 between 03:00 and 05:00.
+
+[source,json]
+----
+include::examples/location_hours_opening_hours_with_exceptional_closing.json[]
+----
+
+.Diagram showing a representation of the example Opening Hours with exceptional closing
+image::images/location_hours_opening_hours_with_exceptional_closing.svg[Opening Hours with exceptional closing.]
+
+
+[[mod_locations_hours_example_3]]
+===== Example: Opening Hours with exceptional opening.
+
+Regular opening hours between 00:00 and 04:00. With exceptional opening on 25th of December 2018 between 05:00 and 07:00.
+
+[source,json]
+----
+include::examples/location_hours_opening_hours_with_exceptional_opening.json[]
+----
+
+.Diagram showing a representation of the example Opening Hours with exceptional opening.
+image::images/location_hours_opening_hours_with_exceptional_opening.svg[Opening Hours with exceptional opening.]
+
+
+[[mod_locations_image_class]]
+==== Image _class_
+
+This class references an image related to an EVSE in terms of a file name or url.
+According to the roaming connection between one EVSE Operator and one or more Navigation Service Providers,
+the hosting or file exchange of image payload data has to be defined. The exchange of this content data is out of scope of OCPI.
+However, the recommended setup is a public available web server hosted and updated by the EVSE Operator.
+Per charge point an unlimited number of images of each type is allowed.
+Recommended are at least two images where one is a network or provider logo and the second is a station photo.
+If two images of the same type are defined, not only one should be selected but both should be displayed together.
+
+Photo Dimensions:
+The recommended dimensions for all photos is a minimum width of 800 pixels and a minimum height of 600 pixels.
+Thumbnail should always have the same orientation as the original photo with a size of 200 by 200 pixels.
+
+Logo Dimensions:
+The recommended dimensions for logos are exactly 512 pixels in width height.
+Thumbnail representations of logos should be exactly 128 pixels in width and height.
+If not squared, thumbnails should have the same orientation as the original.
+
+[cols="3,3,1,9",options="header"]
+|===
+|Property |Type |Card. |Description
+
+|url |<<types.asciidoc#types_url_type,URL>> |1 |URL from where the image data can be fetched through a web browser. 
+|thumbnail |<<types.asciidoc#types_url_type,URL>> |? |URL from where a thumbnail of the image can be fetched through a webbrowser. 
+|category |<<mod_locations_imagecategory_enum,ImageCategory>> |1 |Describes what the image is used for. 
+|type |<<types.asciidoc#types_string_type,CiString>>(4) |1 |Image type like: gif, jpeg, png, svg.
+|width |int(5) |? |Width of the full scale image. 
+|height |int(5) |? |Height of the full scale image. 
+|===
+
+[[mod_locations_imagecategory_enum]]
+==== ImageCategory _enum_
+
+The category of an image to obtain the correct usage in a user presentation.
+The category has to be set accordingly to the image content in order to guarantee the right usage.
+
+[cols="3,10",options="header"]
+|===
+|Value |Description 
+
+|CHARGER |Photo of the physical device that contains one or more EVSEs. 
+|ENTRANCE |Location entrance photo. Should show the car entrance to the location from street side. 
+|LOCATION |Location overview photo. 
+|NETWORK |Logo of an associated roaming network to be displayed with the EVSE for example in lists, maps and detailed information views.
+|OPERATOR |Logo of the charge point operator, for example a municipality, to be displayed in the EVSEs detailed information view or in lists and maps, if no network logo is present. 
+|OTHER |Other 
+|OWNER |Logo of the charge point owner, for example a local store, to be displayed in the EVSEs detailed information view.
+|===
+
+[[mod_locations_parkingrestriction_enum]]
+==== ParkingRestriction _enum_
+
+This value, if provided, represents the restriction to the parking spot for different purposes.
+
+[cols="3,10",options="header"]
+|===
+|Value |Description 
+
+|EV_ONLY |Reserved parking spot for electric vehicles. 
+|PLUGGED |Parking is only allowed while plugged in (charging). 
+|DISABLED |Reserved parking spot for disabled people with valid ID. 
+|CUSTOMERS |Parking spot for customers/guests only, for example in case of a hotel or shop.
+|MOTORCYCLES |Parking spot only suitable for (electric) motorcycles or scooters. 
+|===
+
+[[mod_locations_parkingtype_enum]]
+==== ParkingType _enum_
+
+Reflects the general type of the charge point's location. May be used for user information.
+
+[cols="4,9",options="header"]
+|===
+|Value |Description
+
+|ALONG_MOTORWAY |Location on a parking facility/rest area along a motorway, freeway, interstate, highway etc.
+|PARKING_GARAGE |Multistorey car park.
+|PARKING_LOT |A cleared area that is intended for parking vehicles, i.e. at super markets, bars, etc.
+|ON_DRIVEWAY |Location is on the driveway of a house/building.
+|ON_STREET |Parking in public space along a street.
+|UNDERGROUND_GARAGE |Multistorey car park, mainly underground.
+|===
+
+[[mod_locations_powertype_enum]]
+==== PowerType _enum_
+
+[cols="3,10",options="header"]
+|===
+|Value |Description 
+
+|AC_1_PHASE |AC single phase. 
+|AC_3_PHASE |AC three phase. 
+|DC |Direct Current. 
+|===
+
+
+[[mod_locations_publish_token_class]]
+==== PublishTokenType _class_
+
+Defines the set of values that identify a token to which a Location might be published.
+
+At least one of the following fields SHALL be set: `uid`, `visual_number`, or `group_id`.
+
+When `uid` is set, `type` SHALL also be set.
+
+When `visual_number` is set, `issuer` SHALL also be set.
+
+[cols="3,2,1,10",options="header"]
+|===
+|Property |Type |Card. |Description
+
+|uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |Unique ID by which this Token can be identified.
+|type |<<mod_tokens_tokentype_enum,TokenType>> |? |Type of the token.
+|visual_number |<<types.asciidoc#types_string_type,string>>(64) |? |Visual readable number/identification as printed on the Token (RFID card).
+|issuer |<<types.asciidoc#types_string_type,string>>(64) |? |Issuing company, most of the times the name of the company printed on the token (RFID card), not necessarily the eMSP.
+|group_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |This ID groups a couple of tokens. This can be used to make two or more tokens work as one.
+|===
+
+
+[[mod_locations_regularhours_class]]
+==== RegularHours _class_
+
+Regular recurring operation or access hours.
+
+[cols="3,2,1,10",options="header"]
+|===
+|Property |Type |Card. |Description
+
+|weekday |int(1) |1 |Number of day in the week, from Monday (1) till Sunday (7) 
+|period_begin |<<types.asciidoc#types_string_type,string>>(5) |1 |Begin of the regular period, in local time, given in hours and minutes. Must be in 24h format with leading zeros. Example: "18:15". Hour/Minute separator: ":" Regex: `([0-1][0-9]\|2[0-3]):[0-5][0-9]`.
+|period_end |<<types.asciidoc#types_string_type,string>>(5) |1 |End of the regular period, in local time, syntax as for `period_begin`. Must be later than `period_begin`.
+|===
+
+[[mod_locations_example_a]]
+===== Example
+
+Operating on weekdays from 8am till 8pm with one exceptional opening on
+22/6/2014 and one exceptional closing the Monday after:
+
+[source,json]
+----
+include::examples/location_regularhours_example.json[lines=2..43]
+----
+
+
+This represents the following schedule, where [line-through]#stroked out# days are without operation hours, *bold* days are where exceptions apply and regular displayed days are where the regular schedule applies.
+
+|===
+|Weekday |Mo |Tu |We |Th |Fr |Sa |Su |Mo |Tu |We |Th |Fr |Sa |Su 
+
+|Date |16 |17 |18 |19 |20 |*21* |[line-through]#22# |23 |*[line-through]#24#* |25 |26 |27 |[line-through]#28# |[line-through]#29# 
+|Open from |08 |08 |08 |08 |08 |09 |`-` |08 |`-` |08 |08 |08 |`-` |`-` 
+|Open till |20 |20 |20 |20 |20 |12 |`-` |20 |`-` |20 |20 |20 |`-` |`-` 
+|===
+
+[[mod_locations_status_enum]]
+==== Status _enum_
+
+The status of an EVSE.
+
+[cols="3,10",options="header"]
+|===
+|Value |Description 
+
+|AVAILABLE |The EVSE/Connector is able to start a new charging session. 
+|BLOCKED |The EVSE/Connector is not accessible because of a physical barrier, i.e. a car. 
+|CHARGING |The EVSE/Connector is in use. 
+|INOPERATIVE |The EVSE/Connector is not yet active or it is no longer available (deleted). 
+|OUTOFORDER |The EVSE/Connector is currently out of order. 
+|PLANNED |The EVSE/Connector is planned, will be operating soon. 
+|REMOVED |The EVSE/Connector was discontinued/removed. 
+|RESERVED |The EVSE/Connector is reserved for a particular EV driver and is unavailable for other drivers. 
+|UNKNOWN |No status information available (also used when offline).
+|===
+
+[[mod_locations_statusschedule_class]]
+==== StatusSchedule _class_
+
+This type is used to schedule status periods in the future.
+The eMSP can provide this information to the EV user for trip planning purposes. A period MAY have no end.
+Example: "This station will be running as of tomorrow. Today it is still planned and under construction."
+
+[cols="3,2,1,10",options="header"]
+|===
+|Property |Type |Card. |Description 
+
+|period_begin |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Begin of the scheduled period. 
+|period_end |<<types.asciidoc#types_datetime_type,DateTime>> |? |End of the scheduled period, if known. 
+|status |<<mod_locations_status_enum,Status>> |1 |Status value during the scheduled period. 
+|===
+
+NOTE: The scheduled status is purely informational. When the status actually changes, the CPO must push an update to the EVSEs `status` field itself.

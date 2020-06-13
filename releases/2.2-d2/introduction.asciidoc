@@ -1,0 +1,85 @@
+[[introduction_ocpi]]
+== OCPI
+
+[[introduction_ocpi_2.2]]
+=== OCPI 2.2
+
+OCPI 2.2 includes new functionality and improvements, compared to OCPI 2.1.1.
+
+
+==== Changes/New functionality:
+
+* Support for Hubs
+[disc]
+** <<transport_and_format.asciidoc#transport_and_format_message_routing,Message routing headers>>
+** <<mod_hub_client_info.asciidoc#mod_hub_client_info_module,Hub Client Info>>
+
+* <<credentials.asciidoc#credentials_credentials_role_class,Support Platforms with multiple/different roles, additional roles>>
+* <<mod_charging_profiles.asciidoc#mod_charging_profiles_module,Charging Profiles>>
+* <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,Preference based Smart Charging>>
+* Improvements:
+[disc]
+** <<mod_cdrs.asciidoc#mod_cdrs_cdr_object,CDRs>>: Credit CDRs, VAT, Calibration law/Eichrecht support, Session_id, AuthorizationReference, CdrLocation, CdrToken
+** <<mod_sessions.asciidoc#mod_sessions_session_object,Sessions>>: VAT, CdrToken, How to add a Charging Period
+** <<mod_tariffs.asciidoc#mod_tariffs_tariff_object,Tariffs>>: Tariff types, Min/Max price, reservation tariff, Much more examples
+** <<mod_locations.asciidoc#mod_locations_location_object,Locations>>: Multiple Tariffs, Lost of small improvements
+** <<mod_tokens.asciidoc#mod_tokens_token_object,Tokens>>: Group_id, energy contract
+** <<mod_commands.asciidoc#mod_commands_cancelreservation_object,Commands>>: Cancel Reservation added
+
+For more information on detailed changes see <<changelog.asciidoc#changelog_changelog,changelog>>.
+
+
+==== OCPI 2.2-d2
+This new documentation revision of OCPI 2.2 contains textual improvements and fixes to JSON examples.
+The Tariff module contains most of the improvements, and especially `step_size` needed a much better explanation and examples.
+
+Many thanks to all the contributors that have taken the time and effort to commit issues and pushed pull requests with improvements.
+
+
+[[introduction_introduction_and_background]]
+=== Introduction and background
+
+The Open Charge Point Interface (OCPI) enables a scalable, automated EV roaming setup between Charge Point Operators and e-Mobility Service Providers.
+It supports authorization, charge point information exchange (including live status updates and transaction events),
+charge detail record exchange, remote charge point commands and the exchange of smart-charging related information between parties.
+
+It offers market participants in EV an attractive and scalable solution for (international) roaming between networks,
+avoiding the costs and innovation-limiting complexities involved with today's non-automated solutions or with central roaming hubs.
+As such it helps to enable EV drivers to charge everywhere in a fully-informed way,
+helps the market to develop quickly and helps market players to execute their business models in the best way.
+
+What does it offer (main functionality):
+
+* A good roaming system (for bilateral usage and/or via a hub).
+* Real-time information about location, availability and price.
+* A uniform way of exchanging data (Notification Data Records and Charge Data Records), before during and after the transaction.
+* Remote mobile support to access any Charge Point without pre-registration.
+
+An international group of over 200 companies from all over the world already supports OCPI. Initiators are EV Box, New Motion, ElaadNL, BeCharged, GreenFlux and Last Mile Solutions.
+Other participants include: Next Charge, Freshmile, Plugsurfing, E55C, GIREVE, OCN, ihomer, Rexel, Stromnetz Hamburg, Enervalis, Place to plug,
+Plugsurfing, Ecomovement, Allego, Gronn Kontakt Norway, ENIO, Fastned, AvantIT, Chargemap, Involtum, Capitol Region Denmark,
+Vattenfall, EON, ECY Conseil Emeric Chardiny, Eneco Mobility, Jedlix, MTC, Smartlab, Sodetrel, XXIMO, Mnemonics, Share & Charge,
+Service House, Alfen / ICU, PI2 Consultancy, Pitpoint, Blue Corner, Building Energy, Chargestorm, Chargepoint, ESARJ, Chargelab.co,
+MUVEXT, Next Green Car / Zap Map, Be Mo Tech, Parking Eagle, GraphDefined, Chargecloud, Rutgerplantengaconsulting, Everon, Tanqyou,
+Electric Vehicle Association Scotland (EVA NCS), EV-Tech, Plugin Power, Last Mile Solutions, BIA Power, IBIL, Gridscape, Maxem, Virta,
+EasyCharger, Total EV Charge, Gowithflow, EKAROS, Rexel US, Stekker App, Travelcard, Emobility Consulting.
+The EVRoaming foundation supported by the Netherlands Knowledge Platform for Charging Infrastructure (NKL)
+facilitates and coordinates this protocol to guarantee progress and ensure development and results.
+
+This document describes a combined set of standards based on the work done in the past. Next to that,
+the evolution of these standards and their use are taken into account and some elements have been updated to match nowadays use.
+
+*OCPI is developed with support of:*
+
+evRoaming4EU project and its partners: +
+https://www.evroaming4.eu[https://www.evroaming4.eu]
+
+image::images/evroamingeu_logo.png[evRoaming4EU logo,scale=50%]
+
+ECISS project and its partners: +
+https://www.nklnederland.nl/eciss[https://www.nklnederland.nl/eciss]
+
+image::images/eciss_logo.png[ECISS logo]
+
+
+The latest version of this specification can be found here: https://github.com/ocpi/ocpi[https://github.com/ocpi/ocpi]

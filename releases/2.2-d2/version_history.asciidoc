@@ -1,0 +1,57 @@
+*Version History*
+
+[cols="4,5,6,16",options="header"]
+|===
+|Version |Date |Author |Description
+
+|2.2-d2 |12-06-2020 | Robert de Leeuw +
+_ihomer_ | 2nd documentation revision of the OCPI 2.2 spec. +
+           Contains textual improvements and fixes some of the examples. +
+           Most improvements in the tarrifs module, especially `step_size` is better explained.
+|2.2 |30-09-2019 | Robert de Leeuw +
+_ihomer_ |Added support for Roaming Hubs +
+        Adds support for Platforms with multiple/different roles, additional roles +
+        Adds support for smart charging +
+        Lots of improvements to existing modules +
+        See <<changelog.asciidoc#changelog_changelog,changelog>>
+|2.1.1-d2 |	21-06-2019 |Robert de Leeuw +
+                        ihomer |Fixes the command module documentation, fixes a lot of examples, lots of small textual improvements: see <<changelog.asciidoc#changelog_changelog,changelog>>
+|2.1.1 |08-06-2017 | Robert de Leeuw +
+                  _ihomer_  |Fixed 4 bugs found in OCPI 2.1, lots of small textual improvements: see <<changelog.asciidoc#changelog_changelog,changelog>>
+|2.1 |08-04-2016 | Robert de Leeuw +
+                _ihomer_  |Added <<mod_commands.asciidoc#mod_commands_commands_module,command module>>. +
+ Added support for <<mod_tokens.asciidoc#mod_tokens_real-time_authorization,real-time authorization>>. + 
+ Lots of small improvements: see <<changelog.asciidoc#changelog_changelog,changelog>> 
+|2.0-d2 |15-02-2016 | Robert de Leeuw +
+                   _ihomer_  |2nd documentation revision of the OCPI 2.0 spec. +
+ Only documentation updated: ConnectorType of Connector + 
+ was not visible, credentials clarified, location URL + 
+ segments incorrect (now string, was int), + 
+ minor textual updates. + 
+ DateTime with timezones is still an issue 
+|2.0 |30-12-2015 | Robert de Leeuw +
+                _ihomer_ +
+                 Simon Philips +
+                 _Becharged_ +
+                 Chris Zwirello +
+                 _The New Motion_ + 
+                 Simon Schilling
+                 |First official release of OCPI.
+|0.4 |04-11-2014 | Olger Warnier +
+                _The New Motion_  |First draft of OCPI. (Also known as Draft v4)
+|0.3 |06-05-2014 | Olger Warnier +
+                _The New Motion_  |First draft of OCPI. (Also known as Draft v3)
+|===
+
+*Document revisions*
+There can be multiple documentation revisions of the same version of the OCPI protocol.
+
+The newer documentation revisions of the same protocol version can never change the content of the messages: no new fields or renaming of fields. A new revision can only clarify/fix texts/descriptions and fix typos etc.
+
+These documentation revisions (not the first) will be named: d2, d3, d4 etc.
+
+Examples:
+
+- OCPI 2.1.1 is a different protocol version of OCPI than OCPI 2.1.
+
+- OCPI 2.2-d2 is the same protocol version as OCPI 2.2, but a newer documentation revision.

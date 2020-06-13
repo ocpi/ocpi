@@ -1,0 +1,19 @@
+:toc:
+:toclevels: 4
+:sectnumlevels: 4
+:outlinelevels: 4:0
+:title-page:
+:numbered:
+:version-label: document version
+:year: 2020
+:protocol_version: 2.2
+:revdate: 12-06-{year}
+:document_header: OCPI {document_version}
+:revnumber: {document_version}
+
+= OCPI {protocol_version}: Open Charge Point Interface
+https://github.com/ocpi & https://ocpi-protocol.org
+
+<<<
+:toc:
+

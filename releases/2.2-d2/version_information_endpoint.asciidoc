@@ -1,0 +1,218 @@
+:numbered:
+[[versions_module]]
+== _Versions_ module
+
+*Type:* Configuration Module
+
+This is the required base module of OCPI. This module is the starting point for any OCPI connection.
+Via this module, clients can learn <<version_information_endpoint_version_information_endpoint,which versions>>
+of OCPI a server supports, and <<version_information_endpoint_version_details_endpoint,which modules>> it supports for each of the versions.
+
+[[version_information_endpoint_version_information_endpoint]]
+=== Version information endpoint
+
+This endpoint lists all the available OCPI versions and the corresponding URLs to
+where version specific details such as the supported endpoints can be found.
+
+Endpoint structure definition:
+
+No structure defined. This is open for every party to define themselves.
+
+Examples:
+
+`+https://www.server.com/ocpi/cpo/versions+`
+
+`+https://www.server.com/ocpi/emsp/versions+`
+
+`+https://ocpi.server.com/versions+`
+
+The exact URL to the implemented version endpoint should be given (offline) to parties that want to communicate with your OCPI implementation.
+
+Both, CPOs and eMSPs MUST implement such a version endpoint.
+
+[cols="2,12",options="header"]
+|===
+|Method |Description 
+
+|GET |Fetch information about the supported versions. 
+|===
+
+[[version_information_get_versions_endpoint_data]]
+==== Data
+
+[cols="2,1,10",options="header"]
+|===
+|Type |Card. |Description 
+
+|<<version_information_endpoint_version_class,Version>> |+ |A list of supported OCPI versions. 
+|===
+
+[[version_information_endpoint_version_class]]
+==== Version _class_
+
+[cols="2,3,1,10",options="header"]
+|===
+|Property |Type |Card. |Description 
+
+|version |<<version_information_endpoint_versionnumber_enum,VersionNumber>> |1 |The version number. 
+|url |<<types.asciidoc#types_url_type,URL>> |1 |URL to the endpoint containing version specific information. 
+|===
+
+[[version_information_endpoint_get]]
+==== GET
+
+Fetch all supported OCPI versions of this CPO or eMSP.
+
+[[version_information_get_versions_endpoint_example]]
+===== Example
+
+[source,json]
+----
+include::examples/versions_info_example.json[]
+----
+
+[[version_information_endpoint_version_details_endpoint]]
+=== Version details endpoint
+
+Via the version details, the parties can exchange which modules are implemented for a specific version of OCPI,
+which interface role is implemented, and what the endpoint URL is for this interface.
+
+Parties that are both CPO and eMSP (or a Hub) can implement one version endpoint that covers both roles.
+With the information that is available in the version details, parties don't need to implement a separate endpoint per role (CPO or eMSP) anymore.
+In practice this means that when a company is both a CPO and an eMSP and it connects to another party that implements both interfaces, only one OCPI connection is needed.
+
+NOTE: OCPI 2.2 introduces the role field in the version details.
+Older versions of OCPI do not support this.
+
+Endpoint structure definition:
+
+No structure defined. This is open for every party to define themselves.
+
+Examples:
+
+`+https://www.server.com/ocpi/cpo/2.2+`
+
+`+https://www.server.com/ocpi/emsp/2.2+`
+
+`+https://ocpi.server.com/2.2/details+`
+
+This endpoint lists the supported endpoints and their URLs for a specific OCPI version. To notify the other party that the list of endpoints of your current version has changed, you can send a PUT request to the corresponding credentials endpoint (see the credentials chapter).
+
+Both the CPO and the eMSP MUST implement this endpoint.
+
+[cols="2,12",options="header"]
+|===
+|Method |Description 
+
+|GET |Fetch information about the supported endpoints for this version. 
+|===
+
+
+[[version_information_get_details_endpoint_data]]
+==== Data
+
+[cols="2,3,1,10",options="header"]
+|===
+|Property |Type |Card. |Description 
+
+|version |<<version_information_endpoint_versionnumber_enum,VersionNumber>> |1 |The version number. 
+|endpoints |<<version_information_endpoint_endpoint_class,Endpoint>> |+ |A list of supported endpoints for this version. 
+|===
+
+
+[[version_information_endpoint_endpoint_class]]
+==== Endpoint _class_
+
+[cols="3,2,1,10",options="header"]
+|===
+|Property |Type |Card. |Description 
+
+|identifier |<<version_information_endpoint_moduleid_enum,ModuleID>> |1 |Endpoint identifier.
+|role| <<version_information_endpoint_interface_role_enum,InterfaceRole>> |1 |Interface role this endpoint implements.
+|url |<<types.asciidoc#types_url_type,URL>> |1 |URL to the endpoint. 
+|===
+
+NOTE: for the `credentials` module, the role is not relevant as this module is the same for all roles.
+
+
+[[version_information_endpoint_interface_role_enum]]
+==== InterfaceRole _enum_
+
+[cols="3,10",options="header"]
+|===
+|Value |Description
+
+|SENDER   |Sender Interface implementation. Interface implemented by the owner of data, so the Receiver can Pull information from the data Sender/owner.
+|RECEIVER |Receiver Interface implementation. Interface implemented by the receiver of data, so the Sender/owner can Push information to the Receiver.
+|===
+
+
+[[version_information_endpoint_moduleid_enum]]
+==== ModuleID _enum_
+
+The Module identifiers for each endpoint are described in the beginning of each _Module_ chapter. The following table contains the list of modules in this version of OCPI. Most modules (except <<credentials.asciidoc#credentials_credentials_endpoint,Credentials &amp; Registration>>) are optional, but there might be dependencies between modules.
+If there are dependencies between modules, it will be mentioned in the affected module description.
+
+[cols="5,3,10",options="header"]
+|===
+|Module |ModuleID |Remark 
+
+|<<mod_cdrs.asciidoc#mod_cdrs_cdrs_module,CDRs>> |cdrs |
+|<<mod_charging_profiles.asciidoc#mod_charging_profiles_module,Charging Profiles>> |chargingprofiles |
+|<<mod_commands.asciidoc#mod_commands_commands_module,Commands>> |commands |
+|<<credentials.asciidoc#credentials_credentials_endpoint,Credentials &amp; Registration>> |credentials |Required for all implementations. +
+                                                                   The `role` field has no function for this module.
+|<<mod_hub_client_info.asciidoc#mod_hub_client_info_module,Hub Client Info>> |hubclientinfo |
+|<<mod_locations.asciidoc#mod_locations_locations_module,Locations>> |locations |
+|<<mod_sessions.asciidoc#mod_sessions_sessions_module,Sessions>> |sessions |
+|<<mod_tariffs.asciidoc#mod_tariffs_tariffs_module,Tariffs>> |tariffs |
+|<<mod_tokens.asciidoc#mod_tokens_tokens_module,Tokens>> |tokens |
+|===
+
+[[version_information_endpoint_versionnumber_enum]]
+==== VersionNumber _enum_
+
+List of known versions.
+
+[cols="3,10",options="header"]
+|===
+|Value |Description 
+
+|2.0 |OCPI version 2.0
+|2.1 |OCPI version 2.1 (DEPRECATED, do not use, use 2.1.1 instead) 
+|2.1.1 |OCPI version 2.1.1
+|2.2 |OCPI version 2.2 (this version)
+|===
+
+[[version_information_endpoint_custom_modules]]
+===== Custom Modules
+
+Parties are allowed to create custom modules or customized versions of the existing modules.
+To do so, the <<version_information_endpoint_moduleid_enum,ModuleID enum>> can be extended with additional custom moduleIDs.
+These custom moduleIDs MAY only be sent to parties with which there is an agreement to use a custom module. Do NOT send custom moduleIDs to parties you are not 100% sure will understand the custom moduleIDs.
+It is advised to use a prefix (e.g. country-code + party-id) for any custom moduleID, this ensures that the moduleID will not be used for any future module of OCPI.
+
+For example:
+`nltnm-tokens`
+
+[[version_information_get_endpoint]]
+==== GET
+
+Fetch information about the supported endpoints and their URLs for this OCPI version.
+
+[[version_information_get_details_endpoint_example]]
+===== Examples
+
+Simple version details example: CPO with only 2 modules.
+[source,json]
+----
+include::examples/version_details_example.json[]
+----
+
+Simple version details example: party with both CPO and eMSP with only 2 modules.
+
+In this case the `credentials` module is not defined twice as this module is the same for all roles.
+[source,json]
+----
+include::examples/version_details_example2.json[]
+----

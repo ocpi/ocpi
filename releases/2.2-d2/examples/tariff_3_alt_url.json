@@ -1,0 +1,22 @@
+{
+  "country_code": "DE",
+  "party_id": "ALL",
+  "id": "13",
+  "currency": "EUR",
+  "type": "PROFILE_CHEAP",
+  "tariff_alt_url": "https://company.com/tariffs/13",
+  "elements": [{
+    "price_components": [{
+      "type": "FLAT",
+      "price": 0.50,
+      "vat": 20.0,
+      "step_size": 1
+    }, {
+      "type": "ENERGY",
+      "price": 0.25,
+      "vat": 10.0,
+      "step_size": 100
+    }]
+  }],
+  "last_updated": "2015-06-29T20:39:09Z"
+}

@@ -1,0 +1,525 @@
+:numbered:
+[[changelog_changelog]]
+== Changelog
+
+[[changelog_changes_between_ocpi_2.1.1_and_2.2]]
+=== Changes between OCPI 2.1.1 and 2.2
+
+Lots of typos fixed and textual improvements.
+
+The following changes to messages/objects etc.
+
+[cols="6,2,2,12",options="header"]
+|===
+|Context (Module / Object)
+|Expected Impact: +
+eMSP / CPO
+|Expected Effort: +
+eMSP / CPO
+|Description
+
+|CDRs / +
+CDR Object
+|Medium / +
+Major
+|Average / +
+Large
+|- Added `county_code` and `party_id` fields, making it easier to determine the owner of a CDR. +
+- Added `session_id` field, making it easier to match a CDR to a Session. +
+- Renamed `stop_date_time` field to `end_date_time`, to bring the naming inline with the rest of OCPI. +
+- Changed `total_cost` field from type: `number` to `Price`, this provides the eMSP with the total cost including VAT. +
+- Replaced `auth_id` field with `CdrToken`. `auth_id` alone could not be used to uniquely identify a <<mod_tokens.asciidoc#mod_tokens_token_object,Token>>. By copying the information for the dynamic Token object, the CDR will always reflect the 'true' status of Token at the start of the charging session. +
+- Replaced `location` field with `cdr_location`, this also changed type, from `Location` to `CdrLocation`. Reusing the `Location` object always caused a lot of confusing, things were not clear. By creating a dedicated object `CdrLocation` with only the relevant fields, things should be much clearer. +
+- Added `credit` and `credit_reference_id` fields, to allow for Credit CDRs to be send. +
+- Added `total_fixed_cost`, `total_energy_cost`, `total_time_cost`, `total_parking_cost` and `total_reservation_cost` fields, to allow more cost details in the CDRs. +
+- Added `authorization_reference` field for binding an authorization to the resulting session. +
+- Added `signed_data` field, enabling OCPI to be used to transport signed meter data from the Charge Point to the eMSP and EV driver, can be used for Eichrecht. +
+- Added `invoice_reference_id` field (optional), to allow a CDRs to reference an invoice. +
+- Field `id` changed in length from 36 to 39, to allow for something to be appended after the original id in case of a Credit CDR.
+
+|Commands / +
+AuthMethod enum
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Added `COMMAND` value, to enable reporting authorization via Command like: StartSession or ReserveNow.
+
+|CDRs / +
+CdrDimensionType enum
+|Medium / +
+Medium
+|Minimal / +
+Minimal
+|Added `RESERVATION_TIME` value, to enable reporting of cost for a reservation in a Session or CDR.
+
+|CDRs / +
+CdrDimensionType enum
+|Medium / +
+Medium
+|Minimal / +
+Minimal
+|Removed `FLAT` value, that is of no use on a CDR, only causes confusion, should have been removed when CdrDimensionType was created from DimensionType of OCPI 2.0.
+
+|CDRs / +
+ChargingPeriod class
+|Medium / +
+Medium
+|Minimal / +
+Minimal
+|Added `tariff_id` field to ChargingPeriod, when the session switches from one tariff to another, this needs to be known, can be relevant with Preference based Smart Charging.
+
+|ChargingProfiles
+|Major / +
+Major
+|Large / +
+Large
+|Added new ChargingProfiles module.
+
+|Commands / +
+CancelReservation Object
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Added CancelReservation object for the cancel reservation command.
+
+|Commands / +
+CommandType Enum
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Added `CANCEL_RESERVATION` value, adding the cancel reservation command.
+
+|Commands / +
+CommandResponse Object
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|- Added `message` field, enables the CPO to send a message to the user when something goes wrong. +
+ - Added `timeout` field, enables the eMSP to cleanup not responded outstanding commands.
+
+|Commands / +
+ReserveNow Object
+|Minor / +
+Medium
+|Minimal / +
+Average
+|- Changed `location_id` and `evse_uids` from string to CiString, making them case-insensitive, which had always been the idea. Lengths changed from 39 to 36, matching changes in the object definitions. +
+ - Changed `reservation_id` from int to CiString(36), making it possible to use UUIDs. +
+ - Added `authorization_reference` field for binding an authorization to the resulting session. +
+ - Changed/added requirements in description of ReserveNow Object.
+
+|Commands / +
+StartSession Object
+|Minor / +
+Medium
+|Minimal / +
+Average
+|- Changed `location_id` and `evse_uids` from string to CiString, making them case-insensitive, which had always been the idea. Lengths changed from 39 to 36, matching changes in the object definitions. +
+ - Added `authorization_reference` field for binding an authorization to the resulting session. +
+ - Changed/added requirements in description of StartSession Object.
+
+|Commands / +
+StopSession Object
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Changed `session_id` from string to CiString, making it case-insensitive, which had always been the idea.
+
+|Commands / +
+UnlockConnector Object
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|- Changed `location_id`, `evse_uids` and `connector_ids` from string to CiString, making them case-insensitive, which had always been the idea. +
+- Length of `location_id` and `evse_uids` changed from 39 to 36, matching changes in the object definitions.
+
+|Commands / +
+CommandResponseType Enum
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|removed `TIMEOUT` as possible value. This is moved to the new CommandResult object.
+
+|Commands / +
+CommandResultType Enum
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|added `CANCELED_RESERVATION` value. Make it possible for a CPO to cancel an existing reservation in case of issues with the Charge Point.
+
+|Commands / +
+CommandResult Object
+|Medium / +
+Medium
+|Medium / +
+Medium
+|Changed result message from CPO to eMSP from CommandResponse to CommandResult to make it more clear.
+
+|Credentials / +
+Credentials Object
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Changed `country_code` and `party_id` from string to CiString, making them case-insensitive, which had always been the idea. +
+Replaced the `business_details`, `party_id` and `country_code` field with a `roles` list. Making it possible to implement different parties and roles in the same OCPI instance. The fields are now moved into a new `CredentialsRole class.
+
+|HubClientInfo
+|Medium / +
+Medium
+|Medium / +
+Medium
+|Added new HubClientInfo module.
+
+|Locations / +
+Sender GET Object method
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|- Changed `location_id`, `evse_uids` and `connector_ids` from string to CiString, making them case-insensitive, which had always been the idea. +
+- Length of `location_id` and `evse_uids` changed from 39 to 36, matching changes in the object definitions.
+
+|Locations / +
+Receiver GET & PUT methods
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|- Changed `country_code`, `party_id`, `location_id`, `evse_uids` and `connector_ids` from string to CiString, making them case-insensitive, which had always been the idea. +
+- Length of `location_id` and `evse_uids` changed from 39 to 36, matching changes in the object definitions.
+
+|Locations / +
+Receiver PATCH method
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|- Changed `country_code`, `party_id`, `location_id`, `evse_uids` and `connector_ids` from string to CiString, making them case-insensitive, which had always been the idea. +
+- Length of `location_id` and `evse_uids` changed from 39 to 36, matching changes in the object definitions. +
+- Added description on how to handle `last_updated`, and made it required for all PATCH requests.
+
+
+|Locations / +
+Connector Object
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|- Field `id` is changed from string to CiString, making it now case-insensitive, which had always been the idea. +
+- Added `max_electric_power` field, some DC Fast Charger have a lower max power then can be calculated form `voltage` and `amperage`. +
+- Changed `tariff_id` field to `tariff_ids`, and changed cardinality from `?` to `*`. Making it possible to make provided tariffs for different Smart Charging Preferences and also for ad hoc payment. Changed type from string to CiString, matching the change to Tariff.id.
+- Changed `amperage` field to `max_amperage` and `voltage` field to `max_voltage`, to better reflect the real meaning of both fields.
+
+|Locations / +
+EVSE Object
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|- Fields `uid` and `evse_id` is changed from string to CiString, making them case-insensitive, which had always been the idea. +
+- length of `uid` changed from 39 to 36, as 36 is enough to store UUID and GUIDs.
+
+|Locations / +
+Location Object
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|- Added `county_code` and `party_id` fields, making it easier to determine the owner of a Location. +
+- Field `id` is changed from string to CiString, making it now case-insensitive, which had always been the idea. +
+- length changed from 39 to 36, as 36 is enough to store UUID and GUIDs. +
+- Added `state` field, optional, to allow as much different address schemes from around the world as possible.. +
+- Changed `postal_code` field from required to optional, with the remark that omitting is only allowed when location has no postal_code. +
+- Changed `time_zone` field from optional to required, as the opening hours and tariff start/end depend on this, they are more and more important. +
+- Renamed `type` field to `parking_type` and made it optional. It better reflects what this field really describes. +
+- Added `publish` field, required, to control which locations may or may not be publish in apps etc.
+- Added `publish_allowed_to` field, optional, to give access to locations to only a limited set of users.
+
+|Locations / +
+AdditionalGeoLocation class
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Changed regex for fields: `latitude` and `longitude` from fixed 6 decimal places, to more flexible 5 to 7 decimal places.
+
+|Locations / +
+Capability enum
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|added new values for: `CHARGING_PREFERENCES_CAPABLE`, `DEBIT_CARD_PAYABLE` and `TOKEN_GROUP_CAPABLE`.
+
+|Locations / +
+ConnectorType enum
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|added new values for: `PANTOGRAPH_TOP_DOWN` and `PANTOGRAPH_BOTTOM_UP`.
+
+|Locations / +
+EnvironmentalImpact class
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Changed field name from `source` to `category`, this was a copy/past error in an older version of OCPI, as this is not used (much) yet, it is better for understandability of OCPI for correct the field name.
+
+|Locations / +
+Facility enum
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|added new values for: `BIKE_SHARING`, `PARKING_LOT`, `TRAM_STOP` and `METRO_STATION`.
+
+|Locations / +
+GeoLocation class
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Changed regex for fields: `latitude` and `longitude` from fixed 6 decimal places, to more flexible 5 to 7 decimal places.
+
+|Locations / +
+Hours class
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|removed to option for either: twentyfourseven or regular_hours, now twentyfourseven is always required and regular_hours is required when twentyfourseven=false, this is much less confusing.
+
+|Locations / +
+Image class
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Changed field `type` from string to CiString, is for machine to machine communication, so UTF-8 is not needed.
+
+|Locations / +
+RegularHours class
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Improved the regex for time format.
+
+|Locations / +
+LocationType enum
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Renamed to: `ParkingType` +
+Added the values: `ON_DRIVEWAY` and `ALONG_MOTORWAY` +
+Removed the values: `OTHER` and `UNKNOWN`, no longer needed as this is now optional.
+
+|Sessions / +
+Sender PUT method
+|Medium / +
+Medium
+| Large / +
+Large
+|Added setting Charging Preferences on a session. Proving the CPO with preferences from the driver, needed for Smart Charging.
+  For this the following data types are added: ChargingPreferences, ChargingPreferencesResponse, ProfileType,
+
+|Sessions / +
+Receiver GET and PUT methods
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Changed `country_code`, `party_id` and `session_id` from string to CiString, making them case-insensitive, which had always been the idea.
+
+|Sessions / +
+Receiver PATCH method
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Changed `country_code`, `party_id` and `session_id` from string to CiString, making them case-insensitive, which had always been the idea. +
+Added description and requirements how to add `charging_periods` and made `last_updated` required for all PATCH requests.
+
+|Sessions / +
+Session Object
+|Minor / +
+Medium
+|Minimal / +
+Average
+|- Added `county_code` and `party_id` fields, making it easier to determine the owner of a Session. +
+- Field `id` is changed from string to CiString, making it now case-insensitive, which had always been the idea. +
+- Changed `total_cost` field from type: `number` to `Price`, this provides the eMSP with the total cost including VAT. +
+- Renamed `start_datetime` field to `start_date_time`, to bring the naming inline with the rest of OCPI. +
+- Renamed `end_datetime` field to `end_date_time`, to bring the naming inline with the rest of OCPI. +
+- Replaced `auth_id` with `CdrToken` class. `auth_id` alone could not be used to uniquely identify a <<mod_tokens.asciidoc#mod_tokens_token_object,Token>>. +
+- Replaced `location` object with `location_id`, `evse_uid` and `connector_id`. Having the `Location` Object in the `Session` was overkill, only reference is more inline with the rest. +
+- Added `authorization_reference` field for binding an authorization to the resulting session.
+
+|Tariffs / +
+Receiver PATCH method
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|PATCH is removed from Tariffs as this was seen is not useful, use PUT instead.
+
+|Tariffs / +
+Tariff Object
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|- Added `county_code` and `party_id` fields, making it easier to determine the owner of a Tariff. +
+- Field `id` is changed from string to CiString, making it now case-insensitive, which had always been the idea. +
+- Renamed `start_datetime` field to `start_date_time`, to bring the naming inline with the rest of OCPI. +
+- Renamed `end_datetime` field to `end_date_time`, to bring the naming inline with the rest of OCPI. +
+- Added optional `min_price` field, making it possible to set a minimum price on a Charging Session. +
+- Added optional `max_price` field, making it possible to set a maximum price on a Charging Session. +
+- Added `type` field to make it possible to make different tariffs for different Smart Charging Preferences and also for ad hoc payment.
+
+|Tariffs / +
+PriceComponent class
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|- Added `vat` field to send the applicable VAT with every tariff component.
+
+|Tariffs / +
+ReservationRestrictionType enum
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Added new enum for Reservation restrictions.
+
+|Tariffs / +
+TariffRestrictions class
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Added optional `reservation` field, making it possible to define the tariff of a reservation (and an expired reservation). +
+Added optional `min_current` and `max_current` field, making it possible to have a tariff that depends on the current being charged, instead of the power. +
+Improved the regex for time format.
+
+|Tokens / +
+Sender GET & POST methods
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Changed `country_code`, `party_id` and `token_uid` from string to CiString, making them case-insensitive, which had always been the idea.
+
+|Tokens / +
+Receiver GET & PUT methods
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Changed `country_code`, `party_id` and `tariff_id` from string to CiString, making them case-insensitive, which had always been the idea. +
+Added `token_type` field, making it possible to make a distinction between different Token types with the same `uid`.
+
+|Tokens / +
+Receiver PATCH method
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Changed `country_code`, `party_id` and `tariff_id` from string to CiString, making them case-insensitive, which had always been the idea. +
+Added `token_type` field, making it possible to make a distinction between different Token types with the same `uid`.
+Made `last_updated` required for all PATCH requests.
+
+|Tokens / +
+Token Object
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|- Added `county_code` and `party_id` fields, making it easier to determine the owner of a Token. +
+- Fields `uid` changed from string to CiString, making it now case-insensitive, which had always been the idea. +
+- Fields `auth_id_` renamed to `contract_id`, a much more logical and less confusing name. Also changed from string to CiString, making it now case-insensitive, which had always been the idea. +
+- Added `group_id` field to enable support for OCPP GroupId/ParentId. +
+- Added `default_profile_type` field to enable a default Preference base Smart Charging ProfileType to be provided for a user. +
+- Added `energy_contract` field to make it possible, if allowed, to use a drivers energy supplier/contract at a Charge Point.
+
+|Tokens / +
+AuthorizationInfo Object
+|Minor / +
+Medium
+|Minimal / +
+Average
+|Added `token` field to enable real-time authorization of unknown Tokens. +
+ Added `authorization_reference` field for binding an authorization to the resulting session.
+
+|Tokens / +
+LocationReferences class
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|- Changed `location_id` and `evse_uids` from string to CiString, making them case-insensitive, which had always been the idea. +
+- Length of `location_id` and `evse_uids` changed from 39 to 36, matching changes in the object definitions. +
+- Removed `connector_ids`, this was not usable as they are not unique within the Location, there is also no use case.
+
+|Tokens / +
+TokenType enum
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Added value `AD_HOC_USER` and APP_USER`. As more and more eMSPs are launching Apps, this becomes more common, so a special categories are useful.
+
+|Versions / +
+Endpoint class
+|Medium / +
+Medium
+|Minimal / +
+Minimal
+|Field `role` added, making it possible to have one OCPI version end-point for both eMSP and CPO role, so one OCPI connection when both CPO and eMSP implemented by the same party.
+
+|Transport & Format
+|Medium / +
+Medium
+|Medium / +
+Medium
+|To enable routing of messages through a Hub, new 'OCPI-to-' and 'OCPI-from-' headers are introduced.
+
+|Transport & Format
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Unique message ID and Correlation message ID headers are now required in every request/response.
+
+|Types / +
+ DateTime
+|Minor / +
+Minor
+|Minimum / +
+Minimum
+|Changed to: RFC 3339 (was ISO 8601) this does not change the OCPI format, RFC 3339 is more limited, and therefor more inline with OCPI then ISO 8601 was. +
+ Fractional seconds are now allowed.
+
+|Types / +
+ string
+|Minor / +
+Minor
+|Minimum / +
+Minimum
+|Type string changed from ASCII to UTF-8. String is used for human-readable information and thus needed to support for a lot more character sets then only ASCII.
+|===
+
+

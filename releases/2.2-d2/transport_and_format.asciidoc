@@ -1,0 +1,630 @@
+:numbered:
+[[transport_and_format_transport_and_format]]
+== Transport and format
+
+[[transport_and_format_json_http_implementation_guide]]
+=== JSON / HTTP implementation guide
+
+The OCPI protocol is based on HTTP and uses the JSON format. It follows a RESTful architecture for web services where possible.
+
+[[transport_and_format_security_and_authentication]]
+==== Security and authentication
+
+The interfaces are protected on the HTTP transport level, with SSL and token-based authentication.
+Please note that this mechanism does *not* require client-side certificates for authentication,
+only server-side certificates to set up a secure SSL connection.
+
+
+[[transport_and_format_authorization_header]]
+==== Authorization header
+
+Every OCPI HTTP request MUST add an 'Authorization' header. The header looks as follows:
+
+[source]
+----
+  Authorization: Token IpbJOXxkxOAuKR92z0nEcmVF3Qw09VG7I7d/WCg0koM=
+----
+
+The literal 'Token' indicates that the token-based authentication mechanism is used, in OCPI this is called the 'credentials token'.
+<<credentials.asciidoc#credentials_credentials_object,'Credentials tokens'>> are exchanged via the <<credentials.asciidoc#credentials_credentials_endpoint,credentials module>>.
+These are different 'tokens' then the <<mod_tokens.asciidoc#mod_tokens_token_object,Tokens>> exchanged via the <<mod_tokens.asciidoc#mod_tokens_tokens_module,Token Module>>: Tokens used by drivers to authorize charging.
+To prevent confusion, when talking about the token used here in the HTTP Authorization header, call them: 'Credentials Tokens'.
+
+Its parameter is a string consisting of printable, non-whitespace ASCII characters. It contains the 'credentials token' Base64 encoded.
+
+The credentials token must uniquely identify the requesting party.
+This way, the server can use the information in the Authorization header to link the request to the correct requesting party's account.
+
+If the header is missing or the credentials token doesn't match any known party then the server SHALL respond with an HTTP `401 - Unauthorized` status code.
+
+When a server receives a request with a valid <<credentials.asciidoc#credentials_registration,`CREDENTIALS_TOKEN_A`>>, on another module
+then: <<credentials.asciidoc#credentials_credentials_endpoint,`credentials`>>
+or <<version_information_endpoint.asciidoc#versions_module,`versions`>>,
+the server SHALL respond with an HTTP `401 - Unauthorized` status code.
+
+
+[[transport_and_format_pull_and_push]]
+==== Pull and Push
+
+OCPI supports both *Pull* and *Push* models. 
+
+* *Push:* Changes in objects and new objects are sent (semi) real-time to the receiver.
+* *Pull:* Receiver request a (full) list of objects every X times.
+
+OCPI doesn't require parties to implement Push.
+Pull is required, a receiver needs to be able to get _in-sync_ after a period of connection loss.
+
+It is possible to implement a Pull only OCPI implementation, it might be a good starting point for an OCPI implementation.
+However, it is strongly advised to implement Push for production systems that have to handle some load,
+especially when several clients are requesting long lists frequently.
+Push implementations tend to use fewer resources.
+It is therefore advised to clients _pulling_ lists from a server to do this on a relative low polling interval: think in hours, not minutes,
+and to introduce some splay (randomize the length of the poll interface a bit).
+
+
+[[transport_and_format_request_format]]
+==== Request format
+
+The request method can be any of <<transport_and_format_get,GET>>, POST, <<transport_and_format_put,PUT>>, <<transport_and_format_patch,PATCH>> or DELETE. The OCPI protocol uses them in a way similar to REST APIs.
+
+[cols="2,12",options="header"]
+|===
+|Method |Description
+
+|<<transport_and_format_get,GET>> |Fetches objects or information. 
+|POST |Creates new objects or information. 
+|<<transport_and_format_put,PUT>> |Updates existing objects or information. 
+|<<transport_and_format_patch,PATCH>> |Partially updates existing objects or information. 
+|DELETE |Removes existing objects or information. 
+|===
+
+The HTTP header: Content-Type SHALL be set to `application/json` for any request that contains a message body: POST, PUT and PATCH.
+When no body is present, probably in a GET or DELETE, then the Content-Type header MAY be omitted.
+
+
+[[transport_and_format_get]]
+===== GET
+
+A server is not required to return all objects to a client, the server might for example not send all CDRs to a client,
+because some CDRs do not belong to this client. 
+
+When a client receives objects from the server that contain invalid JSON or invalid OCPI objects (For example: missing fields),
+the client has no way of letting this know to the server. It is advised to log these errors and contact the server administrator about this.
+When a list of objects contains some objects that are correct and some with 'problems' the client should at least process the correct OCPI objects. 
+
+[[transport_and_format_pagination]]
+====== Pagination
+
+All GET methods that return a list of objects have pagination, this allows a client and server to control the number of objects
+returned in the response to a GET request, while still enabling the client to retrieve all objects by doing multiple requests
+with different parameters. Without pagination, the server has to return all objects in one response that could potentially contain millions of objects.
+
+To enable pagination of the returned list of objects, additional URL parameters are allowed for the GET request and additional
+headers need to be added to the response.
+
+[[transport_and_format_paginated_request]]
+====== Paginated Request
+
+The following table lists all the parameters that have to be supported but might be omitted by a client request.
+
+[cols="2,2,12",options="header"]
+|===
+|Parameter |Datatype |Description
+
+|date_from |<<types.asciidoc#types_datetime_type,DateTime>> |Only return objects that have `last_updated` after or equal to this Date/Time (inclusive).
+|date_to |<<types.asciidoc#types_datetime_type,DateTime>> |Only return objects that have `last_updated` up to this Date/Time, but not including (exclusive).
+|offset |int |The offset of the first object returned. Default is 0 (the first object).
+|limit |int |The maximum number of objects to GET. The server might decide to return fewer objects, either because there are no more objects, or the server limits the maximum number of objects to return. This is to prevent, for example, overloading the system.
+|===
+
+The `date_from` is inclusive and `date_to` exclusive, this way, when sequential requests with to the same end-point are done,
+the next interval will have no overlap and the `date_from` of the next interval is simply the `date_to` of the previous interval.
+
+Example: With offset=0 and limit=10 the server shall return the first 10 records (if 10 objects match the request). Then the next page starts with offset=10.
+
+[[transport_and_format_paginated_response]]
+====== Paginated Response
+
+For pagination to work correctly, it is important that multiple calls to the same URL (including query parameters):
+result in the same objects being returned by the server.
+For this to be the case, the sequence of objects mustn't change, or as little as possible.
+It is best practice to return the oldest (by creation date, not the `last_updated` field) first.
+While a client crawls over the pages (multiple GET requests every time to the 'next' page Link), a new object might be created on the server.
+The client detects this: the `X-Total-Count` will be higher on the next call.
+But the client doesn't have to correct for this. Only the last page will be different (or an additional page).
+So the client will not be required to crawl all pages all over again
+when the client has reached to last page it has retrieved all relevant pages and is up to date.
+
+NOTE: Some query parameters can cause concurrency problems. For example the `date_to` query parameter.
+When there are for example 1000 objects matching a query for all objects with `date_to` before 2016-01-01.
+While crawling over the pages one of these objects is updated.
+The client detects this: `X-Total-Count` will be lower in the next request.
+It is advised to redo the previous GET but then with the `offset` lowered by 1 (if the `offset` was not 0)
+and after that continue crawling the 'next' page links.
+When an object before this page has been updated, then the client has missed 1 object.
+
+HTTP headers that have to be added to any paginated GET response.
+
+[cols="3,2,10",options="header"]
+|===
+|HTTP Header |Datatype |Description
+
+|Link |String |Link to the 'next' page should be provided when this is NOT the last page.
+       The Link should also contain any filters present in the original request. See the examples below.
+|X-Total-Count |int |(Custom HTTP Header) The total number of objects available in the server system that match the given query
+                (including the given query parameters, for example: `date_to` and `date_from` but excluding `limit` and `offset`)
+                and that are available to this client. For example: The CPO server might return less CDR objects to an eMSP then the total number of CDRs available in the CPO system.
+|X-Limit |int |(Custom HTTP Header) The maximum number of objects that the server can return.
+          Note that this is an upper limit. If there are not enough remaining objects to return,
+          fewer objects than this upper limit number will be returned, X-Limit SHALL then still show the upper limit, not the number of objects returned.
+|===
+
+
+[[transport_and_format_pagination_examples]]
+====== Pagination Examples
+
+Example of a required OCPI pagination link header:
+
+[source]
+----
+  Link: <https://www.server.com/ocpi/cpo/2.2/cdrs/?offset=150&limit=50>; rel="next"
+----
+
+After the client has called the given "next" page URL above the Link parameter will most likely look like this:
+
+[source]
+----
+  Link: <https://www.server.com/ocpi/cpo/2.2/cdrs/?offset=200&limit=50>; rel="next"
+----
+
+Example of a query with filters: Client does a GET to: 
+
+[source]
+----
+  https://www.server.com/ocpi/cpo/2.2/cdrs/?date_from=2016-01-01T00:00:00Z&date_to=2016-12-31T23:59:59Z
+----
+
+The server should return (when the server has enough objects and the limit is the amount of objects the server wants to send is 100.)
+_(This example should have been on 1 line, but didn't fit the paper width.)_ 
+
+[source]
+----
+  Link: <https://www.server.com/ocpi/cpo/2.2/cdrs/?offset=100
+                 &limit=100&date_from=2016-01-01T00:00:00Z&date_to=2016-12-31T23:59:59Z>; rel="next"
+----
+
+Example of a server limiting the amount of objects returned: Client does a GET to:
+
+[source]
+----
+  https://www.server.com/ocpi/cpo/2.2/cdrs/?limit=2000
+----
+
+The server should return (when the server has enough objects and the limit is the amount of objects the server wants to send is 100.) The `X-Limit` HTTP header should be set to 100 as well.
+
+[source]
+----
+  Link: <https://www.server.com/ocpi/cpo/2.2/cdrs/?offset=100&limit=100>; rel="next"
+----
+
+[[transport_and_format_put]]
+===== PUT
+
+A PUT request must specify all required fields of an object (similar to a POST request).
+Optional fields that are not included will revert to their default value which is either specified in the protocol or NULL.
+
+[[transport_and_format_patch]]
+===== PATCH
+
+A PATCH request must only specify the object's identifier (if needed to identify this object) and the fields to be updated. Any fields (both required or optional) that are left out remain unchanged.
+
+The MIME-type of the request body is: `application/json` and may contain the data as documented for each endpoint.
+
+In case a PATCH request fails, the client is expected to call the <<transport_and_format_get,GET>> method to check the state of the object in the other party's system. If the object doesn't exist, the client should do a <<transport_and_format_put,PUT>>. 
+
+[[transport_and_format_client_owned_object_push]]
+==== Client Owned Object Push
+
+Normal client/server RESTful services work in a way where the Server is the owner of the objects that are created.
+The client requests a POST method with an object to the end-point URL.
+The response sent by the server will contain the URL to the new object.
+The client will request only one server to create a new object, not multiple servers.
+
+Many OCPI modules work differently: the client is the owner of the object
+and only pushes the information to one or more servers for information sharing purposes.
+For example the CPO owns the Tariff objects and pushes them to a couple of eMSPs,
+so each eMSP gains knowledge of the tariffs that the CPO will charge them for their customers' sessions.
+eMSP might receive Tariff objects from multiple CPOs.
+They need to be able to make a distinction between the different tariffs from different CPOs.
+
+The distinction between objects from different CPOs/eMSPs is made based on
+a {<<credentials.asciidoc#credentials_credentials_object,country_code>>}
+and {<<credentials.asciidoc#credentials_credentials_object,party_id>>}.
+The <<credentials.asciidoc#credentials_credentials_object,country_code>>
+and <<credentials.asciidoc#credentials_credentials_object,party_id>>
+of the other party are received during the <<credentials.asciidoc#credentials_credentials_endpoint,credentials>> handshake,
+so that a server might know the values a client will use in an URL.
+
+Client Owned Object URL definition: {base-ocpi-url}/{end-point}/{country-code}/{party-id}/{object-id}
+
+Example of a URL to a Client Owned Object
+
+[source]
+----
+  https://www.server.com/ocpi/cpo/2.2/tariffs/NL/TNM/14
+----
+
+POST is not supported for these kinds of modules.
+PUT is used to send new objects to the servers. 
+
+If a client tries to access an object with a URL that has a different
+<<credentials.asciidoc#credentials_credentials_object,country_code>>
+and/or <<credentials.asciidoc#credentials_credentials_object,party_id>>
+then given during the <<credentials.asciidoc#credentials_credentials_endpoint,credentials>> handshake,
+it is allowed the respond with an HTTP `404` status code, this way blocking client access to objects that do not belong to them.
+
+To identify the owner of data, the party generating the information that is provided to other parties via OCPI,
+a 'Data owner' is provided at the beginning of every module that has a clear owner.
+
+[[transport_and_format_errors]]
+===== Errors
+
+When a client pushes a Client Owned Object, but the {object-id} in the URL is different from the id in the object being pushed,
+server implementations are advised to return an <<status_codes.asciidoc#status_codes_status_codes,OCPI status code>>:
+<<status_codes.asciidoc#status_codes_status_codes,2001>>.
+
+[[transport_and_format_response_format]]
+==== Response format
+The content that is sent with all the response messages is an 'application/json' type and contains a JSON object with the following properties:
+
+[cols="3,2,1,10",options="header"]
+|===
+|Property |Type |Card. |Description 
+
+|data |Array or Object or String |* or ? |Contains the actual response data object or list of objects from each request, depending on the cardinality of the response data, this is an array (card. * or +), or a single object (card. 1 or ?) 
+|status_code |int |1 |OCPI status code, as listed in <<status_codes.asciidoc#status_codes_status_codes,Status Codes>>, indicates how the request was handled. To avoid confusion with HTTP codes, OCPI status codes consist of four digits.
+|status_message |<<types.asciidoc#types_string_type,string>> |? |An optional status message which may help when debugging. 
+|timestamp |<<types.asciidoc#types_datetime_type,DateTime>> |1 |The time this message was generated. 
+|===
+
+For brevity's sake, any further examples used in this specification will only contain the value of the "data" field. In reality, it will always have to be wrapped in the above response format.
+
+When a request cannot be accepted, the type response depends on the type of error. For more information see: <<status_codes.asciidoc#status_codes_status_codes,Status codes>>
+
+For errors on the HTTP layer, use HTTP error response codes, including the response format above, that contains more details. HTTP status codes are described on http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html[w3.org].
+
+
+[[transport_and_format_example_version_information_response_list_of_objects]]
+===== Example: Version information response (list of objects)
+
+[source,json]
+----
+include::examples/transport_and_format_version_info_example.json[]
+----
+
+[[transport_and_format_example_version_details_response_one_object]]
+===== Example: Version details response (one object)
+
+[source,json]
+----
+include::examples/transport_and_format_version_details_example.json[]
+----
+
+
+[[transport_and_format_example_tokens_get_response_with_one_token_object_cpo_end-point_one_object]]
+===== Example: Tokens GET Response with one Token object. (CPO end-point) (one object)
+
+[source,json]
+----
+include::examples/transport_and_format_get_token_example.json[]
+----
+
+[[transport_and_format_example_tokens_get_response_with_list_of_token_objects_emsp_end-point_list_of_objects]]
+===== Example: Tokens GET Response with list of Token objects. (eMSP end-point) (list of objects)
+
+[source,json]
+----
+include::examples/transport_and_format_get_token_list_example.json[]
+----
+
+[[transport_and_format_example_response_with_an_error_contains_no_data_field]]
+===== Example: Response with an error (contains no data field)
+
+[source,json]
+----
+{
+	"status_code": 2001,
+	"status_message": "Missing required field: type",
+	"timestamp": "2015-06-30T21:59:59Z"
+}
+----
+
+
+[[transport_and_format_message_routing]]
+==== Message Routing
+
+When the development of OCPI was started, it was designed for peer-to-peer communication between CPO and eMSP.
+This has advantages, but also disadvantages.
+Having to set up and maintain OCPI connections to a lot of parties requires more effort than doing it for only a couple of connections.
+By communication via one or more Hubs, the amount of OCPI connections is reduced,
+while still being able to offer roaming to a lot of different parties and customers.
+
+With the introduction of Message Routing, OCPI is now better usable for communication via Hubs.
+
+All examples/sequence diagrams in this section use the roles CPO and eMSP as examples, they could be switched, it could be other roles.
+
+===== Platforms
+With Message Routing functionality it also becomes possible to support Platforms that host multiple roles.
+A lot of parties are not only CPO or eMSP. Most are both CPO and eMSP.
+Some parties are doing business in multiple counties, which means to operate with different `country_codes`
+Some parties have a platform on which the host service for other CPOs/eMSPs.
+Some parties are themselves CPO and host CPO services for others,
+but other parties are (themselves) not a CPO or other role in the EV charging landscape
+but do provide service to CPOs/eMSPs, etc.
+
+===== Message Routing Headers
+When OCPI is used to communicate to/from a Platform or via a Hub (which is almost always the case)
+the following four HTTP headers are to be added to any request/response to allow messages to be routed.
+
+When implementing OCPI these four headers SHALL be implemented for any request/response to/from a Functional Module.
+This does not mean they have to be present in all request.
+There are situation/special request where some headers can or shall be omitted, more on this later.
+
+Only requests/responses from Function Modules: such as: <<mod_tokens.asciidoc#mod_tokens_tokens_module,Tokens>>,
+<<mod_locations.asciidoc#mod_locations_locations_module,Locations>>, <<mod_cdrs.asciidoc#mod_cdrs_cdrs_module,CDRs>> etc.
+SHALL be routed, so need the routing headers.
+
+The requests/responses to/from Configuration Modules: <<credentials.asciidoc#credentials_credentials_endpoint,Credentials>>,
+<<version_information_endpoint.asciidoc#versions_module,Versions>> and
+<<mod_hub_client_info.asciidoc#mod_hub_client_info_module,Hub Client Info>> are not to be routed, and are for Platform-to-Platform
+or Platform-to-Hub communication. Thus routing headers SHALL NOT be used with these modules.
+
+
+[cols="4,2,14",options="header"]
+|===
+|HTTP Header |Datatype |Description
+
+|OCPI-to-party-id |<<types.asciidoc#types_cistring_type,CiString>>(3)|'party id' of the connected party this message is to be sent to.
+|OCPI-to-country-code |<<types.asciidoc#types_cistring_type,CiString>>(2)|'country code' of the connected party this message is to be sent to.
+|OCPI-from-party-id |<<types.asciidoc#types_cistring_type,CiString>>(3)|'party id' of the connected party this message is sent from.
+|OCPI-from-country-code |<<types.asciidoc#types_cistring_type,CiString>>(2)|'country code' of the connected party this message is sent from.
+|===
+
+
+.Example sequence diagram of a GET for 1 Object from a CPO to an eMSP.
+image::images/sd_get_simple.svg[OCPI Sequence Diagram Hub GET]
+
+.Example sequence diagram of a PUT via 2 Hubs.
+image::images/sd_put_2_hubs.svg[OCPI Sequence Diagram Hub PUT with 2 Hubs]
+
+
+[[transport_and_format_message_routing_broadcast_push]]
+===== Broadcast Push
+
+For simplicity, connected clients might push (POST, PUT, PATCH) information to all connected clients with an "opposite role",
+for example: CPO pushing information to all eMSPs and NSPs, eMSP pushing information to all CPOs.
+(The role "Other" is seen as an eMSP type of role, so Broadcast Push from a CPO is also sent to "Other".
+Messages from "Other" are only sent to CPOs and not to eMSPs though.)
+
+When using Broadcast Push, the Hub broadcasts received information to all connected clients.
+To send data through a Hub might be very useful to share information like Locations or Tokens with all parties
+connected to the Hub that have implemented the corresponding module.
+This means only one request to the Hub will be necessary, as all connected clients will be served by the Hub.
+
+To send a Broadcast Push, the client uses the party-id and country-code of the Hub in the 'OCPI-to-' headers.
+The Hub parses the request and sends a response to the client, which optionally contains its own party-id and country-code in the 'OCPI-from-' headers.
+The Hub then sends the pushed data to any client implementing the corresponding applicable module, using its own party-id and country-code in the 'OCPI-from-' headers.
+The client receiving a Push from a Hub (with the Hubs information in the 'OCPI-from-' headers) will respond to
+this Push with the Hubs party-id and country-code in the 'OCPI-to-' headers.
+
+GET SHALL NOT be used in combination with Broadcast Push.
+If the requesting party wants to GET information of which it does not know the receiving party,
+an <<transport_and_format_message_routing_open_routing_request,Open Routing Request>> MUST be used. (see below)
+
+Broadcast Push SHALL only be used with information that is meant to be sent to all other parties. It is useful to share data like
+<<mod_tokens.asciidoc#mod_tokens_tokens_module,Tokens>> and <<mod_locations.asciidoc#mod_locations_locations_module,Locations>>,
+but not so much for <<mod_cdrs.asciidoc#mod_cdrs_cdrs_module,CDRs>> and <<mod_sessions.asciidoc#mod_sessions_sessions_module,Sessions>>
+as these pieces of information are specific to only one party and are possibly even protected by GDPR or other laws.
+
+NOTE: For "Client Owned Objects", the party-id and country-code in the URL segments will still be the original party-id and country-code from the original client sending the Broadcast Push to the Hub.
+
+.Example sequence diagram of a Broadcast Push from a CPO to multiple eMSPs.
+image::images/sd_put_boardcast.svg[OCPI Sequence Diagram of a Broadcast Push from a CPO to multiple eMSPs]
+
+
+[[transport_and_format_message_routing_open_routing_request]]
+===== Open Routing Request
+When a Hub has the intelligence to route messages based on the content of the request,
+or the requesting party does not know the destination of a request, the 'OCPI-to-' headers can be omitted in the request towards the Hub.
+The Hub can then decide to which party a request needs to be routed, or that it needs to be broadcasted if the destination cannot be determined.
+
+This has nothing to do with <<transport_and_format_message_routing_broadcast_push,Broadcast Push>> though,
+as <<transport_and_format_message_routing_broadcast_push,Broadcast Push>> only works for the <<transport_and_format_pull_and_push,Push model>>,
+not for <<transport_and_format_get,GET>> requests.
+
+Open Routing Requests are possible for GET (<<transport_and_format_get_all_via_hubs,Not GET ALL>>), POST, PUT, PATCH and DELETE.
+
+.Example sequence diagram of a open routing GET from a CPO via the Hub.
+image::images/sd_get_openrouting.svg[Example sequence diagram of a open routing GET from a CPO via the Hub]
+
+
+[[transport_and_format_get_all_via_hubs]]
+===== GET All via Hubs
+A client (Receiver) can request a GET on the Sender interface of a module implemented by a Hub.
+To request a GET All from a Hub, the client uses the party-id and country-code of the Hub in the 'OCPI-to-' headers,
+and calls the GET method on the Sender interface of a module.
+
+The Hub can then combine objects from different connected parties and return them to the client.
+
+The client can determine the owner of the objects by looking at the `county_code` and `party_id` in the individual objects returned by the hub.
+
+.Example sequence diagram of a GET All via the Hub, .
+image::images/sd_get_all.svg[OCPI Sequence Diagram of a GET All via the Hub.]
+
+
+===== Overview of required/optional routing headers for different scenarios
+
+The following section shows which headers are required/optional and which 'OCPI-to-'/'OCPI-from-' IDs need to be used.
+
+This is not an exclusive list, combinations are possible.
+
+====== Party to Party (without Hub)
+
+This table contains the description of which headers are required to be used for which message when a request is sent
+directly from one platform provider to another platform provider, without a Hub in between.
+The headers are addressing the parties to/from which the message is sent, not the platform itself.
+
+[cols="8,10,8,8",options="header"]
+|===
+| Name | Route | TO Headers | FROM Headers
+| Direct request | Requesting platform provider to Receiving platform provider | Receiving-party | Requesting-party
+| Direct response | Receiving platform provider to Requesting platform provider | Requesting-party | Receiving-party
+|===
+
+.Example sequence diagram of a GET for 1 Object from a CPO on one platform to an MSP on another platform directly (without a Hub)
+image::images/sd_platform_to_platform_direct.svg[Example sequence diagram of a GET for 1 Object from a CPO on one platform to an MSP on another platform directly (without a Hub)]
+
+
+====== Party to Party via Hub
+
+This table contains the description of which headers are required to be used for which message when a request is routed from one platform to another platform via a Hub.
+
+[cols="8,10,8,8",options="header"]
+|===
+| Name | Route | TO Headers | FROM Headers
+| Direct request | Requesting platform to Hub | Receiving-party | Requesting-party
+| Direct request | Hub to receiving platform | Receiving-party | Requesting-party
+| Direct response | Receiving platform to Hub | Requesting-party | Receiving-party
+| Direct response | Hub to requesting platform | Requesting-party | Receiving-party
+|===
+
+.Example sequence diagram of a GET for 1 Object from one Platform to another Platform via a Hub
+image::images/sd_platform_hub_platform.svg[Example sequence diagram of a GET for 1 Object from one Platform to another Platform via a Hub]
+
+
+====== Party to Party Broadcast Push
+
+This table contains the description of which headers are required to be used for which message when a request is a
+<<transport_and_format_message_routing_broadcast_push,Broadcast Push>> to the Hub.
+[cols="8,10,8,8",options="header"]
+|===
+| Name | Route | TO Headers | FROM Headers
+| Broadcast request | Requesting platform to Hub | Hub | Requesting-party
+| Broadcast response | Hub to requesting platform | Requesting-party | Hub
+| Broadcast request | Hub to receiving platform | Receiving-party| Hub
+| Broadcast response | Receiving platform to Hub | Hub | Receiving-party
+|===
+
+.Example sequence diagram of Broadcast Push from one Platform to another Platform via a Hub
+image::images/sd_platform_hub_platform_broadcast.svg[Example sequence diagram of Broadcast Push from one Platform to another Platform via a Hub]
+
+
+====== Party to Party Open Routing Request
+
+This table contains the description of which headers are required to be used for which message when <<transport_and_format_message_routing_open_routing_request,the routing of a request needs to be determined by the Hub itself>>.
+For an Open Routing Request, the TO headers in the request from the requesting party to the Hub MUST be omitted.
+[cols="8,10,8,8",options="header"]
+|===
+| Name | Route | TO Headers | FROM Headers
+| Open request | Requesting platform to Hub | | Requesting-party
+| Open request | Hub to receiving platform | Receiving-party | Requesting-party
+| Open response | Receiving platform to Hub | Requesting-party | Receiving-party
+| Open response | Hub to requesting platform | Requesting-party | Receiving-party
+|===
+
+.Example sequence diagram of a open routing between platforms  GET from a CPO via the Hub
+image::images/sd_get_openrouting_platform.svg[Example sequence diagram of a open routing between platforms  GET from a CPO via the Hub]
+
+===== GET All via Hubs
+This table contains the description of which headers are required to be used when doing a <<transport_and_format_get_all_via_hubs,GET All via a Hub>>.
+For a GET All via Hub: The HTTP Method SHALL be GET, The call is to a Senders Interface, the TO headers in the request to the Hub has to be set to the Hub.
+
+[cols="8,10,8,8",options="header"]
+|===
+| Name | Route | TO Headers | FROM Headers
+| GET All via Hubs request | Requesting platform to Hub | Hub | Requesting-party
+| GET All via Hubs response | Hub to receiving platform | Requesting-party | Hub
+|===
+
+.Example sequence diagram of a GET All via the Hub, .
+image::images/sd_get_all_platform.svg[OCPI Sequence Diagram of a GET All via the Hub.]
+
+
+===== Timestamps and Objects send via Hubs
+When OCPI Objects are sent via Hubs, the `last_updated` fields SHALL NOT be updated by the Hub.
+
+
+[[transport_and_format_unique_messageg_ids]]
+=== Unique message IDs
+
+For debugging issues, OCPI implementations are required to include unique IDs via HTTP headers in every request/response.
+
+[cols="3,10",options="header"]
+|===
+|HTTP Header |Description
+
+|X-Request-ID     |Every request SHALL contain a unique request ID, the response to this request SHALL contain the same ID.
+|X-Correlation-ID |Every request/response SHALL contain a unique correlation ID, every response to this request SHALL contain the same ID.
+|===
+
+It is advised to used GUID/UUID as values for X-Request-ID and X-Correlation-ID.
+
+When a Hub forwards a request to a party, the request to this party SHALL contain a new unique value in the X-Request-ID HTTP header,
+not a copy of the X-Request-ID HTTP header taken from the incoming request that is being forwarded.
+
+When a Hub forwards a request to a party, the request SHALL contain the same X-Correlation-ID HTTP header (with the same value).
+
+.Example sequence diagram of the uses of X-Request-ID and X-Correlation-ID in a peer-to-peer topology.
+image::images/unqiue_ids_pair2pair.svg[Example sequence diagram of the uses of X-Request-ID and X-Correlation-ID in a peer-to-peer topology.]
+
+.Example sequence diagram of the uses of X-Request-ID and X-Correlation-ID in a topology with a Hub.
+image::images/unqiue_ids_via_hub.svg[Example sequence diagram of the uses of X-Request-ID and X-Correlation-ID in a topology with a Hub.]
+
+
+[[transport_and_format_interface_endpoints]]
+=== Interface endpoints
+
+As OCPI contains multiple interfaces. Different endpoints are available for messaging.
+The protocol is designed such that the exact URLs of the endpoints can be defined by each party.
+It also supports an interface per version.
+
+The locations of all the version-specific endpoints can be retrieved by fetching the API information from the versions endpoint.
+Each version-specific endpoint will then list the available endpoints for that version.
+It is strongly recommended to insert the protocol version into the URL.
+
+For example: `/ocpi/cpo/2.2/locations` and `/ocpi/emsp/2.2/locations`.
+
+The URLs of the endpoints in this document are descriptive only. The exact URL can be found by fetching the endpoint information from the API info endpoint and looking up the identifier of the endpoint.
+
+[cols="4,2,10",options="header"]
+|===
+|Operator interface |Identifier |Example URL 
+
+|Credentials |credentials |`+https://example.com/ocpi/cpo/2.2/credentials+`
+|Charging location details |locations |`+https://example.com/ocpi/cpo/2.2/locations+`
+|===
+
+[cols="4,2,10",options="header"]
+|===
+|eMSP interface |Identifier |Example URL 
+
+|Credentials |credentials |`+https://example.com/ocpi/emsp/2.2/credentials+`
+|Charging location updates |locations |`+https://example.com/ocpi/emsp/2.2/locations+`
+|===
+
+[[transport_and_format_offline_behaviour]]
+=== Offline behaviour
+
+During communication over OCPI, one of the communicating parties might be unreachable for an undefined amount of time.
+OCPI works event-based, new messages and status are pushed from one party to another. When communication is lost, updates cannot be delivered.
+
+OCPI messages SHOULD NOT be queued. When a client does a POST, PUT or PATCH request and that request fails or times out,
+the client should not queue the message and retry the same message again later. 
+
+When the connection is re-established, it is up to the target-server of a connection to
+GET the current status from to source-server to get back to a synchronized state.
+
+For example:
+
+- CDRs of the period of communication loss can be retrieved with a GET command on the CDRs module, with filters to retrieve only CDRs of the period since the last CDR has been received.
+- Status of EVSEs (or Locations) can be retrieved by calling a GET on the Locations module.

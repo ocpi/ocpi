@@ -1,0 +1,28 @@
+@startuml
+concise "regular_hours" as RH
+concise "exceptional_openings" as EO
+concise "result opening hours" as RES
+
+@0
+RH is Open
+EO is {-}
+RES is Open
+
+@1
+
+@2
+
+@3
+
+@4
+RH is {-}
+RES is {-}
+
+@5
+EO is Open
+RES is Open
+
+@6
+EO is {-}
+RES is {-}
+@enduml

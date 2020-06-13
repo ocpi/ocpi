@@ -1,0 +1,21 @@
+@startuml
+skinparam dpi 100
+hide footbox
+
+participant "CPO" as CPO1
+participant "HUB" as HUB
+participant "MSP" as MSP1
+
+CPO1 -> HUB: Request\nX-Request-ID: 774321\nX-Correlation-ID: 123456
+activate CPO1
+activate HUB
+HUB -> MSP1: Request\nX-Request-ID: 991234\nX-Correlation-ID: 123456
+activate MSP1
+MSP1 -> HUB: Response\nX-Request-ID: 991234\nX-Correlation-ID: 123456
+deactivate MSP1
+HUB -> CPO1: Request\nX-Request-ID: 774321\nX-Correlation-ID: 123456
+deactivate CPO1
+deactivate HUB
+@enduml
+
+123456

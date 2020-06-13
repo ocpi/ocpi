@@ -1,0 +1,547 @@
+:numbered:
+[[mod_cdrs_cdrs_module]]
+== _CDRs_ module
+
+*Module Identifier: `cdrs`*
+
+*Data owner: `CPO`*
+
+*Type:* Functional Module
+
+A *Charge Detail Record* is the description of a concluded charging session. The CDR is the only billing-relevant object.
+CDRs are sent from the CPO to the eMSP after the charging session has ended.
+Although there is no requirement to send CDRs in (semi-) realtime, it is seen as good practice to send them as soon as possible.
+But if there is an agreement between parties to send them, for example, once a month, that is also allowed by OCPI.
+
+[[mod_cdrs_flow_and_lifecycle]]
+=== Flow and Lifecycle
+
+CDRs are created by the CPO. They most likely will be sent only to the eMSP that needs to pay the bill of the underlying charging session.
+Because a CDR is for billing purposes, it cannot be changed or replaced once sent to the eMSP. Changes are simply not allowed.
+Instead, a <<mod_cdrs_credit_cdrs,Credit CDR>> can be sent.
+
+CDRs may be send for charging locations that have not been published via the <<mod_locations_locations_module,Location>> module.
+This is typically for home chargers.
+
+
+[[mod_cdrs_credit_cdrs]]
+==== Credit CDRs
+
+As CDRs are used for billing and can be seen as a kind of invoice, they cannot be deleted. Instead, they have to be credited.
+
+When a CPO wants to make changes to a CDR that was already sent to the eMSP, the CPO has to send a Credit CDR for the first CDR.
+This credit CDR SHALL have a different CDR.id which can be a completely different number,
+or it can be the id of the original CDR with something appended like for example: `-C` to make it unique again.
+To indicate that a CDR is a Credit CDR, the <<mod_cdrs_cdr_object,`credit`>> field has to be set to `true`.
+The Credit CDR references the old CDR via the <<mod_cdrs_cdr_object,`credit_reference_id`>> field,
+which SHALL contain the <<mod_cdrs_cdr_object,`id`>> of the original CDR.
+The Credit CDR will contain all the data of the original CDR.
+Only the values in the <<mod_cdrs_cdr_object,`total_cost`>> field SHALL contain the negative amounts of the original CDR.
+
+After having sent the Credit CDR, the CPO can send a new CDR with a new unique ID
+and the fields: <<mod_cdrs_cdr_object,`credit`>> and <<mod_cdrs_cdr_object,`credit_reference_id`>> omitted.
+
+NOTE: How far back in time a CPO can send a Credit CDR is not defined by OCPI.
+It is up the business contracts between the different parties involved, as there might be local laws involved etc.
+
+
+[[mod_cdrs_push_model]]
+==== Push model
+
+When the CPO creates CDR(s) they push them to the relevant eMSP by calling <<mod_cdrs_post_method,POST>> on the eMSPs CDRs endpoint with the newly created CDR(s). A CPO is not required to send _all_ CDRs to _all_ eMSPs, it is allowed to only send CDRs to the eMSP that a CDR is relevant to.
+
+CDRs should contain enough information (dimensions) to allow the eMSP to validate the total cost.
+It is advised to send enough information to the eMSP so that they can calculate their own costs for billing their customers.
+An eMSP might have a very different contract/pricing model with their EV drivers than the tariff structure of the CPO.
+
+If the CPO, for any reason, wants to view a CDR it has posted to an eMSP's system, the CPO can retrieve the CDR by performing a <<mod_cdrs_msp_get_method,GET>> request on the eMSP's CDRs endpoint at the URL returned in the response to the <<mod_cdrs_post_method,POST>>.
+
+[[mod_cdrs_pull_model]]
+==== Pull model
+
+eMSPs who do not support the Push model need to call
+<<mod_cdrs_cpo_get_method,GET>> on the CPO's CDRs endpoint to receive a list of CDRs.
+
+This <<mod_cdrs_cpo_get_method,GET>> can also be used in combination with the Push model to retrieve CDRs after the system (re-)connects to a CPO, to get a list of CDRs _missed_ during a downtime of the eMSP's system.
+
+A CPO is not required to return all known CDRs, the CPO is allowed to return only the CDRs that are relevant for the requesting eMSP.
+
+[[mod_cdrs_interfaces_and_endpoints]]
+=== Interfaces and Endpoints
+
+There are both, a Sender and a Receiver interface for CDRs. Depending on business requirements, parties can decide to use
+the Sender Interface (Pull model), or the Receiver Interface (Push model), or both.
+Push is the preferred model to use, because the Receiver will receive CDRs in semi-realtime when they are created by the CPO.
+
+[[mod_cdrs_cpo_interface]]
+==== Sender Interface
+
+Typically implemented by market roles like: CPO.
+
+The CDRs endpoint can be used retrieve CDRs.
+
+Endpoint structure definition:
+
+`{cdr_endpoint_url}?[date_from={date_from}]&amp;[date_to={date_to}]&amp;[offset={offset}]&amp;[limit={limit}]`
+
+Examples:
+
+`+https://www.server.com/ocpi/cpo/2.2/cdrs/?date_from=2019-01-28T12:00:00&date_to=2019-01-29T12:00:00+`
+
+`+https://ocpi.server.com/2.2/cdrs/?offset=50+`
+
+`+https://www.server.com/ocpi/2.2/cdrs/?date_from=2019-01-29T12:00:00&limit=100+`
+
+`+https://www.server.com/ocpi/cpo/2.2/cdrs/?offset=50&limit=100+`
+
+
+[cols="2,12",options="header"]
+|===
+|Method |Description 
+
+|<<mod_cdrs_cpo_get_method,GET>> |Fetch CDRs last updated (which in the current version of OCPI can only be the creation Date/Time) between the `{date_from}` and `{date_to}` (<<transport_and_format.asciidoc#transport_and_format_pagination,paginated>>). 
+|POST |n/a 
+|PUT |n/a 
+|PATCH |n/a 
+|DELETE |n/a 
+|===
+
+[[mod_cdrs_cpo_get_method]]
+===== *GET* Method
+
+Fetch CDRs from the CPO's system.
+
+[[mod_cdrs_request_parameters]]
+====== Request Parameters
+
+If additional parameters: `{date_from}` and/or `{date_to}` are provided, only CDRs with `last_updated`
+between the given `{date_from}` (including) and `{date_to}` (excluding) will be returned.
+
+This request is <<transport_and_format.asciidoc#transport_and_format_pagination,paginated>>, it supports the <<transport_and_format.asciidoc#transport_and_format_paginated_request,pagination>> related URL parameters.
+
+[cols="3,2,1,10",options="header"]
+|===
+|Parameter |Datatype |Required |Description 
+
+|date_from |<<types.asciidoc#types_datetime_type,DateTime>> |no |Only return CDRs that have `last_updated` after or equal to this Date/Time (inclusive).
+|date_to |<<types.asciidoc#types_datetime_type,DateTime>> |no |Only return CDRs that have `last_updated` up to this Date/Time, but not including (exclusive).
+|offset |int |no |The offset of the first object returned. Default is 0. 
+|limit |int |no |Maximum number of objects to GET. 
+|===
+
+[[mod_cdrs_cpo_get_response_data]]
+====== Response Data
+
+The endpoint returns a list of CDRs matching the given parameters in the GET request, the header will contain the <<transport_and_format.asciidoc#transport_and_format_paginated_response,pagination>> related headers. 
+
+Any older information that is not specified in the response is considered no longer valid.
+Each object must contain all required fields. Fields that are not specified may be considered as null values.
+
+|===
+|Datatype |Card. |Description 
+
+|<<mod_cdrs_cdr_object,CDR>> |* |List of CDRs. 
+|===
+
+[[mod_cdrs_emsp_interface]]
+==== Receiver Interface
+
+Typically implemented by market roles like: eMSP.
+
+The CDRs endpoint can be used to create and retrieve CDRs.
+
+[cols="2,12",options="header"]
+|===
+|Method |Description 
+
+|<<mod_cdrs_msp_get_method,GET>> |Retrieve an existing CDR.
+|<<mod_cdrs_post_method,POST>> |Send a new CDR. 
+|PUT |n/a (CDRs cannot be replaced) 
+|PATCH |n/a (CDRs cannot be updated) 
+|DELETE |n/a (CDRs cannot be removed) 
+|===
+
+[[mod_cdrs_msp_get_method]]
+===== GET Method
+
+Fetch CDRs from the receivers system.
+
+Endpoint structure definition:
+
+No structure defined. This is open to the eMSP to define, the URL is provided to the CPO by the eMSP in the result of the POST request.
+Therefore, OCPI does not define variables.
+
+Example:
+
+`+https://www.server.com/ocpi/2.2/cdrs/1234+`
+
+
+[[mod_cdrs_response_url]]
+====== Response URL
+
+To retrieve an existing URL from the eMSP's system, the URL, returned in the response to a POST of a new CDR, has to be used.
+
+[[mod_cdrs_msp_get_response_data]]
+====== Response Data
+
+The endpoint returns the requested CDR, if it exists.
+
+|===
+|Datatype |Card. |Description 
+
+|<<mod_cdrs_cdr_object,CDR>> |1 |Requested CDR object. 
+|===
+
+[[mod_cdrs_post_method]]
+===== POST Method
+
+Creates a new CDR.
+
+The POST method should contain the full and final CDR object.
+
+Endpoint structure definition:
+
+`{cdr_endpoint_url}`
+
+Example:
+
+`+https://www.server.com/ocpi/2.2/cdrs/+`
+
+
+
+[[mod_cdrs_request_body]]
+====== Request Body
+
+In the POST request the new CDR object is sent.
+
+[cols="4,1,12",options="header"]
+|===
+|Type |Card. |Description 
+
+|<<mod_cdrs_cdr_object,CDR>> |1 |New CDR object. 
+|===
+
+[[mod_cdrs_response_headers]]
+====== Response Headers
+
+The response should contain the URL to the just created CDR object in the eMSP's system.
+
+[cols="3,2,1,10",options="header"]
+|===
+|Parameter |Datatype |Required |Description 
+
+|Location |<<types.asciidoc#types_url_type,URL>> |yes |URL to the newly created CDR in the eMSP's system, can be used by the CPO system to perform a GET on the same CDR. 
+|===
+
+The eMSP returns the URL where the newly created CDR can be found. OCPI does not define a specific structure for this URL.
+
+Example:
+
+`+https://www.server.com/ocpi/emsp/2.2/cdrs/123456+`
+
+[[mod_cdrs_object_description]]
+=== Object description
+
+[[mod_cdrs_cdr_object]]
+==== _CDR_ Object
+
+The _CDR_ object describes the charging session and its costs, how these costs are composed, etc.
+
+The CDR object is different from the <<mod_sessions.asciidoc#mod_sessions_session_object,Session>> object.
+The <<mod_sessions.asciidoc#mod_sessions_session_object,Session>> object is dynamic as it reflects the current state of the charging session.
+The information is meant to be viewed by the driver while the charging session is ongoing.
+
+The CDR on the other hand can be thought of as _sealed_,
+preserving the information valid at the moment in time the underlying session was started.
+This is a requirement of the main use case for CDRs, namely invoicing.
+If e.g. a street is renamed the day after a session took place, the driver should be presented with the name valid at the time the session was started.
+This guarantees that the CDR will be recognized as correct by the driver and is not going to be contested.
+
+The _CDR_ object shall always contain information like Location, EVSE, Tariffs and Token as they were *at the start* of the charging session.
+
+[[mod_cdrs_charging_period]]
+*ChargingPeriod:*
+A CPO SHALL at least start (and add) a <<mod_cdrs_chargingperiod_class,ChargingPeriod>> every moment/event that has relevance for the total costs of a CDR.
+During a charging session, different parameters change all the time, like the amount of energy used, or the time of day.
+These changes can result in another Tariff Element of the Tariff becoming active.
+When another Tariff Element becomes active,
+the CPO SHALL add a new Charging Period with at least all the relevant information for the change to the other Tariff Element.
+The CPO is allowed to add more _in-between_ Charging Periods to a CDR though. Examples of additional Charging Periods:
+
+- When an energy based Tariff changes in price after 17:00. The CPO SHALL start a new Charging Period at 17:00,
+which contains at least the energy in kWh consumed until 17:00.
+- When the price of a Tariff is higher when the EV is charging faster than 32A,
+a new Charging Period SHALL be added the moment the charging power goes over 32A.
+This may be a moment that is calculated by the CPO, as the Charge Point might not send the information to the CPO,
+but it can be interpolated by the CPO using the metering information before and after that moment.
+
+[[mod_cdrs_step_size]]
+*step_size:*
+When calculating the cost of a charging session, `step_size` SHALL only be taken into account once per session for
+the <<mod_tariffs.asciidoc#mod_tariffs_tariffdimensiontype_enum,TariffDimensionType>> <<mod_tariffs.asciidoc#mod_tariffs_tariffdimensiontype_enum,`ENERGY`>>
+and once for <<mod_tariffs.asciidoc#mod_tariffs_tariffdimensiontype_enum,`PARKING_TIME`>> and <<mod_tariffs.asciidoc#mod_tariffs_tariffdimensiontype_enum,`TIME`>> combined.
+Only the last <<mod_cdrs_chargingperiod_class,ChargingPeriod>> that is relevant for calculating <<mod_tariffs.asciidoc#mod_tariffs_tariffdimensiontype_enum,`ENERGY`>> based cost shall take into account the `step_size`.
+Only the last <<mod_cdrs_chargingperiod_class,ChargingPeriod>> that is relevant for calculating <<mod_tariffs.asciidoc#mod_tariffs_tariffdimensiontype_enum,`TIME`>> or <<mod_tariffs.asciidoc#mod_tariffs_tariffdimensiontype_enum,`PARKING_TIME`>> based cost shall take into account the `step_size`.
+
+This means that `step_size` is not taken into account when switching from paying for charging to paying for parking (charging has stopped but EV still connected).
+Example: `step_size` for both charging (<<mod_tariffs.asciidoc#mod_tariffs_tariffdimensiontype_enum,`TIME`>>) and parking is 5 minutes. After 21 minutes of charging,
+the EV is full but remains connected for 7 more minutes. The cost of charging will be calculated based on 21 minutes (not 25).
+The cost of parking will be calculated based on 10 minutes (`step_size` is 5).
+
+`step_size` is not taken into account when switching from (for example) one <<mod_tariffs.asciidoc#mod_tariffs_tariffdimensiontype_enum,`ENERGY`>>
+based tariff to another.
+Example: when charging is more expensive after 17:00. The `step_size` of the tariff before 17:00 will not be used when charging starts before 17:00 and ends after 17:00.
+Only the `step_size` of the tariff (<<mod_tariffs.asciidoc#mod_tariffs_pricecomponent_class,PriceComponent>>) after 17:00 is taken into account.
+
+The `step_size` for the <<mod_tariffs.asciidoc#mod_tariffs_pricecomponent_class,PriceComponent>> that is used to calculate the cost of such
+a 'last' <<mod_cdrs_chargingperiod_class,ChargingPeriod>> SHALL be used. If the `step_size` differs for
+the different <<mod_tariffs.asciidoc#mod_tariffs_tariffelement_class,TariffElements>>,
+the `step_size` of the last relevant <<mod_tariffs.asciidoc#mod_tariffs_pricecomponent_class,PriceComponent>> is used.
+
+The `step_size` is not taken into account when switching between two Tariffs
+Example: A driver selects a different <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,Charging Preference>>
+<<mod_sessions.asciidoc#mod_sessions_profile_type_enum,`profile_type`>>) during an ongoing charging session, the different profile might have a different tariff.
+
+The `step_size` uses the total amount of a certain unit used during a session, not only the last ChargingPeriod.
+In other words, when charging tariff per kWh of time differs during a session, the total amount of kWh of time is used in calculations with `step_size`.
+Example: Charging cost 0.20 euro before 17:00 and 0.27 after 17:00 both have a `step_size` of 500 Wh.
+If a driver charges 4.3 kWh before 17:00 and 1.1 kWh after 17:00, a total of 5.4 kWh is charged. The `step_size` rounds this up to 5.5 kWh total.
+It does NOT round the energy used after 17:00 to 1.5 kWh.
+
+In the cases that <<mod_tariffs.asciidoc#mod_tariffs_tariffdimensiontype_enum,`TIME`>>
+and <<mod_tariffs.asciidoc#mod_tariffs_tariffdimensiontype_enum,`PARKING_TIME`>> Tariff Elements are both used, the total duration is used for the `step_size`
+Example: Charging cost 1.00 euro/hour, parking 2.00 euro/hour both have a `step_size` of 10 minutes.
+If a driver charges 20 minutes, and keeps his EV connected while it is full for another 20 minutes, a total of 40 minutes is charged.
+The `step_size` rounds this up to 45 minutes total.
+It does NOT round the parking duration to 30 minutes, making it a total of 50 minutes.
+
+
+[cols="4,3,1,9",options="header"]
+|===
+|Property |Type |Card. |Description 
+
+|country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |1 |ISO-3166 alpha-2 country code of the CPO that 'owns' this CDR.
+|party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |1 |CPO ID of the CPO that 'owns' this CDR (following the ISO-15118 standard).
+|id |<<types.asciidoc#types_cistring_type,CiString>>(39) |1 |Uniquely identifies the CDR within the CPO's platform (and suboperator platforms). This field is longer than the usual 36 characters to allow for credit CDRs to have <<mod_cdrs_credit_cdrs,something appended>> to the original ID. Normal (non-credit) CDRs SHALL only have an ID with a maximum length of 36.
+|start_date_time |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Start timestamp of the charging session, or in-case of a reservation (before the start of a session) the start of the reservation.
+|end_date_time |<<types.asciidoc#types_datetime_type,DateTime>> |1 |The timestamp when the session was completed/finished, charging might have finished before the session ends, for example: EV is full, but parking cost also has to be paid.
+|session_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |Unique ID of the Session for which this CDR is sent. Is only allowed to be omitted when the CPO has not implemented the Sessions module or this CDR is the result of a reservation that never became a charging session, thus no OCPI Session.
+|cdr_token |<<mod_cdrs_cdr_token_object,CdrToken>> |1 |Token used to start this charging session, includes all the relevant information to identify the unique token.
+|auth_method |<<mod_cdrs_authmethod_enum,AuthMethod>> |1 |Method used for authentication. 
+|authorization_reference |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |Reference to the authorization given by the eMSP.
+                                             When the eMSP provided an `authorization_reference` in either:
+                                             <<mod_tokens.asciidoc#mod_tokens_real-time_authorization,real-time authorization>> or
+                                             <<mod_commands.asciidoc#mod_commands_startsession_object,StartSession>>, this field SHALL contain the same value.
+                                             When different `authorization_reference` values have been given by the eMSP that are relevant to this Session,
+                                             the last given value SHALL be used here.
+|cdr_location |<<mod_cdrs_cdr_location_class,CdrLocation>> |1 |Location where the charging session took place, including only the relevant <<mod_locations.asciidoc#mod_locations_evse_object,EVSE>> and <<mod_locations.asciidoc#mod_locations_connector_object,Connector>>.
+|meter_id |<<types.asciidoc#types_string_type,string>>(255) |? |Identification of the Meter inside the Charge Point.
+|currency |<<types.asciidoc#types_string_type,string>>(3) |1 |Currency of the CDR in ISO 4217 Code. 
+|tariffs |<<mod_tariffs.asciidoc#mod_tariffs_tariff_object,Tariff>> |* |List of relevant Tariff Elements, see: <<mod_tariffs.asciidoc#mod_tariffs_tariff_object,Tariff>>. When relevant, a _Free of Charge_ tariff should also be in this list, and point to a defined _Free of Charge_ Tariff. 
+|charging_periods |<<mod_cdrs_chargingperiod_class,ChargingPeriod>> |+ |List of Charging Periods that make up this charging session. A session consists of 1 or more periods, where each period has a different relevant Tariff.
+|signed_data |<<mod_cdrs_signed_data_class,SignedData>> |? |Signed data that belongs to this charging Session.
+|total_cost |<<types.asciidoc#types_price_class,Price>> |1 |Total sum of all the costs of this transaction in the specified currency.
+|total_fixed_cost |<<types.asciidoc#types_price_class,Price>> |? |Total sum of all the fixed costs in the specified currency, except fixed price components of parking and reservation. The cost not depending on amount of time/energy used etc. Can contain costs like a start tariff.
+|total_energy |<<types.asciidoc#types_number_type,number>> |1 |Total energy charged, in kWh.
+|total_energy_cost |<<types.asciidoc#types_price_class,Price>> |? |Total sum of all the cost of all the energy used, in the specified currency.
+|total_time |<<types.asciidoc#types_number_type,number>> |1 |Total duration of the charging session (including the duration of charging and not charging), in hours.
+|total_time_cost |<<types.asciidoc#types_price_class,Price>> |? |Total sum of all the cost related to duration of charging during this transaction, in the specified currency.
+|total_parking_time |<<types.asciidoc#types_number_type,number>> |? |Total duration of the charging session where the EV was not charging (no energy was transferred between EVSE and EV), in hours.
+|total_parking_cost |<<types.asciidoc#types_price_class,Price>> |? |Total sum of all the cost related to parking of this transaction, including fixed price components, in the specified currency.
+|total_reservation_cost |<<types.asciidoc#types_price_class,Price>> |? |Total sum of all the cost related to a reservation of a Charge Point, including fixed price components, in the specified currency.
+|remark |<<types.asciidoc#types_string_type,string>>(255) |? |Optional remark, can be used to provide additional human readable information to the CDR, for example: reason why a transaction was stopped.
+|invoice_reference_id |<<types.asciidoc#types_cistring_type,CiString>>(39) |? |This field can be used to reference an invoice, that will later be send for this CDR. Making it easier to link a CDR to a given invoice. Maybe even group CDRs that will be on the same invoice.
+|credit |boolean |? |When set to `true`, this is a Credit CDR, and the field `credit_reference_id` needs to be set as well.
+|credit_reference_id |<<types.asciidoc#types_cistring_type,CiString>>(39) |? |Is required to be set for a Credit CDR. This SHALL contain the `id` of the CDR for which this is a Credit CDR.
+|last_updated |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Timestamp when this CDR was last updated (or created).
+|===
+
+NOTE: The actual charging duration (energy being transferred between EVSE and EV) of a charging session can be calculated: `total_charging_time = total_time - total_parking_time`. 
+
+NOTE: Having both a `credit` and a `credit_reference_id` might seem redundant.
+But it is seen as an advantage as a boolean flag used in queries is much faster than simple string comparison of references.
+
+NOTE: Different `authorization_reference` values might happen when for example a <<mod_commands.asciidoc#mod_commands_reservenow_object,ReserveNow>>  had a different
+`authorization_reference` then the value returned by a <<mod_tokens.asciidoc#mod_tokens_real-time_authorization,real-time authorization>>.
+
+
+[[mod_cdrs_example_of_a_cdr]]
+===== Example of a CDR
+
+[source,json]
+----
+include::examples/cdr_example.json[]
+----
+
+
+[[mod_cdrs_data_types]]
+=== Data types
+
+[[mod_cdrs_authmethod_enum]]
+==== AuthMethod _enum_
+
+[cols="3,10",options="header"]
+|===
+|Value |Description 
+
+|AUTH_REQUEST |Authentication request has been sent to the eMSP.
+|COMMAND |Command like <<mod_commands.asciidoc#mod_commands_startsession_object,StartSession>>
+          or <<mod_commands.asciidoc#mod_commands_reservenow_object,ReserveNow>> used to start the Session,
+          the Token provided in the Command was used as authorization.
+|WHITELIST |Whitelist used for authentication, no request to the eMSP has been performed.
+|===
+
+[[mod_cdrs_cdrdimension_class]]
+==== CdrDimension _class_
+
+[cols="3,2,1,10",options="header"]
+|===
+|Property |Type |Card. |Description 
+
+|type |<<mod_cdrs_cdrdimensiontype_enum,CdrDimensionType>> |1 |Type of CDR dimension.
+|volume |<<types.asciidoc#types_number_type,number>> |1 |Volume of the dimension consumed, measured according to the dimension type. 
+|===
+
+[[mod_cdrs_cdrdimensiontype_enum]]
+==== CdrDimensionType _enum_
+
+This enumeration contains allowed values for CdrDimensions, which are used to define dimensions of ChargingPeriods in both `CDRs` and `Sessions`.
+Some of these values are not useful for `CDRs`, and SHALL therefor only be used in `Sessions`, these are marked in the column: Session Only
+
+[cols="7,3,24",options="header"]
+|===
+|Value |Session +
+        Only| Description
+
+|CURRENT          |Y| Average charging current during this <<mod_cdrs_chargingperiod_class,ChargingPeriod>>: defined in A (Ampere). When negative, the current is flowing from the EV to the grid.
+|ENERGY           | | Total amount of energy (dis-)charged during this <<mod_cdrs_chargingperiod_class,ChargingPeriod>>: defined in kWh. When negative, more energy was feed into the grid then charged into the EV. Default step_size is 1.
+|ENERGY_EXPORT    |Y| Total amount of energy feed back into the grid: defined in kWh.
+|ENERGY_IMPORT    |Y| Total amount of energy charged, defined in kWh.
+|MAX_CURRENT      | | Sum of the maximum current over all phases, reached during this <<mod_cdrs_chargingperiod_class,ChargingPeriod>>: defined in A (Ampere).
+|MIN_CURRENT      | | Sum of the minimum current over all phases, reached during  this <<mod_cdrs_chargingperiod_class,ChargingPeriod>>, when negative, current has flowed from the EV to the grid. Defined in A (Ampere).
+|MAX_POWER        | | Maximum power reached during this <<mod_cdrs_chargingperiod_class,ChargingPeriod>>: defined in kW (Kilowatt).
+|MIN_POWER        | | Minimum power reached during this <<mod_cdrs_chargingperiod_class,ChargingPeriod>>: defined in kW (Kilowatt), when negative, the power has flowed from the EV to the grid.
+|PARKING_TIME     | | Time during this <<mod_cdrs_chargingperiod_class,ChargingPeriod>> not charging: defined in hours, default step_size multiplier is 1 second.
+|POWER            |Y| Average power during this <<mod_cdrs_chargingperiod_class,ChargingPeriod>>: defined in kW (Kilowatt). When negative, the power is flowing from the EV to the grid.
+|RESERVATION_TIME | | Time during this  <<mod_cdrs_chargingperiod_class,ChargingPeriod>> Charge Point has been reserved and not yet been in use for this customer: defined in hours, default step_size multiplier is 1 second.
+|STATE_OF_CHARGE  |Y| Current state of charge of the EV, in percentage, values allowed: 0 to 100. See note below.
+|TIME             | | Time charging during this <<mod_cdrs_chargingperiod_class,ChargingPeriod>>: defined in hours, default step_size multiplier is 1 second.
+|===
+
+NOTE: OCPI makes it possible to provide SoC in the Session object.
+This information can be useful to show the current State of Charge to an EV driver during charging.
+Implementers should be aware that SoC is only available at some DC Chargers.
+Which is currently a small amount of the total amount of Charge Points.
+Of these DC Chargers, only a small percentage currently provides SoC via OCPP to the CPO.
+Then there is also the question if SoC is allowed to be provided to third-parties as it can be seen as privacy-sensitive information.
+So if an implementer wants to show SoC in, for example an App, care should be taken,
+to make the App work without SoC, as this will probably not always be available.
+
+
+[[mod_cdrs_cdr_location_class]]
+==== CdrLocation _class_
+
+The _CdrLocation_ class contains only the relevant information from the <<mod_locations.asciidoc#mod_locations_location_object,Location>> object that is needed in a CDR.
+
+[cols="3,2,1,10",options="header"]
+|===
+|Property |Type |Card. |Description
+
+|id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Uniquely identifies the location within the CPO's platform (and suboperator platforms). This field can never be changed, modified or renamed.
+|name |<<types.asciidoc#types_string_type,string>>(255) |? |Display name of the location.
+|address |<<types.asciidoc#types_string_type,string>>(45) |1 |Street/block name and house number if available.
+|city |<<types.asciidoc#types_string_type,string>>(45) |1 |City or town.
+|postal_code |<<types.asciidoc#types_string_type,string>>(10) |1 |Postal code of the location.
+|country |<<types.asciidoc#types_string_type,string>>(3) |1 |ISO 3166-1 alpha-3 code for the country of this location.
+|coordinates |<<mod_locations_geolocation_class,GeoLocation>> |1 |Coordinates of the location.
+|evse_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Uniquely identifies the EVSE within the CPO's platform (and suboperator platforms). For example a database unique ID or the actual _EVSE ID_. This field can never be changed, modified or renamed. This is the _technical_ identification of the EVSE, not to be used as _human readable_ identification, use the field: `evse_id` for that.
+|evse_id |<<types.asciidoc#types_cistring_type,CiString>>(48) |1 |Compliant with the following specification for EVSE ID from "eMI3 standard version V1.0" (http://emi3group.com/documents-links/[http://emi3group.com/documents-links/]) "Part 2: business objects.".
+|connector_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Identifier of the connector within the EVSE.
+|connector_standard |<<mod_locations.asciidoc#mod_locations_connectortype_enum,ConnectorType>> |1 |The standard of the installed connector.
+|connector_format |<<mod_locations.asciidoc#mod_locations_connectorformat_enum,ConnectorFormat>> |1 |The format (socket/cable) of the installed connector.
+|connector_power_type |<<mod_locations.asciidoc#mod_locations_powertype_enum,PowerType>> |1 |
+|===
+
+
+[[mod_cdrs_cdr_token_object]]
+==== CdrToken _class_
+
+[cols="3,2,1,10",options="header"]
+|===
+|Property |Type |Card. |Description
+
+|uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Unique ID by which this Token can be identified. +
+This is the field used by the CPO's system (RFID reader on the Charge Point) to identify this token. +
+Currently, in most cases: `type=RFID`, this is the RFID hidden ID as read by the RFID reader, but that is not a requirement. +
+If this is a `type=APP_USER` Token, it will be a unique, by the eMSP, generated ID.
+|type |<<mod_tokens_tokentype_enum,TokenType>> |1 |Type of the token
+|contract_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Uniquely identifies the EV driver contract token within the eMSP's platform (and suboperator platforms). Recommended to follow the specification for eMA ID from "eMI3 standard version V1.0" (http://emi3group.com/documents-links/[http://emi3group.com/documents-links/]) "Part 2: business objects."
+|===
+
+
+
+[[mod_cdrs_chargingperiod_class]]
+==== ChargingPeriod _class_
+
+A Charging Period consists of a start timestamp and a list of possible values that influence this period, for example: amount of energy charged this period, maximum current during this period etc.
+
+[cols="3,2,1,10",options="header"]
+|===
+|Property |Type |Card. |Description 
+
+|start_date_time |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Start timestamp of the charging period. A period ends when the next period starts. The last period ends when the session ends. 
+|dimensions |<<mod_cdrs_cdrdimension_class,CdrDimension>> |+ |List of relevant values for this charging period.
+|tariff_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |Unique identifier of the Tariff that is relevant for this Charging Period. If not provided, no Tariff is relevant during this period.
+|===
+
+
+[[mod_cdrs_signed_data_class]]
+==== SignedData _class_
+
+This class contains all the information of the signed data.
+Which encoding method is used, if needed, the public key and a list of signed values.
+
+[cols="4,2,1,9",options="header"]
+|===
+|Property |Type |Card. |Description
+
+|encoding_method         | <<types.asciidoc#types_cistring_type,CiString>>(36)  |1 |The name of the encoding used in the SignedData field. This is the name given to the encoding by a company or group of companies. See note below.
+|encoding_method_version | int                                                  |? |Version of the EncodingMethod (when applicable)
+|public_key              | <<types.asciidoc#types_cistring_type,CiString>>(512) |? |Public key used to sign the data, base64 encoded.
+|signed_values           | <<mod_cdrs_signed_value_class,SignedValue>>          |+ |One or more signed values.
+|url                     | <<types.asciidoc#types_cistring_type,CiString>>(512) |? |URL that can be shown to an EV driver. This URL gives the EV driver the possibility to check the signed data from a charging session.
+|===
+
+NOTE: For the German Eichrecht, different solutions are used,
+all have (somewhat) different encodings. Below the table with known implementations and the contact information for more information.
+
+[cols="5,8,4",options="header"]
+|===
+|Name |Description |Contact
+
+|OCMF                      |Proposed by SAFE  | https://has-to-be.com[]
+|Alfen Eichrecht           | Alfen Eichrecht encoding / implementation. | https://alfen.com/de/downloads[]
+|EDL40 E-Mobility Extension|eBee smart technologies implementation | https://www.ebee.berlin[]
+|EDL40 Mennekes            |Mennekes implementation |
+|===
+
+
+[[mod_cdrs_signed_value_class]]
+==== SignedValue _class_
+
+This class contains the signed and the plain/unsigned data.
+By decoding the data, the receiver can check if the content has not been altered.
+
+[cols="3,2,1,10",options="header"]
+|===
+|Property |Type |Card. |Description
+
+|nature      |<<types.asciidoc#types_cistring_type,CiString>>(32)  |1 |Nature of the value, in other words, the event this value belongs to. +
+                                                                       Possible values at moment of writing: +
+                                                                       - Start (value at the start of the Session) +
+                                                                       - End (signed value at the end of the Session) +
+                                                                       - Intermediate (signed values take during the Session, after Start, before End) +
+                                                                       Others might be added later.
+|plain_data  |<<types.asciidoc#types_cistring_type,CiString>>(512) |1 |The unencoded string of data. The format of the content depends on the EncodingMethod field.
+|signed_data |<<types.asciidoc#types_cistring_type,CiString>>(512) |1 |Blob of signed data, base64 encoded. The format of the content depends on the EncodingMethod field.
+|===
