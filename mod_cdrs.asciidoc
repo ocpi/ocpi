@@ -302,6 +302,19 @@ The `step_size` is not taken into account when switching between two Tariffs
 Example: A driver selects a different <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,Charging Preference>>
 <<mod_sessions.asciidoc#mod_sessions_profile_type_enum,`profile_type`>>) during an ongoing charging session, the different profile might have a different tariff.
 
+The `step_size` uses the total amount of a certain unit used during a session, not only the last ChargingPeriod.
+In other words, when charging tariff per kWh of time differs during a session, the total amount of kWh of time is used in calculations with `step_size`.
+Example: Charging cost 0.20 euro before 17:00 and 0.27 after 17:00 both have a `step_size` of 500 Wh.
+If a driver charges 4.3 kWh before 17:00 and 1.1 kWh after 17:00, a total of 5.4 kWh is charged. The `step_size` rounds this up to 5.5 kWh total.
+It does NOT round the energy used after 17:00 to 1.5 kWh.
+
+In the cases that <<mod_tariffs.asciidoc#mod_tariffs_tariffdimensiontype_enum,`TIME`>>
+and <<mod_tariffs.asciidoc#mod_tariffs_tariffdimensiontype_enum,`PARKING_TIME`>> Tariff Elements are both used, the total duration is used for the `step_size`
+Example: Charging cost 1.00 euro/hour, parking 2.00 euro/hour both have a `step_size` of 10 minutes.
+If a driver charges 20 minutes, and keeps his EV connected while it is full for another 20 minutes, a total of 40 minutes is charged.
+The `step_size` rounds this up to 45 minutes total.
+It does NOT round the parking duration to 30 minutes, making it a total of 50 minutes.
+
 
 [cols="4,3,1,9",options="header"]
 |===
