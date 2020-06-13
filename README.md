@@ -1,4 +1,4 @@
-This repository contains the OCPI specification, latest release: [`OCPI 2.2`](https://github.com/ocpi/ocpi/releases/download/2.2/OCPI-2.2.pdf)
+This repository contains the OCPI specification, latest release: [`OCPI 2.2-d2`](https://github.com/ocpi/ocpi/releases/download/2.2-d2/OCPI-2.2-d2.pdf)
 
 The branch with the latest fixes to the 2.2 documentation is [`release-2.2-bugfixes`](https://github.com/ocpi/ocpi/tree/release-2.2-bugfixes)
 
@@ -35,7 +35,7 @@ Development of the next version of OCPI, new functionality, is done in the  [`de
 
 __Current versions:__
 
-Release 2.2:
+Release 2.2-d2:
 
 - Support for Hubs 
   - Message routing headers 

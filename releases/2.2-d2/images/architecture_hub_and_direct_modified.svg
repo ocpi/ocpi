@@ -1,0 +1,87 @@
+<svg width="489" height="634" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+ <defs>
+  <filter y="-1" x="-1" width="300%" id="f18p04wtmb49jg" height="300%">
+   <feGaussianBlur stdDeviation="2"/>
+  </filter>
+ </defs>
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="213.333333" width="165" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <path id="svg_45" fill="none" d="m142.086009,561.499605c80.932827,0 175.72093,0 236.367691,0" stroke=" #A80036"/>
+  <path transform="rotate(60 338.38638305664057,485.2639465332032) " stroke=" #A80036" id="svg_42" fill="none" d="m217.760227,485.263943c82.605332,0 179.352264,0 241.252311,0"/>
+  <path id="svg_1" fill="none" d="m137.086019,134.000468c80.932827,0 175.72093,0 236.367691,0" stroke=" #A80036"/>
+  <path stroke=" #A80036" id="Hub-CPOP2" fill="none" d="m282.149,365c22.2505,0 56.719,0 85.9884,0c0.4573,0 0.9134,0 1.3681,0"/>
+  <path stroke=" #A80036" id="MSP2-Hub" fill="none" d="m146.086,365c30.0862,0 65.323,0 87.868,0"/>
+  <path stroke=" #A80036" transform="rotate(-60 190.11270141601565,462.96038818359375) " id="svg_47" fill="none" d="m95.326569,462.960401c64.910052,0 140.932366,0 189.57251,0"/>
+  <path id="svg_46" fill="none" d="m84.403681,262.628302c69.452611,0 150.795144,0 202.839241,0" transform="rotate(60 185.8232879638671,262.62829589843756) " stroke=" #A80036"/>
+  <path stroke=" #A80036" transform="rotate(-60 328.77923583984375,268.96075439453125) " id="svg_43" fill="none" d="m233.99297,268.960767c64.910052,0 140.932365,0 189.57251,0"/>
+  <!--cluster MSP1-->
+  <rect id="svg_2" stroke=" #000000" y="32" x="30" width="116" ry="4" rx="4" height="194" filter="url(#f18p04wtmb49jg)" fill="#FFFFFF"/>
+  <text id="svg_3" y="46.9951" x="46" font-weight="bold" font-size="14" font-family="sans-serif" fill="#000000">PLATFORM</text>
+  <!--cluster MSP2-->
+  <rect id="svg_4" stroke=" #000000" y="266" x="30" width="116" ry="4" rx="4" height="194" filter="url(#f18p04wtmb49jg)" fill="#FFFFFF"/>
+  <text id="svg_5" y="280.9951" x="46" font-weight="bold" font-size="14" font-family="sans-serif" fill="#000000">PLATFORM</text>
+  <!--cluster MSP3-->
+  <rect id="svg_6" stroke=" #000000" y="500" x="30" width="116" ry="4" rx="4" height="123" filter="url(#f18p04wtmb49jg)" fill="#FFFFFF"/>
+  <text id="svg_7" y="514.9951" x="46" font-weight="bold" font-size="14" font-family="sans-serif" fill="#000000">PLATFORM</text>
+  <!--cluster CPOP1-->
+  <rect id="svg_8" stroke=" #000000" y="32" x="370" width="108" ry="4" rx="4" height="194" filter="url(#f18p04wtmb49jg)" fill="#FFFFFF"/>
+  <text id="svg_9" y="46.9951" x="382" font-weight="bold" font-size="14" font-family="sans-serif" fill="#000000">PLATFORM</text>
+  <!--cluster CPOP2-->
+  <rect id="svg_10" stroke=" #000000" y="266" x="370" width="108" ry="4" rx="4" height="194" filter="url(#f18p04wtmb49jg)" fill="#FFFFFF"/>
+  <text id="svg_11" y="280.9951" x="382" font-weight="bold" font-size="14" font-family="sans-serif" fill="#000000">PLATFORM</text>
+  <!--cluster CPOP3-->
+  <rect id="svg_12" stroke=" #000000" y="500" x="370" width="108" ry="4" rx="4" height="123" filter="url(#f18p04wtmb49jg)" fill="#FFFFFF"/>
+  <text id="svg_13" y="514.9951" x="382" font-weight="bold" font-size="14" font-family="sans-serif" fill="#000000">PLATFORM</text>
+  <!--entity eMSP1-->
+  <rect id="svg_14" stroke=" #A80036" y="76" x="54" width="68" ry="4" rx="4" height="36.2969" filter="url(#f18p04wtmb49jg)" fill="#FEFECE"/>
+  <text id="svg_15" y="98.9951" x="64" font-size="14" font-family="sans-serif" fill="#000000">eMSP1</text>
+  <!--entity eMSP2-->
+  <rect id="svg_16" stroke=" #A80036" y="147.666665" x="54" width="68" ry="4" rx="4" height="36.2969" filter="url(#f18p04wtmb49jg)" fill="#FEFECE"/>
+  <text id="svg_17" y="170.661765" x="68.666658" font-size="14" font-family="sans-serif" fill="#000000">CPO1</text>
+  <!--entity eMSP3-->
+  <rect id="svg_18" stroke=" #A80036" y="310" x="54" width="68" ry="4" rx="4" height="36.2969" filter="url(#f18p04wtmb49jg)" fill="#FEFECE"/>
+  <text id="svg_19" y="332.9951" x="64" font-size="14" font-family="sans-serif" fill="#000000">eMSP3</text>
+  <!--entity eMSP4-->
+  <rect id="svg_20" stroke=" #A80036" y="381" x="54" width="68" ry="4" rx="4" height="36.2969" filter="url(#f18p04wtmb49jg)" fill="#FEFECE"/>
+  <text id="svg_21" y="403.9951" x="64" font-size="14" font-family="sans-serif" fill="#000000">eMSP4</text>
+  <!--entity eMSP5-->
+  <rect id="svg_22" stroke=" #A80036" y="544" x="54" width="68" ry="4" rx="4" height="36.2969" filter="url(#f18p04wtmb49jg)" fill="#FEFECE"/>
+  <text id="svg_23" y="566.9951" x="64" font-size="14" font-family="sans-serif" fill="#000000">eMSP5</text>
+  <!--entity CPO1-->
+  <rect id="svg_24" stroke=" #A80036" y="76" x="394.5" width="59" ry="4" rx="4" height="36.2969" filter="url(#f18p04wtmb49jg)" fill="#FEFECE"/>
+  <text id="svg_25" y="98.9951" x="401.833338" font-size="14" font-family="sans-serif" fill="#000000">eMSP2</text>
+  <!--entity CPO2-->
+  <rect id="svg_26" stroke=" #A80036" y="147" x="394.5" width="59" ry="4" rx="4" height="36.2969" filter="url(#f18p04wtmb49jg)" fill="#FEFECE"/>
+  <text id="svg_27" y="169.9951" x="404.5" font-size="14" font-family="sans-serif" fill="#000000">CPO2</text>
+  <!--entity CPO3-->
+  <rect id="svg_28" stroke=" #A80036" y="310" x="394.5" width="59" ry="4" rx="4" height="36.2969" filter="url(#f18p04wtmb49jg)" fill="#FEFECE"/>
+  <text id="svg_29" y="332.9951" x="404.5" font-size="14" font-family="sans-serif" fill="#000000">CPO3</text>
+  <!--entity CPO4-->
+  <rect id="svg_30" stroke=" #A80036" y="381" x="394.5" width="59" ry="4" rx="4" height="36.2969" filter="url(#f18p04wtmb49jg)" fill="#FEFECE"/>
+  <text id="svg_31" y="403.9951" x="404.5" font-size="14" font-family="sans-serif" fill="#000000">CPO4</text>
+  <!--entity CPO5-->
+  <rect id="svg_32" stroke=" #A80036" y="544" x="394.5" width="59" ry="4" rx="4" height="36.2969" filter="url(#f18p04wtmb49jg)" fill="#FEFECE"/>
+  <text id="svg_33" y="566.9951" x="404.5" font-size="14" font-family="sans-serif" fill="#000000">CPO5</text>
+  <!--entity Hub-->
+  <rect id="svg_34" stroke=" #A80036" y="347" x="234" width="48" ry="4" rx="4" height="36.2969" filter="url(#f18p04wtmb49jg)" fill="#FEFECE"/>
+  <text id="svg_35" y="369.9951" x="244" font-size="14" font-family="sans-serif" fill="#000000">Hub</text>
+  <!--link MSP1 to Hub-->
+  <text id="svg_36" y="259.733648" x="189.499966" font-size="13" font-family="sans-serif" fill="#000000">OCPI</text>
+  <!--link MSP2 to Hub-->
+  <text id="svg_37" y="360.0669" x="171.5" font-size="13" font-family="sans-serif" fill="#000000">OCPI</text>
+  <!--link MSP3 to Hub-->
+  <text id="svg_38" y="479.067037" x="192.833292" font-size="13" font-family="sans-serif" fill="#000000">OCPI</text>
+  <!--link Hub to CPOP1-->
+  <text id="svg_39" y="259.400315" x="295.500034" font-size="13" font-family="sans-serif" fill="#000000">OCPI</text>
+  <!--link Hub to CPOP2-->
+  <text id="svg_40" y="360.0669" x="313.5" font-size="13" font-family="sans-serif" fill="#000000">OCPI</text>
+  <!--link Hub to CPOP3-->
+  <text id="svg_41" y="479.733701" x="290.833377" font-size="13" font-family="sans-serif" fill="#000000">OCPI</text>
+  <text id="svg_44" y="153.233864" x="243.499857" font-size="13" font-family="sans-serif" fill="#000000">OCPI</text>
+  <text id="svg_48" y="549.566894" x="241.333194" font-size="13" font-family="sans-serif" fill="#000000">OCPI</text>
+ </g>
+</svg>

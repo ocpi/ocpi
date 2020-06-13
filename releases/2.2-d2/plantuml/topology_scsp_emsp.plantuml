@@ -1,0 +1,18 @@
+@startuml
+
+skinparam rectangle {
+	roundCorner 8
+}
+
+left to right direction
+
+agent SCSP
+agent eMSP
+agent CPO
+agent "Charge Point" AS CP
+
+SCSP <--> eMSP: OCPI
+eMSP <--> CPO: OCPI
+CPO <--> CP
+
+@enduml

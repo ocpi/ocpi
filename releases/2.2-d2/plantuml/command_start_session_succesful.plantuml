@@ -1,0 +1,45 @@
+@startuml
+hide footbox
+
+participant eMSP
+participant CPO
+participant "Charge Point" as CP
+
+eMSP ->  CPO:  Command(START_SESSION, location_id=1234,\n                 token.uid=200, token.type=AD_HOC_USER,\n                 token.authorization_reference=567890)
+activate eMSP
+activate CPO
+CPO  --> eMSP: status_code = 1000, data: {CommandResponse { result = ACCEPTED }}
+deactivate eMSP
+
+CPO  ->  CP:   RemoteStartTransaction.req(Token=200)
+deactivate CPO
+activate CP
+CP   ->  CPO:  RemoteStartTransaction.conf(Accepted)
+activate CPO
+CPO  ->  eMSP: CommandResult(result = ACCEPTED)
+activate eMSP
+eMSP --> CPO: 
+deactivate CPO
+deactivate eMSP
+
+opt
+  CP   ->  CPO:  Authorize.req(Token=200)
+  activate CPO
+  CPO  ->  CP:   Authorize.conf(Accepted)
+  deactivate CP
+  deactivate CPO
+end
+
+CP   --> CP: EV Plugged in
+
+CP   ->  CPO:  StartTransaction.req(Token=200)
+activate CPO
+CPO  ->  CP:   StartTransaction.conf(TransactionId=15)
+deactivate CP
+CPO  ->  eMSP: Session(id=15, token=200, location_id=1234\n              authorization_reference=567890)
+activate eMSP
+eMSP --> CPO: 
+deactivate CPO
+deactivate eMSP
+
+@enduml
