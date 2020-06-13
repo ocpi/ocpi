@@ -30,8 +30,10 @@ For more information on detailed changes see <<changelog.asciidoc#changelog_chan
 
 
 ==== OCPI 2.2-d2
-This new documentation of OCPI 2.2 contains of textual improvements and fixes to JSON examples, that have been contributed by the OCPI community.
-Many thanks to all that have taken the time and effort to commit issues.
+This new documentation revision of OCPI 2.2 contains textual improvements and fixes to JSON examples.
+The Tariff module contains most of the improvements, and especially `step_size` needed a much better explanation and examples.
+
+Many thanks to all the contributors that have taken the time and effort to commit issues and pushed pull requests with improvements.
 
 
 [[introduction_introduction_and_background]]

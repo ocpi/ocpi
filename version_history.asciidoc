@@ -6,7 +6,7 @@
 
 |2.2-d2 |12-06-2020 | Robert de Leeuw +
 _ihomer_ | 2nd documentation revision of the OCPI 2.2 spec. +
-           Contains textual improvements and fixes some of the examples. + 
+           Contains textual improvements and fixes some of the examples. +
            Most improvements in the tarrifs module, especially `step_size` is better explained.
 |2.2 |30-09-2019 | Robert de Leeuw +
 _ihomer_ |Added support for Roaming Hubs +
