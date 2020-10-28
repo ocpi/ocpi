@@ -60,6 +60,25 @@ NOTE: If real-time authorization is asked for a location, the eMSP SHALL NOT val
 this information might not be update to date.
 
 
+[[mod_tokens_real-time_authorization]]
+==== Token Migration
+
+There are use cases where an existing RFID Token is moved/migrated from one system to another. Examples:
+
+- eMSP is switching from one eMSP SaaS provider X to another eMSP SaaS provider Y.
+- eMSP X is bought by eMSP Y. eMSP Y already has its own eMSP system and wants to add the existing user with existing RFIDs to its own system.
+
+As each RFID has its own unique 'hidden ID' no two (or more) parties can 'own' the same RFID otherwise,
+the CPO cannot determine which eMSP to send the CDR and invoice.
+
+To do this correctly, eMSP X has to update all tokens that will be migrated with the `valid` flag set to 'false'.
+eMSP Y should then POST new Tokens with different country_code/party_id combination but the same `uid`
+and the `valid` flag set to 'true'.
+
+It is good to synchronize this action between both eMSP X and Y. You don't the Token not valid in any system,
+as drivers can then not charge, but you also don't want a long time that both eMSP X and Y have the same RFID valid
+
+
 [[mod_tokens_interfaces_and_endpoints]]
 === Interfaces and endpoints
 
