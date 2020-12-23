@@ -32,8 +32,8 @@
       "standard": "IEC_62196_T2",
       "format": "SOCKET",
       "power_type": "AC_3_PHASE",
-      "voltage": 230,
-      "amperage": 16,
+      "max_voltage": 230,
+      "max_amperage": 16,
       "last_updated": "2019-09-27T00:19:45Z"
     }],
     "last_updated": "2019-09-27T00:19:45Z"

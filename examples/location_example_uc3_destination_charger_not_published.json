@@ -16,16 +16,18 @@
     "uid": "fd855359-bc81-47bb-bb89-849ae3dac89e",
     "evse_id": "NL*ALF*E000000001",
     "status": "AVAILABLE",
-    "connectors": [{
-      "id": "1",
-      "standard": "IEC_62196_T2",
-      "format": "SOCKET",
-      "power_type": "AC_3_PHASE",
-      "voltage": 220,
-      "amperage": 16,
-      "last_updated": "2019-07-01T12:12:11Z"
-    }],
-    "parking_restrictions": "CUSTOMERS",
+    "connectors": [
+      {
+        "id": "1",
+        "standard": "IEC_62196_T2",
+        "format": "SOCKET",
+        "power_type": "AC_3_PHASE",
+        "max_voltage": 220,
+        "max_amperage": 16,
+        "last_updated": "2019-07-01T12:12:11Z"
+      }
+    ],
+    "parking_restrictions": [ "CUSTOMERS" ],
     "last_updated": "2019-07-01T12:12:11Z"
   }],
   "time_zone": "Europe/Amsterdam",
