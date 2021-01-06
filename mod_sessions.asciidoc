@@ -188,7 +188,7 @@ The response contains a <<mod_sessions_charging_preferences_response_enum,Chargi
 
 
 [[mod_sessions_emsp_interface]]
-===== Receiver Interface
+==== Receiver Interface
 
 Typically implemented by market roles like: eMSP and SCSP.
 

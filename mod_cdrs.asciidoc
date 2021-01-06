@@ -20,7 +20,7 @@ CDRs are created by the CPO. They most likely will be sent only to the eMSP that
 Because a CDR is for billing purposes, it cannot be changed or replaced once sent to the eMSP. Changes are simply not allowed.
 Instead, a <<mod_cdrs_credit_cdrs,Credit CDR>> can be sent.
 
-CDRs may be send for charging locations that have not been published via the <<mod_locations_locations_module,Location>> module.
+CDRs may be send for charging locations that have not been published via the <<mod_locations.asciidoc#mod_locations_locations_module,Location>> module.
 This is typically for home chargers.
 
 
@@ -453,7 +453,7 @@ The _CdrLocation_ class contains only the relevant information from the <<mod_lo
 |city |<<types.asciidoc#types_string_type,string>>(45) |1 |City or town.
 |postal_code |<<types.asciidoc#types_string_type,string>>(10) |1 |Postal code of the location.
 |country |<<types.asciidoc#types_string_type,string>>(3) |1 |ISO 3166-1 alpha-3 code for the country of this location.
-|coordinates |<<mod_locations_geolocation_class,GeoLocation>> |1 |Coordinates of the location.
+|coordinates |<<mod_locations.asciidoc#mod_locations_geolocation_class,GeoLocation>> |1 |Coordinates of the location.
 |evse_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Uniquely identifies the EVSE within the CPO's platform (and suboperator platforms). For example a database unique ID or the actual _EVSE ID_. This field can never be changed, modified or renamed. This is the _technical_ identification of the EVSE, not to be used as _human readable_ identification, use the field: `evse_id` for that.
 |evse_id |<<types.asciidoc#types_cistring_type,CiString>>(48) |1 |Compliant with the following specification for EVSE ID from "eMI3 standard version V1.0" (http://emi3group.com/documents-links/[http://emi3group.com/documents-links/]) "Part 2: business objects.".
 |connector_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Identifier of the connector within the EVSE.
@@ -474,7 +474,7 @@ The _CdrLocation_ class contains only the relevant information from the <<mod_lo
 This is the field used by the CPO's system (RFID reader on the Charge Point) to identify this token. +
 Currently, in most cases: `type=RFID`, this is the RFID hidden ID as read by the RFID reader, but that is not a requirement. +
 If this is a `type=APP_USER` Token, it will be a unique, by the eMSP, generated ID.
-|type |<<mod_tokens_tokentype_enum,TokenType>> |1 |Type of the token
+|type |<<mod_tokens.asciidoc#mod_tokens_tokentype_enum,TokenType>> |1 |Type of the token
 |contract_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Uniquely identifies the EV driver contract token within the eMSP's platform (and suboperator platforms). Recommended to follow the specification for eMA ID from "eMI3 standard version V1.0" (http://emi3group.com/documents-links/[http://emi3group.com/documents-links/]) "Part 2: business objects."
 |===
 

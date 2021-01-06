@@ -60,8 +60,13 @@ image::images/command_start_session_succesful.svg[START_SESSION successful]
 
 Example of a `START_SESSION` with a Token that is Whitelist: NEVER.
 
-The CPO does not check the Token in the START_SESSION. If needed, the Charge Point does an OCPP Authorize request.
-In case of a Token whitelist NEVER or ALLOWED_OFFLINE, the CPO does an <<mod_tokens.asciidoc#mod_tokens_real-time_authorization,realtime authorization>>.
+The CPO should not check the Token in the START_SESSION, before sending it to the Charge Point.
+The CPO should assume that the eMSP only sends valid Tokens in the START_SESSION object.
+
+If needed, the Charge Point does an OCPP Authorize request to validate the Token (proved via OCPP).
+In such case the CPO only does an <<mod_tokens.asciidoc#mod_tokens_real-time_authorization,realtime authorization>>
+when the OCPP Authorize request is for an RFID Token and the START_SESSION for this Token was received more then 15 minutes ago.
+
 
 .START_SESSION whitelist NEVER
 image::images/command_start_session_whitelist_never.svg[START_SESSION whitelist NEVER]

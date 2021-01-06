@@ -363,12 +363,14 @@ but other parties are (themselves) not a CPO or other role in the EV charging la
 but do provide service to CPOs/eMSPs, etc.
 
 ===== Message Routing Headers
-When OCPI is used to communicate to/from a Platform or via a Hub (which is almost always the case)
+When OCPI is used to communicate to/from a Platform or via a Hub (which is the most common usage of OCPI,
+only exception is a peer-to-peer connection between two parties that both have only one OCPI party and role implemented.)
 the following four HTTP headers are to be added to any request/response to allow messages to be routed.
 
 When implementing OCPI these four headers SHALL be implemented for any request/response to/from a Functional Module.
 This does not mean they have to be present in all request.
-There are situation/special request where some headers can or shall be omitted, more on this later.
+There are situation/special request where some headers can or shall be omitted,
+See: <<transport_and_format_message_routing_open_routing_request,Open Routing Request>>
 
 Only requests/responses from Function Modules: such as: <<mod_tokens.asciidoc#mod_tokens_tokens_module,Tokens>>,
 <<mod_locations.asciidoc#mod_locations_locations_module,Locations>>, <<mod_cdrs.asciidoc#mod_cdrs_cdrs_module,CDRs>> etc.
