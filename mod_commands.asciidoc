@@ -152,7 +152,7 @@ Example endpoint structure: ``
 [[mod_commands_msp_post_request_parameters]]
 ====== Request Parameters
 
-The following parameters can be provided as URL segments.
+The following parameter shall be provided as URL segments.
 
 [cols="3,2,1,10",options="header"]
 |===

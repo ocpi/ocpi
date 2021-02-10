@@ -119,7 +119,7 @@ so it would be illogical if the connected client system had a different status o
 
 ====== Request Parameters
 
-The following parameters can be provided as URL segments.
+The following parameters shall be provided as URL segments.
 
 [cols="3,2,1,10",options="header"]
 |===
@@ -156,7 +156,7 @@ In the put request a the new or updated ClientInfo object is send.
 
 ====== Request Parameters
 
-The following parameters can be provided as URL segments.
+The following parameters shall be provided as URL segments.
 
 |===
 |Parameter |Datatype |Required |Description

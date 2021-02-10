@@ -224,7 +224,7 @@ for example, validate the state, or because the CPO has received an error during
 [[mod_sessions_msp_get_request_parameters]]
 ====== Request Parameters
 
-The following parameters can be provided as URL segments.
+The following parameters shall be provided as URL segments.
 
 [cols="3,2,1,10",options="header"]
 |===
@@ -267,7 +267,7 @@ The request contains the new or updated Session object.
 [[mod_sessions_cpo_put_request_parameters]]
 ====== Request Parameters
 
-The following parameters can be provided as URL segments.
+The following parameters shall be provided as URL segments.
 
 [cols="3,2,1,10",options="header"]
 |===
