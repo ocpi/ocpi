@@ -155,8 +155,8 @@ The following parameters shall be provided as URL segments.
 |===
 |Parameter |Datatype |Required |Description 
 
-|country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |yes |Country code of the CPO performing the PUT request on the eMSP's system.
-|party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |yes |Party ID (Provider ID) of the CPO performing the PUT request on the eMSP's system.
+|country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |yes |Country code of the CPO performing the GET request on the eMSP's system.
+|party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |yes |Party ID (Provider ID) of the CPO performing the GET request on the eMSP's system.
 |tariff_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |Tariff.id of the Tariff object to retrieve.
 |===
 
