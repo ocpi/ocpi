@@ -260,7 +260,7 @@ PUT is used to send new objects to the servers.
 If a client tries to access an object with a URL that has a different
 <<credentials.asciidoc#credentials_credentials_object,country_code>>
 and/or <<credentials.asciidoc#credentials_credentials_object,party_id>>
-then given during the <<credentials.asciidoc#credentials_credentials_endpoint,credentials>> handshake,
+than given during the <<credentials.asciidoc#credentials_credentials_endpoint,credentials>> handshake,
 it is allowed the respond with an HTTP `404` status code, this way blocking client access to objects that do not belong to them.
 
 To identify the owner of data, the party generating the information that is provided to other parties via OCPI,
