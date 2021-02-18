@@ -1,18 +1,15 @@
 {
   "data": {
     "version": "2.2",
-    "endpoints": [
-      {
-        "identifier": "credentials",
-        "url": "https://example.com/ocpi/cpo/2.2/credentials/",
-        "role": "SENDER"
-      },
-      {
-        "identifier": "locations",
-        "url": "https://example.com/ocpi/cpo/2.2/locations/",
-        "role": "SENDER"
-      }
-    ]
+    "endpoints": [{
+      "identifier": "credentials",
+      "role": "SENDER",
+      "url": "https://example.com/ocpi/cpo/2.2/credentials/"
+    }, {
+      "identifier": "locations",
+      "role": "SENDER",
+      "url": "https://example.com/ocpi/cpo/2.2/locations/",
+    }]
   },
   "status_code": 1000,
   "status_message": "Success",
