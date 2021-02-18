@@ -59,8 +59,11 @@
       "amperage": 16,
       "tariff_ids": ["12"],
       "last_updated": "2015-06-29T20:39:09Z"
-    }
-  ],
+    }],
+    "physical_reference": "2",
+    "floor_level": "-2",
+    "last_updated": "2015-06-29T20:39:09Z"
+  }],
   "operator": {
     "name": "BeCharged"
   },
