@@ -1,5 +1,7 @@
 {
   "data": [{
+    "country_code": "NL",
+    "party_id": "TNM",
     "uid": "100012",
     "type": "RFID",
     "contract_id": "FA54320",
@@ -9,6 +11,8 @@
     "whitelist": "ALWAYS",
     "last_updated": "2015-06-21T22:39:05Z"
   }, {
+    "country_code": "NL",
+    "party_id": "TNM",
     "uid": "100013",
     "type": "RFID",
     "contract_id": "FA543A5",
@@ -18,6 +22,8 @@
     "whitelist": "ALLOWED",
     "last_updated": "2015-06-28T11:21:09Z"
   }, {
+    "country_code": "NL",
+    "party_id": "TNM",
     "uid": "100014",
     "type": "RFID",
     "contract_id": "FA543BB",
