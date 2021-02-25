@@ -286,17 +286,15 @@ Fields/objects which are not specified are considered unchanged.
 
 Any request to the PATCH method SHALL contain the `last_updated` field.
 
-The PATCH method of the Session Receiver interface works on the <<mod_sessions_session_object,Session>> Object,
-it SHALL NOT be used with a URL that would try to PATCH an Object within the <<mod_sessions_session_object,Session>> Object.
+The PATCH method of the Session Receiver interface works on the entire <<mod_sessions_session_object,Session>> object only.
+It is not allowed to use extra URL segments to try to PATCH fields of inner objects of the <<mod_sessions_session_object,Session>> object directly.
 
-When a PATCH request contains the `charging_periods` field,
-this SHALL be processed as a request to add all the <<mod_cdrs.asciidoc#mod_cdrs_chargingperiod_class,ChargingPeriod>> Objects to the existing <<mod_sessions_session_object,Session>> Object.
+When a PATCH request contains the `charging_periods` field (inside a <<mod_sessions_session_object,Session>> object),
+this SHALL be processed as a request to add all the <<mod_cdrs.asciidoc#mod_cdrs_chargingperiod_class,ChargingPeriod>> objects to the existing <<mod_sessions_session_object,Session>> object.
 
-If existing <<mod_cdrs.asciidoc#mod_cdrs_chargingperiod_class,ChargingPeriod>> Objects in
+If existing <<mod_cdrs.asciidoc#mod_cdrs_chargingperiod_class,ChargingPeriod>> objects in
 a <<mod_sessions_session_object,Session>> need to be replaced or removed, the Sender SHALL use the <<mod_sessions_msp_put_method,PUT>> method to replace
-the entire <<mod_sessions_session_object,Session>> Object.
-
-all the exiting `charging_periods` SHALL be replaced by the once in the PATCH request.
+the entire <<mod_sessions_session_object,Session>> object (including all the `charging_periods`).
 
 
 [[mod_sessions_example_update_the_total_cost]]
