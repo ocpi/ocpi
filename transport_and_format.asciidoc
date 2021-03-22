@@ -220,7 +220,8 @@ A PATCH request must only specify the object's identifier (if needed to identify
 
 The MIME-type of the request body is: `application/json` and may contain the data as documented for each endpoint.
 
-In case a PATCH request fails, the client is expected to call the <<transport_and_format_get,GET>> method to check the state of the object in the other party's system. If the object doesn't exist, the client should do a <<transport_and_format_put,PUT>>. 
+In case a PATCH request fails, the client is expected to call the <<transport_and_format_get,GET>> method to check the state of the object in the other party's system. If the object doesn't exist, the client should do a <<transport_and_format_put,PUT>>.
+
 
 [[transport_and_format_client_owned_object_push]]
 ==== Client Owned Object Push
@@ -240,10 +241,12 @@ They need to be able to make a distinction between the different tariffs from di
 The distinction between objects from different CPOs/eMSPs is made based on
 a {<<credentials.asciidoc#credentials_credentials_object,country_code>>}
 and {<<credentials.asciidoc#credentials_credentials_object,party_id>>}.
-The <<credentials.asciidoc#credentials_credentials_object,country_code>>
-and <<credentials.asciidoc#credentials_credentials_object,party_id>>
-of the other party are received during the <<credentials.asciidoc#credentials_credentials_endpoint,credentials>> handshake,
-so that a server might know the values a client will use in an URL.
+The <<credentials.asciidoc#credentials_credentials_object,country_code's>>
+and <<credentials.asciidoc#credentials_credentials_object,party_id's>>
+of the parties on the other platform are received during the <<credentials.asciidoc#credentials_credentials_endpoint,credentials>> handshake
+in the <<credentials.asciidoc#credentials_credentials_role_class,CredentialsRoles>>.
+The roles exchanged during the <<credentials.asciidoc#credentials_credentials_endpoint,credentials>> handshake
+provide the server with details needed to determine which URLs a client might use.
 
 Client Owned Object URL definition: {base-ocpi-url}/{end-point}/{country-code}/{party-id}/{object-id}
 
@@ -257,21 +260,32 @@ Example of a URL to a Client Owned Object
 POST is not supported for these kinds of modules.
 PUT is used to send new objects to the servers. 
 
-If a client tries to access an object with a URL that has a different
-<<credentials.asciidoc#credentials_credentials_object,country_code>>
-and/or <<credentials.asciidoc#credentials_credentials_object,party_id>>
-than given during the <<credentials.asciidoc#credentials_credentials_endpoint,credentials>> handshake,
-it is allowed the respond with an HTTP `404` status code, this way blocking client access to objects that do not belong to them.
-
 To identify the owner of data, the party generating the information that is provided to other parties via OCPI,
 a 'Data owner' is provided at the beginning of every module that has a clear owner.
+
 
 [[transport_and_format_errors]]
 ===== Errors
 
+When a client tries to access an object with a URL that has a different
+<<credentials.asciidoc#credentials_credentials_object,country_code>>
+and <<credentials.asciidoc#credentials_credentials_object,party_id>>
+than one of the <<credentials.asciidoc#credentials_credentials_role_class,CredentialsRoles>> given during the
+<<credentials.asciidoc#credentials_credentials_endpoint,credentials>> handshake,
+it is allowed the respond with an HTTP `404` status code, this way blocking client access to objects that do not belong to them.
+
 When a client pushes a Client Owned Object, but the {object-id} in the URL is different from the id in the object being pushed,
 server implementations are advised to return an <<status_codes.asciidoc#status_codes_status_codes,OCPI status code>>:
 <<status_codes.asciidoc#status_codes_status_codes,2001>>.
+
+
+[[transport_and_format_client_owned_object_pull]]
+==== Client Owned Object Pull
+
+When doing a GET on the Sender interface of a module, the owner of an object can be determined by looking at the
+{<<credentials.asciidoc#credentials_credentials_object,country_code>>}
+and {<<credentials.asciidoc#credentials_credentials_object,party_id>>} in the object itself.
+
 
 [[transport_and_format_response_format]]
 ==== Response format
