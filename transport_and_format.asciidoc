@@ -286,6 +286,8 @@ When doing a GET on the Sender interface of a module, the owner of an object can
 {<<credentials.asciidoc#credentials_credentials_object,country_code>>}
 and {<<credentials.asciidoc#credentials_credentials_object,party_id>>} in the object itself.
 
+When one or more objects, returned in the response, do not meet one of the <<credentials.asciidoc#credentials_credentials_role_class,CredentialsRoles>>
+given during the <<credentials.asciidoc#credentials_credentials_endpoint,credentials>> handshake, these objects may be ignored.
 
 [[transport_and_format_response_format]]
 ==== Response format
