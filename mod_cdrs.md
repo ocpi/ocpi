@@ -292,7 +292,7 @@ NOTE: The duration of charging (energy being transferred between EVSE and EV) du
 				"type": "TIME",
 				"price": "2.00",
 				"step_size": 300
-			}],
+			}]
 		}],
 		"last_updated": "2015-02-02T14:15:01Z"
 	}],
