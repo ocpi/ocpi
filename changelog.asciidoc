@@ -361,8 +361,8 @@ Average
 |- Added `county_code` and `party_id` fields, making it easier to determine the owner of a Session. +
 - Field `id` is changed from string to CiString, making it now case-insensitive, which had always been the idea. +
 - Changed `total_cost` field from type: `number` to `Price`, this provides the eMSP with the total cost including VAT. +
-- Renamed `start_datetime` field to `start_date_time`, to bring the naming inline with the rest of OCPI. +
-- Renamed `end_datetime` field to `end_date_time`, to bring the naming inline with the rest of OCPI. +
+- Added `start_date_time` and `end_datetime` fields. +
+- Renamed  field to `end_date_time`, to bring the naming inline with the rest of OCPI. +
 - Replaced `auth_id` with `CdrToken` class. `auth_id` alone could not be used to uniquely identify a <<mod_tokens.asciidoc#mod_tokens_token_object,Token>>. +
 - Replaced `location` object with `location_id`, `evse_uid` and `connector_id`. Having the `Location` Object in the `Session` was overkill, only reference is more inline with the rest. +
 - Added `authorization_reference` field for binding an authorization to the resulting session.
