@@ -187,9 +187,9 @@ The response should contain the URL to the just created CDR object in the eMSP s
 
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
-| Parameter  | Datatype                    | Required | Description                               |
-|------------|-----------------------------|----------|-------------------------------------------|
-| Location   | [URL](types.md#16-url-type) | yes      | URL to the newly created CDR in the eMSP system, can be used by the CPO system to do a GET on of the same CDR |
+| HTTP Header | Datatype                    | Required | Description                               |
+|-------------|-----------------------------|----------|-------------------------------------------|
+| Location    | [URL](types.md#16-url-type) | yes      | URL to the newly created CDR in the eMSP system, can be used by the CPO system to do a GET on of the same CDR |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
 Example: Location: /ocpi/emsp/2.0/cdrs/123456
