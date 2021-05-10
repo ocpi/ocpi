@@ -251,6 +251,14 @@ The response contains the requested Session object.
 
 Inform the eMSP's system about a new/updated Session object in the CPO's system.
 
+When a PUT request is received for an existing <<mod_sessions_session_object,Session>> object: the object is posted to the same URL,
+The newly received <<mod_sessions_session_object,Session>> object SHALL replace the existing object.
+
+Any `charging_periods` from the existing object SHALL be replaced by the `charging_periods` from the newly received <<mod_sessions_session_object,Session>> object.
+If the new <<mod_sessions_session_object,Session>> object does not contain `charging_periods` (field is omitted or contains any empty list),
+the `charging_periods` of the existing object SHALL be removed (replaced by the new empty list).
+
+
 [[mod_sessions_request_body]]
 ====== Request Body
 
@@ -291,6 +299,7 @@ It is not allowed to use extra URL segments to try to PATCH fields of inner obje
 
 When a PATCH request contains the `charging_periods` field (inside a <<mod_sessions_session_object,Session>> object),
 this SHALL be processed as a request to add all the <<mod_cdrs.asciidoc#mod_cdrs_chargingperiod_class,ChargingPeriod>> objects to the existing <<mod_sessions_session_object,Session>> object.
+If the request `charging_periods` list is omitted (or contains an empty list), now changes SHALL be made to the existing list of `charging_periods`.
 
 If existing <<mod_cdrs.asciidoc#mod_cdrs_chargingperiod_class,ChargingPeriod>> objects in
 a <<mod_sessions_session_object,Session>> need to be replaced or removed, the Sender SHALL use the <<mod_sessions_msp_put_method,PUT>> method to replace
