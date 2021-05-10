@@ -228,7 +228,7 @@ The response should contain the URL to the just created CDR object in the eMSP's
 
 [cols="3,2,1,10",options="header"]
 |===
-|Parameter |Datatype |Required |Description 
+|HTTP Header |Datatype |Required |Description
 
 |Location |<<types.asciidoc#types_url_type,URL>> |yes |URL to the newly created CDR in the eMSP's system, can be used by the CPO system to perform a GET on the same CDR. 
 |===
