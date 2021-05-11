@@ -78,7 +78,7 @@ Push is the preferred model to use, because the Receiver will receive CDRs in se
 
 Typically implemented by market roles like: CPO.
 
-The CDRs endpoint can be used retrieve CDRs.
+The CDRs endpoint can be used to retrieve CDRs.
 
 Endpoint structure definition:
 
@@ -300,7 +300,7 @@ the `step_size` of the last relevant <<mod_tariffs.asciidoc#mod_tariffs_pricecom
 
 The `step_size` is not taken into account when switching between two Tariffs
 Example: A driver selects a different <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,Charging Preference>>
-<<mod_sessions.asciidoc#mod_sessions_profile_type_enum,`profile_type`>>) during an ongoing charging session, the different profile might have a different tariff.
+<<mod_sessions.asciidoc#mod_sessions_profile_type_enum,`profile_type`>> during an ongoing charging session, the different profile might have a different tariff.
 
 The `step_size` uses the total amount of a certain unit used during a session, not only the last ChargingPeriod.
 In other words, when charging tariff per kWh of time differs during a session, the total amount of kWh of time is used in calculations with `step_size`.
@@ -326,7 +326,7 @@ It does NOT round the parking duration to 30 minutes, making it a total of 50 mi
 |start_date_time |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Start timestamp of the charging session, or in-case of a reservation (before the start of a session) the start of the reservation.
 |end_date_time |<<types.asciidoc#types_datetime_type,DateTime>> |1 |The timestamp when the session was completed/finished, charging might have finished before the session ends, for example: EV is full, but parking cost also has to be paid.
 |session_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |Unique ID of the Session for which this CDR is sent. Is only allowed to be omitted when the CPO has not implemented the Sessions module or this CDR is the result of a reservation that never became a charging session, thus no OCPI Session.
-|cdr_token |<<mod_cdrs_cdr_token_object,CdrToken>> |1 |Token used to start this charging session, includes all the relevant information to identify the unique token.
+|cdr_token |<<mod_cdrs_cdr_token_object,CdrToken>> |1 |Token used to start this charging session, including all the relevant information to identify the unique token.
 |auth_method |<<mod_cdrs_authmethod_enum,AuthMethod>> |1 |Method used for authentication. 
 |authorization_reference |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |Reference to the authorization given by the eMSP.
                                              When the eMSP provided an `authorization_reference` in either:
