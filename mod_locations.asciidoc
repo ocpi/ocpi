@@ -465,7 +465,7 @@ It is not allowed in OCPI to use a Token that is not 'owned' by the eMSP itself 
 |publish |boolean |1 |Defines if a Location may be published on an website or app etc. +
                       When this is set to `false`, only tokens identified in the field: `publish_allowed_to` are allowed to be shown this Location. +
                       When the same location has EVSEs that may be published and may not be published, two 'Locations' should be created.
-|publish_allowed_to |<<mod_locations_publish_token_class,PublishTokenType>> |* |This field may only be used when the `publish` field is set to `false` +
+|publish_allowed_to |<<mod_locations_publish_token_class,PublishTokenType>> |* |This field may only be used when the `publish` field is set to `false`. +
                       Only owners of Tokens that match all the set fields of one PublishToken in the list are allowed to be shown this location.
 |name |<<types.asciidoc#types_string_type,string>>(255) |? |Display name of the location.
 |address |<<types.asciidoc#types_string_type,string>>(45) |1 |Street/block name and house number if available. 
