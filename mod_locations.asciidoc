@@ -808,7 +808,7 @@ This type is used to specify the energy mix and environmental impact of the supp
 |energy_product_name |<<types.asciidoc#types_string_type,string>>(64) |? |Name of the energy suppliers product/tariff plan used at this location.* 
 |===
 
-_* These fields can be used to look-up energy qualification or to show it directly to the customer (for well-known brands like Greenpeace Energy, etc.)_
+_* These fields can be used to look up energy qualification or to show it directly to the customer (for well-known brands like Greenpeace Energy, etc.)_
 
 [[mod_locations_examples]]
 ===== Examples
