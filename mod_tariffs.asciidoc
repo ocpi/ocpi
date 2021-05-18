@@ -192,7 +192,7 @@ In the PUT request, the new or updated Tariff object is sent in the body.
 [[mod_tariffs_msp_put_request_parameters]]
 ====== Request Parameters
 
-The following parameters shall be provided as URL segments.
+The following parameters SHALL be provided as URL segments.
 
 [cols="3,2,1,10",options="header"]
 |===
@@ -224,7 +224,7 @@ NOTE: Before deleting a Tariff object, it is RECOMMENDED to ensure that the Tari
 [[mod_tariffs_msp_delete_request_parameters]]
 ====== Request Parameters
 
-The following parameters shall be provided as URL segments.
+The following parameters SHALL be provided as URL segments.
 
 [cols="3,2,1,10",options="header"]
 |===
