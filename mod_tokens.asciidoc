@@ -57,7 +57,7 @@ NOTE: Real-time authorization might be asked for a charging location that is not
 typically a private charger. In most cases this is expected to result in: `ALLOWED`.
 
 NOTE: If real-time authorization is asked for a location, the eMSP SHALL NOT validate that charging is possible based on information like opening hours or EVSE status etc,
-this information might not be update to date.
+this information might not be up to date.
 
 
 [[mod_tokens_interfaces_and_endpoints]]

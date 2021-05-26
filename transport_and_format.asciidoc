@@ -153,7 +153,7 @@ HTTP headers that have to be added to any paginated GET response.
        The Link should also contain any filters present in the original request. See the examples below.
 |X-Total-Count |int |(Custom HTTP Header) The total number of objects available in the server system that match the given query
                 (including the given query parameters, for example: `date_to` and `date_from` but excluding `limit` and `offset`)
-                and that are available to this client. For example: The CPO server might return less CDR objects to an eMSP then the total number of CDRs available in the CPO system.
+                and that are available to this client. For example: The CPO server might return less CDR objects to an eMSP than the total number of CDRs available in the CPO system.
 |X-Limit |int |(Custom HTTP Header) The maximum number of objects that the server can return.
           Note that this is an upper limit. If there are not enough remaining objects to return,
           fewer objects than this upper limit number will be returned, X-Limit SHALL then still show the upper limit, not the number of objects returned.
@@ -272,7 +272,7 @@ When a client tries to access an object with a URL that has a different
 and <<credentials.asciidoc#credentials_credentials_object,party_id>>
 than one of the <<credentials.asciidoc#credentials_credentials_role_class,CredentialsRoles>> given during the
 <<credentials.asciidoc#credentials_credentials_endpoint,credentials>> handshake,
-it is allowed the respond with an HTTP `404` status code, this way blocking client access to objects that do not belong to them.
+it is allowed to respond with an HTTP `404` status code, this way blocking client access to objects that do not belong to them.
 
 When a client pushes a Client Owned Object, but the {object-id} in the URL is different from the id in the object being pushed,
 server implementations are advised to return an <<status_codes.asciidoc#status_codes_status_codes,OCPI status code>>:
@@ -372,7 +372,7 @@ All examples/sequence diagrams in this section use the roles CPO and eMSP as exa
 ===== Platforms
 With Message Routing functionality it also becomes possible to support Platforms that host multiple roles.
 A lot of parties are not only CPO or eMSP. Most are both CPO and eMSP.
-Some parties are doing business in multiple counties, which means to operate with different `country_codes`
+Some parties are doing business in multiple countries, which means to operate with different `country_codes`
 Some parties have a platform on which the host service for other CPOs/eMSPs.
 Some parties are themselves CPO and host CPO services for others,
 but other parties are (themselves) not a CPO or other role in the EV charging landscape

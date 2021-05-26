@@ -103,7 +103,7 @@ The sequence diagram below continues after the sequence diagram above.
 .Reservation canceled by the CPO
 image::images/command_reservenow_canceled_by_cpo.svg[Reservation canceled by the CPO]
 
-_These examples use OCPP 1.6 based commands between CPO and Charge Point, but that is not a requirement for OCPI.
+These examples use OCPP 1.6 based commands between CPO and Charge Point, but that is not a requirement for OCPI.
 
 If the Sender (typically eMSP) wants to have a reference between the calls send to the Receivers interface and the asynchronous result received from the Charge Point via the CPO,
 the Sender can make some unique identifier part of the`response_url` that is part of every method in the Receiver interface.
@@ -132,7 +132,7 @@ Examples:
 
 `+https://server.com/ocpi/cpo/2.2/commands/RESERVE_NOW+`
 
-Example endpoint structure: ``
+Example endpoint structure:
 
 [cols="2,12",options="header"]
 |===
