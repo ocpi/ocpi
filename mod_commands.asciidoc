@@ -132,8 +132,6 @@ Examples:
 
 `+https://server.com/ocpi/cpo/2.2/commands/RESERVE_NOW+`
 
-Example endpoint structure: ``
-
 [cols="2,12",options="header"]
 |===
 |Method |Description 

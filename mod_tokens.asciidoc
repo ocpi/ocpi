@@ -56,8 +56,8 @@ So care should be taken to keep delays in processing the request to an absolute 
 NOTE: Real-time authorization might be asked for a charging location that is not published via the <<mod_locations_locations_module,Location>> module,
 typically a private charger. In most cases this is expected to result in: `ALLOWED`.
 
-NOTE: If real-time authorization is asked for a location, the eMSP SHALL NOT validate that charging is possible based on information like opening hours or EVSE status etc. as this information might not be up to date.
-
+NOTE: If real-time authorization is asked for a location, the eMSP SHALL NOT validate that charging is possible based on information like opening hours or EVSE status etc. 
+as this information might not be up to date.
 
 [[mod_tokens_interfaces_and_endpoints]]
 === Interfaces and endpoints

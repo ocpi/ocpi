@@ -27,7 +27,7 @@ Every OCPI HTTP request MUST add an 'Authorization' header. The header looks as 
 
 The literal 'Token' indicates that the token-based authentication mechanism is used, in OCPI this is called the 'credentials token'.
 <<credentials.asciidoc#credentials_credentials_object,'Credentials tokens'>> are exchanged via the <<credentials.asciidoc#credentials_credentials_endpoint,credentials module>>.
-These are different 'tokens' then the <<mod_tokens.asciidoc#mod_tokens_token_object,Tokens>> exchanged via the <<mod_tokens.asciidoc#mod_tokens_tokens_module,Token Module>>: Tokens used by drivers to authorize charging.
+These are different 'tokens' than the <<mod_tokens.asciidoc#mod_tokens_token_object,Tokens>> exchanged via the <<mod_tokens.asciidoc#mod_tokens_tokens_module,Token Module>>: Tokens used by drivers to authorize charging.
 To prevent confusion, when talking about the token used here in the HTTP Authorization header, call them: 'Credentials Tokens'.
 
 Its parameter is a string consisting of printable, non-whitespace ASCII characters. It contains the 'credentials token' Base64 encoded.
@@ -38,7 +38,7 @@ This way, the server can use the information in the Authorization header to link
 If the header is missing or the credentials token doesn't match any known party then the server SHALL respond with an HTTP `401 - Unauthorized` status code.
 
 When a server receives a request with a valid <<credentials.asciidoc#credentials_registration,`CREDENTIALS_TOKEN_A`>>, on another module
-then: <<credentials.asciidoc#credentials_credentials_endpoint,`credentials`>>
+than: <<credentials.asciidoc#credentials_credentials_endpoint,`credentials`>>
 or <<version_information_endpoint.asciidoc#versions_module,`versions`>>,
 the server SHALL respond with an HTTP `401 - Unauthorized` status code.
 
@@ -153,7 +153,7 @@ HTTP headers that have to be added to any paginated GET response.
        The Link should also contain any filters present in the original request. See the examples below.
 |X-Total-Count |int |(Custom HTTP Header) The total number of objects available in the server system that match the given query
                 (including the given query parameters, for example: `date_to` and `date_from` but excluding `limit` and `offset`)
-                and that are available to this client. For example: The CPO server might return less CDR objects to an eMSP then the total number of CDRs available in the CPO system.
+                and that are available to this client. For example: The CPO server might return less CDR objects to an eMSP than the total number of CDRs available in the CPO system.
 |X-Limit |int |(Custom HTTP Header) The maximum number of objects that the server can return.
           Note that this is an upper limit. If there are not enough remaining objects to return,
           fewer objects than this upper limit number will be returned, X-Limit SHALL then still show the upper limit, not the number of objects returned.
@@ -372,7 +372,7 @@ All examples/sequence diagrams in this section use the roles CPO and eMSP as exa
 ===== Platforms
 With Message Routing functionality it also becomes possible to support Platforms that host multiple roles.
 A lot of parties are not only CPO or eMSP. Most are both CPO and eMSP.
-Some parties are doing business in multiple counties, which means to operate with different `country_codes`
+Some parties are doing business in multiple countries, which means to operate with different `country_codes`
 Some parties have a platform on which the host service for other CPOs/eMSPs.
 Some parties are themselves CPO and host CPO services for others,
 but other parties are (themselves) not a CPO or other role in the EV charging landscape
