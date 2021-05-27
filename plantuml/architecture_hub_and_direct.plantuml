@@ -11,7 +11,7 @@ skinparam rectangle {
 left to right direction
 
 rectangle PLATFORM as MSP1 {
-  agent eMSP1
+  agent CPO2
   agent eMSP2
 }
 
@@ -26,7 +26,7 @@ rectangle PLATFORM as MSP3 {
 
 rectangle PLATFORM as CPOP1 {
   agent CPO1
-  agent CPO2
+  agent eMSP1
 }
 
 rectangle PLATFORM as CPOP2 {

@@ -1,5 +1,4 @@
 @startuml
-
 skinparam agent {
 	roundCorner 8
 }
@@ -11,7 +10,7 @@ skinparam rectangle {
 left to right direction
 
 rectangle PLATFORM as MSP1 {
-  agent eMSP1
+  agent CPO2
   agent eMSP2
 }
 
@@ -26,7 +25,7 @@ rectangle PLATFORM as MSP3 {
 
 rectangle PLATFORM as CPOP1 {
   agent CPO1
-  agent CPO2
+  agent eMSP1
 }
 
 rectangle PLATFORM as CPOP2 {
@@ -38,13 +37,14 @@ rectangle PLATFORM as CPOP3 {
   agent CPO5
 }
 
-agent Hub
+rectangle PLATFORM as HUBPL {
+  agent Hub
+}
 
-MSP1--Hub: OCPI
-MSP2--Hub: OCPI
-MSP3--Hub: OCPI
-Hub--CPOP1: OCPI
-Hub--CPOP2: OCPI
-Hub--CPOP3: OCPI
-
+MSP1--HUBPL: OCPI
+MSP2--HUBPL: OCPI
+MSP3--HUBPL: OCPI
+HUBPL--CPOP1: OCPI
+HUBPL--CPOP2: OCPI
+HUBPL--CPOP3: OCPI
 @enduml
