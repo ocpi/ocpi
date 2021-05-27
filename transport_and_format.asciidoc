@@ -269,10 +269,10 @@ a 'Data owner' is provided at the beginning of every module that has a clear own
 
 When a client tries to access an object with a URL that has a different
 <<credentials.asciidoc#credentials_credentials_object,country_code>>
-and <<credentials.asciidoc#credentials_credentials_object,party_id>>
+and/or <<credentials.asciidoc#credentials_credentials_object,party_id>>
 than one of the <<credentials.asciidoc#credentials_credentials_role_class,CredentialsRoles>> given during the
 <<credentials.asciidoc#credentials_credentials_endpoint,credentials>> handshake,
-it is allowed the respond with an HTTP `404` status code, this way blocking client access to objects that do not belong to them.
+it is allowed to respond with an HTTP `404` status code, this way blocking client access to objects that do not belong to them.
 
 When a client pushes a Client Owned Object, but the {object-id} in the URL is different from the id in the object being pushed,
 server implementations are advised to return an <<status_codes.asciidoc#status_codes_status_codes,OCPI status code>>:

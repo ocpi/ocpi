@@ -149,7 +149,7 @@ After all, the CPO is the owner of the object, so it would be illogical if the e
 [[mod_tariffs_msp_get_request_parameters]]
 ====== Request Parameters
 
-The following parameters shall be provided as URL segments.
+The following parameters SHALL be provided as URL segments.
 
 [cols="3,2,1,10",options="header"]
 |===
@@ -217,9 +217,9 @@ include::examples/tariff_put_example.json[]
 [[mod_tariffs_delete_method]]
 ===== *DELETE* Method
 
-Delete a Tariff object which is not used any more and will not be used in future either.
+Delete a Tariff object which is not used any more and will not be used in the future.
 
-NOTE: Before deleting a Tariff object, it is RECOMMENDED to ensure that the Tariff object is not referenced by any <<mod_locations.asciidoc#mod_locations_connector_object,Connector object>> within the `tariff_ids` anymore.
+NOTE: Before deleting a Tariff object, it is RECOMMENDED to ensure that the Tariff object is not referenced by any <<mod_locations.asciidoc#mod_locations_connector_object,Connector object>> within the `tariff_ids`.
 
 [[mod_tariffs_msp_delete_request_parameters]]
 ====== Request Parameters
@@ -559,7 +559,6 @@ this tariff will result in:
 if the announced prices were billed.
 Because the energy is billed per 0.1 kWh, the driver has to pay for 20.5 kWh even though
 they only charged 20.45 kWh.
-Total cost of this session including the transaction fee:
 
 The twist here is that this tariff makes use of `tariff_alt_url` which links to a page
 with real-time energy prices of the operator, where is shown that the actual price per kWh is different.

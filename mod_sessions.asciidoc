@@ -370,7 +370,7 @@ For more information about how `step_size` impacts the calculation of the cost o
 |start_date_time |<<types.asciidoc#types_datetime_type,DateTime>> |1 |The timestamp when the session became <<mod_sessions_sessionstatus_enum,ACTIVE>> in the Charge Point. +
                                                        When the session is still <<mod_sessions_sessionstatus_enum,PENDING>>, this field SHALL be set to the time the Session was created at the Charge Point.
                                                        When a Session goes from <<mod_sessions_sessionstatus_enum,PENDING>> to <<mod_sessions_sessionstatus_enum,ACTIVE>>,
-                                                       this field SHALL be update to the moment the Session went to <<mod_sessions_sessionstatus_enum,ACTIVE>> in the Charge Point.
+                                                       this field SHALL be updated to the moment the Session went to <<mod_sessions_sessionstatus_enum,ACTIVE>> in the Charge Point.
 |end_date_time |<<types.asciidoc#types_datetime_type,DateTime>> |? |The timestamp when the session was completed/finished, charging might have finished before the session ends, for example: EV is full, but parking cost also has to be paid.
 |kwh |<<types.asciidoc#types_number_type,number>> |1 |How many kWh were charged. 
 |cdr_token |<<mod_cdrs.asciidoc#mod_cdrs_cdr_token_object,CdrToken>> |1 |Token used to start this charging session, including all the relevant information to identify the unique token.
@@ -383,7 +383,7 @@ For more information about how `step_size` impacts the calculation of the cost o
                                              the last given value SHALL be used here.
 |location_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Location.id of the Location object of this CPO, on which the charging session is/was happening.
 |evse_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |EVSE.uid of the EVSE of this Location on which the charging session is/was happening.
-|connector_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Connector.id of the Connector of this Location the charging session is/was happening.
+|connector_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Connector.id of the Connector of this Location where the charging session is/was happening.
 |meter_id |<<types.asciidoc#types_string_type,string>>(255) |? |Optional identification of the kWh meter. 
 |currency |<<types.asciidoc#types_string_type,string>>(3) |1 |ISO 4217 code of the currency used for this session. 
 |charging_periods |<<mod_cdrs.asciidoc#mod_cdrs_chargingperiod_class,ChargingPeriod>> |* |An optional list of Charging Periods that can be used to calculate and verify the total cost. 
