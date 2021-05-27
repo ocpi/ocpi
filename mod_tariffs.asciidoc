@@ -149,7 +149,7 @@ After all, the CPO is the owner of the object, so it would be illogical if the e
 [[mod_tariffs_msp_get_request_parameters]]
 ====== Request Parameters
 
-The following parameters MUST be provided as URL segments.
+The following parameters SHALL be provided as URL segments.
 
 [cols="3,2,1,10",options="header"]
 |===
