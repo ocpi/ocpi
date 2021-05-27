@@ -633,7 +633,7 @@ The ChargingProfileResponse object is send in the HTTP response body.
 
 Because OCPI does not allow/require retries, it could happen that the asynchronous result url given by the eMSP is never successfully called.
 The eMSP might have had a glitch, HTTP 500 returned, was offline for a moment etc.
-For the eMSP to be able to reject to timeouts, it is important for the eMSP to known the timeout on a certain command.
+For the eMSP to be able to reject to timeouts, it is important for the eMSP to know the timeout on a certain command.
 
 [cols="2,5,1,9",options="header"]
 |===
