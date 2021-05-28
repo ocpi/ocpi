@@ -65,6 +65,7 @@ Examples of platforms:
   Is seen in OCPI as a Platform that has 2 roles: CPO and eMSP for this company.
 * If one the companies above starts to offer their service to other CPOs and eMSP, it is in OCPI still seen as 1 platform.
   This platform then provides multiple CPO and eMSP roles.
+* A Roaming Hub is in OCPI terms also a Platform, antoher OCPI Platform can connect to it. Most Roamings Hubs only have one role: Hub.
 
 
 [[introduction_typical_roles]]
@@ -122,7 +123,7 @@ The table shows the typical communication role: Receiver, Sender or Both.
                         See: <<transport_and_format.asciidoc#transport_and_format_message_routing_open_routing_request,Open Routing Request>>
 |Platform | Software that provides services via OCPI.
             A platform can provide service for a single eMSP or CPO, or for multiple CPOs or eMSPs.
-            It can even provide services for both eMSPs and CPOs at the same time.
+            It can even provide services for both eMSPs and CPOs at the same time. A Hub is also an OCPI Platform, most only have one role: Hub.
 |Pull | A system calls GET request to retrieve information from the system that owns the data.
 |Push | The system (owning the data) actively calls POST/PUT/PATCH to update other systems with new/updated information.
 |===
