@@ -7,7 +7,7 @@
 |2.2.1 draft1 |01-07-2021 | Robert de Leeuw +
 _ihomer_ | first draft of the OCPI 2.2.1. +
 Fixed length of CDR SignedData, increased to 5000. +
-.
+postal_code optional in CdrLocation. + 
 
 |2.2-d2 |12-06-2020 | Robert de Leeuw +
 _ihomer_ | 2nd documentation revision of the OCPI 2.2 spec. +

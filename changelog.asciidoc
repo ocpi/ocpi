@@ -19,12 +19,20 @@ eMSP / CPO
 |Description
 
 |CDRs / +
+CdrLocation Class
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Changed `postal_code` to optional, inline with the Location module.
+
+|CDRs / +
 SignedValue Class
 |Major / +
 Major
 |Minimal / +
 Minimal
-|- Increased `signed_data` length from 512 to 5000. +
+|Increased `signed_data` length from 512 to 5000. +
 |===
 
 
