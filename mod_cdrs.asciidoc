@@ -508,7 +508,7 @@ Which encoding method is used, if needed, the public key and a list of signed va
 
 |encoding_method         | <<types.asciidoc#types_cistring_type,CiString>>(36)  |1 |The name of the encoding used in the SignedData field. This is the name given to the encoding by a company or group of companies. See note below.
 |encoding_method_version | int                                                  |? |Version of the EncodingMethod (when applicable)
-|public_key              | <<types.asciidoc#types_cistring_type,CiString>>(512) |? |Public key used to sign the data, base64 encoded.
+|public_key              | <<types.asciidoc#types_string_type,string>>(512)     |? |Public key used to sign the data, base64 encoded.
 |signed_values           | <<mod_cdrs_signed_value_class,SignedValue>>          |+ |One or more signed values.
 |url                     | <<types.asciidoc#types_cistring_type,CiString>>(512) |? |URL that can be shown to an EV driver. This URL gives the EV driver the possibility to check the signed data from a charging session.
 |===
@@ -543,6 +543,6 @@ By decoding the data, the receiver can check if the content has not been altered
                                                                        - End (signed value at the end of the Session) +
                                                                        - Intermediate (signed values take during the Session, after Start, before End) +
                                                                        Others might be added later.
-|plain_data  |<<types.asciidoc#types_cistring_type,CiString>>(512) |1 |The unencoded string of data. The format of the content depends on the EncodingMethod field.
-|signed_data |<<types.asciidoc#types_cistring_type,CiString>>(5000) |1 |Blob of signed data, base64 encoded. The format of the content depends on the EncodingMethod field.
+|plain_data  |<<types.asciidoc#types_string_type,string>>(512) |1 |The un-encoded string of data. The format of the content depends on the EncodingMethod field.
+|signed_data |<<types.asciidoc#types_string_type,string>>(5000) |1 |Blob of signed data, base64 encoded. The format of the content depends on the EncodingMethod field.
 |===

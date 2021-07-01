@@ -28,12 +28,22 @@ Minimal
 - Added `state` as option field, inline with the Location module.
 
 |CDRs / +
+SignedData Class
+|Major / +
+Major
+|Minimal / +
+Minimal
+|Changed `public_key` to string, was CiString
+
+|CDRs / +
 SignedValue Class
 |Major / +
 Major
 |Minimal / +
 Minimal
 |Increased `signed_data` length from 512 to 5000. +
+Changed `plain_data` to string, was CiString +
+Changed `signed_data` to string, was CiString +
 
 |Locations / +
 PowerType Enum
