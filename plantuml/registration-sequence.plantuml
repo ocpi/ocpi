@@ -59,9 +59,9 @@ note right
 end note
 CPO -> CPO: Store version and endpoints
 note over CPO, eMSP
-  The Sender generates CREDENTIALS_TOKEN_C and returns
+  The Receiver generates CREDENTIALS_TOKEN_C and returns
   it in the response to the HTTP POST credentials request 
-  from the Receiver above.
+  from the Sender above.
 end note
 CPO -> CPO: Generate CREDENTIALS_TOKEN_C
 CPO --> eMSP: Credentials with CREDENTIALS_TOKEN_C for eMSP
