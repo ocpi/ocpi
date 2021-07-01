@@ -24,7 +24,8 @@ CdrLocation Class
 Minor
 |Minimal / +
 Minimal
-|Changed `postal_code` to optional, inline with the Location module.
+|- Changed `postal_code` to optional, inline with the Location module.
+- Added `state` as option field, inline with the Location module.
 
 |CDRs / +
 SignedValue Class
