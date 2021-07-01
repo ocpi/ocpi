@@ -2,6 +2,32 @@
 [[changelog_changelog]]
 == Changelog
 
+[[changelog_changes_between_ocpi_2.2_and_2.2.1]]
+=== Changes between OCPI 2.2 and 2.2.1
+
+Lots of typos fixed and textual improvements.
+
+The following changes to messages/objects etc.
+
+[cols="6,2,2,12",options="header"]
+|===
+|Context (Module / Object)
+|Expected Impact: +
+eMSP / CPO
+|Expected Effort: +
+eMSP / CPO
+|Description
+
+|CDRs / +
+SignedValue Class
+|Major / +
+Major
+|Minimal / +
+Minimal
+|- Increased `signed_data` length from 512 to 5000. +
+|===
+
+
 [[changelog_changes_between_ocpi_2.1.1_and_2.2]]
 === Changes between OCPI 2.1.1 and 2.2
 
