@@ -543,5 +543,5 @@ By decoding the data, the receiver can check if the content has not been altered
                                                                        - Intermediate (signed values take during the Session, after Start, before End) +
                                                                        Others might be added later.
 |plain_data  |<<types.asciidoc#types_cistring_type,CiString>>(512) |1 |The unencoded string of data. The format of the content depends on the EncodingMethod field.
-|signed_data |<<types.asciidoc#types_cistring_type,CiString>>(512) |1 |Blob of signed data, base64 encoded. The format of the content depends on the EncodingMethod field.
+|signed_data |<<types.asciidoc#types_cistring_type,CiString>>(5000) |1 |Blob of signed data, base64 encoded. The format of the content depends on the EncodingMethod field.
 |===
