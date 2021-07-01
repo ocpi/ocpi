@@ -18,6 +18,13 @@ eMSP / CPO
 eMSP / CPO
 |Description
 
+|Status codes
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|- Added 4000 Hub generic error
+
 |CDRs / +
 CdrLocation Class
 |Minor / +
@@ -59,7 +66,7 @@ ConnectorType Enum
 Minor
 |Minimal / +
 Minimal
-|Added NEMA, GB/T and Domestic M, N and O. +
+|Added NEMA, GB/T and Domestic M, N and O connector types. +
 
 |===
 

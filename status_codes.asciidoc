@@ -96,6 +96,7 @@ For errors that a Hub encounters while routing messages, the following OCPI stat
 |===
 |Code |Description
 
+|4000 |Generic error
 |4001 |Unknown receiver (TO address is unknown)
 |4002 |Timeout on forwarded request (message is forwarded, but request times out)
 |4003 |Connection problem (receiving party is not connected)
