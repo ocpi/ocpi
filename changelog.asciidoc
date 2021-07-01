@@ -43,6 +43,14 @@ Minor
 Minimal
 |Added `AC_2_PHASE` to the enum to support two phase chargers. +
 
+|Locations / +
+ConnectorType Enum
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Added NEMA, GB/T and Domestic M, N and O. +
+
 |===
 
 
