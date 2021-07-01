@@ -572,6 +572,15 @@ image::images/sd_get_all_platform.svg[OCPI Sequence Diagram of a GET All via the
 When OCPI Objects are sent via Hubs, the `last_updated` fields SHALL NOT be updated by the Hub.
 
 
+[[transport_and_format_not_available]]
+==== No data available
+There are rare situation, probably use cases not foreseen by the team developing OCPI,
+where a certain field, that is required, cannot be filled. In such cases, and only in such cases,
+it is allowed to set a string field to the value: `#NA`.
+
+`#NA` is not allowed to be used when a party does not have or want to provide the data, but is able to provide the data when they would spend time/resources to get/provide the data.
+
+
 [[transport_and_format_unique_messageg_ids]]
 === Unique message IDs
 
