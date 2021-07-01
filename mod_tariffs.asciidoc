@@ -295,7 +295,9 @@ So as a rule, they both apply:
  - The total cost of a Charging Session including VAT can never be higher than the `max_price` including VAT.
 
 NOTE: `start_date_time` and `end_date_time`: When the Tariff of a Charge Point (Location) is changed during an ongoing charging session,
-it is common to not switch the Tariff until the ongoing session is finished. But this is NOT a rule of OCPI.
+it is common to not switch the Tariff until the ongoing session is finished.
+But this is NOT a requirement of OCPI, it is even possible with OCPI.
+Changing tariffs during an ongoing session is in many countries not allowed by consumer legislation.
 When charging at a Charge Point, a driver accepts the tariff which is valid when they start their charging session.
 If the Tariff of the Charge Point would change during the charging session,
 the driver might get billed something they didn't agree to when starting the session.
