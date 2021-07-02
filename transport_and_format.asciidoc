@@ -25,6 +25,9 @@ Every OCPI HTTP request MUST add an 'Authorization' header. The header looks as 
   Authorization: Token IpbJOXxkxOAuKR92z0nEcmVF3Qw09VG7I7d/WCg0koM=
 ----
 
+NOTE: HTTP header names are case-insensitive
+
+
 The literal 'Token' indicates that the token-based authentication mechanism is used, in OCPI this is called the 'credentials token'.
 <<credentials.asciidoc#credentials_credentials_object,'Credentials tokens'>> are exchanged via the <<credentials.asciidoc#credentials_credentials_endpoint,credentials module>>.
 These are different 'tokens' than the <<mod_tokens.asciidoc#mod_tokens_token_object,Tokens>> exchanged via the <<mod_tokens.asciidoc#mod_tokens_tokens_module,Token Module>>: Tokens used by drivers to authorize charging.
@@ -158,6 +161,8 @@ HTTP headers that have to be added to any paginated GET response.
           Note that this is an upper limit. If there are not enough remaining objects to return,
           fewer objects than this upper limit number will be returned, X-Limit SHALL then still show the upper limit, not the number of objects returned.
 |===
+
+NOTE: HTTP header names are case-insensitive
 
 
 [[transport_and_format_pagination_examples]]
@@ -408,6 +413,8 @@ or Platform-to-Hub communication. Thus routing headers SHALL NOT be used with th
 |OCPI-from-country-code |<<types.asciidoc#types_cistring_type,CiString>>(2)|'country code' of the connected party this message is sent from.
 |===
 
+NOTE: HTTP header names are case-insensitive
+
 
 .Example sequence diagram of a GET for 1 Object from a CPO to an eMSP.
 image::images/sd_get_simple.svg[OCPI Sequence Diagram Hub GET]
@@ -593,6 +600,9 @@ For debugging issues, OCPI implementations are required to include unique IDs vi
 |X-Request-ID     |Every request SHALL contain a unique request ID, the response to this request SHALL contain the same ID.
 |X-Correlation-ID |Every request/response SHALL contain a unique correlation ID, every response to this request SHALL contain the same ID.
 |===
+
+NOTE: HTTP header names are case-insensitive
+
 
 It is advised to used GUID/UUID as values for X-Request-ID and X-Correlation-ID.
 
