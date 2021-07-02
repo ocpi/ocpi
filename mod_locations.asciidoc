@@ -1119,9 +1119,10 @@ Reflects the general type of the charge point's location. May be used for user i
 |===
 |Value |Description 
 
-|AC_1_PHASE |AC single phase.
-|AC_2_PHASE |AC two phases.
-|AC_3_PHASE |AC three phases.
+|AC_1_PHASE       |AC single phase.
+|AC_2_PHASE       |AC two phases, only two of the three available phases connected.
+|AC_2_PHASE_SPLIT |AC two phases using split phase system.
+|AC_3_PHASE       |AC three phases.
 |DC |Direct Current. 
 |===
 
