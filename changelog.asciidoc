@@ -58,7 +58,7 @@ PowerType Enum
 Minor
 |Minimal / +
 Minimal
-|Added `AC_2_PHASE` to the enum to support two phase chargers. +
+|Added `AC_2_PHASE` an `AC_2_PHASE_SPLIT` to the enum to support two phase chargers. +
 
 |Locations / +
 ConnectorType Enum
