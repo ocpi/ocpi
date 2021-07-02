@@ -52,13 +52,21 @@ Minimal
 Changed `plain_data` to string, was CiString +
 Changed `signed_data` to string, was CiString +
 
-|Locations / +
-PowerType Enum
+|Commands / +
+StartSession Object
 |Minor / +
 Minor
-|Minimal / +
+|Medium / +
 Minimal
-|Added `AC_2_PHASE` an `AC_2_PHASE_SPLIT` to the enum to support two phase chargers. +
+|Added `START_SESSION_CONNECTOR_REQUIRED` to support OCPP 1.x Charge Points with multiple connectors per EVSE. +
+
+|Locations / +
+Capability Enum
+|Minor / +
+Minor
+|Medium / +
+Minimal
+|Added optional field: `connector_id` to support OCPP 1.x Charge Points with multiple connectors per EVSE. +
 
 |Locations / +
 ConnectorType Enum
@@ -67,6 +75,14 @@ Minor
 |Minimal / +
 Minimal
 |Added NEMA, GB/T and Domestic M, N and O connector types. +
+
+|Locations / +
+PowerType Enum
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Added `AC_2_PHASE` an `AC_2_PHASE_SPLIT` to the enum to support two phase chargers. +
 
 |===
 
