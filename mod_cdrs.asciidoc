@@ -364,6 +364,11 @@ But it is seen as an advantage as a boolean flag used in queries is much faster 
 NOTE: Different `authorization_reference` values might happen when for example a <<mod_commands.asciidoc#mod_commands_reservenow_object,ReserveNow>>  had a different
 `authorization_reference` then the value returned by a <<mod_tokens.asciidoc#mod_tokens_real-time_authorization,real-time authorization>>.
 
+NOTE: When no `start_date_time` and/or `end_date_time` is known to the CPO, normally the CPO cannot send the CDR.
+If the MSP and CPO both agree that they accept CDRs that miss either or both the `start_date_time` and `end_date_time`,
+and local legislation allows billing of sessions where `start_date_time` and/or `end_date_time` are missing.
+Then, and only then, the CPO could send a CDR where the `start_date_time` and/or `end_date_time` are set to: "1970-1-1T00:00:00Z.
+
 
 [[mod_cdrs_example_of_a_cdr]]
 ===== Example of a CDR
