@@ -353,6 +353,7 @@ It does NOT round the parking duration to 30 minutes, making it a total of 50 mi
 |invoice_reference_id |<<types.asciidoc#types_cistring_type,CiString>>(39) |? |This field can be used to reference an invoice, that will later be send for this CDR. Making it easier to link a CDR to a given invoice. Maybe even group CDRs that will be on the same invoice.
 |credit |boolean |? |When set to `true`, this is a Credit CDR, and the field `credit_reference_id` needs to be set as well.
 |credit_reference_id |<<types.asciidoc#types_cistring_type,CiString>>(39) |? |Is required to be set for a Credit CDR. This SHALL contain the `id` of the CDR for which this is a Credit CDR.
+|home_charging_compensation |boolean |? |When set to `true`, this CDR is for a charging session using the home charger of the EV Driver for which the energy cost needs to be financial compensated to the EV Driver.
 |last_updated |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Timestamp when this CDR was last updated (or created).
 |===
 
@@ -452,7 +453,7 @@ The _CdrLocation_ class contains only the relevant information from the <<mod_lo
 |address |<<types.asciidoc#types_string_type,string>>(45) |1 |Street/block name and house number if available.
 |city |<<types.asciidoc#types_string_type,string>>(45) |1 |City or town.
 |postal_code |<<types.asciidoc#types_string_type,string>>(10) |? |Postal code of the location, may only be omitted when the location has no postal code: in some countries charging locations at highways don't have postal codes.
-|state |<<types.asciidoc#types_string_type,string>>(20) |? |State or province of the location, only to be used when relevant.
+|state |<<types.asciidoc#types_string_type,string>>(20) |? |State    only to be used when relevant.
 |country |<<types.asciidoc#types_string_type,string>>(3) |1 |ISO 3166-1 alpha-3 code for the country of this location.
 |coordinates |<<mod_locations_geolocation_class,GeoLocation>> |1 |Coordinates of the location.
 |evse_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Uniquely identifies the EVSE within the CPO's platform (and suboperator platforms). For example a database unique ID or the actual _EVSE ID_. This field can never be changed, modified or renamed. This is the _technical_ identification of the EVSE, not to be used as _human readable_ identification, use the field: `evse_id` for that.

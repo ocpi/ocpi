@@ -26,13 +26,21 @@ Minimal
 |- Added 4000 Hub generic error
 
 |CDRs / +
+CDR Object
+|Minor / +
+Minor
+|Minimal / +
+Minimal
+|Added `home_charging_compensation` optional field.
+
+|CDRs / +
 CdrLocation Class
 |Minor / +
 Minor
 |Minimal / +
 Minimal
 |- Changed `postal_code` to optional, inline with the Location module.
-- Added `state` as option field, inline with the Location module.
+- Added `state` as optional field, inline with the Location module.
 
 |CDRs / +
 SignedData Class
@@ -48,9 +56,9 @@ SignedValue Class
 Major
 |Minimal / +
 Minimal
-|Increased `signed_data` length from 512 to 5000. +
-Changed `plain_data` to string, was CiString +
-Changed `signed_data` to string, was CiString +
+|- Increased `signed_data` length from 512 to 5000. +
+- Changed `plain_data` to string, was CiString +
+- Changed `signed_data` to string, was CiString +
 
 |Commands / +
 StartSession Object
