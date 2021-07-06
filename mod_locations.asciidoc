@@ -460,7 +460,7 @@ It is not allowed in OCPI to use a Token that is not 'owned' by the eMSP itself 
 |Property |Type |Card. |Description 
 
 |country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |1 |ISO-3166 alpha-2 country code of the CPO that 'owns' this Location.
-|party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |1 |CPO ID of the CPO that 'owns' this Location (following the ISO-15118 standard).
+|party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |1 |ID of the CPO that 'owns' this Location (following the ISO-15118 standard).
 |id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Uniquely identifies the location within the CPOs platform (and suboperator platforms). This field can never be changed, modified or renamed.
 |publish |boolean |1 |Defines if a Location may be published on an website or app etc. +
                       When this is set to `false`, only tokens identified in the field: `publish_allowed_to` are allowed to be shown this Location. +
