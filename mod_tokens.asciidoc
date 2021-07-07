@@ -56,9 +56,8 @@ So care should be taken to keep delays in processing the request to an absolute 
 NOTE: Real-time authorization might be asked for a charging location that is not published via the <<mod_locations_locations_module,Location>> module,
 typically a private charger. In most cases this is expected to result in: `ALLOWED`.
 
-NOTE: If real-time authorization is asked for a location, the eMSP SHALL NOT validate that charging is possible based on information like opening hours or EVSE status etc,
-this information might not be update to date.
-
+NOTE: If real-time authorization is asked for a location, the eMSP SHALL NOT validate that charging is possible based on information like opening hours or EVSE status etc. 
+as this information might not be up to date.
 
 [[mod_tokens_interfaces_and_endpoints]]
 === Interfaces and endpoints
@@ -156,7 +155,7 @@ The parameter: `type` may be provided as an URL parameter
 |===
 |Parameter |Datatype |Required |Description 
 
-|country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |yes |Country code of the eMSP sending this PUT request to the CPO system. This SHALL be the same value as the `country_code` in the `Token object being pushed.
+|country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |yes |Country code of the eMSP sending this PUT request to the CPO system. This SHALL be the same value as the `country_code` in the Token object being pushed.
 |party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |yes |Party ID (Provider ID) of the eMSP sending this PUT request to the CPO system. This SHALL be the same value as the `party_id` in the Token object being pushed.
 |token_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |Token.uid of the (new) Token object (to replace).
 |type |<<mod_tokens_tokentype_enum,TokenType>> |no |Token.type of the Token of the (new) Token object (to replace). Default if omitted: <<mod_tokens_tokentype_enum,RFID>>
@@ -357,8 +356,8 @@ If the token is not known, the response SHALL contain the status code: `2004: Un
 |Property |Type |Card. |Description 
 
 |country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |1 |ISO-3166 alpha-2 country code of the MSP that 'owns' this Token.
-|party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |1 |CPO ID of the MSP that 'owns' this Token (following the ISO-15118 standard).
-|uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Unique ID by which this Token can be identified. +
+|party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |1 |ID of the eMSP that 'owns' this Token (following the ISO-15118 standard).
+|uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Unique ID by which this Token, combined with the Token type, can be identified. +
                                       This is the field used by CPO system (RFID reader on the Charge Point) to identify this token. +
                                       Currently, in most cases: type=RFID, this is the RFID hidden ID as read by the RFID reader, but that is not a requirement. +
                                       If this is a `APP_USER` or `AD_HOC_USER` Token, it will be a uniquely, by the eMSP, generated ID. +

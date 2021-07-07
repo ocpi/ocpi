@@ -372,15 +372,15 @@ NOTE: As it is not common to add a body to a GET request, all parameters are add
 [[mod_charging_profiles_msp_get_request_parameters]]
 ====== Request Parameters
 
-The following parameters can be provided as URL segments.
+The following parameters shall be provided as URL segments.
 
 [cols="3,2,1,10",options="header"]
 |===
 |Parameter |Datatype |Required |Description
 
 |session_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |The unique id that identifies the session in the CPO platform.
-|duration |int |1 |Length of the requested ActiveChargingProfile in seconds Duration in seconds. *
-|response_url |<<types.asciidoc#types_url_type,URL>> |1 |URL that the <<mod_charging_profiles_active_charging_profiles_result_object,ActiveChargingProfileResult>> POST should be send to. This URL might contain an unique ID to be able to distinguish between GET ActiveChargingProfile requests.
+|duration |int |yes |Length of the requested ActiveChargingProfile in seconds Duration in seconds. *
+|response_url |<<types.asciidoc#types_url_type,URL>> |yes |URL that the <<mod_charging_profiles_active_charging_profiles_result_object,ActiveChargingProfileResult>> POST should be send to. This URL might contain an unique ID to be able to distinguish between GET ActiveChargingProfile requests.
 |===
 
 NOTE: duration: Balance the duration between maximizing the information gained and the data usage and computation to execute on the request.
@@ -419,7 +419,7 @@ Example:
 [[mod_charging_profiles_msp_put_request_parameters]]
 ====== Request Parameters
 
-The following parameters can be provided as URL segments.
+The following parameter shall be provided as URL segments.
 
 [cols="3,2,1,10",options="header"]
 |===
@@ -473,14 +473,14 @@ NOTE: As it is not common to add a body to a DELETE request, all parameters are 
 [[mod_charging_profiles_msp_delete_request_parameters]]
 ====== Request Parameters
 
-The following parameters can be provided as URL segments.
+The following parameters shall be provided as URL segments.
 
 [cols="3,2,1,10",options="header"]
 |===
 |Parameter |Datatype |Required |Description
 
 |session_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |The unique id that identifies the session in the CPO platform.
-|response_url |<<types.asciidoc#types_url_type,URL>> |1 |URL that the <<mod_charging_profiles_clear_profiles_result_object,ClearProfileResult>> POST should be send to. This URL might contain an unique ID to be able to distinguish between DELETE ChargingProfile requests.
+|response_url |<<types.asciidoc#types_url_type,URL>> |yes |URL that the <<mod_charging_profiles_clear_profiles_result_object,ClearProfileResult>> POST should be send to. This URL might contain an unique ID to be able to distinguish between DELETE ChargingProfile requests.
 |===
 
 [[mod_charging_profiles_delete_response_data]]
@@ -595,7 +595,7 @@ Example:
 ====== Request Parameters
 
 
-The following parameters can be provided as URL segments.
+The following parameter shall be provided as URL segments.
 
 [cols="3,2,1,10",options="header"]
 |===
@@ -633,7 +633,7 @@ The ChargingProfileResponse object is send in the HTTP response body.
 
 Because OCPI does not allow/require retries, it could happen that the asynchronous result url given by the eMSP is never successfully called.
 The eMSP might have had a glitch, HTTP 500 returned, was offline for a moment etc.
-For the eMSP to be able to reject to timeouts, it is important for the eMSP to known the timeout on a certain command.
+For the eMSP to be able to reject to timeouts, it is important for the eMSP to know the timeout on a certain command.
 
 [cols="2,5,1,9",options="header"]
 |===
@@ -742,7 +742,7 @@ Charging profile class defines a list of charging periods.
 |===
 |Property                |Type       |Card. |Description
 |start_date_time         | <<types.asciidoc#types_datetime_type,DateTime>>           | ?    | Starting point of an absolute profile. If absent the profile will be relative to start of charging.
-|duration                | int                                                       | ?    | Duration of the charging profile in seconds. If the duration is left empty, the last period will continue indefinitely or until end of the transaction in case startProfile is absent.
+|duration                | int                                                       | ?    | Duration of the charging profile in seconds. If the duration is left empty, the last period will continue indefinitely or until end of the transaction in case start_date_time is absent.
 |charging_rate_unit      | <<mod_charging_profiles_chargingrateunit,ChargingRateUnit>> | 1    |  The unit of measure.
 |min_charging_rate       | <<types.asciidoc#types_number_type,number>>               | ?    | Minimum charging rate supported by the EV. The unit of measure is defined by the chargingRateUnit. This parameter is intended to be used by a local smart charging algorithm to optimize the power allocation for in the case a charging process is inefficient at lower charging rates. Accepts at most one digit fraction (e.g. 8.1)
 |charging_profile_period | <<mod_charging_profiles_charging_profile_period_class,ChargingProfilePeriod>> | * | List of ChargingProfilePeriod elements defining maximum power or current usage over time.

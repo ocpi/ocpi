@@ -149,14 +149,14 @@ After all, the CPO is the owner of the object, so it would be illogical if the e
 [[mod_tariffs_msp_get_request_parameters]]
 ====== Request Parameters
 
-The following parameters can be provided as URL segments.
+The following parameters SHALL be provided as URL segments.
 
 [cols="3,2,1,10",options="header"]
 |===
 |Parameter |Datatype |Required |Description 
 
-|country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |yes |Country code of the CPO performing the PUT request on the eMSP's system.
-|party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |yes |Party ID (Provider ID) of the CPO performing the PUT request on the eMSP's system.
+|country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |yes |Country code of the CPO performing the GET request on the eMSP's system.
+|party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |yes |Party ID (Provider ID) of the CPO performing the GET request on the eMSP's system.
 |tariff_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |Tariff.id of the Tariff object to retrieve.
 |===
 
@@ -192,7 +192,7 @@ In the PUT request, the new or updated Tariff object is sent in the body.
 [[mod_tariffs_msp_put_request_parameters]]
 ====== Request Parameters
 
-The following parameters can be provided as URL segments.
+The following parameters SHALL be provided as URL segments.
 
 [cols="3,2,1,10",options="header"]
 |===
@@ -217,14 +217,14 @@ include::examples/tariff_put_example.json[]
 [[mod_tariffs_delete_method]]
 ===== *DELETE* Method
 
-Delete a Tariff object which is not used any more and will not be used in future either.
+Delete a Tariff object which is not used any more and will not be used in the future.
 
-NOTE: Before deleting a Tariff object, it is RECOMMENDED to ensure that the Tariff object is not referenced by any <<mod_locations.asciidoc#mod_locations_connector_object,Connector object>> within the `tariff_ids` anymore.
+NOTE: Before deleting a Tariff object, it is RECOMMENDED to ensure that the Tariff object is not referenced by any <<mod_locations.asciidoc#mod_locations_connector_object,Connector object>> within the `tariff_ids`.
 
 [[mod_tariffs_msp_delete_request_parameters]]
 ====== Request Parameters
 
-The following parameters can be provided as URL segments.
+The following parameters SHALL be provided as URL segments.
 
 [cols="3,2,1,10",options="header"]
 |===
@@ -265,7 +265,7 @@ See: <<mod_tariffs_free_of_charge_tariff_example,Free of Charge Tariff example>>
 |Property |Type |Card. |Description 
 
 |country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |1 |ISO-3166 alpha-2 country code of the CPO that _owns_ this Tariff.
-|party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |1 |CPO ID of the CPO that _owns_ this Tariff (following the ISO-15118 standard).
+|party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |1 |ID of the CPO that 'owns' this Tariff (following the ISO-15118 standard).
 |id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Uniquely identifies the tariff within the CPO's platform (and suboperator platforms).
 |currency |<<types.asciidoc#types_string_type,string>>(3) |1 |ISO-4217 code of the currency of this tariff.
 |type |<<mod_tariffs_tariff_type,TariffType>> |? | Defines the type of the tariff. This allows for distinction in case of given <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,Charging Preferences>>. When omitted, this tariff is valid for all sessions.
@@ -295,7 +295,9 @@ So as a rule, they both apply:
  - The total cost of a Charging Session including VAT can never be higher than the `max_price` including VAT.
 
 NOTE: `start_date_time` and `end_date_time`: When the Tariff of a Charge Point (Location) is changed during an ongoing charging session,
-it is common to not switch the Tariff until the ongoing session is finished. But this is NOT a rule of OCPI.
+it is common to not switch the Tariff until the ongoing session is finished.
+But this is NOT a requirement of OCPI, it is even possible with OCPI.
+Changing tariffs during an ongoing session is in many countries not allowed by consumer legislation.
 When charging at a Charge Point, a driver accepts the tariff which is valid when they start their charging session.
 If the Tariff of the Charge Point would change during the charging session,
 the driver might get billed something they didn't agree to when starting the session.
@@ -559,7 +561,6 @@ this tariff will result in:
 if the announced prices were billed.
 Because the energy is billed per 0.1 kWh, the driver has to pay for 20.5 kWh even though
 they only charged 20.45 kWh.
-Total cost of this session including the transaction fee:
 
 The twist here is that this tariff makes use of `tariff_alt_url` which links to a page
 with real-time energy prices of the operator, where is shown that the actual price per kWh is different.
@@ -619,12 +620,12 @@ where the driver uses a maximum of 16A of power and is parking for additional 42
 this tariff will result in costs of 9.00 euro (excl. VAT) or 10.30 euro (incl. VAT)
 for a total session time of 147 minutes (charging) + 42 minutes (parking).
 As the tariff switches from a `TIME` based tariff to `PARKING_TIME`, `step_size` is not used on the charging time, only on the parking time.
-The driver has to pay for 165 minutes charging (2.75 euro excl. VAT) and 45 minutes of parking as its billed per 5 minutes (3.75 euro excl. VAT).
+The driver has to pay for 165 minutes charging (2.75 euro excl. VAT) and 45 minutes of parking, as parking is billed per 5 minutes (3.75 euro excl. VAT).
 
-For a charging session on a Saturday afternoon starting at 13:30 which takes 1:54 hours,
+For a charging session on a Saturday afternoon starting at 13:30 which takes 1:54 hours (114 minutes),
 where the driver uses a minimum of 43A of power (all the time, which is only theoretically possible) and is parking for additional 71 minutes afterwards,
 this tariff will result in a total cost of 12.375 euro (excl. VAT) or 13.975 euro (incl. VAT).
-Total charging time of 114 minutes (2.375 euro excl. VAT) + 71 minutes (parking) due to `step_size`: 75 minutes (7.50 euro excl VAT).
+Total charging time of 114 minutes (2.375 euro excl. VAT). Parking time: 71 minutes due to `step_size` rounded to 75 minutes (7.50 euro excl VAT).
 
 
 [source,json]
@@ -997,6 +998,8 @@ Can also be used in combination with a <<mod_tariffs_tariffrestrictions_class,RE
 ==== TariffRestrictions _class_
 
 These restrictions are not for the entire Charging Session. They only describe if and when a TariffElement becomes active or inactive during a Charging Session.
+
+When more than one restriction is set, they are to be threaded as a logical AND. So all need to be valid before this tariff is active.
 
 [cols="3,2,1,10",options="header"]
 |===

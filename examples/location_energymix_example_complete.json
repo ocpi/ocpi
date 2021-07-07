@@ -9,8 +9,8 @@
     { "source": "NUCLEAR",        "percentage": 21.7 }
     ],
     "environ_impact": [
-    { "source": "NUCLEAR_WASTE",  "amount": 0.0006   },
-    { "source": "CARBON_DIOXIDE", "amount": 372      }
+    { "category": "NUCLEAR_WASTE",  "amount": 0.0006   },
+    { "category": "CARBON_DIOXIDE", "amount": 372      }
     ],
     "supplier_name":       "E.ON Energy Deutschland",
     "energy_product_name": "E.ON DirektStrom eco"

@@ -1,5 +1,7 @@
 {
   "data": {
+    "country_code": "DE",
+    "party_id": "TNM",
     "uid": "012345678",
     "type": "RFID",
     "contract_id": "FA54320",

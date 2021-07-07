@@ -9,8 +9,8 @@
 The Commands module enables remote commands to be sent to a Location/EVSE.
 The following commands are supported:
 
-- `RESERVE_NOW`
 - `CANCEL_RESERVATION`
+- `RESERVE_NOW`
 - `START_SESSION`
 - `STOP_SESSION`
 - `UNLOCK_CONNECTOR`
@@ -24,7 +24,7 @@ _Use the `UNLOCK_CONNECTOR` command with care, please read the note at <<mod_com
 === Flow
 
 With the Commands module, commands can be sent from the eMSP, via the CPO to a Charge Point.
-Most Charge Point are hooked up to the internet via a relative slow wireless connection. To prevent long blocking calls,
+Most Charge Points are hooked up to the internet via a relative slow wireless connection. To prevent long blocking calls,
 the commands module is designed to work asynchronously.
 
 The Sender (typically eMSP) send a request to a Receiver (typically CPO), via the Receivers Commands interface.
@@ -60,8 +60,13 @@ image::images/command_start_session_succesful.svg[START_SESSION successful]
 
 Example of a `START_SESSION` with a Token that is Whitelist: NEVER.
 
-The CPO does not check the Token in the START_SESSION. If needed, the Charge Point does an OCPP Authorize request.
-In case of a Token whitelist NEVER or ALLOWED_OFFLINE, the CPO does an <<mod_tokens.asciidoc#mod_tokens_real-time_authorization,realtime authorization>>.
+The CPO should not check the Token in the START_SESSION, before sending it to the Charge Point.
+The CPO should assume that the eMSP only sends valid Tokens in the START_SESSION object.
+
+If needed, the Charge Point does an OCPP Authorize request to validate the Token (proved via OCPP).
+In such case the CPO only does an <<mod_tokens.asciidoc#mod_tokens_real-time_authorization,realtime authorization>>
+when the OCPP Authorize request is for an RFID Token and the START_SESSION for this Token was received more then 15 minutes ago.
+
 
 .START_SESSION whitelist NEVER
 image::images/command_start_session_whitelist_never.svg[START_SESSION whitelist NEVER]
@@ -98,7 +103,7 @@ The sequence diagram below continues after the sequence diagram above.
 .Reservation canceled by the CPO
 image::images/command_reservenow_canceled_by_cpo.svg[Reservation canceled by the CPO]
 
-_These examples use OCPP 1.6 based commands between CPO and Charge Point, but that is not a requirement for OCPI.
+These examples use OCPP 1.6 based commands between CPO and Charge Point, but that is not a requirement for OCPI.
 
 If the Sender (typically eMSP) wants to have a reference between the calls send to the Receivers interface and the asynchronous result received from the Charge Point via the CPO,
 the Sender can make some unique identifier part of the`response_url` that is part of every method in the Receiver interface.
@@ -127,8 +132,6 @@ Examples:
 
 `+https://server.com/ocpi/cpo/2.2/commands/RESERVE_NOW+`
 
-Example endpoint structure: ``
-
 [cols="2,12",options="header"]
 |===
 |Method |Description 
@@ -147,7 +150,7 @@ Example endpoint structure: ``
 [[mod_commands_msp_post_request_parameters]]
 ====== Request Parameters
 
-The following parameters can be provided as URL segments.
+The following parameter shall be provided as URL segments.
 
 [cols="3,2,1,10",options="header"]
 |===
@@ -269,7 +272,7 @@ The CommandResponse object is send in the HTTP response body.
 
 Because OCPI does not allow/require retries, it could happen that the asynchronous result url given by the eMSP is never successfully called.
 The eMSP might have had a glitch, HTTP 500 returned, was offline for a moment etc.
-For the eMSP to be able to give a quick as possible response to another system or driver app. it is important for the eMSP to known the timeout on a certain command.
+For the eMSP to be able to give a quick as possible response to another system or driver app. It is important for the eMSP to know the timeout on a certain command.
 
 [cols="2,4,1,10",options="header"]
 |===
@@ -309,8 +312,8 @@ Therefor the CPO SHALL NOT check the validity of the Token provided before sendi
 
 If this is an OCPP Charge Point, the Charge Point decides if it needs to validate the given Token, in such case:
 
-- If this Token is of type: `AD_HOC_USER` or `APP_USER` the CPO SHALL NOT do a <<mod_tokens.asciidoc#mod_tokens_real-time_authorization,realtime authorization>> at the eMSP for this .
-- If this Token is of type: `RFID`, the CPO SHALL NOT do a <<mod_tokens.asciidoc#mod_tokens_real-time_authorization,realtime authorization>>
+- If this Token is of type `AD_HOC_USER` or `APP_USER` the CPO SHALL NOT do a <<mod_tokens.asciidoc#mod_tokens_real-time_authorization,realtime authorization>> at the eMSP for this.
+- If this Token is of type `RFID`, the CPO SHALL NOT do a <<mod_tokens.asciidoc#mod_tokens_real-time_authorization,realtime authorization>>
 at the eMSP for this Token at the given EVSE/Charge Point within 15 minutes after having received this `ReserveNow`.
 
 The eMSP MAY use Tokens that have not been pushed via the <<mod_tokens.asciidoc#mod_tokens_tokens_module,Token>> module,
@@ -319,10 +322,10 @@ especially `AD_HOC_USER` or `APP_USER` Tokens are only used by commands send by 
 Unknown Tokens received by the CPO in the `ReserveNow` Object don't need to be stored in the <<mod_tokens.asciidoc#mod_tokens_tokens_module,Token>> module.
 In other words, when a Token has been received via `ReserveNow`, the same `Token` does not have to be returned in a Token GET request from the eMSP.
 
-An eMSP sending a `ReserveNow` SHALL only use Token that are owned by this eMSP in `ReserveNow`, using Tokens of other eMSPs is not allowed.
+An eMSP sending a `ReserveNow` SHALL only use Tokens that are owned by this eMSP. Using Tokens of other eMSPs is not allowed.
 
-The `reservation_id` send by the Sender (eMSP) to the Receiver (CPO) SHALL NOT be send directly to a Charge Point.
-The CPO SHALL make sure the Reservation ID send to the Charge Point is unique, is not used by another Sender (eMSP).
+The `reservation_id` sent by the Sender (eMSP) to the Receiver (CPO) SHALL NOT be sent directly to a Charge Point.
+The CPO SHALL make sure the Reservation ID sent to the Charge Point is unique and is not used by another Sender (eMSP).
 We don't want a Sender (eMSP) to replace or cancel a reservation of another Sender (eMSP).
 
 [cols="4,2,1,9",options="header"]

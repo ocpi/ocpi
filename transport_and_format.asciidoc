@@ -25,9 +25,12 @@ Every OCPI HTTP request MUST add an 'Authorization' header. The header looks as 
   Authorization: Token IpbJOXxkxOAuKR92z0nEcmVF3Qw09VG7I7d/WCg0koM=
 ----
 
+NOTE: HTTP header names are case-insensitive
+
+
 The literal 'Token' indicates that the token-based authentication mechanism is used, in OCPI this is called the 'credentials token'.
 <<credentials.asciidoc#credentials_credentials_object,'Credentials tokens'>> are exchanged via the <<credentials.asciidoc#credentials_credentials_endpoint,credentials module>>.
-These are different 'tokens' then the <<mod_tokens.asciidoc#mod_tokens_token_object,Tokens>> exchanged via the <<mod_tokens.asciidoc#mod_tokens_tokens_module,Token Module>>: Tokens used by drivers to authorize charging.
+These are different 'tokens' than the <<mod_tokens.asciidoc#mod_tokens_token_object,Tokens>> exchanged via the <<mod_tokens.asciidoc#mod_tokens_tokens_module,Token Module>>: Tokens used by drivers to authorize charging.
 To prevent confusion, when talking about the token used here in the HTTP Authorization header, call them: 'Credentials Tokens'.
 
 Its parameter is a string consisting of printable, non-whitespace ASCII characters. It contains the 'credentials token' Base64 encoded.
@@ -38,7 +41,7 @@ This way, the server can use the information in the Authorization header to link
 If the header is missing or the credentials token doesn't match any known party then the server SHALL respond with an HTTP `401 - Unauthorized` status code.
 
 When a server receives a request with a valid <<credentials.asciidoc#credentials_registration,`CREDENTIALS_TOKEN_A`>>, on another module
-then: <<credentials.asciidoc#credentials_credentials_endpoint,`credentials`>>
+than: <<credentials.asciidoc#credentials_credentials_endpoint,`credentials`>>
 or <<version_information_endpoint.asciidoc#versions_module,`versions`>>,
 the server SHALL respond with an HTTP `401 - Unauthorized` status code.
 
@@ -153,11 +156,13 @@ HTTP headers that have to be added to any paginated GET response.
        The Link should also contain any filters present in the original request. See the examples below.
 |X-Total-Count |int |(Custom HTTP Header) The total number of objects available in the server system that match the given query
                 (including the given query parameters, for example: `date_to` and `date_from` but excluding `limit` and `offset`)
-                and that are available to this client. For example: The CPO server might return less CDR objects to an eMSP then the total number of CDRs available in the CPO system.
+                and that are available to this client. For example: The CPO server might return less CDR objects to an eMSP than the total number of CDRs available in the CPO system.
 |X-Limit |int |(Custom HTTP Header) The maximum number of objects that the server can return.
           Note that this is an upper limit. If there are not enough remaining objects to return,
           fewer objects than this upper limit number will be returned, X-Limit SHALL then still show the upper limit, not the number of objects returned.
 |===
+
+NOTE: HTTP header names are case-insensitive
 
 
 [[transport_and_format_pagination_examples]]
@@ -220,7 +225,8 @@ A PATCH request must only specify the object's identifier (if needed to identify
 
 The MIME-type of the request body is: `application/json` and may contain the data as documented for each endpoint.
 
-In case a PATCH request fails, the client is expected to call the <<transport_and_format_get,GET>> method to check the state of the object in the other party's system. If the object doesn't exist, the client should do a <<transport_and_format_put,PUT>>. 
+In case a PATCH request fails, the client is expected to call the <<transport_and_format_get,GET>> method to check the state of the object in the other party's system. If the object doesn't exist, the client should do a <<transport_and_format_put,PUT>>.
+
 
 [[transport_and_format_client_owned_object_push]]
 ==== Client Owned Object Push
@@ -240,10 +246,12 @@ They need to be able to make a distinction between the different tariffs from di
 The distinction between objects from different CPOs/eMSPs is made based on
 a {<<credentials.asciidoc#credentials_credentials_object,country_code>>}
 and {<<credentials.asciidoc#credentials_credentials_object,party_id>>}.
-The <<credentials.asciidoc#credentials_credentials_object,country_code>>
-and <<credentials.asciidoc#credentials_credentials_object,party_id>>
-of the other party are received during the <<credentials.asciidoc#credentials_credentials_endpoint,credentials>> handshake,
-so that a server might know the values a client will use in an URL.
+The <<credentials.asciidoc#credentials_credentials_object,country_code's>>
+and <<credentials.asciidoc#credentials_credentials_object,party_id's>>
+of the parties on the other platform are received during the <<credentials.asciidoc#credentials_credentials_endpoint,credentials>> handshake
+in the <<credentials.asciidoc#credentials_credentials_role_class,CredentialsRoles>>.
+The roles exchanged during the <<credentials.asciidoc#credentials_credentials_endpoint,credentials>> handshake
+provide the server with details needed to determine which URLs a client might use.
 
 Client Owned Object URL definition: {base-ocpi-url}/{end-point}/{country-code}/{party-id}/{object-id}
 
@@ -257,21 +265,34 @@ Example of a URL to a Client Owned Object
 POST is not supported for these kinds of modules.
 PUT is used to send new objects to the servers. 
 
-If a client tries to access an object with a URL that has a different
-<<credentials.asciidoc#credentials_credentials_object,country_code>>
-and/or <<credentials.asciidoc#credentials_credentials_object,party_id>>
-then given during the <<credentials.asciidoc#credentials_credentials_endpoint,credentials>> handshake,
-it is allowed the respond with an HTTP `404` status code, this way blocking client access to objects that do not belong to them.
-
 To identify the owner of data, the party generating the information that is provided to other parties via OCPI,
 a 'Data owner' is provided at the beginning of every module that has a clear owner.
+
 
 [[transport_and_format_errors]]
 ===== Errors
 
+When a client tries to access an object with a URL that has a different
+<<credentials.asciidoc#credentials_credentials_object,country_code>>
+and/or <<credentials.asciidoc#credentials_credentials_object,party_id>>
+than one of the <<credentials.asciidoc#credentials_credentials_role_class,CredentialsRoles>> given during the
+<<credentials.asciidoc#credentials_credentials_endpoint,credentials>> handshake,
+it is allowed to respond with an HTTP `404` status code, this way blocking client access to objects that do not belong to them.
+
 When a client pushes a Client Owned Object, but the {object-id} in the URL is different from the id in the object being pushed,
 server implementations are advised to return an <<status_codes.asciidoc#status_codes_status_codes,OCPI status code>>:
 <<status_codes.asciidoc#status_codes_status_codes,2001>>.
+
+
+[[transport_and_format_client_owned_object_pull]]
+==== Client Owned Object Pull
+
+When doing a GET on the Sender interface of a module, the owner of an object can be determined by looking at the
+{<<credentials.asciidoc#credentials_credentials_object,country_code>>}
+and {<<credentials.asciidoc#credentials_credentials_object,party_id>>} in the object itself.
+
+When one or more objects, returned in the response, do not meet one of the <<credentials.asciidoc#credentials_credentials_role_class,CredentialsRoles>>
+given during the <<credentials.asciidoc#credentials_credentials_endpoint,credentials>> handshake, these objects may be ignored.
 
 [[transport_and_format_response_format]]
 ==== Response format
@@ -356,19 +377,21 @@ All examples/sequence diagrams in this section use the roles CPO and eMSP as exa
 ===== Platforms
 With Message Routing functionality it also becomes possible to support Platforms that host multiple roles.
 A lot of parties are not only CPO or eMSP. Most are both CPO and eMSP.
-Some parties are doing business in multiple counties, which means to operate with different `country_codes`
+Some parties are doing business in multiple countries, which means to operate with different `country_codes`
 Some parties have a platform on which the host service for other CPOs/eMSPs.
 Some parties are themselves CPO and host CPO services for others,
 but other parties are (themselves) not a CPO or other role in the EV charging landscape
 but do provide service to CPOs/eMSPs, etc.
 
 ===== Message Routing Headers
-When OCPI is used to communicate to/from a Platform or via a Hub (which is almost always the case)
+When OCPI is used to communicate to/from a Platform or via a Hub (which is the most common usage of OCPI,
+only exception is a peer-to-peer connection between two parties that both have only one OCPI party and role implemented.)
 the following four HTTP headers are to be added to any request/response to allow messages to be routed.
 
 When implementing OCPI these four headers SHALL be implemented for any request/response to/from a Functional Module.
 This does not mean they have to be present in all request.
-There are situation/special request where some headers can or shall be omitted, more on this later.
+There are situation/special request where some headers can or shall be omitted,
+See: <<transport_and_format_message_routing_open_routing_request,Open Routing Request>>
 
 Only requests/responses from Function Modules: such as: <<mod_tokens.asciidoc#mod_tokens_tokens_module,Tokens>>,
 <<mod_locations.asciidoc#mod_locations_locations_module,Locations>>, <<mod_cdrs.asciidoc#mod_cdrs_cdrs_module,CDRs>> etc.
@@ -389,6 +412,8 @@ or Platform-to-Hub communication. Thus routing headers SHALL NOT be used with th
 |OCPI-from-party-id |<<types.asciidoc#types_cistring_type,CiString>>(3)|'party id' of the connected party this message is sent from.
 |OCPI-from-country-code |<<types.asciidoc#types_cistring_type,CiString>>(2)|'country code' of the connected party this message is sent from.
 |===
+
+NOTE: HTTP header names are case-insensitive
 
 
 .Example sequence diagram of a GET for 1 Object from a CPO to an eMSP.
@@ -554,6 +579,15 @@ image::images/sd_get_all_platform.svg[OCPI Sequence Diagram of a GET All via the
 When OCPI Objects are sent via Hubs, the `last_updated` fields SHALL NOT be updated by the Hub.
 
 
+[[transport_and_format_not_available]]
+==== No data available
+There are rare situation, probably use cases not foreseen by the team developing OCPI,
+where a certain field, that is required, cannot be filled. In such cases, and only in such cases,
+it is allowed to set a string field to the value: `#NA`.
+
+`#NA` is not allowed to be used when a party does not have or want to provide the data, but is able to provide the data when they would spend time/resources to get/provide the data.
+
+
 [[transport_and_format_unique_messageg_ids]]
 === Unique message IDs
 
@@ -566,6 +600,9 @@ For debugging issues, OCPI implementations are required to include unique IDs vi
 |X-Request-ID     |Every request SHALL contain a unique request ID, the response to this request SHALL contain the same ID.
 |X-Correlation-ID |Every request/response SHALL contain a unique correlation ID, every response to this request SHALL contain the same ID.
 |===
+
+NOTE: HTTP header names are case-insensitive
+
 
 It is advised to used GUID/UUID as values for X-Request-ID and X-Correlation-ID.
 

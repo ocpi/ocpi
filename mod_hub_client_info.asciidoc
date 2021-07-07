@@ -33,15 +33,14 @@ Do not queue Push messages. When the other party comes back online, it is their 
 No requests can be sent to this new party yet.
 It can be a good idea to sent some notification to an operator to get into contact with the new party so contracts can be setup.
 This state may also be used when a Hub has some configuration indicating which parties have contracts which each other.
-When a company does not have a connection configured.
-This state may also be sent to parties.
+When a company does not have a connection configured, this state may also be sent to parties.
 
 ==== Another Party becomes SUSPENDED
 
 Like with OFFLINE, no requests should be sent to this party, they cannot be delivered.
 
-When for example CDRs still have to be delivered, so there is some unfinished business,
-parties are advised to get into contact with the other party in another way the OCPI: Call them, send an e-mail.
+When, for example, CDRs still have to be delivered (there is some unfinished business)
+parties are advised to get into contact with the other party in some other way: call them, or send an e-mail.
 
 
 [[mod_hub_client_info_flow]]
@@ -119,7 +118,7 @@ so it would be illogical if the connected client system had a different status o
 
 ====== Request Parameters
 
-The following parameters can be provided as URL segments.
+The following parameters shall be provided as URL segments.
 
 [cols="3,2,1,10",options="header"]
 |===
@@ -156,7 +155,7 @@ In the put request a the new or updated ClientInfo object is send.
 
 ====== Request Parameters
 
-The following parameters can be provided as URL segments.
+The following parameters shall be provided as URL segments.
 
 |===
 |Parameter |Datatype |Required |Description

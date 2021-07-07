@@ -20,7 +20,7 @@ CDRs are created by the CPO. They most likely will be sent only to the eMSP that
 Because a CDR is for billing purposes, it cannot be changed or replaced once sent to the eMSP. Changes are simply not allowed.
 Instead, a <<mod_cdrs_credit_cdrs,Credit CDR>> can be sent.
 
-CDRs may be send for charging locations that have not been published via the <<mod_locations_locations_module,Location>> module.
+CDRs may be send for charging locations that have not been published via the <<mod_locations.asciidoc#mod_locations_locations_module,Location>> module.
 This is typically for home chargers.
 
 
@@ -78,7 +78,7 @@ Push is the preferred model to use, because the Receiver will receive CDRs in se
 
 Typically implemented by market roles like: CPO.
 
-The CDRs endpoint can be used retrieve CDRs.
+The CDRs endpoint can be used to retrieve CDRs.
 
 Endpoint structure definition:
 
@@ -228,7 +228,7 @@ The response should contain the URL to the just created CDR object in the eMSP's
 
 [cols="3,2,1,10",options="header"]
 |===
-|Parameter |Datatype |Required |Description 
+|HTTP Header |Datatype |Required |Description
 
 |Location |<<types.asciidoc#types_url_type,URL>> |yes |URL to the newly created CDR in the eMSP's system, can be used by the CPO system to perform a GET on the same CDR. 
 |===
@@ -280,40 +280,40 @@ but it can be interpolated by the CPO using the metering information before and 
 When calculating the cost of a charging session, `step_size` SHALL only be taken into account once per session for
 the <<mod_tariffs.asciidoc#mod_tariffs_tariffdimensiontype_enum,TariffDimensionType>> <<mod_tariffs.asciidoc#mod_tariffs_tariffdimensiontype_enum,`ENERGY`>>
 and once for <<mod_tariffs.asciidoc#mod_tariffs_tariffdimensiontype_enum,`PARKING_TIME`>> and <<mod_tariffs.asciidoc#mod_tariffs_tariffdimensiontype_enum,`TIME`>> combined.
-Only the last <<mod_cdrs_chargingperiod_class,ChargingPeriod>> that is relevant for calculating <<mod_tariffs.asciidoc#mod_tariffs_tariffdimensiontype_enum,`ENERGY`>> based cost shall take into account the `step_size`.
-Only the last <<mod_cdrs_chargingperiod_class,ChargingPeriod>> that is relevant for calculating <<mod_tariffs.asciidoc#mod_tariffs_tariffdimensiontype_enum,`TIME`>> or <<mod_tariffs.asciidoc#mod_tariffs_tariffdimensiontype_enum,`PARKING_TIME`>> based cost shall take into account the `step_size`.
 
-This means that `step_size` is not taken into account when switching from paying for charging to paying for parking (charging has stopped but EV still connected).
+`step_size` is not taken into account when switching time based paying for charging to paying for parking (charging has stopped but EV still connected). +
 Example: `step_size` for both charging (<<mod_tariffs.asciidoc#mod_tariffs_tariffdimensiontype_enum,`TIME`>>) and parking is 5 minutes. After 21 minutes of charging,
 the EV is full but remains connected for 7 more minutes. The cost of charging will be calculated based on 21 minutes (not 25).
 The cost of parking will be calculated based on 10 minutes (`step_size` is 5).
 
 `step_size` is not taken into account when switching from (for example) one <<mod_tariffs.asciidoc#mod_tariffs_tariffdimensiontype_enum,`ENERGY`>>
-based tariff to another.
+based tariff element to another. This is also true when switch from one (<<mod_tariffs.asciidoc#mod_tariffs_tariffdimensiontype_enum,`TIME`>>) based tariff element  to another (<<mod_tariffs.asciidoc#mod_tariffs_tariffdimensiontype_enum,`TIME`>>) based tariff element, and one <<mod_tariffs.asciidoc#mod_tariffs_tariffdimensiontype_enum,`PARKING_TIME`>> tariff element  to another <<mod_tariffs.asciidoc#mod_tariffs_tariffdimensiontype_enum,`PARKING_TIME`>> based tariff element. +
 Example: when charging is more expensive after 17:00. The `step_size` of the tariff before 17:00 will not be used when charging starts before 17:00 and ends after 17:00.
-Only the `step_size` of the tariff (<<mod_tariffs.asciidoc#mod_tariffs_pricecomponent_class,PriceComponent>>) after 17:00 is taken into account.
+Only the `step_size` of the tariff (<<mod_tariffs.asciidoc#mod_tariffs_pricecomponent_class,PriceComponent>>) after 17:00 is taken into account, for the total of the same amount for the session.
 
 The `step_size` for the <<mod_tariffs.asciidoc#mod_tariffs_pricecomponent_class,PriceComponent>> that is used to calculate the cost of such
 a 'last' <<mod_cdrs_chargingperiod_class,ChargingPeriod>> SHALL be used. If the `step_size` differs for
 the different <<mod_tariffs.asciidoc#mod_tariffs_tariffelement_class,TariffElements>>,
 the `step_size` of the last relevant <<mod_tariffs.asciidoc#mod_tariffs_pricecomponent_class,PriceComponent>> is used.
 
-The `step_size` is not taken into account when switching between two Tariffs
+The `step_size` is not taken into account when switching between two Tariffs +
 Example: A driver selects a different <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,Charging Preference>>
-<<mod_sessions.asciidoc#mod_sessions_profile_type_enum,`profile_type`>>) during an ongoing charging session, the different profile might have a different tariff.
+<<mod_sessions.asciidoc#mod_sessions_profile_type_enum,`profile_type`>> during an ongoing charging session, the different profile might have a different tariff.
 
 The `step_size` uses the total amount of a certain unit used during a session, not only the last ChargingPeriod.
-In other words, when charging tariff per kWh of time differs during a session, the total amount of kWh of time is used in calculations with `step_size`.
-Example: Charging cost 0.20 euro before 17:00 and 0.27 after 17:00 both have a `step_size` of 500 Wh.
+In other words, when charging tariff per kWh of time differs during a session, the total amount of kWh of time is used in calculations with `step_size`. +
+Example: Charging cost 0.20 euro/Wh before 17:00 and 0.27 euro/Wh after 17:00 both have a `step_size` of 500 Wh.
 If a driver charges 4.3 kWh before 17:00 and 1.1 kWh after 17:00, a total of 5.4 kWh is charged. The `step_size` rounds this up to 5.5 kWh total.
 It does NOT round the energy used after 17:00 to 1.5 kWh.
 
+Example: Charging cost 5 euro/hour before 17:00 and 7 euro/hour after 17:00 both have a `step_size` of 10 minutes.
+If a driver charges 6 minutes before 17:00 and 22 minutes after 17:00: a total of 28 minutes charging. The `step_size` rounds this up to 30 minutes total, so 24 minutes after 17:00 will be billed.
+It does NOT round the minutes after 17:00 to 30 minutes, which would have made a total of 36 minutes.
+
 In the cases that <<mod_tariffs.asciidoc#mod_tariffs_tariffdimensiontype_enum,`TIME`>>
-and <<mod_tariffs.asciidoc#mod_tariffs_tariffdimensiontype_enum,`PARKING_TIME`>> Tariff Elements are both used, the total duration is used for the `step_size`
+and <<mod_tariffs.asciidoc#mod_tariffs_tariffdimensiontype_enum,`PARKING_TIME`>> Tariff Elements are both used, `step_size` is only taken into account for the total parking duration` +
 Example: Charging cost 1.00 euro/hour, parking 2.00 euro/hour both have a `step_size` of 10 minutes.
-If a driver charges 20 minutes, and keeps his EV connected while it is full for another 20 minutes, a total of 40 minutes is charged.
-The `step_size` rounds this up to 45 minutes total.
-It does NOT round the parking duration to 30 minutes, making it a total of 50 minutes.
+If a driver charges 21 minutes, and keeps his EV connected while it is full for another 16 minutes. The step_size rounds the parking duration up to 20 minutes, making it a total of 41 minutes. Note that the charging duration is not rounded up, as it is followed by another time base period.
 
 
 [cols="4,3,1,9",options="header"]
@@ -321,17 +321,18 @@ It does NOT round the parking duration to 30 minutes, making it a total of 50 mi
 |Property |Type |Card. |Description 
 
 |country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |1 |ISO-3166 alpha-2 country code of the CPO that 'owns' this CDR.
-|party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |1 |CPO ID of the CPO that 'owns' this CDR (following the ISO-15118 standard).
+|party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |1 |ID of the CPO that 'owns' this CDR (following the ISO-15118 standard).
 |id |<<types.asciidoc#types_cistring_type,CiString>>(39) |1 |Uniquely identifies the CDR within the CPO's platform (and suboperator platforms). This field is longer than the usual 36 characters to allow for credit CDRs to have <<mod_cdrs_credit_cdrs,something appended>> to the original ID. Normal (non-credit) CDRs SHALL only have an ID with a maximum length of 36.
 |start_date_time |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Start timestamp of the charging session, or in-case of a reservation (before the start of a session) the start of the reservation.
 |end_date_time |<<types.asciidoc#types_datetime_type,DateTime>> |1 |The timestamp when the session was completed/finished, charging might have finished before the session ends, for example: EV is full, but parking cost also has to be paid.
 |session_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |Unique ID of the Session for which this CDR is sent. Is only allowed to be omitted when the CPO has not implemented the Sessions module or this CDR is the result of a reservation that never became a charging session, thus no OCPI Session.
-|cdr_token |<<mod_cdrs_cdr_token_object,CdrToken>> |1 |Token used to start this charging session, includes all the relevant information to identify the unique token.
-|auth_method |<<mod_cdrs_authmethod_enum,AuthMethod>> |1 |Method used for authentication. 
+|cdr_token |<<mod_cdrs_cdr_token_object,CdrToken>> |1 |Token used to start this charging session, including all the relevant information to identify the unique token.
+|auth_method |<<mod_cdrs_authmethod_enum,AuthMethod>> |1 |Method used for authentication. Multiple <mod_cdrs_authmethod_enum,AuthMethods>> are possible during a charging sessions, for example when the session was started with a reservation: <<mod_commands.asciidoc#mod_commands_reservenow_object,ReserveNow>>: <<mod_cdrs.asciidoc#mod_cdrs_authmethod_enum,`COMMAND`>>. When the driver arrives and starts charging using a Token that is whitelisted: <<mod_cdrs.asciidoc#mod_cdrs_authmethod_enum, `WHITELIST`>>. The last method SHALL be used in the CDR.
 |authorization_reference |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |Reference to the authorization given by the eMSP.
                                              When the eMSP provided an `authorization_reference` in either:
-                                             <<mod_tokens.asciidoc#mod_tokens_real-time_authorization,real-time authorization>> or
-                                             <<mod_commands.asciidoc#mod_commands_startsession_object,StartSession>>, this field SHALL contain the same value.
+                                             <<mod_tokens.asciidoc#mod_tokens_real-time_authorization,real-time authorization>>,
+                                             <<mod_commands.asciidoc#mod_commands_startsession_object,StartSession>> or
+                                             <<mod_commands.asciidoc#mod_commands_reservenow_object,ReserveNow>>, this field SHALL contain the same value.
                                              When different `authorization_reference` values have been given by the eMSP that are relevant to this Session,
                                              the last given value SHALL be used here.
 |cdr_location |<<mod_cdrs_cdr_location_class,CdrLocation>> |1 |Location where the charging session took place, including only the relevant <<mod_locations.asciidoc#mod_locations_evse_object,EVSE>> and <<mod_locations.asciidoc#mod_locations_connector_object,Connector>>.
@@ -364,6 +365,11 @@ But it is seen as an advantage as a boolean flag used in queries is much faster 
 
 NOTE: Different `authorization_reference` values might happen when for example a <<mod_commands.asciidoc#mod_commands_reservenow_object,ReserveNow>>  had a different
 `authorization_reference` then the value returned by a <<mod_tokens.asciidoc#mod_tokens_real-time_authorization,real-time authorization>>.
+
+NOTE: When no `start_date_time` and/or `end_date_time` is known to the CPO, normally the CPO cannot send the CDR.
+If the MSP and CPO both agree that they accept CDRs that miss either or both the `start_date_time` and `end_date_time`,
+and local legislation allows billing of sessions where `start_date_time` and/or `end_date_time` are missing.
+Then, and only then, the CPO could send a CDR where the `start_date_time` and/or `end_date_time` are set to: "1970-1-1T00:00:00Z.
 
 
 [[mod_cdrs_example_of_a_cdr]]
@@ -455,13 +461,13 @@ The _CdrLocation_ class contains only the relevant information from the <<mod_lo
 |postal_code |<<types.asciidoc#types_string_type,string>>(10) |? |Postal code of the location, may only be omitted when the location has no postal code: in some countries charging locations at highways don't have postal codes.
 |state |<<types.asciidoc#types_string_type,string>>(20) |? |State    only to be used when relevant.
 |country |<<types.asciidoc#types_string_type,string>>(3) |1 |ISO 3166-1 alpha-3 code for the country of this location.
-|coordinates |<<mod_locations_geolocation_class,GeoLocation>> |1 |Coordinates of the location.
-|evse_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Uniquely identifies the EVSE within the CPO's platform (and suboperator platforms). For example a database unique ID or the actual _EVSE ID_. This field can never be changed, modified or renamed. This is the _technical_ identification of the EVSE, not to be used as _human readable_ identification, use the field: `evse_id` for that.
-|evse_id |<<types.asciidoc#types_cistring_type,CiString>>(48) |1 |Compliant with the following specification for EVSE ID from "eMI3 standard version V1.0" (http://emi3group.com/documents-links/[http://emi3group.com/documents-links/]) "Part 2: business objects.".
-|connector_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Identifier of the connector within the EVSE.
-|connector_standard |<<mod_locations.asciidoc#mod_locations_connectortype_enum,ConnectorType>> |1 |The standard of the installed connector.
-|connector_format |<<mod_locations.asciidoc#mod_locations_connectorformat_enum,ConnectorFormat>> |1 |The format (socket/cable) of the installed connector.
-|connector_power_type |<<mod_locations.asciidoc#mod_locations_powertype_enum,PowerType>> |1 |
+|coordinates |<<mod_locations.asciidoc#mod_locations_geolocation_class,GeoLocation>> |1 |Coordinates of the location.
+|evse_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Uniquely identifies the EVSE within the CPO's platform (and suboperator platforms). For example a database unique ID or the actual _EVSE ID_. This field can never be changed, modified or renamed. This is the _technical_ identification of the EVSE, not to be used as _human readable_ identification, use the field: `evse_id` for that.  Allowed to be set to: <<transport_and_format_not_available.asciidoc#transport_and_format_not_available,`#NA`>> when this CDR is created for a reservation that never resulted in a charging session.
+|evse_id |<<types.asciidoc#types_cistring_type,CiString>>(48) |1 |Compliant with the following specification for EVSE ID from "eMI3 standard version V1.0" (http://emi3group.com/documents-links/[http://emi3group.com/documents-links/]) "Part 2: business objects.". Allowed to be set to: <<transport_and_format_not_available.asciidoc#transport_and_format_not_available,`#NA`>> when this CDR is created for a reservation that never resulted in a charging session.
+|connector_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Identifier of the connector within the EVSE. Allowed to be set to: <<transport_and_format_not_available.asciidoc#transport_and_format_not_available,`#NA`>> when this CDR is created for a reservation that never resulted in a charging session.
+|connector_standard |<<mod_locations.asciidoc#mod_locations_connectortype_enum,ConnectorType>> |1 |The standard of the installed connector. When this CDR is created for a reservation that never resulted in a charging session, this field can be set to any value and should be ignored by the Receiver.
+|connector_format |<<mod_locations.asciidoc#mod_locations_connectorformat_enum,ConnectorFormat>> |1 |The format (socket/cable) of the installed connector. When this CDR is created for a reservation that never resulted in a charging session, this field can be set to any value and should be ignored by the Receiver.
+|connector_power_type |<<mod_locations.asciidoc#mod_locations_powertype_enum,PowerType>> |1 | When this CDR is created for a reservation that never resulted in a charging session, this field can be set to any value and should be ignored by the Receiver.
 |===
 
 
@@ -476,7 +482,7 @@ The _CdrLocation_ class contains only the relevant information from the <<mod_lo
 This is the field used by the CPO's system (RFID reader on the Charge Point) to identify this token. +
 Currently, in most cases: `type=RFID`, this is the RFID hidden ID as read by the RFID reader, but that is not a requirement. +
 If this is a `type=APP_USER` Token, it will be a unique, by the eMSP, generated ID.
-|type |<<mod_tokens_tokentype_enum,TokenType>> |1 |Type of the token
+|type |<<mod_tokens.asciidoc#mod_tokens_tokentype_enum,TokenType>> |1 |Type of the token
 |contract_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Uniquely identifies the EV driver contract token within the eMSP's platform (and suboperator platforms). Recommended to follow the specification for eMA ID from "eMI3 standard version V1.0" (http://emi3group.com/documents-links/[http://emi3group.com/documents-links/]) "Part 2: business objects."
 |===
 
