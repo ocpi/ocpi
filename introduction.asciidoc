@@ -1,6 +1,15 @@
 [[introduction_ocpi]]
 == OCPI
 
+[[introduction_ocpi_2.2.1]]
+=== OCPI 2.2.1
+
+During implementation of OCPI 2.2 some issues where found that required updating the protocol to fix them.
+These are all minor changes, so most OCPI 2.2 implementations would need no, or only minor changes, to upgrade to OCPI 2.2.1.
+
+For more information on detailed changes see <<changelog.asciidoc#changelog_changelog,changelog>>.
+
+
 [[introduction_ocpi_2.2]]
 === OCPI 2.2
 
@@ -27,13 +36,6 @@ OCPI 2.2 includes new functionality and improvements, compared to OCPI 2.1.1.
 ** <<mod_commands.asciidoc#mod_commands_cancelreservation_object,Commands>>: Cancel Reservation added
 
 For more information on detailed changes see <<changelog.asciidoc#changelog_changelog,changelog>>.
-
-
-==== OCPI 2.2-d2
-This new documentation revision of OCPI 2.2 contains textual improvements and fixes to JSON examples.
-The Tariff module contains most of the improvements, and especially `step_size` needed a much better explanation and examples.
-
-Many thanks to all the contributors that have taken the time and effort to commit issues and pushed pull requests with improvements.
 
 
 [[introduction_introduction_and_background]]

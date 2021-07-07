@@ -5,9 +5,9 @@
 :title-page:
 :numbered:
 :version-label: document version
-:year: 2020
-:protocol_version: 2.2
-:revdate: 12-06-{year}
+:year: 2021
+:protocol_version: 2.2.1
+:revdate: 07-07-{year}
 :document_header: OCPI {document_version}
 :revnumber: {document_version}
 

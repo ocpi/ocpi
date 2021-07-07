@@ -4,7 +4,7 @@
 |===
 |Version |Date |Author |Description
 
-|2.2.1 draft1 |02-07-2021 | Robert de Leeuw +
+|2.2.1 draft1 |07-07-2021 | Robert de Leeuw +
 _ihomer_ | first draft of the OCPI 2.2.1. +
            Fixed length of CDR SignedData, increased to 5000. +
            Change signed data related fields to string +
@@ -13,7 +13,8 @@ _ihomer_ | first draft of the OCPI 2.2.1. +
            AC_2_PHASE and AC_2_PHASE_SPLIT added to PowerType in Connector +
            Additional types added to ConnectorType in Connector +
            Added `connector_id` to StartSession command and `START_SESSION_CONNECTOR_REQUIRED` to EVSE Capabilities. +
-           Added optional field: `home_charging_compensation` to CDR. + 
+           Added optional field: `home_charging_compensation` to CDR. +
+           Improved description.examples Tariff for `step_size`
 
 |2.2-d2 |12-06-2020 | Robert de Leeuw +
 _ihomer_ | 2nd documentation revision of the OCPI 2.2 spec. +

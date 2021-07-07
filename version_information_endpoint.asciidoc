@@ -81,7 +81,7 @@ Parties that are both CPO and eMSP (or a Hub) can implement one version endpoint
 With the information that is available in the version details, parties don't need to implement a separate endpoint per role (CPO or eMSP) anymore.
 In practice this means that when a company is both a CPO and an eMSP and it connects to another party that implements both interfaces, only one OCPI connection is needed.
 
-NOTE: OCPI 2.2 introduces the role field in the version details.
+NOTE: OCPI 2.2 introduced the role field in the version details.
 Older versions of OCPI do not support this.
 
 Endpoint structure definition:
@@ -90,11 +90,11 @@ No structure defined. This is open for every party to define themselves.
 
 Examples:
 
-`+https://www.server.com/ocpi/cpo/2.2+`
+`+https://www.server.com/ocpi/cpo/2.2.1+`
 
-`+https://www.server.com/ocpi/emsp/2.2+`
+`+https://www.server.com/ocpi/emsp/2.2.1+`
 
-`+https://ocpi.server.com/2.2/details+`
+`+https://ocpi.server.com/2.2.1/details+`
 
 This endpoint lists the supported endpoints and their URLs for a specific OCPI version. To notify the other party that the list of endpoints of your current version has changed, you can send a PUT request to the corresponding credentials endpoint (see the credentials chapter).
 
@@ -178,10 +178,11 @@ List of known versions.
 |===
 |Value |Description 
 
-|2.0 |OCPI version 2.0
-|2.1 |OCPI version 2.1 (DEPRECATED, do not use, use 2.1.1 instead) 
+|2.0   |OCPI version 2.0
+|2.1   |OCPI version 2.1 (DEPRECATED, do not use, use 2.1.1 instead)
 |2.1.1 |OCPI version 2.1.1
-|2.2 |OCPI version 2.2 (this version)
+|2.2   |OCPI version 2.2 (DEPRECATED, do not use, use 2.2.1 instead)
+|2.2.1 |OCPI version 2.2.1 (this version)
 |===
 
 [[version_information_endpoint_custom_modules]]
