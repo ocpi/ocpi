@@ -330,8 +330,9 @@ It does NOT round the parking duration to 30 minutes, making it a total of 50 mi
 |auth_method |<<mod_cdrs_authmethod_enum,AuthMethod>> |1 |Method used for authentication. 
 |authorization_reference |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |Reference to the authorization given by the eMSP.
                                              When the eMSP provided an `authorization_reference` in either:
-                                             <<mod_tokens.asciidoc#mod_tokens_real-time_authorization,real-time authorization>> or
-                                             <<mod_commands.asciidoc#mod_commands_startsession_object,StartSession>>, this field SHALL contain the same value.
+                                             <<mod_tokens.asciidoc#mod_tokens_real-time_authorization,real-time authorization>>,
+                                             <<mod_commands.asciidoc#mod_commands_startsession_object,StartSession>> or
+                                             <<mod_commands.asciidoc#mod_commands_reservenow_object,ReserveNow>>, this field SHALL contain the same value.
                                              When different `authorization_reference` values have been given by the eMSP that are relevant to this Session,
                                              the last given value SHALL be used here.
 |cdr_location |<<mod_cdrs_cdr_location_class,CdrLocation>> |1 |Location where the charging session took place, including only the relevant <<mod_locations.asciidoc#mod_locations_evse_object,EVSE>> and <<mod_locations.asciidoc#mod_locations_connector_object,Connector>>.
