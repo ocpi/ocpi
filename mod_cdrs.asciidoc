@@ -311,9 +311,9 @@ It does NOT round the energy used after 17:00 to 1.5 kWh.
 In the cases that <<mod_tariffs.asciidoc#mod_tariffs_tariffdimensiontype_enum,`TIME`>>
 and <<mod_tariffs.asciidoc#mod_tariffs_tariffdimensiontype_enum,`PARKING_TIME`>> Tariff Elements are both used, the total duration is used for the `step_size`
 Example: Charging cost 1.00 euro/hour, parking 2.00 euro/hour both have a `step_size` of 10 minutes.
-If a driver charges 20 minutes, and keeps his EV connected while it is full for another 20 minutes, a total of 40 minutes is charged.
-The `step_size` rounds this up to 45 minutes total.
-It does NOT round the parking duration to 30 minutes, making it a total of 50 minutes.
+If a driver charges 21 minutes, and keeps his EV connected while it is full for another 16 minutes,
+a total of 37 minutes is charged. The step_size rounds the parking duration up to 20 minutes,
+making it a total of 41 minutes. Note that the charging duration is not rounded up, as it is followed by another time base period.
 
 
 [cols="4,3,1,9",options="header"]
