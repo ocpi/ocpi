@@ -280,16 +280,14 @@ but it can be interpolated by the CPO using the metering information before and 
 When calculating the cost of a charging session, `step_size` SHALL only be taken into account once per session for
 the <<mod_tariffs.asciidoc#mod_tariffs_tariffdimensiontype_enum,TariffDimensionType>> <<mod_tariffs.asciidoc#mod_tariffs_tariffdimensiontype_enum,`ENERGY`>>
 and once for <<mod_tariffs.asciidoc#mod_tariffs_tariffdimensiontype_enum,`PARKING_TIME`>> and <<mod_tariffs.asciidoc#mod_tariffs_tariffdimensiontype_enum,`TIME`>> combined.
-Only the last <<mod_cdrs_chargingperiod_class,ChargingPeriod>> that is relevant for calculating <<mod_tariffs.asciidoc#mod_tariffs_tariffdimensiontype_enum,`ENERGY`>> based cost shall take into account the `step_size`.
-Only the last <<mod_cdrs_chargingperiod_class,ChargingPeriod>> that is relevant for calculating <<mod_tariffs.asciidoc#mod_tariffs_tariffdimensiontype_enum,`TIME`>> or <<mod_tariffs.asciidoc#mod_tariffs_tariffdimensiontype_enum,`PARKING_TIME`>> based cost shall take into account the `step_size`.
 
-This means that `step_size` is not taken into account when switching from paying for charging to paying for parking (charging has stopped but EV still connected).
+`step_size` is not taken into account when switching time based paying for charging to paying for parking (charging has stopped but EV still connected). +
 Example: `step_size` for both charging (<<mod_tariffs.asciidoc#mod_tariffs_tariffdimensiontype_enum,`TIME`>>) and parking is 5 minutes. After 21 minutes of charging,
 the EV is full but remains connected for 7 more minutes. The cost of charging will be calculated based on 21 minutes (not 25).
 The cost of parking will be calculated based on 10 minutes (`step_size` is 5).
 
 `step_size` is not taken into account when switching from (for example) one <<mod_tariffs.asciidoc#mod_tariffs_tariffdimensiontype_enum,`ENERGY`>>
-based tariff to another.
+based tariff to another. +
 Example: when charging is more expensive after 17:00. The `step_size` of the tariff before 17:00 will not be used when charging starts before 17:00 and ends after 17:00.
 Only the `step_size` of the tariff (<<mod_tariffs.asciidoc#mod_tariffs_pricecomponent_class,PriceComponent>>) after 17:00 is taken into account.
 
@@ -298,22 +296,20 @@ a 'last' <<mod_cdrs_chargingperiod_class,ChargingPeriod>> SHALL be used. If the 
 the different <<mod_tariffs.asciidoc#mod_tariffs_tariffelement_class,TariffElements>>,
 the `step_size` of the last relevant <<mod_tariffs.asciidoc#mod_tariffs_pricecomponent_class,PriceComponent>> is used.
 
-The `step_size` is not taken into account when switching between two Tariffs
+The `step_size` is not taken into account when switching between two Tariffs +
 Example: A driver selects a different <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,Charging Preference>>
 <<mod_sessions.asciidoc#mod_sessions_profile_type_enum,`profile_type`>> during an ongoing charging session, the different profile might have a different tariff.
 
 The `step_size` uses the total amount of a certain unit used during a session, not only the last ChargingPeriod.
-In other words, when charging tariff per kWh of time differs during a session, the total amount of kWh of time is used in calculations with `step_size`.
+In other words, when charging tariff per kWh of time differs during a session, the total amount of kWh of time is used in calculations with `step_size`. +
 Example: Charging cost 0.20 euro before 17:00 and 0.27 after 17:00 both have a `step_size` of 500 Wh.
 If a driver charges 4.3 kWh before 17:00 and 1.1 kWh after 17:00, a total of 5.4 kWh is charged. The `step_size` rounds this up to 5.5 kWh total.
 It does NOT round the energy used after 17:00 to 1.5 kWh.
 
 In the cases that <<mod_tariffs.asciidoc#mod_tariffs_tariffdimensiontype_enum,`TIME`>>
-and <<mod_tariffs.asciidoc#mod_tariffs_tariffdimensiontype_enum,`PARKING_TIME`>> Tariff Elements are both used, the total duration is used for the `step_size`
+and <<mod_tariffs.asciidoc#mod_tariffs_tariffdimensiontype_enum,`PARKING_TIME`>> Tariff Elements are both used, `step_size` is only taken into account for the total parking duration` + 
 Example: Charging cost 1.00 euro/hour, parking 2.00 euro/hour both have a `step_size` of 10 minutes.
-If a driver charges 21 minutes, and keeps his EV connected while it is full for another 16 minutes,
-a total of 37 minutes is charged. The step_size rounds the parking duration up to 20 minutes,
-making it a total of 41 minutes. Note that the charging duration is not rounded up, as it is followed by another time base period.
+If a driver charges 21 minutes, and keeps his EV connected while it is full for another 16 minutes. The step_size rounds the parking duration up to 20 minutes, making it a total of 41 minutes. Note that the charging duration is not rounded up, as it is followed by another time base period.
 
 
 [cols="4,3,1,9",options="header"]
