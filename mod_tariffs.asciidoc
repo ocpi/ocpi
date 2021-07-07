@@ -620,7 +620,7 @@ where the driver uses a maximum of 16A of power and is parking for additional 42
 this tariff will result in costs of 9.00 euro (excl. VAT) or 10.30 euro (incl. VAT)
 for a total session time of 147 minutes (charging) + 42 minutes (parking).
 As the tariff switches from a `TIME` based tariff to `PARKING_TIME`, `step_size` is not used on the charging time, only on the parking time.
-The driver has to pay for 165 minutes charging (2.75 euro excl. VAT) and 45 minutes of parking as its billed per 5 minutes (3.75 euro excl. VAT).
+The driver has to pay for 165 minutes charging (2.75 euro excl. VAT) and 45 minutes of parking, as parking is billed per 5 minutes (3.75 euro excl. VAT).
 
 For a charging session on a Saturday afternoon starting at 13:30 which takes 1:54 hours (114 minutes),
 where the driver uses a minimum of 43A of power (all the time, which is only theoretically possible) and is parking for additional 71 minutes afterwards,
