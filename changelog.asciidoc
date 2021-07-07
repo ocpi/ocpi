@@ -98,7 +98,8 @@ Minimal
 [[changelog_changes_between_ocpi_2.1.1_and_2.2]]
 === Changes between OCPI 2.1.1 and 2.2
 
-Lots of typos fixed and textual improvements.
+Lots of typos fixed and textual improvements. +
+Improved/fixed all descriptions and examples with relation to the Tariff `step_size`.
 
 The following changes to messages/objects etc.
 
