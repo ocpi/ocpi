@@ -1,0 +1,11 @@
+{
+  "country_code": "DE",
+  "party_id": "TNM",
+  "uid": "bdf21bce-fc97-11e8-8eb2-f2801f1b9fd1",
+  "type": "APP_USER",
+  "contract_id": "DE8ACC12E46L89",
+  "issuer": "TheNewMotion",
+  "valid": true,
+  "whitelist": "ALLOWED",
+  "last_updated": "2018-12-10T17:16:15Z"
+}

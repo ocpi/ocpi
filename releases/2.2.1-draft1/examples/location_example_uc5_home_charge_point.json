@@ -1,0 +1,36 @@
+{
+  "country_code": "DE",
+  "party_id": "ALL",
+  "id": "a5295927-09b9-4a71-b4b9-a5fffdfa0b77",
+  "publish": false,
+  "publish_allowed_to": [{
+    "visual_number": "0123456-99",
+    "issuer": "MoveMove"
+  }],
+  "address": "Krautwigstraße 283A",
+  "city": "Köln",
+  "postal_code": "50931",
+  "country": "DEU",
+  "coordinates": {
+    "latitude": "50.931826",
+    "longitude": "6.964043"
+  },
+  "parking_type": "ON_DRIVEWAY",
+  "evses": [{
+    "uid": "4534ad5f-45be-428b-bfd0-fa489dda932d",
+    "evse_id": "DE*ALL*EGO0000001",
+    "status": "AVAILABLE",
+    "connectors": [{
+      "id": "1",
+      "standard": "IEC_62196_T2",
+      "format": "SOCKET",
+      "power_type": "AC_1_PHASE",
+      "max_voltage": 230,
+      "max_amperage": 8,
+      "last_updated": "2019-04-05T17:17:56Z"
+    }],
+    "last_updated": "2019-04-05T17:17:56Z"
+  }],
+  "time_zone": "Europe/Berlin",
+  "last_updated": "2019-04-05T17:17:56Z"
+}

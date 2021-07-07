@@ -1,0 +1,485 @@
+:numbered:
+[[mod_tokens_tokens_module]]
+== _Tokens_ module
+
+*Module Identifier: `tokens`*
+
+*Data owner: `MSP`*
+
+*Type:* Functional Module
+
+The tokens module gives CPOs knowledge of the token information of an eMSP.
+eMSPs can push Token information to CPOs, CPOs can build a cache of known Tokens.
+When a request to authorize comes from a Charge Point, the CPO can check against this cache.
+With this cached information they know to which eMSP they can later send a CDR. 
+
+[[mod_tokens_flow_and_lifecycle]]
+=== Flow and Lifecycle
+
+[[mod_tokens_push_model]]
+==== Push model
+
+When the eMSP creates a new Token object they push it to the CPO by calling <<mod_tokens_put_method,PUT>> on the CPO's Tokens endpoint with the newly created Token object.
+
+Any changes to Token in the eMSP system are sent to the CPO system by calling either the <<mod_tokens_put_method,PUT>> or the <<mod_tokens_patch_method,PATCH>> on the CPO's Tokens endpoint with the updated Token(s).
+
+When the eMSP invalidates a Token (deleting is not possible), the eMSP will send the updated Token (with the field: valid set to `false`, by calling, either the <<mod_tokens_put_method,PUT>> or the <<mod_tokens_patch_method,PATCH>> on the CPO's Tokens endpoint with the updated Token. 
+
+When the eMSP is not sure about the state or existence of a Token object in the CPO system, the
+eMSP can call the <<mod_tokens_cpo_get_method,GET>> to validate the Token object in the CPO system. 
+
+[[mod_tokens_pull_model]]
+==== Pull model
+
+When a CPO is not sure about the state of the list of known Tokens, or wants to request the full
+list as a start-up of their system, the CPO can call the <<mod_tokens_msp_get_method,GET>> on the eMSP's Token endpoint to receive
+all Tokens, updating already known Tokens and adding new received Tokens to it own list of Tokens.
+This is not intended for real-time operation, requesting the full list of tokens for every authorization will put to much strain on systems.
+It is intended for getting in-sync with the server, or to get a list of all tokens (from a server without Push mode) every X hours.
+
+[[mod_tokens_real-time_authorization]]
+==== Real-time authorization
+
+An eMSP might want their Tokens to be authorized 'real-time', not white-listed.
+For this the eMSP has to implement the <<mod_tokens_post_method,POST Authorize request>>
+and set the Token.whitelist field to `NEVER` for Tokens they want to have authorized 'real-time'.
+
+If an eMSP doesn't want real-time authorization, the <<mod_tokens_post_method,POST Authorize request>> doesn't
+have to be implemented as long as all their Tokens have Token.whitelist set to `ALWAYS`.
+
+When an eMSP does not want to Push the full list of tokens to CPOs,
+the CPOs will need to call the <<mod_tokens_post_method,POST Authorize request>> to check if a Token is known by the eMSP, and if it is valid.
+
+NOTE: Doing real-time authorization of RFID will mean a longer delay of the authorization process, which might result in bad user experience at the Charge Point.
+So care should be taken to keep delays in processing the request to an absolute minimum.
+
+NOTE: Real-time authorization might be asked for a charging location that is not published via the <<mod_locations_locations_module,Location>> module,
+typically a private charger. In most cases this is expected to result in: `ALLOWED`.
+
+NOTE: If real-time authorization is asked for a location, the eMSP SHALL NOT validate that charging is possible based on information like opening hours or EVSE status etc. 
+as this information might not be up to date.
+
+[[mod_tokens_interfaces_and_endpoints]]
+=== Interfaces and endpoints
+
+There is both a Sender and a Receiver interface for Tokens. It is advised to use the Push direction from Sender to Receiver during normal operation.
+The Sender interface is meant to be used when the Receiver is not 100% sure the Token cache is still correct.
+
+[[mod_tokens_cpo_interface]]
+==== Receiver Interface
+
+Typically implemented by market roles like: CPO.
+
+With this interface the Sender can push the Token information to the Receiver.
+Tokens is a <<transport_and_format.asciidoc#transport_and_format_client_owned_object_push,Client Owned Object>>, so the end-points need to contain the required extra fields: {<<credentials.asciidoc#credentials_credentials_object,party_id>>} and {<<credentials.asciidoc#credentials_credentials_object,country_code>>}.
+
+Endpoint structure definition:
+
+`{token_endpoint_url}{country_code}/{party_id}/{token_uid}[?type={type}]`
+
+Example:
+
+`+https://www.server.com/ocpi/cpo/2.2/tokens/NL/TNM/012345678+`
+
+
+[cols="2,12",options="header"]
+|===
+|Method |Description 
+
+|<<mod_tokens_cpo_get_method,GET>> |Retrieve a Token as it is stored in the CPO system. 
+|POST |n/a 
+|<<mod_tokens_put_method,PUT>> |Push new/updated Token object to the CPO. 
+|<<mod_tokens_patch_method,PATCH>> |Notify the CPO of partial updates to a Token. 
+|DELETE |n/a, (Use <<mod_tokens_put_method,PUT>>, Tokens cannot be removed). 
+|===
+
+[[mod_tokens_cpo_get_method]]
+===== *GET* Method
+
+If the eMSP wants to check the status of a Token in the CPO system it might GET the object from the CPO system for validation purposes. The eMSP is the owner of the objects, so it would be illogical if the CPO system had a different status or was missing an object.
+
+[[mod_tokens_cpo_get_request_parameters]]
+====== Request Parameters
+
+The following parameters: `country_code`, `party_id`, `token_uid` have to be provided as URL segments.
+
+The parameter: `type` may be provided as an URL parameter
+
+[cols="3,2,1,10",options="header"]
+|===
+|Parameter |Datatype |Required |Description 
+
+|country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |yes |Country code of the eMSP requesting this GET from the CPO system.
+|party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |yes |Party ID (Provider ID) of the eMSP requesting this GET from the CPO system.
+|token_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |Token.uid of the Token object to retrieve.
+|type |<<mod_tokens_tokentype_enum,TokenType>> |no |Token.type of the Token to retrieve. Default if omitted: <<mod_tokens_tokentype_enum,RFID>>
+|===
+
+[[mod_tokens_cpo_get_response_data]]
+====== Response Data
+
+The response contains the requested object. 
+
+[cols="4,1,12",options="header"]
+|===
+|Type |Card. |Description 
+
+|<<mod_tokens_token_object,Token>> |1 |The requested Token object. 
+|===
+
+[[mod_tokens_put_method]]
+===== *PUT* Method
+
+New or updated Token objects are pushed from the eMSP to the CPO. 
+
+[[mod_tokens_put_request_body]]
+====== Request Body
+
+In the put request a new or updated Token object is sent.
+
+[cols="4,1,12",options="header"]
+|===
+|Type |Card. |Description 
+
+|<<mod_tokens_token_object,Token>> |1 |New or updated Token object. 
+|===
+
+[[mod_tokens_cpo_put_request_parameters]]
+====== Request Parameters
+
+The following parameters: `country_code`, `party_id`, `token_uid` have to be provided as URL segments.
+
+The parameter: `type` may be provided as an URL parameter
+
+[cols="3,2,1,10",options="header"]
+|===
+|Parameter |Datatype |Required |Description 
+
+|country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |yes |Country code of the eMSP sending this PUT request to the CPO system. This SHALL be the same value as the `country_code` in the Token object being pushed.
+|party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |yes |Party ID (Provider ID) of the eMSP sending this PUT request to the CPO system. This SHALL be the same value as the `party_id` in the Token object being pushed.
+|token_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |Token.uid of the (new) Token object (to replace).
+|type |<<mod_tokens_tokentype_enum,TokenType>> |no |Token.type of the Token of the (new) Token object (to replace). Default if omitted: <<mod_tokens_tokentype_enum,RFID>>
+|===
+
+[[mod_tokens_example_put_a_new_token]]
+====== Example: put a new Token
+
+[source,json]
+----
+PUT To URL: https://www.server.com/ocpi/cpo/2.2/tokens/NL/TNM/012345678
+
+include::examples/token_put_example.json[]
+----
+
+
+[[mod_tokens_patch_method]]
+===== *PATCH* Method
+
+Same as the <<mod_tokens_put_method,PUT>> method, but only the fields/objects that have to be updated have to be present, other fields/objects that are not specified are considered unchanged.
+
+Any request to the PATCH method SHALL contain the `last_updated` field.
+
+[[mod_tokens_example_invalidate_a_token]]
+====== Example: invalidate a Token
+
+[source,json]
+----
+PATCH To URL: https://www.server.com/ocpi/cpo/2.2/tokens/NL/TNM/012345678
+
+include::examples/token_patch_example.json[]
+----
+
+[[mod_tokens_emsp_interface]]
+==== Sender Interface
+
+Typically implemented by market roles like: eMSP.
+
+This interface enables the Receiver to request the current list of Tokens, when needed.
+Via the POST method it is possible to authorize a single token.
+
+[cols="2,12",options="header"]
+|===
+|Method |Description 
+
+|<<mod_tokens_msp_get_method,GET>> |Get the list of known Tokens, last updated between the {date_from} and {date_to} (<<transport_and_format.asciidoc#transport_and_format_pagination,paginated>>) 
+|<<mod_tokens_post_method,POST>> |Real-time authorization request 
+|PUT |n/a 
+|PATCH |n/a 
+|DELETE |n/a 
+|===
+
+[[mod_tokens_msp_get_method]]
+===== *GET* Method
+
+Fetch information about Tokens known in the eMSP systems.
+
+Endpoint structure definition:
+
+`{tokens_endpoint_url}?[date_from={date_from}]&amp;[date_to={date_to}]&[offset={offset}]&[limit={limit}]`
+
+Examples:
+
+`+https://www.server.com/ocpi/emsp/2.2/tokens/?date_from=2019-01-28T12:00:00&date_to=2019-01-29T12:00:00+`
+
+`+https://ocpi.server.com/2.2/tokens/?offset=50+`
+
+`+https://www.server.com/ocpi/2.2/tokens/?date_from=2019-01-29T12:00:00&limit=100+`
+
+`+https://www.server.com/ocpi/emsp/2.2/tokens/?offset=50&limit=100+`
+
+
+[[mod_tokens_msp_get_request_parameters]]
+====== Request Parameters
+
+If additional parameters: `{date_from}` and/or `{date_to}` are provided, only Tokens with (`last_updated`)
+between the given `{date_from}` (including) and `{date_to}` (excluding) will be returned.
+
+This request is <<transport_and_format.asciidoc#transport_and_format_pagination,paginated>>, it supports the <<transport_and_format.asciidoc#transport_and_format_paginated_request,pagination>> related URL parameters.
+This request is <<transport_and_format.asciidoc#transport_and_format_pagination,paginated>>, it supports the <<transport_and_format.asciidoc#transport_and_format_paginated_request,pagination>> related URL parameters.
+
+[cols="3,2,1,10",options="header"]
+|===
+|Parameter |Datatype |Required |Description 
+
+|date_from |<<types.asciidoc#types_datetime_type,DateTime>> |no |Only return Tokens that have `last_updated` after or equal to this Date/Time (inclusive).
+|date_to |<<types.asciidoc#types_datetime_type,DateTime>> |no |Only return Tokens that have `last_updated` up to this Date/Time, but not including (exclusive).
+|offset |int |no |The offset of the first object returned. Default is 0. 
+|limit |int |no |Maximum number of objects to GET. 
+|===
+
+[[mod_tokens_msp_get_response_data]]
+====== Response Data
+
+The endpoint response with list of valid Token objects, the header will contain the <<transport_and_format.asciidoc#transport_and_format_paginated_response,pagination>> related headers. 
+
+Any older information that is not specified in the response is considered as no longer valid.
+Each object must contain all required fields. Fields that are not specified may be considered as null values.
+
+[cols="4,1,12",options="header"]
+|===
+|Type |Card. |Description 
+
+|<<mod_tokens_token_object,Token>> |* |List of all tokens. 
+|===
+
+[[mod_tokens_post_method]]
+===== *POST* Method
+
+Do a 'real-time' authorization request to the eMSP system, validating if a Token might be used (at the optionally given Location). 
+
+Endpoint structure definition:
+
+`{tokens_endpoint_url}{token_uid}/authorize[?type={type}]`
+
+
+The `/authorize` is required for the real-time authorize request.
+
+Examples:
+
+`+https://www.server.com/ocpi/emsp/2.2/tokens/012345678/authorize+`
+
+`+https://ocpi.server.com/2.2/tokens/012345678/authorize?type=RFID+`
+
+
+When the eMSP does not know the Token, the eMSP SHALL respond with an HTTP status code: 404 (Not Found).
+
+When the eMSP receives a 'real-time' authorization request from a CPO that contains too little information (no LocationReferences provided) to determine if the Token might be used, the eMSP SHALL respond with the OCPI status: <<status_codes.asciidoc#status_codes_2xxx_client_errors,2002>>
+
+[[mod_tokens_msp_post_request_parameters]]
+====== Request Parameters
+
+The parameter: `token_uid` has to be provided as URL segments.
+
+The parameter: `type` may be provided as an URL parameter
+
+
+[cols="3,2,1,10",options="header"]
+|===
+|Parameter |Datatype |Required |Description 
+
+|token_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |Token.uid of the Token for which authorization is requested.
+|type |<<mod_tokens_tokentype_enum,TokenType>> |no |Token.type of the Token for which this authorization is. Default if omitted: <<mod_tokens_tokentype_enum,RFID>>
+|===
+
+[[mod_tokens_post_request_body]]
+====== Request Body
+
+In the body an optional <<mod_tokens_locationreferences_class,LocationReferences>> object can be given. The eMSP SHALL then validate if the Token is allowed to be used at this Location, and if applicable: which of the Locations EVSEs.
+The object with valid Location and EVSEs will be returned in the response.
+
+[cols="4,1,12",options="header"]
+|===
+|Type |Card. |Description 
+
+|<<mod_tokens_locationreferences_class,LocationReferences>> |? |Location and EVSEs for which the Token is requested to be authorized.
+|===
+
+[[mod_tokens_post_response_data]]
+====== Response Data
+
+When the token is known by the Sender, the response SHALL contain a <<mod_tokens_authorizationinfo_object,AuthorizationInfo>> object.
+
+If the token is not known, the response SHALL contain the status code: `2004: Unknown Token`, and no `data` field.
+
+[cols="4,1,12",options="header"]
+|===
+|Type |Card. |Description 
+
+|<<mod_tokens_authorizationinfo_object,AuthorizationInfo>> |1 |Contains information about the authorization, if the Token is allowed to charge and optionally which EVSEs are allowed to be used.
+|===
+
+[[mod_tokens_object_description]]
+=== Object description
+
+[[mod_tokens_authorizationinfo_object]]
+==== _AuthorizationInfo_ Object
+
+[cols="4,2,1,9",options="header"]
+|===
+|Property |Type |Card. |Description 
+
+|allowed |<<mod_tokens_allowed_enum,AllowedType>> |1 |Status of the Token, and whether charging is allowed at the optionally given location.
+|token   |<<mod_tokens_token_object,Token>> |1 |The complete Token object for which this authorization was requested.
+|location |<<mod_tokens_locationreferences_class,LocationReferences>> |? |Optional reference to the location if it was included in the request, and if the EV driver is allowed to charge at that location. Only the EVSEs the EV driver is allowed to charge at are returned.
+|authorization_reference |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |Reference to the authorization given by the eMSP, when given,
+                                             this reference will be provided in the relevant <<mod_sessions.asciidoc#mod_sessions_session_object,Session>>
+                                             and/or <<mod_cdrs.asciidoc#mod_cdrs_cdr_object,CDR>>.
+|info |<<types.asciidoc#types_displaytext_class,DisplayText>> |? |Optional display text, additional information to the EV driver.
+|===
+
+
+[[mod_tokens_token_object]]
+==== _Token_ Object
+
+[cols="3,2,1,10",options="header"]
+|===
+|Property |Type |Card. |Description 
+
+|country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |1 |ISO-3166 alpha-2 country code of the MSP that 'owns' this Token.
+|party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |1 |ID of the eMSP that 'owns' this Token (following the ISO-15118 standard).
+|uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Unique ID by which this Token, combined with the Token type, can be identified. +
+                                      This is the field used by CPO system (RFID reader on the Charge Point) to identify this token. +
+                                      Currently, in most cases: type=RFID, this is the RFID hidden ID as read by the RFID reader, but that is not a requirement. +
+                                      If this is a `APP_USER` or `AD_HOC_USER` Token, it will be a uniquely, by the eMSP, generated ID. +
+                                      This field is named `uid` instead of `id` to prevent confusion with: `contract_id`.
+|type |<<mod_tokens_tokentype_enum,TokenType>> |1 |Type of the token 
+|contract_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Uniquely identifies the EV Driver contract token within the eMSP's platform (and suboperator platforms). Recommended to follow the specification for eMA ID from "eMI3 standard version V1.0" (http://emi3group.com/documents-links/[http://emi3group.com/documents-links/]) "Part 2: business objects."
+|visual_number |<<types.asciidoc#types_string_type,string>>(64) |? |Visual readable number/identification as printed on the Token (RFID card), might be equal to the contract_id.
+|issuer |<<types.asciidoc#types_string_type,string>>(64) |1 |Issuing company, most of the times the name of the company printed on the token (RFID card), not necessarily the eMSP.
+|group_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |This ID groups a couple of tokens. This can be used to make two or more tokens work as one, so that a session can be started with one token and stopped with another, handy when a card and key-fob are given to the EV-driver. +
+Beware that OCPP 1.5/1.6 only support group_ids (it is called parentId in OCPP 1.5/1.6) with a maximum length of 20.
+|valid |boolean |1 |Is this Token valid
+|whitelist |<<mod_tokens_whitelisttype_enum,WhitelistType>> |1 |Indicates what type of white-listing is allowed. 
+|language |<<types.asciidoc#types_string_type,string>>(2) |? |Language Code ISO 639-1. This optional field indicates the Token owner's preferred interface language. If the language is not provided or not supported then the CPO is free to choose its own language. 
+|default_profile_type |<<mod_sessions.asciidoc#mod_sessions_profile_type_enum,ProfileType>> |? | The default <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,Charging Preference>>. When this is provided,
+                                        and a charging session is started on an Charge Point that support Preference base Smart Charging and support this <<mod_sessions.asciidoc#mod_sessions_profile_type_enum,ProfileType>>,
+                                        the Charge Point can start using this <<mod_sessions.asciidoc#mod_sessions_profile_type_enum,ProfileType>>, without this having to be set via: <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,Set Charging Preferences>>.
+|energy_contract |<<types.asciidoc#mod_tokens_energy_contract,EnergyContract>> |? |When the Charge Point supports using your own energy supplier/contract at a Charge Point, information about the energy supplier/contract is needed so the CPO knows which energy supplier to use.  +
+                            NOTE: In a lot of countries it is currently not allowed/possible to use a drivers own energy supplier/contract at a Charge Point.
+|last_updated |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Timestamp when this Token was last updated (or created).
+|===
+
+
+The combination of _uid_ and _type_ should be unique for every token within the eMSP's system.
+
+NOTE: OCPP supports group_id (or ParentID as it is called in OCPP 1.5/1.6) OCPP 1.5/1.6 only support group ID's with maximum length of string(20), case insensitive.
+As long as EV-driver can be expected to charge at an OCPP 1.5/1.6 Charge Point, it is adviced to not used a group_id longer then 20.
+
+[[mod_tokens_examples]]
+===== Examples
+
+====== Simple APP_USER example
+
+[source,json]
+----
+include::examples/token_example_1_app_user.json[]
+----
+
+
+====== Full RFID example
+
+[source,json]
+----
+include::examples/token_example_2_full_rfid.json[]
+----
+
+
+[[mod_tokens_data_types]]
+=== Data types
+
+[[mod_tokens_allowed_enum]]
+==== AllowedType _enum_
+
+[cols="3,10",options="header"]
+|===
+|Value |Description 
+
+|ALLOWED |This Token is allowed to charge (at this location).
+|BLOCKED |This Token is blocked. 
+|EXPIRED |This Token has expired. 
+|NO_CREDIT |This Token belongs to an account that has not enough credits to charge (at the given location).
+|NOT_ALLOWED |Token is valid, but is not allowed to charge at the given location. 
+|===
+
+
+[[mod_tokens_energy_contract]]
+==== EnergyContract _class_
+
+Information about a energy contract that belongs to a Token so a driver could use his/her own energy contract when charging at a Charge Point.
+
+[cols="3,2,1,10",options="header"]
+|===
+|Property |Type |Card. |Description
+
+|supplier_name |<<types.asciidoc#types_string_type,string>>(64) |1 | Name of the energy supplier for this token.
+|contract_id |<<types.asciidoc#types_string_type,string>>(64) |? | Contract ID at the energy supplier, that belongs to the owner of this token.
+|===
+
+
+[[mod_tokens_locationreferences_class]]
+==== LocationReferences _class_
+
+References to location details.
+
+[cols="3,2,1,10",options="header"]
+|===
+|Property |Type |Card. |Description
+
+|location_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Unique identifier for the location.
+|evse_uids |<<types.asciidoc#types_cistring_type,CiString>>(36) |* |Unique identifiers for EVSEs within the CPO's platform for the EVSE within the given location.
+|===
+
+[[mod_tokens_tokentype_enum]]
+==== TokenType _enum_
+
+[cols="3,10",options="header"]
+|===
+|Value |Description 
+
+|AD_HOC_USER |One time use Token ID generated by a server (or App.) The eMSP uses this to bind a Session to a customer, probably an app user.
+|APP_USER |Token ID generated by a server (or App.) to identify a user of an App. The same user uses the same Token for every Session.
+|OTHER |Other type of token
+|RFID |RFID Token 
+|===
+
+NOTE: The eMSP is RECOMMENDED to push Tokens with type: `AD_HOC_USER` or `APP_USER` with `whitelist` set to `NEVER`.
+Whitelists are very useful for RFID type Tokens, but the `AD_HOC_USER`/`APP_USER` Tokens are used to start Sessions from an App etc. so whitelisting them has no advantages.
+
+[[mod_tokens_whitelisttype_enum]]
+==== WhitelistType _enum_
+
+Defines when authorization of a Token by the CPO is allowed.
+
+The validity of a Token has no influence on this. If a Token is: `valid = false`,
+when the `whitelist` field requires real-time authorization, the CPO SHALL do a <<mod_tokens_real-time_authorization,real-time authorization>>,
+the state of the Token might have changed.
+
+[cols="3,10",options="header"]
+|===
+|Value |Description 
+
+|ALWAYS |Token always has to be whitelisted, <<mod_tokens_real-time_authorization,realtime authorization>> is not possible/allowed. CPO shall always allow any use of this Token.
+|ALLOWED |It is allowed to whitelist the token, <<mod_tokens_real-time_authorization,realtime authorization>> is also allowed. The CPO may choose which version of authorization to use.
+|ALLOWED_OFFLINE |In normal situations <<mod_tokens_real-time_authorization,realtime authorization>> shall be used. But when the CPO cannot get a response from the eMSP (communication between CPO and eMSP is offline), the CPO shall allow this Token to be used.
+|NEVER |Whitelisting is forbidden, only <<mod_tokens_real-time_authorization,realtime authorization>> is allowed. CPO shall always send a <<mod_tokens_real-time_authorization,realtime authorization>> for any use of this Token to the eMSP.
+|===

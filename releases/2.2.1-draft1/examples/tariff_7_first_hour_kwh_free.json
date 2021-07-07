@@ -1,0 +1,55 @@
+{
+	"country_code": "DE",
+	"party_id": "ALL",
+	"id": "52",
+	"currency": "EUR",
+	"elements": [{
+		"price_components": [{
+			"type": "PARKING_TIME",
+			"price": 0.0,
+			"step_size": 60
+		}],
+		"restrictions": {
+			"min_duration": 0,
+			"max_duration": 3600
+		}
+	}, {
+		"price_components": [{
+			"type": "PARKING_TIME",
+			"price": 2.0,
+			"step_size": 60
+		}],
+		"restrictions": {
+			"min_duration": 3600,
+			"max_duration": 10800
+		}
+	}, {
+		"price_components": [{
+			"type": "PARKING_TIME",
+			"price": 3.0,
+			"step_size": 60
+		}],
+		"restrictions": {
+			"min_duration": 10800
+		}
+	}, {
+		"price_components": [{
+			"type": "ENERGY",
+			"price": 0.0,
+			"step_size": 1
+		}],
+		"restrictions": {
+			"max_kwh": 1.0
+		}
+	}, {
+		"price_components": [{
+			"type": "ENERGY",
+			"price": 0.2,
+			"step_size": 1
+		}],
+		"restrictions": {
+			"min_kwh": 1.0
+		}
+	}],
+	"last_updated": "2018-12-29T15:55:58Z"
+}

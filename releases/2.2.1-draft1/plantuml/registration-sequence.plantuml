@@ -1,0 +1,80 @@
+@startuml
+title OCPI Registration process
+hide footbox
+
+participant "Sender" AS eMSP
+participant "Receiver" AS CPO
+
+== Offline ==
+
+CPO -> CPO: Generate token: CREDENTIALS_TOKEN_A
+activate CPO
+CPO -> eMSP: send information via e-mail \n(CREDENTIALS_TOKEN_A,\n         "https://company.com/ocpi/cpo/versions", ...)
+deactivate CPO
+
+...
+
+== OCPI ==
+
+CPO <- eMSP: GET /ocpi/cpo/versions
+activate eMSP
+activate CPO
+note right
+    The Sender uses CREDENTIALS_TOKEN_A
+    as authentication to fetch information
+     from the Receiver.
+end note
+CPO --> eMSP: Available versions
+deactivate CPO
+
+eMSP -> eMSP: Pick latest mutual version (e.g. 2.2).
+CPO <- eMSP: GET /ocpi/cpo/2.2/
+activate CPO
+CPO --> eMSP: Available endpoints for v2.2
+deactivate CPO
+eMSP -> eMSP: Store version and endpoints
+eMSP -> eMSP: Generate token: CREDENTIALS_TOKEN_B
+CPO <- eMSP: POST /ocpi/cpo/2.2/credentials \n("/ocpi/emsp/versions", CREDENTIALS_TOKEN_B, ...)
+
+note over CPO, eMSP
+  The Receiver does not directly respond to the POST request
+  The Receiver first needs to retrieve the versions and endpoints
+  from the Sender before responding with CREDENTIALS_TOKEN_C
+end note
+
+activate CPO
+CPO -> CPO: Store CREDENTIALS_TOKEN_B
+CPO -> eMSP: GET /ocpi/emsp/versions
+activate eMSP
+CPO <-- eMSP: Available versions
+deactivate eMSP
+CPO -> eMSP: GET /ocpi/emsp/2.2/
+activate eMSP
+CPO <-- eMSP: Available endpoints for v2.2
+deactivate eMSP
+note right
+    The Receiver knows it's version 2.2 because
+    of the endpoint the Sender has used. The URL
+    is retrieved from the available versions.
+end note
+CPO -> CPO: Store version and endpoints
+note over CPO, eMSP
+  The Receiver generates CREDENTIALS_TOKEN_C and returns
+  it in the response to the HTTP POST credentials request 
+  from the Sender above.
+end note
+CPO -> CPO: Generate CREDENTIALS_TOKEN_C
+CPO --> eMSP: Credentials with CREDENTIALS_TOKEN_C for eMSP
+deactivate CPO
+
+
+note right
+    By returning new credentials for the Receiver,
+    the initial setup token (CREDENTIALS_TOKEN_A)
+    has now become invalid.
+end note
+eMSP -> eMSP: Store updated credentials with\nCREDENTIALS_TOKEN_C
+
+deactivate eMSP
+
+@enduml

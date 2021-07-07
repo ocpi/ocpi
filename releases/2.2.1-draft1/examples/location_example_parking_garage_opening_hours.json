@@ -1,0 +1,66 @@
+{
+  "country_code": "SE",
+  "party_id": "EVC",
+  "id": "cbb0df21-d17d-40ba-a4aa-dc588c8f98cb",
+  "publish": true,
+  "name": "P-Huset Leonard",
+  "address": "Claesgatan 6",
+  "city": "Malmö",
+  "postal_code": "214 26",
+  "country": "SWE",
+  "coordinates": {
+    "latitude": "55.590325",
+    "longitude": "13.008307"
+  },
+  "parking_type": "PARKING_GARAGE",
+  "evses": [{
+    "uid": "eccb8dd9-4189-433e-b100-cc0945dd17dc",
+    "evse_id": "SE*EVC*E000000123",
+    "status": "AVAILABLE",
+    "connectors": [{
+      "id": "1",
+      "standard": "IEC_62196_T2",
+      "format": "SOCKET",
+      "power_type": "AC_3_PHASE",
+      "max_voltage": 230,
+      "max_amperage": 32,
+      "last_updated": "2017-03-07T02:21:22Z"
+    }],
+    "last_updated": "2017-03-07T02:21:22Z"
+  }],
+  "time_zone": "Europe/Stockholm",
+  "opening_times": {
+    "twentyfourseven": false,
+    "regular_hours": [{
+      "weekday": 1,
+      "period_begin": "07:00",
+      "period_end": "18:00"
+    }, {
+      "weekday": 2,
+      "period_begin": "07:00",
+      "period_end": "18:00"
+    },{
+      "weekday": 3,
+      "period_begin": "07:00",
+      "period_end": "18:00"
+    },{
+      "weekday": 4,
+      "period_begin": "07:00",
+      "period_end": "18:00"
+    },{
+      "weekday": 5,
+      "period_begin": "07:00",
+      "period_end": "18:00"
+    },{
+      "weekday": 6,
+      "period_begin": "07:00",
+      "period_end": "18:00"
+    },{
+      "weekday": 7,
+      "period_begin": "07:00",
+      "period_end": "18:00"
+    }]
+  },
+  "charging_when_closed": true,
+  "last_updated": "2017-03-07T02:21:22Z"
+}

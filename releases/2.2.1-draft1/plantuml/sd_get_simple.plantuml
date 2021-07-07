@@ -1,0 +1,19 @@
+@startuml
+skinparam dpi 100
+hide footbox
+
+participant "CPO1" as CPO1
+participant "HUB" as HUB
+participant "MSP1" as MSP1
+
+CPO1 -> HUB: HTTP: GET\nTO: MSP1\nFROM: CPO1
+activate CPO1
+activate HUB
+HUB -> MSP1: HTTP: GET\nTO: MSP1\nFROM: CPO1
+activate MSP1
+MSP1 -> HUB: HTTP: RESPONSE\nTO: CPO1\nFROM: MSP1
+deactivate MSP1
+HUB -> CPO1: HTTP: RESPONSE\nTO: CPO1\nFROM: MSP1
+deactivate CPO1
+deactivate HUB
+@enduml

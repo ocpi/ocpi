@@ -1,0 +1,22 @@
+{
+    "country_code": "NL",
+    "party_id": "STK",
+    "id": "101",
+    "start_date_time": "2020-03-09T10:17:09Z",
+    "kwh": 0.0,
+    "cdr_token": {
+        "uid": "123abc",
+        "type": "RFID",
+        "contract_id": "NL-TST-C12345678-S"
+    },
+    "auth_method": "WHITELIST",
+    "location_id": "LOC1",
+    "evse_uid": "3256",
+    "connector_id": "1",
+    "currency": "EUR",
+    "total_cost": {
+        "excl_vat": 2.5
+    },
+    "status": "PENDING",
+    "last_updated": "2020-03-09T10:17:09Z"
+}

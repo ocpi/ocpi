@@ -1,0 +1,58 @@
+{
+  "country_code": "DE",
+  "party_id": "ALL",
+  "id": "22",
+  "currency": "EUR",
+  "elements": [
+    {
+      "price_components": [
+        {
+          "type": "TIME",
+          "price": 1.20,
+          "step_size": 1800
+        },
+        {
+          "type": "PARKING_TIME",
+          "price": 1.00,
+          "step_size": 900
+        }
+      ],
+      "restrictions" : {
+        "start_time" : "00:00",
+        "end_time" : "17:00"
+      }
+    },
+    {
+      "price_components": [
+        {
+          "type": "TIME",
+          "price": 2.40,
+          "step_size": 900
+        },
+        {
+          "type": "PARKING_TIME",
+          "price": 1.00,
+          "step_size": 900
+        }
+      ],
+      "restrictions" : {
+        "start_time" : "17:00",
+        "end_time" : "20:00"
+      }
+    },
+    {
+      "price_components": [
+        {
+          "type": "TIME",
+          "price": 2.40,
+          "step_size": 900
+        }
+      ],
+      "restrictions" : {
+        "start_time" : "20:00",
+        "end_time" : "00:00"
+      }
+    }
+  ],
+  "last_updated": "2018-12-18T17:07:11Z"
+}

@@ -1,0 +1,40 @@
+@startuml
+title OCPI Update process
+hide footbox
+
+participant eMSP AS "Sender"
+participant CPO AS "Receiver"
+
+CPO <- eMSP: GET /ocpi/cpo/versions
+activate eMSP
+activate CPO
+CPO --> eMSP: Available versions
+deactivate CPO
+
+eMSP -> eMSP: Pick latest mutual version (e.g. 2.0).
+CPO <- eMSP: GET /ocpi/cpo/2.0/
+activate CPO
+CPO --> eMSP: Available endpoints for v2.0
+deactivate CPO
+eMSP -> eMSP: Store version and endpoints
+CPO <- eMSP: PUT /ocpi/cpo/2.0/credentials
+
+activate CPO
+CPO -> eMSP: GET /ocpi/emsp/versions
+CPO <-- eMSP: Available versions
+CPO -> eMSP: GET /ocpi/emsp/2.0/
+CPO <-- eMSP: Available endpoints for v2.0
+note right
+    The Receiver knows it's version 2.0 because
+    of the endpoint the Sender has used. The URL
+    is retrieved from the available versions.
+end note
+CPO -> CPO: Store version and endpoints
+CPO --> eMSP: Return updated credentials for Sender
+deactivate CPO
+
+eMSP -> eMSP: Store updated credentials
+
+deactivate eMSP
+
+@enduml

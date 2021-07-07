@@ -1,0 +1,17 @@
+{
+  "data": {
+    "version": "2.2",
+    "endpoints": [{
+      "identifier": "credentials",
+      "role": "SENDER",
+      "url": "https://example.com/ocpi/cpo/2.2/credentials/"
+    }, {
+      "identifier": "locations",
+      "role": "SENDER",
+      "url": "https://example.com/ocpi/cpo/2.2/locations/"
+    }]
+  },
+  "status_code": 1000,
+  "status_message": "Success",
+  "timestamp": "2015-06-30T21:59:59Z"
+}

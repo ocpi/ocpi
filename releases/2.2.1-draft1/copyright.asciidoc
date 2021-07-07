@@ -1,0 +1,18 @@
+Copyright © 2014 – {year} EVRoaming Foundation. All rights reserved.
+
+This document is made available under the _Creative Commons Attribution-
+NoDerivatives 4.0 International Public License_
+
+(https://creativecommons.org/licenses/by-nd/4.0/legalcode[https://creativecommons.org/licenses/by-nd/4.0/legalcode]).
+
+{nbsp} +
+
+{nbsp} +
+
+*EVRoaming Foundation*
+
+image::images/evroaming_logo.png[EVRoaming Foundation logo,scaledwidth=50%]
+
+OCPI is developed and managed by the EVRoaming Foundation. The EVRoaming Foundation is a contributor based organisation. Everyone can join the EVRoaming Foundation via https://www.evroaming.org[https://www.evroaming.org]
+
+The EVRoaming Foundation strive to keep OCPI as free from IPR as possible. If you want to contribute by adding new functionality/features, you are required to send us the signed Contributor Agreement (CA) document before contributing. To get the CA, ask for it by send an e-mail to: info@evroaming.org.

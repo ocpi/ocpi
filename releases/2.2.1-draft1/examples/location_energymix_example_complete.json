@@ -1,0 +1,18 @@
+{
+  "energy_mix": {
+    "is_green_energy": false,
+    "energy_sources": [
+    { "source": "GENERAL_GREEN",  "percentage": 35.9 },
+    { "source": "GAS",            "percentage": 6.3  },
+    { "source": "COAL",           "percentage": 33.2 },
+    { "source": "GENERAL_FOSSIL", "percentage": 2.9  },
+    { "source": "NUCLEAR",        "percentage": 21.7 }
+    ],
+    "environ_impact": [
+    { "category": "NUCLEAR_WASTE",  "amount": 0.0006   },
+    { "category": "CARBON_DIOXIDE", "amount": 372      }
+    ],
+    "supplier_name":       "E.ON Energy Deutschland",
+    "energy_product_name": "E.ON DirektStrom eco"
+  }
+}

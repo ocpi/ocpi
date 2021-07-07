@@ -1,0 +1,30 @@
+{
+  "version": "2.2",
+  "endpoints": [
+    {
+      "identifier": "credentials",
+      "role": "RECEIVER",
+      "url": "https://example.com/ocpi/2.2/credentials/"
+    },
+    {
+      "identifier": "locations",
+      "role": "SENDER",
+      "url": "https://example.com/ocpi/cpo/2.2/locations/"
+    },
+    {
+      "identifier": "tokens",
+      "role": "RECEIVER",
+      "url": "https://example.com/ocpi/cpo/2.2/tokens/"
+    },
+    {
+      "identifier": "locations",
+      "role": "RECEIVER",
+      "url": "https://example.com/ocpi/msp/2.2/locations/"
+    },
+    {
+      "identifier": "tokens",
+      "role": "SENDER",
+      "url": "https://example.com/ocpi/msp/2.2/tokens/"
+    }
+  ]
+}
