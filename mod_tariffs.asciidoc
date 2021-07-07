@@ -999,6 +999,8 @@ Can also be used in combination with a <<mod_tariffs_tariffrestrictions_class,RE
 
 These restrictions are not for the entire Charging Session. They only describe if and when a TariffElement becomes active or inactive during a Charging Session.
 
+When more than one restriction is set, they are to be threaded as a logical AND. So all need to be valid before this tariff is active.
+
 [cols="3,2,1,10",options="header"]
 |===
 |Property |Type |Card. |Description 
