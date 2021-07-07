@@ -374,7 +374,7 @@ For more information about how `step_size` impacts the calculation of the cost o
 |end_date_time |<<types.asciidoc#types_datetime_type,DateTime>> |? |The timestamp when the session was completed/finished, charging might have finished before the session ends, for example: EV is full, but parking cost also has to be paid.
 |kwh |<<types.asciidoc#types_number_type,number>> |1 |How many kWh were charged. 
 |cdr_token |<<mod_cdrs.asciidoc#mod_cdrs_cdr_token_object,CdrToken>> |1 |Token used to start this charging session, including all the relevant information to identify the unique token.
-|auth_method |<<mod_cdrs.asciidoc#mod_cdrs_authmethod_enum,AuthMethod>> |1 |Method used for authentication.
+|auth_method |<<mod_cdrs.asciidoc#mod_cdrs_authmethod_enum,AuthMethod>> |1 |Method used for authentication. This might change during a session, for example when the session was started with a reservation: <<mod_commands.asciidoc#mod_commands_reservenow_object,ReserveNow>>: <<mod_cdrs.asciidoc#mod_cdrs_authmethod_enum,`COMMAND`>>. When the driver arrives and starts charging using a Token that is whitelisted: <<mod_cdrs.asciidoc#mod_cdrs_authmethod_enum, `WHITELIST`>>.
 |authorization_reference |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |Reference to the authorization given by the eMSP.
                                              When the eMSP provided an `authorization_reference` in either:
                                              <<mod_tokens.asciidoc#mod_tokens_real-time_authorization,real-time authorization>>,
