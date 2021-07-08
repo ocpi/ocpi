@@ -66,7 +66,7 @@ StartSession Object
 Minor
 |Medium / +
 Minimal
-|Added `START_SESSION_CONNECTOR_REQUIRED` to support OCPP 1.x Charge Points with multiple connectors per EVSE. +
+|Added optional field: `connector_id` to support OCPP 1.x Charge Points with multiple connectors per EVSE. +
 
 |Locations / +
 Capability Enum
@@ -74,7 +74,7 @@ Capability Enum
 Minor
 |Medium / +
 Minimal
-|Added optional field: `connector_id` to support OCPP 1.x Charge Points with multiple connectors per EVSE. +
+|Added `START_SESSION_CONNECTOR_REQUIRED` to support OCPP 1.x Charge Points with multiple connectors per EVSE. +
 
 |Locations / +
 ConnectorType Enum
