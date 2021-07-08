@@ -687,7 +687,7 @@ It contains the result of the DELETE (ClearProfile) request send by the eMSP.
 [[mod_charging_profiles_set_charging_profile_object]]
 ==== _SetChargingProfile_ Object
 
-Object set to a CPO to set a Charging Profile.
+Object sent to a CPO to set a Charging Profile.
 
 [cols="3,4,1,9",options="header"]
 |===
