@@ -766,8 +766,9 @@ The socket or plug standard of the charging point.
 |===
 |Value |Description 
 
-|CHADEMO |The connector type is CHAdeMO, DC 
-|DOMESTIC_A |Standard/Domestic household, type "A", NEMA 1-15, 2 pins 
+|CHADEMO |The connector type is CHAdeMO, DC
+|CHAO_JI |The ChaoJi CHAdeMO connector, harmonized with GB/T.
+|DOMESTIC_A |Standard/Domestic household, type "A", NEMA 1-15, 2 pins
 |DOMESTIC_B |Standard/Domestic household, type "B", NEMA 5-15, 3 pins 
 |DOMESTIC_C |Standard/Domestic household, type "C", CEE 7/17, 2 pins 
 |DOMESTIC_D |Standard/Domestic household, type "D", 3 pin 

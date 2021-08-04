@@ -82,7 +82,7 @@ ConnectorType Enum
 Minor
 |Minimal / +
 Minimal
-|Added NEMA, GB/T and Domestic M, N and O connector types. +
+|Added NEMA, GB/T, ChaoJi and Domestic M, N and O connector types. +
 
 |Locations / +
 PowerType Enum
