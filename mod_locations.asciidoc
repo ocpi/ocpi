@@ -1202,8 +1202,8 @@ The status of an EVSE.
 |AVAILABLE |The EVSE/Connector is able to start a new charging session. 
 |BLOCKED |The EVSE/Connector is not accessible because of a physical barrier, i.e. a car. 
 |CHARGING |The EVSE/Connector is in use. 
-|INOPERATIVE |The EVSE/Connector is not yet active or it is no longer available (deleted). 
-|OUTOFORDER |The EVSE/Connector is currently out of order. 
+|INOPERATIVE |The EVSE/Connector is not yet active, or temporarily not available for use, but not broken or defect.
+|OUTOFORDER |The EVSE/Connector is currently out of order, some part/components may be broken/defect.
 |PLANNED |The EVSE/Connector is planned, will be operating soon. 
 |REMOVED |The EVSE/Connector was discontinued/removed. 
 |RESERVED |The EVSE/Connector is reserved for a particular EV driver and is unavailable for other drivers. 
