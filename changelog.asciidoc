@@ -59,6 +59,7 @@ Minimal
 |- Increased `signed_data` length from 512 to 5000. +
 - Changed `plain_data` to string, was CiString +
 - Changed `signed_data` to string, was CiString +
+- Changed `url` to string, was CiString
 
 |Commands / +
 StartSession Object

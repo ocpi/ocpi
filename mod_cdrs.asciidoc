@@ -517,7 +517,7 @@ Which encoding method is used, if needed, the public key and a list of signed va
 |encoding_method_version | int                                                  |? |Version of the EncodingMethod (when applicable)
 |public_key              | <<types.asciidoc#types_string_type,string>>(512)     |? |Public key used to sign the data, base64 encoded.
 |signed_values           | <<mod_cdrs_signed_value_class,SignedValue>>          |+ |One or more signed values.
-|url                     | <<types.asciidoc#types_cistring_type,CiString>>(512) |? |URL that can be shown to an EV driver. This URL gives the EV driver the possibility to check the signed data from a charging session.
+|url                     | <<types.asciidoc#types_cistring_type,string>>(512)   |? |URL that can be shown to an EV driver. This URL gives the EV driver the possibility to check the signed data from a charging session.
 |===
 
 NOTE: For the German Eichrecht, different solutions are used,
