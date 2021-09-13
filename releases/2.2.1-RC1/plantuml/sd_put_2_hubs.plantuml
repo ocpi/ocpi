@@ -1,0 +1,24 @@
+@startuml
+skinparam dpi 100
+hide footbox
+
+participant "CPO1" as CPO1
+participant "HUB1" as HUB1
+participant "HUB2" as HUB2
+participant "MSP1" as MSP1
+
+CPO1 -> HUB1: HTTP: PUT\nTO: MSP1\nFROM: CPO1
+activate CPO1
+activate HUB1
+HUB1 -> HUB2: HTTP: PUT\nTO: MSP1\nFROM: CPO1
+activate HUB2
+HUB2 -> MSP1: HTTP: PUT\nTO: MSP1\nFROM: CPO1
+activate MSP1
+MSP1 -> HUB2: HTTP: RESPONSE 200\nTO: CPO1\nFROM: MSP1
+deactivate MSP1
+HUB2 -> HUB1: HTTP: RESPONSE 200\nTO: CPO1\nFROM: MSP1
+deactivate HUB2
+HUB1 -> CPO1: HTTP: RESPONSE 200\nTO: CPO1\nFROM: MSP1
+deactivate CPO1
+deactivate HUB1
+@enduml

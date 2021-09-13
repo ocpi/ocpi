@@ -1,0 +1,213 @@
+[[terminology_terminology_and_definitions]]
+== Terminology and Definitions
+
+=== Requirement Keywords
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and
+"OPTIONAL" in this document are to be interpreted as described in https://www.ietf.org/rfc/rfc2119.txt[https://www.ietf.org/rfc/rfc2119.txt].
+
+[[terminology_abbreviations]]
+=== Abbreviations
+
+[cols="2s,10",options="header"]
+|===
+|Abbr. |Description
+|CDR   |Charge Detail Record.
+|CPO   |Charging Point Operator.
+|eMSP  |e-Mobility Service Provider.
+|EV    |Electric Vehicle.
+|EVSE  |Electric Vehicle Supply Equipment. Is considered as an independently operated and managed part of a Charge Point that can deliver energy to one EV at a time.
+|JSON  |JavaScript Simple Object Notation.
+|NAP   |National Access Point.
+|NSP   |Navigation Service Provider.
+|OCPP  |Open Charge Point Protocol.
+|SCSP  |Smart Charging Service Provider.
+|===
+
+
+[[terminology_roles]]
+=== EV Charging Market Roles
+
+In the EV Charging landscape, different market roles can be identified.
+
+[cols="3s,9",options="header"]
+|===
+|Role  |Description
+|CPO   |Charging Point Operator. Operates a network of Charge Points.
+|eMSP  |e-Mobility Service Provider. Gives EV drivers access to charging services.
+|Hub   |Can connect one or more CPOs to one or more eMSPs.
+|NAP   |National Access Point. Provides a national database with all (public) charging locations. Information can be sent and retrieved from the NAP. This makes it different from a typical NSP.
+|NSP   |Navigation Service Provider. Provides EV drivers with location information of Charge Points. Usually only interested in Location information.
+|Roaming Hub |See: Hub.
+|SCSP  |Smart Charging Service Provider. Provides Smart Charging service to other parties. Might use a lot of different inputs to calculate Smart Charging Profiles.
+|===
+
+Some of these roles can be combined in one company. A Platform can provide service for multiple CPOs or eMSPs,
+but also for both eMSPs and CPOs.
+
+OCPI 2.0/2.1.1 had a very strict definition of roles: only CPO and eMSP. But this is rare in the real world,
+there are almost no parties that are strictly CPO or eMSP and have their own platform. In the real world, lots of
+parties provide service to CPOs that are not running their own platform.
+A lot of CPOs are also eMSP. With OCPI 2.1.1 and earlier that meant having to set up an OCPI connection per role.
+
+OCPI 2.2 introduces more roles and abstracts the role from the OCPI connection itself.
+OCPI 2.2 talks about Platforms connecting to Platforms, or Platforms connecting via Hubs to other Platforms.
+The Platform itself is not a role. The Platform provides services for 1 or more roles.
+
+Examples of platforms:
+
+* A pure CPO: Not providing services to other CPOs. Not being an eMSP. Running its own software that connects via OCPI. +
+  Is defined in OCPI as a Platform has 1 CPO role, the CPO role of that company.
+* A Company that has a cloud-based eMSP software solution,
+  it offers to companies that want to be eMSP, but don't want to host/run their own software. +
+  Is a Platform that has a number of eMSP roles, one for each eMSP the company is providing services for.
+  Not for this company itself because the company itself is not an eMSP.
+* A Company that operates public Charge Points and also provides eMSP service to EV drivers, running their own software platform. +
+  Is seen in OCPI as a Platform that has 2 roles: CPO and eMSP for this company.
+* If one the companies above starts to offer their service to other CPOs and eMSP, it is in OCPI still seen as 1 platform.
+  This platform then provides multiple CPO and eMSP roles.
+* A Roaming Hub is in OCPI terms also a Platform, antoher OCPI Platform can connect to it. Most Roamings Hubs only have one role: Hub.
+
+
+[[introduction_typical_roles]]
+==== Typical OCPI implementations per Role
+
+The following table shows the typical modules implemented by the different roles.
+These are not required.
+The table shows the typical communication role: Receiver, Sender or Both.
+
+[cols="6,4,4,4,4,4,4",options="header"]
+|===
+|Modules
+  |<<types.asciidoc#types_role_enum,CPO>>
+  |<<types.asciidoc#types_role_enum,eMSP>>
+  |<<types.asciidoc#types_role_enum,Hub>>
+  |<<types.asciidoc#types_role_enum,NSP>>
+  |<<types.asciidoc#types_role_enum,NAP>>
+  |<<types.asciidoc#types_role_enum,SCSP>>
+|<<mod_cdrs.asciidoc#mod_cdrs_cdrs_module,CDRs>>                                   |Sender   |Receiver |Both   |          |          |
+|<<mod_charging_profiles.asciidoc#mod_charging_profiles_module,Charging Profiles>> |Receiver |         |Both   |          |          |Sender
+|<<mod_commands.asciidoc#mod_commands_commands_module,Commands>>                   |Receiver |Sender   |Both   |          |          |
+|<<credentials.asciidoc#credentials_credentials_endpoint,Credentials>>             |Both     |Both     |Both   |Both      |Both      |Both
+|<<mod_hub_client_info.asciidoc#mod_hub_client_info_module,Hub Client Info>>       |Receiver |Receiver |Sender |Receiver  |Receiver  |Receiver
+|<<mod_locations.asciidoc#mod_locations_locations_module,Locations>>               |Sender   |Receiver |Both   |Receiver  |Both      |
+|<<mod_sessions.asciidoc#mod_sessions_sessions_module,Sessions>>                   |Sender   |Receiver |Both   |          |          |Receiver
+|<<mod_tariffs.asciidoc#mod_tariffs_tariffs_module,Tariffs>>                       |Sender   |Receiver |Both   |Receiver  |Both      |
+|<<mod_tokens.asciidoc#mod_tokens_tokens_module,Tokens>>                           |Receiver |Sender   |Both   |          |          |
+|<<version_information_endpoint.asciidoc#versions_module,Versions>>                |Both     |Both     |Both   |Both      |Both      |Both
+|===
+
+
+[[terminology_terms]]
+=== Terminology
+
+[cols="3s,9",options="header"]
+|===
+|Term  |Description
+|Broadcast Push | When communicating via a Hub, a data owner can do a single call to the Hub, the Hub then calls all receiving systems. +
+                  See: <<transport_and_format.asciidoc#transport_and_format_message_routing_broadcast_push,Broadcast push>>
+|Charge Point |The physical system where an EV can be charged. A Charge Point has one or more EVSEs. Sometimes called Charging Station
+|Client Owned Objects | In a normal REST interface the server is the owner of data, when a new resource is created by calling POST, the server creates the URL where the resource can be found by a client. +
+                        OCPI is different, in most modules the owner is the party pushing data to a server, to inform them of updates. +
+                        For example Locations, the CPO owns a Location (Charge Point), when a new Charge Point is added, the CPO calls PUT on the eMSP systems to inform them about new locations. +
+                        See: <<transport_and_format.asciidoc#transport_and_format_client_owned_object_push,Client Owned Objects>>
+|Configuration Module | OCPI Module needed to setup and maintain OCPI connections, but does not provide information for the EV driver:
+                        <<credentials.asciidoc#credentials_credentials_endpoint,Credentials>>, <<version_information_endpoint.asciidoc#versions_module,Versions>>
+                        and <<mod_hub_client_info.asciidoc#mod_hub_client_info_module,Hub Client Info>>. +
+                        Configuration Modules do NOT use message routing.
+|Functional Module | OCPI Module that provides functionality/information for the EV Driver, such as: <<mod_tokens.asciidoc#mod_tokens_tokens_module,Tokens>>,
+                     <<mod_locations.asciidoc#mod_locations_locations_module,Locations>>, <<mod_cdrs.asciidoc#mod_cdrs_cdrs_module,CDRs>> etc. +
+                     Functional Modules use <<transport_and_format.asciidoc#transport_and_format_message_routing,message routing>>.
+|Open Routing Request | This is for Platforms that are connected via a Hub. When a system sends a pull request to the Hub,
+                        and does not know, or care about, the owner of information, but asks the Hub to route the GET to the correct Platform.
+                        The Hub finds the correct Platform and routes the request to that Platform. +
+                        See: <<transport_and_format.asciidoc#transport_and_format_message_routing_open_routing_request,Open Routing Request>>
+|Platform | Software that provides services via OCPI.
+            A platform can provide service for a single eMSP or CPO, or for multiple CPOs or eMSPs.
+            It can even provide services for both eMSPs and CPOs at the same time. A Hub is also an OCPI Platform, most only have one role: Hub.
+|Pull | A system calls GET request to retrieve information from the system that owns the data.
+|Push | The system (owning the data) actively calls POST/PUT/PATCH to update other systems with new/updated information.
+|===
+
+
+[[terminology_provider_and_operator_abbreviation]]
+=== Provider and Operator abbreviation
+
+In OCPI it is advised to use eMI3 compliant names for Contract IDs and EVSE IDs. The provider and the operator name is important here,
+to target the right provider or operator, they need to be known upfront, at least between the cooperating parties.
+
+In several standards, an issuing authority is mentioned that will keep a central registry of known Providers and Operators.
+At this moment, the following countries have an authority that keeps track of the known providers and operators:
+
+[[terminology_the_netherlands]]
+==== The Netherlands, Belgium and Luxembourg (BeNeLux)
+
+The Dutch foundation, named http://www.eviolin.nl[eViolin] keeps the registry for The Netherlands, Belgium and Luxembourg.
+
+* The list of operator IDs and provider IDs can be viewed on their website http://www.eviolin.nl/index.php/leden/[eViolin/Leden].
+
+[[terminology_germany]]
+==== Germany
+
+The BDEW organisation keeps the registry for Germany in their general code number service https://bdew-codes.de/[bdew-codes.de].
+
+* https://bdew-codes.de/Codenumbers/EMobilityId/ProviderIdList[Provider ID List] See https://bdew-codes.de/Codenumbers/EMobilityId/ProviderIdList[https://bdew-codes.de/Codenumbers/EMobilityId/ProviderIdList]
+* https://bdew-codes.de/Codenumbers/EMobilityId/OperatorIdList[EVSE Operator ID List] See https://bdew-codes.de/Codenumbers/EMobilityId/OperatorIdList[https://bdew-codes.de/Codenumbers/EMobilityId/OperatorIdList]
+
+[[terminology_austria]]
+==== Austria
+
+Austrian Mobile Power GmbH maintains a registry for Austria. This list is not publicly available.
+For more information visit http://austrian-mobile-power.at/tools/id-vergabe/information/[austrian-mobile-power.at]
+
+[[terminology_france]]
+==== France
+
+The AFIREV* organization will keep/keeps the registry for France. It provides operation Id for CPO and eMSP in compliance with eMI3 id structure. The prefix of these Ids is the “fr” country code. AFIREV will also be in charge of the definition of EVSE-Id structure, Charging-Pool-Id structure (location), and Contract-Id structure for France. AFIREV bases its requirements and recommendations on eMI3 definitions.
+
+AFIREV stands for: Association Française pour l’Itinérance de la Recharge Électrique des Véhicules
+
+[[terminology_charging_topology]]
+=== Charging topology
+
+The charging topology, as relevant to the eMSP, consists of three entities:
+
+* _Connector_ is a specific socket or cable available for the EV to make use of.
+* _EVSE_ is the part that controls the power supply to a single EV in a single session. An EVSE may provide multiple connectors but only one of these can be active at the same time.
+* _Location_ is a group of one or more EVSEs that belong together geographically or spatially.
+
+.Charging Topology schematic
+image::images/topology.svg[Charging Topology schematic]
+
+A Location is typically the exact location of one or more EVSEs, but it can also be the entrance of a parking garage or a gated community. It is up to the CPO to use whatever makes the most sense in a specific situation. Once arrived at the location, any further instructions to reach the EVSE from the Location are stored in the EVSE object itself (such as the floor number, visual identification or manual instructions).
+
+[[terminology_variable_names]]
+=== Variable names
+
+To prevent issues with capitals in variable names, the naming in JSON is not CamelCase but snake_case. All variables are lowercase and include an underscore for a whitespace.
+
+[[terminology_cardinality]]
+=== Cardinality
+
+When defining the cardinality of a field, the following symbols are used throughout this document:
+
+[cols="1,9,1",options="header"]
+|===
+|Symbol |Description |Type
+|? |An optional object. If not set, it might be `null`, or the field might be omitted. When the field is set to null or omitted and it has a default value, the value is the default value. |Object
+|1 |Required object. |Object 
+|* |A list of zero or more objects. If empty, it might be `null`, `[]` or the field might be omitted. |[Object] 
+|+ |A list of at least one object. |[Object] 
+|===
+
+
+[[introduction_data_retention]]
+=== Data Retention
+
+OCPI does not specify how long a system should store data. Companies are RECOMMENDED to make this part of business contracts.
+Parties also will need to oblige to local legislation.
+
+==== Between OCPI version
+
+When a new version of OCPI is implemented, the data exchanged via the old version does not have to be available via the newer version of OCPI.
+Hence, the Version end-point will probably have different end-points per version. So when an object is stored with a URL that contains a version,
+it is NOT REQUIRED to be available at a URL with a different version number.

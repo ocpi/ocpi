@@ -1,0 +1,30 @@
+{
+  "country_code": "DE",
+  "party_id": "ALL",
+  "id": "20",
+  "currency": "EUR",
+  "elements": [{
+    "price_components": [{
+      "type": "TIME",
+      "price": 5.00,
+      "vat": 20.0,
+      "step_size": 60
+    }],
+    "restrictions": {
+      "reservation": "RESERVATION"
+    }
+  }, {
+    "price_components": [{
+      "type": "FLAT",
+      "price": 0.50,
+      "vat": 20.0,
+      "step_size": 1
+    }, {
+      "type": "ENERGY",
+      "price": 0.25,
+      "vat": 10.0,
+      "step_size": 1
+    }]
+  }],
+  "last_updated": "2019-02-03T17:00:11Z"
+}

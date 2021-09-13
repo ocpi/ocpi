@@ -1,0 +1,17 @@
+{
+  "data": {
+    "country_code": "DE",
+    "party_id": "TNM",
+    "uid": "012345678",
+    "type": "RFID",
+    "contract_id": "FA54320",
+    "visual_number": "DF000-2001-8999",
+    "issuer": "TheNewMotion",
+    "valid": true,
+    "whitelist": "ALLOWED",
+    "last_updated": "2015-06-29T22:39:09Z"
+  },
+  "status_code": 1000,
+  "status_message": "Success",
+  "timestamp": "2015-06-30T21:59:59Z"
+}

@@ -1,0 +1,23 @@
+@startuml
+skinparam dpi 100
+hide footbox
+
+participant "CPO1" as CPO1
+participant "HUB" as HUB
+participant "eMSP1" as MSP1
+participant "eMSP2" as MSP2
+participant "eMSP3" as MSP3
+
+CPO1 -> HUB: HTTP: GET\nFROM: CPO1
+activate CPO1
+activate HUB
+HUB --> HUB: Determine\nrouting
+HUB -> MSP2: HTTP: GET\nTO: MSP2\nFROM: CPO1
+activate MSP2
+MSP2 -> HUB: HTTP: RESPONSE 200\nTO: CPO1\nFROM: MSP2
+deactivate MSP2
+HUB -> CPO1: HTTP: RESPONSE 200\nTO: CPO1\nFROM: MSP2
+deactivate CPO1
+
+deactivate HUB
+@enduml

@@ -1,0 +1,73 @@
+{
+  "country_code": "DE",
+  "party_id": "ALL",
+  "id": "14",
+  "currency": "EUR",
+  "type": "REGULAR",
+  "tariff_alt_url": "https://company.com/tariffs/14",
+  "elements": [{
+    "price_components": [{
+      "type": "FLAT",
+      "price": 2.50,
+      "vat": 15.0,
+      "step_size": 1
+    }]
+  }, {
+    "price_components": [{
+      "type": "TIME",
+      "price": 1.00,
+      "vat": 20.0,
+      "step_size": 900
+    }],
+    "restrictions": {
+      "max_current": 32.00
+    }
+  }, {
+    "price_components": [{
+      "type": "TIME",
+      "price": 2.00,
+      "vat": 20.0,
+      "step_size": 600
+    }],
+    "restrictions": {
+      "min_current": 32.00,
+      "day_of_week": ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY"]
+    }
+  }, {
+    "price_components": [{
+      "type": "TIME",
+      "price": 1.25,
+      "vat": 20.0,
+      "step_size": 600
+    }],
+    "restrictions": {
+      "min_current": 32.00,
+      "day_of_week": ["SATURDAY", "SUNDAY"]
+    }
+  }, {
+    "price_components": [{
+      "type": "PARKING_TIME",
+      "price": 5.00,
+      "vat": 10.0,
+      "step_size": 300
+    }],
+    "restrictions": {
+      "start_time": "09:00",
+      "end_time": "18:00",
+      "day_of_week": ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY"]
+    }
+  }, {
+    "price_components": [{
+      "type": "PARKING_TIME",
+      "price": 6.00,
+      "vat": 10.0,
+      "step_size": 300
+    }],
+    "restrictions": {
+      "start_time": "10:00",
+      "end_time": "17:00",
+      "day_of_week": ["SATURDAY"]
+    }
+  }],
+  "last_updated": "2015-06-29T20:39:09Z"
+}

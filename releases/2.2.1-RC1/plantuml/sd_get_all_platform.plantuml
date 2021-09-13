@@ -1,0 +1,17 @@
+@startuml
+skinparam dpi 100
+hide footbox
+
+box "Platform" #LightBlue
+  participant "CPO1" as CPO1
+end box
+participant "HUB" as HUB
+
+CPO1 -> HUB: HTTP: GET\nTO:HUB\nFROM: CPO1
+activate CPO1
+activate HUB
+HUB -> CPO1: HTTP: RESPONSE 200\nTO: CPO1\nFROM: HUB
+deactivate CPO1
+
+deactivate HUB
+@enduml

@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="607px" preserveAspectRatio="xMinYMin meet" style="width:505px;height:607px;background:#FFFFFF;" version="1.1" viewBox="0 0 505 607" width="505px" zoomAndPan="magnify"  xmlns:drawsvg="http://www.drawsvg.org"><defs id="drawsvgConstraints"><defs id="constraint1" drawsvg:constraint="{'type':'connectPoints', 'ids':['rect1','e2_PLATFORM'], 'priority':0, 'index-p1':2, 'index-p2':0}"/><defs id="constraint2" drawsvg:constraint="{'type':'connectPoints', 'ids':['rect1','MSP3-HUB_PLATFORM'], 'priority':0, 'index-p1':0, 'index-p2':1}"/></defs><rect id="svgEditorBackground" x="0" y="0" width="505" height="607" style="fill:none;stroke:none;"/><defs><filter height="300%" id="fz54cajjzer3g" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[f09c736075e84ec588eb3715404377b2]
+cluster MSP1--><rect fill="#FFFFFF" filter="url(#fz54cajjzer3g)" height="193" rx="4" ry="4" style="stroke:#000000;stroke-width:1.5;" width="116" x="7" y="402"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="87" x="21.5" y="416.9951">PLATFORM</text><!--MD5=[127dbdc9ceb595fca00dc8c6ee24e70f]
+cluster MSP2--><rect fill="#FFFFFF" filter="url(#fz54cajjzer3g)" height="193" rx="4" ry="4" style="stroke:#000000;stroke-width:1.5;" width="116" x="7" y="169"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="87" x="21.5" y="183.9951">PLATFORM</text><!--MD5=[a83bbea80a81ea5615ebf2a0022a91cc]
+cluster MSP3--><rect fill="#FFFFFF" filter="url(#fz54cajjzer3g)" height="122" rx="4" ry="4" style="stroke:#000000;stroke-width:1.5;" width="116" x="7" y="7"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="87" x="21.5" y="21.9951">PLATFORM</text><!--MD5=[291c32be7361e85764bf26ff6ab93741]
+cluster CPOP1--><rect fill="#FFFFFF" filter="url(#fz54cajjzer3g)" height="193" rx="4" ry="4" style="stroke:#000000;stroke-width:1.5;" width="107" x="386" y="402"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="87" x="396" y="416.9951">PLATFORM</text><!--MD5=[8144d4a938a9691310ea3b27ea61167f]
+cluster CPOP2--><rect fill="#FFFFFF" filter="url(#fz54cajjzer3g)" height="193" rx="4" ry="4" style="stroke:#000000;stroke-width:1.5;" width="107" x="386" y="169"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="87" x="396" y="183.9951">PLATFORM</text><!--MD5=[56e187b20c963c0c4176c0b1f931d514]
+cluster CPOP3--><rect fill="#FFFFFF" filter="url(#fz54cajjzer3g)" height="122" rx="4" ry="4" style="stroke:#000000;stroke-width:1.5;" width="107" x="386" y="7"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="87" x="396" y="21.9951">PLATFORM</text><!--MD5=[4cf77160a976f6300a8bdf637d111a72]
+cluster HUB_PLATFORM--><rect fill="#FFFFFF" filter="url(#fz54cajjzer3g)" height="122" rx="4" ry="4" style="stroke:#000000;stroke-width:1.5;" width="103" x="200.70791625976562" y="240" id="rect1" drawsvg:constraints="['constraint1','constraint2']"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="87" x="211" y="254.9951">PLATFORM</text><!--MD5=[ace34aa828d25075ebe31fe8f9e9d520]
+entity eMSP1--><rect fill="#FEFECE" filter="url(#fz54cajjzer3g)" height="36.2969" rx="4" ry="4" style="stroke:#A80036;stroke-width:1.5;" width="68" x="31" y="445"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="48" x="41" y="467.9951">eMSP1</text><!--MD5=[14f317cf115f859ecbca367a1f93d7a7]
+entity eMSP2--><rect fill="#FEFECE" filter="url(#fz54cajjzer3g)" height="36.2969" rx="4" ry="4" style="stroke:#A80036;stroke-width:1.5;" width="67" x="31.5" y="516"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="47" x="41.5" y="538.9951">eMSP2</text><!--MD5=[e60f0328916b426aa19890cc25d3d5be]
+entity eMSP3--><rect fill="#FEFECE" filter="url(#fz54cajjzer3g)" height="36.2969" rx="4" ry="4" style="stroke:#A80036;stroke-width:1.5;" width="68" x="31" y="212"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="48" x="41" y="234.9951">eMSP3</text><!--MD5=[665025f6a18530f9240ca984646f463a]
+entity eMSP4--><rect fill="#FEFECE" filter="url(#fz54cajjzer3g)" height="36.2969" rx="4" ry="4" style="stroke:#A80036;stroke-width:1.5;" width="67" x="31.5" y="283"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="47" x="41.5" y="305.9951">eMSP4</text><!--MD5=[33ffdd7f4fb414f190988cd014ab21fb]
+entity eMSP5--><rect fill="#FEFECE" filter="url(#fz54cajjzer3g)" height="36.2969" rx="4" ry="4" style="stroke:#A80036;stroke-width:1.5;" width="68" x="31" y="50"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="48" x="41" y="72.9951">eMSP5</text><!--MD5=[79ff4439180114a458f3bb28c32444ea]
+entity CPO1--><rect fill="#FEFECE" filter="url(#fz54cajjzer3g)" height="36.2969" rx="4" ry="4" style="stroke:#A80036;stroke-width:1.5;" width="59" x="410" y="445"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="39" x="420" y="467.9951">CPO1</text><!--MD5=[259c2d6bd28f677ecd8502b22ad74e09]
+entity CPO2--><rect fill="#FEFECE" filter="url(#fz54cajjzer3g)" height="36.2969" rx="4" ry="4" style="stroke:#A80036;stroke-width:1.5;" width="58" x="410.5" y="516"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="38" x="420.5" y="538.9951">CPO2</text><!--MD5=[6fe7bfceef8034a87a1038b657bd9d14]
+entity CPO3--><rect fill="#FEFECE" filter="url(#fz54cajjzer3g)" height="36.2969" rx="4" ry="4" style="stroke:#A80036;stroke-width:1.5;" width="59" x="410" y="212"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="39" x="420" y="234.9951">CPO3</text><!--MD5=[30751468085094dc368e1eef570ea0d7]
+entity CPO4--><rect fill="#FEFECE" filter="url(#fz54cajjzer3g)" height="36.2969" rx="4" ry="4" style="stroke:#A80036;stroke-width:1.5;" width="58" x="410.5" y="283"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="38" x="420.5" y="305.9951">CPO4</text><!--MD5=[2fff9607ab625018d5bade5726c05cac]
+entity CPO5--><rect fill="#FEFECE" filter="url(#fz54cajjzer3g)" height="36.2969" rx="4" ry="4" style="stroke:#A80036;stroke-width:1.5;" width="59" x="410" y="50"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="39" x="420" y="72.9951">CPO5</text><!--MD5=[4219e0dda3ef77e1d58789183c17f4ee]
+entity Hub--><rect fill="#FEFECE" filter="url(#fz54cajjzer3g)" height="36.2969" rx="4" ry="4" style="stroke:#A80036;stroke-width:1.5;" width="48" x="230" y="283"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="28" x="240" y="305.9951">Hub</text><!--MD5=[70208fed19ab5f407547ddf479075319]
+link MSP1 to HUB_PLATFORM--><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="30" x="250" y="87.0669">OCPI</text><!--MD5=[c6a3064b63ca06cace1043bcc3f38cf3]
+link MSP2 to HUB_PLATFORM--><path d="M122.07247108214726,298C122.40157108214727,298,122.73137108214726,298,123.06197108214727,298C123.72297108214727,298,124.38667108214727,298,125.05307108214727,298C135.7149710821473,298,147.0406710821473,298,158.3658710821473,298C169.69097108214729,298,181.01537108214728,298,191.67457108214728,298C194.3393710821473,298,196.9625710821473,298,199.5338710821473,298C200.1766710821473,298,200.8162710821473,298,201.4523710821473,298" fill="none" id="MSP2-HUB_PLATFORM" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="30" x="172" y="395.067">OCPI</text><!--MD5=[a12634adf83280e2012db299c3d44e3b]
+link MSP3 to HUB_PLATFORM--><path d="M121.392,128.0935C200.90654216429454,239.81768222946317,138.6672,150.7253,200.70791625976562,240" fill="none" id="MSP3-HUB_PLATFORM" style="stroke:#A80036;stroke-width:1.0;" drawsvg:constraints="['constraint2']"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="30" x="178" y="193.067">OCPI</text><!--MD5=[cb14a98efba0bcaae9fd6d34a7ec97b7]
+link HUB_PLATFORM to CPOP1--><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="30" x="305" y="396.067">OCPI</text><!--MD5=[26cd225e6fd7fe1d6b7758314f7e0766]
+link HUB_PLATFORM to CPOP2--><path d="M305.79583554107364,296C308.31973554107367,296,310.8946355410736,296,313.5101355410736,296C323.97243554107365,296,335.0862355410736,296,346.19933554107365,296C357.3124355410736,296,368.42493554107364,296,378.88453554107366,296C380.19203554107366,296,381.4893355410737,296,382.77503554107363,296C383.41793554107363,296,384.0579355410737,296,384.6949355410737,296C384.85423554107365,296,385.0133355410737,296,385.17213554107366,296" fill="none" id="HUB_PLATFORM-CPOP2" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="30" x="152" y="316.067">OCPI</text><!--MD5=[b3d11f197d0c15a3967094413f62b8b2]
+link HUB_PLATFORM to CPOP3--><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="30" x="301" y="193.067">OCPI</text><!--MD5=[cbd63e42f825b11c8edac63b0b6990f3]
+link MSP1 to CPOP1--><path d="M124.235,495C124.7722,495,125.3123,495,125.855,495C160.59,495,206.4291,495,252.2669,495C298.1047,495,343.9411,495,378.6706,495C380.8412,495,382.9684,495,385.0495,495C385.3096,495,385.5691,495,385.8278,495" fill="none" id="MSP1-CPOP1" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[707d830eac91364001ccb152f25de554]
+link MSP3 to CPOP3--><path d="M124.235,67C124.7722,67,125.3123,67,125.855,67C160.59,67,206.4291,67,252.2669,67C298.1047,67,343.9411,67,378.6706,67C380.8412,67,382.9684,67,385.0495,67C385.3096,67,385.5691,67,385.8278,67" fill="none" id="MSP3-CPOP3" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[aff90592c0a633d95751825446a33410]
+@startuml
+skinparam agent {
+	roundCorner 8
+}
+
+skinparam rectangle {
+	roundCorner 8
+}
+
+left to right direction
+
+rectangle PLATFORM as MSP1 {
+  agent eMSP1
+  agent eMSP2
+}
+
+rectangle PLATFORM as MSP2 {
+  agent eMSP3
+  agent eMSP4
+}
+
+rectangle PLATFORM as MSP3 {
+  agent eMSP5
+}
+
+rectangle PLATFORM as CPOP1 {
+  agent CPO1
+  agent CPO2
+}
+
+rectangle PLATFORM as CPOP2 {
+  agent CPO3
+  agent CPO4
+}
+
+rectangle PLATFORM as CPOP3 {
+  agent CPO5
+}
+
+rectangle PLATFORM as HUB_PLATFORM {
+  agent Hub
+}
+
+MSP1- -HUB_PLATFORM: OCPI
+MSP2- -HUB_PLATFORM: OCPI
+MSP3- -HUB_PLATFORM: OCPI
+HUB_PLATFORM- -CPOP1: OCPI
+HUB_PLATFORM- -CPOP2: OCPI
+HUB_PLATFORM- -CPOP3: OCPI
+
+MSP1- -CPOP1
+MSP3- -CPOP3
+@enduml
+
+PlantUML version 1.2021.7(Sun May 23 12:40:07 UTC 2021)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--><path d="M388.392,129.0935C303.2432,243.5256,388.6672,127.7253,305.0933,240.9209" fill="none" id="e4_PLATFORM" style="stroke:#A80036;stroke-width:1.0;"/><path d="M122.392,402.0935C207.2432,357.5256,123.66720000000001,400.7253,202.29623101697865,360.0892289178527" fill="none" id="e1_PLATFORM" style="stroke:#A80036;stroke-width:1.0;"/><path d="M303.7079162597656,362C383.2432,403.5256,303.6672,361.7253,386.77738374023437,403.0144" fill="none" id="e2_PLATFORM" style="stroke:#A80036;stroke-width:1.0;" drawsvg:constraints="['constraint1']"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="30" x="238" y="485.067" id="e1_text">OCPI</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="30" x="330" y="314.067" id="e2_text">OCPI</text></g></svg>

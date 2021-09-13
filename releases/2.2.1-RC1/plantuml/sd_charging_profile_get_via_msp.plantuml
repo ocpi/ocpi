@@ -1,0 +1,37 @@
+@startuml
+hide footbox
+
+participant "SCSP\nSender" as SCSP
+participant "eMSP\nSender\n&\nReceiver" as eMSP
+participant "CPO\nReceiver" as CPO
+participant "Charge Point" as CP
+
+NOTE over SCSP, CP: Ongoing Session with id=15
+
+activate SCSP
+SCSP -> eMSP: GET https:~//server.com/ocpi/2.2/chargingprofiles/15\n                     ?response_url=https:~//scsp.com/12345
+activate eMSP
+eMSP -> CPO: GET https:~//server.com/ocpi/2.2/chargingprofiles/15\n                     ?response_url=https:~//emsp.com/789AB
+activate CPO
+CPO  --> eMSP: status_code = 1000, data: \n   {ChargingProfileResponse { result = ACCEPTED }}
+eMSP  --> SCSP: status_code = 1000, data: \n   {ChargingProfileResponse { result = ACCEPTED }}
+deactivate eMSP
+deactivate SCSP
+
+CPO  ->  CP:   GetCompositeSchedule.req
+deactivate CPO
+activate CP
+CP   ->  CPO:  GetCompositeSchedule.conf
+deactivate CP
+activate CPO
+CPO  ->  eMSP: POST https:~//emsp.com/789AB\nActiveProfileResult(result = ACCEPTED, ActiveChargingProfile)
+activate eMSP
+eMSP --> CPO:
+deactivate CPO
+eMSP  ->  SCSP: POST https:~//scsp.com/12345\nActiveProfileResult(result = ACCEPTED, ActiveChargingProfile)
+activate SCSP
+SCSP --> eMSP:
+deactivate eMSP
+deactivate SCSP
+
+@enduml

@@ -1,0 +1,27 @@
+@startuml
+concise "twentyfourseven" as TFS
+concise "exceptional_closing" as EC
+concise "result opening hours" as RES
+
+@0
+EC is {-}
+RES is Open
+TFS is Open
+
+
+@1
+
+@2
+
+@3
+EC is Closed
+RES is {-}
+
+@4
+
+@5
+EC is {-}
+RES is Open
+
+@6
+@enduml

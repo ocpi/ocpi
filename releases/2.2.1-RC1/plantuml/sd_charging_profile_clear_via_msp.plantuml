@@ -1,0 +1,37 @@
+@startuml
+hide footbox
+
+participant "SCSP" as SCSP
+participant "eMSP\nSender\n&\nReceiver" as eMSP
+participant "CPO\nReceiver" as CPO
+participant "Charge Point" as CP
+
+NOTE over SCSP, CP: Ongoing Session with id=15
+
+SCSP -> eMSP: DELETE https:~//server.com/ocpi/2.2/chargingprofiles/15\n                     ?response_url=https:~//scsp.com/12345
+activate SCSP
+activate eMSP
+eMSP -> CPO: DELETE https:~//server.com/ocpi/2.2/chargingprofiles/15\n                     ?response_url=https:~//emsp.com/789AB
+activate CPO
+CPO  --> eMSP: status_code = 1000, data: \n   {ChargingProfileResponse { result = ACCEPTED }}
+eMSP  --> SCSP: status_code = 1000, data: \n   {ChargingProfileResponse { result = ACCEPTED }}
+deactivate eMSP
+deactivate SCSP
+
+CPO  ->  CP:   ClearChargingProfile.req
+deactivate CPO
+activate CP
+CP   ->  CPO:  ClearChargingProfile.conf
+deactivate CP
+activate CPO
+CPO  ->  eMSP: POST https:~//emsp.com/789AB\nClearProfileResult(result = ACCEPTED)
+activate eMSP
+eMSP --> CPO:
+deactivate CPO
+eMSP  ->  SCSP: POST https:~//scsp.com/12345\nClearProfileResult(result = ACCEPTED)
+activate SCSP
+SCSP --> eMSP:
+deactivate SCSP
+deactivate eMSP
+
+@enduml

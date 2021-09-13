@@ -1,0 +1,43 @@
+{
+  "country_code": "NL",
+  "party_id": "ALL",
+  "id": "f76c2e0c-a6ef-4f67-bf23-6a187e5ca0e0",
+  "publish": false,
+  "publish_allowed_to": [{
+    "visual_number": "12345-67",
+    "issuer": "NewMotion"
+  }, {
+    "visual_number": "0055375624",
+    "issuer": "ANWB"
+  }, {
+    "uid": "12345678905880",
+    "type": "RFID"
+  }],
+  "name": "Water State",
+  "address": "Taco van der Veenplein 12",
+  "city": "Leeuwarden",
+  "postal_code": "8923 EM",
+  "country": "NLD",
+  "coordinates": {
+    "latitude": "53.213763",
+    "longitude": "5.804638"
+  },
+  "parking_type": "UNDERGROUND_GARAGE",
+  "evses": [{
+    "uid": "8c1b3487-61ac-40a7-a367-21eee99dbd90",
+    "evse_id": "NL*ALL*EGO0000013",
+    "status": "AVAILABLE",
+    "connectors": [{
+      "id": "1",
+      "standard": "IEC_62196_T2",
+      "format": "SOCKET",
+      "power_type": "AC_3_PHASE",
+      "max_voltage": 230,
+      "max_amperage": 16,
+      "last_updated": "2019-09-27T00:19:45Z"
+    }],
+    "last_updated": "2019-09-27T00:19:45Z"
+  }],
+  "time_zone": "Europe/Amsterdam",
+  "last_updated": "2019-09-27T00:19:45Z"
+}
