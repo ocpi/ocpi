@@ -23,7 +23,7 @@ eMSP / CPO
 Minor
 |Minimal / +
 Minimal
-|- Added 4000 Hub generic error
+|Added 4000 Hub generic error
 
 |CDRs / +
 CDR Object
