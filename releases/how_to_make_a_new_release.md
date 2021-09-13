@@ -1,6 +1,7 @@
 # Release procedure
 
-* Edit Makefile: set VERSION to the correct version labelo
+* Edit Makefile: set VERSION to the correct version label
+* Edit pdf_layout.asciidoc: set year and revdate
 * call make  
 * check the resulting PDF for formatting errors, etc.
 * if you're happy with the result: commit everything and push
