@@ -141,9 +141,9 @@ At this moment, the following countries have an authority that keeps track of th
 [[terminology_the_netherlands]]
 ==== The Netherlands, Belgium and Luxembourg (BeNeLux)
 
-The Dutch foundation, named http://www.eviolin.nl[eViolin] keeps the registry for The Netherlands, Belgium and Luxembourg.
+https://www.benelux-idro.eu/[Benelux IDRO] keeps the registry for The Netherlands, Belgium and Luxembourg.
 
-* The list of operator IDs and provider IDs can be viewed on their website http://www.eviolin.nl/index.php/leden/[eViolin/Leden].
+* The list of operator IDs and provider IDs can be viewed on their website https://www.benelux-idro.eu/nl/id-register[ID-register].
 
 [[terminology_germany]]
 ==== Germany
@@ -162,9 +162,32 @@ For more information visit http://austrian-mobile-power.at/tools/id-vergabe/info
 [[terminology_france]]
 ==== France
 
-The AFIREV* organization will keep/keeps the registry for France. It provides operation Id for CPO and eMSP in compliance with eMI3 id structure. The prefix of these Ids is the “fr” country code. AFIREV will also be in charge of the definition of EVSE-Id structure, Charging-Pool-Id structure (location), and Contract-Id structure for France. AFIREV bases its requirements and recommendations on eMI3 definitions.
+The https://www.afirev.fr/en/general-informations/[AFIREV* organization] will keep/keeps the registry for France. It provides operation Id for CPO and eMSP in compliance with eMI3 id structure. The prefix of these Ids is the “fr” country code. AFIREV will also be in charge of the definition of EVSE-Id structure, Charging-Pool-Id structure (location), and Contract-Id structure for France. AFIREV bases its requirements and recommendations on eMI3 definitions.
 
 AFIREV stands for: Association Française pour l’Itinérance de la Recharge Électrique des Véhicules
+
+
+[[terminology_hungary]]
+==== Hungary
+
+The https://idro.hu/[Hungarian ID Registration Office] keeps the register for Hungary.
+
+The list of all registered organizations can be found on their https://idro.hu/en/page/members[website].
+
+
+[[terminology_poland]]
+==== Poland
+
+https://eipa.udt.gov.pl/[EIPA (Ewidencja Infrastruktury Paliw Alternatywnych)] is a government organization that keeps the register for Poland.
+
+
+[[terminology_united_kingdomk]]
+==== UK
+
+https://www.realschemes.org.uk/ev-roam[EV Roam] is the first register of e-mobility IDs for Chargepoint Operators (CPO) and e-Mobility Service Providers (MSP) in the UK.
+
+Their https://www.realschemes.org.uk/ev-roam[website] shows the full list of currently registered organizations.
+
 
 [[terminology_charging_topology]]
 === Charging topology
