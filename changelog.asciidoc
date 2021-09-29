@@ -26,6 +26,14 @@ Minimal
 |Added 4000 Hub generic error
 
 |CDRs / +
+CdrToken Class
+|Minor / +
+Minor
+|Minor / +
+Major
+|Added mandatory `country_code` and `party_id` fields to make sure that a CdrToken uniquely identifies a charge token
+
+|CDRs / +
 CDR Object
 |Minor / +
 Minor
