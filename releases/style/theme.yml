@@ -1,5 +1,5 @@
-page:
-  background_image: release_candidate.png
+#page:
+#  background_image: release_candidate.png
 
 base:
   font_size: 9

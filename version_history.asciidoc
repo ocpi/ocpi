@@ -4,6 +4,10 @@
 |===
 |Version |Date |Author |Description
 
+|2.2.1 | 2021-10-06 | Reinier Lamers +
+_ihomer_ | final release of OCPI 2.2.1. +
+Added country_code and party_id to CdrToken class.
+
 |2.2.1 RC1 |13-09-2021 | Robert de Leeuw +
 _ihomer_ | first release candidate of OCPI 2.2.1. +
 Fixed datatype of CDR SignedData URL. +
