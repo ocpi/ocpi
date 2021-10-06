@@ -9,7 +9,7 @@ RETVAL=0
 FILE_COUNT=0
 ERROR_COUNT=0
 for jsonfile in *.json; do
-    jsonlint-php -q $jsonfile
+    jsonlint -q $jsonfile
     if [ $? != 0 ]; then
       echo ""
       ((++ERROR_COUNT));
