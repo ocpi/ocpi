@@ -4,16 +4,16 @@
 |===
 |Version |Date |Author |Description
 
-|2.2.1 | 2021-10-06 | Reinier Lamers +
+|2.2.1 |2021-10-06 | Reinier Lamers +
 _ihomer_ | final release of OCPI 2.2.1. +
 Added country_code and party_id to CdrToken class.
 
-|2.2.1 RC1 |13-09-2021 | Robert de Leeuw +
+|2.2.1 RC1 |2021-09-13 | Robert de Leeuw +
 _ihomer_ | first release candidate of OCPI 2.2.1. +
 Fixed datatype of CDR SignedData URL. +
 Improved some descriptions. +
 
-|2.2.1 draft1 |07-07-2021 | Robert de Leeuw +
+|2.2.1 draft1 |2021-07-07 | Robert de Leeuw +
 _ihomer_ | first draft of the OCPI 2.2.1. +
            Fixed length of CDR SignedData, increased to 5000. +
            Change signed data related fields to string +
@@ -25,32 +25,32 @@ _ihomer_ | first draft of the OCPI 2.2.1. +
            Added optional field: `home_charging_compensation` to CDR. +
            Improved description.examples Tariff for `step_size`
 
-|2.2-d2 |12-06-2020 | Robert de Leeuw +
+|2.2-d2 |2020-06-12 | Robert de Leeuw +
 _ihomer_ | 2nd documentation revision of the OCPI 2.2 spec. +
            Contains textual improvements and fixes some of the examples. +
            Most improvements in the tarrifs module, especially `step_size` is better explained.
-|2.2 |30-09-2019 | Robert de Leeuw +
+|2.2 |2019-09-30 | Robert de Leeuw +
 _ihomer_ |Added support for Roaming Hubs +
         Adds support for Platforms with multiple/different roles, additional roles +
         Adds support for smart charging +
         Lots of improvements to existing modules +
         See <<changelog.asciidoc#changelog_changelog,changelog>>
-|2.1.1-d2 |	21-06-2019 |Robert de Leeuw +
+|2.1.1-d2 |2019-06-21 |Robert de Leeuw +
                         ihomer |Fixes the command module documentation, fixes a lot of examples, lots of small textual improvements: see <<changelog.asciidoc#changelog_changelog,changelog>>
-|2.1.1 |08-06-2017 | Robert de Leeuw +
+|2.1.1 |2017-06-08 | Robert de Leeuw +
                   _ihomer_  |Fixed 4 bugs found in OCPI 2.1, lots of small textual improvements: see <<changelog.asciidoc#changelog_changelog,changelog>>
-|2.1 |08-04-2016 | Robert de Leeuw +
+|2.1 |2016-04-08 | Robert de Leeuw +
                 _ihomer_  |Added <<mod_commands.asciidoc#mod_commands_commands_module,command module>>. +
  Added support for <<mod_tokens.asciidoc#mod_tokens_real-time_authorization,real-time authorization>>. + 
  Lots of small improvements: see <<changelog.asciidoc#changelog_changelog,changelog>> 
-|2.0-d2 |15-02-2016 | Robert de Leeuw +
+|2.0-d2 |2016-02-15 | Robert de Leeuw +
                    _ihomer_  |2nd documentation revision of the OCPI 2.0 spec. +
  Only documentation updated: ConnectorType of Connector + 
  was not visible, credentials clarified, location URL + 
  segments incorrect (now string, was int), + 
  minor textual updates. + 
  DateTime with timezones is still an issue 
-|2.0 |30-12-2015 | Robert de Leeuw +
+|2.0 |2015-12-30 | Robert de Leeuw +
                 _ihomer_ +
                  Simon Philips +
                  _Becharged_ +
@@ -58,9 +58,9 @@ _ihomer_ |Added support for Roaming Hubs +
                  _The New Motion_ + 
                  Simon Schilling
                  |First official release of OCPI.
-|0.4 |04-11-2014 | Olger Warnier +
+|0.4 |2014-11-04 | Olger Warnier +
                 _The New Motion_  |First draft of OCPI. (Also known as Draft v4)
-|0.3 |06-05-2014 | Olger Warnier +
+|0.3 |2014-05-06 | Olger Warnier +
                 _The New Motion_  |First draft of OCPI. (Also known as Draft v3)
 |===
 
