@@ -4,26 +4,25 @@
 |===
 |Version |Date |Author |Description
 
-|2.2.1 |2021-10-06 | Reinier Lamers +
+|2.2.1 |2021-10-06 |
+Robert de Leeuw +
+_ihomer_ +
+Reinier Lamers +
 _ihomer_ | final release of OCPI 2.2.1. +
 Added country_code and party_id to CdrToken class.
 
-|2.2.1 RC1 |2021-09-13 | Robert de Leeuw +
-_ihomer_ | first release candidate of OCPI 2.2.1. +
 Fixed datatype of CDR SignedData URL. +
 Improved some descriptions. +
 
-|2.2.1 draft1 |2021-07-07 | Robert de Leeuw +
-_ihomer_ | first draft of the OCPI 2.2.1. +
-           Fixed length of CDR SignedData, increased to 5000. +
-           Change signed data related fields to string +
-           postal_code optional in CdrLocation. +
-           state added to CdrLocation. +
-           AC_2_PHASE and AC_2_PHASE_SPLIT added to PowerType in Connector +
-           Additional types added to ConnectorType in Connector +
-           Added `connector_id` to StartSession command and `START_SESSION_CONNECTOR_REQUIRED` to EVSE Capabilities. +
-           Added optional field: `home_charging_compensation` to CDR. +
-           Improved description.examples Tariff for `step_size`
+Fixed length of CDR SignedData, increased to 5000. +
+Change signed data related fields to string +
+postal_code optional in CdrLocation. +
+state added to CdrLocation. +
+AC_2_PHASE and AC_2_PHASE_SPLIT added to PowerType in Connector +
+Additional types added to ConnectorType in Connector +
+Added `connector_id` to StartSession command and `START_SESSION_CONNECTOR_REQUIRED` to EVSE Capabilities. +
+Added optional field: `home_charging_compensation` to CDR. +
+Improved description.examples Tariff for `step_size`
 
 |2.2-d2 |2020-06-12 | Robert de Leeuw +
 _ihomer_ | 2nd documentation revision of the OCPI 2.2 spec. +
