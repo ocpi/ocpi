@@ -520,7 +520,7 @@ An *EVSE* object has a list of connectors which can not be used simultaneously: 
 | physical_reference                   | [string](types.md#15-string-type)(16)              | ?     | A number/string printed on the outside of the EVSE for visual identification.     |
 | directions                           | [DisplayText](types.md#13-displaytext-class)       | *     | Multi-language human-readable directions when more detailed information on how to reach the EVSE from the *Location* is required.     |
 | parking_restrictions                 | [ParkingRestriction](#417-parkingrestriction-enum) | *     | The restrictions that apply to the parking spot.                       |
-| images                               | [Image](#48-image-class)                           | *     | Links to images related to the EVSE such as photos or logos.           |
+| images                               | [Image](#414-image-class)                             | *     | Links to images related to the EVSE such as photos or logos.           |
 | last_updated                         | [DateTime](types.md#12-datetime-type)              | 1     | Timestamp when this EVSE or one of its Connectors was last updated (or created).  |
 <div><!-- ---------------------------------------------------------------------------- --></div>
 
