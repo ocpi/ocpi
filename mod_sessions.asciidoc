@@ -445,7 +445,7 @@ This gives the EV driver the option between different pricing options.
 
 Different smart charging profile types.
 
-No value should be returned instead of `NOT_SUPPORTED` when a PUT with `ChargingPreferences` is received for an EVSE that does not have the capability `CHARGING_PROFILE_CAPABLE`. Use HTTP 404 instead.
+If a PUT with `ChargingPreferences` is received for an EVSE that does not have the capability `CHARGING_PREFERENCES_CAPABLE`, the receiver should respond with an HTTP status of 404 and an OCPI status code of 2001 in the <<transport_and_format_response_format, OCPI response object>>.
 
 [cols="5,8",options="header"]
 |===
