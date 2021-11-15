@@ -21,12 +21,12 @@
       "latitude": "3.729944",
       "longitude": "51.047599"
     },
-    "evses_uid": "3256",
+    "evse_uid": "3256",
     "evse_id": "BE*BEC*E041503003",
-    "connectors_id": "1",
-    "connectors_standard": "IEC_62196_T2",
-    "connectors_format": "SOCKET",
-    "connectors_power_type": "AC_1_PHASE"
+    "connector_id": "1",
+    "connector_standard": "IEC_62196_T2",
+    "connector_format": "SOCKET",
+    "connector_power_type": "AC_1_PHASE"
   },
   "currency": "EUR",
   "tariffs": [{
