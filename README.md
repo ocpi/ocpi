@@ -1,12 +1,14 @@
-This repository contains the OCPI specification, latest release: [`OCPI 2.2-d2`](https://github.com/ocpi/ocpi/releases/download/2.2-d2/OCPI-2.2-d2.pdf)
+This repository contains the OCPI specification, latest release: [`OCPI 2.2.1`](https://evroaming.org/app/uploads/2021/11/OCPI-2.2.1.pdf)
 
-The branch with the latest fixes to the 2.2 documentation is [`release-2.2-bugfixes`](https://github.com/ocpi/ocpi/tree/release-2.2-bugfixes)
+The branch with the latest fixes to the 2.2.1 documentation is [`release-2.2.1-bugfixes`](https://github.com/ocpi/ocpi/tree/release-2.2.1-bugfixes)
 
-The branch with the latest fixes to the 2.1.1-d2 documentation is [`release-2.1.1-bugfixes`](https://github.com/ocpi/ocpi/tree/release-2.1.1-bugfixes)
+-The branch with the latest fixes to the 2.2 documentation is [`release-2.2-bugfixes`](https://github.com/ocpi/ocpi/tree/release-2.2-bugfixes)
+
+The branch with the latest fixes to the 2.1.1 documentation is [`release-2.1.1-bugfixes`](https://github.com/ocpi/ocpi/tree/release-2.1.1-bugfixes)
 
 The `master` branch always contains the latest official release.
 
-Development of the next version of OCPI, new functionality, is done in the  [`develop-3.0`](https://github.com/ocpi/ocpi/tree/develop-3.0) branch.
+Development of the next version of OCPI, new functionality, is done in the  [ocpi-3 repository](https://github.com/ocpi/ocpi-3/), which is only accessible to Contributors of the [EV Roaming Foundation](https://evroaming.org/how-to-join/).
 
 ## Contents
 
@@ -33,9 +35,13 @@ Development of the next version of OCPI, new functionality, is done in the  [`de
    - [Types](types.asciidoc)
  * [__Changelog__](changelog.asciidoc)
 
-__Current versions:__
+### Current versions
 
-Release 2.2-d2:
+#### Release 2.2.1
+
+Only minor changes, but breaking compatibility with 2.2 in order to support signed data exchange so that parties using OCPI can comply with consumer protection legislation. A more detailed overview is inside [the specification document itself](https://evroaming.org/app/uploads/2021/11/OCPI-2.2.1.pdf).
+
+#### Release 2.2-d2
 
 - Support for Hubs 
   - Message routing headers 
@@ -52,14 +58,14 @@ Release 2.2-d2:
   - Commands: Cancel Reservation added
 - fixes some bugs of 2.1.1
 
-Release 2.1.1-d2:
+#### Release 2.1.1-d2
 
 - Improvements from rel. 2.0
 - Chargepoint commands
 - realtime authorization
 - fixes some bugs of 2.1 (2.1 is now deprecated)
 
-Release 2.0: 
+#### Release 2.0
 
 - Charge Point Exchange Static & Dynamic (with tariffing covering only start/kWh/time)
 - Authorization & token data exchange
@@ -68,16 +74,16 @@ Release 2.0:
 - Registration (How to connect) & Security
 
 
-__Planned releases:__
+### Planned releases
 
-Release 3.0:
+#### Release 3.0
 
 - ISO 15118 Plug&Charge
 - Eichrecht support
 - Performance improvements
 
 
-__Building Process__:
+## Building Process
 
 The OCPI Build Process has been improved. OCPI 2.0/2.1.1 was in markdown format, and diagrams where Plantuml.
 
