@@ -22,7 +22,7 @@ Every OCPI HTTP request MUST add an 'Authorization' header. The header looks as 
 
 [source]
 ----
-  Authorization: Token IpbJOXxkxOAuKR92z0nEcmVF3Qw09VG7I7d/WCg0koM=
+  Authorization: Token ZWJmM2IzOTktNzc5Zi00NDk3LTliOWQtYWM2YWQzY2M0NGQyCg==
 ----
 
 NOTE: HTTP header names are case-insensitive
@@ -33,7 +33,7 @@ The literal 'Token' indicates that the token-based authentication mechanism is u
 These are different 'tokens' than the <<mod_tokens.asciidoc#mod_tokens_token_object,Tokens>> exchanged via the <<mod_tokens.asciidoc#mod_tokens_tokens_module,Token Module>>: Tokens used by drivers to authorize charging.
 To prevent confusion, when talking about the token used here in the HTTP Authorization header, call them: 'Credentials Tokens'.
 
-Its parameter is a string consisting of printable, non-whitespace ASCII characters. It contains the 'credentials token' Base64 encoded.
+After the literal 'Token', there SHALL be a space (U+0020), followed by the credentials token encoded with Base64 according to <<https://datatracker.ietf.org/doc/html/rfc4648#section-4,RFC 4648>>.
 
 The credentials token must uniquely identify the requesting party.
 This way, the server can use the information in the Authorization header to link the request to the correct requesting party's account.
