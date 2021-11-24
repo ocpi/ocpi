@@ -35,6 +35,8 @@ To prevent confusion, when talking about the token used here in the HTTP Authori
 
 After the literal 'Token', there SHALL be a space (U+0020), followed by the credentials token encoded with Base64 according to <<https://datatracker.ietf.org/doc/html/rfc4648#section-4,RFC 4648>>.
 
+NOTE: Many OCPI 2.1.1 and 2.2 implementations do not Base64 encode the credentials token when including it in the 'Authorization' header. Since OCPI 2.2-d2 the OCPI specification documents clearly require Base64 encoding the credentials token in the header value. Implementations that wish to be compatible with non-encoding 2.1.1 and 2.2 implementations have to choose the right way to parse and write authorization headers by either trial and error or configuration flags.
+
 The credentials token must uniquely identify the requesting party.
 This way, the server can use the information in the Authorization header to link the request to the correct requesting party's account.
 
