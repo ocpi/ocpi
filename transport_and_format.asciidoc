@@ -33,7 +33,15 @@ The literal 'Token' indicates that the token-based authentication mechanism is u
 These are different 'tokens' than the <<mod_tokens.asciidoc#mod_tokens_token_object,Tokens>> exchanged via the <<mod_tokens.asciidoc#mod_tokens_tokens_module,Token Module>>: Tokens used by drivers to authorize charging.
 To prevent confusion, when talking about the token used here in the HTTP Authorization header, call them: 'Credentials Tokens'.
 
-After the literal 'Token', there SHALL be a space (U+0020), followed by the credentials token encoded with Base64 according to <<https://datatracker.ietf.org/doc/html/rfc4648#section-4,RFC 4648>>.
+After the literal 'Token', there SHALL be one space, followed by the 'encoded token'. The encoded token is obtained by encoding the credentials token to an octet sequence with UTF-8 and then encoding that octet sequence with Base64 according to https://datatracker.ietf.org/doc/html/rfc4648#section-4[RFC 4648].
+
+So for example, to use the credentials token 'example-token' in an OCPI request, one should include this header:
+
+[source]
+----
+  Authorization: Token ZXhhbXBsZS10b2tlbgo=
+----
+
 
 NOTE: Many OCPI 2.1.1 and 2.2 implementations do not Base64 encode the credentials token when including it in the 'Authorization' header. Since OCPI 2.2-d2 the OCPI specification documents clearly require Base64 encoding the credentials token in the header value. Implementations that wish to be compatible with non-encoding 2.1.1 and 2.2 implementations have to choose the right way to parse and write authorization headers by either trial and error or configuration flags.
 
