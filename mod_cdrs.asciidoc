@@ -339,7 +339,7 @@ If a driver charges 21 minutes, and keeps his EV connected while it is full for 
 |meter_id |<<types.asciidoc#types_string_type,string>>(255) |? |Identification of the Meter inside the Charge Point.
 |currency |<<types.asciidoc#types_string_type,string>>(3) |1 |Currency of the CDR in ISO 4217 Code. 
 |tariffs |<<mod_tariffs.asciidoc#mod_tariffs_tariff_object,Tariff>> |* |List of relevant Tariff Elements, see: <<mod_tariffs.asciidoc#mod_tariffs_tariff_object,Tariff>>. When relevant, a _Free of Charge_ tariff should also be in this list, and point to a defined _Free of Charge_ Tariff. 
-|charging_periods |<<mod_cdrs_chargingperiod_class,ChargingPeriod>> |+ |List of Charging Periods that make up this charging session. A session consists of 1 or more periods, where each period has a different relevant Tariff.
+|charging_periods |<<mod_cdrs_chargingperiod_class,ChargingPeriod>> |+ |List of Charging Periods that make up this charging session.
 |signed_data |<<mod_cdrs_signed_data_class,SignedData>> |? |Signed data that belongs to this charging Session.
 |total_cost |<<types.asciidoc#types_price_class,Price>> |1 |Total sum of all the costs of this transaction in the specified currency.
 |total_fixed_cost |<<types.asciidoc#types_price_class,Price>> |? |Total sum of all the fixed costs in the specified currency, except fixed price components of parking and reservation. The cost not depending on amount of time/energy used etc. Can contain costs like a start tariff.
