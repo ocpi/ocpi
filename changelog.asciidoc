@@ -3,6 +3,12 @@
 == Changelog
 
 [[changelog_changes_between_ocpi_2.2_and_2.2.1]]
+=== Changes after 2.2.1
+
+ * Removed stipulation that all charging_periods have a different Tariff from CDRs module, which contradicts other statements in the CDRs module description
+
+ * Add a note clarifying Base64 usage in the Authorization header and use more precise wording to specify the Base64 encoding
+
 === Changes between OCPI 2.2 and 2.2.1
 
 Lots of typos fixed and textual improvements.
