@@ -209,13 +209,13 @@ Endpoint structure definition:
 
 Examples:
 
-`+https://www.server.com/ocpi/cpo/2.2/hubclientinfo/?date_from=2019-01-28T12:00:00&date_to=2019-01-29T12:00:00+`
+`+https://www.server.com/ocpi/cpo/2.2.1/hubclientinfo/?date_from=2019-01-28T12:00:00&date_to=2019-01-29T12:00:00+`
 
-`+https://ocpi.server.com/2.2/hubclientinfo/?offset=50+`
+`+https://ocpi.server.com/2.2.1/hubclientinfo/?offset=50+`
 
-`+https://www.server.com/ocpi/2.2/hubclientinfo/?date_from=2019-01-29T12:00:00&limit=100+`
+`+https://www.server.com/ocpi/2.2.1/hubclientinfo/?date_from=2019-01-29T12:00:00&limit=100+`
 
-`+https://www.server.com/ocpi/cpo/2.2/hubclientinfo/?offset=50&limit=100+`
+`+https://www.server.com/ocpi/cpo/2.2.1/hubclientinfo/?offset=50&limit=100+`
 
 
 ===== Request Parameters

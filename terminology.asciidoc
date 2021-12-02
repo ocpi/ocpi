@@ -44,13 +44,13 @@ In the EV Charging landscape, different market roles can be identified.
 Some of these roles can be combined in one company. A Platform can provide service for multiple CPOs or eMSPs,
 but also for both eMSPs and CPOs.
 
-OCPI 2.0/2.1.1 had a very strict definition of roles: only CPO and eMSP. But this is rare in the real world,
+OCPI 2.0 and OCPI 2.1.1 had a very strict definition of roles: only CPO and eMSP. But this is rare in the real world,
 there are almost no parties that are strictly CPO or eMSP and have their own platform. In the real world, lots of
 parties provide service to CPOs that are not running their own platform.
 A lot of CPOs are also eMSP. With OCPI 2.1.1 and earlier that meant having to set up an OCPI connection per role.
 
-OCPI 2.2 introduces more roles and abstracts the role from the OCPI connection itself.
-OCPI 2.2 talks about Platforms connecting to Platforms, or Platforms connecting via Hubs to other Platforms.
+OCPI 2.2 introduced more roles and abstracts the role from the OCPI connection itself.
+OCPI 2.2 and OCPI 2.2.1 are described in terms of about Platforms connecting to Platforms, or Platforms connecting via Hubs to other Platforms.
 The Platform itself is not a role. The Platform provides services for 1 or more roles.
 
 Examples of platforms:

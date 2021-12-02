@@ -71,13 +71,13 @@ Endpoint structure definition:
 
 Examples:
 
-`+https://www.server.com/ocpi/cpo/2.2/tariffs/?date_from=2019-01-28T12:00:00&date_to=2019-01-29T12:00:00+`
+`+https://www.server.com/ocpi/cpo/2.2.1/tariffs/?date_from=2019-01-28T12:00:00&date_to=2019-01-29T12:00:00+`
 
-`+https://ocpi.server.com/2.2/tariffs/?offset=50+`
+`+https://ocpi.server.com/2.2.1/tariffs/?offset=50+`
 
-`+https://www.server.com/ocpi/2.2/tariffs/?date_from=2019-01-29T12:00:00&limit=100+`
+`+https://www.server.com/ocpi/2.2.1/tariffs/?date_from=2019-01-29T12:00:00&limit=100+`
 
-`+https://www.server.com/ocpi/cpo/2.2/tariffs/?offset=50&limit=100+`
+`+https://www.server.com/ocpi/cpo/2.2.1/tariffs/?offset=50&limit=100+`
 
 
 [[mod_tariffs_cpo_get_request_parameters]]
@@ -126,7 +126,7 @@ Endpoint structure definition:
 
 Example:
 
-`+https://www.server.com/ocpi/cpo/2.2/tariffs/BE/BEC/12+`
+`+https://www.server.com/ocpi/cpo/2.2.1/tariffs/BE/BEC/12+`
 
 
 [cols="2,12",options="header"]
@@ -208,7 +208,7 @@ The following parameters SHALL be provided as URL segments.
 
 [source,json]
 ----
-PUT To URL: https://www.server.com/ocpi/emsp/2.2/tariffs/NL/TNM/12
+PUT To URL: https://www.server.com/ocpi/emsp/2.2.1/tariffs/NL/TNM/12
 
 include::examples/tariff_put_example.json[]
 ----

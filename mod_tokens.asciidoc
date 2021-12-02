@@ -79,7 +79,7 @@ Endpoint structure definition:
 
 Example:
 
-`+https://www.server.com/ocpi/cpo/2.2/tokens/NL/TNM/012345678+`
+`+https://www.server.com/ocpi/cpo/2.2.1/tokens/NL/TNM/012345678+`
 
 
 [cols="2,12",options="header"]
@@ -166,7 +166,7 @@ The parameter: `type` may be provided as an URL parameter
 
 [source,json]
 ----
-PUT To URL: https://www.server.com/ocpi/cpo/2.2/tokens/NL/TNM/012345678
+PUT To URL: https://www.server.com/ocpi/cpo/2.2.1/tokens/NL/TNM/012345678
 
 include::examples/token_put_example.json[]
 ----
@@ -184,7 +184,7 @@ Any request to the PATCH method SHALL contain the `last_updated` field.
 
 [source,json]
 ----
-PATCH To URL: https://www.server.com/ocpi/cpo/2.2/tokens/NL/TNM/012345678
+PATCH To URL: https://www.server.com/ocpi/cpo/2.2.1/tokens/NL/TNM/012345678
 
 include::examples/token_patch_example.json[]
 ----
@@ -219,13 +219,13 @@ Endpoint structure definition:
 
 Examples:
 
-`+https://www.server.com/ocpi/emsp/2.2/tokens/?date_from=2019-01-28T12:00:00&date_to=2019-01-29T12:00:00+`
+`+https://www.server.com/ocpi/emsp/2.2.1/tokens/?date_from=2019-01-28T12:00:00&date_to=2019-01-29T12:00:00+`
 
-`+https://ocpi.server.com/2.2/tokens/?offset=50+`
+`+https://ocpi.server.com/2.2.1/tokens/?offset=50+`
 
-`+https://www.server.com/ocpi/2.2/tokens/?date_from=2019-01-29T12:00:00&limit=100+`
+`+https://www.server.com/ocpi/2.2.1/tokens/?date_from=2019-01-29T12:00:00&limit=100+`
 
-`+https://www.server.com/ocpi/emsp/2.2/tokens/?offset=50&limit=100+`
+`+https://www.server.com/ocpi/emsp/2.2.1/tokens/?offset=50&limit=100+`
 
 
 [[mod_tokens_msp_get_request_parameters]]
@@ -276,9 +276,9 @@ The `/authorize` is required for the real-time authorize request.
 
 Examples:
 
-`+https://www.server.com/ocpi/emsp/2.2/tokens/012345678/authorize+`
+`+https://www.server.com/ocpi/emsp/2.2.1/tokens/012345678/authorize+`
 
-`+https://ocpi.server.com/2.2/tokens/012345678/authorize?type=RFID+`
+`+https://ocpi.server.com/2.2.1/tokens/012345678/authorize?type=RFID+`
 
 
 When the eMSP does not know the Token, the eMSP SHALL respond with an HTTP status code: 404 (Not Found).
