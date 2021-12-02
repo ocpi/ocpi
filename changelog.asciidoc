@@ -9,6 +9,8 @@
 
  * Add a note clarifying Base64 usage in the Authorization header and use more precise wording to specify the Base64 encoding
 
+ * Replaced 2.2 by 2.2.1 in example URLs and a few other places where 2.2 was used to mean the current version.
+
 === Changes between OCPI 2.2 and 2.2.1
 
 Lots of typos fixed and textual improvements.
