@@ -13,6 +13,8 @@
 
  * Added missing forward slash in Tokens Receiver interface endpoint URL structure definition
 
+ * Changed "Tariff Elements" to "Tariffs" in description of tariffs field in CDR object definition
+
 === Changes between OCPI 2.2 and 2.2.1
 
 Lots of typos fixed and textual improvements.

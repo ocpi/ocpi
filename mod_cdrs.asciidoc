@@ -97,13 +97,13 @@ Examples:
 
 [cols="2,12",options="header"]
 |===
-|Method |Description 
+|Method |Description
 
-|<<mod_cdrs_cpo_get_method,GET>> |Fetch CDRs last updated (which in the current version of OCPI can only be the creation Date/Time) between the `{date_from}` and `{date_to}` (<<transport_and_format.asciidoc#transport_and_format_pagination,paginated>>). 
-|POST |n/a 
-|PUT |n/a 
-|PATCH |n/a 
-|DELETE |n/a 
+|<<mod_cdrs_cpo_get_method,GET>> |Fetch CDRs last updated (which in the current version of OCPI can only be the creation Date/Time) between the `{date_from}` and `{date_to}` (<<transport_and_format.asciidoc#transport_and_format_pagination,paginated>>).
+|POST |n/a
+|PUT |n/a
+|PATCH |n/a
+|DELETE |n/a
 |===
 
 [[mod_cdrs_cpo_get_method]]
@@ -121,26 +121,26 @@ This request is <<transport_and_format.asciidoc#transport_and_format_pagination,
 
 [cols="3,2,1,10",options="header"]
 |===
-|Parameter |Datatype |Required |Description 
+|Parameter |Datatype |Required |Description
 
 |date_from |<<types.asciidoc#types_datetime_type,DateTime>> |no |Only return CDRs that have `last_updated` after or equal to this Date/Time (inclusive).
 |date_to |<<types.asciidoc#types_datetime_type,DateTime>> |no |Only return CDRs that have `last_updated` up to this Date/Time, but not including (exclusive).
-|offset |int |no |The offset of the first object returned. Default is 0. 
-|limit |int |no |Maximum number of objects to GET. 
+|offset |int |no |The offset of the first object returned. Default is 0.
+|limit |int |no |Maximum number of objects to GET.
 |===
 
 [[mod_cdrs_cpo_get_response_data]]
 ====== Response Data
 
-The endpoint returns a list of CDRs matching the given parameters in the GET request, the header will contain the <<transport_and_format.asciidoc#transport_and_format_paginated_response,pagination>> related headers. 
+The endpoint returns a list of CDRs matching the given parameters in the GET request, the header will contain the <<transport_and_format.asciidoc#transport_and_format_paginated_response,pagination>> related headers.
 
 Any older information that is not specified in the response is considered no longer valid.
 Each object must contain all required fields. Fields that are not specified may be considered as null values.
 
 |===
-|Datatype |Card. |Description 
+|Datatype |Card. |Description
 
-|<<mod_cdrs_cdr_object,CDR>> |* |List of CDRs. 
+|<<mod_cdrs_cdr_object,CDR>> |* |List of CDRs.
 |===
 
 [[mod_cdrs_emsp_interface]]
@@ -152,13 +152,13 @@ The CDRs endpoint can be used to create and retrieve CDRs.
 
 [cols="2,12",options="header"]
 |===
-|Method |Description 
+|Method |Description
 
 |<<mod_cdrs_msp_get_method,GET>> |Retrieve an existing CDR.
-|<<mod_cdrs_post_method,POST>> |Send a new CDR. 
-|PUT |n/a (CDRs cannot be replaced) 
-|PATCH |n/a (CDRs cannot be updated) 
-|DELETE |n/a (CDRs cannot be removed) 
+|<<mod_cdrs_post_method,POST>> |Send a new CDR.
+|PUT |n/a (CDRs cannot be replaced)
+|PATCH |n/a (CDRs cannot be updated)
+|DELETE |n/a (CDRs cannot be removed)
 |===
 
 [[mod_cdrs_msp_get_method]]
@@ -187,9 +187,9 @@ To retrieve an existing URL from the eMSP's system, the URL, returned in the res
 The endpoint returns the requested CDR, if it exists.
 
 |===
-|Datatype |Card. |Description 
+|Datatype |Card. |Description
 
-|<<mod_cdrs_cdr_object,CDR>> |1 |Requested CDR object. 
+|<<mod_cdrs_cdr_object,CDR>> |1 |Requested CDR object.
 |===
 
 [[mod_cdrs_post_method]]
@@ -216,9 +216,9 @@ In the POST request the new CDR object is sent.
 
 [cols="4,1,12",options="header"]
 |===
-|Type |Card. |Description 
+|Type |Card. |Description
 
-|<<mod_cdrs_cdr_object,CDR>> |1 |New CDR object. 
+|<<mod_cdrs_cdr_object,CDR>> |1 |New CDR object.
 |===
 
 [[mod_cdrs_response_headers]]
@@ -230,7 +230,7 @@ The response should contain the URL to the just created CDR object in the eMSP's
 |===
 |HTTP Header |Datatype |Required |Description
 
-|Location |<<types.asciidoc#types_url_type,URL>> |yes |URL to the newly created CDR in the eMSP's system, can be used by the CPO system to perform a GET on the same CDR. 
+|Location |<<types.asciidoc#types_url_type,URL>> |yes |URL to the newly created CDR in the eMSP's system, can be used by the CPO system to perform a GET on the same CDR.
 |===
 
 The eMSP returns the URL where the newly created CDR can be found. OCPI does not define a specific structure for this URL.
@@ -318,7 +318,7 @@ If a driver charges 21 minutes, and keeps his EV connected while it is full for 
 
 [cols="4,3,1,9",options="header"]
 |===
-|Property |Type |Card. |Description 
+|Property |Type |Card. |Description
 
 |country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |1 |ISO-3166 alpha-2 country code of the CPO that 'owns' this CDR.
 |party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |1 |ID of the CPO that 'owns' this CDR (following the ISO-15118 standard).
@@ -337,8 +337,8 @@ If a driver charges 21 minutes, and keeps his EV connected while it is full for 
                                              the last given value SHALL be used here.
 |cdr_location |<<mod_cdrs_cdr_location_class,CdrLocation>> |1 |Location where the charging session took place, including only the relevant <<mod_locations.asciidoc#mod_locations_evse_object,EVSE>> and <<mod_locations.asciidoc#mod_locations_connector_object,Connector>>.
 |meter_id |<<types.asciidoc#types_string_type,string>>(255) |? |Identification of the Meter inside the Charge Point.
-|currency |<<types.asciidoc#types_string_type,string>>(3) |1 |Currency of the CDR in ISO 4217 Code. 
-|tariffs |<<mod_tariffs.asciidoc#mod_tariffs_tariff_object,Tariff>> |* |List of relevant Tariff Elements, see: <<mod_tariffs.asciidoc#mod_tariffs_tariff_object,Tariff>>. When relevant, a _Free of Charge_ tariff should also be in this list, and point to a defined _Free of Charge_ Tariff. 
+|currency |<<types.asciidoc#types_string_type,string>>(3) |1 |Currency of the CDR in ISO 4217 Code.
+|tariffs |<<mod_tariffs.asciidoc#mod_tariffs_tariff_object,Tariff>> |* |List of relevant Tariffs, see: <<mod_tariffs.asciidoc#mod_tariffs_tariff_object,Tariff>>. When relevant, a _Free of Charge_ tariff should also be in this list, and point to a defined _Free of Charge_ Tariff.
 |charging_periods |<<mod_cdrs_chargingperiod_class,ChargingPeriod>> |+ |List of Charging Periods that make up this charging session.
 |signed_data |<<mod_cdrs_signed_data_class,SignedData>> |? |Signed data that belongs to this charging Session.
 |total_cost |<<types.asciidoc#types_price_class,Price>> |1 |Total sum of all the costs of this transaction in the specified currency.
@@ -358,7 +358,7 @@ If a driver charges 21 minutes, and keeps his EV connected while it is full for 
 |last_updated |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Timestamp when this CDR was last updated (or created).
 |===
 
-NOTE: The actual charging duration (energy being transferred between EVSE and EV) of a charging session can be calculated: `total_charging_time = total_time - total_parking_time`. 
+NOTE: The actual charging duration (energy being transferred between EVSE and EV) of a charging session can be calculated: `total_charging_time = total_time - total_parking_time`.
 
 NOTE: Having both a `credit` and a `credit_reference_id` might seem redundant.
 But it is seen as an advantage as a boolean flag used in queries is much faster than simple string comparison of references.
@@ -389,7 +389,7 @@ include::examples/cdr_example.json[]
 
 [cols="3,10",options="header"]
 |===
-|Value |Description 
+|Value |Description
 
 |AUTH_REQUEST |Authentication request has been sent to the eMSP.
 |COMMAND |Command like <<mod_commands.asciidoc#mod_commands_startsession_object,StartSession>>
@@ -403,10 +403,10 @@ include::examples/cdr_example.json[]
 
 [cols="3,2,1,10",options="header"]
 |===
-|Property |Type |Card. |Description 
+|Property |Type |Card. |Description
 
 |type |<<mod_cdrs_cdrdimensiontype_enum,CdrDimensionType>> |1 |Type of CDR dimension.
-|volume |<<types.asciidoc#types_number_type,number>> |1 |Volume of the dimension consumed, measured according to the dimension type. 
+|volume |<<types.asciidoc#types_number_type,number>> |1 |Volume of the dimension consumed, measured according to the dimension type.
 |===
 
 [[mod_cdrs_cdrdimensiontype_enum]]
@@ -496,9 +496,9 @@ A Charging Period consists of a start timestamp and a list of possible values th
 
 [cols="3,2,1,10",options="header"]
 |===
-|Property |Type |Card. |Description 
+|Property |Type |Card. |Description
 
-|start_date_time |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Start timestamp of the charging period. A period ends when the next period starts. The last period ends when the session ends. 
+|start_date_time |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Start timestamp of the charging period. A period ends when the next period starts. The last period ends when the session ends.
 |dimensions |<<mod_cdrs_cdrdimension_class,CdrDimension>> |+ |List of relevant values for this charging period.
 |tariff_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |Unique identifier of the Tariff that is relevant for this Charging Period. If not provided, no Tariff is relevant during this period.
 |===
