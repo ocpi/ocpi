@@ -75,7 +75,7 @@ Tokens is a <<transport_and_format.asciidoc#transport_and_format_client_owned_ob
 
 Endpoint structure definition:
 
-`{token_endpoint_url}{country_code}/{party_id}/{token_uid}[?type={type}]`
+`{token_endpoint_url}/{country_code}/{party_id}/{token_uid}[?type={type}]`
 
 Example:
 

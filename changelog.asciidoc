@@ -11,6 +11,8 @@
 
  * Replaced 2.2 by 2.2.1 in example URLs and a few other places where 2.2 was used to mean the current version.
 
+ * Added missing forward slash in Tokens Receiver interface endpoint URL structure definition
+
 === Changes between OCPI 2.2 and 2.2.1
 
 Lots of typos fixed and textual improvements.
