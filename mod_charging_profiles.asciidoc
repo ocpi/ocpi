@@ -750,7 +750,7 @@ Charging profile class defines a list of charging periods.
 
 
 [[mod_charging_profiles_charging_profile_period_class]]
-==== ChargingprofilePeriod _class_
+==== ChargingProfilePeriod _class_
 
 Charging profile period structure defines a time period in a charging profile, as used in: <<mod_charging_profiles_charging_profile_class,ChargingProfile>>
 
