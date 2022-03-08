@@ -484,7 +484,7 @@ This field is named `uid` instead of `id`, because `id` could be confused with `
 |status |<<mod_locations_status_enum,Status>> |1 |Indicates the current status of the EVSE. 
 |status_schedule |<<mod_locations_statusschedule_class,StatusSchedule>> |* |Indicates a planned status update of the EVSE. 
 |capabilities |<<mod_locations_capability_enum,Capability>> |* |List of functionalities that the EVSE is capable of. 
-|connectors |<<mod_locations_connector_object,Connector>> |+ |List of available connectors on the EVSE. 
+|connectors |<<mod_locations_connector_object,Connector>> |+ |List of connectors on the EVSE. 
 |floor_level |<<types.asciidoc#types_string_type,string>>(4) |? |Level on which the charging station is located (in garage buildings) in the locally displayed numbering scheme. 
 |coordinates |<<mod_locations_geolocation_class,GeoLocation>> |? |Coordinates of the EVSE. 
 |physical_reference |<<types.asciidoc#types_string_type,string>>(16) |? |A number/string printed on the outside of the EVSE for visual identification. 
@@ -499,7 +499,7 @@ This field is named `uid` instead of `id`, because `id` could be confused with `
 ==== _Connector_ Object
 
 A _Connector_ is the _socket_ or _cable and plug_ available for the EV to use. 
-A single EVSE may provide multiple Connectors but only one of them can be in use at the same time.
+A single EVSE may provide multiple Connectors and multiple may be in use at the same time.
 A Connector always belongs to an <<mod_locations_evse_object,EVSE>> object.
 
 [cols="7,5,2,18",options="header"]
@@ -507,6 +507,8 @@ A Connector always belongs to an <<mod_locations_evse_object,EVSE>> object.
 |Property |Type |Card. |Description 
 
 |id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Identifier of the Connector within the EVSE. Two Connectors may have the same id as long as they do not belong to the same _EVSE_ object.
+|status |<<mod_locations_connector_status_enum,ConnectorStatus>> |? |Indicates the current status of the Connector. 
+|physical_reference |<<types.asciidoc#types_string_type,string>>(16) |? |A number/string printed on the connector for visual identification. 
 |standard |<<mod_locations_connectortype_enum,ConnectorType>> |1 |The standard of the installed connector. 
 |format |<<mod_locations_connectorformat_enum,ConnectorFormat>> |1 |The format (socket/cable) of the installed connector. 
 |power_type |<<mod_locations_powertype_enum,PowerType>> |1 | 
@@ -988,14 +990,14 @@ The status of an EVSE.
 |===
 |Value |Description 
 
-|AVAILABLE |The EVSE/Connector is able to start a new charging session. 
-|BLOCKED |The EVSE/Connector is not accessible because of a physical barrier, i.e. a car. 
-|CHARGING |The EVSE/Connector is in use. 
-|INOPERATIVE |The EVSE/Connector is not yet active or it is no longer available (deleted). 
-|OUTOFORDER |The EVSE/Connector is currently out of order. 
-|PLANNED |The EVSE/Connector is planned, will be operating soon. 
-|REMOVED |The EVSE/Connector was discontinued/removed. 
-|RESERVED |The EVSE/Connector is reserved for a particular EV driver and is unavailable for other drivers. 
+|AVAILABLE |The EVSE is able to start a new charging session. 
+|BLOCKED |The EVSE is not accessible because of a physical barrier, i.e. a car. 
+|CHARGING |The EVSE is in use. 
+|INOPERATIVE |The EVSE is not yet active or it is no longer available (deleted). 
+|OUTOFORDER |The EVSE is currently out of order. 
+|PLANNED |The EVSE is planned, will be operating soon. 
+|REMOVED |The EVSE was discontinued/removed. 
+|RESERVED |The EVSE is reserved for a particular EV driver and is unavailable for other drivers. 
 |UNKNOWN |No status information available (also used when offline).
 |===
 
@@ -1016,3 +1018,26 @@ Example: "This station will be running as of tomorrow. Today it is still planned
 |===
 
 NOTE: The scheduled status is purely informational. When the status actually changes, the CPO must push an update to the EVSEs `status` field itself.
+
+[[mod_locations_connector_status_enum]]
+==== ConnectorStatus _enum_
+
+The status of an EVSE Connector.
+
+[cols="3,10",options="header"]
+|===
+|Value |Description 
+
+|AVAILABLE |The Connector is able to start a new charging session. 
+|PREPARING |An EV is plugged into the connector, but power is not yet being delivered. (e.g waiting for a user to present RFID authentication to begin a session.)
+|CHARGING |The EVSE/Connector is in use. 
+|SUSPENDEDEVSE |The EV is connected to the EVSE but the EVSE is not offering energy to the EV, e.g. due to a smart charging restriction, local supply power constraints, etc.
+|SUSPENDEDEV |The EV is connected to the EVSE and the EVSE is offering energy but the EV is not taking any energy.
+|FINISHING |The EV has been remotely stopped, and is still plugged in.
+|INOPERATIVE |The Connector is not yet active or it is no longer available (deleted). 
+|OUTOFORDER |The Connector is currently out of order. 
+|PLANNED |The Connector is planned, will be operating soon. 
+|REMOVED |The Connector was discontinued/removed. 
+|RESERVED |The Connector is reserved for a particular EV driver and is unavailable for other drivers. 
+|UNKNOWN |No status information available (also used when offline).
+|===

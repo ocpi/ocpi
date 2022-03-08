@@ -15,13 +15,15 @@
   "evses": [{
     "uid": "3256",
     "evse_id": "BE*BEC*E041503001",
-    "status": "AVAILABLE",
+    "status": "CHARGING",
     "status_schedule": [],
     "capabilities": [
       "RESERVABLE"
     ],
     "connectors": [{
       "id": "1",
+      "status": "CHARGING",
+      "physical_reference": "A",
       "standard": "IEC_62196_T2",
       "format": "CABLE",
       "power_type": "AC_3_PHASE",
@@ -31,6 +33,8 @@
       "last_updated": "2015-03-16T10:10:02Z"
     }, {
       "id": "2",
+      "status": "FINISHING",
+      "physical_reference": "B",
       "standard": "IEC_62196_T2",
       "format": "SOCKET",
       "power_type": "AC_3_PHASE",
