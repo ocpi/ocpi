@@ -105,7 +105,7 @@ image::images/command_reservenow_canceled_by_cpo.svg[Reservation canceled by the
 
 These examples use OCPP 1.6 based commands between CPO and Charge Point, but that is not a requirement for OCPI.
 
-If the Sender (typically eMSP) wants to have a reference between the calls send to the Receivers interface and the asynchronous result received from the Charge Point via the CPO,
+If the Sender (typically eMSP) wants to have a reference between the calls sent to the Receivers interface and the asynchronous result received from the Charge Point via the CPO,
 the Sender can make some unique identifier part of the`response_url` that is part of every method in the Receiver interface.
 The Receiver will call this URL when the result is received from the Charge Point. The Sender can then match the unique identifier from the URL called with the request.
 
@@ -260,7 +260,7 @@ As there might be cost involved for a Reservation, canceling a reservation might
 |===
 |Property |Type |Card. |Description
 
-|response_url |<<types.asciidoc#types_url_type,URL>> |1 |URL that the CommandResult POST should be send to. This URL might contain an unique ID to be able to distinguish between CancelReservation requests.
+|response_url |<<types.asciidoc#types_url_type,URL>> |1 |URL that the CommandResult POST should be sent to. This URL might contain a unique ID to be able to distinguish between CancelReservation requests.
 |reservation_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Reservation id, unique for this reservation. If the Charge Point already has a reservation that matches this reservationId the Charge Point will replace the reservation.
 |===
 
@@ -304,7 +304,7 @@ A reservation can be replaced/updated by sending a `RESERVE_NOW` request with th
 
 A successful reservation will result in a new `Session` object being created by the CPO.
 
-A not used Reservation of a Charge Point/EVSE MAY result in cost being made, thus also a CDR.
+An unused Reservation of a Charge Point/EVSE MAY result in cost being made, thus also a CDR.
 
 The eMSP provides a Token that has to be used by the Charge Point.
 The Token provided by the eMSP for the `ReserveNow` SHALL be authorized by the eMSP before sending it to the CPO.
@@ -316,8 +316,7 @@ If this is an OCPP Charge Point, the Charge Point decides if it needs to validat
 - If this Token is of type `RFID`, the CPO SHALL NOT do a <<mod_tokens.asciidoc#mod_tokens_real-time_authorization,realtime authorization>>
 at the eMSP for this Token at the given EVSE/Charge Point within 15 minutes after having received this `ReserveNow`.
 
-The eMSP MAY use Tokens that have not been pushed via the <<mod_tokens.asciidoc#mod_tokens_tokens_module,Token>> module,
-especially `AD_HOC_USER` or `APP_USER` Tokens are only used by commands send by an eMSP. As these are never used locally at the Charge Point like `RFID`.
+The eMSP MAY use Tokens that have not been pushed via the <<mod_tokens.asciidoc#mod_tokens_tokens_module,Token>> module. This is especially likely with tokens fof types `AD_HOC_USER` or `APP_USER`. Such Tokens are only used in commands sent by an eMSP and never presented locally at the Charge Point by a Driver like `RFID` Tokens.
 
 Unknown Tokens received by the CPO in the `ReserveNow` Object don't need to be stored in the <<mod_tokens.asciidoc#mod_tokens_tokens_module,Token>> module.
 In other words, when a Token has been received via `ReserveNow`, the same `Token` does not have to be returned in a Token GET request from the eMSP.
@@ -332,11 +331,11 @@ We don't want a Sender (eMSP) to replace or cancel a reservation of another Send
 |===
 |Property |Type |Card. |Description
 
-|response_url |<<types.asciidoc#types_url_type,URL>> |1 |URL that the CommandResult POST should be send to. This URL might contain an unique ID to be able to distinguish between ReserveNow requests.
+|response_url |<<types.asciidoc#types_url_type,URL>> |1 |URL that the CommandResult POST should be sent to. This URL might contain a unique ID to be able to distinguish between ReserveNow requests.
 |token |<<mod_tokens.asciidoc#mod_tokens_token_object,Token>> |1 |Token object for how to reserve this Charge Point (and specific EVSE).
 |expiry_date |<<types.asciidoc#types_datetime_type,DateTime>> |1 |The Date/Time when this reservation ends, in UTC.
 |reservation_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Reservation id, unique for this reservation. If the Receiver (typically CPO) Point already has a reservation that matches this reservationId for that Location it will replace the reservation.
-|location_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Location.id of the Location (belonging to the CPO this request is send to) for which to reserve an EVSE.
+|location_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Location.id of the Location (belonging to the CPO this request is sent to) for which to reserve an EVSE.
 |evse_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |Optional EVSE.uid of the EVSE of this Location if a specific EVSE has to be reserved.
 |authorization_reference |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |Reference to the authorization given by the eMSP, when given,
                                              this reference will be provided in the relevant <<mod_sessions.asciidoc#mod_sessions_session_object,Session>>
@@ -374,9 +373,9 @@ An eMSP sending a `StartSession` SHALL only use Token that are owned by this eMS
 |===
 |Property |Type |Card. |Description
 
-|response_url |<<types.asciidoc#types_url_type,URL>> |1 |URL that the CommandResult POST should be sent to. This URL might contain an unique ID to be able to distinguish between StartSession requests.
+|response_url |<<types.asciidoc#types_url_type,URL>> |1 |URL that the CommandResult POST should be sent to. This URL might contain a unique ID to be able to distinguish between StartSession requests.
 |token |<<mod_tokens.asciidoc#mod_tokens_token_object,Token>> |1 |Token object the Charge Point has to use to start a new session. The Token provided in this request is authorized by the eMSP.
-|location_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Location.id of the Location (belonging to the CPO this request is send to) on which a session is to be started.
+|location_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Location.id of the Location (belonging to the CPO this request is sent to) on which a session is to be started.
 |evse_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |Optional EVSE.uid of the EVSE of this Location on which a session is to be started. Required when `connector_id` is set.
 |connector_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |Optional Connector.id of the Connector of the EVSE on which a session is to be started. This field is required when the capability: <<mod_locations.asciidoc#mod_locations_capability_enum,START_SESSION_CONNECTOR_REQUIRED>> is set on the EVSE.
 |authorization_reference |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |Reference to the authorization given by the eMSP, when given,
@@ -397,7 +396,7 @@ as is also written by the OCA in the application note: "Multiple Connectors per 
 |===
 |Property |Type |Card. |Description
 
-|response_url |<<types.asciidoc#types_url_type,URL>> |1 |URL that the CommandResult POST should be sent to. This URL might contain an unique ID to be able to distinguish between StopSession requests.
+|response_url |<<types.asciidoc#types_url_type,URL>> |1 |URL that the CommandResult POST should be sent to. This URL might contain a unique ID to be able to distinguish between StopSession requests.
 |session_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Session.id of the Session that is requested to be stopped.
 |===
 
@@ -409,8 +408,8 @@ as is also written by the OCA in the application note: "Multiple Connectors per 
 |===
 |Property |Type |Card. |Description 
 
-|response_url |<<types.asciidoc#types_url_type,URL>> |1 |URL that the CommandResult POST should be sent to. This URL might contain an unique ID to be able to distinguish between UnlockConnector requests.
-|location_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Location.id of the Location (belonging to the CPO this request is send to) of which it is requested to unlock the connector.
+|response_url |<<types.asciidoc#types_url_type,URL>> |1 |URL that the CommandResult POST should be sent to. This URL might contain a unique ID to be able to distinguish between UnlockConnector requests.
+|location_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Location.id of the Location (belonging to the CPO this request is sent to) of which it is requested to unlock the connector.
 |evse_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |EVSE.uid of the EVSE of this Location of which it is requested to unlock the connector.
 |connector_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Connector.id of the Connector of this Location of which it is requested to unlock.
 |===
@@ -438,7 +437,7 @@ Response to the command request from the eMSP to the CPO.
 [[mod_commands_commandresulttype_enum]]
 ==== CommandResultType _enum_
 
-Result of the command that was send to the Charge Point.
+Result of the command that was sent to the Charge Point.
 
 [cols="4,10",options="header"]
 |===

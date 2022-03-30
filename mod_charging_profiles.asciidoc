@@ -172,7 +172,7 @@ The CPO will then ask the Charge Point   for the planned ActiveChargingProfile. 
 The CPO can limit the amount of request that can be done on the Charging Profiles interface, this too prevent creating a too high load or data usages.
 To do this the CPO can reject a request on the Charging Profile Receiver interface be responding with: TOO_OFTEN.
 
-If the Sender  (typically eMSP or SCSP) wants to have a reference between the calls send to the Receivers interface and the asynchronous result received from the Charge Point via the CPO,
+If the Sender  (typically eMSP or SCSP) wants to have a reference between the calls sent to the Receivers interface and the asynchronous result received from the Charge Point via the CPO,
 the Sender can make some unique identifier part of the`response_url` that is part of every method in the Receiver interface.
 The Receiver will call this URL when the result is received from the Charge Point. The Sender can then match the unique identifier from the URL called with the request.
 
@@ -214,8 +214,8 @@ The eMSP forwards this response to the SCSP.
 
 The CPO sends the requests to the Charge Point.
 When the CPO receives a response from the Charge Point,
-that result is send to the eMSP by call the <<mod_charging_profiles_msp_post_method,POST>> method,
-on the URL provided by the eMSP in the <<mod_charging_profiles_cpo_put_method,PUT>> request of the eMSP.
+that result is sent to the eMSP by the <<mod_charging_profiles_msp_post_method,POST>> method,
+on the URL provided by the eMSP in the <<mod_charging_profiles_cpo_put_method,PUT>> request from the eMSP.
 The eMSP forwards this result to the the URL provided by the SCSP in the <<mod_charging_profiles_cpo_put_method,PUT>> request of the SCSP,
 this call will contain a <<mod_charging_profiles_charging_profiles_result_object,ChargingProfileResult>> Object.
 
@@ -277,7 +277,7 @@ acknowledging the request was accepted and can be forwarded to the Charge Point.
 
 The CPO sends a message to the Charge Point to retrieve the current active charging profile.
 When the CPO receives a response from the Charge Point,
-that ActiveChargingProfile is send to the eMSP by call the <<mod_charging_profiles_msp_post_method,POST>> method,
+that ActiveChargingProfile is sent to the eMSP by call the <<mod_charging_profiles_msp_post_method,POST>> method,
 on the URL provided by the eMSP in the <<mod_charging_profiles_cpo_put_method,GET>> request of the eMSP,
 this call will contain a <<mod_charging_profiles_active_charging_profiles_result_object,ActiveChargingProfileResult>> Object.
 
@@ -297,7 +297,7 @@ The eMSP forwards this response to the SCSP.
 
 The CPO sends a message to the Charge Point to retrieve the current active charging profile.
 When the CPO receives a response from the Charge Point,
-that ActiveChargingProfile is send to the eMSP by call the <<mod_charging_profiles_msp_post_method,POST>> method,
+that ActiveChargingProfile is sent to the eMSP by call the <<mod_charging_profiles_msp_post_method,POST>> method,
 on the URL provided by the eMSP in the <<mod_charging_profiles_cpo_get_method,GET>> request of the eMSP,
 this call will contain a <<mod_charging_profiles_active_charging_profiles_result_object,ActiveChargingProfileResult>> Object.
 The eMSP forwards this result to the the URL provided by the SCSP in the <<mod_charging_profiles_cpo_get_method,GET>> request of the SCSP,
@@ -380,7 +380,7 @@ The following parameters shall be provided as URL segments.
 
 |session_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |The unique id that identifies the session in the CPO platform.
 |duration |int |yes |Length of the requested ActiveChargingProfile in seconds Duration in seconds. *
-|response_url |<<types.asciidoc#types_url_type,URL>> |yes |URL that the <<mod_charging_profiles_active_charging_profiles_result_object,ActiveChargingProfileResult>> POST should be send to. This URL might contain an unique ID to be able to distinguish between GET ActiveChargingProfile requests.
+|response_url |<<types.asciidoc#types_url_type,URL>> |yes |URL that the <<mod_charging_profiles_active_charging_profiles_result_object,ActiveChargingProfileResult>> POST should be sent to. This URL might contain a unique ID to be able to distinguish between GET ActiveChargingProfile requests.
 |===
 
 NOTE: duration: Balance the duration between maximizing the information gained and the data usage and computation to execute on the request.
@@ -480,7 +480,7 @@ The following parameters shall be provided as URL segments.
 |Parameter |Datatype |Required |Description
 
 |session_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |The unique id that identifies the session in the CPO platform.
-|response_url |<<types.asciidoc#types_url_type,URL>> |yes |URL that the <<mod_charging_profiles_clear_profiles_result_object,ClearProfileResult>> POST should be send to. This URL might contain an unique ID to be able to distinguish between DELETE ChargingProfile requests.
+|response_url |<<types.asciidoc#types_url_type,URL>> |yes |URL that the <<mod_charging_profiles_clear_profiles_result_object,ClearProfileResult>> POST should be sent to. This URL might contain a unique ID to be able to distinguish between DELETE ChargingProfile requests.
 |===
 
 [[mod_charging_profiles_delete_response_data]]
@@ -693,7 +693,7 @@ Object set to a CPO to set a Charging Profile.
 |===
 |Property |Type |Card. |Description
 |charging_profile |<<mod_charging_profiles_charging_profile_class,ChargingProfile>> |1 | Contains limits for the available power or current over time.
-|response_url      | <<types.asciidoc#types_url_type,URL>> |1 |URL that the ChargingProfileResult POST should be send to. This URL might contain an unique ID to be able to distinguish between GET ActiveChargingProfile requests.
+|response_url      | <<types.asciidoc#types_url_type,URL>> |1 |URL that the ChargingProfileResult POST should be sent to. This URL might contain a unique ID to be able to distinguish between GET ActiveChargingProfile requests.
 |===
 
 

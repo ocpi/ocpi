@@ -62,7 +62,7 @@ the server SHALL respond with an HTTP `401 - Unauthorized` status code.
 OCPI supports both *Pull* and *Push* models. 
 
 * *Push:* Changes in objects and new objects are sent (semi) real-time to the receiver.
-* *Pull:* Receiver request a (full) list of objects every X times.
+* *Pull:* Receiver request a (full) list of objects periodically.
 
 OCPI doesn't require parties to implement Push.
 Pull is required, a receiver needs to be able to get _in-sync_ after a period of connection loss.

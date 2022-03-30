@@ -52,7 +52,7 @@ parties are advised to get into contact with the other party in some other way: 
 When the Hub creates a new ClientInfo object they push it to the connected parties by calling <<mod_hub_client_info_client_put,PUT>> 
 on the connected party ClientInfo endpoint with the newly created ClientInfo object.
 
-Any changes to ClientInfo in the Hub system are send to the connected party system by calling the <<mod_hub_client_info_client_put,PUT>>
+Any changes to ClientInfo in the Hub system are sent to the connected party system by calling the <<mod_hub_client_info_client_put,PUT>>
 method on the connected party ClientInfo endpoint with the updated ClientInfo.
 
 When the Hub invalidates a ClientInfo object (deleting is not possible), the Hub will send the updated ClientInfo object 
