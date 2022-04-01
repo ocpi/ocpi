@@ -5,6 +5,8 @@
   "start_date_time": "2015-06-29T21:39:09Z",
   "end_date_time": "2015-06-29T23:37:32Z",
   "cdr_token": {
+    "country_code": "DE",
+    "party_id": "TNM",
     "uid": "012345678",
     "type": "RFID",
     "contract_id": "DE8ACC12E46L89"

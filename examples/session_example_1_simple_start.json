@@ -5,6 +5,8 @@
     "start_date_time": "2020-03-09T10:17:09Z",
     "kwh": 0.0,
     "cdr_token": {
+        "country_code": "NL",
+        "party_id": "TST",
         "uid": "123abc",
         "type": "RFID",
         "contract_id": "NL-TST-C12345678-S"

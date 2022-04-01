@@ -13,7 +13,8 @@ _ihomer_ | clarified use of Base64 for credentials token +
 removed requirement that all charging periods of a CDR have a different tariff +
 replaced "2.2" by "2.2.1" where current version was intended +
 added forgotten forward slash in endpoint URL structure for Tokens Receiver interface +
-changed "Tariff Elements" to "Tariffs" in description of tariffs field in CDR object definition
+changed "Tariff Elements" to "Tariffs" in description of tariffs field in CDR object definition +
+added country_code and party_id to CdrToken examples
 
 |2.2.1 |2021-10-06 |
 Robert de Leeuw +
