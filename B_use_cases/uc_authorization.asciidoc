@@ -76,3 +76,12 @@ Charge Point request authorization for an RFID that the CPO does not know, not i
 
 
 
+[[uc_authorization_using_realtime_authorization_display_reason]]
+:UC_NR: 08
+:UC_TITLE: As a driver I want to know why my token is not authorized
+=== UC: {UC_NR} - {UC_TITLE}
+
+TODO:
+When MSP responds to real time authorization with something else than "ALLOWED", 
+show the specific reason to the driver on the display of the charge point. Use the language chosen by the driver in the MSP app or web application.
+
