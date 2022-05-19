@@ -15,7 +15,7 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 |CPO   |Charging Point Operator.
 |eMSP  |e-Mobility Service Provider.
 |EV    |Electric Vehicle.
-|EVSE  |Electric Vehicle Supply Equipment. Is considered as an independently operated and managed part of a Charge Point that can deliver energy to one EV at a time.
+|EVSE  |Electric Vehicle Supply Equipment. It is considered as an independently operated and managed part of a Charge Point that can deliver energy to one EV at a time.
 |JSON  |JavaScript Simple Object Notation.
 |NAP   |National Access Point.
 |NSP   |Navigation Service Provider.
@@ -32,8 +32,8 @@ In the EV Charging landscape, different market roles can be identified.
 [cols="3s,9",options="header"]
 |===
 |Role  |Description
-|CPO   |Charging Point Operator. Operates a network of Charge Points.
-|eMSP  |e-Mobility Service Provider. Gives EV drivers access to charging services.
+|CPO   |Charging Point Operator, Operates a network of Charge Points.
+|eMSP  |e-Mobility Service Provider. It gives EV drivers access to charging services.
 |Hub   |Can connect one or more CPOs to one or more eMSPs.
 |NAP   |National Access Point. Provides a national database with all (public) charging locations. Information can be sent and retrieved from the NAP. This makes it different from a typical NSP.
 |NSP   |Navigation Service Provider. Provides EV drivers with location information of Charge Points. Usually only interested in Location information.
@@ -44,28 +44,26 @@ In the EV Charging landscape, different market roles can be identified.
 Some of these roles can be combined in one company. A Platform can provide service for multiple CPOs or eMSPs,
 but also for both eMSPs and CPOs.
 
-OCPI 2.0/2.1.1 had a very strict definition of roles: only CPO and eMSP. But this is rare in the real world,
-there are almost no parties that are strictly CPO or eMSP and have their own platform. In the real world, lots of
-parties provide service to CPOs that are not running their own platform.
-A lot of CPOs are also eMSP. With OCPI 2.1.1 and earlier that meant having to set up an OCPI connection per role.
+OCPI 2.0/2.1.1 had a rigorous definition of roles: only CPO and eMSP. But this is rare in the real world; there are almost no parties that are strictly CPO or eMSP and have their Platform. In the real world, lots of
+parties provide service to CPOs that are not running their Platform.
+A lot of CPOs are also eMSP. With OCPI 2.1.1 and earlier, that meant setting up an OCPI connection per role.
 
 OCPI 2.2 introduces more roles and abstracts the role from the OCPI connection itself.
-OCPI 2.2 talks about Platforms connecting to Platforms, or Platforms connecting via Hubs to other Platforms.
-The Platform itself is not a role. The Platform provides services for 1 or more roles.
+OCPI 2.2 talks about Platforms connecting to Platforms or Platforms connecting via Hubs to other Platforms.
+The Platform itself is not a role. The Platform provides services for one or more roles.
 
 Examples of platforms:
 
-* A pure CPO: Not providing services to other CPOs. Not being an eMSP. Running its own software that connects via OCPI. +
-  Is defined in OCPI as a Platform has 1 CPO role, the CPO role of that company.
-* A Company that has a cloud-based eMSP software solution,
-  it offers to companies that want to be eMSP, but don't want to host/run their own software. +
-  Is a Platform that has a number of eMSP roles, one for each eMSP the company is providing services for.
+* A pure CPO: Not providing services to other CPOs, not being an eMSP. Running its software that connects via OCPI. +
+  It is defined in OCPI as a Platform with 1 CPO role, the CPO role of that company.
+* A company with a cloud-based eMSP software solution offers to companies that want to be eMSP, but don't want to host/run their software. +
+  It is a platform that has some eMSP roles, one for each eMSP the company is providing services for.
   Not for this company itself because the company itself is not an eMSP.
-* A Company that operates public Charge Points and also provides eMSP service to EV drivers, running their own software platform. +
-  Is seen in OCPI as a Platform that has 2 roles: CPO and eMSP for this company.
-* If one the companies above starts to offer their service to other CPOs and eMSP, it is in OCPI still seen as 1 platform.
-  This platform then provides multiple CPO and eMSP roles.
-* A Roaming Hub is in OCPI terms also a Platform, antoher OCPI Platform can connect to it. Most Roamings Hubs only have one role: Hub.
+* A Company that operates public Charge Points and provides eMSP service to EV drivers, running their software platform. +
+  It is seen in OCPI as a platform with two roles: CPO and eMSP for this company.
+* If one of the companies above starts to offer their service to other CPOs and eMSP, it is in OCPI still seen as one Platform.
+  This Platform then provides multiple CPO and eMSP roles.
+* A Roaming Hub is, in OCPI terms, also a Platform; another OCPI Platform can connect to it. Most Roamings Hubs only have one role: Hub.
 
 
 [[introduction_typical_roles]]
@@ -122,8 +120,8 @@ The table shows the typical communication role: Receiver, Sender or Both.
                         The Hub finds the correct Platform and routes the request to that Platform. +
                         See: <<transport_and_format.asciidoc#transport_and_format_message_routing_open_routing_request,Open Routing Request>>
 |Platform | Software that provides services via OCPI.
-            A platform can provide service for a single eMSP or CPO, or for multiple CPOs or eMSPs.
-            It can even provide services for both eMSPs and CPOs at the same time. A Hub is also an OCPI Platform, most only have one role: Hub.
+            A platform can provide service for a single eMSP or CPO or multiple CPOs or eMSPs.
+            It can even provide services for both eMSPs and CPOs simultaneously. A Hub is also an OCPI Platform; most only have one role: Hub.
 |Pull | A system calls GET request to retrieve information from the system that owns the data.
 |Push | The system (owning the data) actively calls POST/PUT/PATCH to update other systems with new/updated information.
 |===
@@ -132,10 +130,10 @@ The table shows the typical communication role: Receiver, Sender or Both.
 [[terminology_provider_and_operator_abbreviation]]
 === Provider and Operator abbreviation
 
-In OCPI it is advised to use eMI3 compliant names for Contract IDs and EVSE IDs. The provider and the operator name is important here,
+In OCPI it is advised to use eMI3 compliant names for Contract IDs and EVSE IDs. The provider and the operator name is essential here,
 to target the right provider or operator, they need to be known upfront, at least between the cooperating parties.
 
-In several standards, an issuing authority is mentioned that will keep a central registry of known Providers and Operators.
+An issuing authority is mentioned in several standards that will keep a central registry of known Providers and Operators.
 At this moment, the following countries have an authority that keeps track of the known providers and operators:
 
 [[terminology_the_netherlands]]
@@ -162,7 +160,7 @@ For more information visit http://austrian-mobile-power.at/tools/id-vergabe/info
 [[terminology_france]]
 ==== France
 
-The https://www.afirev.fr/en/general-informations/[AFIREV* organization] will keep/keeps the registry for France. It provides operation Id for CPO and eMSP in compliance with eMI3 id structure. The prefix of these Ids is the “fr” country code. AFIREV will also be in charge of the definition of EVSE-Id structure, Charging-Pool-Id structure (location), and Contract-Id structure for France. AFIREV bases its requirements and recommendations on eMI3 definitions.
+The https://www.afirev.fr/en/general-informations/[AFIREV* organisation] will keep/keeps the registry for France. It provides operation Id for CPO and eMSP in compliance with eMI3 id structure. The prefix of these Ids is the "fr" country code. AFIREV will also be in charge of the definition of EVSE-Id structure, Charging-Pool-Id structure (location), and Contract-Id structure for France. AFIREV bases its requirements and recommendations on eMI3 definitions.
 
 AFIREV stands for: Association Française pour l’Itinérance de la Recharge Électrique des Véhicules
 
@@ -172,7 +170,7 @@ AFIREV stands for: Association Française pour l’Itinérance de la Recharge É
 
 The https://idro.hu/[Hungarian ID Registration Office] keeps the register for Hungary.
 
-The list of all registered organizations can be found on their https://idro.hu/en/page/members[website].
+The list of all registered organisations can be found on their https://idro.hu/en/page/members[website].
 
 
 [[terminology_poland]]
@@ -186,7 +184,7 @@ https://eipa.udt.gov.pl/[EIPA (Ewidencja Infrastruktury Paliw Alternatywnych)] i
 
 https://www.realschemes.org.uk/ev-roam[EV Roam] is the first register of e-mobility IDs for Chargepoint Operators (CPO) and e-Mobility Service Providers (MSP) in the UK.
 
-Their https://www.realschemes.org.uk/ev-roam[website] shows the full list of currently registered organizations.
+Their https://www.realschemes.org.uk/ev-roam[website] shows the complete list of currently registered organisations.
 
 
 [[terminology_charging_topology]]
@@ -194,19 +192,19 @@ Their https://www.realschemes.org.uk/ev-roam[website] shows the full list of cur
 
 The charging topology, as relevant to the eMSP, consists of three entities:
 
-* _Connector_ is a specific socket or cable available for the EV to make use of.
-* _EVSE_ is the part that controls the power supply to a single EV in a single session. An EVSE may provide multiple connectors but only one of these can be active at the same time.
+* _Connector_ is a specific socket or cable available for the EV to use.
+* _EVSE_ is the part that controls the power supply to a single EV in a single session. An EVSE may provide multiple connectors, but only one of these can be active simultaneously.
 * _Location_ is a group of one or more EVSEs that belong together geographically or spatially.
 
 .Charging Topology schematic
 image::images/topology.svg[Charging Topology schematic]
 
-A Location is typically the exact location of one or more EVSEs, but it can also be the entrance of a parking garage or a gated community. It is up to the CPO to use whatever makes the most sense in a specific situation. Once arrived at the location, any further instructions to reach the EVSE from the Location are stored in the EVSE object itself (such as the floor number, visual identification or manual instructions).
+A Location is typically the exact Location of one or more EVSEs, but it can also be the entrance of a parking garage or a gated community. It is up to the CPO to use whatever makes sense in a specific situation. Once arrived at the Location, any further instructions to reach the EVSE from the Location are stored in the EVSE object (such as the floor number, visual identification or manual instructions).
 
 [[terminology_variable_names]]
 === Variable names
 
-To prevent issues with capitals in variable names, the naming in JSON is not CamelCase but snake_case. All variables are lowercase and include an underscore for a whitespace.
+To prevent issues with capitals in variable names, the naming in JSON is not CamelCase but snake_case. All variables are lowercase and include an underscore for whitespace.
 
 [[terminology_cardinality]]
 === Cardinality
@@ -216,9 +214,9 @@ When defining the cardinality of a field, the following symbols are used through
 [cols="1,9,1",options="header"]
 |===
 |Symbol |Description |Type
-|? |An optional object. If not set, it might be `null`, or the field might be omitted. When the field is set to null or omitted and it has a default value, the value is the default value. |Object
+|? |An optional object. If not set, it might be `null`, or the field might be omitted. When the field is set to null or omitted and has a default value, the value is the default value. |Object
 |1 |Required object. |Object 
-|* |A list of zero or more objects. If empty, it might be `null`, `[]` or the field might be omitted. |[Object] 
+|* |A list of zero or more objects. It might be `null`, `[]`, or the field might be omitted if empty. |[Object] 
 |+ |A list of at least one object. |[Object] 
 |===
 
@@ -231,6 +229,6 @@ Parties also will need to oblige to local legislation.
 
 ==== Between OCPI version
 
-When a new version of OCPI is implemented, the data exchanged via the old version does not have to be available via the newer version of OCPI.
-Hence, the Version end-point will probably have different end-points per version. So when an object is stored with a URL that contains a version,
+When a new version of OCPI is implemented, the data exchanged via the old version does not have to be available via the more recent version of OCPI.
+Hence, the Version end-point will probably have different end-points perversion. So when an object is stored with a URL that contains a version,
 it is NOT REQUIRED to be available at a URL with a different version number.
