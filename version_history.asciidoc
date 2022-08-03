@@ -6,6 +6,8 @@
 
 |2.2.1-dX | 202X-XX-XX |
 
+Jakub Karbownik +
+_Ekoenergetyka_ +
 Rudolph Froger +
 _TandemDrive_ +
 Reinier Lamers +
@@ -14,7 +16,10 @@ removed requirement that all charging periods of a CDR have a different tariff +
 replaced "2.2" by "2.2.1" where current version was intended +
 added forgotten forward slash in endpoint URL structure for Tokens Receiver interface +
 changed "Tariff Elements" to "Tariffs" in description of tariffs field in CDR object definition +
-added country_code and party_id to CdrToken examples
+added country_code and party_id to CdrToken examples +
+changed country_id to country_code in credentials explanation +
+replaced copy-pasted text about charging profiles in ChargingPreferencesResponse description +
+replaced "cpo" by "emsp" in example URL of receiver-side session module
 
 |2.2.1 |2021-10-06 |
 Robert de Leeuw +
