@@ -10,6 +10,8 @@ Jakub Karbownik +
 _Ekoenergetyka_ +
 Rudolph Froger +
 _TandemDrive_ +
+Robert de Leeuw +
+_EVA Global_ +
 Reinier Lamers +
 _ihomer_ | clarified use of Base64 for credentials token +
 removed requirement that all charging periods of a CDR have a different tariff +
@@ -19,7 +21,8 @@ changed "Tariff Elements" to "Tariffs" in description of tariffs field in CDR ob
 added country_code and party_id to CdrToken examples +
 changed country_id to country_code in credentials explanation +
 replaced copy-pasted text about charging profiles in ChargingPreferencesResponse description +
-replaced "cpo" by "emsp" in example URL of receiver-side session module
+replaced "cpo" by "emsp" in example URL of receiver-side session module +
+allowed eMSP to replace CPO-issued session IDs when exchanging charging profiles with an SCSP
 
 |2.2.1 |2021-10-06 |
 Robert de Leeuw +
