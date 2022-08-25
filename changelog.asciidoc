@@ -27,6 +27,8 @@
 
  * Changed text to give more actionable advice on how to set the Interface role in the Endpoint object for the credentials module
 
+ * Added an explanation of why the Tariffs module doesn't say anything about price rounding
+
 === Changes between OCPI 2.2 and 2.2.1
 
 Lots of typos fixed and textual improvements.

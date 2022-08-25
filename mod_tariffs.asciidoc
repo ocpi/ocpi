@@ -260,6 +260,8 @@ Such a Tariff Element will act as fallback when no other Tariff Element of a spe
 To define a "Free of Charge" tariff in OCPI, a Tariff with `type` = `FLAT` and `price` = `0.00` has to be provided.
 See: <<mod_tariffs_free_of_charge_tariff_example,Free of Charge Tariff example>>
 
+NOTE: There are no parameters related to price rounding in the Tariff object or any of it constituent objects. Nor does the specification text of this module give any requirements about how to do price rounding. The reason for this that price rounding has to be done according to rules and restrictions set by applicable laws, contracts between the parties using OCPI and the currency used. The OCPI specification stays out of these matters.
+
 [cols="3,2,1,10",options="header"]
 |===
 |Property |Type |Card. |Description 

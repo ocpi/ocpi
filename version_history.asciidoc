@@ -23,7 +23,8 @@ changed country_id to country_code in credentials explanation +
 replaced copy-pasted text about charging profiles in ChargingPreferencesResponse description +
 replaced "cpo" by "emsp" in example URL of receiver-side session module +
 allowed eMSP to replace CPO-issued session IDs when exchanging charging profiles with an SCSP +
-changed text to give more actionable advice on how to set the Interface role in the Endpoint object for the credentials module
+changed text to give more actionable advice on how to set the Interface role in the Endpoint object for the credentials module +
+added note about absence of price rounding specifications in Tariffs module
 
 |2.2.1 |2021-10-06 |
 Robert de Leeuw +
