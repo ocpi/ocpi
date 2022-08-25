@@ -15,6 +15,18 @@
 
  * Changed "Tariff Elements" to "Tariffs" in description of tariffs field in CDR object definition
 
+ * Added country_code and party_id to CdrToken examples
+
+ * Changed country_id to country_code in credentials explanation
+
+ * Replaced copy-pasted text about charging profiles in ChargingPreferencesResponse description
+
+ * Replaced "cpo" by "emsp" in example URL of receiver-side session module
+
+ * Allowed eMSP to replace CPO-issued session IDs when exchanging charging profiles with an SCSP
+
+ * Changed text to give more actionable advice on how to set the Interface role in the Endpoint object for the credentials module
+
 === Changes between OCPI 2.2 and 2.2.1
 
 Lots of typos fixed and textual improvements.

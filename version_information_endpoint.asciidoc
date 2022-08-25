@@ -132,7 +132,7 @@ Both the CPO and the eMSP MUST implement this endpoint.
 |url |<<types.asciidoc#types_url_type,URL>> |1 |URL to the endpoint. 
 |===
 
-NOTE: for the `credentials` module, the role is not relevant as this module is the same for all roles.
+NOTE: for the `credentials` module, the value of the role property is not relevant as this module is the same for all roles. It is advised to send "SENDER" as the InterfaceRole for one's own credentials endpoint and to disregard the value of the role property of the Endpoint object for other platforms' credentials modules.
 
 
 [[version_information_endpoint_interface_role_enum]]
