@@ -5,6 +5,8 @@
 [[changelog_changes_between_ocpi_2.2_and_2.2.1]]
 === Changes after 2.2.1
 
+ * Updated example of a short finished session so that the total energy matches the energies of the charging periods
+
  * Removed stipulation that all charging_periods have a different Tariff from CDRs module, which contradicts other statements in the CDRs module description
 
  * Add a note clarifying Base64 usage in the Authorization header and use more precise wording to specify the Base64 encoding
