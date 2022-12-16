@@ -4,11 +4,11 @@
     "endpoints": [{
       "identifier": "credentials",
       "role": "SENDER",
-      "url": "https://example.com/ocpi/cpo/2.2/credentials/"
+      "url": "https://example.com/ocpi/cpo/2.2/credentials"
     }, {
       "identifier": "locations",
       "role": "SENDER",
-      "url": "https://example.com/ocpi/cpo/2.2/locations/"
+      "url": "https://example.com/ocpi/cpo/2.2/locations"
     }]
   },
   "status_code": 1000,

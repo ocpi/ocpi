@@ -1,10 +1,10 @@
 {
   "data": [{
     "version": "2.1.1",
-    "url": "https://example.com/ocpi/cpo/2.1.1/"
+    "url": "https://example.com/ocpi/cpo/2.1.1"
   }, {
     "version": "2.2",
-    "url": "https://example.com/ocpi/cpo/2.2/"
+    "url": "https://example.com/ocpi/cpo/2.2"
   }],
   "status_code": 1000,
   "status_message": "Success",
