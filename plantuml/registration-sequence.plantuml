@@ -28,7 +28,7 @@ CPO --> eMSP: Available versions
 deactivate CPO
 
 eMSP -> eMSP: Pick latest mutual version (e.g. 2.2).
-CPO <- eMSP: GET /ocpi/cpo/2.2/
+CPO <- eMSP: GET /ocpi/cpo/2.2
 activate CPO
 CPO --> eMSP: Available endpoints for v2.2
 deactivate CPO
@@ -48,7 +48,7 @@ CPO -> eMSP: GET /ocpi/emsp/versions
 activate eMSP
 CPO <-- eMSP: Available versions
 deactivate eMSP
-CPO -> eMSP: GET /ocpi/emsp/2.2/
+CPO -> eMSP: GET /ocpi/emsp/2.2
 activate eMSP
 CPO <-- eMSP: Available endpoints for v2.2
 deactivate eMSP
