@@ -4,7 +4,7 @@
   "id": "101",
   "start_date_time": "2015-06-29T22:39:09Z",
   "end_date_time": "2015-06-29T23:50:16Z",
-  "kwh": 41.00,
+  "kwh": 41.12,
    "cdr_token": {
         "country_code": "NL",
         "party_id": "TST",
