@@ -241,23 +241,29 @@ The following parameters SHALL be provided as URL segments.
 [[mod_tariffs_tariff_object]]
 ==== _Tariff_ Object
 
-A Tariff object consists of a list of one or more Tariff Elements, which can be used to create complex Tariff structures.
+A Tariff object consists of a list of one or more Tariff Elements, which in turn consist of Price Components.
 
-When the list of Tariff Elements contains more than one Element with the same Tariff Dimension (ENERGY/FLAT/TIME etc.),
-than the first Tariff Element with that Dimension in the list with matching Tariff Restrictions will be used.
-Only one Tariff per Element type can be active at any point in time, but multiple Tariff Types can be active at once.
-IE you can have an `ENERGY` element and `TIME` element active at the same time, but only the first valid element of each.
+A Tariff Element is a group of Price Components that apply under the same conditions. The rules for the conditions under which a Tariff Element applies are known as its "restrictions".
+
+A Price Component describes how the usage of a particular dimension (time, energy, etcetera) is mapped to an amount of money owed.
+
+This system of Tariffs, Tariff Elements and Price Components can be used to create complex Tariff structures.
+
+When the list of Tariff Elements contains more than one Element that has a Price Component for a certain dimension, then the first Tariff Element with a Price Component for that dimension in the list with matching Tariff Restrictions will be used. Only one Price Component per dimension can be active at any point in time, but multiple Price Components for different dimensions can be active at once. That is you can have an ENERGY component and a TIME component active at the same time, but only those ones that are in the first Tariff Element that has a Price Component for that dimension and that has restrictions that match at that time.
 
 When no Tariff Element with a specific Dimension is found for which the Restrictions match,
 and there is no Tariff Element in the list with the given Dimension without Restrictions,
 there will be no costs for that Tariff Dimension.
 
-It is advised to always add a "default" Tariff Element per Dimension (ENERGY/FLAT/TIME etc.).
-This can be achieved by adding a Tariff Element without Restrictions after all other occurrences of the same Dimension
-in the list of Tariff Elements (the order is important).
-Such a Tariff Element will act as fallback when no other Tariff Element of a specific Dimension matches the relevant parameters (Restrictions).
+It is advised to always add a "default" Price Component per dimension.
 
-To define a "Free of Charge" tariff in OCPI, a Tariff with `type` = `FLAT` and `price` = `0.00` has to be provided.
+This can be achieved by adding a Tariff Element without restrictions after all other occurrences of the same dimension
+in the list of Tariff Elements.
+
+Such a Tariff Element will act as fallback when there is no other Tariff Element that has matching restrictions and that contains a Price Component for that dimension.
+
+To define a "Free of Charge" tariff in OCPI, a Tariff containing one Tariff Element with no restrictions containing one Price Component with `type` = `FLAT` and `price` = `0.00` has to be provided.
+
 See: <<mod_tariffs_free_of_charge_tariff_example,Free of Charge Tariff example>>
 
 NOTE: There are no parameters related to price rounding in the Tariff object or any of it constituent objects. Nor does the specification text of this module give any requirements about how to do price rounding. The reason for this that price rounding has to be done according to rules and restrictions set by applicable laws, contracts between the parties using OCPI and the currency used. The OCPI specification stays out of these matters.
