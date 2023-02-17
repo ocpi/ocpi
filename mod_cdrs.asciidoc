@@ -20,7 +20,7 @@ CDRs are created by the CPO. They most likely will be sent only to the eMSP that
 Because a CDR is for billing purposes, it cannot be changed or replaced once sent to the eMSP. Changes are simply not allowed.
 Instead, a <<mod_cdrs_credit_cdrs,Credit CDR>> can be sent.
 
-CDRs may be send for charging locations that have not been published via the <<mod_locations.asciidoc#mod_locations_locations_module,Location>> module.
+CDRs may be sent for charging locations that have not been published via the <<mod_locations.asciidoc#mod_locations_locations_module,Location>> module.
 This is typically for home chargers.
 
 
@@ -263,15 +263,16 @@ The _CDR_ object shall always contain information like Location, EVSE, Tariffs a
 *ChargingPeriod:*
 A CPO SHALL at least start (and add) a <<mod_cdrs_chargingperiod_class,ChargingPeriod>> every moment/event that has relevance for the total costs of a CDR.
 During a charging session, different parameters change all the time, like the amount of energy used, or the time of day.
-These changes can result in another Tariff Element of the Tariff becoming active.
-When another Tariff Element becomes active,
-the CPO SHALL add a new Charging Period with at least all the relevant information for the change to the other Tariff Element.
-The CPO is allowed to add more _in-between_ Charging Periods to a CDR though. Examples of additional Charging Periods:
+These changes can result in another Price Component of the Tariff becoming active.
+When another Price Component becomes active,
+the CPO SHALL add a new Charging Period with at least all the relevant information for the change to the other Price Component.
+The CPO is allowed to add more _in-between_ Charging Periods to a CDR though.
 
-- When an energy based Tariff changes in price after 17:00. The CPO SHALL start a new Charging Period at 17:00,
-which contains at least the energy in kWh consumed until 17:00.
-- When the price of a Tariff is higher when the EV is charging faster than 32A,
-a new Charging Period SHALL be added the moment the charging power goes over 32A.
+Examples of additional Charging Periods that are required to be added because another Price Component is becoming active:
+
+- When an energy changes in price after 17:00. The CPO has to start a new Charging Period at 17:00. The CPO  also has to list the energy in kWh consumed until 17:00 in the Charging Period that ends at 17:00.
+- When the price of a energy is higher when the EV is charging faster than 32A,
+a new Charging Period has to be added the moment the charging power goes over 32A.
 This may be a moment that is calculated by the CPO, as the Charge Point might not send the information to the CPO,
 but it can be interpolated by the CPO using the metering information before and after that moment.
 
@@ -301,19 +302,19 @@ Example: A driver selects a different <<mod_sessions.asciidoc#mod_sessions_set_c
 <<mod_sessions.asciidoc#mod_sessions_profile_type_enum,`profile_type`>> during an ongoing charging session, the different profile might have a different tariff.
 
 The `step_size` uses the total amount of a certain unit used during a session, not only the last ChargingPeriod.
-In other words, when charging tariff per kWh of time differs during a session, the total amount of kWh of time is used in calculations with `step_size`. +
-Example: Charging cost 0.20 euro/Wh before 17:00 and 0.27 euro/Wh after 17:00 both have a `step_size` of 500 Wh.
+In other words, when the price of energy per kWh or the price of time per hour differs during a session,only the total amount of energy or time is used in calculations with `step_size`. +
+Example: Energy costs € 0.20 perkWh before 17:00 and € 0.27 per kWh after 17:00. Both Price Components have a `step_size` of 500 Wh.
 If a driver charges 4.3 kWh before 17:00 and 1.1 kWh after 17:00, a total of 5.4 kWh is charged. The `step_size` rounds this up to 5.5 kWh total.
 It does NOT round the energy used after 17:00 to 1.5 kWh.
 
-Example: Charging cost 5 euro/hour before 17:00 and 7 euro/hour after 17:00 both have a `step_size` of 10 minutes.
-If a driver charges 6 minutes before 17:00 and 22 minutes after 17:00: a total of 28 minutes charging. The `step_size` rounds this up to 30 minutes total, so 24 minutes after 17:00 will be billed.
+Example: Time costs € 5 per hour before 17:00 and € 7 per hour after 17:00. Both Price Components have a `step_size` of 10 minutes.
+If a driver charges 6 minutes before 17:00 and 22 minutes after 17:00, this makes a total of 28 minutes charging. The `step_size` rounds this up to 30 minutes total, so 24 minutes after 17:00 will be billed.
 It does NOT round the minutes after 17:00 to 30 minutes, which would have made a total of 36 minutes.
 
 In the cases that <<mod_tariffs.asciidoc#mod_tariffs_tariffdimensiontype_enum,`TIME`>>
 and <<mod_tariffs.asciidoc#mod_tariffs_tariffdimensiontype_enum,`PARKING_TIME`>> Tariff Elements are both used, `step_size` is only taken into account for the total parking duration` +
-Example: Charging cost 1.00 euro/hour, parking 2.00 euro/hour both have a `step_size` of 10 minutes.
-If a driver charges 21 minutes, and keeps his EV connected while it is full for another 16 minutes. The step_size rounds the parking duration up to 20 minutes, making it a total of 41 minutes. Note that the charging duration is not rounded up, as it is followed by another time base period.
+Example: Time spent charging costs € 1.00 per hour and time spent parking (not charging) costs € 2.00 per hour. Both Price Components have a `step_size` of 10 minutes.
+If a driver charges 21 minutes, and keeps his EV connected while it is full for another 16 minutes, then the step_size rounds the parking duration up to 20 minutes, making it a total of 41 minutes. Note that the charging duration is not rounded up, as it is followed by another time based period.
 
 
 [cols="4,3,1,9",options="header"]
