@@ -26,7 +26,7 @@ When the CPO deletes a Tariff, they will update the eMSPs systems by calling <<m
 on the eMSPs Tariffs endpoint with the ID of the Tariff that was deleted.
 
 When the CPO is not sure about the state or existence of a Tariff object in the system of an eMSP, the
-CPO can use a <<mod_tariffs_msp_get_method,GET>> request to validate the Tariff object in the eMSP's system. 
+CPO can use a <<mod_tariffs_msp_get_method,GET>> request to validate the Tariff object in the eMSP's system.
 
 [[mod_tariffs_pull_model]]
 ==== Pull model
@@ -51,13 +51,13 @@ The Sender's Tariffs interface gives the Receiver the ability to request Tariffs
 
 [cols="2,12",options="header"]
 |===
-|Method |Description 
+|Method |Description
 
-|<<mod_tariffs_cpo_get_method,GET>> |Returns Tariff objects from the CPO, last updated between the `{date_from}` and `{date_to}` (<<transport_and_format.asciidoc#transport_and_format_pagination,paginated>>) 
-|POST |n/a 
-|PUT |n/a 
-|PATCH |n/a 
-|DELETE |n/a 
+|<<mod_tariffs_cpo_get_method,GET>> |Returns Tariff objects from the CPO, last updated between the `{date_from}` and `{date_to}` (<<transport_and_format.asciidoc#transport_and_format_pagination,paginated>>)
+|POST |n/a
+|PUT |n/a
+|PATCH |n/a
+|DELETE |n/a
 |===
 
 [[mod_tariffs_cpo_get_method]]
@@ -90,12 +90,12 @@ This request is <<transport_and_format.asciidoc#transport_and_format_pagination,
 
 [cols="3,2,1,10",options="header"]
 |===
-|Parameter |Datatype |Required |Description 
+|Parameter |Datatype |Required |Description
 
 |date_from |<<types.asciidoc#types_datetime_type,DateTime>> |no |Only return Tariffs that have `last_updated` after or equal to this Date/Time (inclusive).
 |date_to |<<types.asciidoc#types_datetime_type,DateTime>> |no |Only return Tariffs that have `last_updated` up to this Date/Time, but not including (exclusive).
-|offset |int |no |The offset of the first object returned. Default is 0. 
-|limit |int |no |Maximum number of objects to GET. 
+|offset |int |no |The offset of the first object returned. Default is 0.
+|limit |int |no |Maximum number of objects to GET.
 |===
 
 [[mod_tariffs_cpo_get_response_data]]
@@ -108,9 +108,9 @@ Each object must contain all required fields. Fields that are not specified may 
 
 [cols="4,1,12",options="header"]
 |===
-|Type |Card. |Description 
+|Type |Card. |Description
 
-|<<mod_tariffs_tariff_object,Tariff>> |* |List of all tariffs. 
+|<<mod_tariffs_tariff_object,Tariff>> |* |List of all tariffs.
 |===
 
 [[mod_tariffs_emsp_interface]]
@@ -131,13 +131,13 @@ Example:
 
 [cols="2,12",options="header"]
 |===
-|Method |Description 
+|Method |Description
 
-|<<mod_tariffs_msp_get_method,GET>> |Retrieve a Tariff as it is stored in the eMSP's system. 
-|POST |n/a 
-|<<mod_tariffs_put_method,PUT>> |Push new/updated Tariff object to the eMSP. 
+|<<mod_tariffs_msp_get_method,GET>> |Retrieve a Tariff as it is stored in the eMSP's system.
+|POST |n/a
+|<<mod_tariffs_put_method,PUT>> |Push new/updated Tariff object to the eMSP.
 |PATCH|n/a
-|<<mod_tariffs_delete_method,DELETE>> |Remove a Tariff object which is no longer in use and will not be used in future either. 
+|<<mod_tariffs_delete_method,DELETE>> |Remove a Tariff object which is no longer in use and will not be used in future either.
 |===
 
 [[mod_tariffs_msp_get_method]]
@@ -153,7 +153,7 @@ The following parameters SHALL be provided as URL segments.
 
 [cols="3,2,1,10",options="header"]
 |===
-|Parameter |Datatype |Required |Description 
+|Parameter |Datatype |Required |Description
 
 |country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |yes |Country code of the CPO performing the GET request on the eMSP's system.
 |party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |yes |Party ID (Provider ID) of the CPO performing the GET request on the eMSP's system.
@@ -167,9 +167,9 @@ The response contains the requested object.
 
 [cols="4,1,12",options="header"]
 |===
-|Type |Card. |Description 
+|Type |Card. |Description
 
-|<<mod_tariffs_tariff_object,Tariff>> |1 |The requested Tariff object. 
+|<<mod_tariffs_tariff_object,Tariff>> |1 |The requested Tariff object.
 |===
 
 [[mod_tariffs_put_method]]
@@ -184,7 +184,7 @@ In the PUT request, the new or updated Tariff object is sent in the body.
 
 [cols="4,1,12",options="header"]
 |===
-|Type |Card. |Description 
+|Type |Card. |Description
 
 |<<mod_tariffs_tariff_object,Tariff>> |1 |New or updated Tariff object.
 |===
@@ -196,7 +196,7 @@ The following parameters SHALL be provided as URL segments.
 
 [cols="3,2,1,10",options="header"]
 |===
-|Parameter |Datatype |Required |Description 
+|Parameter |Datatype |Required |Description
 
 |country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |yes |Country code of the CPO performing the PUT request on the eMSP's system. This SHALL be the same value as the `country_code` in the Tariff object being pushed.
 |party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |yes |Party ID (Provider ID) of the CPO performing the PUT request on the eMSP's system. This SHALL be the same value as the `party_id` in the Tariff object being pushed.
@@ -228,7 +228,7 @@ The following parameters SHALL be provided as URL segments.
 
 [cols="3,2,1,10",options="header"]
 |===
-|Parameter |Datatype |Required |Description 
+|Parameter |Datatype |Required |Description
 
 |country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |yes |Country code of the CPO performing the PUT request on the eMSP's system.
 |party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |yes |Party ID (Provider ID) of the CPO performing the PUT request on the eMSP's system.
@@ -241,30 +241,36 @@ The following parameters SHALL be provided as URL segments.
 [[mod_tariffs_tariff_object]]
 ==== _Tariff_ Object
 
-A Tariff object consists of a list of one or more Tariff Elements, which can be used to create complex Tariff structures.
+A Tariff object consists of a list of one or more Tariff Elements, which in turn consist of Price Components.
 
-When the list of Tariff Elements contains more than one Element with the same Tariff Dimension (ENERGY/FLAT/TIME etc.),
-than the first Tariff Element with that Dimension in the list with matching Tariff Restrictions will be used.
-Only one Tariff per Element type can be active at any point in time, but multiple Tariff Types can be active at once.
-IE you can have an `ENERGY` element and `TIME` element active at the same time, but only the first valid element of each.
+A Tariff Element is a group of Price Components that apply under the same conditions. The rules for the conditions under which a Tariff Element applies are known as its "restrictions".
+
+A Price Component describes how the usage of a particular dimension (time, energy, etcetera) is mapped to an amount of money owed.
+
+This system of Tariffs, Tariff Elements and Price Components can be used to create complex Tariff structures.
+
+When the list of Tariff Elements contains more than one Element that has a Price Component for a certain dimension, then the first Tariff Element with a Price Component for that dimension in the list with matching Tariff Restrictions will be used. Only one Price Component per dimension can be active at any point in time, but multiple Price Components for different dimensions can be active at once. That is you can have an ENERGY component and a TIME component active at the same time, but only those ones that are in the first Tariff Element that has a Price Component for that dimension and that has restrictions that match at that time.
 
 When no Tariff Element with a specific Dimension is found for which the Restrictions match,
 and there is no Tariff Element in the list with the given Dimension without Restrictions,
 there will be no costs for that Tariff Dimension.
 
-It is advised to always add a "default" Tariff Element per Dimension (ENERGY/FLAT/TIME etc.).
-This can be achieved by adding a Tariff Element without Restrictions after all other occurrences of the same Dimension
-in the list of Tariff Elements (the order is important).
-Such a Tariff Element will act as fallback when no other Tariff Element of a specific Dimension matches the relevant parameters (Restrictions).
+It is advised to always add a "default" Price Component per dimension.
 
-To define a "Free of Charge" tariff in OCPI, a Tariff with `type` = `FLAT` and `price` = `0.00` has to be provided.
+This can be achieved by adding a Tariff Element without restrictions after all other occurrences of the same dimension
+in the list of Tariff Elements.
+
+Such a Tariff Element will act as fallback when there is no other Tariff Element that has matching restrictions and that contains a Price Component for that dimension.
+
+To define a "Free of Charge" tariff in OCPI, a Tariff containing one Tariff Element with no restrictions containing one Price Component with `type` = `FLAT` and `price` = `0.00` has to be provided.
+
 See: <<mod_tariffs_free_of_charge_tariff_example,Free of Charge Tariff example>>
 
 NOTE: There are no parameters related to price rounding in the Tariff object or any of it constituent objects. Nor does the specification text of this module give any requirements about how to do price rounding. The reason for this that price rounding has to be done according to rules and restrictions set by applicable laws, contracts between the parties using OCPI and the currency used. The OCPI specification stays out of these matters.
 
 [cols="3,2,1,10",options="header"]
 |===
-|Property |Type |Card. |Description 
+|Property |Type |Card. |Description
 
 |country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |1 |ISO-3166 alpha-2 country code of the CPO that _owns_ this Tariff.
 |party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |1 |ID of the CPO that 'owns' this Tariff (following the ISO-15118 standard).
@@ -283,7 +289,7 @@ NOTE: There are no parameters related to price rounding in the Tariff object or 
 |end_date_time |<<types.asciidoc#types_datetime_type,DateTime>> |? |The time after which this tariff is no longer valid, in UTC, `time_zone` field if the <<mod_locations.asciidoc#mod_locations_location_object,Location>> can be used to convert to local time.
                                                                     Typically used when this tariff is going to be replaced with a different tariff in the near future. (See note below)
 |energy_mix |<<mod_locations.asciidoc#mod_locations_energymix_class,EnergyMix>> |? |Details on the energy supplied with this tariff.
-|last_updated |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Timestamp when this Tariff was last updated (or created). 
+|last_updated |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Timestamp when this Tariff was last updated (or created).
 |===
 
 NOTE: `min_price`: As the VAT might be built up of different parts, there might be situations where minimum cost including VAT is reached earlier or later than the minimum cost excluding VAT.
@@ -305,11 +311,11 @@ If the Tariff of the Charge Point would change during the charging session,
 the driver might get billed something they didn't agree to when starting the session.
 
 NOTE: The fields: `tariff_alt_text` and `tariff_alt_url` may be used separately,
-or in combination with each other or even combined with the structured tariff `elements`.
+or in combination with each other or even combined with the structured list of Tariff Elements.
 When a Tariff contains both the `tariff_alt_text` and `elements` fields,
 the `tariff_alt_text` SHALL only contain additional tariff information in human-readable text,
 not the price information that is also available via the `elements` field.
-Reason for this: the eMSP might have additional fees they want to include in communication with their customer.
+The reason for this is that the eMSP might have additional fees they want to include in communication with their customer.
 
 
 [[mod_tariffs_examples]]
@@ -853,38 +859,40 @@ include::examples/tariff_18_reservation_with_expire_time.json[]
 
 [cols="3,10",options="header"]
 |===
-|Value |Description 
+|Value |Description
 
-|MONDAY |Monday 
-|TUESDAY |Tuesday 
-|WEDNESDAY |Wednesday 
-|THURSDAY |Thursday 
-|FRIDAY |Friday 
-|SATURDAY |Saturday 
-|SUNDAY |Sunday 
+|MONDAY |Monday
+|TUESDAY |Tuesday
+|WEDNESDAY |Wednesday
+|THURSDAY |Thursday
+|FRIDAY |Friday
+|SATURDAY |Saturday
+|SUNDAY |Sunday
 |===
 
 [[mod_tariffs_pricecomponent_class]]
 ==== PriceComponent _class_
 
+A Price Component describes how a certain amount of a certain dimension being consumed translates into an amount of money owed.
+
 [cols="3,4,1,10",options="header"]
 |===
-|Property |Type |Card. |Description 
+|Property |Type |Card. |Description
 
-|type |<<mod_tariffs_tariffdimensiontype_enum,TariffDimensionType>> |1 |Type of tariff dimension.
-|price |<<types.asciidoc#types_number_type,number>> |1 |Price per unit (excl. VAT) for this tariff dimension.
+|type |<<mod_tariffs_tariffdimensiontype_enum,TariffDimensionType>> |1 |The dimension that is being priced
+|price |<<types.asciidoc#types_number_type,number>> |1 |Price per unit (excl. VAT) for this dimension.
 |vat |<<types.asciidoc#types_number_type,number>> |? |Applicable VAT percentage for this tariff dimension. If omitted, no VAT is applicable. Not providing a VAT is different from 0% VAT, which would be a value of 0.0 here.
-|step_size |int |1 |Minimum amount to be billed. This unit will be billed in this `step_size` blocks. Amounts that are less then this `step_size` are rounded up to the given `step_size`.
-For example: if `type` is `TIME` and `step_size` has a value of `300`, then time will be billed in blocks of 5 minutes. If 6 minutes were used, 10 minutes (2 blocks of `step_size`) will be billed.
+|step_size |int |1 |Minimum amount to be billed. That is, the dimension will be billed in this `step_size` blocks. Consumed amounts are rounded up to the smallest multiple of `step_size` that is greater than the consumed amount.
+For example: if `type` is `TIME` and `step_size` has a value of `300`, then time will be billed in blocks of 5 minutes. If 6 minutes were consumed, 10 minutes (2 blocks of `step_size`) will be billed.
 |===
 
 NOTE: `step_size`: depends on the `type` and every `type` (except `FLAT`) defines a `step_size` multiplier, which is the size of every _step_ for that `type` in the given unit. +
  +
-For example: `PARKING_TIME` has the `step_size` multiplier: _1 second_, which means that the `step_size` of a `PriceComponent` is multiplied by _1 second_.
+For example: `PARKING_TIME` has the `step_size` multiplier: _1 second_, which means that the `step_size` of a Price Component is multiplied by _1 second_.
 Thus a `step_size = 300` means `300 seconds` (`5 minutes`). This means that when someone parked for 8 minutes they will be billed for 10 minutes.
 The parking time will be simply rounded up to the next larger chunk of `step_size` (i.e. blocks of `300 seconds` in this example). +
  +
-Another example: `ENERGY` has the `step_size` multiplied: _1 Wh_, which means that the `step_size` of a `PriceComponent` is multiplied by _1 Wh_.
+Another example: `ENERGY` has the `step_size` multiplied: _1 Wh_, which means that the `step_size` of a Price Component is multiplied by _1 Wh_.
 Thus a `step_size = 1` with a `price = 0.25` will result in a cost calculation that uses the charged Wh as precision. +
 If someone charges their EV with 115.2 Wh, then they are billed for 116 Wh, resulting in total cost of 0.029 euro. +
 When `step_size = 25`, then the same amount would be billed for 101 to 125 Wh: 0.031 euro. +
@@ -892,13 +900,13 @@ When `step_size = 500`, then the same amount will be billed for 1 to 500 Wh: 0.1
 
 NOTE: For more information about how `step_size` impacts the calculation of the cost of charging see: <<mod_cdrs.asciidoc#mod_cdrs_step_size,CDR object description>>
 
-NOTE: Take into account that using `step_size` can be confusing for customers/drivers.
-There may be local or national regulations that define max `step_size`.
-E.g. in The Netherlands telecom companies are required to at least offer one subscription which is paid per second.
+NOTE: Take into account that using `step_size` can be confusing for Drivers and other people.
+There may be local or national regulations that regulate `step_size`.
+For example in The Netherlands telecom companies are required to at least offer one subscription which is paid per second.
 To prevent confusion by the customer, we recommend to keep the `step_size` as small as possible and mention them clearly in your offering.
 
 ===== Example Tariff
-Example Tariff to explain the `step_size` when switching from one <<mod_tariffs_tariffelement_class,`TariffElement`>> to another:
+Example Tariff to explain the `step_size` when switching from one <<mod_tariffs_tariffelement_class,Tariff Element>> to another:
 
 - Charging fee of 1.20 euro per hour (excl. VAT) before 17:00 with a `step_size` of 30 minutes (1800 seconds)
 - Charging fee of 2.40 euro per hour (excl. VAT) after 17:00 with a `step_size` of 15 minutes (900 seconds)
@@ -962,23 +970,27 @@ The total session time is therefore 12 minutes, resulting in the following costs
 [cols="3,10",options="header"]
 |===
 |Value |Description
-|RESERVATION |Used in TariffElements to describe costs for a reservation.
-|RESERVATION_EXPIRES |Used in TariffElements to describe costs for a reservation that expires (i.e. driver does not start a charging session before <<mod_commands.asciidoc#mod_commands_reservenow_object,expiry_date>> of the reservation).
+|RESERVATION |Used in Tariff Elements to describe costs for a reservation.
+|RESERVATION_EXPIRES |Used in Tariff Elements to describe costs for a reservation that expires (i.e. driver does not start a charging session before <<mod_commands.asciidoc#mod_commands_reservenow_object,expiry_date>> of the reservation).
 |===
 
-NOTE: When a Tariff has both, `RESERVATION` and `RESERVATION_EXPIRES` TariffElements,
-where both TariffElements have a <<mod_tariffs_tariffdimensiontype_enum,TIME>> PriceComponent,
-then the time based cost of an expired reservation will be calculated based on the `RESERVATION_EXPIRES` TariffElement.
+NOTE: When a Tariff has both `RESERVATION` and `RESERVATION_EXPIRES` Tariff Elements,
+where both Tariff Elements have a <<mod_tariffs_tariffdimensiontype_enum,TIME>> Price Component,
+then the time based cost of an expired reservation will be calculated based on the `RESERVATION_EXPIRES` Tariff Element.
 
 [[mod_tariffs_tariffelement_class]]
 ==== TariffElement _class_
 
+A Tariff Element is a group of Price Components that share a set of restrictions under which they apply.
+
+That the Price Components share the same restrictions does not mean that at any time, they either all apply or all do not apply. The reason is that applicable Price Components are looked up separately for each dimension, as described under the <<mod_tariffs_tariff_object,Tariff object>>. Therefore it is possible that a Price Component for one dimension is found in a Tariff Element that occurs earlier in the list of Tariff Elements than for another dimension.
+
 [cols="3,4,1,10",options="header"]
 |===
-|Property |Type |Card. |Description 
+|Property |Type |Card. |Description
 
-|price_components |<<mod_tariffs_pricecomponent_class,PriceComponent>> |+ |List of price components that describe the pricing of a tariff.
-|restrictions |<<mod_tariffs_tariffrestrictions_class,TariffRestrictions>> |? |Restrictions that describe the applicability of a tariff.
+|price_components |<<mod_tariffs_pricecomponent_class,PriceComponent>> |+ |List of Price Components that each describe how a certain dimension is priced.
+|restrictions |<<mod_tariffs_tariffrestrictions_class,TariffRestrictions>> |? |Restrictions that describe under which circumstances the Price Components of this Tariff Element apply.
 |===
 
 [[mod_tariffs_tariffdimensiontype_enum]]
@@ -986,11 +998,11 @@ then the time based cost of an expired reservation will be calculated based on t
 
 [cols="3,10",options="header"]
 |===
-|Value |Description 
+|Value |Description
 
-|ENERGY |Defined in kWh, `step_size` multiplier: 1 Wh 
+|ENERGY |Defined in kWh, `step_size` multiplier: 1 Wh
 |FLAT |Flat fee without unit for `step_size`
-|PARKING_TIME |Time not charging: defined in hours, `step_size` multiplier: 1 second 
+|PARKING_TIME |Time not charging: defined in hours, `step_size` multiplier: 1 second
 |TIME |Time charging: defined in hours, `step_size` multiplier: 1 second +
 Can also be used in combination with a <<mod_tariffs_tariffrestrictions_class,RESERVATION>> restriction to describe the price of the reservation time.
 |===
@@ -999,13 +1011,15 @@ Can also be used in combination with a <<mod_tariffs_tariffrestrictions_class,RE
 [[mod_tariffs_tariffrestrictions_class]]
 ==== TariffRestrictions _class_
 
-These restrictions are not for the entire Charging Session. They only describe if and when a TariffElement becomes active or inactive during a Charging Session.
+ A `TariffRestrictions` object describes if and when a Tariff Element becomes active or inactive during a Charging Session.
 
-When more than one restriction is set, they are to be threaded as a logical AND. So all need to be valid before this tariff is active.
+These restrictions are not to be interpreted as making the Tariff Element applicable or not applicable for the entire Charging Session.
+
+When more than one restriction is set, they are to be treated as a logical AND. So a Tariff Element is active if and only if all of the properties in its `TariffRestrictions` match.
 
 [cols="3,2,1,10",options="header"]
 |===
-|Property |Type |Card. |Description 
+|Property |Type |Card. |Description
 
 |start_time |<<types.asciidoc#types_string_type,string>>(5) |? |Start time of day in local time, the time zone is defined in the `time_zone` field of the
                                                                 <<mod_locations.asciidoc#mod_locations_location_object,Location>>, for example 13:30,
