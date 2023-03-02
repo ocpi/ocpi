@@ -322,7 +322,7 @@ The reason for this is that the eMSP might have additional fees they want to inc
 ===== Examples
 
 In the following section, a few different pricing strategies will be explained with some Tariff examples.
-For simplicity, we will use euro as currency in all of the examples if not mentioned otherwise.
+For simplicity, we will use the euro as the currency in all of the examples if not mentioned otherwise.
 
 [[mod_tariffs_simple_tariff_example_0_25_euro_per_kwh]]
 ====== Simple Tariff example € 0.25 per kWh
