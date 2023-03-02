@@ -501,7 +501,7 @@ include::examples/tariff_13_simple_3hour_5parking.json[]
 [[mod_tariffs_simple_tariff_example_with_alternative_multi_language_text]]
 ====== Ad-Hoc simple Tariff example with multiple languages
 
-For ad-hoc charging (paying for charging without a contract), the tariff `elements` are less needed.
+For ad-hoc charging (paying for charging without a contract), the Tariff Elements are not as important.
 The eMSP is not involved when a driver uses ad-hoc payment at the Charge Point, so no CDR is sent to an eMSP.
 Having a good human readable text is much more useful.
 
@@ -626,15 +626,39 @@ include::examples/tariff_3_alt_url.json[]
 For a charging session on a Monday morning starting at 09:30 which takes 2:45 hours (165 minutes),
 where the driver uses a maximum of 16A of current and is parking for additional 42 minutes afterwards,
 this tariff will result in costs of 9.00 euro (excl. VAT) or 10.30 euro (incl. VAT)
-for a total session time of 147 minutes (charging) + 42 minutes (parking).
-As the tariff switches from a `TIME` based tariff to `PARKING_TIME`, `step_size` is not used on the charging time, only on the parking time.
-The driver has to pay for 165 minutes charging (2.75 euro excl. VAT) and 45 minutes of parking, as parking is billed per 5 minutes (3.75 euro excl. VAT).
+for a total session time of 165 minutes (charging) + 42 minutes (parking).
+
+A breakdown is as follows:
+
+[cols="2,2,2,1,1,1",options="header"]
+|===
+| Dimension | Quantity | Price ex VAT | Cost ex VAT | VAT | Cost inc VAT
+| Flat | 1 | 2.50 | 2.50 | 15% | 2.875
+| Charging time | 165 minutes | 1.00 per hour | 2.75 | 20% | 3.30
+| Parking time | 45 minutes | 5.00 per hour | 3.75 | 10% | 4.125
+| Total | | | 9.00 | | 10.30
+|===
+
+The step_size of the last time-based period is 5 so the parking time duration of 42 minutes is rounded up to 45. As such the driver has to pay for 45 minutes of parking while they were actually only parking for 42 minutes.
+
+The charging time is not affected by step_size because it is followed by another time-based period.
 
 For a charging session on a Saturday afternoon starting at 13:30 which takes 1:54 hours (114 minutes),
 where the driver uses a minimum of 43A of current (all the time, which is only theoretically possible) and is parking for additional 71 minutes afterwards,
-this tariff will result in a total cost of 12.375 euro (excl. VAT) or 13.975 euro (incl. VAT).
-Total charging time of 114 minutes (2.375 euro excl. VAT). Parking time: 71 minutes due to `step_size` rounded to 75 minutes (7.50 euro excl VAT).
+this tariff will result in a total cost of 11.88 euro (excl. VAT) or 13.421 euro (incl. VAT). A breakdown is as follows:
 
+[cols="2,2,2,1,1,1",options="header"]
+|===
+| Dimension | Quantity | Price ex VAT | Cost ex VAT | VAT | Cost inc VAT
+| Flat | 1 | 2.50 | 2.50 | 15% | 2.875
+| Charging time | 114 minutes | 1.25 per hour | 2.28 | 20% | 2.736
+| Parking time | 75 minutes | 6.00 per hour | 7.50 | 10% | 8.25
+| Total | | | 12.28 | | 13.861
+|===
+
+The cost for parking time is 7.50, reflecting 75 minutes of parking, because the step_size of the last time-based period is applied to the 71 actual minutes of parking.
+
+The charging time is again not affected by step_size because it is followed by parking time.
 
 [source,json]
 ----
@@ -688,10 +712,17 @@ Translated into our tariff schema, the pricing model looks like this:
 For a charging session where the driver charges 20 kWh and where the vehicle is parked for 2:45 more hours after charging ended,
 this tariff will result in costs of 7.30 euro (excl. VAT).
 
-Cost breakdown:
+A breakdown is as follows:
 
-* Energy: 19 kWh (first kWh is free) = 3.80 euro.
-* Parking: 2:45 hours = 1:45 hours of paid parking (105 minutes) = 3.50 euro
+[cols="2,2,2,1",options="header"]
+|===
+| Dimension | Quantity | Price ex VAT | Cost ex VAT
+| Energy | 1 kWh | 0.00 per kWh | 0.00
+| Energy | 19 kWh | 0.20 per kWh | 3.80
+| Parking time | 60 minutes | 0.00 per hour | 0.00
+| Parking time | 105 minutes | 2.00 per hour | 3.50
+| Total | | | 7.30
+|===
 
 As no VAT information is given, it is not possible to calculate total costs including VAT.
 
@@ -699,7 +730,6 @@ As no VAT information is given, it is not possible to calculate total costs incl
 ----
 include::examples/tariff_7_first_hour_kwh_free.json[]
 ----
-
 
 [[mod_tariffs_tariff_example_15_reservation_5_euro_per_hour]]
 ====== Tariff example with reservation price
@@ -722,12 +752,16 @@ include::examples/tariff_7_first_hour_kwh_free.json[]
 For a charging session that was started 15 minutes after the reservation time, where the driver charges 20 kWh,
 this tariff will result in costs of 6.75 euro (excl. VAT) or 7.60 euro (incl. VAT).
 
-Cost breakdown:
+A breakdown is as follows:
 
-* Start fee: 0.50 euro excl VAT, 0.60 incl. VAT.
-* Energy: 20 kWh = 5.00 euro excl. VAT, 5.50 euro incl. VAT.
-* Reservation: 0:15 hours (15 minutes) = 1.25 euro excl. VAT, 1.50 euro incl. VAT.
-
+[cols="2,2,2,1,1,1",options="header"]
+|===
+| Dimension | Quantity | Price ex VAT | Cost ex VAT | VAT | Cost inc VAT
+| Flat | 1 | 0.50 | 0.50 | 20% | 0.60
+| Energy | 20 kWh | 0.25 per kWh | 5.00 | 10% | 5.50
+| Reservation | 15 minutes | 5.00 per hour | 1.25 | 20% | 1.50
+| Total | | | 6.75 | | 7.60
+|===
 
 [source,json]
 ----
@@ -759,13 +793,17 @@ this tariff will result in costs of 8.75 euro (excl. VAT) or 10.00 euro (incl. V
 Because the reservation fee is billed per 5 minutes, the driver has to pay for 15 minutes of reservation even though
 they started the charging session 13 minutes after the reservation time.
 
-Cost breakdown:
+A breakdown is as follows:
 
-* Start fee: 0.50 euro excl VAT, 0.60 incl. VAT.
-* Energy: 20 kWh = 5.00 euro excl. VAT, 5.50 euro incl. VAT.
-* Reservation fee: 2.00 euro excl VAT, 2.00 incl. VAT.
-* Reservation: 0:15 hours (15 minutes) = 1.25 euro excl. VAT, 1.50 euro incl. VAT.
-
+[cols="2,2,2,1,1,1",options="header"]
+|===
+| Dimension | Quantity | Price ex VAT | Cost ex VAT | VAT | Cost inc VAT
+| Flat | 1 | 2.00 | 2.00 | 20% | 2.40
+| Parking time | 15 minutes | 5.00 per hour | 1.25 | 20% | 1.50
+| Flat | 1 | 0.50 | 0.50 | 20% | 0.60
+| Energy | 20 kWh | 0.25 per kWh | 5.00 | 10% | 5.50
+| Total | | | 8.75 | | 10.00
+|===
 
 [source,json]
 ----
@@ -801,10 +839,32 @@ this tariff will result in costs of 6.50 euro (excl. VAT) or 7.30 euro (incl. VA
 Because the reservation fee is billed per 10 minutes, the driver has to pay for 30 minutes of reservation even though
 they started the charging session 22 minutes after the reservation time.
 
+A breakdown of this scenario is as follows:
+
+[cols="2,2,2,1,1,1",options="header"]
+|===
+| Dimension | Quantity | Price ex VAT | Cost ex VAT | VAT | Cost inc VAT
+| Time | 30 minutes | 2.00 per hour | 1.00 | 20% | 1.20
+| Flat | 1 | 0.50 | 0.50 | 20% | 0.60
+| Energy | 20 kWh | 0.25 per kWh | 5.00 | 10% | 5.50
+| Total | | | 6.50 | | 7.30
+|===
+
 If the driver did not start a charging session and the reservation expired after the reserved time of 1 hour,
 the tariff would have resulted in costs of 6.00 euro (excl. VAT) or 7.20 euro (incl. VAT).
 In case a reservation is not used, the driver has to pay the full amount of reserved time
 as well as an additional expiration fee as compensation for not charging at all.
+
+A breakdown of this scenario is as follows:
+
+[cols="2,2,2,1,1,1",options="header"]
+|===
+| Dimension | Quantity | Price ex VAT | Cost ex VAT | VAT | Cost inc VAT
+| Flat | 1 | 4.00 | 4.00 | 20% | 4.80
+| Time | 60 minutes | 2.00 per hour | 2.00 | 20% | 2.40
+| Total | | | 6.00 | | 7.20
+|===
+
 
 
 [source,json]
@@ -841,9 +901,30 @@ this tariff will result in costs of 7.00 euro (excl. VAT) or 7.90 euro (incl. VA
 Because the reservation fee is billed per 10 minutes, the driver has to pay for 30 minutes of reservation even though
 they started the charging session 22 minutes after the reservation time.
 
+A breakdown of this scenario is as follows:
+
+[cols="2,2,2,1,1,1",options="header"]
+|===
+| Dimension | Quantity | Price ex VAT | Cost ex VAT | VAT | Cost inc VAT
+| Time | 30 minutes | 3.00 per hour | 1.50 | 20% | 1.80
+| Flat | 1 | 0.50 | 0.50 | 20% | 0.60
+| Energy | 20 kWh | 0.25 per kWh | 5.00 | 10% | 5.50
+| Total | | | 7.00 | | 7.90
+|===
+
+
 If the driver did not start a charging session and the reservation expired after the reserved time of 1.5 hours,
 the tariff would have resulted in costs of 9.00 euro (excl. VAT) or 10.80 euro (incl. VAT).
 In case a reservation is not used, the driver has to pay the expiration fee as compensation for not charging at all.
+
+A breakdown of this scenario is as follows:
+
+[cols="2,2,2,1,1,1",options="header"]
+|===
+| Dimension | Quantity | Price ex VAT | Cost ex VAT | VAT | Cost inc VAT
+| Time | 90 minutes | 6.00 per hour | 9.00 | 20% | 10.80
+| Total | | | 9.00 | | 10.80
+|===
 
 [source,json]
 ----
@@ -921,47 +1002,60 @@ include::examples/tariff_14_step_size.json[]
 
 An EV driver plugs in at 16:55 and charges for 10 minutes (`TIME`).
 They then stop charging but stay plugged in for 2 more minutes (`PARKING_TIME`).
-The total session time is therefore 12 minutes, resulting in the following costs:
+The total session time is therefore 12 minutes. The parking time of 2 minutes is rounded to 15 minutes according to the step size of the last parking time period.
 
-- 5 billable minutes of charging time before 17:00, generating costs of 0.10 euro.
-- 5 billable minutes of charging time after 17:00, generating costs of 0.20 euro.
-  (`step_size` is not taken into account as we are switching to another time based Tariff Element).
-- 5 billable minutes of parking time (due to the `step_size`, total duration of 12 minutes is rounded to 15 minutes), generating costs of 0.083 euro.
-- The total for this charging session is therefore *0.383 euro* (excl. VAT).
+As a result,t he session costs € 0.55 ex VAT.
 
+A breakdown is as follows:
+
+[cols="2,2,2,1,1,1",options="header"]
+|===
+| Dimension | Quantity | Price ex VAT | Cost ex VAT
+| Charging time | 5 minutes | 1.20 per hour | 0.10
+| Charging time | 5 minutes | 2.40 per hour | 0.20
+| Time | 15 minutes | 1.00 per hour | 0.25
+| Total | | | 0.55
+|===
 
 ====== Example: switching to different Tariff Element #2
 
-An EV driver plugs in at 16:35 and charges for 35 minutes (`TIME`).
-After that they immediately unplug, leaving with a total session time of 35 minutes and a bill over the following costs:
+An EV driver plugs in at 16:35 and charges for 35 minutes (`TIME`). After that they immediately unplug and leave without parking time.
 
-- 25 billable minutes of charging time before 17:00, generating costs of 0.50 euro.
-- 20 billable minutes of charging time after 17:00, generating costs of 0.80 euro.
-    As the Price Component of the last Tariff Element being used has a `step_size` of 15 minutes,
-    the total duration is rounded to up to 45 minutes.
-    When considering the already billed 25 minutes of charging time before 17:00,
-    we are left with 20 minutes to bill after 17:00.
-- The total for this charging session is therefore *1.30 euro* (excl. VAT).
+As the charging time Price Component of the last Tariff Element being used has a `step_size` of 15 minutes,
+the total charging time is rounded up from 35 to 45 minutes. When considering the already billed 25 minutes of charging time before 17:00, we are left with 20 minutes to bill after 17:00.
 
+That leads to a session fee of € 1.30. A breakdown is as follows:
+
+[cols="2,2,2,1,1,1",options="header"]
+|===
+| Dimension | Quantity | Price ex VAT | Cost ex VAT
+| Charging time | 25 minutes | 1.20 per hour | 0.50
+| Charging time | 20 minutes | 2.40 per hour | 0.80
+| Total | | | 1.30
+|===
 
 ====== Example: switching to Free-of-Charge Tariff Element
 
-When parking becomes free after 20:00, the new <<mod_tariffs_tariffelement_class,`TariffElement`>> after 20:00 will not contain a
-<<mod_tariffs_tariffdimensiontype_enum,`PARKING_TIME`>> (or <<mod_tariffs_tariffdimensiontype_enum,`TIME`>>) <<mod_tariffs_pricecomponent_class,`PriceComponent`>>.
+When parking becomes free after 20:00, there will not be an active <<mod_tariffs_tariffdimensiontype_enum,`PARKING_TIME`>>  <<mod_tariffs_pricecomponent_class,Price Component>> nor a <<mod_tariffs_tariffdimensiontype_enum,`TIME`>> Price Component.
 So the last parking period that needs to be paid, which is before 20:00, will be billed according to the `step_size`
 of the <<mod_tariffs_tariffdimensiontype_enum,`PARKING_TIME`>> <<mod_tariffs_pricecomponent_class,`PriceComponent`>> before 20:00.
 
 An EV driver plugs in at 19:40 and charges for 12 minutes (`TIME`).
 They then stop charging but stay plugged in for 20 more minutes (`PARKING_TIME`).
-The total session time is therefore 12 minutes, resulting in the following costs:
+The total session time is therefore 32 minutes.
 
-- 12 billable minutes of charging time, generating costs of 0.48 euro.
-- 18 billable minutes of parking time, generating costs of 0.30 euro.
-    As the Price Component of the last Tariff Element being used has a `step_size` of 15 minutes,
-    we bill a total duration of 30 minutes.
-    When considering the already billed 12 minutes of charging time,
-    we are left with 18 minutes of parking time to bill. The fact that parking is free after 20:00 has no impact on `step_size`
-- The total for this charging session is therefore *0.78 euro* (excl. VAT).
+The total of billable parking time for the session is 8 minutes. This is rounded up to 15 minutes according to the step_size of the last time based Price Component that was active during the session. The extra 7 minutes are then added to the last period with a Price Component with a time-based dimension, that is the one from 19:52 to 20:00. So the user is billed € 0.60 for 15 minutes of parking and that makes a total session fee of € 0.80.
+
+A breakdown is as follows:
+
+
+[cols="2,2,2,1,1,1",options="header"]
+|===
+| Dimension | Quantity | Price ex VAT | Cost ex VAT
+| Charging time | 12 minutes | 1.20 per hour | 0.20
+| Time | 15 minutes | 2.40 per hour | 0.60
+| Total | | | 0.80
+|===
 
 
 [[mod_tariffs_reservation_restriction_type]]
