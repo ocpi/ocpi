@@ -204,7 +204,7 @@ The following parameters SHALL be provided as URL segments.
 |===
 
 [[mod_tariffs_example_new_tariff_2_euro_per_hour]]
-====== Example: New Tariff 2 euro per hour charging time (not parking).
+====== Example: New Tariff € 2 per hour charging time (not parking).
 
 [source,json]
 ----
@@ -325,15 +325,15 @@ In the following section, a few different pricing strategies will be explained w
 For simplicity, we will use euro as currency in all of the examples if not mentioned otherwise.
 
 [[mod_tariffs_simple_tariff_example_0_25_euro_per_kwh]]
-====== Simple Tariff example 0.25 euro per kWh
+====== Simple Tariff example € 0.25 per kWh
 
 * Energy
 [disc]
-** 0.25 euro per kWh (excl. VAT)
+** € 0.25 per kWh (excl. VAT)
 ** 10% VAT
 ** Billed per 1 Wh
 
-This tariff will result in costs of 5.00 euro (excl. VAT) or 5.50 euro (incl. VAT) when 20 kWh are charged.
+This tariff will result in costs of € 5.00 (excl. VAT) or € 5.50 (incl. VAT) when 20 kWh are charged.
 
 [source,json]
 ----
@@ -342,19 +342,19 @@ include::examples/tariff_8_simple_025kwh.json[]
 
 
 [[mod_tariffs_tariff_example_0_25_euro_per_kwh_start]]
-====== Tariff example 0.25 euro per kWh + start fee
+====== Tariff example € 0.25 per kWh + start fee
 
 * Start or transaction fee
 [disc]
-** 0.50 euro (excl. VAT)
+** € 0.50 (excl. VAT)
 ** 20% VAT
 * Energy
 [disc]
-** 0.25 euro per kWh (excl. VAT)
+** € 0.25 per kWh (excl. VAT)
 ** 10% VAT
 ** Billed per 1 Wh
 
-This tariff will result in total cost of 5.50 euro (excl. VAT) or 6.10 euro (incl. VAT) when 20 kWh are charged.
+This tariff will result in total cost of € 5.50 (excl. VAT) or € 6.10 (incl. VAT) when 20 kWh are charged.
 
 [source,json]
 ----
@@ -363,19 +363,19 @@ include::examples/tariff_9_025kwh_start.json[]
 
 
 [[mod_tariffs_tariff_example_0_25_euro_per_kwh_min_price]]
-====== Tariff example 0.25 euro per kWh + minimum price
+====== Tariff example € 0.25 per kWh + minimum price
 
 * Minimum price
-** 0.50 euro (excl. VAT)
-** 0.55 euro (incl. VAT, which is 10%)
+** € 0.50 (excl. VAT)
+** € 0.55 (incl. VAT, which is 10%)
 * Energy
 [disc]
-** 0.25 euro per kWh (excl. VAT)
+** € 0.25 per kWh (excl. VAT)
 ** 10% VAT
 ** Billed per 1 Wh
 
-This tariff will result in costs of 5.00 euro (excl. VAT) or 5.50 euro (incl. VAT) when 20 kWh are charged.
-But if less than 2 kWh is charged, 0.50 euro (excl. VAT) or 0.55 euro (incl. VAT) will be billed.
+This tariff will result in costs of € 5.00 (excl. VAT) or € 5.50 (incl. VAT) when 20 kWh are charged.
+But if less than 2 kWh is charged, € 0.50 (excl. VAT) or € 0.55 (incl. VAT) will be billed.
 
 This is different from a start fee as can be seen when compared to the example above.
 
@@ -386,25 +386,25 @@ include::examples/tariff_12_025kwh_min_price.json[]
 
 
 [[mod_tariffs_tariff_example_0_25_euro_per_kwh_parking_start]]
-====== Tariff example 0.25 euro per kWh + parking fee + start fee
+====== Tariff example € 0.25 per kWh + parking fee + start fee
 
 * Start or transaction fee
 [disc]
-** 0.50 euro (excl. VAT)
+** € 0.50 (excl. VAT)
 ** 20% VAT
 * Energy
 [disc]
-** 0.25 euro per kWh (excl. VAT)
+** € 0.25 per kWh (excl. VAT)
 ** 10% VAT
 ** Billed per 1 Wh
 * Parking
 [disc]
-** 2.00 euro per hour (excl. VAT)
+** € 2.00 per hour (excl. VAT)
 ** 20% VAT
 ** Billed per 15 min (900 seconds)
 
 For a charging session where 20 kWh are charged and the vehicle is parked for 40 minutes after the session ended,
-this tariff will result in costs of 7.00 euro (excl. VAT) or 7.90 euro (incl. VAT).
+this tariff will result in costs of € 7.00 (excl. VAT) or € 7.90 (incl. VAT).
 Because the parking time is billed per 15 minutes, the driver has to pay for 45 minutes of parking even though
 they left 40 minutes after their vehicle stopped charging.
 
@@ -415,19 +415,19 @@ include::examples/tariff_10_025kwh_parking_start.json[]
 
 
 [[mod_tariffs_tariff_example_0_25_euro_per_kwh_start_max_price]]
-====== Tariff example 0.25 euro per kWh + start fee + max price + tariff end date
+====== Tariff example € 0.25 per kWh + start fee + max price + tariff end date
 
 * Maximum price
 [disc]
-** 10 euro (excl. VAT)
-** 11 euro (incl. VAT, which is 10%)
+** € 10 (excl. VAT)
+** € 11 (incl. VAT, which is 10%)
 * Start or transaction fee
 [disc]
-** 0.50 euro (excl. VAT)
+** € 0.50 (excl. VAT)
 ** 20% VAT
 * Energy
 [disc]
-** 0.25 euro per kWh (excl. VAT)
+** € 0.25 per kWh (excl. VAT)
 ** 10% VAT
 ** Billed per 1 Wh
 
@@ -437,8 +437,8 @@ By assigning both, the old and the new tariff ID, they will automatically be rep
 It is not required to update all Locations at the same time, the old tariff can also be removed later.
 
 For a charging session where 50 kWh are charged,
-this tariff will result in costs of 10.00 euro (excl. VAT) or 11.00 euro (incl. VAT) due to the price limit.
-If only 30 kWh were charged, the costs would be 8.00 euro (excl. VAT) and 8.85 euro (incl. VAT),
+this tariff will result in costs of € 10.00 (excl. VAT) or € 11.00 (incl. VAT) due to the price limit.
+If only 30 kWh were charged, the costs would be € 8.00 (excl. VAT) and € 8.85 (incl. VAT),
 as the start fee combined with the energy costs would be lower than the defined max price.
 
 [source,json]
@@ -448,20 +448,20 @@ include::examples/tariff_6_025kwh_start_max_price.json[]
 
 
 [[mod_tariffs_simple_tariff_example_2_euro_per_hour]]
-====== Simple Tariff example 2 euro per hour
+====== Simple Tariff example € 2 per hour
 
 An example of a tariff where the driver does not pay per kWh, but for the time of using the Charge Point.
 
 * Charging Time
 [disc]
-** 2.00 euro per hour (excl. VAT)
+** € 2.00 per hour (excl. VAT)
 ** 10% VAT
 ** Billed per 1 min (60 seconds)
 
 As this is tariff only has a `TIME` price_component, the driver will not be billed for time they are not charging: `PARKING_TIME`
 
 For a charging session of 2.5 hours,
-this tariff will result in costs of 5.00 euro (excl. VAT) or 5.50 euro (incl. VAT).
+this tariff will result in costs of € 5.00 (excl. VAT) or € 5.50 (incl. VAT).
 
 [source,json]
 ----
@@ -470,25 +470,25 @@ include::examples/tariff_1_simple_2hour.json[]
 
 
 [[mod_tariffs_simple_tariff_example_3_euro_per_hour_5_euro_parking]]
-====== Simple Tariff example 3 euro per hour, 5 euro per hour parking
+====== Simple Tariff example € 3 per hour, € 5 per hour parking
 
 Example of a tariff where the driver pays for the time of using the Charge Point, but pays more when the car is no longer charging,
 to discourage the EV driver of leaving his EV connected when it is already full.
 
 * Charging Time
 [disc]
-** 3.00 euro per hour (excl. VAT)
+** € 3.00 per hour (excl. VAT)
 ** 10% VAT
 ** Billed per 1 min (60 seconds)
 * Parking
 [disc]
-** 5.00 euro per hour (excl. VAT)
+** € 5.00 per hour (excl. VAT)
 ** 20% VAT
 ** Billed per 5 min (300 seconds)
 
 A charging session of 2.5 hours (charging), where the vehicle is parked for 42 more minutes after charging ended,
 results in a total session time of 150 minutes (charging) + 42 minutes (parking).
-This session with this tariff will result in total cost of 11.25 euro (excl. VAT) or 12.75 euro (incl. VAT).
+This session with this tariff will result in total cost of € 11.25 (excl. VAT) or € 12.75 (incl. VAT).
 Because the parking time is billed per 5 minutes, the driver has to pay for 45 minutes of parking even though
 they left 42 minutes after their vehicle stopped charging.
 
@@ -507,12 +507,12 @@ Having a good human readable text is much more useful.
 
 * Charging Time
 [disc]
-** 1.9 euro per hour (excl. VAT)
+** € 1.90 per hour (excl. VAT)
 ** 5.2% VAT
 ** Billed per 5 minutes (300 seconds)
 
 For a charging session of 2.5 hours,
-this tariff will result in costs of 4.75 euro (excl. VAT) or 5.00 euro (incl. VAT).
+this tariff will result in costs of € 4.75 (excl. VAT) or € 5.00 (incl. VAT).
 
 [source,json]
 ----
@@ -523,10 +523,10 @@ include::examples/tariff_2_alt_text.json[]
 [[mod_tariffs_adhoc_tariff_example_not_possible_with_ocpi]]
 ====== Ad-Hoc Tariff example not possible with OCPI
 
-For this example, the credit card start tariff is 0.50 euro, but when using a debit card it is only 0.25 euro.
+For this example, the credit card start tariff is € 0.50, but when using a debit card it is only € 0.25.
 
 Such a tariff cannot be modeled with OCPI. +
-But by modeling it as 0.50 euro start tariff where debit card users are given a discount in the final CDR of 0.25 euro, nobody is likely to complain.
+But by modeling it as € 0.50 start tariff where debit card users are given a discount in the final CDR of € 0.25, nobody is likely to complain.
 The `tariff_alt_text` explains this clearly.
 
 [source,json]
@@ -551,20 +551,20 @@ the tariff better and in more detail.
 
 * Start or transaction fee
 [disc]
-** 0.50 euro (excl. VAT)
+** € 0.50 (excl. VAT)
 ** 20% VAT
 * Energy
 [disc]
-** 0.25 euro per kWh (excl. VAT)
+** € 0.25 per kWh (excl. VAT)
 ** 10% VAT
 ** Billed per 0.1 kWh (100 Wh)
 
 For a charging session where 20.45 kWh are charged:
 this tariff will result in:
 
-* Start fee: 0.50 euro (excl. VAT), 0.60 euro (incl. VAT)
-* Energy costs: 5.13 euro (excl. VAT), 5.64 euro (incl. VAT)
-* Total: 5.63 euro (excl. VAT), 6.24 euro (incl. VAT)
+* Start fee: € 0.50 (excl. VAT), € 0.60 (incl. VAT)
+* Energy costs: € 5.13 (excl. VAT), € 5.64 (incl. VAT)
+* Total: € 5.63 (excl. VAT), € 6.24 (incl. VAT)
 
 if the announced prices were billed.
 Because the energy is billed per 0.1 kWh, the driver has to pay for 20.5 kWh even though
@@ -572,12 +572,12 @@ they only charged 20.45 kWh.
 
 The twist here is that this tariff makes use of `tariff_alt_url` which links to a page
 with real-time energy prices of the operator, where is shown that the actual price per kWh is different.
-With an assumed current energy price of 0.22 euro per kWh (excl. VAT), which is shown or explained on
+With an assumed current energy price of € 0.22 per kWh (excl. VAT), which is shown or explained on
 the page linked by `tariff_alt_url`, the resulting costs:
 
-* Start fee: 0.50 euro (excl. VAT), 0.60 euro (incl. VAT)
-* Energy costs: 4.51 euro (excl. VAT), 4.96 (incl. VAT)
-* Total: 5.01 euro (excl. VAT), 5.56 euro (incl. VAT)
+* Start fee: € 0.50 (excl. VAT), € 0.60 (incl. VAT)
+* Energy costs: € 4.51 (excl. VAT), € 4.96 (incl. VAT)
+* Total: € 5.01 (excl. VAT), € 5.56 (incl. VAT)
 
 
 [source,json]
@@ -591,41 +591,41 @@ include::examples/tariff_3_alt_url.json[]
 
 * Start or transaction fee
 [disc]
-** 2.50 euro (excl. VAT)
+** € 2.50 (excl. VAT)
 ** 15% VAT
 * Charging Time
 [disc]
 ** When charging with less than 32A
 [disc]
-*** 1.00 euro per hour (excl. VAT)
+*** € 1.00 per hour (excl. VAT)
 *** 20% VAT
 *** Billed per 15 min (900 seconds)
 ** When charging with more than 32A on weekdays
 [disc]
-*** 2.00 euro per hour (excl. VAT)
+*** € 2.00 per hour (excl. VAT)
 *** 20% VAT
 *** Billed per 10 min (600 seconds)
 ** When charging with more than 32A on weekends
 [disc]
-*** 1.25 euro per hour (excl. VAT)
+*** € 1.25 per hour (excl. VAT)
 *** 20% VAT
 *** Billed per 10 min (600 seconds)
 * Parking
 [disc]
 ** On weekdays between 09:00 and 18:00
 [disc]
-*** 5 euro per hour (excl. VAT)
+*** € 5 per hour (excl. VAT)
 *** 10% VAT
 *** Billed per 5 min (300 seconds)
 ** On Saturday between 10:00 and 17:00
 [disc]
-*** 6 euro per hour (excl. VAT)
+*** € 6 per hour (excl. VAT)
 *** 10% VAT
 *** Billed per 5 min (300 seconds)
 
 For a charging session on a Monday morning starting at 09:30 which takes 2:45 hours (165 minutes),
 where the driver uses a maximum of 16A of power and is parking for additional 42 minutes afterwards,
-this tariff will result in costs of 9.00 euro (excl. VAT) or 10.30 euro (incl. VAT)
+this tariff will result in costs of € 9.00 (excl. VAT) or € 10.30 (incl. VAT)
 for a total session time of 165 minutes (charging) + 42 minutes (parking).
 
 A breakdown is as follows:
@@ -645,7 +645,7 @@ The charging time is not affected by step_size because it is followed by another
 
 For a charging session on a Saturday afternoon starting at 13:30 which takes 1:54 hours (114 minutes),
 where the driver uses a minimum of 43A of power (all the time, which is only theoretically possible) and is parking for additional 71 minutes afterwards,
-this tariff will result in a total cost of 11.88 euro (excl. VAT) or 13.421 euro (incl. VAT). A breakdown is as follows:
+this tariff will result in a total cost of € 11.88 (excl. VAT) or € 13.421 (incl. VAT). A breakdown is as follows:
 
 [cols="2,2,2,1,1,1",options="header"]
 |===
@@ -684,9 +684,9 @@ include::examples/tariff_5_free_of_charge.json[]
 In this example, we have the following scenario:
 
 * The first hour of parking time is free.
-* From the second to the fourth hour, parking costs 2.00 euro per hour
-* From the fourth hour on, parking costs 3.00 euro per hour.
-* The first kWh of energy is free, every additional kWh costs 0.20 euro.
+* From the second to the fourth hour, parking costs € 2.00 per hour
+* From the fourth hour on, parking costs € 3.00 per hour.
+* The first kWh of energy is free, every additional kWh costs € 0.20.
 
 Translated into our tariff schema, the pricing model looks like this:
 
@@ -695,22 +695,22 @@ Translated into our tariff schema, the pricing model looks like this:
 ** First kWh: free
 ** Any additional energy
 [disc]
-*** 0.20 euro per kWh (excl. VAT)
+*** € 0.20 per kWh (excl. VAT)
 *** Billed per 1 Wh
 * Parking
 [disc]
 ** First hour of parking: free
 ** Second to fourth hours of parking
 [disc]
-*** 2.00 euro per hour (excl. VAT)
+*** € 2.00 per hour (excl. VAT)
 *** Billed per 1 min (60 seconds)
 ** Any parking after four hours
 [disc]
-*** 3.00 euro per hour (excl. VAT)
+*** € 3.00 per hour (excl. VAT)
 *** Billed per 1 min (60 seconds)
 
 For a charging session where the driver charges 20 kWh and where the vehicle is parked for 2:45 more hours after charging ended,
-this tariff will result in costs of 7.30 euro (excl. VAT).
+this tariff will result in costs of € 7.30 (excl. VAT).
 
 A breakdown is as follows:
 
@@ -736,21 +736,21 @@ include::examples/tariff_7_first_hour_kwh_free.json[]
 
 * Reservation
 [disc]
-** 5.00 euro per hour (excl. VAT)
+** € 5.00 per hour (excl. VAT)
 ** 20% VAT
 ** Billed per 1 min (60 seconds)
 * Start or transaction fee
 [disc]
-** 0.50 euro (excl. VAT)
+** € 0.50 (excl. VAT)
 ** 20% VAT
 * Energy
 [disc]
-** 0.25 euro per kWh (excl. VAT)
+** € 0.25 per kWh (excl. VAT)
 ** 10% VAT
 ** Billed per 1 Wh
 
 For a charging session that was started 15 minutes after the reservation time, where the driver charges 20 kWh,
-this tariff will result in costs of 6.75 euro (excl. VAT) or 7.60 euro (incl. VAT).
+this tariff will result in costs of € 6.75 (excl. VAT) or € 7.60 (incl. VAT).
 
 A breakdown is as follows:
 
@@ -774,22 +774,22 @@ include::examples/tariff_15_reservation_5_euro_per_hour.json[]
 
 * Reservation
 [disc]
-** 2.00 euro reservation fee (excl. VAT)
-** 5.00 euro per hour (excl. VAT)
+** € 2.00 reservation fee (excl. VAT)
+** € 5.00 per hour (excl. VAT)
 ** 20% VAT
 ** Billed per 5 min (300 seconds)
 * Start or transaction fee
 [disc]
-** 0.50 euro (excl. VAT)
+** € 0.50 (excl. VAT)
 ** 20% VAT
 * Energy
 [disc]
-** 0.25 euro per kWh (excl. VAT)
+** € 0.25 per kWh (excl. VAT)
 ** 10% VAT
 ** Billed per 1 Wh
 
 For a charging session that was started 13 minutes after the reservation time, where the driver charges 20 kWh,
-this tariff will result in costs of 8.75 euro (excl. VAT) or 10.00 euro (incl. VAT).
+this tariff will result in costs of € 8.75 (excl. VAT) or € 10.00 (incl. VAT).
 Because the reservation fee is billed per 5 minutes, the driver has to pay for 15 minutes of reservation even though
 they started the charging session 13 minutes after the reservation time.
 
@@ -816,17 +816,17 @@ include::examples/tariff_16_reservation_2_euro_fee_5_euro_per_hour.json[]
 
 * Reservation
 [disc]
-** 4.00 euro reservation expiration fee (excl. VAT) (_billed when a reservation expires and is not followed by a charging session_)
-** 2.00 euro per hour (excl. VAT)
+** € 4.00 reservation expiration fee (excl. VAT) (_billed when a reservation expires and is not followed by a charging session_)
+** € 2.00 per hour (excl. VAT)
 ** 20% VAT
 ** Billed per 10 min (600 seconds)
 * Start or transaction fee
 [disc]
-** 0.50 euro (excl. VAT)
+** € 0.50 (excl. VAT)
 ** 20% VAT
 * Energy
 [disc]
-** 0.25 euro per kWh (excl. VAT)
+** € 0.25 per kWh (excl. VAT)
 ** 10% VAT
 ** Billed per 1 Wh
 
@@ -835,7 +835,7 @@ with the difference that expired reservations cost something and that reservatio
 Also, the price for reservation is different.
 
 For a charging session that was started 22 minutes after the reservation time, where the driver charges 20 kWh,
-this tariff will result in costs of 6.50 euro (excl. VAT) or 7.30 euro (incl. VAT).
+this tariff will result in costs of € 6.50 (excl. VAT) or € 7.30 (incl. VAT).
 Because the reservation fee is billed per 10 minutes, the driver has to pay for 30 minutes of reservation even though
 they started the charging session 22 minutes after the reservation time.
 
@@ -851,7 +851,7 @@ A breakdown of this scenario is as follows:
 |===
 
 If the driver did not start a charging session and the reservation expired after the reserved time of 1 hour,
-the tariff would have resulted in costs of 6.00 euro (excl. VAT) or 7.20 euro (incl. VAT).
+the tariff would have resulted in costs of € 6.00 (excl. VAT) or € 7.20 (incl. VAT).
 In case a reservation is not used, the driver has to pay the full amount of reserved time
 as well as an additional expiration fee as compensation for not charging at all.
 
@@ -878,17 +878,17 @@ include::examples/tariff_17_reservation_with_expire_fee.json[]
 
 * Reservation
 [disc]
-** 3.00 euro per hour (excl. VAT)
-** 6.00 euro per hour (excl. VAT) (_billed when a reservation expires and is not followed by a charging session_)
+** € 3.00 per hour (excl. VAT)
+** € 6.00 per hour (excl. VAT) (_billed when a reservation expires and is not followed by a charging session_)
 ** 20% VAT
 ** Billed per 10 min (600 seconds)
 * Start or transaction fee
 [disc]
-** 0.50 euro (excl. VAT)
+** € 0.50 (excl. VAT)
 ** 20% VAT
 * Energy
 [disc]
-** 0.25 euro per kWh (excl. VAT)
+** € 0.25 per kWh (excl. VAT)
 ** 10% VAT
 ** Billed per 1 Wh
 
@@ -897,7 +897,7 @@ with the difference that expired reservations cost something and that reservatio
 Also, the price for reservation is different.
 
 For a charging session that was started 22 minutes after the reservation time, where the driver charges 20 kWh,
-this tariff will result in costs of 7.00 euro (excl. VAT) or 7.90 euro (incl. VAT).
+this tariff will result in costs of € 7.00 (excl. VAT) or € 7.90 (incl. VAT).
 Because the reservation fee is billed per 10 minutes, the driver has to pay for 30 minutes of reservation even though
 they started the charging session 22 minutes after the reservation time.
 
@@ -914,7 +914,7 @@ A breakdown of this scenario is as follows:
 
 
 If the driver did not start a charging session and the reservation expired after the reserved time of 1.5 hours,
-the tariff would have resulted in costs of 9.00 euro (excl. VAT) or 10.80 euro (incl. VAT).
+the tariff would have resulted in costs of € 9.00 (excl. VAT) or € 10.80 (incl. VAT).
 In case a reservation is not used, the driver has to pay the expiration fee as compensation for not charging at all.
 
 A breakdown of this scenario is as follows:
@@ -975,9 +975,9 @@ The parking time will be simply rounded up to the next larger chunk of `step_siz
  +
 Another example: `ENERGY` has the `step_size` multiplied: _1 Wh_, which means that the `step_size` of a Price Component is multiplied by _1 Wh_.
 Thus a `step_size = 1` with a `price = 0.25` will result in a cost calculation that uses the charged Wh as precision. +
-If someone charges their EV with 115.2 Wh, then they are billed for 116 Wh, resulting in total cost of 0.029 euro. +
-When `step_size = 25`, then the same amount would be billed for 101 to 125 Wh: 0.031 euro. +
-When `step_size = 500`, then the same amount will be billed for 1 to 500 Wh: 0.125 euro.
+If someone charges their EV with 115.2 Wh, then they are billed for 116 Wh, resulting in total cost of € 0.029. +
+When `step_size = 25`, then the same amount would be billed for 101 to 125 Wh: € 0.031. +
+When `step_size = 500`, then the same amount will be billed for 1 to 500 Wh: € 0.125.
 
 NOTE: For more information about how `step_size` impacts the calculation of the cost of charging see: <<mod_cdrs.asciidoc#mod_cdrs_step_size,CDR object description>>
 
@@ -989,9 +989,9 @@ To prevent confusion by the customer, we recommend to keep the `step_size` as sm
 ===== Example Tariff
 Example Tariff to explain the `step_size` when switching from one <<mod_tariffs_tariffelement_class,Tariff Element>> to another:
 
-- Charging fee of 1.20 euro per hour (excl. VAT) before 17:00 with a `step_size` of 30 minutes (1800 seconds)
-- Charging fee of 2.40 euro per hour (excl. VAT) after 17:00 with a `step_size` of 15 minutes (900 seconds)
-- Parking fee of 1.00 euro per hour (excl. VAT) before 20:00 with a `step_size` of 15 minutes (900 seconds)
+- Charging fee of € 1.20 per hour (excl. VAT) before 17:00 with a `step_size` of 30 minutes (1800 seconds)
+- Charging fee of € 2.40 per hour (excl. VAT) after 17:00 with a `step_size` of 15 minutes (900 seconds)
+- Parking fee of € 1.00 per hour (excl. VAT) before 20:00 with a `step_size` of 15 minutes (900 seconds)
 
 [source,json]
 ----
@@ -1172,18 +1172,18 @@ A reservation can only have: <<mod_tariffs_tariffdimensiontype_enum,FLAT>> and <
 
 Example Tariff to explain the `max_power` Tariff Restriction:
 
-- Charging fee of 0.20 euro per kWh (excl. VAT) when charging with a power of less than 16 kW.
-- Charging fee of 0.35 euro per kWh (excl. VAT) when charging with a power between 16 and 32 kW.
-- Charging fee of 0.50 euro per kWh (excl. VAT) when charging with a power above 32 kW (implemented as fallback tariff without Restriction).
+- Charging fee of € 0.20 per kWh (excl. VAT) when charging with a power of less than 16 kW.
+- Charging fee of € 0.35 per kWh (excl. VAT) when charging with a power between 16 and 32 kW.
+- Charging fee of € 0.50 per kWh (excl. VAT) when charging with a power above 32 kW (implemented as fallback tariff without Restriction).
 
 For a charging session where the EV charges the first kWh with a power of 6 kW,
 increases the power to 48 kW for the next 40 kWh and reduces it again to 4 kW after that for another 0.5 kWh
 (probably due to physical limitations, i.e. temperature of the battery),
-this tariff will result in costs of 20.30 euro (excl. VAT). The costs are composed of the following components:
+this tariff will result in costs of € 20.30 (excl. VAT). The costs are composed of the following components:
 
-- 1 kWh at 6 kW: 0.20 euro
-- 40 kWh at 48 kW: 20.00 euro
-- 0.5 kWh at 4 kW: 0.10 euro
+- 1 kWh at 6 kW: € 0.20
+- 40 kWh at 48 kW: € 20.00
+- 0.5 kWh at 4 kW: € 0.10
 
 [source,json]
 ----
@@ -1199,15 +1199,15 @@ If a customer charges longer than that, they will charge them the normal price p
 But as they want to discourage long usage of their Charge Points, charging becomes much more expensive after 1 hour:
 
 - First 30 minutes of charging is free.
-- Charging fee of 0.25 euro per kWh (excl. VAT) after 30 minutes.
-- Charging fee of 0.40 euro per kWh (excl. VAT) after 60 minutes.
+- Charging fee of € 0.25 per kWh (excl. VAT) after 30 minutes.
+- Charging fee of € 0.40 per kWh (excl. VAT) after 60 minutes.
 
 For a charging session with a duration of 40 minutes where 5 kWh are charged during the first 30 minutes
 and another 1.2 kWh in the remaining 10 minutes of the session,
-this tariff will result in costs of 0.30 euro (excl. VAT). The costs are composed of the following components:
+this tariff will result in costs of € 0.30 (excl. VAT). The costs are composed of the following components:
 
-- 5 kWh for free: 0.00 euro
-- 1.2 kWh at 0.25/kWh: 0.30 euro
+- 5 kWh for free: € 0.00
+- 1.2 kWh at 0.25/kWh: € 0.30
 
 [source,json]
 ----
