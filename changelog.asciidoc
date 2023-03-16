@@ -5,6 +5,8 @@
 [[changelog_changes_between_ocpi_2.2_and_2.2.1]]
 === Changes after 2.2.1
 
+ * Lots of editing and rewriting of Tariffs and step_size documentation
+
  * Updated examples and diagrams to use convention of not using trailing slashes on URLs
 
  * Updated example of a short finished session so that the total energy matches the energies of the charging periods
