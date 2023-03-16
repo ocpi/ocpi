@@ -579,6 +579,15 @@ the page linked by `tariff_alt_url`, the resulting costs:
 * Energy costs: € 4.51 (excl. VAT), € 4.96 (incl. VAT)
 * Total: € 5.01 (excl. VAT), € 5.56 (incl. VAT)
 
+[cols="2,2,2,1,1,1",options="header"]
+|===
+| Dimension | Quantity | Price ex VAT | Cost ex VAT | VAT | Cost inc VAT
+| Flat | 1 | 0.50 | 0.50 | 20% | 0.60
+| Energy | 20.45 kWh | 0.25 per kWh | € 5.225 | 10% | 4.125
+| Total | | | 9.00 | | 10.30
+|===
+
+
 
 [source,json]
 ----
@@ -645,7 +654,7 @@ The charging time is not affected by step_size because it is followed by another
 
 For a charging session on a Saturday afternoon starting at 13:30 which takes 1:54 hours (114 minutes),
 where the driver uses a minimum of 43A of current (all the time, which is only theoretically possible) and is parking for additional 71 minutes afterwards,
-this tariff will result in a total cost of € 11.88 (excl. VAT) or € 13.421 (incl. VAT). A breakdown is as follows:
+this tariff will result in a total cost of € 12.28 (excl. VAT) or € 13.861 (incl. VAT). A breakdown is as follows:
 
 [cols="2,2,2,1,1,1",options="header"]
 |===
@@ -1008,7 +1017,7 @@ As a result,t he session costs € 0.55 ex VAT.
 
 A breakdown is as follows:
 
-[cols="2,2,2,1,1,1",options="header"]
+[cols="2,2,1,1",options="header"]
 |===
 | Dimension | Quantity | Price ex VAT | Cost ex VAT
 | Charging time | 5 minutes | 1.20 per hour | 0.10
@@ -1026,7 +1035,7 @@ the total charging time is rounded up from 35 to 45 minutes. When considering th
 
 That leads to a session fee of € 1.30. A breakdown is as follows:
 
-[cols="2,2,2,1,1,1",options="header"]
+[cols="2,2,1,1",options="header"]
 |===
 | Dimension | Quantity | Price ex VAT | Cost ex VAT
 | Charging time | 25 minutes | 1.20 per hour | 0.50
@@ -1049,7 +1058,7 @@ The total of billable parking time for the session is 8 minutes. This is rounded
 A breakdown is as follows:
 
 
-[cols="2,2,2,1,1,1",options="header"]
+[cols="2,2,1,1",options="header"]
 |===
 | Dimension | Quantity | Price ex VAT | Cost ex VAT
 | Charging time | 12 minutes | 1.20 per hour | 0.20
