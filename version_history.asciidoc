@@ -4,7 +4,7 @@
 |===
 |Version |Date |Author |Description
 
-|2.2.1-dX | 202X-XX-XX |
+|2.2.1-d2 | 2023-XX-XX |
 
 Jakub Karbownik +
 _Ekoenergetyka_ +
