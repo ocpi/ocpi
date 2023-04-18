@@ -324,6 +324,7 @@ When a request cannot be accepted, the type response depends on the type of erro
 
 For errors on the HTTP layer, use HTTP error response codes, including the response format above, that contains more details. HTTP status codes are described on http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html[w3.org].
 
+NOTE: Earlier versions of the OCPI 2.2.1 did not clearly specify what should be in the `data` field of the response format for every request. We advise that in cases where the specification does not explicitly specify what to put in the `data` field for the response to a certain request, the platform receiving the response accept both the `data` field being absent and the data field being present with any possible value. We also advise that in such cases, platform sending the response leave the `data` field unset in the response format. This applies for example to PUT requests when pushing Session objects, and PATCH requests to add charging periods to Sessions.
 
 [[transport_and_format_example_version_information_response_list_of_objects]]
 ===== Example: Version information response (list of objects)
