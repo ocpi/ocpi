@@ -1,6 +1,11 @@
 [[introduction_ocpi]]
 == OCPI
 
+[[introduction_ocpi_2.2.1-d2]]
+=== OCPI 2.2.1-d2
+
+In the OCPI Development Working Group at the EV Roaming Foundation we are always tracking unclarities in the specification and making changes to the specification document to fix these for later versions. We noticed that the OCPI 2.2.1 documentation had accumulated so many clarifications since the formal release of 2.2.1 that it is worthwhile to make a new "documentation release", OCPI 2.2.1-d2. This release does not change the requirements compared to OCPI 2.2.1. The purpose of OCPI 2.2.1-d2 is to document the same requirements as OCPI 2.2.1 but do so more clearly.
+
 [[introduction_ocpi_2.2.1]]
 === OCPI 2.2.1
 

@@ -2,8 +2,9 @@
 [[changelog_changelog]]
 == Changelog
 
-[[changelog_changes_between_ocpi_2.2_and_2.2.1]]
-=== Changes after 2.2.1
+=== Changes between 2.2.1 and 2.2.1-d2
+
+ * Removed note that advised against sharing Locations on which home charging reimbursement happens
 
  * Lots of editing and rewriting of Tariffs and step_size documentation
 
@@ -35,6 +36,7 @@
 
  * Added an explanation of why the Tariffs module doesn't say anything about price rounding
 
+[[changelog_changes_between_ocpi_2.2_and_2.2.1]]
 === Changes between OCPI 2.2 and 2.2.1
 
 Lots of typos fixed and textual improvements.
