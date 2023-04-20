@@ -491,7 +491,7 @@ It is not allowed in OCPI to use a Token that is not 'owned' by the eMSP itself 
 |===
 
 Private Charge Points, home or business that do not need to be published on apps, and do not require remote control via OCPI,
-SHOULD not be PUT via the OCPI Locations module.  Reimbursement via eMSP is still possible by sending <<mod_cdrs.asciidoc#mod_cdrs_cdr_object,CDRs>> to eMSP, the Locations module is not needed for this..
+SHOULD not be PUT via the OCPI Locations module.
 
 [[mod_locations_example]]
 ===== Example public charging location
