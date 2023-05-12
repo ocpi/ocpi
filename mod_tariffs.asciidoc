@@ -579,12 +579,14 @@ the page linked by `tariff_alt_url`, the resulting costs:
 * Energy costs: € 4.51 (excl. VAT), € 4.96 (incl. VAT)
 * Total: € 5.01 (excl. VAT), € 5.56 (incl. VAT)
 
+A breakdown for computing the price as the `elements` field of the Tariff says, with an energy price of € 0.25 / kWh, is as follows:
+
 [cols="2,2,2,1,1,1",options="header"]
 |===
 | Dimension | Quantity | Price ex VAT | Cost ex VAT | VAT | Cost inc VAT
 | Flat | 1 | 0.50 | 0.50 | 20% | 0.60
-| Energy | 20.45 kWh | 0.25 per kWh | € 5.225 | 10% | 4.125
-| Total | | | 9.00 | | 10.30
+| Energy | 20.45 kWh | 0.25 per kWh | 5.13 | 10% | 5.64
+| Total | | | 5.63 | |6.24
 |===
 
 
