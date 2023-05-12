@@ -6,8 +6,8 @@
 :numbered:
 :version-label: document version
 :year: 2023
-:protocol_version: 2.2.1-d2-pre4
-:revdate: {year}-03-20
+:protocol_version: 2.2.1-d2-pre5
+:revdate: {year}-05-12
 :document_header: OCPI {document_version}
 :revnumber: {document_version}
 
