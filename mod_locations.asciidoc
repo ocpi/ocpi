@@ -32,6 +32,7 @@ Any changes to a Location related object can also be pushed to connected eMSPs b
 on the eMSPs Locations endpoint, but using PATCH mode, only actual changes should be pushed.
 Providers who do not support Push mode need to call <<mod_locations_get_method,GET>> on the CPOs Locations endpoint to receive the updates.
 
+[[evse_delete_with_status_update]]
 When the CPO wants to delete an EVSE from the list of active EVSEs, they MUST update the EVSE's `status` field to `REMOVED`
 and call the <<mod_locations_put_method,PUT>> or <<mod_locations_patch_method,PATCH>> on the eMSP system.
 A Location without any valid EVSE object can be considered expired and should no longer be displayed.
@@ -631,8 +632,9 @@ An _EVSE_ object has a list of Connectors which can not be used simultaneously: 
 |===
 |Property |Type |Card. |Description 
 
-|uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Uniquely identifies the EVSE within the CPOs platform (and suboperator platforms). For example a database ID or the actual "EVSE ID". This field can never be changed, modified or renamed. This is the 'technical' identification of the EVSE, not to be used as 'human readable' identification, use the field `evse_id` for that. +
-This field is named `uid` instead of `id`, because `id` could be confused with `evse_id` which is an eMI3 defined field.
+|uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Uniquely identifies the EVSE within the CPOs platform (and suboperator platforms). This field can never be changed, modified or renamed. This is the 'technical' identification of the EVSE, not to be used as 'human readable' identification, use the field `evse_id` for that. +
+This field is named `uid` instead of `id`, because `id` could be confused with `evse_id` which is an eMI3 defined field. +
+Note that in order to fulfill both the requirement that an EVSE's `uid` be unique within a CPO's platform and the <<evse_delete_with_status_update,requirement that EVSEs are never deleted>>, a CPO will typically want to avoid using identifiers of the physical hardware for this `uid` property. If they do use such a physical identifier, they will find themselves breaking the uniqueness requirement for `uid` when the same physical EVSE is redeployed at another Location.
 |evse_id |<<types.asciidoc#types_cistring_type,CiString>>(48) |? |Compliant with the following specification for EVSE ID from "eMI3 standard version V1.0" (http://emi3group.com/documents-links/[http://emi3group.com/documents-links/]) "Part 2: business objects." Optional because: if an `evse_id` is to be re-used in the real world, the `evse_id` can be removed from an EVSE object if the `status` is set to `REMOVED`.
 |status |<<mod_locations_status_enum,Status>> |1 |Indicates the current status of the EVSE. 
 |status_schedule |<<mod_locations_statusschedule_class,StatusSchedule>> |* |Indicates a planned status update of the EVSE. 
