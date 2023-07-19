@@ -374,7 +374,7 @@ Beware that OCPP 1.5/1.6 only support group_ids (it is called parentId in OCPP 1
 |default_profile_type |<<mod_sessions.asciidoc#mod_sessions_profile_type_enum,ProfileType>> |? | The default <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,Charging Preference>>. When this is provided,
                                         and a charging session is started on an Charge Point that support Preference base Smart Charging and support this <<mod_sessions.asciidoc#mod_sessions_profile_type_enum,ProfileType>>,
                                         the Charge Point can start using this <<mod_sessions.asciidoc#mod_sessions_profile_type_enum,ProfileType>>, without this having to be set via: <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,Set Charging Preferences>>.
-|energy_contract |<<types.asciidoc#mod_tokens_energy_contract,EnergyContract>> |? |When the Charge Point supports using your own energy supplier/contract at a Charge Point, information about the energy supplier/contract is needed so the CPO knows which energy supplier to use.  +
+|energy_contract |<<mod_tokens.asciidoc#mod_tokens_energy_contract,EnergyContract>> |? |When the Charge Point supports using your own energy supplier/contract at a Charge Point, information about the energy supplier/contract is needed so the CPO knows which energy supplier to use.  +
                             NOTE: In a lot of countries it is currently not allowed/possible to use a drivers own energy supplier/contract at a Charge Point.
 |last_updated |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Timestamp when this Token was last updated (or created).
 |===
