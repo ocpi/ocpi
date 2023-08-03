@@ -342,7 +342,7 @@ PUT To URL: https://www.server.com/ocpi/emsp/2.0/locations/NL/TNM/1012/3256
 		}
 	],
 	"physical_reference": 3,
-	"floor": -1
+	"floor_level": -1
 }
 ```
 
