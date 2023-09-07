@@ -4,7 +4,7 @@
 |===
 |Version |Date |Author |Description
 
-|2.2.1-d2 | 2023-XX-XX |
+|2.2.1-d2 | 2023-09-07 |
 
 Jakub Karbownik +
 _Ekoenergetyka_ +
@@ -13,21 +13,7 @@ _TandemDrive_ +
 Robert de Leeuw +
 _EVA Global_ +
 Reinier Lamers +
-_ihomer_ | Extensively edited and rewrote Tariffs and step+size documentation +
-edited URLs in examples and diagrams to consistently not have trailing slashes +
-clarified use of Base64 for credentials token +
-removed requirement that all charging periods of a CDR have a different tariff +
-replaced "2.2" by "2.2.1" where current version was intended +
-added forgotten forward slash in endpoint URL structure for Tokens Receiver interface +
-changed "Tariff Elements" to "Tariffs" in description of tariffs field in CDR object definition +
-added country_code and party_id to CdrToken examples +
-changed country_id to country_code in credentials explanation +
-replaced copy-pasted text about charging profiles in ChargingPreferencesResponse description +
-replaced "cpo" by "emsp" in example URL of receiver-side session module +
-allowed eMSP to replace CPO-issued session IDs when exchanging charging profiles with an SCSP +
-changed text to give more actionable advice on how to set the Interface role in the Endpoint object for the credentials module +
-added note about absence of price rounding specifications in Tariffs module +
-removed note about sharing Locations for home charging reimbursement from Location object
+_ihomer_ | Documentation update.
 
 |2.2.1 |2021-10-06 |
 Robert de Leeuw +

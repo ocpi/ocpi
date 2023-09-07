@@ -36,6 +36,10 @@
 
  * Added an explanation of why the Tariffs module doesn't say anything about price rounding
 
+ * Added a note that CPOs should avoid using physical hardware ids for EVSE.uid
+
+ * Removed example about a free hour of parking that conflicts with spec
+
 [[changelog_changes_between_ocpi_2.2_and_2.2.1]]
 === Changes between OCPI 2.2 and 2.2.1
 

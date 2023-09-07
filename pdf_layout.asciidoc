@@ -6,13 +6,13 @@
 :numbered:
 :version-label: document version
 :year: 2023
-:protocol_version: 2.2.1-d2-pre5
-:revdate: {year}-05-12
+:protocol_version: 2.2.1-d2
+:revdate: {year}-09-07
 :document_header: OCPI {document_version}
 :revnumber: {document_version}
 
 = OCPI {protocol_version}: Open Charge Point Interface
-https://github.com/ocpi & https://ocpi-protocol.org
+https://github.com/ocpi & https://evroaming.org/
 
 <<<
 :toc:
