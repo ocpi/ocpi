@@ -40,6 +40,8 @@
 
  * Removed example about a free hour of parking that conflicts with spec
 
+ * Changed "GET" to "PUT" in sequence diagram showing routing header usage with Broadcast Push
+
 [[changelog_changes_between_ocpi_2.2_and_2.2.1]]
 === Changes between OCPI 2.2 and 2.2.1
 

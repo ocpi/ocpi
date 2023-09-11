@@ -12,12 +12,12 @@ box "Platform" #LightBlue
   participant "MSP1" as MSP1
 end box
 
-CPO1 -> HUB: HTTP: GET\nTO: HUB\nFROM: CPO1
+CPO1 -> HUB: HTTP: PUT\nTO: HUB\nFROM: CPO1
 activate CPO1
 activate HUB
 HUB -> CPO1: HTTP: RESPONSE\nTO: CPO1\nFROM: HUB
 deactivate CPO1
-HUB -> MSP1: HTTP: GET\nTO: MSP1\nFROM: HUB
+HUB -> MSP1: HTTP: PUT\nTO: MSP1\nFROM: HUB
 activate MSP1
 MSP1 -> HUB: HTTP: RESPONSE\nTO: HUB\nFROM: MSP1
 deactivate MSP1
