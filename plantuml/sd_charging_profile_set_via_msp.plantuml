@@ -14,7 +14,7 @@ CPO  ->  CP:   StartTransaction.conf(TransactionId=15)
 deactivate CP
 CPO  ->  eMSP: Session(id=15)
 activate eMSP
-eMSP --> CPO: 
+eMSP --> CPO:
 deactivate CPO
 eMSP  ->  SCSP: Session(id=15)
 activate SCSP
@@ -23,10 +23,10 @@ deactivate eMSP
 
 SCSP --> SCSP: Calculate ChargingProfile
 
-SCSP ->  eMSP:  PUT https:~//emsp.com/ocpi/2.2/chargingprofiles/15\n        SetChargingProfile(response_url=https:~//client.com/12345)
+SCSP ->  eMSP:  PUT https:~//emsp.com/ocpi/2.2.1/chargingprofiles/15\n        SetChargingProfile(response_url=https:~//client.com/12345)
 activate eMSP
 
-eMSP ->  CPO:  PUT https:~//cpo.com/ocpi/2.2/chargingprofiles/15\n        SetChargingProfile(response_url=https:~//emsp.com/4567)
+eMSP ->  CPO:  PUT https:~//cpo.com/ocpi/2.2.1/chargingprofiles/15\n        SetChargingProfile(response_url=https:~//emsp.com/4567)
 activate CPO
 CPO  --> eMSP: status_code = 1000,\n data: {ChargingProfileResponse { result = ACCEPTED }}
 eMSP  --> SCSP: status_code = 1000,\n data: {ChargingProfileResponse { result = ACCEPTED }}

@@ -8,7 +8,7 @@ participant "Charge Point" as CP
 NOTE over eMSP, CP: Ongoing Session with id=15
 
 activate eMSP
-eMSP -> CPO: DELETE https:~//server.com/ocpi/2.2/chargingprofiles/15?response_url=https:~//client.com/12345
+eMSP -> CPO: DELETE https:~//server.com/ocpi/2.2.1/chargingprofiles/15?response_url=https:~//client.com/12345
 activate CPO
 CPO  --> eMSP: status_code = 1000, data: {ChargingProfileResponse { result = ACCEPTED }}
 deactivate eMSP

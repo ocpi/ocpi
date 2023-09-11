@@ -8,10 +8,10 @@ participant "Charge Point" as CP
 
 NOTE over SCSP, CP: Ongoing Session with id=15
 
-SCSP -> eMSP: DELETE https:~//server.com/ocpi/2.2/chargingprofiles/15\n                     ?response_url=https:~//scsp.com/12345
+SCSP -> eMSP: DELETE https:~//server.com/ocpi/2.2.1/chargingprofiles/15\n                     ?response_url=https:~//scsp.com/12345
 activate SCSP
 activate eMSP
-eMSP -> CPO: DELETE https:~//server.com/ocpi/2.2/chargingprofiles/15\n                     ?response_url=https:~//emsp.com/789AB
+eMSP -> CPO: DELETE https:~//server.com/ocpi/2.2.1/chargingprofiles/15\n                     ?response_url=https:~//emsp.com/789AB
 activate CPO
 CPO  --> eMSP: status_code = 1000, data: \n   {ChargingProfileResponse { result = ACCEPTED }}
 eMSP  --> SCSP: status_code = 1000, data: \n   {ChargingProfileResponse { result = ACCEPTED }}

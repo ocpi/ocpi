@@ -11,7 +11,7 @@ activate CP
 CP   ->  CPO:  update ChargingProfile
 deactivate CP
 activate CPO
-CPO  ->  eMSP: PUT https://www.server.com/ocpi/2.2/chargingprofiles/15\n        ActiveChargingProfile()
+CPO  ->  eMSP: PUT https://www.server.com/ocpi/2.2.1/chargingprofiles/15\n        ActiveChargingProfile()
 activate eMSP
 eMSP --> CPO
 deactivate CPO
