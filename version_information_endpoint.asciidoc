@@ -210,7 +210,7 @@ Simple version details example: CPO with only 2 modules.
 include::examples/version_details_example.json[]
 ----
 
-Simple version details example: party with both CPO and eMSP with only 2 modules.
+Simple version details example: party with both CPO and eMSP with only 3 modules.
 
 In this case the `credentials` module is not defined twice as this module is the same for all roles.
 [source,json]
