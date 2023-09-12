@@ -819,7 +819,7 @@ This type is used to specify the energy mix and environmental impact of the supp
 |===
 |Property |Type |Card. |Description 
 
-|is_green_energy |boolean |1 |True if 100% from regenerative sources. (CO2 and nuclear waste is zero) 
+|is_green_energy |boolean |1 |True if 100% from green sources.
 |energy_sources |<<mod_locations_energysource_class,EnergySource>> |* |Key-value pairs (enum + percentage) of energy sources of this location's tariff. 
 |environ_impact |<<mod_locations_environmentalimpact_class,EnvironmentalImpact>> |* |Key-value pairs (enum + percentage) of nuclear waste and CO2 exhaust of this location's tariff. 
 |supplier_name |<<types.asciidoc#types_string_type,string>>(64) |? |Name of the energy supplier, delivering the energy for this location or tariff.* 
