@@ -924,6 +924,8 @@ A Price Component describes how a certain amount of a certain dimension being co
 For example: if `type` is `TIME` and `step_size` has a value of `300`, then time will be billed in blocks of 5 minutes. If 6 minutes were consumed, 10 minutes (2 blocks of `step_size`) will be billed.
 |===
 
+NOTE: The `step_size` field is no longer present in OCPI 3.0. In OCPI 3.0, Parties are advised to measure quantities as precise as required by calibration law and use the full precision of such measurements in cost computation. Users of OCPI 2.2.1 looking to be ready for a transition to OCPI 3.0 or to maximize interoperability with OCPI 3.0 are advised to effectively avoid using `step_size` by setting `step_size` to 1 always.
+
 NOTE: `step_size`: depends on the `type` and every `type` (except `FLAT`) defines a `step_size` multiplier, which is the size of every _step_ for that `type` in the given unit. +
  +
 For example: `PARKING_TIME` has the `step_size` multiplier: _1 second_, which means that the `step_size` of a Price Component is multiplied by _1 second_.
