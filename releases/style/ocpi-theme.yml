@@ -1,0 +1,90 @@
+extends: default
+
+#page:
+#  background_image: release_candidate.png
+
+base:
+  font_size: 9
+  font_color: #000000
+  line_height: 1.3
+
+title_page:
+  logo:
+    top: 10%
+    image: image:OCPI_logo.png[pdfwidth=40%]
+    align: center
+  align: center
+  title:
+    top: 40%
+    font:
+      size: 54
+      color: 000000
+      style: bold
+  subtitle:
+    font:
+      size: 17
+      color: 000000
+
+code:
+  font:
+    size: 8
+
+table:         
+    font:
+       size: 9
+    body:
+       stripe_background_color: transparent    
+    border_width: 0.1
+    grid_width: 0.1
+    border_color: BBBBBB 
+    grid_color: BBBBBB
+    cell:
+       padding: [4, 4, 4, 4]
+
+header:
+  height: 0.7cm
+  line_height: 1
+  border_color: BBBBBB
+  border_width: 0.2
+  verso:
+    left:
+      content: ''
+    center:
+      content: '{document_header}'
+    right:
+      content: ''
+  recto:
+    left:
+      content: ''
+    center:
+      content: '{document_header}'
+    right:
+      content: ''
+  font:
+    size: 8
+    border_color: 666666
+    style: bold
+
+footer:
+  height: 0.7cm
+  line_height: 1
+  border_color: BBBBBB
+  border_width: 0.2
+  verso:
+    left:
+      content: ''
+    center:
+      content: '{page-number}'
+    right:
+      content: ''
+  recto:
+    left:
+      content: ''
+    center:
+      content: '{page-number}'
+    right:
+      content: ''
+  font:
+    size: 8
+    border_color: 666666
+    style: bold
