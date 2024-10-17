@@ -631,7 +631,6 @@ An _EVSE_ object has a list of Connectors which can not be used simultaneously: 
 [cols="7,5,2,18",options="header"]
 |===
 |Property |Type |Card. |Description 
-
 |uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Uniquely identifies the EVSE within the CPOs platform (and suboperator platforms). This field can never be changed, modified or renamed. This is the 'technical' identification of the EVSE, not to be used as 'human readable' identification, use the field `evse_id` for that. +
 This field is named `uid` instead of `id`, because `id` could be confused with `evse_id` which is an eMI3 defined field. +
 Note that in order to fulfill both the requirement that an EVSE's `uid` be unique within a CPO's platform and the <<evse_delete_with_status_update,requirement that EVSEs are never deleted>>, a CPO will typically want to avoid using identifiers of the physical hardware for this `uid` property. If they do use such a physical identifier, they will find themselves breaking the uniqueness requirement for `uid` when the same physical EVSE is redeployed at another Location.
@@ -645,6 +644,7 @@ Note that in order to fulfill both the requirement that an EVSE's `uid` be uniqu
 |physical_reference |<<types.asciidoc#types_string_type,string>>(16) |? |A number/string printed on the outside of the EVSE for visual identification. 
 |directions |<<types.asciidoc#types_displaytext_class,DisplayText>> |* |Multi-language human-readable directions when more detailed information on how to reach the EVSE from the _Location_ is required. 
 |parking_restrictions |<<mod_locations_parkingrestriction_enum,ParkingRestriction>> |* |The restrictions that apply to the parking spot. 
+|vehicle_type |<<mod_locations_vehicletype_enum,VehicleType>> |+ | The vehicle types that the EVSE is intended for and that the associated parking is designed to accomodate.
 |images |<<mod_locations_image_class,Image>> |* |Links to images related to the EVSE such as photos or logos. 
 |last_updated |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Timestamp when this EVSE or one of its Connectors was last updated (or created). 
 |===
@@ -1229,3 +1229,24 @@ Example: "This station will be running as of tomorrow. Today it is still planned
 |===
 
 NOTE: The scheduled status is purely informational. When the status actually changes, the CPO must push an update to the EVSEs `status` field itself.
+
+[[mod_locations_vehicletype_enum]]
+==== VehicleType _enum_
+
+A categorization of vehicles to indicate which type of vehicles can use a certain EVSE.
+
+[cols="3,10",options="header"]
+|===
+| Value | Description
+| MOTORCYCLE | A motorcycle
+| PERSONAL_VEHICLE | A personal vehicle, a passenger car
+| PERSONAL_VEHICLE_WITH_TRAILER | A personal vehicle with a trailer attached
+| VAN | A light-duty van with a height smaller than 275 cm
+| TRUCK | A heavy-duty truck without a trailer
+| SEMI_TRUCK | A semi-trailer truck
+| TRUCK_WITH_TRAILER | A heavy-duty truck with a trailer attached
+| BUS | A bus or a motor coach
+| DISABLED | A vehicle with a permit for parking spaces for people with disabilities
+|===
+
+NOTE: It may seem surprising that OCPI uses a custom vehicle categorization scheme rather than one defined in another specification. During OCPI 3.0 development it appeared however that existing classifications, like the UNECE Classification and Definition of Vehicles, are overly detailed and technical and offer little help in making clear which vehicles can use a certain EVSE. For OCPI 3.0 we opted for a deliberately common sense based categorization that we believe will be easier to use for Drivers and CPOs.
