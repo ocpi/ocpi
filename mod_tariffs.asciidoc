@@ -635,7 +635,7 @@ include::examples/tariff_3_alt_url.json[]
 *** Billed per 5 min (300 seconds)
 
 For a charging session on a Monday morning starting at 09:30 which takes 2:45 hours (165 minutes),
-where the driver uses a maximum of 16A of current and is parking for additional 42 minutes afterwards,
+where the driver uses a maximum of 16A of current and is parking for an additional 42 minutes afterwards,
 this tariff will result in costs of € 9.00 (excl. VAT) or € 10.30 (incl. VAT)
 for a total session time of 165 minutes (charging) + 42 minutes (parking).
 
@@ -655,7 +655,7 @@ The step_size of the last time-based period is 5 so the parking time duration of
 The charging time is not affected by step_size because it is followed by another time-based period.
 
 For a charging session on a Saturday afternoon starting at 13:30 which takes 1:54 hours (114 minutes),
-where the driver uses a minimum of 43A of current (all the time, which is only theoretically possible) and is parking for additional 71 minutes afterwards,
+where the driver uses a minimum of 43A of current (all the time, which is only theoretically possible) and is parking for an additional 71 minutes afterwards,
 this tariff will result in a total cost of € 12.28 (excl. VAT) or € 13.861 (incl. VAT). A breakdown is as follows:
 
 [cols="2,2,2,1,1,1",options="header"]
