@@ -585,8 +585,8 @@ A breakdown for computing the price as the `elements` field of the Tariff says, 
 |===
 | Dimension | Quantity | Price ex VAT | Cost ex VAT | VAT | Cost inc VAT
 | Flat | 1 | 0.50 | 0.50 | 20% | 0.60
-| Energy | 20.45 kWh | 0.25 per kWh | 5.13 | 10% | 5.64
-| Total | | | 5.63 | |6.24
+| Energy | 20.45 kWh | 0.25 per kWh | 5.11 | 10% | 5.62
+| Total | | | 5.61 | |6.22
 |===
 
 
