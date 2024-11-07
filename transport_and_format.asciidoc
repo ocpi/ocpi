@@ -94,7 +94,6 @@ The request method can be any of <<transport_and_format_get,GET>>, POST, <<trans
 The HTTP header: Content-Type SHALL be set to `application/json` for any request that contains a message body: POST, PUT and PATCH.
 When no body is present, probably in a GET or DELETE, then the Content-Type header MAY be omitted.
 
-
 [[transport_and_format_get]]
 ===== GET
 
@@ -371,6 +370,17 @@ include::examples/transport_and_format_get_token_list_example.json[]
 }
 ----
 
+==== Non-specified JSON fields
+
+An OCPI Platform SHALL NOT reject request or response payloads based on the presence of JSON object field names that are not documented in this specification.
+
+OCPI implementers are encouraged to extend OCPI with new fields to address needs that are not foreseen by the specification and to adhere to the spirit of https://datatracker.ietf.org/doc/html/rfc6648[RFC 6648] when doing so.
+
+When extending OCPI with such non-specified fields, implementers:
+
+  * SHOULD assume that their extensions will eventually be incorporated into OCPI or otherwise become widely used,
+  * SHOULD choose meaningful field names that are currently unused to the best of their knowledge, and
+  * SHOULD NOT use name prefixes like "x-" or "custom" to indicate the non-specified nature of these field names.
 
 [[transport_and_format_message_routing]]
 ==== Message Routing
