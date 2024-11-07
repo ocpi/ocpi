@@ -1,10 +1,22 @@
 [[introduction_ocpi]]
 == OCPI
 
-[[introduction_ocpi_2.2.1-d2]]
-=== OCPI 2.2.1-d2
+[[introduction_ocpi_2.3.0]]
+=== OCPI 2.3.0
 
-In the OCPI Development Working Group at the EV Roaming Foundation we are always tracking unclarities in the specification and making changes to the specification document to fix these for later versions. We noticed that the OCPI 2.2.1 documentation had accumulated so many clarifications since the formal release of 2.2.1 that it is worthwhile to make a new "documentation release", OCPI 2.2.1-d2. This release does not change the requirements compared to OCPI 2.2.1. The purpose of OCPI 2.2.1-d2 is to document the same requirements as OCPI 2.2.1 but do so more clearly.
+OCPI 2.3.0 is a release with only the minimal changes to 2.2.1 that are
+necessary to meet two requirements: first, to comply with new laws and
+regulations coming into effect in 2025, and second, to provide room for custom
+extensions to OCPI without breaking compatibility without other implementers.
+
+The changes that are made to address these requirements are:
+
+ * make it possible to define extra modules, fields, enumeration values for certain enums,
+ * add a vehicle types field to the EVSE object,
+ * support EVSE information for people with disabilities,
+ * support North American tax structures,
+ * include some straightforward enumeration values from the OCPI 3.0 draft, including the ones indicating ISO 15118 support, and
+ * add a new field in the Credentials object to give a hub's party ID, which allows platforms with hub support to connect to platforms that don't implement hub functionality.
 
 [[introduction_ocpi_2.2.1]]
 === OCPI 2.2.1
@@ -62,19 +74,8 @@ What does it offer (main functionality):
 * A uniform way of exchanging data (Notification Data Records and Charge Data Records), before during and after the transaction.
 * Remote mobile support to access any Charge Point without pre-registration.
 
-An international group of over 400 companies from all over the world already supports OCPI. Initiators are EV Box, New Motion, ElaadNL, BeCharged, GreenFlux and Last Mile Solutions.
-Other participants include: Next Charge, Freshmile, Plugsurfing, E55C, GIREVE, OCN, ihomer, Rexel, Stromnetz Hamburg, Enervalis, Place to plug,
-Plugsurfing, Ecomovement, Allego, Gronn Kontakt Norway, ENIO, Fastned, AvantIT, Chargemap, Involtum, Capitol Region Denmark,
-Vattenfall, EON, ECY Conseil Emeric Chardiny, Eneco Mobility, Google, Jedlix, MTC, Smartlab, Sodetrel, XXIMO, Mnemonics, Share & Charge,
-Service House, Alfen / ICU, PI2 Consultancy, Pitpoint, Blue Corner, Building Energy, Chargestorm, Chargepoint, ESARJ, Chargelab.co,
-MUVEXT, Next Green Car / Zap Map, Be Mo Tech, Parking Eagle, GraphDefined, Chargecloud, Rutgerplantengaconsulting, Everon, Tanqyou,
-Electric Vehicle Association Scotland (EVA NCS), EV-Tech, Plugin Power, Last Mile Solutions, BIA Power, IBIL, Gridscape, Maxem, Virta,
-EasyCharger, Total EV Charge, Gowithflow, EKAROS, Rexel US, Stekker App, Travelcard, Emobility Consulting.
-The EVRoaming foundation supported by the Netherlands Knowledge Platform for Charging Infrastructure (NKL)
-facilitates and coordinates this protocol to guarantee progress and ensure development and results.
-
 This document describes a combined set of standards based on the work done in the past. Next to that,
-the evolution of these standards and their use are taken into account and some elements have been updated to match nowadays use.
+the evolution of these standards and their use are taken into account and some elements have been updated to match current use.
 
 *OCPI is developed with support of:*
 
@@ -85,6 +86,5 @@ image::images/evroamingeu_logo.png[evRoaming4EU logo,scale=50%]
 ECISS project and its partners: +
 
 image::images/eciss_logo.png[ECISS logo]
-
 
 The latest version of this specification can be found here: https://github.com/ocpi/ocpi[https://github.com/ocpi/ocpi]
