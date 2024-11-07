@@ -644,8 +644,8 @@ Note that in order to fulfill both the requirement that an EVSE's `uid` be uniqu
 |physical_reference |<<types.asciidoc#types_string_type,string>>(16) |? |A number/string printed on the outside of the EVSE for visual identification. 
 |directions |<<types.asciidoc#types_displaytext_class,DisplayText>> |* |Multi-language human-readable directions when more detailed information on how to reach the EVSE from the _Location_ is required. 
 |parking_restrictions |<<mod_locations_parkingrestriction_enum,ParkingRestriction>> |* |The restrictions that apply to the parking spot. 
-|vehicle_type |<<mod_locations_vehicletype_enum,VehicleType>> |+ | The vehicle types that the EVSE is intended for and that the associated parking is designed to accomodate.
-|images |<<mod_locations_image_class,Image>> |* |Links to images related to the EVSE such as photos or logos. 
+|vehicle_types |<<mod_locations_vehicletype_enum,VehicleType>> |+ | The vehicle types that the EVSE is intended for and that the associated parking is designed to accomodate.
+|images |<<mod_locations_image_class,Image>> |* | Links to images related to the EVSE such as photos or logos. At least one photograph should be provided if the value of vehicle_types includes the `DISABLED` vehicle type.
 |last_updated |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Timestamp when this EVSE or one of its Connectors was last updated (or created). 
 |===
 
