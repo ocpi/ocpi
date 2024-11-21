@@ -1242,9 +1242,9 @@ A categorization of vehicles to indicate which type of vehicles can use a certai
 | PERSONAL_VEHICLE | A personal vehicle, a passenger car
 | PERSONAL_VEHICLE_WITH_TRAILER | A personal vehicle with a trailer attached
 | VAN | A light-duty van with a height smaller than 275 cm
-| TRUCK | A heavy-duty truck without a trailer
-| SEMI_TRUCK | A semi-trailer truck
-| TRUCK_WITH_TRAILER | A heavy-duty truck with a trailer attached
+| SEMI_TRACTOR | A heavy-duty tractor unit without a trailer
+| RIGID | A heavy-duty truck without an articulation point
+| TRUCK_WITH_TRAILER | A heavy-duty truck (tractor or rigid) with a trailer attached
 | BUS | A bus or a motor coach
 | DISABLED | A vehicle with a permit for parking spaces for people with disabilities
 |===
