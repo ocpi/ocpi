@@ -456,7 +456,7 @@ Result of the command that was sent to the Charge Point.
 
 
 [[mod_commands_commandtype_enum]]
-==== CommandType _enum_
+==== CommandType _OpenEnum_
 
 The command requested.
 [cols="3,10",options="header"]

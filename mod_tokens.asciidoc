@@ -450,7 +450,7 @@ References to location details.
 |===
 
 [[mod_tokens_tokentype_enum]]
-==== TokenType _enum_
+==== TokenType _OpenEnum_
 
 [cols="3,10",options="header"]
 |===

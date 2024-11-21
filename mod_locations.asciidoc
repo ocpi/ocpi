@@ -717,7 +717,7 @@ This class defines an additional geo location that is relevant for the Charge Po
 
 
 [[mod_locations_capability_enum]]
-==== Capability _enum_
+==== Capability _OpenEnum_
 
 The capabilities of an EVSE.
 
@@ -760,7 +760,7 @@ The format of the connector, whether it is a socket or a plug.
 |===
 
 [[mod_locations_connectortype_enum]]
-==== ConnectorType _enum_
+==== ConnectorType _OpenEnum_
 
 The socket or plug standard of the charging point.
 
@@ -904,7 +904,7 @@ Amount of waste produced/emitted per kWh.
 |===
 
 [[mod_locations_environmentalimpactcategory_enum]]
-==== EnvironmentalImpactCategory _enum_
+==== EnvironmentalImpactCategory _OpenEnum_
 
 Categories of environmental impact values.
 
@@ -931,7 +931,7 @@ Specifies one exceptional period for opening or access hours.
 
 
 [[mod_locations_facility_enum]]
-==== Facility _enum_
+==== Facility _OpenEnum_
 
 [cols="3,10",options="header"]
 |===
@@ -1067,7 +1067,7 @@ If not squared, thumbnails should have the same orientation as the original.
 |===
 
 [[mod_locations_imagecategory_enum]]
-==== ImageCategory _enum_
+==== ImageCategory _OpenEnum_
 
 The category of an image to obtain the correct usage in a user presentation.
 The category has to be set accordingly to the image content in order to guarantee the right usage.
@@ -1086,7 +1086,7 @@ The category has to be set accordingly to the image content in order to guarante
 |===
 
 [[mod_locations_parkingrestriction_enum]]
-==== ParkingRestriction _enum_
+==== ParkingRestriction _OpenEnum_
 
 This value, if provided, represents the restriction to the parking spot for different purposes.
 
@@ -1102,7 +1102,7 @@ This value, if provided, represents the restriction to the parking spot for diff
 |===
 
 [[mod_locations_parkingtype_enum]]
-==== ParkingType _enum_
+==== ParkingType _OpenEnum_
 
 Reflects the general type of the charge point's location. May be used for user information.
 
@@ -1231,7 +1231,7 @@ Example: "This station will be running as of tomorrow. Today it is still planned
 NOTE: The scheduled status is purely informational. When the status actually changes, the CPO must push an update to the EVSEs `status` field itself.
 
 [[mod_locations_vehicletype_enum]]
-==== VehicleType _enum_
+==== VehicleType _OpenEnum_
 
 A categorization of vehicles to indicate which type of vehicles can use a certain EVSE.
 
