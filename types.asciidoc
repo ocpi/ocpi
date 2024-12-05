@@ -90,8 +90,21 @@ Unless mentioned otherwise, numbers use 4 decimals and a _sufficiently large amo
 |===
 |Property |Type |Card. |Description
 
-|excl_vat |<<types_number_type,number>> |1 |Price/Cost excluding VAT.
-|incl_vat |<<types_number_type,number>> |? |Price/Cost including VAT.
+|before_taxes |<<types_number_type,number>> |1 |Price/Cost excluding taxes.
+|taxes |<<types_tax_amount_class,TaxAmount>> |* |All taxes that are applicable to this price and relevant to the receiver of the Session or CDR.
+|===
+
+
+[[types_tax_amount_class]]
+=== TaxAmount _class_
+
+[cols="3,2,1,10",options="header"]
+|===
+|Property       |Type                         |Card. |Description
+|name           |<<types_string_type,string>> |1     |A description of the tax. In countries where a tax name is required like Canada this can be something like "QST". In countries where this is not required, this can be something more generic like "VAT" or "General Sales Tax".
+|account_number |<<types_string_type,string>> |?     | Tax Account Number of the business entity remitting these taxes. Optional as this is not required in all countries.
+|percentage     |<<types_number_type,number>> |?     | Tax percentage. Optional as this is not required in all countries.
+|amount         |<<types_number_type,number>> |1     | The amount of money of this tax that is due.
 |===
 
 [[types_role_enum]]

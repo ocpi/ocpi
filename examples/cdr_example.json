@@ -2,8 +2,8 @@
   "country_code": "BE",
   "party_id": "BEC",
   "id": "12345",
-  "start_date_time": "2015-06-29T21:39:09Z",
-  "end_date_time": "2015-06-29T23:37:32Z",
+  "start_date_time": "2024-12-05T17:39:09Z",
+  "end_date_time": "2024-12-05T19:37:32Z",
   "cdr_token": {
     "country_code": "DE",
     "party_id": "TNM",
@@ -44,10 +44,10 @@
         "step_size": 300
       }]
     }],
-    "last_updated": "2015-02-02T14:15:01Z"
+    "last_updated": "2024-05-02T14:15:01Z"
   }],
   "charging_periods": [{
-    "start_date_time": "2015-06-29T21:39:09Z",
+    "start_date_time": "2024-12-05T17:39:09Z",
     "dimensions": [{
       "type": "TIME",
       "volume": 1.973
@@ -55,14 +55,20 @@
     "tariff_id": "12"
   }],
   "total_cost": {
-    "excl_vat": 4.00,
-    "incl_vat": 4.40
+    "before_taxes": 4.00,
+    "taxes": [{
+      "name": "VAT",
+      "amount": 0.40
+    }]
   },
   "total_energy": 15.342,
   "total_time": 1.973,
   "total_time_cost": {
-    "excl_vat": 4.00,
-    "incl_vat": 4.40
+    "before_taxes": 4.00,
+    "taxes": [{
+      "name": "VAT",
+      "amount": 0.40
+    }]
   },
-  "last_updated": "2015-06-29T22:01:13Z"
+  "last_updated": "2024-12-05T20:02:13Z"
 }
