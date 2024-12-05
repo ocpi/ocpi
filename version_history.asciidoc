@@ -3,15 +3,15 @@
 [cols="4,5,6,16",options="header"]
 |===
 |Version |Date |Author |Description
-|2.3.0-dev | |
+|2.3.0-rc1 | 2024-12-05 |
 Greg Fitzpatrick +
 _ChargeHub_ +
 Petar Jovevski +
-_MeterGram_ +
+_Metergram_ +
 Robert Gliguroski +
-_MeterGram_ +
+_Metergram_ +
 Reinier Lamers +
-_SWTCH Energy_ |a
+_SWTCH Energy_ a|
  * Make OCPI extensible
  * Add vehicle types to EVSE
  * Information for people with disabilities
