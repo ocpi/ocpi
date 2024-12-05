@@ -3,7 +3,21 @@
 [cols="4,5,6,16",options="header"]
 |===
 |Version |Date |Author |Description
-
+|2.3.0-dev | |
+Greg Fitzpatrick +
+_ChargeHub_ +
+Petar Jovevski +
+_MeterGram_ +
+Robert Gliguroski +
+_MeterGram_ +
+Reinier Lamers +
+_SWTCH Energy_ |a
+ * Make OCPI extensible
+ * Add vehicle types to EVSE
+ * Information for people with disabilities
+ * Support for North American taxes
+ * 15118 Plug and Charge compatibility flags on EVSEs
+ * Make Hub support incremental from regular multi-party Platform support
 |2.2.1-d2 | 2023-09-07 |
 
 Jakub Karbownik +

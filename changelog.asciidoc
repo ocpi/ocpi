@@ -2,6 +2,15 @@
 [[changelog_changelog]]
 == Changelog
 
+=== Changes between 2.2.1-d2 and 2.3.0
+
+ * Make OCPI Extensible: possible to add modules, fields, enum values for certain enums
+ * Vehicle types can be listed on EVSEs
+ * Information for people with disabilities
+ * Support for North American taxes
+ * Take straightforward enum values from the OCPI 3.0 draft, including 15118 compat
+ * Add new field in Credentials to give hub party ID and make hub clients be reported as normal credentials roles
+
 === Changes between 2.2.1 and 2.2.1-d2
 
  * Removed note that advised against sharing Locations on which home charging reimbursement happens
