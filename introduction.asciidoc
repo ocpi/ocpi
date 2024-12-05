@@ -69,7 +69,7 @@ helps the market to develop quickly and helps market players to execute their bu
 
 What does it offer (main functionality):
 
-* A good roaming system (for bilateral usage and/or via a hub).
+* A good roaming system (for bilateral usage and/or via a Roaming Hub).
 * Real-time information about location, availability and price.
 * A uniform way of exchanging data (Notification Data Records and Charge Data Records), before during and after the transaction.
 * Remote mobile support to access any Charge Point without pre-registration.

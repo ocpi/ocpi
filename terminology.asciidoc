@@ -34,10 +34,9 @@ In the EV Charging landscape, different market roles can be identified.
 |Role  |Description
 |CPO   |Charging Point Operator. Operates a network of Charge Points.
 |eMSP  |e-Mobility Service Provider. Gives EV drivers access to charging services.
-|Hub   |Can connect one or more CPOs to one or more eMSPs.
 |NAP   |National Access Point. Provides a national database with all (public) charging locations. Information can be sent and retrieved from the NAP. This makes it different from a typical NSP.
 |NSP   |Navigation Service Provider. Provides EV drivers with location information of Charge Points. Usually only interested in Location information.
-|Roaming Hub |See: Hub.
+|Roaming Hub |A business that facilitates roaming by offering integration with multiple roaming partners through one technical connection.
 |SCSP  |Smart Charging Service Provider. Provides Smart Charging service to other parties. Might use a lot of different inputs to calculate Smart Charging Profiles.
 |===
 
@@ -50,7 +49,7 @@ parties provide service to CPOs that are not running their own platform.
 A lot of CPOs are also eMSP. With OCPI 2.1.1 and earlier that meant having to set up an OCPI connection per role.
 
 OCPI 2.2 introduced more roles and abstracts the role from the OCPI connection itself.
-OCPI 2.2 and OCPI 2.2.1 are described in terms of about Platforms connecting to Platforms, or Platforms connecting via Hubs to other Platforms.
+OCPI 2.2, 2.2.1 and 2.3.0 are described in terms of about Platforms connecting to Platforms.
 The Platform itself is not a role. The Platform provides services for 1 or more roles.
 
 Examples of platforms:
@@ -65,7 +64,7 @@ Examples of platforms:
   Is seen in OCPI as a Platform that has 2 roles: CPO and eMSP for this company.
 * If one the companies above starts to offer their service to other CPOs and eMSP, it is in OCPI still seen as 1 platform.
   This platform then provides multiple CPO and eMSP roles.
-* A Roaming Hub is in OCPI terms also a Platform, antoher OCPI Platform can connect to it. Most Roamings Hubs only have one role: Hub.
+* A Roaming Hub is in OCPI terms also a Platform. Other OCPI Platforms can connect to it.
 
 
 [[introduction_typical_roles]]
@@ -80,7 +79,7 @@ The table shows the typical communication role: Receiver, Sender or Both.
 |Modules
   |<<types.asciidoc#types_role_enum,CPO>>
   |<<types.asciidoc#types_role_enum,eMSP>>
-  |<<types.asciidoc#types_role_enum,Hub>>
+  |<<types.asciidoc#types_role_enum,Roaming Hub>>
   |<<types.asciidoc#types_role_enum,NSP>>
   |<<types.asciidoc#types_role_enum,NAP>>
   |<<types.asciidoc#types_role_enum,SCSP>>
@@ -117,13 +116,15 @@ The table shows the typical communication role: Receiver, Sender or Both.
 |Functional Module | OCPI Module that provides functionality/information for the EV Driver, such as: <<mod_tokens.asciidoc#mod_tokens_tokens_module,Tokens>>,
                      <<mod_locations.asciidoc#mod_locations_locations_module,Locations>>, <<mod_cdrs.asciidoc#mod_cdrs_cdrs_module,CDRs>> etc. +
                      Functional Modules use <<transport_and_format.asciidoc#transport_and_format_message_routing,message routing>>.
+|Hub   |Functionality in an OCPI platform to route OCPI requests and responses based on their content.
 |Open Routing Request | This is for Platforms that are connected via a Hub. When a system sends a pull request to the Hub,
                         and does not know, or care about, the owner of information, but asks the Hub to route the GET to the correct Platform.
                         The Hub finds the correct Platform and routes the request to that Platform. +
                         See: <<transport_and_format.asciidoc#transport_and_format_message_routing_open_routing_request,Open Routing Request>>
 |Platform | Software that provides services via OCPI.
-            A platform can provide service for a single eMSP or CPO, or for multiple CPOs or eMSPs.
-            It can even provide services for both eMSPs and CPOs at the same time. A Hub is also an OCPI Platform, most only have one role: Hub.
+            A platform can provide service for a single eMSP or CPO, or for multiple CPOs or eMSPs. +
+            It can even provide services for both eMSPs and CPOs at the same time. +
+            A Platform will typically only provide services for a single Roaming Hub, through the Platform's Hub functionality.
 |Pull | A system calls GET request to retrieve information from the system that owns the data.
 |Push | The system (owning the data) actively calls POST/PUT/PATCH to update other systems with new/updated information.
 |===
