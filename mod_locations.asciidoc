@@ -731,6 +731,8 @@ The capabilities of an EVSE.
 |CONTACTLESS_CARD_SUPPORT |EVSE has a payment terminal that supports contactless cards.
 |CREDIT_CARD_PAYABLE |EVSE has a payment terminal that makes it possible to pay for charging using a credit card.
 |DEBIT_CARD_PAYABLE |EVSE has a payment terminal that makes it possible to pay for charging using a debit card.
+|ISO_15118_2_PLUG_AND_CHARGE |The EVSE supports authentication of the Driver using a contract certificate stored in the vehicle according to ISO 15118-2.
+|ISO_15118_20_PLUG_AND_CHARGE |The EVSE supports authentication of the Driver using a contract certificate stored in the vehicle according to ISO 15118-20.
 |PED_TERMINAL |EVSE has a payment terminal with a pin-code entry device.
 |REMOTE_START_STOP_CAPABLE |The EVSE can remotely be <<mod_commands.asciidoc#mod_commands_startsession_object,started>>/<<mod_commands.asciidoc#mod_commands_stopsession_object,stopped>>.
 |RESERVABLE |The EVSE can be <<mod_commands.asciidoc#mod_commands_reservenow_object,reserved>>.
@@ -739,6 +741,8 @@ The capabilities of an EVSE.
 |TOKEN_GROUP_CAPABLE |This EVSE supports token groups, two or more tokens work as one, so that a session can be started with one token and stopped with another (handy when a card and key-fob are given to the EV-driver).
 |UNLOCK_CAPABLE |Connectors have mechanical lock that can be requested by the eMSP to be <<mod_commands.asciidoc#mod_commands_unlockconnector_object,unlocked>>.
 |===
+
+NOTE: The Plug and Charge related capabilities are meant to signal that a Driver can indeed use ISO 15118 Plug and Charge at this EVSE. Mere support for a standard by the charging hardware is not enough to warrant the presence of these capabilities.
 
 When a Charge Point supports ad-hoc payments with a payment terminal, please use a combination of the following values to explain the possibilities of the terminal:
 CHIP_CARD_SUPPORT, CONTACTLESS_CARD_SUPPORT, CREDIT_CARD_PAYABLE, DEBIT_CARD_PAYABLE, PED_TERMINAL.
@@ -797,6 +801,7 @@ The socket or plug standard of the charging point.
 |IEC_62196_T2_COMBO |Combo Type 2 based, DC 
 |IEC_62196_T3A |IEC 62196 Type 3A 
 |IEC_62196_T3C |IEC 62196 Type 3C "Scame"
+|MCS         |The MegaWatt Charging System (MCS) connector as developed by CharIN
 |NEMA_5_20   |NEMA 5-20, 3 pins
 |NEMA_6_30   |NEMA 6-30, 3 pins
 |NEMA_6_50   |NEMA 6-50, 3 pins
@@ -806,8 +811,9 @@ The socket or plug standard of the charging point.
 |NEMA_14_50  |NEMA 14-50, 3 pins, rating of 50 A
 |PANTOGRAPH_BOTTOM_UP|On-board Bottom-up-Pantograph typically for bus charging
 |PANTOGRAPH_TOP_DOWN|Off-board Top-down-Pantograph typically for bus charging
+|SAE_J3400 | SAE J3400, also known as North American Charging Standard (NACS), developed by Tesla, Inc in 2021.
 |TESLA_R |Tesla Connector "Roadster"-type (round, 4 pin)
-|TESLA_S |Tesla Connector "Model-S"-type (oval, 5 pin)
+|TESLA_S |Tesla Connector "Model-S"-type (oval, 5 pin). Mechanically compatible with SAE J3400 but uses CAN bus for communication instead of power line communication.
 |===
 
 [[mod_locations_energymix_class]]
@@ -1096,9 +1102,9 @@ This value, if provided, represents the restriction to the parking spot for diff
 
 |EV_ONLY |Reserved parking spot for electric vehicles. 
 |PLUGGED |Parking is only allowed while plugged in (charging). 
-|DISABLED |Reserved parking spot for disabled people with valid ID. 
 |CUSTOMERS |Parking spot for customers/guests only, for example in case of a hotel or shop.
-|MOTORCYCLES |Parking spot only suitable for (electric) motorcycles or scooters. 
+|TAXI |Parking only for taxi vehicles.
+|TENANTS |Parking only for people who live in a complex that the Location belongs to.
 |===
 
 [[mod_locations_parkingtype_enum]]
