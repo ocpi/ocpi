@@ -284,6 +284,7 @@ NOTE: There are no parameters related to price rounding in the Tariff object or 
       A minimum price indicates that when the cost of a Charging Session is lower than this amount, the cost of the Session will be equal to this amount. (Also see note below)
 |max_price |<<types.asciidoc#types_price_class,Price>> |? |When this field is set, a Charging Session with this tariff will NOT cost more than this amount. (See note below)
 |elements |<<mod_tariffs_tariffelement_class,TariffElement>> |+ |List of Tariff Elements.
+|tax_included | <<mod_tariffs_taxincluded_enum,TaxIncluded>> |1 |Whether taxes are included in the amounts in this Tariff.
 |start_date_time |<<types.asciidoc#types_datetime_type,DateTime>> |? |The time when this tariff becomes active, in UTC, `time_zone` field of the <<mod_locations.asciidoc#mod_locations_location_object,Location>> can be used to convert to local time.
                                                                      Typically used for a new tariff that is already given with the location, before it becomes active. (See note below)
 |end_date_time |<<types.asciidoc#types_datetime_type,DateTime>> |? |The time after which this tariff is no longer valid, in UTC, `time_zone` field if the <<mod_locations.asciidoc#mod_locations_location_object,Location>> can be used to convert to local time.
@@ -339,7 +340,6 @@ This tariff will result in costs of € 5.00 (excl. VAT) or € 5.50 (incl. VAT)
 ----
 include::examples/tariff_8_simple_025kwh.json[]
 ----
-
 
 [[mod_tariffs_tariff_example_0_25_euro_per_kwh_start]]
 ====== Tariff example € 0.25 per kWh + start fee
@@ -468,6 +468,43 @@ this tariff will result in costs of € 5.00 (excl. VAT) or € 5.50 (incl. VAT)
 include::examples/tariff_1_simple_2hour.json[]
 ----
 
+[[mod_tariffs_tariff_example_north_america_no_vat_tax_excluded]]
+====== Simple Tariff with North American taxes
+
+This is an example of how to represent Tariffs in Canada or the United States. In these countries, tax rates are not typically known beforehand to the CPO, so the `vat` field in the `PriceComponent` objects is not filled. The top level `tax_included` field in the Tariff object is used to say whether taxes are part of the prices in the Tariff, or if they will be added on top of those prices afterward.
+
+This example Tariff is similar to the previous one in that it charges two currency units per hour of charging, but handles taxes in the North American way.
+
+* Charging Time
+[disc]
+** C$ 2.00 per hour
+** Taxes not included
+** Billed per 1 min (60 seconds)
+
+For a charging session of 2.5 hours, this tariff will result in costs of C$ 5.00, plus taxes according to locally applicable legislation.
+
+[source,json]
+----
+include::examples/tariff_19_simple_north_american_exclusive.json[]
+----
+
+[[mod_tariffs_tariff_example_north_america_no_vat_tax_included]]
+====== Simple Tariff with North American taxes, price inclusive of tax
+
+Sometimes, under North American style tax systems, Parties want to give prices including tax in their Tariffs. This example shows how to accomplish this.
+
+* Charging Time
+[disc]
+** C$ 2.10 per hour
+** Taxes included
+** Billed per 1 min (60 seconds)
+
+For a charging session of 2.5 hours, this tariff will result in costs of C$ 5.25. All taxes that are due are included in that C$5.25 amount.
+
+[source,json]
+----
+include::examples/tariff_20_simple_north_american_inclusive.json[]
+----
 
 [[mod_tariffs_simple_tariff_example_3_euro_per_hour_5_euro_parking]]
 ====== Simple Tariff example € 3 per hour, € 5 per hour parking
@@ -919,7 +956,7 @@ A Price Component describes how a certain amount of a certain dimension being co
 
 |type |<<mod_tariffs_tariffdimensiontype_enum,TariffDimensionType>> |1 |The dimension that is being priced
 |price |<<types.asciidoc#types_number_type,number>> |1 |Price per unit (excl. VAT) for this dimension.
-|vat |<<types.asciidoc#types_number_type,number>> |? |Applicable VAT percentage for this tariff dimension. If omitted, no VAT is applicable. Not providing a VAT is different from 0% VAT, which would be a value of 0.0 here.
+|vat |<<types.asciidoc#types_number_type,number>> |? |Applicable VAT percentage for this tariff dimension. If omitted, no VAT is applicable. 
 |step_size |int |1 |Minimum amount to be billed. That is, the dimension will be billed in this `step_size` blocks. Consumed amounts are rounded up to the smallest multiple of `step_size` that is greater than the consumed amount.
 For example: if `type` is `TIME` and `step_size` has a value of `300`, then time will be billed in blocks of 5 minutes. If 6 minutes were consumed, 10 minutes (2 blocks of `step_size`) will be billed.
 |===
@@ -1186,4 +1223,17 @@ include::examples/tariffrestriction_example_max_duration.json[]
 |PROFILE_FAST |Used to describe that a Tariff is valid when <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,Charging Preference>>: <<mod_sessions.asciidoc#mod_sessions_profile_type_enum,FAST>> is set for the session.
 |PROFILE_GREEN |Used to describe that a Tariff is valid when <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,Charging Preference>>: <<mod_sessions.asciidoc#mod_sessions_profile_type_enum,GREEN>> is set for the session.
 |REGULAR |Used to describe that a Tariff is valid when using an RFID, without any Charging Preference, or when <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,Charging Preference>>: <<mod_sessions.asciidoc#mod_sessions_profile_type_enum,REGULAR>> is set for the session.
+|===
+
+[[mod_tariffs_taxincluded_enum]]
+==== TaxIncluded _enum_
+
+Describes if tax may have to be added to the amounts in a Tariff.
+
+[cols="3,10",options="header"]
+|===
+|Value |Description
+|YES   | Taxes are included in the prices in this Tariff.
+|NO    | Taxes are not included, and will be added on top of the prices in this Tariff.
+|N/A   | No taxes are applicable to this Tariff.
 |===

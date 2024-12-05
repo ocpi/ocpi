@@ -10,5 +10,6 @@
       "vat": 10.0,
       "step_size": 300
     }]
-  }]
+  }],
+  "tax_included": "NO"
 }
