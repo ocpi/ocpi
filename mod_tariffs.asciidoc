@@ -279,10 +279,8 @@ NOTE: There are no parameters related to price rounding in the Tariff object or 
 |type |<<mod_tariffs_tariff_type,TariffType>> |? | Defines the type of the tariff. This allows for distinction in case of given <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,Charging Preferences>>. When omitted, this tariff is valid for all sessions.
 |tariff_alt_text |<<types.asciidoc#types_displaytext_class,DisplayText>> |* |List of multi-language alternative tariff info texts.
 |tariff_alt_url |<<types.asciidoc#types_url_type,URL>> |? |URL to a web page that contains an explanation of the tariff information in human readable form.
-|min_price |<<types.asciidoc#types_price_class,Price>> |? |When this field is set, a Charging Session with this tariff will at least cost this amount.
-      This is different from a `FLAT` fee (Start Tariff, Transaction Fee), as a `FLAT` fee is a fixed amount that has to be paid for any Charging Session.
-      A minimum price indicates that when the cost of a Charging Session is lower than this amount, the cost of the Session will be equal to this amount. (Also see note below)
-|max_price |<<types.asciidoc#types_price_class,Price>> |? |When this field is set, a Charging Session with this tariff will NOT cost more than this amount. (See note below)
+|min_price |<<mod_tariffs_pricelimit_class,PriceLimit>> |? |When this field is set, a Charging Session with this tariff will at least cost this amount.
+|max_price |<<mod_tariffs_pricelimit_class,PriceLimit>> |? |When this field is set, a Charging Session with this tariff will at most cost this amount.
 |elements |<<mod_tariffs_tariffelement_class,TariffElement>> |+ |List of Tariff Elements.
 |tax_included | <<mod_tariffs_taxincluded_enum,TaxIncluded>> |1 |Whether taxes are included in the amounts in this Tariff.
 |start_date_time |<<types.asciidoc#types_datetime_type,DateTime>> |? |The time when this tariff becomes active, in UTC, `time_zone` field of the <<mod_locations.asciidoc#mod_locations_location_object,Location>> can be used to convert to local time.
@@ -293,15 +291,21 @@ NOTE: There are no parameters related to price rounding in the Tariff object or 
 |last_updated |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Timestamp when this Tariff was last updated (or created).
 |===
 
-NOTE: `min_price`: As the VAT might be built up of different parts, there might be situations where minimum cost including VAT is reached earlier or later than the minimum cost excluding VAT.
-So as a rule, they both apply:
- - The total cost of a Charging Session excluding VAT can never be lower than the `min_price` excluding VAT.
- - The total cost of a Charging Session including VAT can never be lower than the `min_price` including VAT.
+[NOTE]
+====
+`min_price`: As the taxes on a Charging Session might be different for different parts of the Session, there might be situations where the minimum cost after taxes is reached earlier or later than the minimum price before taxes. So as a rule, they both apply:
 
-NOTE: `max_price`: As the VAT might be built up of different parts, there might be situations where maximum cost including VAT is reached earlier or later than the maximum cost excluding VAT.
-So as a rule, they both apply:
- - The total cost of a Charging Session excluding VAT can never be higher than the `max_price` excluding VAT.
- - The total cost of a Charging Session including VAT can never be higher than the `max_price` including VAT.
+ - The total cost of a Charging Session before taxes can never be lower than the value of the min_price's `before_taxes` field.
+ - The total cost of a Charging Session after taxes can never be lower than the value of the min_price's `after_taxes` field.
+====
+
+[NOTE]
+====
+`max_price`: As the taxes on a Charging Session might be different for different parts of the Session, there might be situations where the maximum cost after taxes is reached earlier or later than the maximum price before taxes. So as a rule, they both apply:
+
+ - The total cost of a Charging Session before taxes can never be higher than the value of the max_price's `before_taxes` field.
+ - The total cost of a Charging Session after taxes can never be higher than the value of the max_price's `after_taxes` field.
+====
 
 NOTE: `start_date_time` and `end_date_time`: When the Tariff of a Charge Point (Location) is changed during an ongoing charging session,
 it is common to not switch the Tariff until the ongoing session is finished.
@@ -955,7 +959,7 @@ A Price Component describes how a certain amount of a certain dimension being co
 |Property |Type |Card. |Description
 
 |type |<<mod_tariffs_tariffdimensiontype_enum,TariffDimensionType>> |1 |The dimension that is being priced
-|price |<<types.asciidoc#types_number_type,number>> |1 |Price per unit (excl. VAT) for this dimension.
+|price |<<types.asciidoc#types_number_type,number>> |1 |Price per unit for this dimension. This is including or excluding taxes according to the `tax_included` field of the Tariff that this PriceComponent is contained in.
 |vat |<<types.asciidoc#types_number_type,number>> |? |Applicable VAT percentage for this tariff dimension. If omitted, no VAT is applicable. 
 |step_size |int |1 |Minimum amount to be billed. That is, the dimension will be billed in this `step_size` blocks. Consumed amounts are rounded up to the smallest multiple of `step_size` that is greater than the consumed amount.
 For example: if `type` is `TIME` and `step_size` has a value of `300`, then time will be billed in blocks of 5 minutes. If 6 minutes were consumed, 10 minutes (2 blocks of `step_size`) will be billed.
@@ -1053,6 +1057,15 @@ A breakdown is as follows:
 | Total | | | 0.80
 |===
 
+[[mod_tariffs_pricelimit_class]]
+==== PriceLimit _class_
+
+[cols="3,2,1,10",options="header"]
+|===
+|Property |Type |Card. |Description
+|before_taxes |<<types_number_type,number>> |1 |Maximum or minimum cost excluding taxes.
+|after_taxes | <<types_number_type,number>> |? |Maximum or minimum cost including taxes.
+|===
 
 [[mod_tariffs_reservation_restriction_type]]
 ==== ReservationRestrictionType _enum_
