@@ -3,7 +3,7 @@
 [cols="4,5,6,16",options="header"]
 |===
 |Version |Date |Author |Description
-|2.3.0-rc1 | 2024-12-05 |
+|2.3.0-rc2 | 2025-01-16 |
 Greg Fitzpatrick +
 _ChargeHub_ +
 Petar Jovevski +
@@ -14,9 +14,11 @@ Reinier Lamers +
 _SWTCH Energy_ a|
  * Make OCPI extensible
  * Add vehicle types to EVSE
+ * Add list of accepted eMSPs to EVSE
+ * Add a Parking object linked to EVSE
  * Information for people with disabilities
  * Support for North American taxes
- * 15118 Plug and Charge compatibility flags on EVSEs
+ * 15118 Plug and Charge compatibility flags on Connectors
  * Make Hub support incremental from regular multi-party Platform support
 |2.2.1-d2 | 2023-09-07 |
 
