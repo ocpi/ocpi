@@ -12,7 +12,7 @@
     "latitude": "51.047599",
     "longitude": "3.729944"
   },
-  "parking_type": "ON_STREET",
+  "parking_type": "PARKING_GARAGE",
   "evses": [{
     "uid": "3256",
     "evse_id": "BE*BEC*E041503001",
@@ -67,16 +67,20 @@
   }],
   "parking_places": [{
       "id": "1",
+      "physical_reference": "B1",
       "vehicle_types": ["PERSONAL_VEHICLE"],
       "reservation_required": false,
       "restricted_to_type": true
     }, {
       "id": "2",
+      "physical_reference": "B2",
       "vehicle_types": ["PERSONAL_VEHICLE"],
       "reservation_required": false,
       "restricted_to_type": true
     },
-    { "id": "3",
+    {
+      "id": "3",
+      "physical_reference": "B3",
       "vehicle_types": ["PERSONAL_VEHICLE"],
       "reservation_required": false,
       "restricted_to_type": true

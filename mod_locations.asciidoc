@@ -1120,6 +1120,7 @@ For EVSEs around which no identifiable delineated parking spaces are available, 
 |===
 |Property |Type |Card. |Description
 |id |<<types.asciidoc#types_cistring_type,CiString>>[36] |1 |The identifier for this parking space. The value of this field MUST be unique among all Parking objects in the same Location object.
+|physical_reference |<<types.asciidoc#types_string_type,String>>[12] |? |A string identifier for the parking place that is physically visible on-site to drivers using the parking space. This could be a short identifier painted on the surface of a parking place in a parking garage for example.
 |vehicle_types |<<mod_locations_vehicletype_enum,VehicleType>>|+ | The vehicle types that the parking is designed to accommodate.
 |max_vehicle_weight | number |? | The maximum vehicle weight that can park at the EVSE, in kilograms. A value for this field should be provided unless the value of the `vehicle_types` field contains no values other than `PERSONAL_VEHICLE` or `MOTORCYCLE`.
 |max_vehicle_height | number |? | The maximum vehicle height that can park at the EVSE, in centimeters. A value for this field should be provided unless the value of the `vehicle_types` field contains no values other than `PERSONAL_VEHICLE` or `MOTORCYCLE`.
