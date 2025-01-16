@@ -29,7 +29,14 @@
       "max_amperage": 8,
       "last_updated": "2019-04-05T17:17:56Z"
     }],
+    "parking": ["1"],
     "last_updated": "2019-04-05T17:17:56Z"
+  }],
+  "parking_places": [{
+    "id": "1",
+    "vehicle_types": ["PERSONAL_VEHICLE"],
+    "reservation_required": false,
+    "restricted_to_type": false
   }],
   "time_zone": "Europe/Berlin",
   "last_updated": "2019-04-05T17:17:56Z"

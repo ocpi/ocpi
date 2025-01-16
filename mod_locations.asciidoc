@@ -504,7 +504,7 @@ Or the Charge Point has an ad-hoc payment possibility
 
 - `publish` = `true`
 - `parking_type` = `ON_STREET` but could also be another value.
-- `EVSE.parking_restrictions` not used.
+- `Parking.parking_restrictions` not used.
 
 [source,json]
 ----
@@ -526,7 +526,7 @@ restaurants, bars, clubs, theme parks, stores, supermarkets, company building, o
 
 - `publish` = `true`
 - `parking_type` = `PARKING_LOT` (but could also be `PARKING_GARAGE`, `ON_DRIVEWAY` or `UNDERGROUND_GARAGE`)
-- `EVSE.parking_restrictions` = `CUSTOMERS`
+- `Parking.parking_restrictions` = `CUSTOMERS`
 
 [source,json]
 ----
@@ -548,7 +548,7 @@ In case the EV driver is not billed for charging, there is, in such a case, no r
 - `publish` = `false`
 - `publish_allowed_to` not used
 - `parking_type` = not used`
-- `EVSE.parking_restrictions` = `CUSTOMERS` May still be useful so a support desk can also tell this to a customer.
+- `Parking.parking_restrictions` = `CUSTOMERS` may still be useful so a support desk can also tell this to a customer.
 
 [source,json]
 ----
@@ -605,7 +605,7 @@ If the EV is left in the parking garage overnight, the car will still be charged
 
 - `publish` = `true`
 - `parking_type` = `PARKING_GARAGE` but could also be another value.
-- `EVSE.parking_restrictions` not used.
+- `Parking.parking_restrictions` not used.
 - `opening_times` is used.
 - `charging_when_closed` = `true`
 
@@ -1119,7 +1119,7 @@ For EVSEs around which no identifiable delineated parking spaces are available, 
 [cols="3,2,1,10",options="header"]
 |===
 |Property |Type |Card. |Description
-|id |<<types.asciidoc#types_cistring_type,CiString>>[36] |1 |The identifier for this parking space.
+|id |<<types.asciidoc#types_cistring_type,CiString>>[36] |1 |The identifier for this parking space. The value of this field MUST be unique among all Parking objects in the same Location object.
 |vehicle_types |<<mod_locations_vehicletype_enum,VehicleType>>|+ | The vehicle types that the parking is designed to accommodate.
 |max_vehicle_weight | number |? | The maximum vehicle weight that can park at the EVSE, in kilograms. A value for this field should be provided unless the value of the `vehicle_types` field contains no values other than `PERSONAL_VEHICLE` or `MOTORCYCLE`.
 |max_vehicle_height | number |? | The maximum vehicle height that can park at the EVSE, in centimeters. A value for this field should be provided unless the value of the `vehicle_types` field contains no values other than `PERSONAL_VEHICLE` or `MOTORCYCLE`.
