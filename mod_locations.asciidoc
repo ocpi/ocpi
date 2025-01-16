@@ -683,6 +683,7 @@ For AC Charge Points, the amount of phases used can also have influence on the m
                     These tell the user about the options they have at this Connector, and what the tariff is for every option. +
                     For a "free of charge" tariff, this field should be set and point to a defined "free of charge" tariff.
 |terms_and_conditions |<<types.asciidoc#types_url_type,URL>> |? |URL to the operator's terms and conditions. 
+|capabilities |<<mod_locations_connectorcapability_enum,ConnectorCapability>> | * |A list of functionalities that the connector is capable of.
 |last_updated |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Timestamp when this Connector was last updated (or created). 
 |===
 
@@ -732,8 +733,6 @@ The capabilities of an EVSE.
 |CONTACTLESS_CARD_SUPPORT |EVSE has a payment terminal that supports contactless cards.
 |CREDIT_CARD_PAYABLE |EVSE has a payment terminal that makes it possible to pay for charging using a credit card.
 |DEBIT_CARD_PAYABLE |EVSE has a payment terminal that makes it possible to pay for charging using a debit card.
-|ISO_15118_2_PLUG_AND_CHARGE |The EVSE supports authentication of the Driver using a contract certificate stored in the vehicle according to ISO 15118-2.
-|ISO_15118_20_PLUG_AND_CHARGE |The EVSE supports authentication of the Driver using a contract certificate stored in the vehicle according to ISO 15118-20.
 |PED_TERMINAL |EVSE has a payment terminal with a pin-code entry device.
 |REMOTE_START_STOP_CAPABLE |The EVSE can remotely be <<mod_commands.asciidoc#mod_commands_startsession_object,started>>/<<mod_commands.asciidoc#mod_commands_stopsession_object,stopped>>.
 |RESERVABLE |The EVSE can be <<mod_commands.asciidoc#mod_commands_reservenow_object,reserved>>.
@@ -743,13 +742,24 @@ The capabilities of an EVSE.
 |UNLOCK_CAPABLE |Connectors have mechanical lock that can be requested by the eMSP to be <<mod_commands.asciidoc#mod_commands_unlockconnector_object,unlocked>>.
 |===
 
-NOTE: The Plug and Charge related capabilities are meant to signal that a Driver can indeed use ISO 15118 Plug and Charge at this EVSE. Mere support for a standard by the charging hardware is not enough to warrant the presence of these capabilities.
-
 When a Charge Point supports ad-hoc payments with a payment terminal, please use a combination of the following values to explain the possibilities of the terminal:
 CHIP_CARD_SUPPORT, CONTACTLESS_CARD_SUPPORT, CREDIT_CARD_PAYABLE, DEBIT_CARD_PAYABLE, PED_TERMINAL.
 
 There are Charge Points in the field that do not yet support OCPP 2.x. If these Charge Points have multiple connectors per EVSE, the CPO needs to know which connector to start when receiving a <<mod_commands.asciidoc#mod_commands_startsession_object,StartSession>> for the given EVSE. If this is the case, the CPO should set the `START_SESSION_CONNECTOR_REQUIRED` capability on the given EVSE.
 
+[[mod_locations_connectorcapability_enum]]
+==== ConnectorCapability _OpenEnum_
+
+Functionalities that a Connector may or may not support.
+
+NOTE: that these capabilities are meant to signal to eMSPs and their Drivers that a Driver can indeed use these functionalities at a Connector. Mere support for a standard by the charging hardware is not enough to warrant the presence of these capabilities.
+
+[cols="3,10",options="header"]
+|===
+| Value | Description
+| ISO_15118_2_PLUG_AND_CHARGE a| The Connector supports authentication of the Driver using a contract certificate stored in the vehicle according to ISO 15118-2.
+| ISO_15118_20_PLUG_AND_CHARGE a| The Connector supports authentication of the Driver using a contract certificate stored in the vehicle according to ISO 15118-20.
+|===
 
 [[mod_locations_connectorformat_enum]]
 ==== ConnectorFormat _enum_
