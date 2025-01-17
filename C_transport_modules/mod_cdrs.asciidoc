@@ -408,6 +408,8 @@ The _CdrLocation_ class contains only the relevant information from the <<mod_lo
 |connector_standard |<<mod_locations.asciidoc#mod_locations_connectortype_enum,ConnectorType>> |1 |The standard of the installed connector.
 |connector_format |<<mod_locations.asciidoc#mod_locations_connectorformat_enum,ConnectorFormat>> |1 |The format (socket/cable) of the installed connector.
 |connector_power_type |<<mod_locations.asciidoc#mod_locations_powertype_enum,PowerType>> |1 |
+|time_zone |<<types.asciidoc#types_string_type,string>>(255) |? |One of IANA tzdata's TZ-values representing the time zone of the location. Examples: "Europe/Oslo", "Europe/Zurich". (http://www.iana.org/time-zones[http://www.iana.org/time-zones]) 
+
 |===
 
 
