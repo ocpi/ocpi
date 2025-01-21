@@ -1,0 +1,47 @@
+:numbered:
+[[mod_booking_booking_module]]
+== _Booking_ module
+
+*Module Identifier: `Booking`*
+
+*Data owner: `CPO`*
+
+*Type:* Functional Module
+
+The Booking module gives eMSPs information about the available booking options the CPO offers.
+Further eMSP's can request these time slots.
+
+[[mod_booking_flow_and_lifecycle]]
+=== Flow and Lifecycle
+
+
+
+
+[[mod_booking_interfaces_and_endpoints]]
+=== Interfaces and endpoints
+
+For Booking there is the Receiver and the sender interface for Booking. The advised flow is following the push as the main flow of data from the sender to the receiver.
+
+[[mod_sessions_cpo_interface]]
+==== Sender Interface
+
+Typically implemented by market roles like: CPO.
+
+[cols="2,12",options="header"]
+|===
+|Method |Description
+|<<mod_sessions_cpo_get_method,GET>> |Get a specific BookingLocation, Calendar or Booking, or fetch a list of
+BookingLocations last updated between the `{date_from}` and `{date_to}`(<<transport_and_format.asciidoc#transport_and_format_pagination,paginated>>).
+|POST |n/a
+|<<mod_sessions_cpo_put_method,PUT>> |Setting Charging Preferences of an ongoing session.
+|PATCH |n/a
+|DELETE |n/a
+|===
+
+[[mod_booking_object_description]]
+=== Object description
+
+
+
+[[mod_booking_data_types]]
+=== Data types
