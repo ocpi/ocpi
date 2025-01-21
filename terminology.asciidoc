@@ -83,6 +83,7 @@ The table shows the typical communication role: Receiver, Sender or Both.
   |<<types.asciidoc#types_role_enum,NSP>>
   |<<types.asciidoc#types_role_enum,NAP>>
   |<<types.asciidoc#types_role_enum,SCSP>>
+|<<mod_cdrs.asciidoc#mod_cdrs_cdrs_module,Booking>>                                   |Sender   |Receiver |Both   |          |          |
 |<<mod_cdrs.asciidoc#mod_cdrs_cdrs_module,CDRs>>                                   |Sender   |Receiver |Both   |          |          |
 |<<mod_charging_profiles.asciidoc#mod_charging_profiles_module,Charging Profiles>> |Receiver |         |Both   |          |          |Sender
 |<<mod_commands.asciidoc#mod_commands_commands_module,Commands>>                   |Receiver |Sender   |Both   |          |          |
