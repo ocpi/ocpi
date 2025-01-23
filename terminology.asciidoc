@@ -21,6 +21,8 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 |NSP   |Navigation Service Provider.
 |OCPP  |Open Charge Point Protocol.
 |SCSP  |Smart Charging Service Provider.
+|PTP   |Payment Terminal Provider.
+|PSP   |Payment Service Provider.
 |===
 
 
@@ -38,6 +40,10 @@ In the EV Charging landscape, different market roles can be identified.
 |NSP   |Navigation Service Provider. Provides EV drivers with location information of Charge Points. Usually only interested in Location information.
 |Roaming Hub |A business that facilitates roaming by offering integration with multiple roaming partners through one technical connection.
 |SCSP  |Smart Charging Service Provider. Provides Smart Charging service to other parties. Might use a lot of different inputs to calculate Smart Charging Profiles.
+|PTP   |Payment Terminal Provider. Refers to the party operating the payment terminal management system. This can be the terminal vendor (re/seller) and manufacturer
+|PSP   |Payment Service Provider. Refers to the party providing acquiring services,
+which is typically a bank or institution that accepts and processes electronic payments.
+Merchant can enter into a direct contract with an acquirer or use the services of an intermediary (a payment service provider)
 |===
 
 Some of these roles can be combined in one company. A Platform can provide service for multiple CPOs or eMSPs,
@@ -74,7 +80,7 @@ The following table shows the typical modules implemented by the different roles
 These are not required.
 The table shows the typical communication role: Receiver, Sender or Both.
 
-[cols="6,4,4,4,4,4,4",options="header"]
+[cols="6,4,4,4,4,4,4,4",options="header"]
 |===
 |Modules
   |<<types.asciidoc#types_role_enum,CPO>>
@@ -83,16 +89,18 @@ The table shows the typical communication role: Receiver, Sender or Both.
   |<<types.asciidoc#types_role_enum,NSP>>
   |<<types.asciidoc#types_role_enum,NAP>>
   |<<types.asciidoc#types_role_enum,SCSP>>
-|<<mod_cdrs.asciidoc#mod_cdrs_cdrs_module,CDRs>>                                   |Sender   |Receiver |Both   |          |          |
-|<<mod_charging_profiles.asciidoc#mod_charging_profiles_module,Charging Profiles>> |Receiver |         |Both   |          |          |Sender
-|<<mod_commands.asciidoc#mod_commands_commands_module,Commands>>                   |Receiver |Sender   |Both   |          |          |
-|<<credentials.asciidoc#credentials_credentials_endpoint,Credentials>>             |Both     |Both     |Both   |Both      |Both      |Both
-|<<mod_hub_client_info.asciidoc#mod_hub_client_info_module,Hub Client Info>>       |Receiver |Receiver |Sender |Receiver  |Receiver  |Receiver
-|<<mod_locations.asciidoc#mod_locations_locations_module,Locations>>               |Sender   |Receiver |Both   |Receiver  |Both      |
-|<<mod_sessions.asciidoc#mod_sessions_sessions_module,Sessions>>                   |Sender   |Receiver |Both   |          |          |Receiver
-|<<mod_tariffs.asciidoc#mod_tariffs_tariffs_module,Tariffs>>                       |Sender   |Receiver |Both   |Receiver  |Both      |
-|<<mod_tokens.asciidoc#mod_tokens_tokens_module,Tokens>>                           |Receiver |Sender   |Both   |          |          |
-|<<version_information_endpoint.asciidoc#versions_module,Versions>>                |Both     |Both     |Both   |Both      |Both      |Both
+  |<<types.asciidoc#types_role_enum,PTP>>
+|<<mod_cdrs.asciidoc#mod_cdrs_cdrs_module,CDRs>>                                   |Sender   |Receiver |Both   |          |          ||Receiver
+|<<mod_charging_profiles.asciidoc#mod_charging_profiles_module,Charging Profiles>> |Receiver |         |Both   |          |          |Sender|
+|<<mod_commands.asciidoc#mod_commands_commands_module,Commands>>                   |Receiver |Sender   |Both   |          |          ||Sender
+|<<credentials.asciidoc#credentials_credentials_endpoint,Credentials>>             |Both     |Both     |Both   |Both      |Both      |Both|Both
+|<<mod_hub_client_info.asciidoc#mod_hub_client_info_module,Hub Client Info>>       |Receiver |Receiver |Sender |Receiver  |Receiver  |Receiver|
+|<<mod_locations.asciidoc#mod_locations_locations_module,Locations>>               |Sender   |Receiver |Both   |Receiver  |Both      ||Receiver
+|<<mod_sessions.asciidoc#mod_sessions_sessions_module,Sessions>>                   |Sender   |Receiver |Both   |          |          |Receiver|Receiver
+|<<mod_tariffs.asciidoc#mod_tariffs_tariffs_module,Tariffs>>                       |Sender   |Receiver |Both   |Receiver  |Both      ||Receiver
+|<<mod_tokens.asciidoc#mod_tokens_tokens_module,Tokens>>                           |Receiver |Sender   |Both   |          |          ||
+|<<mod_payments.asciidoc#mod_payments_payments_module,Payments>>                   |Receiver   | |   |          |          ||Sender
+|<<version_information_endpoint.asciidoc#versions_module,Versions>>                |Both     |Both     |Both   |Both      |Both      |Both|Both
 |===
 
 
@@ -105,6 +113,8 @@ The table shows the typical communication role: Receiver, Sender or Both.
 |Broadcast Push | When communicating via a Hub, a data owner can do a single call to the Hub, the Hub then calls all receiving systems. +
                   See: <<transport_and_format.asciidoc#transport_and_format_message_routing_broadcast_push,Broadcast push>>
 |Charge Point |The physical system where an EV can be charged. A Charge Point has one or more EVSEs. Sometimes called Charging Station
+|Payment Terminal| A payment terminal allows a merchant to capture card information and to transmit this data to the acquiring party for authorization and finally
+to transfer funds to the merchant. In order to provide acquiring services on a payment terminal strict protocols and certifications apply.
 |Client Owned Objects | In a normal REST interface the server is the owner of data, when a new resource is created by calling POST, the server creates the URL where the resource can be found by a client. +
                         OCPI is different, in most modules the owner is the party pushing data to a server, to inform them of updates. +
                         For example Locations, the CPO owns a Location (Charge Point), when a new Charge Point is added, the CPO calls PUT on the eMSP systems to inform them about new locations. +
@@ -218,9 +228,9 @@ When defining the cardinality of a field, the following symbols are used through
 |===
 |Symbol |Description |Type
 |? |An optional object. If not set, it might be `null`, or the field might be omitted. When the field is set to null or omitted and it has a default value, the value is the default value. |Object
-|1 |Required object. |Object 
-|* |A list of zero or more objects. If empty, it might be `null`, `[]` or the field might be omitted. |[Object] 
-|+ |A list of at least one object. |[Object] 
+|1 |Required object. |Object
+|* |A list of zero or more objects. If empty, it might be `null`, `[]` or the field might be omitted. |[Object]
+|+ |A list of at least one object. |[Object]
 |===
 
 

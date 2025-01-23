@@ -1,0 +1,12 @@
+{
+  "id": "452cf8a1-79aa-4a0e-9aee-dc788586053c",
+  "authorization_reference": "pp-100100-1948213567",
+  "total_costs": {
+    "excl_vat": 0.00,
+    "incl_vat": 0.00
+  },
+  "currency": "EUR",
+  "capture_status_code": "FAILED",
+  "capture_status_message": "Capture unsuccessful at PSP",
+  "last_updated": "2018-12-10T17:16:15Z"
+}

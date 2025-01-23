@@ -11,6 +11,7 @@
  * Support for North American taxes
  * Take straightforward enum values from the OCPI 3.0 draft, including those that signal 15118 compatibility
  * Add new field in Credentials to give hub party ID and make hub clients be reported as normal credentials roles
+ * Add new Payments module
 
 === Changes between 2.2.1 and 2.2.1-d2
 

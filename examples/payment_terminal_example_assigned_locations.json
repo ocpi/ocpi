@@ -1,0 +1,19 @@
+{
+  "terminal_id": "9e94f62c-661b-4afa-b6da-019b58fab9ac",
+  "address": "Street 1",
+  "city": "Vienna",
+  "country": "AUT",
+  "coordinates": {
+    "latitude": "51.047599",
+    "longitude": "3.729944"
+  },
+  "customer_reference": "BP",
+  "invoice_base_url": "https://somecompany.com/invoices",
+  "invoice_creator": "PTP",
+  "location_ids": [
+    "df37373d-1669-4127-a6ac-d86750095119",
+    "a06dc823-3e5a-40c8-89cf-1b5b9e941412",
+    "55719888-ed09-4cca-82cc-803bdb77bf26"
+  ],
+  "last_updated": "2018-12-10T17:16:15Z"
+}
