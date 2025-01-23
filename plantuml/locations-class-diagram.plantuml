@@ -3,5 +3,6 @@ title Locations class diagram
 
 Location "1" *-- "0..n" EVSE
 EVSE     "1" *-- "1..n" Connector
+EVSE     "1..n" *-- "1..n" Parking
 
 @enduml

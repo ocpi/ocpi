@@ -434,7 +434,7 @@ NOTE: To inform eMSPs that an EVSE is scheduled for removal, the status_schedule
 [[mod_locations_object_description]]
 === Object description
 
-Location, EVSE and Connector have the following relation.
+Location, EVSE, Connector and Parking have the following relation:
 
 .Location class diagram
 image::images/locations-class-diagram.svg[Location class diagram]
@@ -478,7 +478,7 @@ It is not allowed in OCPI to use a Token that is not 'owned' by the eMSP itself 
 |related_locations |<<mod_locations_additionalgeolocation_class,AdditionalGeoLocation>> |* |Geographical location of related points relevant to the user.
 |parking_type |<<mod_locations_parkingtype_enum,ParkingType>> |? |The general type of parking at the charge point location.
 |evses |<<mod_locations_evse_object,EVSE>> |* |List of EVSEs that belong to this Location.
-|[[mod_locations_location_object_parking_places_field]] parking_places |<<mod_locations_parking_class,Parking>> |* |List of parking places that can be used by vehicles charging at this Location.
+|[[mod_locations_location_object_parking_places_field]] parking_places |<<mod_locations_parking_object,Parking>> |* |List of parking places that can be used by vehicles charging at this Location.
 |directions |<<types.asciidoc#types_displaytext_class,DisplayText>> |* |Human-readable directions on how to reach the location.
 |operator |<<mod_locations_businessdetails_class,BusinessDetails>> |? |Information of the operator. When not specified, the information retrieved from the <<credentials.asciidoc#credentials_credentials_endpoint,Credentials>> module, selected by the `country_code` and `party_id` of this Location, should be used instead.
 |suboperator |<<mod_locations_businessdetails_class,BusinessDetails>> |? |Information of the suboperator if available.
@@ -644,7 +644,7 @@ Note that in order to fulfill both the requirement that an EVSE's `uid` be uniqu
 |coordinates |<<mod_locations_geolocation_class,GeoLocation>> |? |Coordinates of the EVSE. 
 |physical_reference |<<types.asciidoc#types_string_type,string>>(16) |? |A number/string printed on the outside of the EVSE for visual identification. 
 |directions |<<types.asciidoc#types_displaytext_class,DisplayText>> |* |Multi-language human-readable directions when more detailed information on how to reach the EVSE from the _Location_ is required. 
-|parking |<<types.asciidoc#types_cistring_type,CiString>>[36] |+ |A reference to the parking space or spaces that can be used by vehicles charging at this EVSE. The strings in this field refer to <<mod_locations_parking_class,Parking>> objects from the EVSE's Location's <<mod_locations_location_object_parking_places_field,parking_places>> field by their `id` field.
+|parking |<<types.asciidoc#types_cistring_type,CiString>>[36] |+ |A reference to the parking space or spaces that can be used by vehicles charging at this EVSE. The strings in this field refer to <<mod_locations_parking_object,Parking>> objects from the EVSE's Location's <<mod_locations_location_object_parking_places_field,parking_places>> field by their `id` field.
 |vehicle_types |<<mod_locations_vehicletype_enum,VehicleType>> |+ | The vehicle types that the EVSE is intended for and that the associated parking is designed to accomodate.
 |images |<<mod_locations_image_class,Image>> |* | Links to images related to the EVSE such as photos or logos. At least one photograph should be provided if the value of vehicle_types includes the `DISABLED` vehicle type.
 |accepted_service_providers |<<types.asciidoc#types_string_type,String>>[50] |* |A list of the names of the eMSPs offering contract-based payment options that are accepted at this EVSE. +
@@ -687,6 +687,41 @@ For AC Charge Points, the amount of phases used can also have influence on the m
 |terms_and_conditions |<<types.asciidoc#types_url_type,URL>> |? |URL to the operator's terms and conditions. 
 |capabilities |<<mod_locations_connectorcapability_enum,ConnectorCapability>> | * |A list of functionalities that the connector is capable of.
 |last_updated |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Timestamp when this Connector was last updated (or created). 
+|===
+
+[[mod_locations_parking_object]]
+==== _Parking_ object
+
+Describes a parking space that a vehicle can be parked in while charging.
+
+For EVSEs around which no identifiable delineated parking spaces are available, a Parking object may describe the limitations that apply for parking near the EVSE without describing a specific space. This occurs a lot with streetside parking, for example.
+
+[cols="3,2,1,10",options="header"]
+|===
+|Property |Type |Card. |Description
+|id |<<types.asciidoc#types_cistring_type,CiString>>[36] |1 |The identifier for this parking space. The value of this field MUST be unique among all Parking objects in the same Location object.
+|physical_reference |<<types.asciidoc#types_string_type,String>>[12] |? |A string identifier for the parking place that is physically visible on-site to drivers using the parking space. This could be a short identifier painted on the surface of a parking place in a parking garage for example.
+|vehicle_types |<<mod_locations_vehicletype_enum,VehicleType>>|+ | The vehicle types that the parking is designed to accommodate.
+|max_vehicle_weight | number |? | The maximum vehicle weight that can park at the EVSE, in kilograms. A value for this field should be provided unless the value of the `vehicle_types` field contains no values other than `PERSONAL_VEHICLE` or `MOTORCYCLE`.
+|max_vehicle_height | number |? | The maximum vehicle height that can park at the EVSE, in centimeters. A value for this field should be provided unless the value of the `vehicle_types` field contains no values other than `PERSONAL_VEHICLE` or `MOTORCYCLE`.
+|max_vehicle_length |number |? | The maximum vehicle length that can park at the EVSE, in centimeters. A value for this field should be provided unless the value of the `vehicle_types` field contains no values other than `PERSONAL_VEHICLE` or `MOTORCYCLE`.
+|max_vehicle_width |number |? |The maximum vehicle width that can park at the EVSE, in centimeters. A value for this field should be provided unless the value of the `vehicle_types` field contains no values other than `PERSONAL_VEHICLE` or `MOTORCYCLE`.
+|parking_space_length |number |? |The length of the parking space, in centimeters. A value for this field should be provided unless the value of the `vehicle_types` field contains no values other than `PERSONAL_VEHICLE` or `MOTORCYCLE`.
+|parking_space_width |number |? |The width of the parking space, in centimeters. A value for this field should be provided unless the value of the `vehicle_types` field contains no values other than `PERSONAL_VEHICLE` or `MOTORCYCLE`.
+|dangerous_goods_allowed |boolean |? |Whether vehicles loaded with dangerous substances are allowed to park at the EVSE. A value for this field should be provided unless the value of the `vehicle_types` field contains no values other than `PERSONAL_VEHICLE` or `MOTORCYCLE`.
+|evse_position | <<mod_locations_evseposition_enum,EVSEPosition>> |? | The position of the EVSE relative to the parking space.
+|direction | <<mod_locations_parkingdirection_enum,ParkingDirection>> |? | The direction in which the vehicle is to be parked next to this EVSE.
+| drive_through | boolean |? | Whether a vehicle can stop, charge, and proceed without reversing into or out of a parking space. This should only be set to true if driving through is possible for all vehicle types listed in the `vehicle_types` field.
+|restricted_to_type |boolean |1 |Whether it is forbidden for vehicles of a type not listed in `vehicle_types` to park at this EVSE, even if they can physically park there safely.
+|parking_restrictions |<<mod_locations_parkingrestriction_enum,ParkingRestriction>> |* |All applicable restrictions on who can park at this EVSE, apart from those related to the vehicle type.
+|reservation_required |boolean |1 |Whether a reservation is required for parking at the EVSE.
+|time_limit |number |? |A time limit. If this field is present, vehicles may not park in this parking longer than this number of minutes.
+|roofed |boolean |? |Whether the vehicle will be parked under a roof while charging.
+|images |<<mod_locations_image_class,Image>> |* |Photos of the parking space at the EVSE. At least one photograph should be provided if the value of `vehicle_types` includes the `DISABLED` vehicle type.
+|lighting |boolean |? |Whether the parking space for the EVSE is lit by artificial lighting.
+|refrigeration_outlet |boolean |? |Whether a power outlet is available to power a transport truck's load refrigeration while the vehicle is parked.
+|standards | <<types.asciidoc#types_cistring_type,CiString>>[36] |* |A list of standards that the parking space conforms to, e.g. PAS 1899 for parking for people with disabilities.
+|apds_reference |<<types.asciidoc#types_cistring_type,CiString>> |? |Reference to an Alliance for Parking Data Standards (APDS) element describing this parking. The referenced element may be a Place, Space or other hierarchy element defined by APDS.
 |===
 
 
@@ -1119,41 +1154,6 @@ The category has to be set accordingly to the image content in order to guarante
 |OPERATOR |Logo of the charge point operator, for example a municipality, to be displayed in the EVSEs detailed information view or in lists and maps, if no network logo is present. 
 |OTHER |Other 
 |OWNER |Logo of the charge point owner, for example a local store, to be displayed in the EVSEs detailed information view.
-|===
-
-[[mod_locations_parking_class]]
-==== Parking _class_
-
-Describes a parking space that a vehicle can be parked in while charging.
-
-For EVSEs around which no identifiable delineated parking spaces are available, a Parking object may describe the limitations that apply for parking near the EVSE without describing a specific space. This occurs a lot with streetside parking, for example.
-
-[cols="3,2,1,10",options="header"]
-|===
-|Property |Type |Card. |Description
-|id |<<types.asciidoc#types_cistring_type,CiString>>[36] |1 |The identifier for this parking space. The value of this field MUST be unique among all Parking objects in the same Location object.
-|physical_reference |<<types.asciidoc#types_string_type,String>>[12] |? |A string identifier for the parking place that is physically visible on-site to drivers using the parking space. This could be a short identifier painted on the surface of a parking place in a parking garage for example.
-|vehicle_types |<<mod_locations_vehicletype_enum,VehicleType>>|+ | The vehicle types that the parking is designed to accommodate.
-|max_vehicle_weight | number |? | The maximum vehicle weight that can park at the EVSE, in kilograms. A value for this field should be provided unless the value of the `vehicle_types` field contains no values other than `PERSONAL_VEHICLE` or `MOTORCYCLE`.
-|max_vehicle_height | number |? | The maximum vehicle height that can park at the EVSE, in centimeters. A value for this field should be provided unless the value of the `vehicle_types` field contains no values other than `PERSONAL_VEHICLE` or `MOTORCYCLE`.
-|max_vehicle_length |number |? | The maximum vehicle length that can park at the EVSE, in centimeters. A value for this field should be provided unless the value of the `vehicle_types` field contains no values other than `PERSONAL_VEHICLE` or `MOTORCYCLE`.
-|max_vehicle_width |number |? |The maximum vehicle width that can park at the EVSE, in centimeters. A value for this field should be provided unless the value of the `vehicle_types` field contains no values other than `PERSONAL_VEHICLE` or `MOTORCYCLE`.
-|parking_space_length |number |? |The length of the parking space, in centimeters. A value for this field should be provided unless the value of the `vehicle_types` field contains no values other than `PERSONAL_VEHICLE` or `MOTORCYCLE`.
-|parking_space_width |number |? |The width of the parking space, in centimeters. A value for this field should be provided unless the value of the `vehicle_types` field contains no values other than `PERSONAL_VEHICLE` or `MOTORCYCLE`.
-|dangerous_goods_allowed |boolean |? |Whether vehicles loaded with dangerous substances are allowed to park at the EVSE. A value for this field should be provided unless the value of the `vehicle_types` field contains no values other than `PERSONAL_VEHICLE` or `MOTORCYCLE`.
-|evse_position | <<mod_locations_evseposition_enum,EVSEPosition>> |? | The position of the EVSE relative to the parking space.
-|direction | <<mod_locations_parkingdirection_enum,ParkingDirection>> |? | The direction in which the vehicle is to be parked next to this EVSE.
-| drive_through | boolean |? | Whether a vehicle can stop, charge, and proceed without reversing into or out of a parking space. This should only be set to true if driving through is possible for all vehicle types listed in the `vehicle_types` field.
-|restricted_to_type |boolean |1 |Whether it is forbidden for vehicles of a type not listed in `vehicle_types` to park at this EVSE, even if they can physically park there safely.
-|parking_restrictions |<<mod_locations_parkingrestriction_enum,ParkingRestriction>> |* |All applicable restrictions on who can park at this EVSE, apart from those related to the vehicle type.
-|reservation_required |boolean |1 |Whether a reservation is required for parking at the EVSE.
-|time_limit |number |? |A time limit. If this field is present, vehicles may not park in this parking longer than this number of minutes.
-|roofed |boolean |? |Whether the vehicle will be parked under a roof while charging.
-|images |<<mod_locations_image_class,Image>> |* |Photos of the parking space at the EVSE. At least one photograph should be provided if the value of `vehicle_types` includes the `DISABLED` vehicle type.
-|lighting |boolean |? |Whether the parking space for the EVSE is lit by artificial lighting.
-|refrigeration_outlet |boolean |? |Whether a power outlet is available to power a transport truck's load refrigeration while the vehicle is parked.
-|standards | <<types.asciidoc#types_cistring_type,CiString>>[36] |* |A list of standards that the parking space conforms to, e.g. PAS 1899 for parking for people with disabilities.
-|apds_reference |<<types.asciidoc#types_cistring_type,CiString>> |? |Reference to an Alliance for Parking Data Standards (APDS) element describing this parking. The referenced element may be a Place, Space or other hierarchy element defined by APDS.
 |===
 
 [[mod_locations_parkingdirection_enum]]
