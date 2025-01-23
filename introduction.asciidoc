@@ -17,6 +17,7 @@ The changes that are made to address these requirements are:
  * support North American tax structures,
  * include some straightforward enumeration values from the OCPI 3.0 draft, including the ones indicating ISO 15118 support, and
  * add a new field in the Credentials object to give a hub's party ID, which allows platforms with hub support to connect to platforms that don't implement hub functionality.
+ * add new Payments module
 
 [[introduction_ocpi_2.2.1]]
 === OCPI 2.2.1
