@@ -27,7 +27,7 @@ This is used for example for connector types, where all implementers should use 
 
 In the serialized JSON form of OCPI messages, OpenEnum values are serialized as JSON strings.
 
-When naming new OpenEnum values, OCPI implementers SHOULD follow the "Recommendations for Creators of New Parameters" found in https://datatracker.ietf.org/doc/html/rfc6648[IETF RFC 6648].
+When naming new OpenEnum values, OCPI implementers SHOULD follow the "Recommendations for Creators of New Parameters" found in https://datatracker.ietf.org/doc/html/rfc6648[IETF RFC 6648], and SHOULD consult EV Roaming Foundation's guidance on extending OCPI at https://evroaming.org/extending-ocpi/.
 
 [[types_cistring_type]]
 === CiString _type_
