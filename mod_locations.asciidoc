@@ -647,7 +647,8 @@ Note that in order to fulfill both the requirement that an EVSE's `uid` be uniqu
 |parking |<<types.asciidoc#types_cistring_type,CiString>>[36] |+ |A reference to the parking space or spaces that can be used by vehicles charging at this EVSE. The strings in this field refer to <<mod_locations_parking_class,Parking>> objects from the EVSE's Location's <<mod_locations_location_object_parking_places_field,parking_places>> field by their `id` field.
 |vehicle_types |<<mod_locations_vehicletype_enum,VehicleType>> |+ | The vehicle types that the EVSE is intended for and that the associated parking is designed to accomodate.
 |images |<<mod_locations_image_class,Image>> |* | Links to images related to the EVSE such as photos or logos. At least one photograph should be provided if the value of vehicle_types includes the `DISABLED` vehicle type.
-|accepted_service_providers |<<types.asciidoc#types_string_type,String>>[50] |* |A list of the names of the eMSPs offering contract-based payment options that are accepted at this EVSE.
+|accepted_service_providers |<<types.asciidoc#types_string_type,String>>[50] |* |A list of the names of the eMSPs offering contract-based payment options that are accepted at this EVSE. +
+Note that this field is added specifically to allow European CPOs to comply with a regulatory requirement to provide this data to National Access Points (NAPs). When this requirement does not apply, this field can be left out.
 |last_updated |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Timestamp when this EVSE or one of its Connectors was last updated (or created). 
 |===
 
