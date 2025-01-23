@@ -12,7 +12,7 @@ extensions to OCPI without breaking compatibility without other implementers.
 The changes that are made to address these requirements are:
 
  * make it possible to define extra modules, fields, enumeration values for certain enums,
- * add a vehicle types field to the EVSE object,
+ * add a Parking object to give information about the parking at an EVSE, and whether it is suitable for heavy-duty vehicles or people with disabilities,
  * support EVSE information for people with disabilities,
  * support North American tax structures,
  * include some straightforward enumeration values from the OCPI 3.0 draft, including the ones indicating ISO 15118 support, and
