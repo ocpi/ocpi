@@ -1,0 +1,16 @@
+@startuml
+participant "PTP system" as PTP
+participant "CPO system" as CPO
+participant CSMS
+participant Customer
+
+PTP -> CPO : pull / push of terminal object
+CPO -> CSMS : pull / push of terminal object
+note right of CSMS : create or update terminal in CSMS\nassignment to customer
+
+Customer -> CSMS : assign terminal on station / or station on terminal
+note right of Customer :customer sees only terminals\nassigned to its instance
+
+CSMS -> CPO : terminals updates send / fetched
+CPO -> PTP : update terminal object
+@enduml

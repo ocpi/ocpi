@@ -1,0 +1,39 @@
+@startuml
+participant "PSP system" as PSP
+participant "Payment Terminal" as Terminal
+participant "PTP system" as PTP
+participant "CPO system" as CPO
+
+note left of Terminal : Until that point the user has chosen a connector
+Terminal -> PTP : terminal fetches data for chosen connector
+PTP -> CPO : pull location(connector)
+PTP -> CPO : pull Tariff information
+PTP -> Terminal : price for charging is shown
+PTP -> PSP : pre-authorization is made
+PSP -> PTP : pre-authorization response
+
+Terminal -> PTP : request remote start for connector
+PTP -> CPO : StartSession with authorization_reference + location+EVSE+connector
+CPO -> PTP : StartSession response
+CPO -> PTP : New Session
+CPO --> PTP : Session update - optional
+
+group Case stop by CPO
+  note right of CPO : When max_price is reached a StopSession will be initiated
+end
+group Case remote stop by terminal or preauth limit stop
+  Terminal -> PTP: driver initiates stop
+  PTP -> CPO: StopSession
+  CPO -> PTP: StopSession response
+end
+group Case stop by Station/Card
+    note right of CPO : User stops session on station or car unplugs
+end
+CPO -> PTP: CDR
+PTP -> PSP: doing financial advice
+PSP -> PTP: financial advice(capture) response
+
+PTP -> CPO: sending financial-advice-confirmation
+note right of CPO: enrich invoice with required payment data
+
+@enduml

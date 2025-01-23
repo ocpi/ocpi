@@ -10,6 +10,8 @@ Petar Jovevski +
 _Metergram_ +
 Robert Gliguroski +
 _Metergram_ +
+Philipp Fischbacher +
+_ChargePoint_ +
 Reinier Lamers +
 _SWTCH Energy_ a|
  * Make OCPI extensible
@@ -67,21 +69,21 @@ _ihomer_ |Added support for Roaming Hubs +
                   _ihomer_  |Fixed 4 bugs found in OCPI 2.1, lots of small textual improvements: see <<changelog.asciidoc#changelog_changelog,changelog>>
 |2.1 |2016-04-08 | Robert de Leeuw +
                 _ihomer_  |Added <<mod_commands.asciidoc#mod_commands_commands_module,command module>>. +
- Added support for <<mod_tokens.asciidoc#mod_tokens_real-time_authorization,real-time authorization>>. + 
- Lots of small improvements: see <<changelog.asciidoc#changelog_changelog,changelog>> 
+ Added support for <<mod_tokens.asciidoc#mod_tokens_real-time_authorization,real-time authorization>>. +
+ Lots of small improvements: see <<changelog.asciidoc#changelog_changelog,changelog>>
 |2.0-d2 |2016-02-15 | Robert de Leeuw +
                    _ihomer_  |2nd documentation revision of the OCPI 2.0 spec. +
- Only documentation updated: ConnectorType of Connector + 
- was not visible, credentials clarified, location URL + 
- segments incorrect (now string, was int), + 
- minor textual updates. + 
- DateTime with timezones is still an issue 
+ Only documentation updated: ConnectorType of Connector +
+ was not visible, credentials clarified, location URL +
+ segments incorrect (now string, was int), +
+ minor textual updates. +
+ DateTime with timezones is still an issue
 |2.0 |2015-12-30 | Robert de Leeuw +
                 _ihomer_ +
                  Simon Philips +
                  _Becharged_ +
                  Chris Zwirello +
-                 _The New Motion_ + 
+                 _The New Motion_ +
                  Simon Schilling
                  |First official release of OCPI.
 |0.4 |2014-11-04 | Olger Warnier +

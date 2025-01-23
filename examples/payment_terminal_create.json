@@ -1,0 +1,15 @@
+{
+  "terminal_id": "452cf8a1-79aa-4a0e-9aee-dc788586053c",
+  "address": "Street 1",
+  "city": "Vienna",
+  "country": "AUT",
+  "coordinates": {
+    "latitude": "51.047599",
+    "longitude": "3.729944"
+  },
+  "customer_reference": "ChargePoint",
+  "invoice_base_url": "https://somecompany.com/invoices",
+  "invoice_creator": "CPO",
+  "location_ids": [],
+  "last_updated": "2018-12-10T17:16:15Z"
+}
