@@ -4,8 +4,8 @@
   "id": "20",
   "currency": "EUR",
   "min_price": {
-    "excl_vat": 0.50,
-    "incl_vat": 0.55
+    "before_taxes": 0.50,
+    "after_taxes": 0.55
   },
   "elements": [{
     "price_components": [{

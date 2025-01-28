@@ -26,7 +26,15 @@
       "max_amperage": 32,
       "last_updated": "2017-03-07T02:21:22Z"
     }],
+    "parking": ["000e3877-87bf-473e-8e71-70d3aa6d64ea"],
     "last_updated": "2017-03-07T02:21:22Z"
+  }],
+  "parking_places": [{
+    "id": "000e3877-87bf-473e-8e71-70d3aa6d64ea",
+    "physical_reference": "A0",
+    "vehicle_types": ["PERSONAL_VEHICLE"],
+    "reservation_required": false,
+    "restricted_to_type": true
   }],
   "time_zone": "Europe/Stockholm",
   "opening_times": {

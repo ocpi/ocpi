@@ -182,7 +182,8 @@ List of known versions.
 |2.1   |OCPI version 2.1 (DEPRECATED, do not use, use 2.1.1 instead)
 |2.1.1 |OCPI version 2.1.1
 |2.2   |OCPI version 2.2 (DEPRECATED, do not use, use 2.2.1 instead)
-|2.2.1 |OCPI version 2.2.1 (this version)
+|2.2.1 |OCPI version 2.2.1
+|2.3.0 |OCPI version 2.3.0 (this version)
 |===
 
 [[version_information_endpoint_custom_modules]]
