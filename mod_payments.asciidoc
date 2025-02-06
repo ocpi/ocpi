@@ -190,7 +190,7 @@ The response contains the requested object.
 [[mod_payments_ptp_patch_terminal_method]]
 ===== *PATCH* Terminal Method
 This PATCH should be used by the CPO to assign location ids and/or evse_uids to a terminal.
-
+When sending both location_ids and evse_uids then both have to be considered and the sum of evses will be enabled for this payment terminal.
 [[mod_payments_ptp_terminal_patch_request_parameters]]
 ====== Request Parameters
 
@@ -278,6 +278,9 @@ Examples:
 ====== Request Body
 
 The request body contains an Terminal to activate.
+
+NOTE: The terminal_id is optional in the activation request as it will be set by the PTP.
+The cardinality for the remaining fields stays the same.
 
 [cols="4,1,12",options="header"]
 |===
@@ -561,7 +564,7 @@ The object facilitates the configuration of necessary payment-related data, such
 |Property |Type |Card. |Description
 
 |terminal_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Unique ID that identifies a terminal.
-|customer reference |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |This reference will be used to link the terminal to a CSMS. The reference
+|customer_reference |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |This reference will be used to link the terminal to a CSMS. The reference
 might also be provided via the order process.
 |party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |? |This is an alternative to the customer reference which can be used.
 |country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |? |This is an alternative to the customer reference which can be used.
