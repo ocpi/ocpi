@@ -3,6 +3,6 @@
   "location_ids": [
     "df37373d-1669-4127-a6ac-d86750095119"
   ],
-  "serial_number": "Term-SerialNumber",
+  "reference": "Term-SerialNumber",
   "last_updated": "2019-12-10T17:16:15Z"
 }
