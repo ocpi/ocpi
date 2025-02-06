@@ -53,8 +53,8 @@ After choosing a specific connector on the terminal the PTP
 has to pull the current connector information to receive
 the applicable tariff_id.
 With this id the tariff should be pulled so that it can be shown on the terminal.
-Also the tariff is needed to reserve the needed preauth limit (stated in the max_price) at the PSP.
-When the user accepts the tariff the PTP will reserve the max_price amount at the PTP and a
+Also the tariff is needed to reserve the needed preauth limit (stated in the <<mod_tariffs.asciidoc#mod_tariffs_preauthorize_amount_field,`preauthorize_amount` field of the tariff>>) at the PSP.
+When the user accepts the tariff the PTP will reserve the preauth amount at the PTP and a
 StartSession command will be sent to the CPO. The PTP will pass an authorization_reference
 with this request which will be used as the mapping for the invoice (e.g. as postfix of the invoice URL).
 During the session there will be session updates pushed by the CPO if existing.
