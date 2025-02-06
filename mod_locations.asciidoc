@@ -696,6 +696,8 @@ Describes a parking space that a vehicle can be parked in while charging.
 
 For EVSEs around which no identifiable delineated parking spaces are available, a Parking object may describe the limitations that apply for parking near the EVSE without describing a specific space. This occurs a lot with streetside parking, for example.
 
+NOTE: Parking objects were newly added in OCPI 2.3.0 relative to OCPI 2.2.1. The purpose of Parking objects is to allow CPOs in the EU to comply with requirements in the EU's Alternative Fuel Infrasturcture Regulation (AFIR) which requires CPOs to report the number of parking spots and certain properties of those parking spots to NAPs. When CPOs are not talking to NAPs, or not under EU jurisdiction, they are free to not send Parking objects in their Locations. All Locations receivers who are not NAPs are free to ignore Parking objects in the Location data that they receive.
+
 [cols="3,2,1,10",options="header"]
 |===
 |Property |Type |Card. |Description
