@@ -504,7 +504,7 @@ Or the Charge Point has an ad-hoc payment possibility
 
 - `publish` = `true`
 - `parking_type` = `ON_STREET` but could also be another value.
-- `Parking.parking_restrictions` not used.
+- `EVSE.parking_restrictions` not used.
 
 [source,json]
 ----
@@ -526,7 +526,7 @@ restaurants, bars, clubs, theme parks, stores, supermarkets, company building, o
 
 - `publish` = `true`
 - `parking_type` = `PARKING_LOT` (but could also be `PARKING_GARAGE`, `ON_DRIVEWAY` or `UNDERGROUND_GARAGE`)
-- `Parking.parking_restrictions` = `CUSTOMERS`
+- `EVSE.parking_restrictions` = `CUSTOMERS`
 
 [source,json]
 ----
@@ -548,7 +548,7 @@ In case the EV driver is not billed for charging, there is, in such a case, no r
 - `publish` = `false`
 - `publish_allowed_to` not used
 - `parking_type` = not used`
-- `Parking.parking_restrictions` = `CUSTOMERS` may still be useful so a support desk can also tell this to a customer.
+- `EVSE.parking_restrictions` = `CUSTOMERS` may still be useful so a support desk can also tell this to a customer.
 
 [source,json]
 ----
@@ -605,7 +605,7 @@ If the EV is left in the parking garage overnight, the car will still be charged
 
 - `publish` = `true`
 - `parking_type` = `PARKING_GARAGE` but could also be another value.
-- `Parking.parking_restrictions` not used.
+- `EVSE.parking_restrictions` not used.
 - `opening_times` is used.
 - `charging_when_closed` = `true`
 
@@ -644,7 +644,8 @@ Note that in order to fulfill both the requirement that an EVSE's `uid` be uniqu
 |coordinates |<<mod_locations_geolocation_class,GeoLocation>> |? |Coordinates of the EVSE. 
 |physical_reference |<<types.asciidoc#types_string_type,string>>(16) |? |A number/string printed on the outside of the EVSE for visual identification. 
 |directions |<<types.asciidoc#types_displaytext_class,DisplayText>> |* |Multi-language human-readable directions when more detailed information on how to reach the EVSE from the _Location_ is required. 
-|parking |<<mod_locations_evseparking_class,EVSEParking>> |+ |A reference to the parking space or spaces that can be used by vehicles charging at this EVSE.
+|parking_restrictions |<<mod_locations_parkingrestriction_enum,ParkingRestriction>> |* |All applicable restrictions on who can charge at the EVSE, apart from those related to the vehicle type.
+|parking |<<mod_locations_evseparking_class,EVSEParking>> |* |References to the parking space or spaces that can be used by vehicles charging at this EVSE.
 |images |<<mod_locations_image_class,Image>> |* | Links to images related to the EVSE such as photos or logos.
 |accepted_service_providers |<<types.asciidoc#types_string_type,String>>[50] |* |A list of the names of the eMSPs offering contract-based payment options that are accepted at this EVSE. +
 Note that this field is added specifically to allow European CPOs to comply with a regulatory requirement to provide this data to National Access Points (NAPs). When this requirement does not apply, this field can be left out.
@@ -711,7 +712,6 @@ For EVSEs around which no identifiable delineated parking spaces are available, 
 |direction | <<mod_locations_parkingdirection_enum,ParkingDirection>> |? | The direction in which the vehicle is to be parked next to the EVSE.
 | drive_through | boolean |? | Whether a vehicle can stop, charge, and proceed without reversing into or out of a parking space. This should only be set to true if driving through is possible for all vehicle types listed in the `vehicle_types` field.
 |restricted_to_type |boolean |1 |Whether it is forbidden for vehicles of a type not listed in `vehicle_types` to park at the EVSE, even if they can physically park there safely.
-|parking_restrictions |<<mod_locations_parkingrestriction_enum,ParkingRestriction>> |* |All applicable restrictions on who can park at the EVSE, apart from those related to the vehicle type.
 |reservation_required |boolean |1 |Whether a reservation is required for parking at the EVSE.
 |time_limit |number |? |A time limit. If this field is present, vehicles may not park in this parking longer than this number of minutes.
 |roofed |boolean |? |Whether the vehicle will be parked under a roof while charging.
@@ -1187,10 +1187,12 @@ This value, if provided, represents the restriction to the parking spot for diff
 [cols="3,10",options="header"]
 |===
 |Value     |Description
+|CUSTOMERS |Parking spot for customers or guests only, for example in case of a hotel or shop.
+|DISABLED  |Reserved parking spot for disabled people with valid ID.
 |EMPLOYEES |Parking only for people who work at a site, building, or complex that the Location belongs to.
 |EV_ONLY   |Reserved parking spot for electric vehicles.
+|MOTORCYCLES |Parking spot only suitable for (electric) motorcycles or scooters.
 |PLUGGED   |Parking is only allowed while plugged in (charging).
-|CUSTOMERS |Parking spot for customers/guests only, for example in case of a hotel or shop.
 |TAXIS     |Parking only for taxi vehicles.
 |TENANTS   |Parking only for people who live in a complex that the Location belongs to.
 |===

@@ -25,15 +25,8 @@
       "max_amperage": 16,
       "last_updated": "2019-07-01T12:12:11Z"
     }],
-    "parking": ["1"],
+    "parking_restrictions": [ "CUSTOMERS" ],
     "last_updated": "2019-07-01T12:12:11Z"
-  }],
-  "parking_places": [{
-    "id": "1",
-    "vehicle_types": ["PERSONAL_VEHICLE"],
-    "reservation_required": false,
-    "restricted_to_type": false,
-    "parking_restrictions": [ "CUSTOMERS" ]
   }],
   "time_zone": "Europe/Amsterdam",
   "last_updated": "2019-07-01T12:12:11Z"
