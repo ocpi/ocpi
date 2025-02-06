@@ -489,6 +489,7 @@ It is not allowed in OCPI to use a Token that is not 'owned' by the eMSP itself 
 |charging_when_closed |boolean |? |Indicates if the EVSEs are still charging outside the opening hours of the location. E.g. when the parking garage closes its barriers over night, is it allowed to charge till the next morning? Default: *true* 
 |images |<<mod_locations_image_class,Image>> |* |Links to images related to the location such as photos or logos. 
 |energy_mix |<<mod_locations_energymix_class,EnergyMix>> |? |Details on the energy supplied at this location. 
+|help_phone |<<types.asciidoc#types_cistring_type,CiString>>(25) |? |A telephone number that a Driver using the Location may call for assistance. Calling this number will typically connect the caller to the CPO's customer service department.
 |last_updated |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Timestamp when this Location or one of its EVSEs or Connectors were last updated (or created). 
 |===
 
