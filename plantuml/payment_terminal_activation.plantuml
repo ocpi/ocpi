@@ -1,0 +1,13 @@
+@startuml
+participant "PTP system" as PTP
+participant "CPO system" as CPO
+participant "OEM system" as OEM
+
+CPO -> OEM : orders charging station with integrated payment Terminal
+note right of OEM: OEM installs charging station with integrated payment Terminal(involves former communication with PTP)
+CPO -> PTP : sends terminal activation request with known reference to the payment terminal(e.g. given by the OEM)
+note left of PTP: PTP maps reference to terminal, sets all the information and activates it
+PTP -> CPO : terminal activation response
+PTP -> CPO : create Terminal
+CPO -> PTP : terminal creation response
+@enduml

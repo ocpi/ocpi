@@ -281,6 +281,7 @@ NOTE: There are no parameters related to price rounding in the Tariff object or 
 |tariff_alt_url |<<types.asciidoc#types_url_type,URL>> |? |URL to a web page that contains an explanation of the tariff information in human readable form.
 |min_price |<<mod_tariffs_pricelimit_class,PriceLimit>> |? |When this field is set, a Charging Session with this tariff will at least cost this amount.
 |max_price |<<mod_tariffs_pricelimit_class,PriceLimit>> |? |When this field is set, a Charging Session with this tariff will at most cost this amount.
+|[[mod_tariffs_preauthorize_amount_field]] preauthorize_amount | <<types_number_type,number>> |? |The amount that a Payment Terminal Provider should preauthorize when handling card payment for a Session with this Tariff.
 |elements |<<mod_tariffs_tariffelement_class,TariffElement>> |+ |List of Tariff Elements.
 |tax_included | <<mod_tariffs_taxincluded_enum,TaxIncluded>> |1 |Whether taxes are included in the amounts in this Tariff.
 |start_date_time |<<types.asciidoc#types_datetime_type,DateTime>> |? |The time when this tariff becomes active, in UTC, `time_zone` field of the <<mod_locations.asciidoc#mod_locations_location_object,Location>> can be used to convert to local time.
