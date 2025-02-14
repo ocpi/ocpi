@@ -27,21 +27,325 @@ For Booking there is the Receiver and the sender interface for Booking. The advi
 
 Typically implemented by market roles like: CPO.
 
+The Booking endpoint can be used to retrieve Bookings, BookingLocations and calendars, but also to request a booking or to change a booking.
+
+
 [cols="2,12",options="header"]
 |===
 |Method |Description
-|<<mod_sessions_cpo_get_method,GET>> |Get a specific BookingLocation, Calendar or Booking, or fetch a list of
-BookingLocations last updated between the `{date_from}` and `{date_to}`(<<transport_and_format.asciidoc#transport_and_format_pagination,paginated>>).
-|POST |n/a
-|<<mod_sessions_cpo_put_method,PUT>> |Setting Charging Preferences of an ongoing session.
-|PATCH |n/a
+|<<mod_booking_get_list_response_data,GET>> |Get a specific Booking, BookingLocation or Calendar, or fetch a list of
+Bookings, BookingLocations or calander last updated between the `{date_from}` and `{date_to}`(<<transport_and_format.asciidoc#transport_and_format_pagination,paginated>>).
+|<<mod_booking_cpo_post_method, POST>> | Request a new Booking request for an BookingLocation
+|PUT | n/c
+|<<mod_booking_cpo_patch_method, PATCH>> | Request a change on existing booking.
 |DELETE |n/a
 |===
+
+[[mod_booking_get_list_response_data]]
+===== GET List: Response Data
+
+This endpoint returns a list of Booking or BookingLocation objects.
+The header will contain the <<transport_and_format.asciidoc#transport_and_format_paginated_response,pagination>> related headers.
+
+Each object must contain all required fields. Fields that are not specified may be considered as null values.
+Any old information that is not specified in the response is considered no longer valid.
+For requests that use pagination, the response data provided by all the pages together is the new truth.
+Any old information not contained in any of the pages needs to be considered no longer valid.
+
+Endpoint structure definition:
+
+`{booking_endpoint_url}}`
+
+`{booking_endpoint_url}}/locations`
+
+Examples:
+
+https://www.server.com/ocpi/cpo/2.3/booking/?date_from=2025-01-28T12:00:00&date_to=2025-01-29T12:00:00
+
+https://ocpi.server.com/2.3/booking/?offset=50
+
+https://www.server.com/ocpi/2.3/booking/locations/?date_from=2025-01-29T12:00:00&limit=100
+
+https://www.server.com/ocpi/cpo/2.3/booking/locations/?offset=50&limit=100
+
+Bookings
+
+
+[[mod_booking_cpo_post_method]]
+===== POST Book: Response Data
+
+
+`{booking_endpoint_url}}`
+
+Examples:
+
+https://www.server.com/ocpi/cpo/2.3/booking/?date_from=2019-01-28T12:00:00&date_to=2019-01-29T12:00:00
+
+[[mod_booking_cpo_patch_method]]
+===== PUT Book: Response Data
+
+
+`{booking_endpoint_url}}/{booking_id}`
+
+Examples:
+
+https://www.server.com/ocpi/cpo/2.3/booking/?date_from=2019-01-28T12:00:00&date_to=2019-01-29T12:00:00
+
+
+[[mod_booking_emsp_interface]]
+==== Receiver Interface
+
+Typically implemented by market roles like: eMSP.
+
+Bookings and BookingLocation are <<transport_and_format.asciidoc#transport_and_format_client_owned_object_push,Client Owned Objects>>,
+so the end-points need to contain the required extra fields:
+{<<credentials.asciidoc#credentials_credentials_object,party_id>>} and {<<credentials.asciidoc#credentials_credentials_object,country_code>>}.
+
+Endpoint structure definition:
+
+`{booking_endpoint_url}/{country_code}/{party_id}/{booking_id}`
+
+`{booking_endpoint_url}/{country_code}/{party_id}/location/{booking_location_id}`
+
+`{booking_endpoint_url}/{country_code}/{party_id}/location/{booking_location_id}/{callander_id}`
+
+
+Examples:
+
+`+https://www.server.com/ocpi/emsp/2.3/booking/BE/BEC/BOK213+`
+
+`+https://server.com/ocpi/2.3/booking/BE/BEC/location/LOC1/3256+`
+
+`+https://ocpi.server.com/2.3/booking/BE/BEC/location/LOC1/3256/23+`
+
+[cols="2,12",options="header"]
+|===
+|Method |Description
+
+|<<mod_locations_get_method_eMSP,GET>> | Retrieves Booking, BookingLocations or Calendar as stored in the eMSP system.
+|POST |n/a _(use <<mod_locations_put_method,PUT>>)_
+|<<mod_locations_put_method,PUT>> | Push BookingLocations or Calendars to the eMSP or receive the updated Booking from the CPO.
+|<<mod_locations_patch_method,PATCH>> | Push partial updates to a BookingLocation or Calendar, such as updating timeslots within a calendar or receive the updated Booking from the CPO.
+|DELETE |n/a _(use <<mod_locations_patch_method,PATCH>> to update the `status` to `REMOVED` as described in <<mod_locations_flow_and_lifecycle,Flow and Lifecycle>>)_
+|===
+
+[[mod_bookinglocation_msp_put_method]]
+===== PUT BookingLocation: BookingLocation Data
+
+
+`{booking_endpoint_url}}/location`
+
+Examples:
+
+https://www.server.com/ocpi/cpo/2.3/NL/IHO/booking/location
+
+[[mod_booking_msp_patch_method]]
+===== PUT Booking: Response Data
+
+`{booking_endpoint_url}}/{booking_id}`
+
+Examples:
+
+https://www.server.com/ocpi/cpo/2.3/NL/IHO/booking/BOOK213
+
+
+[[mod_bookinglocation_msp_patch_method]]
+===== PATCH Booking: Response Data
+
+
+`{booking_endpoint_url}}/{booking_id}`
+
+Examples:
+
+https://www.server.com/ocpi/cpo/2.3/NL/IHO/booking/BOOK213
+
+
+
+[[mod_bookinglocation_calander_msp_patch_method]]
+===== PUT Booking Location calender: Response Data
+
+`{booking_endpoint_url}}/{booking_id}`
+
+Examples:
+
+https://www.server.com/ocpi/cpo/2.3/NL/IHO/booking/BOOK213
+
 
 [[mod_booking_object_description]]
 === Object description
 
+[[mod_booking_bookinglocation_object]]
+==== _BookingLocation_ Object
 
+
+The CDR on the other hand can be thought of as sealed, preserving the information valid at the moment in time the underlying session was started. This is a requirement of the main use case for CDRs, namely invoicing. If e.g. a street is renamed the day after a session took place, the driver should be presented with the name valid at the time the session was started. This guarantees that the CDR will be recognized as correct by the driver and is not going to be contested.
+
+The CDR object shall always contain information like Location, EVSE, Tariffs and Token as they were at the start of the charging session.
+
+The booking location object defines the free time slots offered by the CPO for a given bookable type, EVSE or Location. The calendars are defined by the CPO and can cover any predefined calendar length.
+Calendars cannot overlap in time.
+
+The Booking location is very different to the Location object en represents the availability of a location based on bookable types or bookable EVSE's
+
+
+
+[cols="4,2,1,9",options="header"]
+|===
+|Property |Type |Card. |Description
+
+|country_code | <<types.asciidoc#types_cistring_type,CiString>>(2) |1 |Status of the Token, and whether charging is allowed at the optionally given location.
+|party_id   | <<types.asciidoc#types_cistring_type,CiString>>(3) |1 |The complete Token object for which this authorization was requested.
+|parking_id |<<types.asciidoc#types_cistring_type,CiString>>(36) | ? |Optional reference to the location if it was included in the request, and if the EV driver is allowed to charge at that location. Only the EVSEs the EV driver is allowed to charge at are returned.
+|location_id |<<types.asciidoc#types_cistring_type,CiString>>(36) | ? |Optional reference to the location if it was included in the request, and if the EV driver is allowed to charge at that location. Only the EVSEs the EV driver is allowed to charge at are returned.
+|evse_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |Reference to the authorization given by the eMSP, when given,
+this reference will be provided in the relevant <<mod_sessions.asciidoc#mod_sessions_session_object,Session>>
+and/or <<mod_cdrs.asciidoc#mod_cdrs_cdr_object,CDR>>.
+|booking_required |boolean |? |Optional display text, additional information to the EV driver.
+|tariff_id |<<types.asciidoc#types_cistring_type,CiString>>(36)|? |Optional display text, additional information to the EV driver.
+|booking_terms |<<types.asciidoc#types_displaytext_class,DisplayText>> |? |Optional display text, additional information to the EV driver.
+|calendars |<<types.asciidoc#types_displaytext_class,DisplayText>> |? |Optional display text, additional information to the EV driver.
+|last_updated |<<types.asciidoc#types_displaytext_class,DisplayText>> |? |Optional display text, additional information to the EV driver.
+|===
+
+[[mod_booking_booking_object]]
+==== _Booking_ Object
+Object used for booking a booking location.
+
+[cols="4,2,1,9",options="header"]
+|===
+|Property |Type |Card. |Description
+
+|country_code | <<types.asciidoc#types_cistring_type,CiString>>(2) |1 |Status of the Token, and whether charging is allowed at the optionally given location.
+|party_id   | <<types.asciidoc#types_cistring_type,CiString>>(3) |1 |The complete Token object for which this authorization was requested.
+|request_id   | <<types.asciidoc#types_cistring_type,CiString>>(36) |1 | Request ID determined by the requesting party. The same request ID SHALL be used for all edits on booking.
+|parking_id |<<types.asciidoc#types_cistring_type,CiString>>(36) | ? |Optional reference to the location if it was included in the request, and if the EV driver is allowed to charge at that location. Only the EVSEs the EV driver is allowed to charge at are returned.
+|location_id |<<types.asciidoc#types_cistring_type,CiString>>(36) | 1 |Optional reference to the location if it was included in the request, and if the EV driver is allowed to charge at that location. Only the EVSEs the EV driver is allowed to charge at are returned.
+|evse_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |Reference to the authorization given by the eMSP, when given,
+this reference will be provided in the relevant <<mod_sessions.asciidoc#mod_sessions_session_object,Session>>
+and/or <<mod_cdrs.asciidoc#mod_cdrs_cdr_object,CDR>>.
+|token |<<mod_tokens.asciidoc#mod_tokens_token_object,Tokens>> | + | Token(s) that can be used to utilise the booking.
+|period |<<mod_booking_timeslot_class, Timeslot>> |1 | The timeslot for this booking, why and by who
+|ReservationStatus | <<mod_booking_reservation_status_enum, ReservationStatus>> | 1 | The current state of the reservation
+|canceled | <<mod_booking_cancellation_class, Cancellation>> | ? | Is the booking canceled
+|authorization_reference | <<types.asciidoc#types_cistring_type,CiString>>(36) | 1 | Authorization reference for the relevant Session and CDR.
+|booking_terms | <<mod_booking_terms_class, BookingTerms>> | 1 | The accepted booking terms
+|last_updated | <<types.asciidoc#types_datetime_type,DateTime>> | 1 | Timestamp for the last booking change has been made
+|===
 
 [[mod_booking_data_types]]
 === Data types
+
+[[mod_booking_request_class]]
+==== BookingRequest _class_
+
+[cols="4,2,1,9",options="header"]
+|===
+|Property |Type |Card. |Description
+|request_id   | <<types.asciidoc#types_cistring_type,CiString>>(36) |1 | Request ID determined by the requesting party. The same request ID SHALL be used for all edits on booking.
+|parking_id |<<types.asciidoc#types_cistring_type,CiString>>(36) | ? |Optional reference to the location if it was included in the request, and if the EV driver is allowed to charge at that location. Only the EVSEs the EV driver is allowed to charge at are returned.
+|location_id |<<types.asciidoc#types_cistring_type,CiString>>(36) | ? |Optional reference to the location if it was included in the request, and if the EV driver is allowed to charge at that location. Only the EVSEs the EV driver is allowed to charge at are returned.
+|evse_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |Reference to the authorization given by the eMSP, when given,
+this reference will be provided in the relevant <<mod_sessions.asciidoc#mod_sessions_session_object,Session>>
+and/or <<mod_cdrs.asciidoc#mod_cdrs_cdr_object,CDR>>.
+|token |<<mod_tokens.asciidoc#mod_tokens_token_object,Tokens>> | + | Token(s) that can be used to utilise the booking.
+|period |<<mod_booking_timeslot_class, Timeslot>> |1 | The timeslot for this booking
+|authorization_reference | <<types.asciidoc#types_cistring_type,CiString>>(36) | 1 | Authorization reference for the relevant Session and CDR.
+|power_required | int | ? | The power requested for the reservation
+|===
+
+[[mod_booking_terms_class]]
+==== BookingTerms _class_
+
+[cols="4,2,1,9",options="header"]
+|===
+|Property |Type |Card. |Description
+
+|RFID_auth_required   |boolean | ? |
+|token_groups_supported       |boolean | ? |
+|remote_auth_supported        |boolean | ? |
+|supported_access_methods | <<mod_booking_location_access_enum, LocationAccess>> | + | What is needed to access the location
+|change_until_minutes | <<types.asciidoc#types_datetime_type,DateTime>> |1 | Start time of this timeslot.
+|cancel_until_minutes | <<types.asciidoc#types_datetime_type,DateTime>> |1 | End time of this timeslot.
+|change_not_allowed   | number | ? | Power guaranteed/requested during this timeslot.
+|early_start_allowed  | boolean | ? | Maximum power available/requested during this timeslot.
+|early_start_time     | number | ? | Number of minutes early start is allowed/possible.
+|noshow_timeout       | number | ? | The number of minutes after the booking start time that it is considered a no show and booking is released. No timeout if unspecified.
+|noshow_fine          | <<types_price_class, Price>> | ? | The amount fined if the reservation is not used.
+|max_power_bookable   | number | ? |
+|late_stop_allowed    | boolean | ? | If a user can charge longer than requested in the booking
+|late_stop_time       | number | ? | Number of minutes late start is allowed/possible.
+|overlapping_bookings_allowed     |boolean | ? | Is it possible to connect the same  RFID Token to multiple bookings
+|booking_terms        |<<types_url_type, URL>> | ? | The CPO's URL to the booking terms
+|===
+
+[[mod_booking_cancellation_class]]
+==== Cancellation _class_
+
+[cols="4,2,1,9",options="header"]
+|===
+|Property |Type |Card. |Description
+
+|cancellation_reason  | <<mod_booking_canceled_reason_enum, CanceledReason>> |1 | The reason why the booking is canceled
+|who_canceled         | <<version_information_endpoint_interface_role_enum, Role>> |1 | Who canceled the booking
+|===
+
+[[mod_booking_timeslot_class]]
+==== Timeslot _class_
+
+[cols="4,2,1,9",options="header"]
+|===
+|Property |Type |Card. |Description
+
+|start_from | <<types.asciidoc#types_datetime_type,DateTime>> |1 | Start time of this timeslot.
+|end_before | <<types.asciidoc#types_datetime_type,DateTime>> |1 | End time of this timeslot.
+|min_power  | number | ? | Power guaranteed/requested during this timeslot.
+|max_power  | number | ? | Maximum power available/requested during this timeslot.
+|green_energy_support |boolean | ? | Specifies weather green energy is available during this timeslot.
+|===
+
+[[mod_booking_location_access_enum]]
+==== LocationAccess _enum_
+
+Describes ways to get access to a reserved charger
+
+[cols="3,10",options="header"]
+|===
+|Value               | Description
+|OPEN                | Open access to the site
+|TOKEN               | Using a token in that was send in the booking
+|LICENSE_PLATE       | The license plate(s) of the vechile that wants to charge
+|ACCESS_CODE         | The access code provided
+|INTERCOM            | Get access to the charging station by ringing the intercom
+|PARKING_TICKET      | Parking ticket required
+|===
+
+[[mod_booking_reservation_status_enum]]
+==== ReservationStatus _enum_
+
+[cols="3,10",options="header"]
+|===
+|Value              | Description
+|PENDING            | Booking request pending processing by the CPO.
+|RESERVED           | Booking request accepted by the CPO.
+|CANCELLED          | Booking cancelled
+|FAILED             | Request for booking failed (error).
+|NOT_SUPPORTED      | Request for booking not supported according to agreement (e.g., PATCH updates not allowed).
+|REJECTED           | Booking request rejected after processing by the CPO (e.g., requested time slot unavailable).
+|UNKNOWN            | Any other status / unknown status.
+|===
+
+
+[[mod_booking_canceled_reason_enum]]
+==== CanceledReason _enum_
+
+[cols="3,10",options="header"]
+|===
+|Value              | Description
+|POWER_OUTAGE       | No power available at the site, set by the CPO
+|BROKEN_CHARGER     | The charger is broken and charging is not possible, set by the CPO
+|FULL               | The chargers are full, because someone isn't leaving, set by the CPO
+|BLOCKED            | The reserved charger isn't physically reachable
+|TRAFFIC            | The vehicle can't come in time because of traffic, set by the MSP
+|BROKEN_VEHICLE     | The vehicle broke down and can't make the reservation, set by the MSP
+|UNKNOWN            | Any other status / unknown status.
+|===
