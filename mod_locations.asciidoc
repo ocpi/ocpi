@@ -1342,7 +1342,7 @@ A categorization of vehicles to indicate which type of vehicles can use a certai
 | PERSONAL_VEHICLE_WITH_TRAILER | A personal vehicle with a trailer attached | M1 + O
 | VAN | A light-duty van with a height smaller than 275 cm | N1
 | SEMI_TRACTOR | A heavy-duty tractor unit without a trailer | T
-| RIGID | A light-duty truck without an articulation point | N2 (under 12 tonnes) / N3 (over 12 tonnes)
+| RIGID | A heavy-duty truck without an articulation point | N2 (under 12 tonnes) / N3 (over 12 tonnes)
 | TRUCK_WITH_TRAILER | A heavy-duty truck (tractor or rigid) with a trailer attached | N2/N3 + O
 | BUS | A bus or a motor coach. | M2 (under 5 tonnes) / M3 (over 5 tonnes)
 | DISABLED | A vehicle with a permit for parking spaces for people with disabilities | M1 (assuming that these are typically based on personal vehicles)
