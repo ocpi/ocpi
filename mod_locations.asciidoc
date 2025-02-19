@@ -1334,18 +1334,18 @@ NOTE: The scheduled status is purely informational. When the status actually cha
 
 A categorization of vehicles to indicate which type of vehicles can use a certain EVSE.
 
-[cols="3,10",options="header"]
+[cols="3,10,3",options="header"]
 |===
-| Value | Description
-| MOTORCYCLE | A motorcycle
-| PERSONAL_VEHICLE | A personal vehicle, a passenger car
-| PERSONAL_VEHICLE_WITH_TRAILER | A personal vehicle with a trailer attached
-| VAN | A light-duty van with a height smaller than 275 cm
-| SEMI_TRACTOR | A heavy-duty tractor unit without a trailer
-| RIGID | A heavy-duty truck without an articulation point
-| TRUCK_WITH_TRAILER | A heavy-duty truck (tractor or rigid) with a trailer attached
-| BUS | A bus or a motor coach
-| DISABLED | A vehicle with a permit for parking spaces for people with disabilities
+| Value | Description | UNECE-Code
+| MOTORCYCLE | A motorcycle | L
+| PERSONAL_VEHICLE | A personal vehicle, a passenger car | M1
+| PERSONAL_VEHICLE_WITH_TRAILER | A personal vehicle with a trailer attached | M1 + O
+| VAN | A light-duty van with a height smaller than 275 cm | N1
+| SEMI_TRACTOR | A heavy-duty tractor unit without a trailer | T
+| RIGID | A light-duty truck without an articulation point | N2 (under 12 tonnes) / N3 (over 12 tonnes)
+| TRUCK_WITH_TRAILER | A heavy-duty truck (tractor or rigid) with a trailer attached | N2/N3 + O
+| BUS | A bus or a motor coach. | M2 (under 5 tonnes) / M3 (over 5 tonnes)
+| DISABLED | A vehicle with a permit for parking spaces for people with disabilities | M1 (assuming that these are typically based on personal vehicles)
 |===
 
 NOTE: It may seem surprising that OCPI uses a custom vehicle categorization scheme rather than one defined in another specification. During OCPI 3.0 development it appeared however that existing classifications, like the UNECE Classification and Definition of Vehicles, are overly detailed and technical and offer little help in making clear which vehicles can use a certain EVSE. For OCPI 3.0 we opted for a deliberately common sense based categorization that we believe will be easier to use for Drivers and CPOs.
