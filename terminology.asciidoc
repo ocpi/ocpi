@@ -143,61 +143,12 @@ to transfer funds to the merchant. In order to provide acquiring services on a p
 [[terminology_provider_and_operator_abbreviation]]
 === Provider and Operator abbreviation
 
-In OCPI it is advised to use eMI3 compliant names for Contract IDs and EVSE IDs. The provider and the operator name is important here,
+In OCPI it is advised to use eMI3/IDACS compliant names for Contract IDs and EVSE IDs. The provider and the operator name is important here,
 to target the right provider or operator, they need to be known upfront, at least between the cooperating parties.
 
 In several standards, an issuing authority is mentioned that will keep a central registry of known Providers and Operators.
-At this moment, the following countries have an authority that keeps track of the known providers and operators:
 
-[[terminology_the_netherlands]]
-==== The Netherlands, Belgium and Luxembourg (BeNeLux)
-
-https://www.benelux-idro.eu/[Benelux IDRO] keeps the registry for The Netherlands, Belgium and Luxembourg.
-
-* The list of operator IDs and provider IDs can be viewed on their website https://www.benelux-idro.eu/nl/id-register[ID-register].
-
-[[terminology_germany]]
-==== Germany
-
-The BDEW organisation keeps the registry for Germany in their general code number service https://bdew-codes.de/[bdew-codes.de].
-
-* https://bdew-codes.de/Codenumbers/EMobilityId/ProviderIdList[Provider ID List] See https://bdew-codes.de/Codenumbers/EMobilityId/ProviderIdList[https://bdew-codes.de/Codenumbers/EMobilityId/ProviderIdList]
-* https://bdew-codes.de/Codenumbers/EMobilityId/OperatorIdList[EVSE Operator ID List] See https://bdew-codes.de/Codenumbers/EMobilityId/OperatorIdList[https://bdew-codes.de/Codenumbers/EMobilityId/OperatorIdList]
-
-[[terminology_austria]]
-==== Austria
-
-Austrian Mobile Power GmbH maintains a registry for Austria. This list is not publicly available.
-For more information visit http://austrian-mobile-power.at/tools/id-vergabe/information/[austrian-mobile-power.at]
-
-[[terminology_france]]
-==== France
-
-The https://www.afirev.fr/en/general-informations/[AFIREV* organization] will keep/keeps the registry for France. It provides operation Id for CPO and eMSP in compliance with eMI3 id structure. The prefix of these Ids is the “fr” country code. AFIREV will also be in charge of the definition of EVSE-Id structure, Charging-Pool-Id structure (location), and Contract-Id structure for France. AFIREV bases its requirements and recommendations on eMI3 definitions.
-
-AFIREV stands for: Association Française pour l’Itinérance de la Recharge Électrique des Véhicules
-
-
-[[terminology_hungary]]
-==== Hungary
-
-The https://idro.hu/[Hungarian ID Registration Office] keeps the register for Hungary.
-
-The list of all registered organizations can be found on their https://idro.hu/en/page/members[website].
-
-
-[[terminology_poland]]
-==== Poland
-
-https://eipa.udt.gov.pl/[EIPA (Ewidencja Infrastruktury Paliw Alternatywnych)] is a government organization that keeps the register for Poland.
-
-
-[[terminology_united_kingdomk]]
-==== UK
-
-https://www.realschemes.org.uk/ev-roam[EV Roam] is the first register of e-mobility IDs for Chargepoint Operators (CPO) and e-Mobility Service Providers (MSP) in the UK.
-
-Their https://www.realschemes.org.uk/ev-roam[website] shows the full list of currently registered organizations.
+For more information about the format requirements for Contract IDs and EVSE IDs, and for authorities issuing Party IDs for providers or operators, see the EV Roaming Foundation's webpage on Contract and EVSE IDs: https://evroaming.org/contract-evse-ids/[https://evroaming.org/contract-evse-ids/].
 
 
 [[terminology_charging_topology]]
