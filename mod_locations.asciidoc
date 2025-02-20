@@ -1332,11 +1332,11 @@ NOTE: The scheduled status is purely informational. When the status actually cha
 [[mod_locations_vehicletype_enum]]
 ==== VehicleType _OpenEnum_
 
-A categorization of vehicles to indicate which type of vehicles can use a certain EVSE.
+A categorization of vehicles to indicate which type of vehicles can use a certain EVSE. Approximate UNECE codes corresponding to our categories are given in the third column in the table.
 
 [cols="3,10,3",options="header"]
 |===
-| Value | Description | UNECE-Code
+| Value | Description | UNECE Code
 | MOTORCYCLE | A motorcycle | L
 | PERSONAL_VEHICLE | A personal vehicle, a passenger car | M1
 | PERSONAL_VEHICLE_WITH_TRAILER | A personal vehicle with a trailer attached | M1 + O
