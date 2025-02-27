@@ -26,7 +26,10 @@
       "max_amperage": 32,
       "last_updated": "2017-03-07T02:21:22Z"
     }],
-    "parking": ["000e3877-87bf-473e-8e71-70d3aa6d64ea"],
+    "parking": [{
+      "parking_id": "000e3877-87bf-473e-8e71-70d3aa6d64ea",
+      "evse_position": "CENTER"
+    }],
     "last_updated": "2017-03-07T02:21:22Z"
   }],
   "parking_places": [{
