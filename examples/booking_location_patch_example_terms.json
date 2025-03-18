@@ -1,0 +1,11 @@
+{
+  "booking_terms": {
+    "RFID_auth_required": true,
+    "token_groups_supported": false,
+    "remote_auth_supported": true,
+    "late_stop_allowed": false,
+    "overlapping_bookings_allowed": true,
+    "booking_terms": "/https://infuse-ev.com/booking-a-charger"
+  },
+  "last_updated": "2024-12-05T20:02:13Z"
+}

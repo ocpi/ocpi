@@ -274,7 +274,7 @@ This can be updated to send the right BookingToken(s) with the booking. For norm
 ----
 PATCH To URL: https://www.server.com/ocpi/cpo/2.3/bookings/BO123
 
-include::examples/booking_patch_example_tokens.json[]
+include::examples/booking_request_patch_example_tokens.json[]
 ----
 
 
@@ -287,7 +287,7 @@ In this example the user requests a new timeslot for the reservation.
 ----
 PATCH To URL: https://www.server.com/ocpi/cpo/2.3/bookings/BO123
 
-include::examples/booking_patch_example_timeslot.json[]
+include::examples/booking_request_patch_example_timeslot.json[]
 ----
 
 
@@ -320,9 +320,9 @@ Endpoint structure definition:
 
 Examples:
 
-`+https://server.com/ocpi/2.3/bookings/BE/BEC/booking_locations/LOC1/3256+`
+`+https://server.com/ocpi/2.3/bookings/NL/INF/booking_locations/LOC1+`
 
-`+https://ocpi.server.com/2.3/bookings/BE/BEC/booking_locations/LOC1/3256/23+`
+`+https://ocpi.server.com/2.3/bookings/SE/VOL/booking_locations/LOC2/3255+`
 
 
 ===== BookingLocation and Calendar Interface
@@ -330,7 +330,8 @@ Examples:
 |===
 |Method |Description
 
-|<<mod_locations_get_method_eMSP,GET>> | Retrieves BookingLocations or Calendar as stored in the eMSP system. |POST |n/a _(use <<mod_locations_put_method,PUT>>)_
+|<<mod_locations_get_method_eMSP,GET>> | Retrieves a BookingLocation or Calendar as stored in the eMSP system.
+|POST |n/a _(use <<mod_locations_put_method,PUT>>)_
 |<<mod_locations_put_method,PUT>> | Push BookingLocations or Calendars to the eMSP or receive the updated Booking from the CPO.
 |<<mod_locations_patch_method,PATCH>> | Push partial updates to a BookingLocation or Calendar, such as updating timeslots within a calendar.
 |DELETE |n/a _(use <<mod_locations_patch_method,PATCH>> to update the `status` to `REMOVED` as described in <<mod_bookings_flow_and_lifecycle,Flow and Lifecycle>>)_
@@ -342,60 +343,219 @@ Endpoint structure definition:
 
 Examples:
 
-`+https://www.server.com/ocpi/emsp/2.3/bookings/BE/BEC/BOK213+`
+`+https://www.server.com/ocpi/emsp/2.3/bookings/SE/VOL/BOK213+`
 
 ===== Booking Interface
 [cols="2,12",options="header"]
 |===
 |Method |Description
 
-|<<mod_locations_get_method_eMSP,GET>> | Retrieves Booking, BookingLocations or Calendar as stored in the eMSP system.
+|<<mod_locations_get_method_eMSP,GET>> | Retrieves a Booking object as stored in the eMSP system.
 |POST |n/a _(use <<mod_locations_put_method,PUT>>)_
 |<<mod_locations_put_method,PUT>> | Push the updated Booking.
 |<<mod_locations_patch_method,PATCH>> | Push partial update on Booking.
 |DELETE |n/a _(use <<mod_locations_patch_method,PATCH>> to update  `status` to `CANCELED` or `REJECTED` )_
 |===
 
-[[mod_bookingslocation_msp_put_method]]
-===== PUT BookingLocation: BookingLocation Data
+[[mod_bookings_msp_booking_location_get_method]]
+===== *GET* BookingLocation Method
+
+If the CPO wants to check the status of a BookingLocation in the eMSP's system, it might GET the object from the eMSP's system for validation purposes.
+After all, the CPO is the owner of the object, so it would be illogical if the eMSP's system had a different version or was missing the object entirely.
+
+[[mod_bookings_msp_get_booking_location_request_parameters]]
+====== Request Parameters
+
+The following parameters SHALL be provided as URL segments.
+
+[cols="3,2,1,10",options="header"]
+|===
+|Parameter |Datatype |Required |Description
+
+|country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |yes |Country code of the CPO performing the GET request on the eMSP's system.
+|party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |yes |Party ID (Provider ID) of the CPO performing the GET request on the eMSP's system.
+|booking_location_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |BookingLocation.id of the Booking object to retrieve.
+|===
+
+[[mod_bookings_msp_get_booking_location_response_data]]
+====== Response Data
+
+The response contains the requested object.
+
+[cols="4,1,12",options="header"]
+|===
+|Type |Card. |Description
+
+|<<mod_bookings_bookinglocation_object,BookingLocation>> |1 |The requested BookingLocation object.
+|===
+
+[[mod_bookings_put_booking_location_method]]
+===== *PUT* Method
+
+New or updated BookingLocation objects are pushed from the CPO to the eMSP.
+
+[[mod_bookings_booking_location_request_body]]
+====== Request Body
+
+In the PUT request, the new or updated BookingLocation object is sent in the body.
+
+[cols="4,1,12",options="header"]
+|===
+|Type |Card. |Description
+
+|<<mod_bookings_bookinglocation_object,BookingLocation>> |1 |New or updated BookingLocation object.
+|===
+
+[[mod_bookings_msp_put_booking_location_request_parameters]]
+====== Request Parameters
+
+The following parameters SHALL be provided as URL segments.
+
+[cols="3,2,1,10",options="header"]
+|===
+|Parameter |Datatype |Required |Description
+
+|country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |yes |Country code of the CPO performing the PUT request on the eMSP's system. This SHALL be the same value as the `country_code` in the Tariff object being pushed.
+|party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |yes |Party ID (Provider ID) of the CPO performing the PUT request on the eMSP's system. This SHALL be the same value as the `party_id` in the Tariff object being pushed.
+|booking_location_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |BookingLocation.id of the BookingLocation object to create or replace.
+|===
+
+[[mod_bookings_booking_location_patch_method]]
+===== *PATCH* Method
+
+Same as the <<mod_locations_put_method,PUT>> method, but only the fields/objects that have to be updated have to be present.
+Other fields/objects that are not specified as part of the request are considered unchanged.
+Therefore, this method is not suitable to remove information shared earlier.
+
+Any request to the PATCH method SHALL contain the `last_updated` field.
+
+When the PATCH is on a <<mod_bookings_calander_class,Calendar>> Object,
+the Receiver SHALL also set the new `last_updated` value on the parent <<mod_bookings_bookinglocation_object,BookingLocation>> Objects.
+
+[[mod_bookings_booking_location_example_terms_update]]
+====== Example: Booking terms update
+
+Booking terms update on a BookingLocation
 
 
-`{booking_endpoint_url}}/location`
+[source,json]
+----
+PATCH To URL: https://www.server.com/ocpi/emsp/2.3/bookings/bookinglocations/NL/INF/BL0123
 
-Examples:
-
-https://www.server.com/ocpi/cpo/2.3/NL/IHO/booking/location
-
-[[mod_bookings_msp_patch_method]]
-===== PUT Booking: Response Data
-
-`{booking_endpoint_url}}/{booking_id}`
-
-Examples:
-
-https://www.server.com/ocpi/cpo/2.3/NL/IHO/booking/BOOK213
+include::examples/booking_location_patch_example_terms.json[]
+----
 
 
-[[mod_bookingslocation_msp_patch_method]]
-===== PATCH Booking: Response Data
+[[mod_bookings_booking_location_example_calander_update]]
+====== Example: timeslot changes
+
+In this example the timeslots and step sizes of the calendar with id `C0123` is being updated.
+
+[source,json]
+----
+PATCH To URL: https://www.server.com/ocpi/emsp/2.3/bookings/bookinglocations/NL/INF/BL0123/C0123
+
+include::examples/booking_location_patch_example_calander.json[]
+----
+
+[[mod_bookings_msp_booking_get_method]]
+===== *GET* Booking Method
+
+If the CPO wants to check the status of a Booking in the eMSP's system, it might GET the object from the eMSP's system for validation purposes.
+After all, the CPO is the owner of the object, so it would be illogical if the eMSP's system had a different version or was missing the object entirely.
+
+[[mod_bookings_msp_get_booking_request_parameters]]
+====== Request Parameters
+
+The following parameters SHALL be provided as URL segments.
+
+[cols="3,2,1,10",options="header"]
+|===
+|Parameter |Datatype |Required |Description
+
+|country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |yes |Country code of the CPO performing the GET request on the eMSP's system.
+|party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |yes |Party ID (Provider ID) of the CPO performing the GET request on the eMSP's system.
+|booking_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |Booking.id of the Booking object to retrieve.
+|===
+
+[[mod_bookings_msp_get_booking_response_data]]
+====== Response Data
+
+The response contains the requested object.
+
+[cols="4,1,12",options="header"]
+|===
+|Type |Card. |Description
+
+|<<mod_bookings_booking_object,Booking>> |1 |The requested Booking object.
+|===
+
+[[mod_bookings_put_booking_method]]
+===== *PUT* Method
+
+New or updated BookingLocation objects are pushed from the CPO to the eMSP.
+
+[[mod_bookings_booking_request_body]]
+====== Request Body
+
+In the PUT request, the new or updated BookingLocation object is sent in the body.
+
+[cols="4,1,12",options="header"]
+|===
+|Type |Card. |Description
+
+|<<mod_bookings_booking_object,Booking>> |1 |New or updated Booking object.
+|===
+
+[[mod_bookings_msp_put_booking__request_parameters]]
+====== Request Parameters
+
+The following parameters SHALL be provided as URL segments.
+
+[cols="3,2,1,10",options="header"]
+|===
+|Parameter |Datatype |Required |Description
+
+|country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |yes |Country code of the CPO performing the PUT request on the eMSP's system. This SHALL be the same value as the `country_code` in the Tariff object being pushed.
+|party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |yes |Party ID (Provider ID) of the CPO performing the PUT request on the eMSP's system. This SHALL be the same value as the `party_id` in the Tariff object being pushed.
+|booking_request_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |Booking.request_id of the Booking object to create or replace.
+|===
+
+[[mod_bookings_booking_patch_method]]
+===== *PATCH* Method
+
+Same as the <<mod_bookings_msp_put_booking__request_parameters,PUT>> method, but only the fields/objects that have to be updated have to be present.
+Other fields/objects that are not specified as part of the request are considered unchanged.
+Therefore, this method is not suitable to remove information shared earlier.
+
+Any request to the PATCH method SHALL contain the `last_updated` field.
+
+[[mod_bookings_booking_example_status_update]]
+====== Example: Booking
+
+Booking Status update on a Booking object
 
 
-`{booking_endpoint_url}}/{booking_id}`
+[source,json]
+----
+PATCH To URL: https://www.server.com/ocpi/emsp/2.3/bookings/SE/VOL/B0123
 
-Examples:
-
-https://www.server.com/ocpi/cpo/2.3/NL/IHO/booking/BOOK213
-
+include::examples/booking_patch_example_status_update.json[]
+----
 
 
-[[mod_bookingslocation_calander_msp_patch_method]]
-===== PUT BookingLocation calender: Response Data
+[[mod_bookings_booking_example_evse_uid_update]]
+====== Example: timeslot changes
 
-`{booking_endpoint_url}}/{booking_id}`
+The assigned EVSE uid for the booking that can be set later
 
-Examples:
+[source,json]
+----
+PATCH To URL: https://www.server.com/ocpi/emsp/2.3/bookings/NL/INF/B0123
 
-https://www.server.com/ocpi/cpo/2.3/NL/IHO/booking/BOOK213
+include::examples/booking_patch_example_evse_uid.json[]
+----
+
 
 
 [[mod_bookings_object_description]]
@@ -421,7 +581,7 @@ https://www.server.com/ocpi/cpo/2.3/NL/IHO/booking/BOOK213
 |last_updated |<<types.asciidoc#types_datetime_type,DateTime>> | 1 |Timestamp for the last BookingLocation change has been made
 |===
 
-[[mod_booking_location_example]]
+[[mod_bookings_booking_location_example]]
 ===== Example BookingLocation
 
 This is an example of a booking location.
@@ -465,6 +625,7 @@ Object used for booking a booking location.
 |location_id |<<types.asciidoc#types_cistring_type,CiString>>(36) | 1  | Lcation.id of the Location object of this CPO, on which the reservation can be made.
 |evse_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |? | EVSE.uid of the EVSE of this Location on which the reservation will be made. Allowed to be set to: #NA when no EVSE yet assigned to the driver.
 |booking_tokens |<<mod_bookingss_booking_token_object,BookingToken>> | + | Token(s) that can be used to utilise the booking.
+|tariff_id |<<types.asciidoc#types_cistring_type,CiString>>(36)| + | A list of Tariff id's relevant for this booking
 |period |<<mod_bookings_timeslot_class, Timeslot>> |1 | The timeslot for this booking
 |reservation_status | <<mod_bookings_reservation_status_enum, ReservationStatus>> | 1 | The current state of the reservation
 |canceled | <<mod_bookings_cancellation_class, Cancellation>> | ? | Is the booking canceled, why and by who
@@ -473,8 +634,8 @@ Object used for booking a booking location.
 |last_updated | <<types.asciidoc#types_datetime_type,DateTime>> | 1 | Timestamp for the last booking change has been made
 |===
 
-[[mod_booking_location_example]]
-===== Example BookingLocation
+[[mod_booings_booking_example]]
+===== Example Booking
 
 This is an example of a booking location.
 Can be used by any EV Driver as long as his eMSP has a roaming agreement with the CPO.
@@ -484,7 +645,6 @@ Or the Charge Point has an ad-hoc payment possibility
 ----
 include::examples/booking_example.json[]
 ----
-
 
 [[mod_bookings_data_types]]
 === Data types
@@ -503,6 +663,7 @@ include::examples/booking_example.json[]
 |period |<<mod_bookings_timeslot_class, Timeslot>> |1 | The timeslot for this booking
 |authorization_reference | <<types.asciidoc#types_cistring_type,CiString>>(36) | 1 | Authorization reference for the relevant Session and CDR.
 |power_required | int | ? | The power requested for the reservation in kW. If it isn't the maximum the CPO can relocate the extra to another session.
+|canceled | <<mod_bookings_cancellation_class, Cancellation>> | ? | To set when requesting to cancel the booking
 |===
 
 [[mod_bookings_booking_terms_class]]
