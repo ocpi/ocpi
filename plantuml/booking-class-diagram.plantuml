@@ -1,0 +1,8 @@
+@startuml
+title Bookings class diagram
+
+Booking "1" *-- "0..n" Calender
+Booking "1" *-- "0..n" BookableParkingOptions
+Calender"1" *-- "1..n" TimeSlot
+
+@enduml

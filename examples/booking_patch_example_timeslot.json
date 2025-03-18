@@ -1,0 +1,10 @@
+{
+  "timeslot": {
+    "start_from": "2025-03-23T00:00:00Z",
+    "end_before": "2025-03-23T08:59:99Z",
+    "min_power": 12,
+    "max_power": 12,
+    "green_power_support": false
+  },
+  "last_updated": "2019-06-24T12:39:09Z"
+}

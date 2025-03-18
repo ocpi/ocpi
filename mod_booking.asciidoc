@@ -13,7 +13,27 @@ Further eMSP's can request these time slots.
 
 [[mod_bookings_flow_and_lifecycle]]
 === Flow and Lifecycle
+The Bookings module has two main objects and one with a sub object, <<mod_bookings_booking_object>>, and <<mod_bookings_bookinglocation_object>>.
+To make a booking first a BookingLocation should be published to an eMSP or be requested from the CPO backoffice.
 
+The CPO communicates an BookingLocation to the eMSP, the BookingLocation covers the information per location,
+and then can either choose to have the possible bookable parking options or provide a list of bookable EVSE uids.
+
+A Booking typically follows the following lifecycle:
+
+- A Booking starts in a `PENDING` state when initially requested by the eMSP.
+- From `PENDING`, the CPO can move the booking to:
+- `RESERVED` if the booking request is successful.
+- `REJECTED` if the requested timeslot or booking option isn't available.
+- `FAILED` if there's an error processing the request.
+- From `RESERVED`, the Booking can transition to:
+- `FULFILLED` when successfully utilized.
+- `CANCELED` if the eMSP or CPO cancels the booking.
+- `NO_SHOW` if the booking is not utilized within the timeframe specified by the booking terms.
+
+If a booking moves to `CANCELED`, `NO_SHOW`, `REJECTED`, `FAILED`, or `FULFILLED`, it reaches a final state.
+
+The booking terms URL (`booking_terms`) should contain further details, including no-show policies or possible fines.
 
 .Reservation lifecycle of a booking
 image::images/booking_a_booking-location_lyfesycle.svg[Reservation lifecycle of a booking]
@@ -22,32 +42,43 @@ image::images/booking_a_booking-location_lyfesycle.svg[Reservation lifecycle of 
 [[mod_bookings_interfaces_and_endpoints]]
 === Interfaces and endpoints
 
-For Booking there is the Receiver and the sender interface for Booking. The advised flow is following the push as the main flow of data from the sender to the receiver.
+For Booking there is the Receiver and the Sender interface for Bookings. The advised flow is following the push as the main flow of data from the sender to the receiver.
+If parties don't want to share all there booking information during operation. It is also possible to pull data through the sender interfaces.
 
 [[mod_sessions_cpo_interface]]
 ==== Sender Interface
 
 Typically implemented by market roles like: CPO.
 
-The Booking endpoint can be used to retrieve Bookings, BookingLocations and calendars, but also to request a booking or to change a booking.
+The Bookings interface can be used to retrieve Bookings, BookingLocations and calendars, but also to request a booking or to change a booking. The interface is split up in BookingLocation with Calendar, and Booking interface.
+These two objects should provide the functionality needed to facilitate the booking of a location.
 
-
+===== BookingLocation and Calendar Interface
 [cols="2,12",options="header"]
 |===
 |Method |Description
-|<<mod_bookings_get_list_response_data,GET>> |Get a specific Booking, BookingLocation or Calendar, or fetch a list of
-Bookings, BookingLocations or calander last updated between the `{date_from}` and `{date_to}`(<<transport_and_format.asciidoc#transport_and_format_pagination,paginated>>).
-|<<mod_bookings_cpo_post_method, POST>> | Request a new Booking request for an BookingLocation
-|PUT | n/c
-|<<mod_bookings_cpo_patch_method, PATCH>> | Request a change on existing booking.
+|<<mod_bookings_get_booking_locations,GET>> |Get a specific BookingLocation or Calendar, or fetch a list of BookingLocations last updated between the `{date_from}` and `{date_to}`(<<transport_and_format.asciidoc#transport_and_format_pagination,paginated>>).
+|POST| n/a
+|PUT | n/a
+|PATCH | n/a
 |DELETE |n/a
 |===
 
-[[mod_bookings_get_list_response_data]]
-===== GET List: Response Data
+===== Booking Interface
+[cols="2,12",options="header"]
+|===
+|Method |Description
+|<<mod_bookings_get_booking_locations,GET>> |Fetch a list of Bookings last updated between the `{date_from}` and `{date_to}`(<<transport_and_format.asciidoc#transport_and_format_pagination,paginated>>).
+|<<mod_bookings_cpo_post_booking_method, POST>> | Request a new Booking request for an BookingLocation
+|PUT | n/c
+|<<mod_bookings_cpo_patch_booking_method, PATCH>> | Request a change on existing booking.
+|DELETE |n/a
+|===
 
-This endpoint returns a list of Booking or BookingLocation objects.
-The header will contain the <<transport_and_format.asciidoc#transport_and_format_paginated_response,pagination>> related headers.
+[[mod_bookings_get_booking_locations]]
+===== GET BookingLocations
+
+This endpoint returns a list BookingLocation objects.
 
 Each object must contain all required fields. Fields that are not specified may be considered as null values.
 Any old information that is not specified in the response is considered no longer valid.
@@ -56,42 +87,219 @@ Any old information not contained in any of the pages needs to be considered no 
 
 Endpoint structure definition:
 
-`{booking_endpoint_url}}`
-
-`{booking_endpoint_url}}/booking_locations`
+`{bookings_endpoint_url}}/booking_locations`
 
 Examples:
 
-https://www.server.com/ocpi/cpo/2.3/bookings/?date_from=2025-01-28T12:00:00&date_to=2025-01-29T12:00:00
+`+https://www.server.com/ocpi/2.3/bookings/booking_locations/?date_from=2025-01-29T12:00:00&limit=100+`
 
-https://ocpi.server.com/2.3/bookings/?offset=50
+`+https://www.server.com/ocpi/cpo/2.3/bookings/booking_locations/?offset=50&limit=100+`
 
-https://www.server.com/ocpi/2.3/bookings/booking_locations/?date_from=2025-01-29T12:00:00&limit=100
+[[mod_bookings_get_booking_locations_request_parameters]]
+====== Request Parameters
 
-https://www.server.com/ocpi/cpo/2.3/bookings/booking_locations/?offset=50&limit=100
+If the optional parameters date from and/or date to are provided, only BookingLocations with `last_update` between the given `{date_from}` (including) and `{date_to}` (excluding) will be returned.
 
-Bookings
+This request is <<transport_and_format.asciidoc#transport_and_format_pagination,paginated>>, it supports the <<transport_and_format.asciidoc#transport_and_format_paginated_request,pagination>> related URL parameters.
 
+[cols="3,2,1,10",options="header"]
+|===
+|Parameter |Datatype |Required |Description
 
-[[mod_bookings_cpo_post_method]]
-===== POST Book: Response Data
+|date_from |<<types.asciidoc#types_datetime_type,DateTime>> |no |Only return BookingLocations that have `last_updated` after or equal to this Date/Time (inclusive).
+|date_to |<<types.asciidoc#types_datetime_type,DateTime>> |no |Only return BookingLocations that have `last_updated` up to this Date/Time, but not including (exclusive).
+|offset |int |no |The offset of the first object returned. Default is 0.
+|limit |int |no |Maximum number of objects to GET.
+|===
 
+[[mod_bookings_get_booking_locations_response_data]]
+====== Response Data
 
-`{booking_endpoint_url}}`
+The response contains a list of BookingLocation objects that match the given parameters in the request, the header will contain the <<transport_and_format.asciidoc#transport_and_format_paginated_response,pagination>> related headers.
+
+Any older information that is not specified in the response is considered no longer valid.
+Each object must contain all required fields. Fields that are not specified may be considered as null values.
+
+|===
+|Datatype |Card. |Description
+
+|<<mod_bookings_bookinglocation_object,BookingLocations>> |* |List of BookingLocations that match the request parameters.
+|===
+
+[[mod_bookings_get_booking_location_calander]]
+===== GET BookingLocation or Calendar
+
+For retrieving a single BookingLocation or Calendar the endpoint is the following:
+
+`{bookings_endpoint_url}}/booking_locations/{booking_location_id}/{calendar_id}`
 
 Examples:
 
-https://www.server.com/ocpi/cpo/2.3/bookings/?date_from=2019-01-28T12:00:00&date_to=2019-01-29T12:00:00
+`+https://www.server.com/ocpi/cpo/2.3/bookings/booking_locations/BL01+`
 
-[[mod_bookings_cpo_patch_method]]
-===== PUT Book: Response Data
+`+https://www.server.com/ocpi/cpo/2.3/bookings/booking_locations/BL01/23423+`
 
 
-`{booking_endpoint_url}}/{booking_id}`
+The following parameters can be provided as URL segments in the same order.
+
+[cols="3,2,1,10",options="header"]
+|===
+|Parameter |Datatype |Required |Description
+
+|booking_location_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes | BookingLocation.id of the BookingLocation object to retrieve.
+|calendar_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |no |Calendar.id, required when requesting a Calendar object.
+|===
+
+This will respond with the requested object:
+
+[cols="4,1,12",options="header"]
+|===
+|Type |Card. |Description
+
+|_Choice: one of three_ | |
+|&gt; <<mod_bookings_bookinglocation_object,BookingLocation>> |1 |If a BookingLocation object was requested: the BookingLocation object.
+|&gt; <<mod_bookings_calander_class,Calendar>> |1 |If a Calendar object was requested: the Calendar object.
+|===
+
+[[mod_bookings_get_bookings]]
+===== GET Bookings
+
+This endpoint returns a list Booking objects.
+
+Each object must contain all required fields. Fields that are not specified may be considered as null values.
+Any old information that is not specified in the response is considered no longer valid.
+For requests that use pagination, the response data provided by all the pages together is the new truth.
+Any old information not contained in any of the pages needs to be considered no longer valid.
+
+Endpoint structure definition:
+
+`{bookings_endpoint_url}`
 
 Examples:
 
-https://www.server.com/ocpi/cpo/2.3/bookings/?date_from=2019-01-28T12:00:00&date_to=2019-01-29T12:00:00
+`+https://www.server.com/ocpi/2.3/bookings/?date_from=2025-01-29T12:00:00&limit=100+`
+
+`+https://www.server.com/ocpi/cpo/2.3/bookings/?offset=50&limit=100+`
+
+[[mod_bookings_get_bookings_request_parameters]]
+====== Request Parameters
+
+If the optional parameters date from and/or date to are provided, only Bookings with `last_update` between the given `{date_from}` (including) and `{date_to}` (excluding) will be returned.
+
+This request is <<transport_and_format.asciidoc#transport_and_format_pagination,paginated>>, it supports the <<transport_and_format.asciidoc#transport_and_format_paginated_request,pagination>> related URL parameters.
+
+[cols="3,2,1,10",options="header"]
+|===
+|Parameter |Datatype |Required |Description
+
+|date_from |<<types.asciidoc#types_datetime_type,DateTime>> |no |Only return Bookings that have `last_updated` after or equal to this Date/Time (inclusive).
+|date_to |<<types.asciidoc#types_datetime_type,DateTime>> |no |Only return Bookings that have `last_updated` up to this Date/Time, but not including (exclusive).
+|offset |int |no |The offset of the first object returned. Default is 0.
+|limit |int |no |Maximum number of objects to GET.
+|===
+
+[[mod_bookings_get_booking_response_data]]
+====== Response Data
+
+The response contains a list of Booking objects that match the given parameters in the request, the header will contain the <<transport_and_format.asciidoc#transport_and_format_paginated_response,pagination>> related headers.
+
+Any older information that is not specified in the response is considered no longer valid.
+Each object must contain all required fields. Fields that are not specified may be considered as null values.
+
+|===
+|Datatype |Card. |Description
+
+|<<mod_bookings_booking_object,Booking>> | * |List of Bookings that match the request parameters.
+|===
+
+[[mod_bookings_cpo_post_booking_method]]
+===== *POST* Method
+
+Send a Booking request to book a BookingLocation.
+
+endpoint structure definition:
+
+`{bookings_endpoint_url}`
+
+Example:
+
+`+https://www.server.com/ocpi/cpo/2.3/bookings/+`
+
+[[mod_commands_cpo_post_request_body]]
+===== Request Body
+
+The Body of the BookingRequest shall be sent
+
+[cols="4,1,12",options="header"]
+|===
+|Type |Card. |Description
+|<<mod_bookings_request_class,BookingRequest>> |1 | A booking request for a BookingLocation
+|===
+
+[[mod_commands_response_data]]
+====== Response Data
+
+
+The response contains the direct response from the Receiver, if however the response is pending the definite result will be sent async back.
+
+[cols="4,1,12",options="header"]
+|===
+|Datatype |Card. |Description
+
+|<<mod_bookings_booking_object,Booking>> |1 |Result of the Booking request, by the CPO. So this indicates if the CPO was able to receive the booking request. The Booking goes to `PENDING` but can also go directly to `RESERVED`, `REJECTED`, `FAILED`
+|===
+
+
+[[mod_bookings_cpo_patch_booking_method]]
+===== *PATCH* Method
+
+Request a change on an existing Booking that was already requested at the CPO. You can only make this request if the Booking is `PENDING` or `RESERVED`.
+Same as the POST method, but only the fields/objects that are requested to change are present.
+Other fields/objects that are not specified as part of the request are considered unchanged.
+
+Endpoint structure definition:
+
+`{bookings_endpoint_url}/{booking_id}`
+
+Example:
+
+`+https://www.server.com/ocpi/cpo/2.3/bookings/BO123+`
+
+[[mod_bookings_example_a_token_change]]
+====== Example: change the list of BookingTokens to have access to the booking
+
+This can be updated to send the right BookingToken(s) with the booking. For normal cars this probably won't need to be updated, but with Heavy-duty vehicles you don't always know who will fulfill the reservation
+
+[source,json]
+----
+PATCH To URL: https://www.server.com/ocpi/cpo/2.3/bookings/BO123
+
+include::examples/booking_patch_example_tokens.json[]
+----
+
+
+[[mod_bookings_example_change_timeslot]]
+====== Example: change the timeslot of the Booking
+
+In this example the user requests a new timeslot for the reservation.
+
+[source,json]
+----
+PATCH To URL: https://www.server.com/ocpi/cpo/2.3/bookings/BO123
+
+include::examples/booking_patch_example_timeslot.json[]
+----
+
+
+[[mod_bookings_cpo_patch_response_data]]
+====== Response Data
+
+[cols="4,1,12",options="header"]
+|===
+|Datatype |Card. |Description
+
+|<<mod_bookings_booking_object,Booking>> |1 |Result of the Booking request, by the CPO. So this indicates if the CPO was able to receive the booking request. The Booking goes to `PENDING` but can also go directly to `RESERVED`, `REJECTED`, `FAILED`
+|===
 
 
 [[mod_bookings_emsp_interface]]
@@ -105,8 +313,6 @@ so the end-points need to contain the required extra fields:
 
 Endpoint structure definition:
 
-`{booking_endpoint_url}/{country_code}/{party_id}/{booking_id}`
-
 `{booking_endpoint_url}/{country_code}/{party_id}/booking_locations/{booking_location_id}`
 
 `{booking_endpoint_url}/{country_code}/{party_id}/booking_locations/{booking_location_id}/{callander_id}`
@@ -114,21 +320,40 @@ Endpoint structure definition:
 
 Examples:
 
-`+https://www.server.com/ocpi/emsp/2.3/bookings/BE/BEC/BOK213+`
-
 `+https://server.com/ocpi/2.3/bookings/BE/BEC/booking_locations/LOC1/3256+`
 
 `+https://ocpi.server.com/2.3/bookings/BE/BEC/booking_locations/LOC1/3256/23+`
 
+
+===== BookingLocation and Calendar Interface
+[cols="2,12",options="header"]
+|===
+|Method |Description
+
+|<<mod_locations_get_method_eMSP,GET>> | Retrieves BookingLocations or Calendar as stored in the eMSP system. |POST |n/a _(use <<mod_locations_put_method,PUT>>)_
+|<<mod_locations_put_method,PUT>> | Push BookingLocations or Calendars to the eMSP or receive the updated Booking from the CPO.
+|<<mod_locations_patch_method,PATCH>> | Push partial updates to a BookingLocation or Calendar, such as updating timeslots within a calendar.
+|DELETE |n/a _(use <<mod_locations_patch_method,PATCH>> to update the `status` to `REMOVED` as described in <<mod_bookings_flow_and_lifecycle,Flow and Lifecycle>>)_
+|===
+
+Endpoint structure definition:
+
+`{booking_endpoint_url}/{country_code}/{party_id}/{booking_id}`
+
+Examples:
+
+`+https://www.server.com/ocpi/emsp/2.3/bookings/BE/BEC/BOK213+`
+
+===== Booking Interface
 [cols="2,12",options="header"]
 |===
 |Method |Description
 
 |<<mod_locations_get_method_eMSP,GET>> | Retrieves Booking, BookingLocations or Calendar as stored in the eMSP system.
 |POST |n/a _(use <<mod_locations_put_method,PUT>>)_
-|<<mod_locations_put_method,PUT>> | Push BookingLocations or Calendars to the eMSP or receive the updated Booking from the CPO.
-|<<mod_locations_patch_method,PATCH>> | Push partial updates to a BookingLocation or Calendar, such as updating timeslots within a calendar or receive the updated Booking from the CPO.
-|DELETE |n/a _(use <<mod_locations_patch_method,PATCH>> to update the `status` to `REMOVED` as described in <<mod_locations_flow_and_lifecycle,Flow and Lifecycle>>)_
+|<<mod_locations_put_method,PUT>> | Push the updated Booking.
+|<<mod_locations_patch_method,PATCH>> | Push partial update on Booking.
+|DELETE |n/a _(use <<mod_locations_patch_method,PATCH>> to update  `status` to `CANCELED` or `REJECTED` )_
 |===
 
 [[mod_bookingslocation_msp_put_method]]
@@ -164,7 +389,7 @@ https://www.server.com/ocpi/cpo/2.3/NL/IHO/booking/BOOK213
 
 
 [[mod_bookingslocation_calander_msp_patch_method]]
-===== PUT Booking Location calender: Response Data
+===== PUT BookingLocation calender: Response Data
 
 `{booking_endpoint_url}}/{booking_id}`
 
@@ -186,17 +411,29 @@ https://www.server.com/ocpi/cpo/2.3/NL/IHO/booking/BOOK213
 |country_code | <<types.asciidoc#types_cistring_type,CiString>>(2) |1 |ISO-3166 alpha-2 country code of the CPO that 'owns' this BookingLocation.
 |party_id   | <<types.asciidoc#types_cistring_type,CiString>>(3) |1 |ID of the CPO that 'owns' this BookingLocation (following the ISO-15118 standard).
 |id   | <<types.asciidoc#types_cistring_type,CiString>>(36) | 1 | The unique id that identifies the BookingLocation in the CPO platform.
-|bookable_parking_options |<<mod_bookable_parking_option_class, BookableParkingOptions>> | * |List of parking specification that can be booked by drivers that want to charge at this Location
 |location_id |<<types.asciidoc#types_cistring_type,CiString>>(36) | 1 |Location.id of the Location object of this CPO, on which the reservation can be made.
-|evse_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |EVSE.uid of the EVSE of this Location on which the reservation will be made. Allowed to be set to: #NA when no EVSE yet assigned to the driver. this reference will be provided in the relevant <<mod_bookings_booking_object, Booking>> and/or <<mod_cdrs.asciidoc#mod_cdrs_cdr_object,CDR>>.
-|booking_required |Bookable |? | _To be Changed_
-|tariff_id |<<types.asciidoc#types_cistring_type,CiString>>(36)|? | _To be Changed_
-|booking_terms |<<types.asciidoc#types_displaytext_class,DisplayText>> |? | Terms specified for if you book on this location.
-|calendars |<<types.asciidoc#types_displaytext_class,DisplayText>> |? |The list of calenders to display the availability on this location
-|last_updated |<<types.asciidoc#types_displaytext_class,DisplayText>> |? |Timestamp for the last booking location change has been made
+|evse_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) | * | A list of bookable EVSE.uids of the EVSEs of this Location on which the reservation will be made. Allowed to be set to: #NA when no EVSE yet assigned to the driver. this reference will be provided in the relevant <<mod_bookings_booking_object, Booking>> and/or <<mod_cdrs.asciidoc#mod_cdrs_cdr_object,CDR>>.
+|bookable_parking_options |<<mod_bookings_bookable_parking_option_class, BookableParkingOptions>> | * |List of parking specification that can be booked by drivers that want to charge at this Location
+|booking_required |Bookable | ? | _To be discussed next meeting_
+|tariff_id |<<types.asciidoc#types_cistring_type,CiString>>(36)| * | A list of Tariff id's
+|booking_terms |<<mod_bookings_booking_terms_class,BookingTerms>> | * | Terms specified for if you book on this location.
+|calendars |<<mod_bookings_calander_class,Calender>> | * |The list of calenders to display the availability on this location
+|last_updated |<<types.asciidoc#types_datetime_type,DateTime>> | 1 |Timestamp for the last BookingLocation change has been made
 |===
 
-[[mod_calander_class]]
+[[mod_booking_location_example]]
+===== Example BookingLocation
+
+This is an example of a booking location.
+Can be used by any EV Driver as long as his eMSP has a roaming agreement with the CPO.
+Or the Charge Point has an ad-hoc payment possibility
+
+[source,json]
+----
+include::examples/booking_location_example.json[]
+----
+
+[[mod_bookings_calander_class]]
 ==== Calendar _class_
 
 [cols="4,2,1,9",options="header"]
@@ -219,22 +456,35 @@ Object used for booking a booking location.
 |===
 |Property |Type |Card. |Description
 
-|booking_id   | <<types.asciidoc#types_cistring_type,CiString>>(36) |1 | ID for the CPO side
+|id   | <<types.asciidoc#types_cistring_type,CiString>>(36) |1 | ID for the CPO side
 |country_code | <<types.asciidoc#types_cistring_type,CiString>>(2) |1 |Status of the Token, and whether charging is allowed at the optionally given location.
 |party_id   | <<types.asciidoc#types_cistring_type,CiString>>(3) |1 |The complete Token object for which this authorization was requested.
 |request_id   | <<types.asciidoc#types_cistring_type,CiString>>(36) |1 | Request ID determined by the requesting party. The same request ID SHALL be used for all edits on booking.
-|bookable_parking_option |<<mod_bookable_parking_option_class, BookableParkingOption>> | ? | Selected parking specification to charge at this Location
+|bookable_parking_option |<<mod_bookings_bookable_parking_option_class, BookableParkingOption>> | ? | Selected parking specification to charge at this Location
 |parking_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |Reference to the parking id, can be later assigned by the CPO based on the bookable parking option.
 |location_id |<<types.asciidoc#types_cistring_type,CiString>>(36) | 1  | Lcation.id of the Location object of this CPO, on which the reservation can be made.
 |evse_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |? | EVSE.uid of the EVSE of this Location on which the reservation will be made. Allowed to be set to: #NA when no EVSE yet assigned to the driver.
-|booking_token |<<mod_tokens.asciidoc#mod_tokens_token_object,BookingToken>> | + | Token(s) that can be used to utilise the booking.
+|booking_tokens |<<mod_bookingss_booking_token_object,BookingToken>> | + | Token(s) that can be used to utilise the booking.
 |period |<<mod_bookings_timeslot_class, Timeslot>> |1 | The timeslot for this booking
 |reservation_status | <<mod_bookings_reservation_status_enum, ReservationStatus>> | 1 | The current state of the reservation
 |canceled | <<mod_bookings_cancellation_class, Cancellation>> | ? | Is the booking canceled, why and by who
 |authorization_reference | <<types.asciidoc#types_cistring_type,CiString>>(36) | 1 | Authorization reference for the relevant Session and CDR.
-|booking_terms | <<mod_booking_terms_class, BookingTerms>> | 1 | The accepted booking terms
+|booking_terms | <<mod_bookings_booking_terms_class, BookingTerms>> | 1 | The accepted booking terms
 |last_updated | <<types.asciidoc#types_datetime_type,DateTime>> | 1 | Timestamp for the last booking change has been made
 |===
+
+[[mod_booking_location_example]]
+===== Example BookingLocation
+
+This is an example of a booking location.
+Can be used by any EV Driver as long as his eMSP has a roaming agreement with the CPO.
+Or the Charge Point has an ad-hoc payment possibility
+
+[source,json]
+----
+include::examples/booking_example.json[]
+----
+
 
 [[mod_bookings_data_types]]
 === Data types
@@ -246,16 +496,16 @@ Object used for booking a booking location.
 |===
 |Property |Type |Card. |Description
 |request_id   | <<types.asciidoc#types_cistring_type,CiString>>(36) |1 | Request ID determined by the requesting party. The same request ID SHALL be used for all edits on booking.
-|bookable_parking_option |<<mod_bookable_parking_option_class, BookableParkingOption>> | ? |Selected parking specification to charge at this Location
+|bookable_parking_option |<<mod_bookings_bookable_parking_option_class, BookableParkingOption>> | ? |Selected parking specification to charge at this Location
 |location_id |<<types.asciidoc#types_cistring_type,CiString>>(36) | 1 |Lcation.id of the Location object of this CPO, on which the reservation can be made.
 |evse_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |? | uid of an bookable EVSE. Only posibble if stated in the Bookable Location
-|token |<<mod_bookingss_booking_token_object,BookingTokens>> | + | Token(s) that can be used to utilise the booking.
+|tokens |<<mod_bookingss_booking_token_object,BookingTokens>> | + | Token(s) that can be used to utilise the booking.
 |period |<<mod_bookings_timeslot_class, Timeslot>> |1 | The timeslot for this booking
 |authorization_reference | <<types.asciidoc#types_cistring_type,CiString>>(36) | 1 | Authorization reference for the relevant Session and CDR.
-|power_required | int | ? | The power requested for the reservation in kW
+|power_required | int | ? | The power requested for the reservation in kW. If it isn't the maximum the CPO can relocate the extra to another session.
 |===
 
-[[mod_booking_terms_class]]
+[[mod_bookings_booking_terms_class]]
 ==== BookingTerms _class_
 
 [cols="4,2,1,9",options="header"]
@@ -266,13 +516,13 @@ Object used for booking a booking location.
 |token_groups_supported       |boolean | ? | If true, any token within the same token group may be used for the booking.
 |remote_auth_supported        |boolean | ? | If true, charging for reserved booking is possible through remote authentication (Start message through Commands endpoint).
 |supported_access_methods | <<mod_bookings_location_access_enum, LocationAccess>> | + | What is needed to access the location
-|change_until_minutes | <<types.asciidoc#types_datetime_type,DateTime>> |1 | Start time of this timeslot.
-|cancel_until_minutes | <<types.asciidoc#types_datetime_type,DateTime>> |1 | End time of this timeslot.
-|change_not_allowed   | number | ? | Power guaranteed/requested during this timeslot.
-|early_start_allowed  | boolean | ? | Maximum power available/requested during this timeslot.
+|change_until_minutes | number | 1 | Number of minutes before the booking till which it can be changed.
+|cancel_until_minutes | number | 1 | Number of minutes before the booking till which it can be canceled.
+|change_not_allowed   | boolean | ? | if change is allowed.
+|early_start_allowed  | boolean | ? | If an early start of the session is allowed/possible.
 |early_start_time     | number | ? | Number of minutes early start is allowed/possible.
 |noshow_timeout       | number | ? | The number of minutes after the booking start time that it is considered a no show and booking is released. No timeout if unspecified.
-|noshow_fine          | <<types_price_class, Price>> | ? | The amount fined if the reservation is not used.
+|noshow_fee           | boolean | ? | If the CPO will charge a no show fee. The amount of the fee can be defined in the booking_terms URL. (__lets dicuss this__)
 |max_power_bookable   | number | ? | Maximum electric power that can be booked at this location, in Watts (W).
 |late_stop_allowed    | boolean | ? | If a user can charge longer than requested in the booking
 |late_stop_time       | number | ? | Number of minutes late start is allowed/possible.
@@ -281,7 +531,7 @@ Object used for booking a booking location.
 |===
 
 
-[[mod_bookable_parking_option_class]]
+[[mod_bookings_bookable_parking_option_class]]
 ==== BookableParkingOptions _class_
 
 [cols="4,2,1,9",options="header"]
@@ -367,11 +617,11 @@ Describes ways to get access to a reserved charger
 |Value              | Description
 |PENDING            | Booking request pending processing by the CPO.
 |RESERVED           | Booking request accepted by the CPO.
-|CANCELLED          | Booking cancelled
+|CANCELED          | Booking canceled
 |FAILED             | Request for booking failed (error).
 |NO_SHOW            | Booking was not fulfilled because no one showed up
 |FULFILLED          | The Booking is fulfilled
-|REJECTED           | Booking req uest rejected after processing by the CPO (e.g., requested time slot unavailable).
+|REJECTED           | Booking req is rejected after processing by the CPO (e.g., requested time slot unavailable).
 |UNKNOWN            | Any other status / unknown status.
 |===
 
@@ -387,5 +637,6 @@ Describes ways to get access to a reserved charger
 |BLOCKED            | The reserved charger isn't physically reachable
 |TRAFFIC            | The vehicle can't come in time because of traffic, set by the MSP
 |BROKEN_VEHICLE     | The vehicle broke down and can't make the reservation, set by the MSP
+|NO_CANCELED        | The driver didn't communicate a reason for canceling, set by rhe MSP
 |UNKNOWN            | Any other status / unknown status.
 |===
