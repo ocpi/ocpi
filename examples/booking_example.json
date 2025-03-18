@@ -1,0 +1,43 @@
+{
+  "id": "12345",
+  "country_code": "NL",
+  "party_id": "INF",
+  "request_id": "RE1222",
+  "bookable_parking_option": {},
+  "parking_id": 22314,
+  "location_id": 1234,
+  "evse_uid": 3256,
+  "booking_token": [{
+    "country_code": "NL",
+    "party_id": "INF",
+    "uid": "assaD12w3d",
+    "type": "RFID",
+    "contract_id": "CO124"
+  }],
+  "period": {
+    "start_from": "2025-03-23T12:00:00Z",
+    "end_before": "2025-03-23T13:00:00Z",
+    "min_power": 12,
+    "max_power": 12,
+    "green_power_support": false
+  },
+  "reservation_status": "PENDING",
+  "authorization_reference": "pp-100100-1948213567",
+  "booking_terms": {
+    "RFID_auth_required": true,
+    "token_groups_supported": false,
+    "remote_auth_supported": true,
+    "supported_access_methods": ["", ""],
+    "change_until_minutes": 200,
+    "cancel_until_minutes": 600,
+    "change_not_allowed": false,
+    "early_start_allowed": true,
+    "early_start_time": 20,
+    "noshow_timeout": 25,
+    "max_power_bookable": 400,
+    "late_stop_allowed": false,
+    "overlapping_bookings_allowed": true,
+    "booking_terms": "/https://infuse-ev.com/booking-a-charger"
+  },
+  "last_updated": "2024-12-05T20:02:13Z"
+}

@@ -1,0 +1,59 @@
+{
+  "country_code": "NL",
+  "party_id": "IHO",
+  "id": "12345",
+  "location_id": "L0C1",
+  "evse_uid": "6583",
+  "bookable_parking_options": [{
+    "evse_position": "LEFT",
+    "vehicle_types": ["MOTORCYCLE", "TRUCK_WITH_TRAILER", "SEMI_TRACTOR"],
+    "format": "SOCKET",
+    "max_vehicle_weight": 5000,
+    "max_vehicle_height": 300,
+    "max_vehicle_length": 900,
+    "max_vehicle_width": 250,
+    "parking_space_length": 1000,
+    "drive_through": false,
+    "restricted_to_type": true,
+    "refrigeration_outlet": true
+  }],
+  "booking_required": true,
+  "tariffs": ["32423328", "24091999", "23415239", "12072017"],
+  "booking_terms": {
+    "RFID_auth_required": true,
+    "token_groups_supported": false,
+    "remote_auth_supported": true,
+    "supported_access_methods": ["", ""],
+    "change_until_minutes": 200,
+    "cancel_until_minutes": 600,
+    "change_not_allowed": false,
+    "early_start_allowed": true,
+    "early_start_time": 20,
+    "noshow_timeout": 25,
+    "max_power_bookable": 400,
+    "late_stop_allowed": false,
+    "overlapping_bookings_allowed": true,
+    "booking_terms": "/https://infuse-ev.com/booking-a-charger"
+  },
+  "calenders": [{
+    "id": "CA112",
+    "begin_from": "2025-03-23T00:00:00Z",
+    "end_before": "2025-03-23T23:59:99Z",
+    "step_size": 1,
+    "available_timeslots": [{
+      "start_from": "2025-03-23T00:00:00Z",
+      "end_before": "2025-03-23T08:59:99Z",
+      "min_power": 12,
+      "max_power": 12,
+      "green_power_support": false
+    },{
+      "start_from": "2025-03-23T12:00:00Z",
+      "end_before": "2025-03-23T13:00:00Z",
+      "min_power": 12,
+      "max_power": 12,
+      "green_power_support": false
+    }],
+    "last_updated": "2024-12-05T20:02:13Z"
+  }],
+  "last_updated": "2024-12-05T20:02:13Z"
+}

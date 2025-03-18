@@ -1,0 +1,20 @@
+@startuml
+hide footbox
+participant "eMSP system" as MSP
+participant "CPO system" as CPO
+
+MSP -> CPO : Send Booking request()
+activate MSP
+activate CPO
+CPO -> MSP : status_code = 1000, data: {Booking { status = PENDING }}
+deactivate MSP
+||45||
+'note over CPO: Checking if the booking timeslot is available'
+CPO -> CPO: Checking if the booking timeslot is available, and is available
+
+CPO  ->  MSP:  POST: https://server.com/bookings/booking/ABC123\n     Booking(status = RESERVED, ........)
+activate MSP
+MSP --> CPO:
+deactivate MSP
+deactivate CPO
+@enduml
