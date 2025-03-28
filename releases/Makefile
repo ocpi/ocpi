@@ -1,4 +1,4 @@
-VERSION = 2.3.0-rc3
+VERSION = 2.3.0
 plantuml_tool = java -Xms256m -Xmx512m -jar ../scripts/plantuml.jar -tsvg -nometadata -charset UTF-8
 
 TOOL = asciidoctor-pdf
