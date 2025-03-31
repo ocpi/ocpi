@@ -573,20 +573,20 @@ include::examples/booking_patch_example_evse_uid.json[]
 |id   | <<types.asciidoc#types_cistring_type,CiString>>(36) | 1 | The unique id that identifies the BookingLocation in the CPO platform.
 |location_id |<<types.asciidoc#types_cistring_type,CiString>>(36) | 1 |Location.id of the Location object of this CPO, on which the reservation can be made.
 |evse_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) | * | A list of bookable EVSE.uids of the EVSEs of this Location on which the reservation will be made. Allowed to be set to: #NA when no EVSE yet assigned to the driver. this reference will be provided in the relevant <<mod_bookings_booking_object, Booking>> and/or <<mod_cdrs.asciidoc#mod_cdrs_cdr_object,CDR>>.
-|bookable_parking_options |<<mod_bookings_bookable_parking_option_class, BookableParkingOptions>> | * |List of parking specification that can be booked by drivers that want to charge at this Location
-|booking_required |Bookable | ? | _To be discussed next meeting_
-|tariff_id |<<types.asciidoc#types_cistring_type,CiString>>(36)| * | A list of Tariff id's
+|bookable_parking_options |<<mod_bookings_bookable_parking_option_class, BookableParkingOptions>> | * |List of parking specification that can be booked by drivers that want to charge at this Location.
+|bookablility  |Bookable | ? | The number of charging stations that are bookable at this location and if this is required.
+|tariff_id |<<types.asciidoc#types_cistring_type,CiString>>(36)| * | A list of Tariff id's.
 |booking_terms |<<mod_bookings_booking_terms_class,BookingTerms>> | * | Terms specified for if you book on this location.
-|calendars |<<mod_bookings_calander_class,Calender>> | * |The list of calenders to display the availability on this location
-|last_updated |<<types.asciidoc#types_datetime_type,DateTime>> | 1 |Timestamp for the last BookingLocation change has been made
+|calendars |<<mod_bookings_calander_class,Calender>> | * |The list of calenders to display the availability on this location.
+|last_updated |<<types.asciidoc#types_datetime_type,DateTime>> | 1 |Timestamp for the last BookingLocation change has been made.
 |===
 
 [[mod_bookings_booking_location_example]]
 ===== Example BookingLocation
 
 This is an example of a booking location.
-Can be used by any EV Driver as long as his eMSP has a roaming agreement with the CPO.
-Or the Charge Point has an ad-hoc payment possibility
+Can be used by any EV Driver as long as his eMSP has a roaming agreement with the CPO,
+or the Charge Point has an ad-hoc payment possibility.
 
 [source,json]
 ----
@@ -604,8 +604,8 @@ include::examples/booking_location_example.json[]
 |begin_from | <<types.asciidoc#types_datetime_type,DateTime>> | 1 | Start time of a calendar.
 |end_before | <<types.asciidoc#types_datetime_type,DateTime>> | 1 | End time of a calendar.
 |step_size | int | ? | The minimum allowed booking increment within available timeslot.
-|available_timeslots | <<mod_bookings_timeslot_class, TimeSlot>> | + | List of available timeslots,
-|last_updated | <<types.asciidoc#types_datetime_type,DateTime>> |1 | Timestamp for the last calendar change has been made
+|available_timeslots | <<mod_bookings_timeslot_class, TimeSlot>> | + | List of available timeslots.
+|last_updated | <<types.asciidoc#types_datetime_type,DateTime>> |1 | Timestamp for the last calendar change has been made.
 |===
 
 [[mod_bookings_booking_object]]
@@ -620,18 +620,19 @@ Object used for booking a booking location.
 |country_code | <<types.asciidoc#types_cistring_type,CiString>>(2) |1 |Status of the Token, and whether charging is allowed at the optionally given location.
 |party_id   | <<types.asciidoc#types_cistring_type,CiString>>(3) |1 |The complete Token object for which this authorization was requested.
 |request_id   | <<types.asciidoc#types_cistring_type,CiString>>(36) |1 | Request ID determined by the requesting party. The same request ID SHALL be used for all edits on booking.
-|bookable_parking_option |<<mod_bookings_bookable_parking_option_class, BookableParkingOption>> | ? | Selected parking specification to charge at this Location
+|bookable_parking_option |<<mod_bookings_bookable_parking_option_class, BookableParkingOption>> | ? | Selected parking specification to charge at this Location.
 |parking_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |Reference to the parking id, can be later assigned by the CPO based on the bookable parking option.
 |location_id |<<types.asciidoc#types_cistring_type,CiString>>(36) | 1  | Lcation.id of the Location object of this CPO, on which the reservation can be made.
 |evse_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |? | EVSE.uid of the EVSE of this Location on which the reservation will be made. Allowed to be set to: #NA when no EVSE yet assigned to the driver.
 |booking_tokens |<<mod_bookingss_booking_token_object,BookingToken>> | + | Token(s) that can be used to utilise the booking.
-|tariff_id |<<types.asciidoc#types_cistring_type,CiString>>(36)| + | A list of Tariff id's relevant for this booking
-|period |<<mod_bookings_timeslot_class, Timeslot>> |1 | The timeslot for this booking
-|reservation_status | <<mod_bookings_reservation_status_enum, ReservationStatus>> | 1 | The current state of the reservation
-|canceled | <<mod_bookings_cancellation_class, Cancellation>> | ? | Is the booking canceled, why and by who
+|tariff_id |<<types.asciidoc#types_cistring_type,CiString>>(36)| + | A list of Tariff id's relevant for this booking.
+|period |<<mod_bookings_timeslot_class, Timeslot>> |1 | The timeslot for this booking.
+|reservation_status | <<mod_bookings_reservation_status_enum, ReservationStatus>> | 1 | The current state of the reservation.
+|canceled | <<mod_bookings_cancellation_class, Cancellation>> | ? | Is the booking canceled, why and by who.
 |authorization_reference | <<types.asciidoc#types_cistring_type,CiString>>(36) | 1 | Authorization reference for the relevant Session and CDR.
-|booking_terms | <<mod_bookings_booking_terms_class, BookingTerms>> | 1 | The accepted booking terms
-|last_updated | <<types.asciidoc#types_datetime_type,DateTime>> | 1 | Timestamp for the last booking change has been made
+|booking_terms | <<mod_bookings_booking_terms_class, BookingTerms>> | 1 | The accepted booking terms.
+|booking_requests | <<mod_bookings_request_status_class, BookingRequestStatus>> | + | All the requests made for this booking.
+|last_updated | <<types.asciidoc#types_datetime_type,DateTime>> | 1 | Timestamp for the last booking change has been made.
 |===
 
 [[mod_booings_booking_example]]
@@ -656,14 +657,14 @@ include::examples/booking_example.json[]
 |===
 |Property |Type |Card. |Description
 |request_id   | <<types.asciidoc#types_cistring_type,CiString>>(36) |1 | Request ID determined by the requesting party. The same request ID SHALL be used for all edits on booking.
-|bookable_parking_option |<<mod_bookings_bookable_parking_option_class, BookableParkingOption>> | ? |Selected parking specification to charge at this Location
+|bookable_parking_option |<<mod_bookings_bookable_parking_option_class, BookableParkingOption>> | ? |Selected parking specification to charge at this Location.
 |location_id |<<types.asciidoc#types_cistring_type,CiString>>(36) | 1 |Lcation.id of the Location object of this CPO, on which the reservation can be made.
-|evse_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |? | uid of an bookable EVSE. Only posibble if stated in the Bookable Location
+|evse_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |? | uid of an bookable EVSE. Only posibble if stated in the Bookable Location.
 |tokens |<<mod_bookingss_booking_token_object,BookingTokens>> | + | Token(s) that can be used to utilise the booking.
-|period |<<mod_bookings_timeslot_class, Timeslot>> |1 | The timeslot for this booking
+|period |<<mod_bookings_timeslot_class, Timeslot>> |1 | The timeslot for this booking.
 |authorization_reference | <<types.asciidoc#types_cistring_type,CiString>>(36) | 1 | Authorization reference for the relevant Session and CDR.
 |power_required | int | ? | The power requested for the reservation in kW. If it isn't the maximum the CPO can relocate the extra to another session.
-|canceled | <<mod_bookings_cancellation_class, Cancellation>> | ? | To set when requesting to cancel the booking
+|canceled | <<mod_bookings_cancellation_class, Cancellation>> | ? | To set when requesting to cancel the booking.
 |===
 
 [[mod_bookings_booking_terms_class]]
@@ -676,19 +677,18 @@ include::examples/booking_example.json[]
 |RFID_auth_required   |boolean | ? | Charging for reserved booking requires authentication by RFID card at charger.
 |token_groups_supported       |boolean | ? | If true, any token within the same token group may be used for the booking.
 |remote_auth_supported        |boolean | ? | If true, charging for reserved booking is possible through remote authentication (Start message through Commands endpoint).
-|supported_access_methods | <<mod_bookings_location_access_enum, LocationAccess>> | + | What is needed to access the location
+|supported_access_methods | <<mod_bookings_location_access_enum, LocationAccess>> | + | What is needed to access the location.
 |change_until_minutes | number | 1 | Number of minutes before the booking till which it can be changed.
 |cancel_until_minutes | number | 1 | Number of minutes before the booking till which it can be canceled.
 |change_not_allowed   | boolean | ? | if change is allowed.
 |early_start_allowed  | boolean | ? | If an early start of the session is allowed/possible.
 |early_start_time     | number | ? | Number of minutes early start is allowed/possible.
 |noshow_timeout       | number | ? | The number of minutes after the booking start time that it is considered a no show and booking is released. No timeout if unspecified.
-|noshow_fee           | boolean | ? | If the CPO will charge a no show fee. The amount of the fee can be defined in the booking_terms URL. (__lets dicuss this__)
-|max_power_bookable   | number | ? | Maximum electric power that can be booked at this location, in Watts (W).
-|late_stop_allowed    | boolean | ? | If a user can charge longer than requested in the booking
+|noshow_fee           | boolean | ? | If the CPO will charge a no show fee. The amount of the fee can be defined in the booking_terms URL.
+|late_stop_allowed    | boolean | ? | If a user can charge longer than requested in the booking.
 |late_stop_time       | number | ? | Number of minutes late start is allowed/possible.
-|overlapping_bookings_allowed     |boolean | ? | Is it possible to connect the same  RFID Token to multiple bookings
-|booking_terms        |<<types_url_type, URL>> | ? | The CPO's URL to the booking terms
+|overlapping_bookings_allowed     |boolean | ? | Is it possible to connect the same  RFID Token to multiple bookings.
+|booking_terms        |<<types_url_type, URL>> | ? | The CPO's URL to the booking terms.
 |===
 
 
@@ -720,8 +720,19 @@ include::examples/booking_example.json[]
 |===
 |Property |Type |Card. |Description
 
-|cancellation_reason  | <<mod_bookings_canceled_reason_enum, CanceledReason>> |1 | The reason why the booking is canceled
-|who_canceled         | <<version_information_endpoint_interface_role_enum, Role>> |1 | Who canceled the booking
+|cancellation_reason  | <<mod_bookings_canceled_reason_enum, CanceledReason>> |1 | The reason why the booking is canceled.
+|who_canceled         | <<version_information_endpoint_interface_role_enum, Role>> |1 | Who canceled the booking.
+|===
+
+[[mod_bookings_request_status_class]]
+==== BookingRequestStatus _class_
+
+[cols="4,2,1,9",options="header"]
+|===
+|Property |Type |Card. |Description
+|request_status | <<mod_bookings_request_status_enum, RequestStatus>> | 1 | The current state of the booking request.
+|booking_request |<<mod_bookings_request_class, BookingRequest>> | 1 | The booking request that was received.
+|request_received | <<types.asciidoc#types_datetime_type,DateTime>> | 1 | Timestamp for when the request was received.
 |===
 
 [[mod_bookings_timeslot_class]]
@@ -733,8 +744,8 @@ include::examples/booking_example.json[]
 
 |start_from | <<types.asciidoc#types_datetime_type,DateTime>> |1 | Start time of this timeslot.
 |end_before | <<types.asciidoc#types_datetime_type,DateTime>> |1 | End time of this timeslot.
-|min_power  | number | ? | Power guaranteed/requested during this timeslot.
-|max_power  | number | ? | Maximum power available/requested during this timeslot.
+|min_power  | number | ? | Power guaranteed/requested during this timeslot, in Watts (W).
+|max_power  | number | ? | Maximum power available/requested during this timeslot, in Watts (W).
 |green_energy_support |boolean | ? | Specifies weather green energy is available during this timeslot.
 |===
 
@@ -750,8 +761,19 @@ include::examples/booking_example.json[]
 This is the field used by the CPO's system (RFID reader on the Charge Point) to identify this token. +
 Currently, in most cases: `type=RFID`, this is the RFID hidden ID as read by the RFID reader, but that is not a requirement. +
 If this is a `type=APP_USER` Token, it will be a unique, by the eMSP, generated ID.
-|type |<<mod_tokens.asciidoc#mod_tokens_tokentype_enum,TokenType>> |1 |Type of the token
+|type |<<mod_tokens.asciidoc#mod_tokens_tokentype_enum,TokenType>> |1 |Type of the token.
 |contract_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Uniquely identifies the EV driver contract token within the eMSP's platform (and suboperator platforms). Recommended to follow the specification for eMA ID from "eMI3 standard version V1.0" (https://web.archive.org/web/20230603153631/https://emi3group.com/documents-links/[https://web.archive.org/web/20230603153631/https://emi3group.com/documents-links/]) "Part 2: business objects."
+|===
+
+[[mod_bookingss_boolable_object]]
+==== Bookable _class_
+
+[cols="3,2,1,10",options="header"]
+|===
+|Property |Type |Card. |Description
+|reservation_required |boolean |1 |Is a reservation required
+|ad_hoc | number |? | number of ad_hoc charging options available
+
 |===
 
 [[mod_bookings_location_access_enum]]
@@ -762,12 +784,12 @@ Describes ways to get access to a reserved charger
 [cols="3,10",options="header"]
 |===
 |Value               | Description
-|OPEN                | Open access to the site
-|TOKEN               | Using a token in that was send in the booking
-|LICENSE_PLATE       | The license plate(s) of the vechile that wants to charge
-|ACCESS_CODE         | The access code provided
-|INTERCOM            | Get access to the charging station by ringing the intercom
-|PARKING_TICKET      | Parking ticket required
+|OPEN                | Open access to the site.
+|TOKEN               | Using a token in that was send in the booking.
+|LICENSE_PLATE       | The license plate(s) of the vechile that wants to charge.
+|ACCESS_CODE         | The access code provided.
+|INTERCOM            | Get access to the charging station by ringing the intercom.
+|PARKING_TICKET      | Parking ticket required.
 |===
 
 [[mod_bookings_reservation_status_enum]]
@@ -778,12 +800,24 @@ Describes ways to get access to a reserved charger
 |Value              | Description
 |PENDING            | Booking request pending processing by the CPO.
 |RESERVED           | Booking request accepted by the CPO.
-|CANCELED          | Booking canceled
+|CANCELED           | Booking canceled
 |FAILED             | Request for booking failed (error).
 |NO_SHOW            | Booking was not fulfilled because no one showed up
 |FULFILLED          | The Booking is fulfilled
 |REJECTED           | Booking req is rejected after processing by the CPO (e.g., requested time slot unavailable).
 |UNKNOWN            | Any other status / unknown status.
+|===
+
+[[mod_bookings_request_status_enum]]
+==== ReservationStatus _enum_
+
+[cols="3,10",options="header"]
+|===
+|Value              | Description
+|PENDING            | Booking request pending processing by the CPO.
+|ACCEPTED           | Booking request accepted by the CPO.
+|DECLINED           | Booking request declined by the CPO.
+|FAILED             | Request for booking failed (error).
 |===
 
 [[mod_bookings_canceled_reason_enum]]
@@ -792,12 +826,12 @@ Describes ways to get access to a reserved charger
 [cols="3,10",options="header"]
 |===
 |Value              | Description
-|POWER_OUTAGE       | No power available at the site, set by the CPO
-|BROKEN_CHARGER     | The charger is broken and charging is not possible, set by the CPO
-|FULL               | The chargers are full, because someone isn't leaving, set by the CPO
-|BLOCKED            | The reserved charger isn't physically reachable
-|TRAFFIC            | The vehicle can't come in time because of traffic, set by the MSP
-|BROKEN_VEHICLE     | The vehicle broke down and can't make the reservation, set by the MSP
-|NO_CANCELED        | The driver didn't communicate a reason for canceling, set by rhe MSP
+|POWER_OUTAGE       | No power available at the site, set by the CPO.
+|BROKEN_CHARGER     | The charger is broken and charging is not possible, set by the CPO.
+|FULL               | The chargers are full, because someone isn't leaving, set by the CPO.
+|BLOCKED            | The reserved charger isn't physically reachable.
+|TRAFFIC            | The vehicle can't come in time because of traffic, set by the MSP.
+|BROKEN_VEHICLE     | The vehicle broke down and can't make the reservation, set by the MSP.
+|NO_CANCELED        | The driver didn't communicate a reason for canceling, set by rhe MSP.
 |UNKNOWN            | Any other status / unknown status.
 |===
