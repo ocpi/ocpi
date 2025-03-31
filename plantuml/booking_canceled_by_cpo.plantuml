@@ -5,7 +5,7 @@ participant "CPO system" as CPO
 
 activate CPO
 CPO --> CPO: Problem with Location 1234
-CPO  ->  MSP: PATCH: https://server.com/bookings/ABC123\n     CommandResult(result = CANCELED_RESERVATION)
+CPO  ->  MSP: PATCH: https://server.com/bookings/ABC123\n     BOOKING(status = CANCELED, canceled}}})
 activate MSP
 MSP --> CPO:
 deactivate CPO
