@@ -71,7 +71,7 @@ These two objects should provide the functionality needed to facilitate the book
 |<<mod_bookings_get_booking_locations,GET>> |Fetch a list of Bookings last updated between the `{date_from}` and `{date_to}`(<<transport_and_format.asciidoc#transport_and_format_pagination,paginated>>).
 |<<mod_bookings_cpo_post_booking_method, POST>> | Request a new Booking request for an BookingLocation
 |PUT | n/c
-|<<mod_bookings_cpo_patch_booking_method, PATCH>> | Request a change on existing booking.
+|PATCH | n/c
 |DELETE |n/a
 |===
 
@@ -249,59 +249,6 @@ The response contains the direct response from the Receiver, if however the resp
 |<<mod_bookings_booking_object,Booking>> |1 |Result of the Booking request, by the CPO. So this indicates if the CPO was able to receive the booking request. The Booking goes to `PENDING` but can also go directly to `RESERVED`, `REJECTED`, `FAILED`
 |===
 
-
-[[mod_bookings_cpo_patch_booking_method]]
-===== *PATCH* Method
-
-Request a change on an existing Booking that was already requested at the CPO. You can only make this request if the Booking is `PENDING` or `RESERVED`.
-Same as the POST method, but only the fields/objects that are requested to change are present.
-Other fields/objects that are not specified as part of the request are considered unchanged.
-
-Endpoint structure definition:
-
-`{bookings_endpoint_url}/{booking_id}`
-
-Example:
-
-`+https://www.server.com/ocpi/cpo/2.3/bookings/BO123+`
-
-[[mod_bookings_example_a_token_change]]
-====== Example: change the list of BookingTokens to have access to the booking
-
-This can be updated to send the right BookingToken(s) with the booking. For normal cars this probably won't need to be updated, but with Heavy-duty vehicles you don't always know who will fulfill the reservation
-
-[source,json]
-----
-PATCH To URL: https://www.server.com/ocpi/cpo/2.3/bookings/BO123
-
-include::examples/booking_request_patch_example_tokens.json[]
-----
-
-
-[[mod_bookings_example_change_timeslot]]
-====== Example: change the timeslot of the Booking
-
-In this example the user requests a new timeslot for the reservation.
-
-[source,json]
-----
-PATCH To URL: https://www.server.com/ocpi/cpo/2.3/bookings/BO123
-
-include::examples/booking_request_patch_example_timeslot.json[]
-----
-
-
-[[mod_bookings_cpo_patch_response_data]]
-====== Response Data
-
-[cols="4,1,12",options="header"]
-|===
-|Datatype |Card. |Description
-
-|<<mod_bookings_booking_object,Booking>> |1 |Result of the Booking request, by the CPO. So this indicates if the CPO was able to receive the booking request. The Booking goes to `PENDING` but can also go directly to `RESERVED`, `REJECTED`, `FAILED`
-|===
-
-
 [[mod_bookings_emsp_interface]]
 ==== Receiver Interface
 
@@ -352,9 +299,9 @@ Examples:
 
 |<<mod_locations_get_method_eMSP,GET>> | Retrieves a Booking object as stored in the eMSP system.
 |POST |n/a _(use <<mod_locations_put_method,PUT>>)_
-|<<mod_locations_put_method,PUT>> | Push the updated Booking.
-|<<mod_locations_patch_method,PATCH>> | Push partial update on Booking.
-|DELETE |n/a _(use <<mod_locations_patch_method,PATCH>> to update  `status` to `CANCELED` or `REJECTED` )_
+|<<mod_bookings_booking_location_patch_method,PUT>> | Push the updated Booking.
+|<<mod_bookings_booking_location_patch_method,PATCH>> | Push partial update on Booking.
+|DELETE |n/a _(use <<mod_bookings_booking_location_patch_method,PATCH>> to update  `status` to `CANCELED` or `REJECTED` )_
 |===
 
 [[mod_bookings_msp_booking_location_get_method]]
