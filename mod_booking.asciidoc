@@ -659,11 +659,11 @@ include::examples/booking_example.json[]
 |request_id   | <<types.asciidoc#types_cistring_type,CiString>>(36) |1 | Request ID determined by the requesting party. The same request ID SHALL be used for all edits on booking.
 |bookable_parking_option |<<mod_bookings_bookable_parking_option_class, BookableParkingOption>> | ? |Selected parking specification to charge at this Location.
 |location_id |<<types.asciidoc#types_cistring_type,CiString>>(36) | 1 |Lcation.id of the Location object of this CPO, on which the reservation can be made.
-|evse_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |? | uid of an bookable EVSE. Only posibble if stated in the Bookable Location.
+|evse_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |? | uid of an bookable EVSE. Only possible if stated in the Bookable Location.
 |tokens |<<mod_bookingss_booking_token_object,BookingTokens>> | + | Token(s) that can be used to utilise the booking.
 |period |<<mod_bookings_timeslot_class, Timeslot>> |1 | The timeslot for this booking.
 |authorization_reference | <<types.asciidoc#types_cistring_type,CiString>>(36) | 1 | Authorization reference for the relevant Session and CDR.
-|power_required | int | ? | The power requested for the reservation in kW. If it isn't the maximum the CPO can relocate the extra to another session.
+|power_required | int | ? | The power requested for the reservation in kW. If it isn't the maximum available the CPO can relocate the extra to another session.
 |canceled | <<mod_bookings_cancellation_class, Cancellation>> | ? | To set when requesting to cancel the booking.
 |===
 
@@ -684,7 +684,7 @@ include::examples/booking_example.json[]
 |early_start_allowed  | boolean | ? | If an early start of the session is allowed/possible.
 |early_start_time     | number | ? | Number of minutes early start is allowed/possible.
 |noshow_timeout       | number | ? | The number of minutes after the booking start time that it is considered a no show and booking is released. No timeout if unspecified.
-|noshow_fee           | boolean | ? | If the CPO will charge a no show fee. The amount of the fee can be defined in the booking_terms URL.
+|noshow_fee           | boolean | ? | If the CPO will charge a no show fee. The amount of the fee can be defined in the booking_terms URL. Will also be in the Tariff part of the BookingLocation.
 |late_stop_allowed    | boolean | ? | If a user can charge longer than requested in the booking.
 |late_stop_time       | number | ? | Number of minutes late start is allowed/possible.
 |overlapping_bookings_allowed     |boolean | ? | Is it possible to connect the same  RFID Token to multiple bookings.
@@ -744,8 +744,8 @@ include::examples/booking_example.json[]
 
 |start_from | <<types.asciidoc#types_datetime_type,DateTime>> |1 | Start time of this timeslot.
 |end_before | <<types.asciidoc#types_datetime_type,DateTime>> |1 | End time of this timeslot.
-|min_power  | number | ? | Power guaranteed/requested during this timeslot, in Watts (W).
-|max_power  | number | ? | Maximum power available/requested during this timeslot, in Watts (W).
+|min_power  | number | ? | Minimum Power guaranteed during this timeslot, in Watts (W).
+|max_power  | number | ? | Maximum power available during this timeslot, in Watts (W) / Can be requested lower
 |green_energy_support |boolean | ? | Specifies weather green energy is available during this timeslot.
 |===
 
