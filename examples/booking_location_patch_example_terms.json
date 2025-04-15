@@ -5,7 +5,7 @@
     "remote_auth_supported": true,
     "late_stop_allowed": false,
     "overlapping_bookings_allowed": true,
-    "booking_terms": "/https://infuse-ev.com/booking-a-charger"
+    "booking_terms": "/https://example.com/booking-a-charger"
   },
   "last_updated": "2024-12-05T20:02:13Z"
 }
