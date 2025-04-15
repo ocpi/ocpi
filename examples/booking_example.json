@@ -37,7 +37,7 @@
     "max_power_bookable": 400,
     "late_stop_allowed": false,
     "overlapping_bookings_allowed": true,
-    "booking_terms": "/https://infuse-ev.com/booking-a-charger"
+    "booking_terms": "/https://example.com/booking-a-charger"
   },
   "booking_requests": [
     {
