@@ -14,6 +14,7 @@ Further eMSP's can request these time slots.
 [[mod_bookings_flow_and_lifecycle]]
 === Flow and Lifecycle
 The Bookings module has two main objects and one with a sub object, <<mod_bookings_booking_object>>, and <<mod_bookings_bookinglocation_object>>.
+The BookingLocation also has a submodule <<mod_bookings_calendar_object>> for availability.
 To make a booking first a BookingLocation should be published to an eMSP or be requested from the CPO backoffice.
 
 The CPO communicates an BookingLocation to the eMSP, the BookingLocation covers the information per location,
@@ -105,7 +106,7 @@ Any old information not contained in any of the pages needs to be considered no 
 
 Endpoint structure definition:
 
-`{bookings_endpoint_url}}/booking_locations`
+`{bookings_endpoint_url}/booking_locations`
 
 Examples:
 
@@ -144,12 +145,12 @@ Each object must contain all required fields. Fields that are not specified may 
 |<<mod_bookings_bookinglocation_object,BookingLocations>> |* |List of BookingLocations that match the request parameters.
 |===
 
-[[mod_bookings_get_booking_location_calander]]
+[[mod_bookings_get_booking_location_calendar]]
 ===== GET BookingLocation or Calendar
 
 For retrieving a single BookingLocation or Calendar the endpoint is the following:
 
-`{bookings_endpoint_url}}/booking_locations/{booking_location_id}/{calendar_id}`
+`{bookings_endpoint_url}/booking_locations/{booking_location_id}/{calendar_id}`
 
 Examples:
 
@@ -176,7 +177,7 @@ This will respond with the requested object:
 
 |_Choice: one of three_ | |
 |&gt; <<mod_bookings_bookinglocation_object,BookingLocation>> |1 |If a BookingLocation object was requested: the BookingLocation object.
-|&gt; <<mod_bookings_calander_class,Calendar>> |1 |If a Calendar object was requested: the Calendar object.
+|&gt; <<mod_bookings_calendar_object,Calendar>> |1 |If a Calendar object was requested: the Calendar object.
 |===
 
 [[mod_bookings_get_bookings]]
@@ -280,7 +281,7 @@ Endpoint structure definition:
 
 `{booking_endpoint_url}/{country_code}/{party_id}/booking_locations/{booking_location_id}`
 
-`{booking_endpoint_url}/{country_code}/{party_id}/booking_locations/{booking_location_id}/{callander_id}`
+`{booking_endpoint_url}/{country_code}/{party_id}/booking_locations/{booking_location_id}/{calendar_id}`
 
 
 Examples:
@@ -394,7 +395,7 @@ Therefore, this method is not suitable to remove information shared earlier.
 
 Any request to the PATCH method SHALL contain the `last_updated` field.
 
-When the PATCH is on a <<mod_bookings_calander_class,Calendar>> Object,
+When the PATCH is on a <<mod_bookings_calendar_object,Calendar>> Object,
 the Receiver SHALL also set the new `last_updated` value on the parent <<mod_bookings_bookinglocation_object,BookingLocation>> Objects.
 
 [[mod_bookings_booking_location_example_terms_update]]
@@ -411,7 +412,7 @@ include::examples/booking_location_patch_example_terms.json[]
 ----
 
 
-[[mod_bookings_booking_location_example_calander_update]]
+[[mod_bookings_booking_location_example_calendar_update]]
 ====== Example: timeslot changes
 
 In this example the timeslots and step sizes of the calendar with id `C0123` is being updated.
@@ -420,7 +421,7 @@ In this example the timeslots and step sizes of the calendar with id `C0123` is 
 ----
 PATCH To URL: https://www.server.com/ocpi/emsp/2.3/bookings/bookinglocations/NL/INF/BL0123/C0123
 
-include::examples/booking_location_patch_example_calander.json[]
+include::examples/booking_location_patch_example_calendar.json[]
 ----
 
 [[mod_bookings_msp_booking_get_method]]
@@ -541,10 +542,10 @@ Each bookingLocation should include either the bookable_parking_option or the ev
 |location_id |<<types.asciidoc#types_cistring_type,CiString>>(36) | 1 |Location.id of the Location object of this CPO, on which the reservation can be made.
 |evse_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) | * | A list of bookable EVSE.uids of the EVSEs of this Location on which the reservation will be made. Allowed to be set to: #NA when no EVSE yet assigned to the driver. this reference will be provided in the relevant <<mod_bookings_booking_object, Booking>> and/or <<mod_cdrs.asciidoc#mod_cdrs_cdr_object,CDR>>.
 |bookable_parking_options |<<mod_bookings_bookable_parking_option_class, BookableParkingOptions>> | * |List of parking specification that can be booked by drivers that want to charge at this Location.
-|bookable  |Bookable | ? | The number of charging stations that are bookable at this location and if this is required.
+|bookable  |<<mod_bookings_bookable_object, Bookable>> | ? | The number of charging stations that are bookable at this location and if this is required.
 |tariff_id |<<types.asciidoc#types_cistring_type,CiString>>(36)| * | A list of Tariff id's.
 |booking_terms |<<mod_bookings_booking_terms_class,BookingTerms>> | * | Terms specified for if you book on this location.
-|calendars |<<mod_bookings_calander_class,Calender>> | * |The list of calenders to display the availability on this location.
+|calendars |<<mod_bookings_calendar_object, Calendar>> | * |The list of calendars to display the availability on this location.
 |last_updated |<<types.asciidoc#types_datetime_type,DateTime>> | 1 |Timestamp for the last BookingLocation change has been made.
 |===
 
@@ -560,8 +561,8 @@ or the Charge Point has an ad-hoc payment possibility.
 include::examples/booking_location_example.json[]
 ----
 
-[[mod_bookings_calander_class]]
-==== Calendar _class_
+[[mod_bookings_calendar_object]]
+==== _Calendar_ object
 
 [cols="4,2,1,9",options="header"]
 |===
@@ -596,7 +597,6 @@ Object used for booking a booking location.
 |period |<<mod_bookings_timeslot_class, Timeslot>> |1 | The timeslot for this booking.
 |reservation_status | <<mod_bookings_reservation_status_enum, ReservationStatus>> | 1 | The current state of the reservation.
 |canceled | <<mod_bookings_cancellation_class, Cancellation>> | ? | Is the booking canceled, why and by whom.
-|license_plate | <<types.asciidoc#types_cistring_type,CiString>> | ? | Only possible if it is part as one of the <<mod_bookings_location_access_enum, LocationAccess>> options in the <<mod_bookings_booking_terms_class, BookingTerms>>.
 |access_methods | <<mod_bookings_access_methods_class, AccessMethods>> | * | The required license, plate or access code or nothing if  the location is open.
 |authorization_reference | <<types.asciidoc#types_cistring_type,CiString>>(36) | 1 | Authorization reference for the relevant Session and CDR.
 |booking_terms | <<mod_bookings_booking_terms_class, BookingTerms>> | 1 | The accepted booking terms.
@@ -632,7 +632,6 @@ include::examples/booking_example.json[]
 |location_id |<<types.asciidoc#types_cistring_type,CiString>>(36) | 1 |Lcation.id of the Location object of this CPO, on which the reservation can be made.
 |evse_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |? | uid of a bookable EVSE. Only possible if stated in the Bookable Location.
 |tokens |<<mod_bookings_booking_token_object,BookingTokens>> | + | Token(s) that can be used to utilise the booking.
-|license_plate | <<types.asciidoc#types_cistring_type,CiString>> | ? | Only possible if it is part as one of the <<mod_bookings_location_access_enum, LocationAccess>> options in the <<mod_bookings_booking_terms_class, BookingTerms>>.
 |period |<<mod_bookings_timeslot_class, Timeslot>> |1 | The timeslot for this booking.
 |authorization_reference | <<types.asciidoc#types_cistring_type,CiString>>(36) | 1 | Authorization reference for the relevant Session and CDR.
 |power_required | int | ? | The power requested for the reservation in kW. If it isn't the maximum available the CPO can relocate the extra to another session.
@@ -703,7 +702,7 @@ include::examples/booking_example.json[]
 |===
 |Property |Type |Card. |Description
 
-|location_access  | <<mod_bookings_location_access_enum, LocationAccess>> |1 | The reason why the booking is canceled.
+|location_access  | <<mod_bookings_location_access_enum, LocationAccess>> |1 | If the location is not freely accessible, how is it accessible with the LocationAccess enum.
 |value            | String |? | The value for the location access option, so for the license plate it would be: ABC12D. Or for an access code: 1224
 |===
 
@@ -744,6 +743,7 @@ include::examples/booking_example.json[]
 This is the field used by the CPO's system (RFID reader on the Charge Point) to identify this token. +
 Currently, in most cases: `type=RFID`, this is the RFID hidden ID as read by the RFID reader, but that is not a requirement. +
 If this is a `type=APP_USER` Token, it will be a unique, by the eMSP, generated ID.
+|license_plate | <<types.asciidoc#types_cistring_type,CiString>> | ? | Only possible if it is part as one of the <<mod_bookings_location_access_enum, LocationAccess>> options in the <<mod_bookings_booking_terms_class, BookingTerms>>.
 |type |<<mod_tokens.asciidoc#mod_tokens_tokentype_enum,TokenType>> |1 |Type of the token.
 |contract_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Uniquely identifies the EV driver contract token within the eMSP's platform (and sub-operator platforms). Recommended to follow the specification for eMA ID from "eMI3 standard version V1.0" (https://web.archive.org/web/20230603153631/https://emi3group.com/documents-links/[https://web.archive.org/web/20230603153631/https://emi3group.com/documents-links/]) "Part 2: business objects."
 |===
