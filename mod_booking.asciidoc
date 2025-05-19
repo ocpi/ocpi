@@ -540,7 +540,8 @@ Each bookingLocation should include either the bookable_parking_option or the ev
 |party_id   | <<types.asciidoc#types_cistring_type,CiString>>(3) |1 |ID of the CPO that 'owns' this BookingLocation (following the ISO-15118 standard).
 |id   | <<types.asciidoc#types_cistring_type,CiString>>(36) | 1 | The unique id that identifies the BookingLocation in the CPO platform.
 |location_id |<<types.asciidoc#types_cistring_type,CiString>>(36) | 1 |Location.id of the Location object of this CPO, on which the reservation can be made.
-|evse_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) | * | A list of bookable EVSE.uids of the EVSEs of this Location on which the reservation will be made. Allowed to be set to: #NA when no EVSE yet assigned to the driver. this reference will be provided in the relevant <<mod_bookings_booking_object, Booking>> and/or <<mod_cdrs.asciidoc#mod_cdrs_cdr_object,CDR>>.
+|evse_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) | ? | A list of bookable EVSE.uids of the EVSEs of this Location on which the reservation will be made. Allowed to be set to: #NA when no EVSE yet assigned to the driver. this reference will be provided in the relevant <<mod_bookings_booking_object, Booking>> and/or <<mod_cdrs.asciidoc#mod_cdrs_cdr_object,CDR>>.
+|connector_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |Connector.id of the Connector of this Location where the booking will happen. allowed not to set
 |bookable_parking_options |<<mod_bookings_bookable_parking_option_class, BookableParkingOptions>> | * |List of parking specification that can be booked by drivers that want to charge at this Location.
 |bookable  |<<mod_bookings_bookable_object, Bookable>> | ? | The number of charging stations that are bookable at this location and if this is required.
 |tariff_id |<<types.asciidoc#types_cistring_type,CiString>>(36)| * | A list of Tariff id's.
@@ -591,9 +592,10 @@ Object used for booking a booking location.
 |bookable_parking_option |<<mod_bookings_bookable_parking_option_class, BookableParkingOption>> | ? | Selected parking specification to charge at this Location.
 |parking_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |Reference to the parking id, can be later assigned by the CPO based on the bookable parking option.
 |location_id |<<types.asciidoc#types_cistring_type,CiString>>(36) | 1  | Location.id of the Location object of this CPO, on which the reservation can be made.
-|evse_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |? | EVSE.uid of the EVSE of this Location on which the reservation will be made. Allowed to be set to: #NA when no EVSE yet assigned to the driver.
-|booking_tokens |<<mod_bookings_booking_token_object,BookingToken>> | + | Token(s) that can be used to utilise the booking.
-|tariff_id |<<types.asciidoc#types_cistring_type,CiString>>(36)| + | A list of Tariff id's relevant for this booking.
+|evse_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) | ? | EVSE.uid of the EVSE of this Location on which the reservation will be made. Allowed to be set to: #NA when no EVSE yet assigned to the driver.
+|connector_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |Connector.id of the Connector of this Location where the booking is/was happening. Allowed to be set to: <<transport_and_format.asciidoc#transport_and_format_not_available,`#NA`>> when booked, but no connector yet assigned to the driver.
+|booking_tokens |<<mod_bookings_booking_token_object,BookingToken>> | * | Token(s) that can be used to utilise the booking.
+|tariff_id |<<types.asciidoc#types_cistring_type,CiString>>(36)| * | A list of Tariff id's relevant for this booking.
 |period |<<mod_bookings_timeslot_class, Timeslot>> |1 | The timeslot for this booking.
 |reservation_status | <<mod_bookings_reservation_status_enum, ReservationStatus>> | 1 | The current state of the reservation.
 |canceled | <<mod_bookings_cancellation_class, Cancellation>> | ? | Is the booking canceled, why and by whom.
@@ -631,7 +633,8 @@ include::examples/booking_example.json[]
 |bookable_parking_option |<<mod_bookings_bookable_parking_option_class, BookableParkingOption>> | ? |Selected parking specification to charge at this Location.
 |location_id |<<types.asciidoc#types_cistring_type,CiString>>(36) | 1 |Lcation.id of the Location object of this CPO, on which the reservation can be made.
 |evse_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) |? | uid of a bookable EVSE. Only possible if stated in the Bookable Location.
-|tokens |<<mod_bookings_booking_token_object,BookingTokens>> | + | Token(s) that can be used to utilise the booking.
+|connector_id |<<types.asciidoc#types_cistring_type,CiString>>(36) | ? |Connector.id of the Connector of this Location where the booking will happen. Allowed to be null when booked, but no connector yet assigned to the driver.
+|tokens |<<mod_bookings_booking_token_object,BookingTokens>> | * | Token(s) that can be used to utilise the booking.
 |period |<<mod_bookings_timeslot_class, Timeslot>> |1 | The timeslot for this booking.
 |authorization_reference | <<types.asciidoc#types_cistring_type,CiString>>(36) | 1 | Authorization reference for the relevant Session and CDR.
 |power_required | int | ? | The power requested for the reservation in kW. If it isn't the maximum available the CPO can relocate the extra to another session.

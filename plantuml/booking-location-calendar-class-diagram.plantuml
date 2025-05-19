@@ -1,0 +1,28 @@
+@startuml
+title Option 0 class diagram
+
+Class BookingLocation {
+   String country_code
+   String partId
+   String id
+   String evse_uid
+   Bookable bookable
+   BookableParkingOption bookable_parking_option
+   String[] tariffs
+   String location_id
+   BookingTerms booking_terms
+   DateTime last_updated
+}
+
+Class Calendar {
+   String id
+   DateTime begin_from
+   DateTime end_before
+   int step_size
+   DateTime last_updated
+}
+
+BookingLocation "1" *-- "0.n" Calendar
+Calendar "1" *-- "0.n" TimeSlot
+
+@enduml

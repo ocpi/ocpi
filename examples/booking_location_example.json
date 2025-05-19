@@ -44,7 +44,7 @@
       "start_from": "2025-03-23T00:00:00Z",
       "end_before": "2025-03-23T08:59:99Z",
       "min_power": 12,
-      "max_power": 12,
+      "max_power": 600,
       "green_power_support": false
     },{
       "start_from": "2025-03-23T12:00:00Z",
