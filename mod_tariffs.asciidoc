@@ -1076,6 +1076,8 @@ A breakdown is as follows:
 |Value |Description
 |RESERVATION |Used in Tariff Elements to describe costs for a reservation.
 |RESERVATION_EXPIRES |Used in Tariff Elements to describe costs for a reservation that expires (i.e. driver does not start a charging session before <<mod_commands.asciidoc#mod_commands_reservenow_object,expiry_date>> of the reservation).
+|RESERVATION_CANCELLATION_FEES | Used in Tariff Elements to describe costs for cancelling a reservation.
+|RESERVATION_OVERTIME | Used in Tariff Elements to describe costs for charging after the reservation has been completed.
 |===
 
 NOTE: When a Tariff has both `RESERVATION` and `RESERVATION_EXPIRES` Tariff Elements,
