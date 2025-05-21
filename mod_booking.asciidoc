@@ -46,6 +46,18 @@ image::images/booking_a_booking-location_lyfesycle.svg[Reservation lifecycle of 
 Figure 2 is an example of making a booking on a booking location that is accepted. After a while their needs to be a change on the existing booking.
 The booking change is accepted. Later the booking is fulfilled by a Session that has been started on the charger within the reservation time.
 
+Steps in a booking as described as in <<fig-booking-success>>.
+
+. MSP makes Booking Request at the CPO
+. CPO response with a `PENDING` ReservationStatus & `PENDING` ReservationRequestStatus.
+. CPO Sends after processing the request an `RESERVED` ReservationStatus & `ACCEPTED` ReservationRequestStatus.
+. MSP wants to change the booking and makes a new request.
+. CPO response with a `RESERVED` ReservationStatus & `PENDING` ReservationRequestStatus.
+. CPO updates after processing the request an `RESERVED` ReservationStatus & 2 `ACCEPTED` ReservationRequestStatus, one fore each request.
+. Start transaction is triggered by the charging station. The session starts based on the Booking information.
+. CPO updates the reservation with ReservationStatus `FULLFILLED`
+
+[#fig-booking-success]
 .Successfully book a location and make a change to that booking
 image::images/booking_book_a_booking_location_successfull.svg[Successfull booking of a booking Location]
 
