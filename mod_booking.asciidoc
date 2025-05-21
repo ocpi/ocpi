@@ -129,6 +129,8 @@ This request is <<transport_and_format.asciidoc#transport_and_format_pagination,
 |date_to |<<types.asciidoc#types_datetime_type,DateTime>> |no |Only return BookingLocations that have `last_updated` up to this Date/Time, but not including (exclusive).
 |offset |int |no |The offset of the first object returned. Default is 0.
 |limit |int |no |Maximum number of objects to GET.
+|timeslot_from |<<types.asciidoc#types_datetime_type,DateTime>> |no |Only return BookingLocations that have a `timeslot` after or equal to this Date/Time (inclusive).
+|timeslot_to |<<types.asciidoc#types_datetime_type,DateTime>> |no |Only return BookingLocations that have a `timeslot` up to this Date/Time, but not including (exclusive).
 |===
 
 [[mod_bookings_get_booking_locations_response_data]]
@@ -715,7 +717,7 @@ include::examples/booking_example.json[]
 [cols="4,2,1,9",options="header"]
 |===
 |Property |Type |Card. |Description
-|request_status | <<mod_bookings_request_status_enum, RequestStatus>> | 1 | The current state of the booking request.
+|request_status | <<mod_bookings_request_status_enum, ReservationRequestStatus>> | 1 | The current state of the booking request.
 |booking_request |<<mod_bookings_request_class, BookingRequest>> | 1 | The booking request that was received.
 |request_received | <<types.asciidoc#types_datetime_type,DateTime>> | 1 | Timestamp for when the request was received.
 |===
@@ -795,7 +797,7 @@ Describes ways to get access to a reserved charger
 |===
 
 [[mod_bookings_request_status_enum]]
-==== ReservationStatus _enum_
+==== ReservationRequestStatus _enum_
 
 [cols="3,10",options="header"]
 |===
