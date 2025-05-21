@@ -21,7 +21,7 @@
     "max_power": 12,
     "green_power_support": false
   },
-  "reservation_status": "PENDING",
+  "reservation_status": "RESERVED",
   "authorization_reference": "pp-100100-1948213567",
   "booking_terms": {
     "RFID_auth_required": true,
@@ -41,11 +41,28 @@
   },
   "booking_requests": [
     {
+      "request_status": "ACCEPTED",
+      "booking_request": {
+        "request_id": "RE1222",
+        "location_id": 1234,
+        "evse_uid": 3256,
+        "period": {
+          "start_from": "2025-03-23T12:00:00Z",
+          "end_before": "2025-03-23T13:00:00Z",
+          "min_power": 12,
+          "max_power": 12,
+          "green_power_support": false
+        },
+        "authorization_reference": "pp-100100-1948213567"
+      },
+      "request_received": "2024-12-05T20:02:13Z"
+    },
+    {
       "request_status": "PENDING",
       "booking_request": {
         "request_id": "RE1222",
-        "bookable_parking_option": {},
         "location_id": 1234,
+        "evse_uid": 3256,
         "period": {
           "start_from": "2025-03-23T12:00:00Z",
           "end_before": "2025-03-23T13:00:00Z",
