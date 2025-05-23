@@ -26,6 +26,7 @@ my @ocpi_parts = qw( pdf_layout
                      mod_charging_profiles
                      mod_hub_client_info
                      mod_payments
+                     mod_bookings
                      types
                      changelog );
 
