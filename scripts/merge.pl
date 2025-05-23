@@ -5,7 +5,7 @@ use warnings;
 # merge all files to 1 asciidoc file.
 my $merged_file = 'ocpi_merged.adoc';
 
-open my $out, '>', $merged_file or die "Could not open '$merged_file' for appending\n"; 
+open my $out, '>', $merged_file or die "Could not open '$merged_file' for appending\n";
 
 my @ocpi_parts = qw( pdf_layout
                      copyright
@@ -25,9 +25,10 @@ my @ocpi_parts = qw( pdf_layout
                      mod_commands
                      mod_charging_profiles
                      mod_hub_client_info
+                     mod_bookings
                      types
                      changelog );
-              
+
 foreach my $file (@ocpi_parts) {
     if (open my $in, '<', $file.".asciidoc") {
         while (my $line = <$in>) {
