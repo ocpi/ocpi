@@ -51,6 +51,7 @@ foreach my $file (@ocpi_parts) {
             $line =~ s/mod_charging_profiles.asciidoc#//g;
             $line =~ s/mod_hub_client_info.asciidoc#//g;
             $line =~ s/mod_payments.asciidoc#//g;
+            $line =~ s/mod_bookings.asciidoc#//g;
             $line =~ s/types.asciidoc#//g;
             $line =~ s/changelog.asciidoc#//g;
             print $out $line;
