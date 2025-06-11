@@ -100,7 +100,7 @@ These two objects should provide the functionality needed to facilitate the book
 |===
 |Method |Description
 |<<mod_bookings_get_booking_locations,GET>> |Fetch a list of Bookings last updated between the `{date_from}` and `{date_to}`(<<transport_and_format.asciidoc#transport_and_format_pagination,paginated>>).
-|<<mod_bookings_cpo_post_booking_method, POST>> | Request a new Booking request for an BookingLocation
+|<<mod_bookings_cpo_post_booking_method, POST>> | Request a new Booking request for a BookingLocation
 |PUT | n/c
 |PATCH | n/c
 |DELETE |n/a
@@ -554,8 +554,8 @@ Each bookingLocation should include either the bookable_parking_option or the ev
 |party_id   | <<types.asciidoc#types_cistring_type,CiString>>(3) |1 |ID of the CPO that 'owns' this BookingLocation (following the ISO-15118 standard).
 |id   | <<types.asciidoc#types_cistring_type,CiString>>(36) | 1 | The unique id that identifies the BookingLocation in the CPO platform.
 |location_id |<<types.asciidoc#types_cistring_type,CiString>>(36) | 1 |Location.id of the Location object of this CPO, on which the reservation can be made.
-|evse_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) | ? | A list of bookable EVSE.uids of the EVSEs of this Location on which the reservation will be made. Allowed to be set to: #NA when no EVSE yet assigned to the driver. this reference will be provided in the relevant <<mod_bookings_booking_object, Booking>> and/or <<mod_cdrs.asciidoc#mod_cdrs_cdr_object,CDR>>.
-|connector_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |Connector.id of the Connector of this Location where the booking will happen. allowed not to set
+|evse_uid |<<types.asciidoc#types_cistring_type,CiString>>(36) | ? | A bookable EVSE.uid of the EVSE of this Location on which the reservation will be made. Allowed to be set to: #NA when no EVSE yet assigned to the driver. This reference will be provided in the relevant <<mod_bookings_booking_object, Booking>> and/or <<mod_cdrs.asciidoc#mod_cdrs_cdr_object,CDR>>.
+|connector_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |Connector.id of the Connector of this Location where the booking will happen. Allowed not to set
 |bookable_parking_options |<<mod_bookings_bookable_parking_option_class, BookableParkingOptions>> | * |List of parking specification that can be booked by drivers that want to charge at this Location.
 |bookable  |<<mod_bookings_bookable_object, Bookable>> | ? | The number of charging stations that are bookable at this location and if this is required.
 |tariff_id |<<types.asciidoc#types_cistring_type,CiString>>(36)| * | A list of Tariff id's.
@@ -760,7 +760,6 @@ include::examples/booking_example.json[]
 This is the field used by the CPO's system (RFID reader on the Charge Point) to identify this token. +
 Currently, in most cases: `type=RFID`, this is the RFID hidden ID as read by the RFID reader, but that is not a requirement. +
 If this is a `type=APP_USER` Token, it will be a unique, by the eMSP, generated ID.
-|license_plate | <<types.asciidoc#types_cistring_type,CiString>> | ? | Only possible if it is part as one of the <<mod_bookings_location_access_enum, LocationAccess>> options in the <<mod_bookings_booking_terms_class, BookingTerms>>.
 |type |<<mod_tokens.asciidoc#mod_tokens_tokentype_enum,TokenType>> |1 |Type of the token.
 |contract_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Uniquely identifies the EV driver contract token within the eMSP's platform (and sub-operator platforms). Recommended to follow the specification for eMA ID from "eMI3 standard version V1.0" (https://web.archive.org/web/20230603153631/https://emi3group.com/documents-links/[https://web.archive.org/web/20230603153631/https://emi3group.com/documents-links/]) "Part 2: business objects."
 |===
@@ -832,6 +831,6 @@ Describes ways to get access to a reserved charger
 |BLOCKED            | The reserved charger isn't physically reachable.
 |TRAFFIC            | The vehicle can't come in time because of traffic, set by the MSP.
 |BROKEN_VEHICLE     | The vehicle broke down and can't make the reservation, set by the MSP.
-|NO_CANCELED        | The driver didn't communicate a reason for canceling, set by rhe MSP.
+|NO_CANCELED        | The driver didn't communicate a reason for canceling, set by the MSP.
 |UNKNOWN            | Any other status / unknown status.
 |===
