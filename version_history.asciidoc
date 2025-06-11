@@ -3,7 +3,13 @@
 [cols="4,5,6,16",options="header"]
 |===
 |Version |Date |Author |Description
-|2.3.0-rc2 | 2025-01-16 |
+|2.3.0-m1 | 2025-06-02 |
+Boudewijn Groeneboer +
+_ihomer_ +
+Niclas Rinman  +
+_Volvo_ a|
+* Add Bookings Module
+|2.3.0 | 2025-01-16 |
 Greg Fitzpatrick +
 _ChargeHub_ +
 Petar Jovevski +
@@ -22,6 +28,7 @@ _SWTCH Energy_ a|
  * Support for North American taxes
  * 15118 Plug and Charge compatibility flags on Connectors
  * Make Hub support incremental from regular multi-party Platform support
+ * Add Payments Module
 |2.2.1-d2 | 2023-09-07 |
 
 Jakub Karbownik +

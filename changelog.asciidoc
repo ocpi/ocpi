@@ -2,6 +2,23 @@
 [[changelog_changelog]]
 == Changelog
 
+=== Changes between 2.3.0 and 2.3.0-m1
+
+* Add new Bookings module - added module on top of OCPI
+
+=== Changes between 2.2.1-d2 and 2.3.0
+
+* Make OCPI Extensible: possible to add modules, fields, enum values for certain enums
+* Add a Parking object linked to EVSEs, indicating vehicle type among other properties
+* Add a field to the EVSE object to indicate which eMSPs' contracts are accepted
+* Add a field to the Location object for a support telephone number
+* Information for people with disabilities
+* Support for North American taxes
+* Take straightforward enum values from the OCPI 3.0 draft, including those that signal 15118 compatibility
+* Add new field in Credentials to give hub party ID and make hub clients be reported as normal credentials roles
+* Add new Payments module - added module on top of OCPI
+* Add new Bookings module - added module on top of OCPI
+
 === Changes between 2.2.1-d2 and 2.3.0
 
  * Make OCPI Extensible: possible to add modules, fields, enum values for certain enums
@@ -12,7 +29,8 @@
  * Support for North American taxes
  * Take straightforward enum values from the OCPI 3.0 draft, including those that signal 15118 compatibility
  * Add new field in Credentials to give hub party ID and make hub clients be reported as normal credentials roles
- * Add new Payments module
+ * Add new Payments module - added module on top of OCPI
+ * Add new Bookings module - added module on top of OCPI
 
 === Changes between 2.2.1 and 2.2.1-d2
 
