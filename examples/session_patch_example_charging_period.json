@@ -8,8 +8,11 @@
     }]
   }],
   "total_cost": {
-    "excl_vat": 0.80,
-    "incl_vat": 0.88
+    "before_taxes": 0.80,
+    "taxes": [{
+      "name": "VAT",
+      "amount": 0.08
+    }]
   },
   "last_updated": "2019-06-23T08:16:02Z"
 }

@@ -279,11 +279,11 @@ NOTE: There are no parameters related to price rounding in the Tariff object or 
 |type |<<mod_tariffs_tariff_type,TariffType>> |? | Defines the type of the tariff. This allows for distinction in case of given <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,Charging Preferences>>. When omitted, this tariff is valid for all sessions.
 |tariff_alt_text |<<types.asciidoc#types_displaytext_class,DisplayText>> |* |List of multi-language alternative tariff info texts.
 |tariff_alt_url |<<types.asciidoc#types_url_type,URL>> |? |URL to a web page that contains an explanation of the tariff information in human readable form.
-|min_price |<<types.asciidoc#types_price_class,Price>> |? |When this field is set, a Charging Session with this tariff will at least cost this amount.
-      This is different from a `FLAT` fee (Start Tariff, Transaction Fee), as a `FLAT` fee is a fixed amount that has to be paid for any Charging Session.
-      A minimum price indicates that when the cost of a Charging Session is lower than this amount, the cost of the Session will be equal to this amount. (Also see note below)
-|max_price |<<types.asciidoc#types_price_class,Price>> |? |When this field is set, a Charging Session with this tariff will NOT cost more than this amount. (See note below)
+|min_price |<<mod_tariffs_pricelimit_class,PriceLimit>> |? |When this field is set, a Charging Session with this tariff will at least cost this amount.
+|max_price |<<mod_tariffs_pricelimit_class,PriceLimit>> |? |When this field is set, a Charging Session with this tariff will at most cost this amount.
+|[[mod_tariffs_preauthorize_amount_field]] preauthorize_amount | <<types_number_type,number>> |? |The amount that a Payment Terminal Provider should preauthorize when handling card payment for a Session with this Tariff.
 |elements |<<mod_tariffs_tariffelement_class,TariffElement>> |+ |List of Tariff Elements.
+|tax_included | <<mod_tariffs_taxincluded_enum,TaxIncluded>> |1 |Whether taxes are included in the amounts in this Tariff.
 |start_date_time |<<types.asciidoc#types_datetime_type,DateTime>> |? |The time when this tariff becomes active, in UTC, `time_zone` field of the <<mod_locations.asciidoc#mod_locations_location_object,Location>> can be used to convert to local time.
                                                                      Typically used for a new tariff that is already given with the location, before it becomes active. (See note below)
 |end_date_time |<<types.asciidoc#types_datetime_type,DateTime>> |? |The time after which this tariff is no longer valid, in UTC, `time_zone` field if the <<mod_locations.asciidoc#mod_locations_location_object,Location>> can be used to convert to local time.
@@ -292,15 +292,21 @@ NOTE: There are no parameters related to price rounding in the Tariff object or 
 |last_updated |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Timestamp when this Tariff was last updated (or created).
 |===
 
-NOTE: `min_price`: As the VAT might be built up of different parts, there might be situations where minimum cost including VAT is reached earlier or later than the minimum cost excluding VAT.
-So as a rule, they both apply:
- - The total cost of a Charging Session excluding VAT can never be lower than the `min_price` excluding VAT.
- - The total cost of a Charging Session including VAT can never be lower than the `min_price` including VAT.
+[NOTE]
+====
+`min_price`: As the taxes on a Charging Session might be different for different parts of the Session, there might be situations where the minimum cost after taxes is reached earlier or later than the minimum price before taxes. So as a rule, they both apply:
 
-NOTE: `max_price`: As the VAT might be built up of different parts, there might be situations where maximum cost including VAT is reached earlier or later than the maximum cost excluding VAT.
-So as a rule, they both apply:
- - The total cost of a Charging Session excluding VAT can never be higher than the `max_price` excluding VAT.
- - The total cost of a Charging Session including VAT can never be higher than the `max_price` including VAT.
+ - The total cost of a Charging Session before taxes can never be lower than the value of the min_price's `before_taxes` field.
+ - The total cost of a Charging Session after taxes can never be lower than the value of the min_price's `after_taxes` field.
+====
+
+[NOTE]
+====
+`max_price`: As the taxes on a Charging Session might be different for different parts of the Session, there might be situations where the maximum cost after taxes is reached earlier or later than the maximum price before taxes. So as a rule, they both apply:
+
+ - The total cost of a Charging Session before taxes can never be higher than the value of the max_price's `before_taxes` field.
+ - The total cost of a Charging Session after taxes can never be higher than the value of the max_price's `after_taxes` field.
+====
 
 NOTE: `start_date_time` and `end_date_time`: When the Tariff of a Charge Point (Location) is changed during an ongoing charging session,
 it is common to not switch the Tariff until the ongoing session is finished.
@@ -339,7 +345,6 @@ This tariff will result in costs of € 5.00 (excl. VAT) or € 5.50 (incl. VAT)
 ----
 include::examples/tariff_8_simple_025kwh.json[]
 ----
-
 
 [[mod_tariffs_tariff_example_0_25_euro_per_kwh_start]]
 ====== Tariff example € 0.25 per kWh + start fee
@@ -468,6 +473,43 @@ this tariff will result in costs of € 5.00 (excl. VAT) or € 5.50 (incl. VAT)
 include::examples/tariff_1_simple_2hour.json[]
 ----
 
+[[mod_tariffs_tariff_example_north_america_no_vat_tax_excluded]]
+====== Simple Tariff with North American taxes
+
+This is an example of how to represent Tariffs in Canada or the United States. In these countries, tax rates are not typically known beforehand to the CPO, so the `vat` field in the `PriceComponent` objects is not filled. The top level `tax_included` field in the Tariff object is used to say whether taxes are part of the prices in the Tariff, or if they will be added on top of those prices afterward.
+
+This example Tariff is similar to the previous one in that it charges two currency units per hour of charging, but handles taxes in the North American way.
+
+* Charging Time
+[disc]
+** C$ 2.00 per hour
+** Taxes not included
+** Billed per 1 min (60 seconds)
+
+For a charging session of 2.5 hours, this tariff will result in costs of C$ 5.00, plus taxes according to locally applicable legislation.
+
+[source,json]
+----
+include::examples/tariff_19_simple_north_american_exclusive.json[]
+----
+
+[[mod_tariffs_tariff_example_north_america_no_vat_tax_included]]
+====== Simple Tariff with North American taxes, price inclusive of tax
+
+Sometimes, under North American style tax systems, Parties want to give prices including tax in their Tariffs. This example shows how to accomplish this.
+
+* Charging Time
+[disc]
+** C$ 2.10 per hour
+** Taxes included
+** Billed per 1 min (60 seconds)
+
+For a charging session of 2.5 hours, this tariff will result in costs of C$ 5.25. All taxes that are due are included in that C$5.25 amount.
+
+[source,json]
+----
+include::examples/tariff_20_simple_north_american_inclusive.json[]
+----
 
 [[mod_tariffs_simple_tariff_example_3_euro_per_hour_5_euro_parking]]
 ====== Simple Tariff example € 3 per hour, € 5 per hour parking
@@ -585,8 +627,8 @@ A breakdown for computing the price as the `elements` field of the Tariff says, 
 |===
 | Dimension | Quantity | Price ex VAT | Cost ex VAT | VAT | Cost inc VAT
 | Flat | 1 | 0.50 | 0.50 | 20% | 0.60
-| Energy | 20.45 kWh | 0.25 per kWh | 5.13 | 10% | 5.64
-| Total | | | 5.63 | |6.24
+| Energy | 20.45 kWh | 0.25 per kWh | 5.11 | 10% | 5.62
+| Total | | | 5.61 | |6.22
 |===
 
 
@@ -635,7 +677,7 @@ include::examples/tariff_3_alt_url.json[]
 *** Billed per 5 min (300 seconds)
 
 For a charging session on a Monday morning starting at 09:30 which takes 2:45 hours (165 minutes),
-where the driver uses a maximum of 16A of current and is parking for additional 42 minutes afterwards,
+where the driver uses a maximum of 16A of current and is parking for an additional 42 minutes afterwards,
 this tariff will result in costs of € 9.00 (excl. VAT) or € 10.30 (incl. VAT)
 for a total session time of 165 minutes (charging) + 42 minutes (parking).
 
@@ -655,7 +697,7 @@ The step_size of the last time-based period is 5 so the parking time duration of
 The charging time is not affected by step_size because it is followed by another time-based period.
 
 For a charging session on a Saturday afternoon starting at 13:30 which takes 1:54 hours (114 minutes),
-where the driver uses a minimum of 43A of current (all the time, which is only theoretically possible) and is parking for additional 71 minutes afterwards,
+where the driver uses a minimum of 43A of current (all the time, which is only theoretically possible) and is parking for an additional 71 minutes afterwards,
 this tariff will result in a total cost of € 12.28 (excl. VAT) or € 13.861 (incl. VAT). A breakdown is as follows:
 
 [cols="2,2,2,1,1,1",options="header"]
@@ -918,11 +960,13 @@ A Price Component describes how a certain amount of a certain dimension being co
 |Property |Type |Card. |Description
 
 |type |<<mod_tariffs_tariffdimensiontype_enum,TariffDimensionType>> |1 |The dimension that is being priced
-|price |<<types.asciidoc#types_number_type,number>> |1 |Price per unit (excl. VAT) for this dimension.
-|vat |<<types.asciidoc#types_number_type,number>> |? |Applicable VAT percentage for this tariff dimension. If omitted, no VAT is applicable. Not providing a VAT is different from 0% VAT, which would be a value of 0.0 here.
+|price |<<types.asciidoc#types_number_type,number>> |1 |Price per unit for this dimension. This is including or excluding taxes according to the `tax_included` field of the Tariff that this PriceComponent is contained in.
+|vat |<<types.asciidoc#types_number_type,number>> |? |Applicable VAT percentage for this tariff dimension. If omitted, no VAT is applicable. 
 |step_size |int |1 |Minimum amount to be billed. That is, the dimension will be billed in this `step_size` blocks. Consumed amounts are rounded up to the smallest multiple of `step_size` that is greater than the consumed amount.
 For example: if `type` is `TIME` and `step_size` has a value of `300`, then time will be billed in blocks of 5 minutes. If 6 minutes were consumed, 10 minutes (2 blocks of `step_size`) will be billed.
 |===
+
+NOTE: The `step_size` field is no longer present in OCPI 3.0. In OCPI 3.0, Parties are advised to measure quantities as precise as required by calibration law and use the full precision of such measurements in cost computation. Users of OCPI 2.2.1 looking to be ready for a transition to OCPI 3.0 or to maximize interoperability with OCPI 3.0 are advised to effectively avoid using `step_size` by setting `step_size` to 1 always.
 
 NOTE: `step_size`: depends on the `type` and every `type` (except `FLAT`) defines a `step_size` multiplier, which is the size of every _step_ for that `type` in the given unit. +
  +
@@ -1014,6 +1058,15 @@ A breakdown is as follows:
 | Total | | | 0.80
 |===
 
+[[mod_tariffs_pricelimit_class]]
+==== PriceLimit _class_
+
+[cols="3,2,1,10",options="header"]
+|===
+|Property |Type |Card. |Description
+|before_taxes |<<types_number_type,number>> |1 |Maximum or minimum cost excluding taxes.
+|after_taxes | <<types_number_type,number>> |? |Maximum or minimum cost including taxes.
+|===
 
 [[mod_tariffs_reservation_restriction_type]]
 ==== ReservationRestrictionType _enum_
@@ -1184,4 +1237,17 @@ include::examples/tariffrestriction_example_max_duration.json[]
 |PROFILE_FAST |Used to describe that a Tariff is valid when <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,Charging Preference>>: <<mod_sessions.asciidoc#mod_sessions_profile_type_enum,FAST>> is set for the session.
 |PROFILE_GREEN |Used to describe that a Tariff is valid when <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,Charging Preference>>: <<mod_sessions.asciidoc#mod_sessions_profile_type_enum,GREEN>> is set for the session.
 |REGULAR |Used to describe that a Tariff is valid when using an RFID, without any Charging Preference, or when <<mod_sessions.asciidoc#mod_sessions_set_charging_preferences,Charging Preference>>: <<mod_sessions.asciidoc#mod_sessions_profile_type_enum,REGULAR>> is set for the session.
+|===
+
+[[mod_tariffs_taxincluded_enum]]
+==== TaxIncluded _enum_
+
+Describes if tax may have to be added to the amounts in a Tariff.
+
+[cols="3,10",options="header"]
+|===
+|Value |Description
+|YES   | Taxes are included in the prices in this Tariff.
+|NO    | Taxes are not included, and will be added on top of the prices in this Tariff.
+|N/A   | No taxes are applicable to this Tariff.
 |===

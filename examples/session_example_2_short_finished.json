@@ -44,8 +44,11 @@
     "tariff_id": "12"
   }],
   "total_cost": {
-    "excl_vat": 8.50,
-    "incl_vat": 9.35
+    "before_taxes": 8.50,
+    "taxes": [{
+      "name": "VAT",
+      "amount": 0.85
+    }]
   },
   "status": "COMPLETED",
   "last_updated": "2015-06-29T23:50:17Z"

@@ -1,3 +1,5 @@
+extends: default
+
 #page:
 #  background_image: release_candidate.png
 
@@ -9,7 +11,7 @@ base:
 title_page:
   logo:
     top: 10%
-    image: image:ocpi_logo.png[pdfwidth=40%]
+    image: image:OCPI_logo.png[pdfwidth=40%]
     align: center
   align: center
   title:

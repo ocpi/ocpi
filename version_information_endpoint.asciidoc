@@ -148,7 +148,7 @@ NOTE: for the `credentials` module, the value of the role property is not releva
 
 
 [[version_information_endpoint_moduleid_enum]]
-==== ModuleID _enum_
+==== ModuleID _OpenEnum_
 
 The Module identifiers for each endpoint are described in the beginning of each _Module_ chapter. The following table contains the list of modules in this version of OCPI. Most modules (except <<credentials.asciidoc#credentials_credentials_endpoint,Credentials &amp; Registration>>) are optional, but there might be dependencies between modules.
 If there are dependencies between modules, it will be mentioned in the affected module description.
@@ -170,7 +170,7 @@ If there are dependencies between modules, it will be mentioned in the affected 
 |===
 
 [[version_information_endpoint_versionnumber_enum]]
-==== VersionNumber _enum_
+==== VersionNumber _OpenEnum_
 
 List of known versions.
 
@@ -182,7 +182,8 @@ List of known versions.
 |2.1   |OCPI version 2.1 (DEPRECATED, do not use, use 2.1.1 instead)
 |2.1.1 |OCPI version 2.1.1
 |2.2   |OCPI version 2.2 (DEPRECATED, do not use, use 2.2.1 instead)
-|2.2.1 |OCPI version 2.2.1 (this version)
+|2.2.1 |OCPI version 2.2.1
+|2.3.0 |OCPI version 2.3.0 (this version)
 |===
 
 [[version_information_endpoint_custom_modules]]

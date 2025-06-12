@@ -17,7 +17,7 @@
     "connector_id": "1",
     "currency": "EUR",
     "total_cost": {
-        "excl_vat": 2.5
+        "before_taxes": 2.5
     },
     "status": "PENDING",
     "last_updated": "2020-03-09T10:17:09Z"

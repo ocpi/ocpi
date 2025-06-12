@@ -1,10 +1,10 @@
-VERSION = 2.2.1-d2
+VERSION = 2.3.0
 plantuml_tool = java -Xms256m -Xmx512m -jar ../scripts/plantuml.jar -tsvg -nometadata -charset UTF-8
 
 TOOL = asciidoctor-pdf
 STYLE_DIR = ./style
-THEME = -a pdf-style=theme.yml
-STYLES_DIR = -a pdf-stylesdir=$(STYLE_DIR)
+THEME = -a pdf-theme=ocpi
+STYLES_DIR = -a pdf-themesdir=$(STYLE_DIR)
 STYLING = $(THEME) $(STYLES_DIR)
 
 SOURCE = ocpi_merged

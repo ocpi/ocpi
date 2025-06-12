@@ -1,7 +1,10 @@
 {
   "total_cost": {
-    "excl_vat": 0.60,
-    "incl_vat": 0.66
+    "before_taxes": 0.60,
+    "taxes": [{
+      "name": "VAT",
+      "amount": 0.06
+    }]
   },
   "last_updated": "2019-06-23T08:11:00Z"
 }
