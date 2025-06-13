@@ -3,7 +3,7 @@
 [cols="4,5,6,16",options="header"]
 |===
 |Version |Date |Author |Description
-|2.3.0-m1 | 2025-06-02 |
+|2.3.0-booking-1.0 | 2025-06-13 |
 Boudewijn Groeneboer +
 _ihomer_ +
 Niclas Rinman  +

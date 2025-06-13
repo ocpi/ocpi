@@ -2,7 +2,7 @@
 [[changelog_changelog]]
 == Changelog
 
-=== Changes between 2.3.0 and 2.3.0-m1
+=== Changes between 2.3.0 and 2.3.0-booking-1.0
 
 * Add new Bookings module - added module on top of OCPI
 
