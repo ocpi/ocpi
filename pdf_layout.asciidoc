@@ -6,8 +6,8 @@
 :numbered:
 :version-label: document version
 :year: 2025
-:protocol_version: 2.3.0-m1
-:revdate: {year}-02-21
+:protocol_version: 2.3.0-booking-1.0
+:revdate: {year}-06-13
 :document_header: OCPI {document_version}
 :revnumber: {document_version}
 

@@ -39,7 +39,10 @@
       "tariff_ids": ["13"],
       "last_updated": "2015-03-18T08:12:01Z"
     }],
-    "parking": ["1", "2"],
+    "parking": [
+      {"parking_id": "1", "evse_position": "LEFT"},
+      {"parking_id": "2", "evse_position": "RIGHT"}
+    ],
     "physical_reference": "1",
     "floor_level": "-1",
     "last_updated": "2015-06-28T08:12:01Z"
@@ -60,7 +63,10 @@
       "tariff_ids": ["12"],
       "last_updated": "2015-06-29T20:39:09Z"
     }],
-    "parking": ["2", "3"],
+    "parking": [
+      {"parking_id": "2", "evse_position" :"LEFT"},
+      {"parking_id": "3", "evse_position": "RIGHT"}
+    ],
     "physical_reference": "2",
     "floor_level": "-2",
     "last_updated": "2015-06-29T20:39:09Z"
