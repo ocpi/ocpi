@@ -13,7 +13,7 @@ Further eMSP's can request these time slots.
 
 [[mod_bookings_flow_and_lifecycle]]
 === Flow and Lifecycle
-The Bookings module has two main objects and one with a sub object, <<mod_bookings_booking_object>>, and <<mod_bookings_bookinglocation_object>>.
+The Bookings module has two main objects and one with a sub object, <<mod_bookings_booking_object,Booking>>, and <<mod_bookings_bookinglocation_object,BookingLocation>>.
 The BookingLocation also has a submodule <<mod_bookings_calendar_object>> for availability.
 To make a booking first a BookingLocation should be published to an eMSP or be requested from the CPO backoffice.
 
@@ -57,7 +57,7 @@ Steps in a booking as described as in <<fig-booking-success>>.
 . Start transaction is triggered by the charging station. The session starts based on the Booking information.
 . CPO updates the reservation with ReservationStatus `FULLFILLED`
 
-[#fig-booking-success]
+[[fig-booking-success]]
 .Successfully book a location and make a change to that booking
 image::images/booking_book_a_booking_location_successfull.svg[Successfull booking of a booking Location]
 
@@ -76,7 +76,7 @@ image::images/booking_canceled_by_cpo.svg[Cannceled booking Booking on an existi
 For Booking there is the Receiver and the Sender interface for Bookings. The advised flow is following the push as the main flow of data from the sender to the receiver.
 If parties don't want to share all there booking information during operation. It is also possible to pull data through the sender interfaces.
 
-[[mod_sessions_cpo_interface]]
+[[mod_bookings_cpo_interface]]
 ==== Sender Interface
 
 Typically implemented by market roles like: CPO.
@@ -258,7 +258,7 @@ Example:
 
 `+https://www.server.com/ocpi/cpo/2.3/bookings/+`
 
-[[mod_commands_cpo_post_request_body]]
+[[mod_bookings_cpo_post_request_body]]
 ===== Request Body
 
 The Body of the BookingRequest shall be sent
@@ -269,7 +269,7 @@ The Body of the BookingRequest shall be sent
 |<<mod_bookings_request_class,BookingRequest>> |1 | A booking request for a BookingLocation
 |===
 
-[[mod_commands_response_data]]
+[[mod_bookings_response_data]]
 ====== Response Data
 
 
