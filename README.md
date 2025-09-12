@@ -9,6 +9,8 @@ Cornerstone specific field will be added to this repo reference.
 
 If the field is cst specific, a **[CST]** or **[/CST]** tag will be added to the section for identification.
 
+The cornerstone specific version will end with cst-{number of the publish under same ocpi version]
+
 **[/CST]** 
 
 
