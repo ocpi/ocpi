@@ -51,6 +51,11 @@ Development of the next version of OCPI, new functionality, is done in the  [ocp
 
 ### Current versions
 
+#### Release 2.2.1-cst-1
+
+The iniital verison of adding cornerstone specific specification to the documention.
+
+
 #### Release 2.2.1
 
 Only minor changes, but breaking compatibility with 2.2 in order to support signed data exchange so that parties using OCPI can comply with consumer protection legislation. A more detailed overview is inside [the specification document itself](https://evroaming.org/app/uploads/2021/11/OCPI-2.2.1.pdf).
