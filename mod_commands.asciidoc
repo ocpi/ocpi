@@ -280,7 +280,7 @@ For the eMSP to be able to give a quick as possible response to another system o
 
 |result |<<mod_commands_commandresponsetype_enum,CommandResponseType>> |1 |Response from the CPO on the command request.
 |timeout |int |1 |Timeout for this command in seconds. When the Result is not received within this timeout, the eMSP can assume that the message might never be send.
-|message|<<types.asciidoc#types_displaytext_class,DisplayText>>|*|Human-readable description of the result (if one can be provided), multiple languages can be provided.|
+|message|<<types.asciidoc#types_displaytext_class,DisplayText>>|*|Human-readable description of the result (if one can be provided), multiple languages can be provided.
 |===
 
 
@@ -292,7 +292,7 @@ For the eMSP to be able to give a quick as possible response to another system o
 |Property |Type |Card. |Description
 
 |result |<<mod_commands_commandresulttype_enum,CommandResultType>> |1 |Result of the command request as sent by the Charge Point to the CPO.
-|message|<<types.asciidoc#types_displaytext_class,DisplayText>>|*|Human-readable description of the reason (if one can be provided), multiple languages can be provided.|
+|message|<<types.asciidoc#types_displaytext_class,DisplayText>>|*|Human-readable description of the reason (if one can be provided), multiple languages can be provided.
 |===
 
 
@@ -456,7 +456,7 @@ Result of the command that was sent to the Charge Point.
 
 
 [[mod_commands_commandtype_enum]]
-==== CommandType _enum_
+==== CommandType _OpenEnum_
 
 The command requested.
 [cols="3,10",options="header"]

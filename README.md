@@ -16,6 +16,12 @@ The cornerstone specific version will end with cst-{number of the publish under 
 
 This repository contains the OCPI specification, latest release: [`OCPI 2.2.1`](https://evroaming.org/app/uploads/2021/11/OCPI-2.2.1.pdf)
 
+This repository contains the OCPI specification, developed by the [EV Roaming Foundation](https://evroaming.org/). 
+
+The latest release is [`OCPI 2.3.0`](https://evroaming.org/wp-content/uploads/2025/02/OCPI-2.3.0.pdf).
+
+The branch with the lastest fixes to the 2.3.0 documentation is [`release-2.3.0-bugfixes`](https://github.com/ocpi/ocpi/tree/release-2.3.0-bugfixes)
+
 The branch with the latest fixes to the 2.2.1 documentation is [`release-2.2.1-bugfixes`](https://github.com/ocpi/ocpi/tree/release-2.2.1-bugfixes)
 
 -The branch with the latest fixes to the 2.2 documentation is [`release-2.2-bugfixes`](https://github.com/ocpi/ocpi/tree/release-2.2-bugfixes)
@@ -25,6 +31,7 @@ The branch with the latest fixes to the 2.1.1 documentation is [`release-2.1.1-b
 The `master` branch always contains the latest official release.
 
 Development of the next version of OCPI, new functionality, is done in the  [ocpi-3 repository](https://github.com/ocpi/ocpi-3/), which is only accessible to Contributors of the [EV Roaming Foundation](https://evroaming.org/how-to-join/).
+
 
 ## Contents
 
@@ -103,6 +110,8 @@ Only minor changes, but breaking compatibility with 2.2 in order to support sign
 - Eichrecht support
 - Performance improvements
 
+=======
+More background on OCPI, its development and its contributors can be found on the EV Roaming Foundation website.
 
 ## Building Process
 
@@ -116,7 +125,3 @@ The Plantuml is no longer converted to PNG images, but the SVG, making them much
 In OCPI 2.0 and 2.1.1, the JSON examples contained a lot of mistakes, where outdated compared to the text, or not even valid JSON. 
 To prevent issues with the examples in the specification, the examples are not placed in separate JSON files. 
 At the moment, the JSON files are check if they are valid JSON.
-
-----
-1 Dec 2014 [Draft v4](releases/old/OCPI-Draftv4.pdf) is published
-17 June 2015 [Draft v5] is moved to a new branch that will be used as a reference as the OCPI specifications are being redefined and the specifications are restructured in different files, a file per chapter

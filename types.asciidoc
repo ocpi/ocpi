@@ -2,6 +2,33 @@
 [[types_types]]
 == Types
 
+[[types_class_type]]
+=== class
+
+When a data type is defined as a "class" in the OCPI specification, we mean a type whose possible values are sets of zero or more pairs of a string and another value. The string is known as a "key", "field name", or "property", and the value associated with the key is known as a field value. For each class type, the specification lists which strings are required and allowed to occur as field names in values of that type, and what the types of the field values of these fields should be.
+
+In the serialized JSON form of OCPI messages, class values are serialized as JSON objects.
+
+[[types_enum_type]]
+=== enum
+
+When a data type is defined as an "enum" in the OCPI specification, we mean a type whose possible values are a finite number of strings.
+
+This type is used for class fields where it is clear that there is only a finite set of possible values that is completely known at the time of writing of the specification. An example of a place where this is used is a class field whose possible values are the days of the week.
+
+In the serialized JSON form of OCPI messages, enum values are serialized as JSON strings.
+
+[[types_openenum_type]]
+=== OpenEnum _type_
+
+The OpenEnum type is meant for class fields for which the set of all possible values is not known at the time of writing of the specification, but where there are a finite number of known possible values. In this case we want to specify how OCPI implementers can use the known possible values, but also leave room for them to use other values.
+
+This is used for example for connector types, where all implementers should use the same value to identify a widely used connector type like the Type 2 "Mennekes" plug, but where there should also be room for implementers to name new or custom plug types that were not taken into account by OCPI's authors.
+
+In the serialized JSON form of OCPI messages, OpenEnum values are serialized as JSON strings.
+
+When naming new OpenEnum values, OCPI implementers SHOULD follow the "Recommendations for Creators of New Parameters" found in https://datatracker.ietf.org/doc/html/rfc6648[IETF RFC 6648], and SHOULD consult EV Roaming Foundation's guidance on extending OCPI at https://evroaming.org/extending-ocpi/.
+
 [[types_cistring_type]]
 === CiString _type_
 
@@ -63,8 +90,21 @@ Unless mentioned otherwise, numbers use 4 decimals and a _sufficiently large amo
 |===
 |Property |Type |Card. |Description
 
-|excl_vat |<<types_number_type,number>> |1 |Price/Cost excluding VAT.
-|incl_vat |<<types_number_type,number>> |? |Price/Cost including VAT.
+|before_taxes |<<types_number_type,number>> |1 |Price/Cost excluding taxes.
+|taxes |<<types_tax_amount_class,TaxAmount>> |* |All taxes that are applicable to this price and relevant to the receiver of the Session or CDR.
+|===
+
+
+[[types_tax_amount_class]]
+=== TaxAmount _class_
+
+[cols="3,2,1,10",options="header"]
+|===
+|Property       |Type                         |Card. |Description
+|name           |<<types_string_type,string>> |1     |A description of the tax. In countries where a tax name is required like Canada this can be something like "QST". In countries where this is not required, this can be something more generic like "VAT" or "General Sales Tax".
+|account_number |<<types_string_type,string>> |?     | Tax Account Number of the business entity remitting these taxes. Optional as this is not required in all countries.
+|percentage     |<<types_number_type,number>> |?     | Tax percentage. Optional as this is not required in all countries.
+|amount         |<<types_number_type,number>> |1     | The amount of money of this tax that is due.
 |===
 
 [[types_role_enum]]
@@ -76,7 +116,6 @@ Unless mentioned otherwise, numbers use 4 decimals and a _sufficiently large amo
 
 |CPO |Charge Point Operator Role.
 |EMSP |eMobility Service Provider Role.
-|HUB |Hub role.
 |NAP |National Access Point Role (national Database with all Location information of a country).
 |NSP |Navigation Service Provider Role, role like an eMSP (probably only interested in Location information).
 |OTHER |Other role.

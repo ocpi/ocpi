@@ -4,8 +4,8 @@
   "id": "16",
   "currency": "EUR",
   "max_price": {
-    "excl_vat": 10.00,
-    "incl_vat": 11.00
+    "before_taxes": 10.00,
+    "after_taxes": 11.00
   },
   "elements": [{
     "price_components": [{
@@ -20,6 +20,7 @@
       "step_size": 1
     }]
   }],
+  "tax_included": "NO",
   "end_date_time": "2019-06-30T23:59:59Z",
   "last_updated": "2018-12-17T17:15:01Z"
 }

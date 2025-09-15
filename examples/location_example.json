@@ -12,7 +12,7 @@
     "latitude": "51.047599",
     "longitude": "3.729944"
   },
-  "parking_type": "ON_STREET",
+  "parking_type": "PARKING_GARAGE",
   "evses": [{
     "uid": "3256",
     "evse_id": "BE*BEC*E041503001",
@@ -39,6 +39,7 @@
       "tariff_ids": ["13"],
       "last_updated": "2015-03-18T08:12:01Z"
     }],
+    "parking": ["1", "2"],
     "physical_reference": "1",
     "floor_level": "-1",
     "last_updated": "2015-06-28T08:12:01Z"
@@ -59,10 +60,32 @@
       "tariff_ids": ["12"],
       "last_updated": "2015-06-29T20:39:09Z"
     }],
+    "parking": ["2", "3"],
     "physical_reference": "2",
     "floor_level": "-2",
     "last_updated": "2015-06-29T20:39:09Z"
   }],
+  "parking_places": [{
+      "id": "1",
+      "physical_reference": "B1",
+      "vehicle_types": ["PERSONAL_VEHICLE"],
+      "reservation_required": false,
+      "restricted_to_type": true
+    }, {
+      "id": "2",
+      "physical_reference": "B2",
+      "vehicle_types": ["PERSONAL_VEHICLE"],
+      "reservation_required": false,
+      "restricted_to_type": true
+    },
+    {
+      "id": "3",
+      "physical_reference": "B3",
+      "vehicle_types": ["PERSONAL_VEHICLE"],
+      "reservation_required": false,
+      "restricted_to_type": true
+    }
+  ],
   "operator": {
     "name": "BeCharged"
   },

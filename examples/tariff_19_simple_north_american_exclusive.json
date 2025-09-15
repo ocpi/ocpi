@@ -1,0 +1,15 @@
+{
+  "country_code": "CA",
+  "party_id": "FLO",
+  "id": "12",
+  "currency": "CAD",
+  "elements": [{
+    "price_components": [{
+      "type": "TIME",
+      "price": 2.00,
+      "step_size": 1
+    }]
+  }],
+  "tax_included": "NO",
+  "last_updated": "2024-12-05T18:30:14Z"
+}

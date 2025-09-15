@@ -1,0 +1,681 @@
+:numbered:
+[[mod_payments_payments_module]]
+== _Payments_ module
+
+*Module Identifier: `payments`*
+
+*Data owner: `PTP`*
+
+*Type:* Functional Module
+
+This module should support the Payment Terminal use case for direct payment in the roaming world.
+
+image::images/direct_payment_comparison.png[Direct Payment Comparison]
+This should show the difference between roaming and an integrated charging station
+solution for direct payment support.
+
+The module consists mainly of two objects: Terminal and Financial Advice Confirmation.
+A terminal can handle multiple locations and/or EVSEs. It should be able for a CPO
+to assign them to a terminal object. At the end of a charging session there should be a
+CDR sent. There should be also send a financial-advice-confirmation from the PTP.
+This should contain the actual cost and EFT data. This object is only needed if the
+CPO creates the invoice.
+
+[[mod_payments_usage_flows]]
+=== Usage Flows
+
+[[mod_payments_terminal_assignment_usage_flow]]
+=== Terminal Assignment
+This flow shows the exchange and the assignment of the terminal object.
+This object will be owned and created by the PTP.
+After the object was pushed to/pulled by the CPO
+there will be the possibility to assign specific locations to this terminal.
+This assignment then will be pushed by the CPO to the PTP.
+
+image::images/payment_assign_locations.svg[Terminal Assignment Flow]
+
+[[mod_payments_terminal_activation_usage_flow]]
+=== Terminal Activation
+This flow shows a possible former activation of a payment terminal.
+Usually, this will be needed for payment terminals integrated into a station.
+Here the CPO orders a station from the OEM with an integrated payment terminal.
+The OEM will provide a reference to the CPO which can then be used for the terminal activation at the PTP.
+After the activation, the PTP will create a terminal object on the CPO side.
+This activation is needed as the PTP has to do several configuration steps in beforehand, like
+acquiring a unique ID for the given installation address.
+
+image::images/payment_terminal_activation.svg[Terminal Activation Flow]
+
+[[mod_payments_transaction_flow]]
+=== Transaction
+This flow shows a single transaction in total.
+After choosing a specific connector on the terminal the PTP
+has to pull the current connector information to receive
+the applicable tariff_id.
+With this id the tariff should be pulled so that it can be shown on the terminal.
+Also the tariff is needed to reserve the needed preauth limit (stated in the <<mod_tariffs.asciidoc#mod_tariffs_preauthorize_amount_field,`preauthorize_amount` field of the tariff>>) at the PSP.
+When the user accepts the tariff the PTP will reserve the preauth amount at the PTP and a
+StartSession command will be sent to the CPO. The PTP will pass an authorization_reference
+with this request which will be used as the mapping for the invoice (e.g. as postfix of the invoice URL).
+During the session there will be session updates pushed by the CPO if existing.
+For stopping the session there are 3 ways:
+[start=1]
+. can be stopped by the car or by the station
+. a StopSession can be sent by the PTP when the preauth limit is reached
+. can also be stopped by the CPO backend if the preauth limit is reached
+
+Now the PTP will receive a CDR with an filled invoice_reference_id.
+If this id is set then the invoice was created by the CPO,
+if not then the invoice will be created by the PTP.
+If the CPO creates the invoice, the PTP
+has to push a financial-advice-confirmation object after
+he has done the capture at the PSP.
+When the CPO has received this object the previously created invoice
+has to be enriched with the required EFT data.
+
+image::images/payment_transaction.svg[Payment Transaction Flow]
+
+[[mod_payments_interfaces_and_endpoints]]
+=== Interfaces and Endpoints
+
+[[mod_payments_ptp_interface]]
+==== Sender Interface
+
+Typically implemented by market roles like: PTP.
+
+[[mod_payments_ptp_terminals_interface]]
+===== Terminals Interface
+[cols="2,12",options="header"]
+|===
+|Method |Description
+
+|<<mod_payments_ptp_get_terminals_method,GET>> |Fetch Terminal objects last updated between the `{date_from}` and `{date_to}`(<<transport_and_format.asciidoc#transport_and_format_pagination,paginated>>).
+|<<mod_payments_ptp_get_terminal_method,GET>> |Fetch a Terminal object by its ID.
+|<<mod_payments_ptp_terminal_post_activate_method,POST>> |Activate a Terminal.
+|<<mod_payments_ptp_terminal_post_deactivate_method,POST>> |Deactivate a Terminal.
+|<<mod_payments_ptp_terminal_put_method,PUT>> |Updating a Terminal object.
+|<<mod_payments_ptp_patch_terminal_method,PATCH>> | Updating a Terminal object(Location assignment)
+|===
+
+[[mod_payments_ptp_financial_advice_confirmation_interface]]
+===== Financial Advice Confirmation Interface
+[cols="2,12",options="header"]
+|===
+|Method |Description
+
+|<<mod_payments_ptp_get_financial_advice_confirmations_method,GET>> |Fetch Financial Advice Confirmation objects last updated between the `{date_from}` and `{date_to}`(<<transport_and_format.asciidoc#transport_and_format_pagination,paginated>>).
+|<<mod_payments_ptp_get_financial_advice_confirmation_method,GET>> |Fetch a Financial Advice Confirmation object by its ID.
+|===
+
+[[mod_payments_ptp_get_terminals_method]]
+===== *GET* Terminals Method
+
+Fetch Terminals from a PTP system.
+
+Endpoint structure definition:
+
+`{payments_terminals_endpoint_url}?[date_from={date_from}]&amp;[date_to={date_to}]&amp;[offset={offset}]&amp;[limit={limit}]`
+
+Examples:
+
+`+https://www.server.com/ocpi/ptp/2.2.1/payments/terminals/?date_from=2019-01-28T12:00:00&date_to=2019-01-29T12:00:00+`
+
+`+https://ocpi.server.com/2.2.1/payments/terminals/?offset=50+`
+
+`+https://www.server.com/ocpi/2.2.1/payments/terminals/?date_from=2019-01-29T12:00:00&limit=100+`
+
+`+https://www.server.com/ocpi/ptp/2.2.1/payments/terminals/?offset=50&limit=100+`
+
+
+[[mod_payments_ptp_get_terminals_request_parameters]]
+====== Request Parameters
+
+If the optional parameters date from and/or date to are provided, only Terminals with `last_update` between the given `{date_from}` (including) and `{date_to}` (excluding) will be returned.
+
+This request is <<transport_and_format.asciidoc#transport_and_format_pagination,paginated>>, it supports the <<transport_and_format.asciidoc#transport_and_format_paginated_request,pagination>> related URL parameters.
+
+[cols="3,2,1,10",options="header"]
+|===
+|Parameter |Datatype |Required |Description
+
+|date_from |<<types.asciidoc#types_datetime_type,DateTime>> |no |Only return Sessions that have `last_updated` after or equal to this Date/Time (inclusive).
+|date_to |<<types.asciidoc#types_datetime_type,DateTime>> |no |Only return Sessions that have `last_updated` up to this Date/Time, but not including (exclusive).
+|offset |int |no |The offset of the first object returned. Default is 0.
+|limit |int |no |Maximum number of objects to GET.
+|===
+
+[[mod_payments_ptp_get_terminals_response_data]]
+====== Response Data
+
+The response contains a list of Terminals objects that match the given parameters in the request, the header will contain the <<transport_and_format.asciidoc#transport_and_format_paginated_response,pagination>> related headers.
+
+Any older information that is not specified in the response is considered no longer valid.
+Each object must contain all required fields. Fields that are not specified may be considered as null values.
+
+|===
+|Datatype |Card. |Description
+
+|<<mod_payments_terminal_object,Terminal>> |* |List of Terminal objects that match the request parameters.
+|===
+
+[[mod_payments_ptp_get_terminal_method]]
+===== *GET* Terminal Method
+
+If the CPO wants to check the status of a Terminal object in the PTP system,
+it might GET the object from the PTP system for validation purposes.
+
+[[mod_payments_ptp_terminal_request_parameters]]
+====== Request Parameters
+
+The following parameters can be provided as URL segments.
+
+[cols="3,2,1,10",options="header"]
+|===
+|Parameter |Datatype |Required |Description
+|terminal_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |Terminal.terminal id of the Terminal object to retrieve.
+|===
+
+[[mod_payments_ptp_terminal_response_data]]
+====== Response Data
+
+The response contains the requested object.
+
+[cols="4,1,12",options="header"]
+|===
+|Type |Card. |Description
+
+|&gt; <<mod_payments_terminal_object,Terminal>> |1 |Requested Terminal.
+|===
+
+[[mod_payments_ptp_patch_terminal_method]]
+===== *PATCH* Terminal Method
+This PATCH should be used by the CPO to assign location ids and/or evse_uids to a terminal.
+When sending both location_ids and evse_uids then both have to be considered and the sum of evses will be enabled for this payment terminal.
+[[mod_payments_ptp_terminal_patch_request_parameters]]
+====== Request Parameters
+
+This is an information Push message, the objects pushed will not be owned by the CPO.
+
+[cols="3,2,1,10",options="header"]
+|===
+|Parameter |Datatype |Required |Description
+
+|terminal_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |Terminal.terminal id of the Terminal object to update.
+|===
+
+[[mod_payments_example_assign_location_ids_to_terminal]]
+====== Example: Assign Location IDs to Terminal
+
+This is the expected type of update message. It is used to assign Location ids to a terminal.
+
+[source,json]
+----
+PATCH To URL: https://www.server.com/ocpi/ptp/2.2.1/payments/terminals/55719888-
+ed09-4cca-82cc-803bdb77bf26
+
+include::examples/payment_terminal_location_assignment.json[]
+----
+
+[[mod_payments_ptp_terminal_put_method]]
+===== *PUT* Terminal Method
+
+This PUT should be used by the CPO to update location data of a terminal.
+
+[[mod_payments_ptp_terminal_put_request_parameters]]
+====== Request Parameters
+
+This is an information Push message, the objects pushed will not be owned by the CPO.
+
+[cols="3,2,1,10",options="header"]
+|===
+|Parameter |Datatype |Required |Description
+
+|terminal_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |Terminal.terminal id of the Terminal object to update.
+|===
+
+[[mod_payments_ptp_terminal_put_request_body]]
+====== Request Body
+
+The request body contains the updated object.
+
+[cols="4,1,12",options="header"]
+|===
+|Type |Card. |Description
+
+|&gt; <<mod_payments_terminal_object,Terminal>> |1 |Terminal object to update.
+|===
+
+[[mod_payments_ptp_terminal_put_updating_terminal_data]]
+====== Example: Setting customer_reference and invoice_base_url
+
+[source,json]
+----
+PUT To URL: https://www.server.com/ocpi/ptp/2.2.1/payments/terminals/55719888-
+ed09-4cca-82cc-803bdb77bf26
+
+include::examples/payment_terminal_put_update.json[]
+----
+
+[[mod_payments_ptp_terminal_post_activate_method]]
+===== *POST* Activate Terminal Method
+
+This POST request should be used by the CPO to activate a terminal with needed
+information on the PTP side. Activation of a terminal may be needed for
+payment terminals integrated into a station. Here the CPO has to give the PTP needed information to link the
+payment terminal to the location/evse. This can be done for example via the serial
+number or other mappings sent via the reference. After receiving an activation request the PTP should start the Terminal
+creation process by creating a Terminal object on the CPO side with calling the corresponding POST endpoint.
+
+Endpoint structure definition:
+
+`{payments_terminals_endpoint_url}/activate`
+
+Examples:
+
+`+https://www.server.com/ocpi/ptp/2.2.1/payments/terminals/activate`
+
+[[mod_payments_ptp_terminal_post_activate_request_body]]
+====== Request Body
+
+The request body contains an Terminal to activate.
+
+NOTE: The terminal_id is optional in the activation request as it will be set by the PTP.
+The cardinality for the remaining fields stays the same.
+
+[cols="4,1,12",options="header"]
+|===
+|Type |Card. |Description
+
+|&gt; <<mod_payments_terminal_object,Terminal>> |1 |Terminal object to update.
+|===
+
+[[mod_payments_ptp_terminal_post_activate_terminal_data]]
+====== Example: Activating a Terminal with basic data
+
+[source,json]
+----
+POST To URL: https://www.server.com/ocpi/ptp/2.2.1/payments/terminals/activate
+
+include::examples/payment_terminal_activate.json[]
+----
+
+[[mod_payments_ptp_terminal_post_deactivate_method]]
+===== *POST* Deactivate Terminal Method
+
+This POST request should be used by the CPO to deactivate a given terminal. This
+may be necessary when the terminal is broken or there is an address change for the given
+terminal.
+
+Endpoint structure definition:
+
+`{payments_terminals_endpoint_url}/{terminal_id}/deactivate`
+
+Examples:
+
+`+https://www.server.com/ocpi/ptp/2.2.1/payments/terminals/55719888-
+ed09-4cca-82cc-803bdb77bf26/deactivate`
+
+[[mod_payments_ptp_get_financial_advice_confirmations_method]]
+===== *GET* Financial Advice Confirmations Method
+
+Fetch Financial Advice Confirmations from a PTP system.
+
+Endpoint structure definition:
+
+`{payments_financial_advice_confirmation_endpoint_url}?[date_from={date_from}]&amp;[date_to={date_to}]&amp;[offset={offset}]&amp;[limit={limit}]`
+
+Examples:
+
+`+https://www.server.com/ocpi/ptp/2.2.1/payments/financial-advice-confirmations/?date_from=2019-01-28T12:00:00&date_to=2019-01-29T12:00:00+`
+
+`+https://ocpi.server.com/2.2.1/payments/financial-advice-confirmations/?offset=50+`
+
+`+https://www.server.com/ocpi/2.2.1/payments/financial-advice-confirmations/?date_from=2019-01-29T12:00:00&limit=100+`
+
+`+https://www.server.com/ocpi/ptp/2.2.1/payments/financial-advice-confirmations/?offset=50&limit=100+`
+
+
+[[mod_payments_ptp_get_financial_advice_confirmations_request_parameters]]
+====== Request Parameters
+
+If the optional parameters date from and/or date to are provided, only Financial Advice Confirmations with `last_update` between the given `{date_from}` (including) and `{date_to}` (excluding) will be returned.
+
+This request is <<transport_and_format.asciidoc#transport_and_format_pagination,paginated>>, it supports the <<transport_and_format.asciidoc#transport_and_format_paginated_request,pagination>> related URL parameters.
+
+[cols="3,2,1,10",options="header"]
+|===
+|Parameter |Datatype |Required |Description
+
+|date_from |<<types.asciidoc#types_datetime_type,DateTime>> |no |Only return Sessions that have `last_updated` after or equal to this Date/Time (inclusive).
+|date_to |<<types.asciidoc#types_datetime_type,DateTime>> |no |Only return Sessions that have `last_updated` up to this Date/Time, but not including (exclusive).
+|offset |int |no |The offset of the first object returned. Default is 0.
+|limit |int |no |Maximum number of objects to GET.
+|===
+
+[[mod_payments_ptp_get_financial_advice_confirmations_response_data]]
+====== Response Data
+
+The response contains a list of Financial Advice Confirmation objects that match the given parameters in the request, the header will contain the <<transport_and_format.asciidoc#transport_and_format_paginated_response,pagination>> related headers.
+
+Any older information that is not specified in the response is considered no longer valid.
+Each object must contain all required fields. Fields that are not specified may be considered as null values.
+
+|===
+|Datatype |Card. |Description
+
+|<<mod_payments_financial_advice_confirmation_object,FinancialAdviceConfirmation>> |* |List of Financial Advice Confirmation objects that match the request parameters.
+|===
+
+[[mod_payments_ptp_get_financial_advice_confirmation_method]]
+===== *GET* Financial Advice Confirmation Method
+
+If the CPO wants to check the status of a Financial Advice Confirmations object in the PTP system,
+it might GET the object from the PTP system for validation purposes.
+
+[[mod_payments_ptp_get_financial_advice_confirmation_request_parameters]]
+====== Request Parameters
+
+The following parameters can be provided as URL segments.
+
+[cols="3,2,1,10",options="header"]
+|===
+|Parameter |Datatype |Required |Description
+|financial_advice_confirmation_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |Financial Advice confirmation.id of the financial advice confirmation object to retrieve.
+|===
+
+[[mod_payments_ptp_get_financial_advice_confirmation_response_data]]
+====== Response Data
+
+The response contains the requested object.
+
+[cols="4,1,12",options="header"]
+|===
+|Type |Card. |Description
+
+|&gt; <<mod_payments_financial_advice_confirmation_object,Financial Advice Confirmation>> |1 |Requested Financial Advice Confirmation.
+|===
+
+
+[[mod_payments_cpo_interface]]
+==== Receiver Interface
+
+Typically implemented by market roles like: CPO.
+
+[[mod_payments_cpo_terminals_interface]]
+===== Terminals Interface
+[cols="2,12",options="header"]
+|===
+|Method |Description
+
+|<<mod_payments_cpo_terminal_get_method,GET>> |Retrieve a Terminal object from the CPO's system with Terminal.id equal to `{terminal_id}`.
+|<<mod_payments_cpo_terminal_post_method,POST>> |Creating a Terminal object in the CPO's system.
+|===
+
+[[mod_payments_cpo_financial_advice_confirmations_interface]]
+===== Financial Advice Confirmation Interface
+[cols="2,12",options="header"]
+|===
+|Method |Description
+
+|<<mod_payments_cpo_financial_advice_confirmation_get_method,GET>> |Retrieve a Financial Advice Confirmation object from the CPO's system with FinancialAdviceConfirmation.id equal to `{financial_advice_confirmation_id}`.
+|<<mod_payments_cpo_financial_advice_confirmation_post_method,POST>> |Creating a Financial Advice Confirmation object in the CPO's system.
+|===
+
+[[mod_payments_cpo_terminal_get_method]]
+===== *GET* Terminal Method
+
+The PTP system might request the current version of a Terminal object from the CPO's system to,
+for example, validate the state.
+
+[[mod_payments_cpo_terminal_get_request_parameters]]
+====== Request Parameters
+
+The following parameters shall be provided as URL segments.
+
+[cols="3,2,1,10",options="header"]
+|===
+|Parameter |Datatype |Required |Description
+
+|terminal_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |id of the Terminal object to get from the CPO's system.
+|===
+
+[[mod_payments_cpo_terminal_get_response_data]]
+====== Response Data
+
+The response contains the requested Terminal object.
+
+|===
+|Datatype |Card. |Description
+
+|<<mod_payments_terminal_object,Terminal>> |1 |Requested Terminal object.
+|===
+
+[[mod_payments_cpo_terminal_post_method]]
+===== *POST* Terminal Method
+
+The POST should be used by the PTP to create a newly shipped terminal on the CPO’s
+system. Here, if no activation was sent before no location ids should be included as the assignment will be done by the
+CPO. The object sent here can be just the terminal id or an object with additional
+data if known through the terminal order and/or activation process.
+
+[[mod_payments_cpo_terminal_post_request_body]]
+====== Request Body
+
+The request contains the new Terminal object.
+
+[cols="4,1,12",options="header"]
+|===
+|Type |Card. |Description
+
+|<<mod_payments_terminal_object,Terminal>> |1 |New Terminal object.
+|===
+
+[[mod_payments_cpo_terminal_post_create_minimal_terminal]]
+====== Example: Create a minimal Terminal
+
+[source,json]
+----
+POST To URL: https://www.server.com/ocpi/cpo/2.2.1/payments/terminals/
+
+include::examples/payment_terminal_create_minimal.json[]
+----
+
+[[mod_payments_cpo_terminal_post_create_terminal]]
+====== Example: Create a Terminal
+
+[source,json]
+----
+POST To URL: https://www.server.com/ocpi/cpo/2.2.1/payments/terminals/
+
+include::examples/payment_terminal_create.json[]
+----
+
+[[mod_payments_cpo_financial_advice_confirmation_get_method]]
+===== *GET* Financial Advice Confirmation Method
+
+The PTP system might request the current version of a Financial Advice Confirmation object from the CPO's system to,
+for example, validate the state.
+
+[[mod_payments_cpo_financial_advice_confirmation_get_request_parameters]]
+====== Request Parameters
+
+The following parameters shall be provided as URL segments.
+
+[cols="3,2,1,10",options="header"]
+|===
+|Parameter |Datatype |Required |Description
+
+|financial_advice_confirmation_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |id of the Financial Advice Confirmation object to get from the CPO's system.
+|===
+
+[[mod_payments_cpo_financial_advice_confirmation_get_response_data]]
+====== Response Data
+
+The response contains the requested Financial Advice Confirmation object.
+
+|===
+|Datatype |Card. |Description
+
+|<<mod_payments_financial_advice_confirmation_object,FinancialAdviceConfirmation>> |1 |Requested Financial Advice Confirmation object.
+|===
+
+[[mod_payments_cpo_financial_advice_confirmation_post_method]]
+===== *POST* Financial Advice Confirmation Method
+
+The POST should be used by the PTP to create a Financial Advice confirmation on the
+CPO’s system. This will be used to get the status of the capture and also the required
+eft data to put on the invoice. The PTP has to make sure to use the same authorization reference as provided in the
+Commands.StartSession so that the CPO can properly map the financial advice to the session.
+
+[[mod_payments_cpo_financial_advice_confirmation_post_request_body]]
+====== Request Body
+
+The request contains the new Financial Advice Confirmation object.
+
+[cols="4,1,12",options="header"]
+|===
+|Type |Card. |Description
+
+|<<mod_payments_financial_advice_confirmation_object,FinancialAdviceConfirmation>> |1 |New Financial Advice Confirmation object.
+|===
+
+[[mod_payments_cpo_financial_advice_confirmation_post_create_financial_advice_confirmation]]
+====== Example: Create a Financial Advice Confirmation
+
+[source,json]
+----
+POST To URL: https://www.server.com/ocpi/cpo/2.2.1/payments/financial-advice-confirmations/
+
+include::examples/payment_financial_advice_confirmation_create.json[]
+----
+
+[[mod_payments_object_description]]
+=== Object description
+
+[[mod_payments_terminal_object]]
+==== _Terminal_ Object
+
+The Terminal object describes one physical payment terminal.
+It is designed primarily to establish a mapping between charge points (locations and/or EVSEs) and payment terminals.
+The object facilitates the configuration of necessary payment-related data, such as customer reference identifiers and invoice URLs
+
+[cols="4,3,1,9",options="header"]
+|===
+|Property |Type |Card. |Description
+
+|terminal_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Unique ID that identifies a terminal.
+|customer_reference |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |This reference will be used to link the terminal to a CSMS. The reference
+might also be provided via the order process.
+|party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |? |This is an alternative to the customer reference which can be used.
+|country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |? |This is an alternative to the customer reference which can be used.
+|address |<<types.asciidoc#types_cistring_type,CiString>>(45) |? |Street/block name and house number if available.
+|city |<<types.asciidoc#types_cistring_type,CiString>>(45) |? |City or town.
+|postal_code |<<types.asciidoc#types_cistring_type,CiString>>(10) |? |Postal code of the terminal, may only
+be omitted when the terminal has no postal code.
+|state |<<types.asciidoc#types_cistring_type,CiString>>(20) |? |State or province of the location, only to be used when relevant.
+|country |<<types.asciidoc#types_cistring_type,CiString>>(3) |? |ISO 3166-1 alpha-3 code for the country of this location.
+|coordinates |<<mod_locations_geolocation_class,GeoLocation>> |? |Coordinates of the terminal.
+|invoice_base_url |<<types_url_type,URL>> |? |BaseURL to the downloadable invoice
+|invoice_creator |<<mod_payments_invoice_creator_enum,InvoiceCreator>> |? |Describes which party creates the invoice for the eDriver.
+|reference |<<types.asciidoc#types_cistring_type,CiString>>(36) |? |Mapping value as issued by the PTP(e.g serial number).
+|location_ids |<<types.asciidoc#types_cistring_type,CiString>>(36) |* |List of all locations assigned to that terminal.
+|evse_uids |<<types.asciidoc#types_cistring_type,CiString>>(36) |* |List of all EVSEs assigned to that terminal.
+|last_updated |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Timestamp when this Terminal was last updated (or created).
+|===
+
+[[mod_terminal_examples]]
+===== Examples
+
+[[mod_terminal_simple_terminal_newly_created]]
+====== Simple Terminal example which is newly created
+
+[source,json]
+----
+include::examples/payment_terminal_example_newly_created.json[]
+----
+
+[[mod_terminal_simple_terminal_assigned_locations]]
+====== Terminal example with assigned locations
+
+[source,json]
+----
+include::examples/payment_terminal_example_assigned_locations.json[]
+----
+
+[[mod_terminal_simple_terminal_assigned_locations_and_evses]]
+====== Terminal example with assigned locations and EVSEs
+
+[source,json]
+----
+include::examples/payment_terminal_example_assigned_locations_assigned_evses.json[]
+----
+
+[[mod_payments_financial_advice_confirmation_object]]
+==== _Financial Advice Confirmation_ Object
+
+The Financial Advice Confirmation object is utilized to encapsulate the financial details of transactions processed at payment terminals.
+It correlates payment transactions with charging sessions by using the authorization_reference obtained
+from the Commands.StartSession, Session, and CDR. This reference ensures that each financial transaction
+can be accurately mapped to its corresponding charging session.
+Additionally, the object includes eft_data (Electronic Funds Transfer data),
+which are mandatory for inclusion on invoices to meet legal and regulatory requirements.
+
+
+[cols="4,3,1,9",options="header"]
+|===
+|Property |Type |Card. |Description
+
+|id |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Unique ID that identifies a financial advice confirmation.
+|authorization_reference |<<types.asciidoc#types_cistring_type,CiString>>(36) |1 |Reference to the authorization given by the PTP in the Commands.StartSession.
+|total_costs |<<types.asciidoc#types_price_class,Price>> |1 |Real amount that was captured at the PSP. This is a consumer price with VAT.
+|currency |<<types.asciidoc#types_cistring_type,CiString>>(3) |1 |ISO-4217 code of the currency of this tariff.
+|eft_data |<<types.asciidoc#types_cistring_type,CiString>>[1..255] |+ |Invoice relevant data from the direct payment.
+|capture_status_code |<<mod_payments_capture_status_code_enum,CaptureStatusCode>> |1 |Code that identifies the financial advice status.
+|capture_status_message |<<types.asciidoc#types_cistring_type,CiString>>[1..255] |? |Message about any error at the financial advice.
+|last_updated |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Timestamp when this financial advice confirmation was last updated (or created).
+|===
+
+[[mod_financial_advice_confirmation_examples]]
+===== Examples
+
+[[mod_financial_advice_confirmation_successful_capture]]
+====== Example of a successful capture at the PSP
+
+[source,json]
+----
+include::examples/payment_financial_advice_confirmation_example_success.json[]
+----
+
+[[mod_financial_advice_confirmation_unsuccessful_capture]]
+====== Example of an unsuccessful capture at the PSP
+
+[source,json]
+----
+include::examples/payment_financial_advice_confirmation_example_failure.json[]
+----
+
+[[mod_payments_data_types]]
+=== Data types
+
+[[mod_payments_invoice_creator_enum]]
+==== InvoiceCreator _enum_
+[cols="5,8",options="header"]
+|===
+|Value |Description
+
+|CPO | The CPO issues the invoice and provides it via the invoice_base_url + authorization_reference.
+|PTP | The PTP issues the invoice and directly shows/provides it the eDriver via the payment terminal.
+|===
+
+[[mod_payments_capture_status_code_enum]]
+==== CaptureStatusCode _enum_
+This enumeration describes the status of the payment capture process following a transaction at an EV charging station. It helps determine the outcome of the transaction and facilitates accurate financial reporting and customer billing.
+
+[cols="5,8",options="header"]
+|===
+|Value |Description
+
+|SUCCESS | Indicates that the payment capture was completed successfully without any issues. Funds were secured and will be settled according to the payment processor's timeline. This status confirms that all checks (e.g., fraud, card validation) passed and the transaction was approved..
+|PARTIAL_SUCCESS | Used when only part of the transaction amount was approved or when certain conditions of the payment were altered during processing. This might occur in scenarios where the available balance was insufficient for the full requested amount, or specific transaction limits were enforced by the card issuer.
+|FAILED | Indicates that the payment capture attempt was unsuccessful. This failure can be due to various reasons such as insufficient funds, card expiration, network issues, or refusal by the card issuer.
+|===
