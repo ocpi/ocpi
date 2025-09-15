@@ -2,6 +2,13 @@
 [[changelog_changelog]]
 == Changelog
 
+=== Cornerstone changes
+
+* Added custom_data field to CDR object
+* Added CustomDataType and CustomDataFormat enums
+* Added CornerstoneData class
+* Added CustomDataType and CustomDataFormat enums
+
 === Changes between 2.2.1 and 2.2.1-d2
 
  * Removed note that advised against sharing Locations on which home charging reimbursement happens
