@@ -356,6 +356,7 @@ If a driver charges 21 minutes, and keeps his EV connected while it is full for 
 |credit |boolean |? |When set to `true`, this is a Credit CDR, and the field `credit_reference_id` needs to be set as well.
 |credit_reference_id |<<types.asciidoc#types_cistring_type,CiString>>(39) |? |Is required to be set for a Credit CDR. This SHALL contain the `id` of the CDR for which this is a Credit CDR.
 |home_charging_compensation |boolean |? |When set to `true`, this CDR is for a charging session using the home charger of the EV Driver for which the energy cost needs to be financial compensated to the EV Driver.
+|custom_data |<<mod_cdrs_cst_custom_data_class,CustomData>> |* |Custom data provided by Cornerstone.
 |last_updated |<<types.asciidoc#types_datetime_type,DateTime>> |1 |Timestamp when this CDR was last updated (or created).
 |===
 
@@ -379,6 +380,13 @@ Then, and only then, the CPO could send a CDR where the `start_date_time` and/or
 [source,json]
 ----
 include::examples/cdr_example.json[]
+----
+
+[[mod_cdrs_example_of_a_cdr_with_custom_data]]
+===== Example of a CDR with custom data
+[source,json]
+----
+include::examples/cdr_example_with_custom_data.json[]
 ----
 
 
@@ -554,4 +562,49 @@ By decoding the data, the receiver can check if the content has not been altered
                                                                        Others might be added later.
 |plain_data  |<<types.asciidoc#types_string_type,string>>(512) |1 |The un-encoded string of data. The format of the content depends on the EncodingMethod field.
 |signed_data |<<types.asciidoc#types_string_type,string>>(5000) |1 |Blob of signed data, base64 encoded. The format of the content depends on the EncodingMethod field.
+|===
+
+
+
+
+[[mod_cdrs_cst_data_class]]
+==== CornerstoneData _class_
+
+This class contains all the information of the data provided by Cornerstone.
+
+[cols="4,2,1,9",options="header"]
+|===
+|Property |Type |Card. |Description
+
+|data_type | <<mod_cdrs.asciidoc#mod_cdrs_cst_custom_data_type_enum,CustomeDataType>>(36)  |1 | Type of the data
+|data_format | <<types.asciidoc#types_cistring_type,string>>(512) |? | Format of the data field
+|data | <<types.asciidoc#types_cistring_type,string>>(512) |? | Data Object
+|===
+
+NOTE: This data is only available when the CDR is created by Cornerstone.
+
+
+[[mod_cdrs_cst_custom_data_type_enum]]
+==== CustomDataType _enum_
+
+This enumeration contains allowed values for CustomDataType, which are used to define the type of the data provided by Cornerstone.
+
+[cols="3,10",options="header"]
+|===
+|Value |Description
+|CDRReceipt | Receipt of the CDR
+|Other | Other type of data
+|===
+
+[[mod_cdrs_cst_custom_data_format_enum]]
+==== CustomDataType _enum_
+
+This enumeration contains allowed values for CustomDataFormat, which are used to define the format of the data from "data" field provided by Cornerstone.
+
+[cols="3,10",options="header"]
+|===
+|Value |Description
+|JSON | Data is presented in encoded JSON format
+|PlainText | Data is presented in plain text format
+|URL | Data is presented as a URL
 |===
