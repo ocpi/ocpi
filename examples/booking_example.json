@@ -1,57 +1,58 @@
 {
   "id": "12345",
   "country_code": "NL",
-  "party_id": "INF",
+  "party_id": "INF12",
   "request_id": "RE1222",
-  "bookable_parking_option": {},
-  "parking_id": 22314,
-  "location_id": 1234,
-  "evse_uid": 3256,
-  "booking_token": [{
+  "location_id": "1234",
+  "booking_option": {
+    "parking_id": "22314",
+    "evse_uid": "3256"
+  },
+  "booking_tokens": [{
     "country_code": "NL",
-    "party_id": "INF",
+    "party_id": "INFOO",
     "uid": "assaD12w3d",
     "type": "RFID",
     "contract_id": "CO124"
   }],
   "period": {
-    "start_from": "2025-03-23T12:00:00Z",
-    "end_before": "2025-03-23T13:00:00Z",
+    "start_date_time": "2025-03-23T12:00:00Z",
+    "end_date_time": "2025-03-23T13:00:00Z",
     "min_power": 12,
     "max_power": 12,
-    "green_power_support": false
+    "green_energy_support": false
   },
   "reservation_status": "RESERVED",
   "authorization_reference": "pp-100100-1948213567",
   "booking_terms": {
-    "RFID_auth_required": true,
+    "rfid_auth_required": true,
     "token_groups_supported": false,
     "remote_auth_supported": true,
-    "supported_access_methods": ["", ""],
+    "supported_access_methods": ["LICENSE_PLATE", "ACCESS_CODE"],
     "change_until_minutes": 200,
     "cancel_until_minutes": 600,
     "change_not_allowed": false,
     "early_start_allowed": true,
     "early_start_time": 20,
     "noshow_timeout": 25,
-    "max_power_bookable": 400,
     "late_stop_allowed": false,
     "overlapping_bookings_allowed": true,
-    "booking_terms": "/https://example.com/booking-a-charger"
+    "booking_terms": "https://example.com/booking-a-charger"
   },
   "booking_requests": [
     {
       "request_status": "ACCEPTED",
       "booking_request": {
+        "country_code": "NL",
+        "party_id": "INF12",
         "request_id": "RE1222",
-        "location_id": 1234,
-        "evse_uid": 3256,
+        "location_id": "1234",
+        "booking_option": {
+          "evse_uid": "3256"
+        },
         "period": {
-          "start_from": "2025-03-23T12:00:00Z",
-          "end_before": "2025-03-23T13:00:00Z",
-          "min_power": 12,
-          "max_power": 12,
-          "green_power_support": false
+          "start_date_time": "2025-03-23T12:00:00Z",
+          "end_date_time": "2025-03-23T13:00:00Z"
         },
         "authorization_reference": "pp-100100-1948213567"
       },
@@ -60,15 +61,16 @@
     {
       "request_status": "PENDING",
       "booking_request": {
+        "country_code": "NL",
+        "party_id": "INF12",
         "request_id": "RE1222",
-        "location_id": 1234,
-        "evse_uid": 3256,
+        "location_id": "1234",
+        "booking_option": {
+          "evse_uid": "3256"
+        },
         "period": {
-          "start_from": "2025-03-23T12:00:00Z",
-          "end_before": "2025-03-23T13:00:00Z",
-          "min_power": 12,
-          "max_power": 12,
-          "green_power_support": false
+          "start_date_time": "2025-03-23T12:00:00Z",
+          "end_date_time": "2025-03-23T13:00:00Z"
         },
         "authorization_reference": "pp-100100-1948213567"
       },
