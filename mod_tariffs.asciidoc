@@ -1076,13 +1076,23 @@ A breakdown is as follows:
 |Value |Description
 |RESERVATION |Used in Tariff Elements to describe costs for a reservation.
 |RESERVATION_EXPIRES |Used in Tariff Elements to describe costs for a reservation that expires (i.e. driver does not start a charging session before <<mod_commands.asciidoc#mod_commands_reservenow_object,expiry_date>> of the reservation).
-|RESERVATION_CANCELLATION_FEES | Used in Tariff Elements to describe costs for cancelling a reservation.
-|RESERVATION_OVERTIME | Used in Tariff Elements to describe costs for charging after the reservation has been completed.
 |===
 
 NOTE: When a Tariff has both `RESERVATION` and `RESERVATION_EXPIRES` Tariff Elements,
 where both Tariff Elements have a <<mod_tariffs_tariffdimensiontype_enum,TIME>> Price Component,
 then the time based cost of an expired reservation will be calculated based on the `RESERVATION_EXPIRES` Tariff Element.
+
+[[mod_tariffs_booking_restriction_type]]
+==== BookingRestrictionType _enum_
+
+[cols="3,10",options="header"]
+|===
+|Value |Description
+|BOOKING |Used in Tariff Elements to describe costs for a booking.
+|BOOKING_EXPIRES |Used in Tariff Elements to describe costs for a booking that does not start in the specified booking period.
+|BOOKING_CANCELLATION_FEES | Used in Tariff Elements to describe costs for cancelling a booking.
+|BOOKING_OVERTIME | Used in Tariff Elements to describe costs for charging after the booking has been completed.
+|===
 
 [[mod_tariffs_tariffelement_class]]
 ==== TariffElement _class_
@@ -1177,6 +1187,8 @@ When more than one restriction is set, they are to be treated as a logical AND. 
 |reservation |<<mod_tariffs_reservation_restriction_type,ReservationRestrictionType>> |? |When this field is present, the TariffElement describes reservation costs.
 A reservation starts when the reservation is made, and ends when the driver starts charging on the reserved EVSE/Location, or when the reservation expires.
 A reservation can only have: <<mod_tariffs_tariffdimensiontype_enum,FLAT>> and <<mod_tariffs_tariffdimensiontype_enum,TIME>> TariffDimensions, where `TIME` is for the duration of the reservation.
+|booking |<<mod_tariffs_booking_restriction_type,BookingRestrictionType>> |? |When this field is present, the TariffElement describes booking costs.
+A booking can only have: <<mod_tariffs_tariffdimensiontype_enum,FLAT>> and <<mod_tariffs_tariffdimensiontype_enum,TIME>> TariffDimensions.
 |===
 
 
