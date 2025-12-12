@@ -3,7 +3,7 @@
   "party_id": "IHO",
   "id": "12345",
   "location_id": "L0C1",
-  "booking_options": {
+  "booking_option": {
     "evse_uid": "6583",
     "evse_position": "LEFT",
     "vehicle_types": [

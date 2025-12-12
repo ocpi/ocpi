@@ -1,14 +1,9 @@
 *Version History*
 
+OCPI
 [cols="4,5,6,16",options="header"]
 |===
 |Version |Date |Author |Description
-|2.3.0-booking-1.0 | 2025-06-13 |
-Boudewijn Groeneboer +
-_ihomer_ +
-Niclas Rinman  +
-_Volvo_ a|
-* Add Bookings Module
 |2.3.0 | 2025-01-16 |
 Greg Fitzpatrick +
 _ChargeHub_ +
@@ -96,6 +91,27 @@ _ihomer_ |Added support for Roaming Hubs +
 |0.3 |2014-05-06 | Olger Warnier +
                 _The New Motion_  |First draft of OCPI. (Also known as Draft v3)
 |===
+
+Bookings Module
+
+[cols="4,5,6,16",options="header"]
+|===
+|Version |Date |Author |Description
+|1.1 | 2025-12-12 a|
+* Ben van Gameren _ihomer_
+* Reinier Lamers _SWTCH Energy_
+a|
+* Removed `LICENSE_PLATE` value from <<mod_tokens_tokentype_enum, TokenType>>
+* Multiple schema renames and type changes, see <<changelog.asciidoc#changelog_changelog,changelog>>
+* Updated examples and documentation
+|1.0 | 2025-06-13 a|
+- Boudewijn Groeneboer
+_ihomer_
+- Niclas Rinman
+_Volvo_ a|
+* Add Bookings Module
+|===
+
 
 *Document revisions*
 There can be multiple documentation revisions of the same version of the OCPI protocol.

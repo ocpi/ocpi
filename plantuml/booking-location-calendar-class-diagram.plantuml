@@ -6,8 +6,8 @@ Class BookingLocation {
    String partId
    String id
    String evse_uid
-   Bookable bookable
-   BookableParkingOption bookable_parking_option
+   Policy policy
+   BookingOption booking_option
    String[] tariffs
    String location_id
    BookingTerms booking_terms

@@ -1,8 +1,8 @@
 {
   "timeslot_increment": 1,
   "available_timeslots": [{
-    "start_from": "2025-03-23T00:00:00Z",
-    "end_before": "2025-03-23T08:59:99Z",
+    "start_date_time ": "2025-03-23T00:00:00Z",
+    "end_date_time ": "2025-03-23T08:59:99Z",
     "min_power": 12,
     "max_power": 12,
     "green_energy_support": false
