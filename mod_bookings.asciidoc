@@ -687,6 +687,7 @@ Describes ways to get access to a reserved charger
 |request_id   | <<types.asciidoc#types_cistring_type,CiString>>(36) |1 | Request ID determined by the requesting party. The same request ID SHALL be used for all edits on booking.
 |booking_option |<<mod_bookings_booking_option_class, BookingOption>> | ? |Selected specification to charge at this Location.
 |location_id |<<types.asciidoc#types_cistring_type,CiString>>(36) | 1 |Location.id of the Location object of this CPO, on which the reservation can be made.
+|booking_location_id | <<types.asciidoc#types_cistring_type,CiString>>(36) | 1 | The unique id that identifies the BookingLocation in the CPO platform.
 |tokens |<<mod_bookings_booking_token_object,BookingTokens>> | * | Token(s) that can be used to utilise the booking.
 |access_information | <<mod_bookings_access_information_class,AccessInformation>> | * | Information needed to access the location.
 |period |<<mod_bookings_period_class, Period>> |1 | The period for this booking.

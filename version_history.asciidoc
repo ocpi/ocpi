@@ -1,6 +1,9 @@
-*Version History*
+[discrete]
+== Version History
 
-OCPI
+[discrete]
+=== OCPI
+
 [cols="4,5,6,16",options="header"]
 |===
 |Version |Date |Author |Description
@@ -15,15 +18,15 @@ Philipp Fischbacher +
 _ChargePoint_ +
 Reinier Lamers +
 _SWTCH Energy_ a|
- * Make OCPI extensible
- * Add vehicle types to EVSE
- * Add list of accepted eMSPs to EVSE
- * Add a Parking object linked to EVSE
- * Information for people with disabilities
- * Support for North American taxes
- * 15118 Plug and Charge compatibility flags on Connectors
- * Make Hub support incremental from regular multi-party Platform support
- * Add Payments Module
+* Make OCPI extensible
+* Add vehicle types to EVSE
+* Add list of accepted eMSPs to EVSE
+* Add a Parking object linked to EVSE
+* Information for people with disabilities
+* Support for North American taxes
+* 15118 Plug and Charge compatibility flags on Connectors
+* Make Hub support incremental from regular multi-party Platform support
+* Add Payments Module
 |2.2.1-d2 | 2023-09-07 |
 
 Jakub Karbownik +
@@ -57,44 +60,45 @@ Improved description.examples Tariff for `step_size`
 
 |2.2-d2 |2020-06-12 | Robert de Leeuw +
 _ihomer_ | 2nd documentation revision of the OCPI 2.2 spec. +
-           Contains textual improvements and fixes some of the examples. +
-           Most improvements in the tarrifs module, especially `step_size` is better explained.
+Contains textual improvements and fixes some of the examples. +
+Most improvements in the tarrifs module, especially `step_size` is better explained.
 |2.2 |2019-09-30 | Robert de Leeuw +
 _ihomer_ |Added support for Roaming Hubs +
-        Adds support for Platforms with multiple/different roles, additional roles +
-        Adds support for smart charging +
-        Lots of improvements to existing modules +
-        See <<changelog.asciidoc#changelog_changelog,changelog>>
+Adds support for Platforms with multiple/different roles, additional roles +
+Adds support for smart charging +
+Lots of improvements to existing modules +
+See <<changelog.asciidoc#changelog_changelog,changelog>>
 |2.1.1-d2 |2019-06-21 |Robert de Leeuw +
-                        ihomer |Fixes the command module documentation, fixes a lot of examples, lots of small textual improvements: see <<changelog.asciidoc#changelog_changelog,changelog>>
+ihomer |Fixes the command module documentation, fixes a lot of examples, lots of small textual improvements: see <<changelog.asciidoc#changelog_changelog,changelog>>
 |2.1.1 |2017-06-08 | Robert de Leeuw +
-                  _ihomer_  |Fixed 4 bugs found in OCPI 2.1, lots of small textual improvements: see <<changelog.asciidoc#changelog_changelog,changelog>>
+_ihomer_  |Fixed 4 bugs found in OCPI 2.1, lots of small textual improvements: see <<changelog.asciidoc#changelog_changelog,changelog>>
 |2.1 |2016-04-08 | Robert de Leeuw +
-                _ihomer_  |Added <<mod_commands.asciidoc#mod_commands_commands_module,command module>>. +
- Added support for <<mod_tokens.asciidoc#mod_tokens_real-time_authorization,real-time authorization>>. +
- Lots of small improvements: see <<changelog.asciidoc#changelog_changelog,changelog>>
+_ihomer_  |Added <<mod_commands.asciidoc#mod_commands_commands_module,command module>>. +
+Added support for <<mod_tokens.asciidoc#mod_tokens_real-time_authorization,real-time authorization>>. +
+Lots of small improvements: see <<changelog.asciidoc#changelog_changelog,changelog>>
 |2.0-d2 |2016-02-15 | Robert de Leeuw +
-                   _ihomer_  |2nd documentation revision of the OCPI 2.0 spec. +
- Only documentation updated: ConnectorType of Connector +
- was not visible, credentials clarified, location URL +
- segments incorrect (now string, was int), +
- minor textual updates. +
- DateTime with timezones is still an issue
+_ihomer_  |2nd documentation revision of the OCPI 2.0 spec. +
+Only documentation updated: ConnectorType of Connector +
+was not visible, credentials clarified, location URL +
+segments incorrect (now string, was int), +
+minor textual updates. +
+DateTime with timezones is still an issue
 |2.0 |2015-12-30 | Robert de Leeuw +
-                _ihomer_ +
-                 Simon Philips +
-                 _Becharged_ +
-                 Chris Zwirello +
-                 _The New Motion_ +
-                 Simon Schilling
-                 |First official release of OCPI.
+_ihomer_ +
+Simon Philips +
+_Becharged_ +
+Chris Zwirello +
+_The New Motion_ +
+Simon Schilling
+|First official release of OCPI.
 |0.4 |2014-11-04 | Olger Warnier +
-                _The New Motion_  |First draft of OCPI. (Also known as Draft v4)
+_The New Motion_  |First draft of OCPI. (Also known as Draft v4)
 |0.3 |2014-05-06 | Olger Warnier +
-                _The New Motion_  |First draft of OCPI. (Also known as Draft v3)
+_The New Motion_  |First draft of OCPI. (Also known as Draft v3)
 |===
 
-Bookings Module
+[discrete]
+=== Bookings Module
 
 [cols="4,5,6,16",options="header"]
 |===
@@ -114,8 +118,9 @@ _Volvo_ a|
 * Add Bookings Module
 |===
 
+[discrete]
+=== Document revisions
 
-*Document revisions*
 There can be multiple documentation revisions of the same version of the OCPI protocol.
 
 The newer documentation revisions of the same protocol version can never change the content of the messages: no new fields or renaming of fields. A new revision can only clarify/fix texts/descriptions and fix typos etc.

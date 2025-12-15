@@ -2,7 +2,7 @@
 [[changelog_changelog]]
 == Changelog
 
-=== Changes between 2.3.0-booking-1.0 and 2.3.0-booking-1.1
+=== Changes between Booking-1.0 and Booking-1.1
 * Updated examples and documentation
 * Removed `LICENSE_PLATE` value from <<mod_tokens_tokentype_enum, TokenType>>
 * Object descriptions
@@ -33,6 +33,7 @@
 *** renamed `parking_space_length` to `min_parking_space_length`
 *** renamed `parking_space_width` to `min_parking_space_width`
 ** BookingRequest
+*** added `booking_location_id`
 *** renamed `bookable_parking_option` to `booking_option`
 *** moved `evse_uid` and `connector_id` a to BookingOption
 *** changed type of `period` from Timeslot to Period
