@@ -1121,6 +1121,8 @@ These restrictions are not to be interpreted as making the Tariff Element applic
 
 When more than one restriction is set, they are to be treated as a logical AND. So a Tariff Element is active if and only if all of the properties in its `TariffRestrictions` match.
 
+Price Components apply to quantities consumed during the period when the Tariff Element is active.
+
 [cols="3,2,1,10",options="header"]
 |===
 |Property |Type |Card. |Description
@@ -1168,9 +1170,11 @@ When more than one restriction is set, they are to be treated as a logical AND. 
 |min_duration |int |? |Minimum duration in seconds the Charging Session MUST last (inclusive).
       When the duration of a Charging Session is longer than the defined value, this TariffElement is or becomes active.
       Before that moment, this TariffElement is not yet active.
+      Only energy consumed after this duration threshold is priced according to this TariffElement.
 |max_duration |int |? |Maximum duration in seconds the Charging Session MUST last (exclusive).
       When the duration of a Charging Session is shorter than the defined value, this TariffElement is or becomes active.
       After that moment, this TariffElement is no longer active.
+      Only energy consumed before this duration threshold is priced according to this TariffElement.
 |day_of_week |<<mod_tariffs_dayofweek_enum,DayOfWeek>> |* |Which day(s) of the week this TariffElement is active.
 |reservation |<<mod_tariffs_reservation_restriction_type,ReservationRestrictionType>> |? |When this field is present, the TariffElement describes reservation costs.
 A reservation starts when the reservation is made, and ends when the driver starts charging on the reserved EVSE/Location, or when the reservation expires.
@@ -1222,6 +1226,33 @@ this tariff will result in costs of € 0.30 (excl. VAT). The costs are composed
 [source,json]
 ----
 include::examples/tariffrestriction_example_max_duration.json[]
+----
+
+
+===== Example: Tariff with min_duration and max_duration Tariff Restrictions
+
+A charging station operator offers a progressive pricing structure based on session duration:
+
+- Charging fee of € 0.20 per kWh (excl. VAT) for the first 30 minutes of the session.
+- Charging fee of € 0.30 per kWh (excl. VAT) between 30 and 60 minutes.
+- Charging fee of € 0.40 per kWh (excl. VAT) after 60 minutes.
+
+For a charging session with a duration of 75 minutes where:
+- 8 kWh are consumed during the first 30 minutes
+- 6 kWh are consumed between 30 and 60 minutes
+- 2 kWh are consumed after 60 minutes
+
+this tariff will result in costs of € 4.20 (excl. VAT). The costs are composed of the following components:
+
+- 8 kWh (0-30 min) at € 0.20/kWh: € 1.60
+- 6 kWh (30-60 min) at € 0.30/kWh: € 1.80
+- 2 kWh (60+ min) at € 0.40/kWh: € 0.80
+
+This example demonstrates that duration restrictions apply only to the energy consumed within the specified time period.
+
+[source,json]
+----
+include::examples/tariffrestriction_example_min_max_duration.json[]
 ----
 
 

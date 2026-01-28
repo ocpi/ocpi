@@ -1,0 +1,41 @@
+{
+  "country_code": "DE",
+  "party_id": "ALL",
+  "id": "21",
+  "currency": "EUR",
+  "type": "REGULAR",
+  "elements": [{
+    "price_components": [{
+      "type": "ENERGY",
+      "price": 0.20,
+      "vat": 20.0,
+      "step_size": 1
+    }],
+    "restrictions": {
+      "max_duration": 1800
+    }
+  }, {
+    "price_components": [{
+      "type": "ENERGY",
+      "price": 0.30,
+      "vat": 20.0,
+      "step_size": 1
+    }],
+    "restrictions": {
+      "min_duration": 1800,
+      "max_duration": 3600
+    }
+  }, {
+    "price_components": [{
+      "type": "ENERGY",
+      "price": 0.40,
+      "vat": 20.0,
+      "step_size": 1
+    }],
+    "restrictions": {
+      "min_duration": 3600
+    }
+  }],
+  "tax_included": "NO",
+  "last_updated": "2018-12-05T13:12:44Z"
+}
