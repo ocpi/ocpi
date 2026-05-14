@@ -552,6 +552,8 @@ By decoding the data, the receiver can check if the content has not been altered
                                                                        - End (signed value at the end of the Session) +
                                                                        - Intermediate (signed values take during the Session, after Start, before End) +
                                                                        Others might be added later.
-|plain_data  |<<types.asciidoc#types_string_type,string>>(512) |1 |The un-encoded string of data. The format of the content depends on the EncodingMethod field.
+|plain_data  |<<types.asciidoc#types_string_type,string>>(5000) |1 |The un-encoded string of data. The format of the content depends on the EncodingMethod field.
 |signed_data |<<types.asciidoc#types_string_type,string>>(5000) |1 |Blob of signed data, base64 encoded. The format of the content depends on the EncodingMethod field.
 |===
+
+NOTE: Earlier releases of the OCPI 2.2.1 specification documentation mistakenly gave a maximum length of 512 for the `plain_data` field of the SignedValue class.
