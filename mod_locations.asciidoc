@@ -496,6 +496,8 @@ It is not allowed in OCPI to use a Token that is not 'owned' by the eMSP itself 
 Private Charge Points, home or business that do not need to be published on apps, and do not require remote control via OCPI,
 SHOULD not be PUT via the OCPI Locations module.
 
+NOTE: Earlier releases of the OCPI 2.3.0 specification documentation mistakenly gave maximum lengths of 45 and 20 for the  `address` and `state` fields of the Location object.
+
 [[mod_locations_example]]
 ===== Example public charging location
 
