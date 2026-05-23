@@ -2,6 +2,71 @@
 [[changelog_changelog]]
 == Changelog
 
+=== Changes between Booking-1.0 and Booking-1.1
+* Updated examples and documentation
+* Removed `LICENSE_PLATE` value from <<mod_tokens_tokentype_enum, TokenType>>
+* Object descriptions
+** Booking
+*** renamed `bookable_parking_option` to `booking_option`
+*** moved `evse_uid`, `connector_id` and `parking_id` to BookingOption
+*** renamed `access_methods` to `access_information`
+*** renamed `tariff_id` to `tariff_ids`
+** BookingLocation
+*** moved `evse_uid` and `connector_id` to BookingOption type
+*** changed type of `bookable_parking_options` from a list to a single object
+*** changed type of `booking_terms` from a list to a single object
+*** renamed `bookable_parking_options` to `booking_option`
+*** renamed `bookable` to `policy`
+*** renamed `tariff_id` to `tariff_ids`
+** Calendar
+*** renamed `step_size` to `timeslot_increment`
+* Data types
+** AccessInformation (renamed AccessMethod)
+** AccessMethod (renamed LocationAccess)
+** BookingOption (Renamed from BookableParkingOption)
+*** added `evse_uid`, `connector_id`, and `parking_id`
+*** added `connector_types` and `power_types`
+*** removed `restricted_to_type`
+*** changed type of `evse_position` from a single object to a list
+*** changed cardinality of `vehicle_types` from a list of at least one object to a list of zero or more objects
+*** changed cardinality of `format` from required to optional
+*** renamed `parking_space_length` to `min_parking_space_length`
+*** renamed `parking_space_width` to `min_parking_space_width`
+** BookingRequest
+*** added `booking_location_id`
+*** renamed `bookable_parking_option` to `booking_option`
+*** moved `evse_uid` and `connector_id` a to BookingOption
+*** changed type of `period` from Timeslot to Period
+** BookingTerms
+*** Added `min_booking_duration` and `max_booking_duration`
+** BookingToken
+*** removed `license_plate`
+** Period (new type)
+*** added `start_date_time` and `end_date_time`
+** Policy (renamed Bookable)
+** Timeslot
+*** renamed `start_from` to `start_date_time`
+*** renamed `end_from` to `end_date_time`
+
+
+
+
+=== Changes between 2.3.0 and 2.3.0-booking-1.0
+
+* Add new Bookings module - added module on top of OCPI
+
+=== Changes between 2.2.1-d2 and 2.3.0
+
+* Make OCPI Extensible: possible to add modules, fields, enum values for certain enums
+* Add a Parking object linked to EVSEs, indicating vehicle type among other properties
+* Add a field to the EVSE object to indicate which eMSPs' contracts are accepted
+* Add a field to the Location object for a support telephone number
+* Information for people with disabilities
+* Support for North American taxes
+* Take straightforward enum values from the OCPI 3.0 draft, including those that signal 15118 compatibility
+* Add new field in Credentials to give hub party ID and make hub clients be reported as normal credentials roles
+* Add new Payments module - added module on top of OCPI
+
 === Changes between 2.2.1-d2 and 2.3.0
 
  * Make OCPI Extensible: possible to add modules, fields, enum values for certain enums
@@ -12,7 +77,8 @@
  * Support for North American taxes
  * Take straightforward enum values from the OCPI 3.0 draft, including those that signal 15118 compatibility
  * Add new field in Credentials to give hub party ID and make hub clients be reported as normal credentials roles
- * Add new Payments module
+ * Add new Payments module - added module on top of OCPI
+ * Add new Bookings module - added module on top of OCPI
 
 === Changes between 2.2.1 and 2.2.1-d2
 

@@ -1,0 +1,11 @@
+{
+  "timeslot_increment": 1,
+  "available_timeslots": [{
+    "start_date_time ": "2025-03-23T00:00:00Z",
+    "end_date_time ": "2025-03-23T08:59:99Z",
+    "min_power": 12,
+    "max_power": 12,
+    "green_energy_support": false
+  }],
+  "last_updated": "2024-12-05T20:02:13Z"
+}

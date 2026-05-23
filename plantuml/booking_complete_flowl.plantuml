@@ -1,0 +1,163 @@
+@startuml
+hide footbox
+participant "eMSP system" as MSP
+participant "CPO system" as CPO
+participant charger as CP
+
+
+note over CPO
+ The CPO can share the different tokens it chargers for it's sessions
+end note
+
+' send tariffs
+loop send all tariffs
+    CPO -> MSP : PUT: Send Tariff()
+    activate CPO
+    activate MSP
+    MSP -> CPO : PUT: status_code = 1000
+
+    deactivate CPO
+    deactivate MSP
+end
+
+note over CPO
+ With these tokens the CPO can share the locations and what they cost
+end note
+
+' send locations
+loop send all locations
+    CPO -> MSP : PUT: Send Location()
+    activate CPO
+    activate MSP
+    MSP -> CPO : PUT: status_code = 1000
+
+    deactivate CPO
+    deactivate MSP
+end
+
+note over CPO
+ For each of these locations the CPO can provide time slots with Booking Locations
+ Where the BookingLocation can communicate which tariffs will be used.
+end note
+
+' send bookingLocation
+loop send all Booking locations
+    CPO -> MSP : PUT: Send BookingLocation()
+    activate CPO
+    activate MSP
+    MSP -> CPO : PUT: status_code = 1000
+
+    deactivate CPO
+    deactivate MSP
+end
+
+note over MSP
+ The MSP shares  a list of tokens which can be used for booking a location
+end note
+
+' send tokens
+loop send all charging tokens
+    MSP -> CPO : PUT: Send Token()
+    activate MSP
+    activate CPO
+    CPO -> MSP : PUT: status_code = 1000
+
+    deactivate CPO
+    deactivate MSP
+end
+
+note over MSP
+The MSP makes a booking Request to the CPO
+end note
+
+MSP -> CPO : POST: Send Booking request()
+activate MSP
+activate CPO
+CPO -> MSP : status_code = 1000, data: {Booking { status = PENDING }}
+deactivate MSP
+||45||
+CPO -> CPO: Checking if the booking timeslot is available, and is available
+
+CPO  ->  MSP:  PUT: https://server.com/bookings/booking/ABC123\n     Booking(status = RESERVED, ........)
+activate MSP
+MSP --> CPO:
+deactivate MSP
+deactivate CPO
+
+note over CPO
+ After a while the session starts on the charger with
+ the correct Token. Which triggers the status to be set to fulfilled.
+end note
+
+CP -> CPO: StartTransaction.req(Token=123)
+activate CP
+activate CPO
+CPO -> CP: StartTransaction.conf(TransactionId=15)
+deactivate CP
+deactivate CPO
+
+' Start session
+note over CPO
+ For the new transaction will be share with the MSP
+end note
+CPO -> MSP : PUT: Send new Session()
+activate CPO
+activate MSP
+MSP -> CPO : PUT: status_code = 1000
+deactivate CPO
+deactivate MSP
+
+note over CPO
+ The booking will be set to fulfilled and is thereby done
+end note
+CPO  ->  MSP:  PUT: https://server.com/bookings/booking/ABC123\n     Booking(status = FULFILLED, ........)
+activate CPO
+activate MSP
+MSP --> CPO:
+deactivate MSP
+deactivate CPO
+
+note over CPO
+ While the charging sessions is active session updates can be shared
+end note
+loop while charging sessions is active
+    CPO -> MSP : PATCH: Send partial session update
+    activate CPO
+    activate MSP
+    MSP -> CPO : POST: status_code = 1000
+
+    deactivate CPO
+    deactivate MSP
+end
+
+CP -> CPO: StopTransaction.req(Token=123)
+activate CP
+activate CPO
+CPO -> CP: StopTransaction.conf(TransactionId=15)
+deactivate CP
+deactivate CPO
+
+
+' end session
+note over CPO
+  End the session when it's finnished
+end note
+CPO -> MSP : PUT: Send the Session()
+activate CPO
+activate MSP
+MSP -> CPO : PUT: status_code = 1000
+deactivate CPO
+deactivate MSP
+
+'  Send CDR
+note over CPO
+  Send the CDR for the session and for the booking
+end note
+CPO -> MSP : POST: Send new CDR()
+activate CPO
+activate MSP
+MSP -> CPO : POST: status_code = 1000
+deactivate CPO
+deactivate MSP
+
+@enduml

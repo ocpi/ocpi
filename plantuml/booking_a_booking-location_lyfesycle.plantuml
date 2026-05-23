@@ -1,0 +1,24 @@
+@startuml
+
+[*] --> PENDING
+[*] --> RESERVED
+[*] --> FAILED
+[*] --> REJECTED
+
+RESERVED --> NO_SHOW
+RESERVED --> FULFILLED
+RESERVED --> PENDING
+RESERVED --> CANCELED
+
+PENDING --> RESERVED
+PENDING --> FAILED
+PENDING --> REJECTED
+PENDING --> CANCELED
+
+PENDING --> [*]
+NO_SHOW --> [*]
+FULFILLED --> [*]
+FAILED -->  [*]
+REJECTED -->  [*]
+CANCELED -->  [*]
+@enduml

@@ -1,0 +1,59 @@
+@startuml
+hide footbox
+participant "eMSP system" as MSP
+participant "CPO system" as CPO
+participant charger as CP
+
+MSP -> CPO : POST: Send Booking request()
+activate MSP
+activate CPO
+CPO -> MSP : status_code = 1000, data: {Booking { status = PENDING }}
+deactivate MSP
+||45||
+CPO -> CPO: Checking if the booking timeslot is available, and is available
+
+CPO  ->  MSP:  PUT: https://server.com/bookings/booking/ABC123\n     Booking(status = RESERVED, ........)
+activate MSP
+MSP --> CPO:
+deactivate MSP
+deactivate CPO
+
+note over MSP
+ Something changed and the
+ MSP want's to change the booking
+end note
+
+MSP -> CPO : POST Send new booking request (updated Request)
+activate MSP
+activate CPO
+CPO -> MSP : status_code = 1000, data: {Booking { status = RESERVED, REQUESTS[{status = PENDING}] }}
+deactivate MSP
+||45||
+CPO -> CPO: Checking if change is possible
+
+CPO  ->  MSP:  PUT: https://server.com/bookings/booking/ABC123\n     Booking(status = RESERVED, ........)
+activate MSP
+MSP --> CPO:
+deactivate MSP
+deactivate CPO
+
+note over CPO
+ After a while the session starts on the charger with
+ the correct Token. Which triggers the status to be set to fulfilled.
+end note
+
+CP -> CPO: StartTransaction.req(Token=123)
+activate CP
+activate CPO
+CPO -> CP: StartTransaction.conf(TransactionId=15)
+deactivate CP
+deactivate CPO
+
+CPO  ->  MSP:  PUT: https://server.com/bookings/booking/ABC123\n     Booking(status = FULFILLED, ........)
+activate CPO
+activate MSP
+MSP --> CPO:
+deactivate MSP
+deactivate CPO
+
+@enduml
