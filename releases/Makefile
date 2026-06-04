@@ -1,4 +1,5 @@
-VERSION = 2.3.0-booking
+VERSION = 2.3.0
+BOOKINGS_VERSION=bookings
 plantuml_tool = java -Xms256m -Xmx512m -jar ../scripts/plantuml.jar -tsvg -nometadata -charset UTF-8
 
 TOOL = asciidoctor-pdf
@@ -10,7 +11,7 @@ STYLING = $(THEME) $(STYLES_DIR)
 SOURCE = ocpi_merged
 
 ASCIIDOC = $(VERSION)/$(SOURCE).adoc
-TARGET = OCPI-$(VERSION).pdf
+TARGET = OCPI-$(VERSION)-$(BOOKINGS_VERSION).pdf
 
 JSON_FILES = $(wildcard $(VERSION)/examples/*.json)
 
@@ -45,7 +46,7 @@ check_json: $(JSON_FILES)
 make_pdf: copy merge gen_pdf
 
 gen_pdf: $(ASCIIDOC)
-	  $(TOOL) $(ASCIIDOC) -o $(TARGET) $(STYLING) -a document_version=$(VERSION)
+	  $(TOOL) $(ASCIIDOC) -o $(TARGET) $(STYLING) -a document_version=$(VERSION)-$(BOOKINGS_VERSION)
       
 clean: clean_pdf
 
