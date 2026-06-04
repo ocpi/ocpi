@@ -1,5 +1,5 @@
 VERSION = 2.3.0
-BOOKINGS_VERSION=bookings
+BOOKINGS_VERSION=bookings-ed2
 plantuml_tool = java -Xms256m -Xmx512m -jar ../scripts/plantuml.jar -tsvg -nometadata -charset UTF-8
 
 TOOL = asciidoctor-pdf
