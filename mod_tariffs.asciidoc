@@ -1117,7 +1117,7 @@ Can also be used in combination with a <<mod_tariffs_tariffrestrictions_class,RE
 
  A `TariffRestrictions` object describes if and when a Tariff Element becomes active or inactive during a Charging Session.
 
-These restrictions are not to be interpreted as making the Tariff Element applicable or not applicable for the entire Charging Session.
+These restrictions are not to be interpreted as making the Tariff Element applicable or not applicable for the entire Charging Session, nor as causing a consumed quantity to be priced more than once for the same dimension.
 
 When more than one restriction is set, they are to be treated as a logical AND. So a Tariff Element is active if and only if all of the properties in its `TariffRestrictions` match.
 
