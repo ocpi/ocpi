@@ -1,0 +1,22 @@
+@startuml
+
+participant CPO as CPO
+participant MSP as MSP
+
+CPO -> MSP: CDR 1
+CPO -> MSP: CDR 2
+CPO -> MSP: CDR 3
+
+== March ends ==
+
+CPO -> MSP: CDR 4
+
+note over CPO: CPO runs billing for sessions of March
+
+CPO -> MSP: publish Invoice Reconciliation Record: \n{ \n   "country_code": "NL",\n   "party_id": "TNM",\n   "id": "3", \n   "invoice_id": "INV202303", \n   "cdrs": [{"id": "1"}, {"id": "2"}, {"id": "3"}], \n   "last_updated": "2015-04-01T21:59:59Z",   \n}
+
+note over CPO: CPO emails invoice PDF to MSP
+
+note over MSP: MSP checks invoice total from CPO
+
+@enduml
