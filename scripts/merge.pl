@@ -20,6 +20,7 @@ my @ocpi_parts = qw( pdf_layout
                      mod_locations
                      mod_sessions
                      mod_cdrs
+                     mod_invoice_reconciliation
                      mod_tariffs
                      mod_tokens
                      mod_commands
@@ -43,6 +44,7 @@ foreach my $file (@ocpi_parts) {
             $line =~ s/mod_locations.asciidoc#//g;
             $line =~ s/mod_sessions.asciidoc#//g;
             $line =~ s/mod_cdrs.asciidoc#//g;
+            $line =~ s/mod_invoice_reconciliation.asciidoc#//g;
             $line =~ s/mod_tariffs.asciidoc#//g;
             $line =~ s/mod_tokens.asciidoc#//g;
             $line =~ s/mod_commands.asciidoc#//g;
