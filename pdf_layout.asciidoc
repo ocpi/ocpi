@@ -7,7 +7,7 @@
 :version-label: document version
 :year: 2026
 :protocol_version: 2.3.0-ed2
-:revdate: {year}-06-01
+:revdate: {year}-06-18
 :document_header: OCPI {document_version}
 :revnumber: {document_version}
 
