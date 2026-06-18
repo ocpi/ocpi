@@ -1,4 +1,4 @@
-VERSION = 2.3.0
+VERSION = 2.3.0-ed2
 PAYMENTS_VERSION=payments
 plantuml_tool = java -Xms256m -Xmx512m -jar ../scripts/plantuml.jar -tsvg -nometadata -charset UTF-8
 

@@ -429,12 +429,14 @@ Some of these values are not useful for `CDRs`, and SHALL therefor only be used 
 |MIN_CURRENT      | | Sum of the minimum current over all phases, reached during  this <<mod_cdrs_chargingperiod_class,ChargingPeriod>>, when negative, current has flowed from the EV to the grid. Defined in A (Ampere).
 |MAX_POWER        | | Maximum power reached during this <<mod_cdrs_chargingperiod_class,ChargingPeriod>>: defined in kW (Kilowatt).
 |MIN_POWER        | | Minimum power reached during this <<mod_cdrs_chargingperiod_class,ChargingPeriod>>: defined in kW (Kilowatt), when negative, the power has flowed from the EV to the grid.
-|PARKING_TIME     | | Time during this <<mod_cdrs_chargingperiod_class,ChargingPeriod>> not charging: defined in hours, default step_size multiplier is 1 second.
+|PARKING_TIME     | | Time in this <<mod_cdrs_chargingperiod_class,ChargingPeriod>> during which the vehicle is not requesting power. Defined in hours, default step_size multiplier is 1 second.
 |POWER            |Y| Average power during this <<mod_cdrs_chargingperiod_class,ChargingPeriod>>: defined in kW (Kilowatt). When negative, the power is flowing from the EV to the grid.
-|RESERVATION_TIME | | Time during this  <<mod_cdrs_chargingperiod_class,ChargingPeriod>> Charge Point has been reserved and not yet been in use for this customer: defined in hours, default step_size multiplier is 1 second.
+|RESERVATION_TIME | | Time in this  <<mod_cdrs_chargingperiod_class,ChargingPeriod>> during which the EVSE has been reserved and not yet been in use for this customer: defined in hours, default step_size multiplier is 1 second.
 |STATE_OF_CHARGE  |Y| Current state of charge of the EV, in percentage, values allowed: 0 to 100. See note below.
-|TIME             | | Time charging during this <<mod_cdrs_chargingperiod_class,ChargingPeriod>>: defined in hours, default step_size multiplier is 1 second.
+|TIME             | | Time charging in this <<mod_cdrs_chargingperiod_class,ChargingPeriod>>. Defined in hours, default step_size multiplier is 1 second.
 |===
+
+NOTE: Earlier versions of the OCPI 2.3.0 specification document mistakenly defined PARKING_TIME as "Time during this <<mod_cdrs_chargingperiod_class,ChargingPeriod>> not charging". Under that definition, drivers would be exposed to penalizing loitering fees not only when they leave their vehicle in a charging session after it has been fully charged, but also when the EVSE is not offering energy to the vehicle while the vehicle is still requesting power. In practice, PARKING_TIME was already used according to the new definition.
 
 NOTE: OCPI makes it possible to provide SoC in the Session object.
 This information can be useful to show the current State of Charge to an EV driver during charging.
@@ -552,6 +554,8 @@ By decoding the data, the receiver can check if the content has not been altered
                                                                        - End (signed value at the end of the Session) +
                                                                        - Intermediate (signed values take during the Session, after Start, before End) +
                                                                        Others might be added later.
-|plain_data  |<<types.asciidoc#types_string_type,string>>(512) |1 |The un-encoded string of data. The format of the content depends on the EncodingMethod field.
+|plain_data  |<<types.asciidoc#types_string_type,string>>(5000) |1 |The un-encoded string of data. The format of the content depends on the EncodingMethod field.
 |signed_data |<<types.asciidoc#types_string_type,string>>(5000) |1 |Blob of signed data, base64 encoded. The format of the content depends on the EncodingMethod field.
 |===
+
+NOTE: Earlier releases of the OCPI 2.3.0 specification documentation mistakenly gave a maximum length of 512 for the `plain_data` field of the SignedValue class.
