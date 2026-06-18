@@ -45,7 +45,7 @@ When the CPO or eMSP creates Invoice Reconciliation records, they push them to t
 
 Any changes to an Invoice Reconciliation record are sent to relevant parties by calling <<mod_invoice_reconciliation_receiver_put_method,PUT>> on the Invoice Reconciliation endpoint with the updated Invoice Reconciliation Record object.
 
-When a CPO or eMSP deletes an Invoice Reconciliation record, they will call the <<mod_invoice_reconciliation_receiver_delete_method,DELETE>>
+When a CPO or eMSP deletes an Invoice Reconciliation record, they will call the <<mod_invoice_reconciliation_receiver_delete_method,DELETE>> on the Invoice Reconciliation endpoint. Deleting an Invoice Reconciliation Record indicates that the record itself was an error. Errors in the referenced invoice or in the listed CDRs can be resolved by sending an updated Invoice Reconciliation Record.
 
 [[mod_invoice_reconciliation_pull_model]]
 ==== Pull model
@@ -76,13 +76,13 @@ Endpoint structure definition:
 
 Examples:
 
-`+https://www.server.com/ocpi/cpo/2.2.1/invoicereconciliation/?date_from=2019-01-28T12:00:00&date_to=2019-01-29T12:00:00+`
+`+https://www.server.com/ocpi/cpo/2.3.0/invoicereconciliation/?date_from=2019-01-28T12:00:00&date_to=2019-01-29T12:00:00+`
 
-`+https://ocpi.server.com/2.2.1/invoicereconciliation/?offset=50+`
+`+https://ocpi.server.com/2.3.0/invoicereconciliation/?offset=50+`
 
-`+https://www.server.com/ocpi/2.2.1/invoicereconciliation/?date_from=2019-01-29T12:00:00&limit=100+`
+`+https://www.server.com/ocpi/2.3.0/invoicereconciliation/?date_from=2019-01-29T12:00:00&limit=100+`
 
-`+https://www.server.com/ocpi/cpo/2.2.1/invoicereconciliation/?offset=50&limit=100+`
+`+https://www.server.com/ocpi/cpo/2.3.0/invoicereconciliation/?offset=50&limit=100+`
 
 [cols="2,12",options="header"]
 |===
@@ -144,7 +144,7 @@ Endpoint structure definition:
 
 Example:
 
-`+https://www.server.com/ocpi/2.2.1/invoicereconciliation+`
+`+https://www.server.com/ocpi/2.3.0/invoicereconciliation+`
 
 [cols="2,12",options="header"]
 |===
