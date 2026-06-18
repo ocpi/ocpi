@@ -1,6 +1,11 @@
 [[introduction_ocpi]]
 == OCPI
 
+[[introduction_ocpi_2.3.0_ed2]]
+=== OCPI 2.3.0 edition 2
+
+OCPI 2.3.0 edition 2 is an update to OCPI 2.3.0 to make it ready for formal standardization. Relative to the original 2.3.0, it adds an Invoice Reconciliation module and fixes several small internal inconsistencies and inconsistencies with normal practice.
+
 [[introduction_ocpi_2.3.0]]
 === OCPI 2.3.0
 

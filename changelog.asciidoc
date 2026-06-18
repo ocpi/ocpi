@@ -2,6 +2,16 @@
 [[changelog_changelog]]
 == Changelog
 
+=== Changes between 2.3.0 and 2.3.0ed2
+
+* Fix definition of PARKING_TIME
+* Lengthen plain_data field of SignedValue
+* Lengthen address and state fields of address object
+* Fixed contradiction around 401/403 status codes to OCPI requests
+* Fixed broken step_size example in Tariffs module
+* Fixed EVSE parking field examples to have evse_position
+* Add the Invoice Reconciliation module
+
 === Changes between 2.2.1-d2 and 2.3.0
 
  * Make OCPI Extensible: possible to add modules, fields, enum values for certain enums
