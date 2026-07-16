@@ -531,7 +531,7 @@ all have (somewhat) different encodings. Below the table with known implementati
 |===
 |Name |Description |Contact
 
-|OCMF                      |Proposed by SAFE  | https://has-to-be.com[]
+|OCMF                      |Proposed by S.A.F.E. (https://safe-ev.org/[]) | https://github.com/SAFE-eV/OCMF-Open-Charge-Metering-Format[]
 |Alfen Eichrecht           | Alfen Eichrecht encoding / implementation. | https://alfen.com/de/downloads[]
 |EDL40 E-Mobility Extension|eBee smart technologies implementation | https://www.ebee.berlin[]
 |EDL40 Mennekes            |Mennekes implementation |
