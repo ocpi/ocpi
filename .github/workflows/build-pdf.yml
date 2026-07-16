@@ -1,0 +1,43 @@
+name: Build OCPI PDF
+
+on:
+  push:
+    branches: [ "2.3.0/release/**" ]
+    tags: [ "v2.3.0*" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4'
+
+      - name: Install Graphviz
+        run: sudo apt-get install -y graphviz
+
+      - name: Install asciidoctor-pdf
+        run: gem install asciidoctor-pdf
+
+      - name: Install jsonlint
+        run: npm install jsonlint
+
+      - name: Create directory-local jsonlint executable
+        run: echo -e "#!/bin/sh\n\nnode $PWD/node_modules/jsonlint/lib/cli.js \$@" > jsonlint && chmod +x jsonlint
+
+      - name: Build PDF
+        run: PATH=$PATH:$PWD make -C releases all
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: OCPI 2.3.0
+          path: releases/OCPI-2.3.0*.pdf
+
+      - name: Create GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v3
+        with:
+          files: releases/OCPI-2.3.0*.pdf

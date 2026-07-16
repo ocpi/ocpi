@@ -3,7 +3,17 @@
 [cols="4,5,6,16",options="header"]
 |===
 |Version |Date |Author |Description
-|2.3.0-rc2 | 2025-01-16 |
+|2.3.0-ed2 | 2026-06-18 |
+Ben van Gameren +
+_ihomer_ +
+Reinier Lamers +
+_SWTCH Energy_ a|
+* Lengthen plain_data field of SignedValue
+* Lengthen address and state fields of address object
+* Add the Invoice Reconciliation module
+* Documentation updates
+
+|2.3.0 | 2025-02-21 |
 Greg Fitzpatrick +
 _ChargeHub_ +
 Petar Jovevski +

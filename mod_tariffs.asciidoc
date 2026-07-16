@@ -1045,7 +1045,7 @@ An EV driver plugs in at 19:40 and charges for 12 minutes (`TIME`).
 They then stop charging but stay plugged in for 20 more minutes (`PARKING_TIME`).
 The total session time is therefore 32 minutes.
 
-The total of billable parking time for the session is 8 minutes. This is rounded up to 15 minutes according to the step_size of the last time based Price Component that was active during the session. The extra 7 minutes are then added to the last period with a Price Component with a time-based dimension, that is the one from 19:52 to 20:00. So the user is billed € 0.60 for 15 minutes of parking and that makes a total session fee of € 0.80.
+The total of billable parking time for the session is 8 minutes. This is rounded up to 15 minutes according to the step_size of the last time based Price Component that was active during the session. The extra 7 minutes are then added to the last period with a Price Component with a time-based dimension, that is the one from 19:52 to 20:00. So the user is billed € 0.25 for 15 minutes of parking and that makes a total session fee of € 0.73.
 
 A breakdown is as follows:
 
@@ -1053,9 +1053,9 @@ A breakdown is as follows:
 [cols="2,2,1,1",options="header"]
 |===
 | Dimension | Quantity | Price ex VAT | Cost ex VAT
-| Charging time | 12 minutes | 1.20 per hour | 0.20
-| Time | 15 minutes | 2.40 per hour | 0.60
-| Total | | | 0.80
+| Charging time | 12 minutes | 2.40 per hour | 0.48
+| Time | 15 minutes | 1.00 per hour | 0.25
+| Total | | | 0.73
 |===
 
 [[mod_tariffs_pricelimit_class]]
