@@ -1,101 +1,136 @@
-This repository contains the OCPI specification, latest release: [`OCPI 2.2.1`](https://evroaming.org/app/uploads/2021/11/OCPI-2.2.1.pdf)
+# Open Charge Point Interface (OCPI)
 
-The branch with the latest fixes to the 2.2.1 documentation is [`release-2.2.1-bugfixes`](https://github.com/ocpi/ocpi/tree/release-2.2.1-bugfixes)
+This repository contains the OCPI specification. The most recent specification is **OCPI 2.3.0**, which is published as
+a core document plus separately packaged optional modules.
+See [OCPI 2.3.0 releases and branching strategy](#ocpi-230-releases-and-branching-strategy) below for how the documents
+and branches relate.
 
--The branch with the latest fixes to the 2.2 documentation is [`release-2.2-bugfixes`](https://github.com/ocpi/ocpi/tree/release-2.2-bugfixes)
+## Branches and releases
 
-The branch with the latest fixes to the 2.1.1 documentation is [`release-2.1.1-bugfixes`](https://github.com/ocpi/ocpi/tree/release-2.1.1-bugfixes)
+### Latest official release
 
-The `master` branch always contains the latest official release.
+The latest official release is **OCPI 2.3.0**, published across the [
+`2.3.0/release/*`](https://github.com/ocpi/ocpi/branches/all?query=2.3.0%2Frelease) branches, with [
+`2.3.0/release/core`](https://github.com/ocpi/ocpi/tree/2.3.0/release/core) as the core specification. Development of
+the next version of OCPI (new functionality) is done in the [ocpi-3 repository](https://github.com/ocpi/ocpi-3/), which
+is only accessible to Contributors of the [EV Roaming Foundation](https://evroaming.org/how-to-join/).
 
-Development of the next version of OCPI, new functionality, is done in the  [ocpi-3 repository](https://github.com/ocpi/ocpi-3/), which is only accessible to Contributors of the [EV Roaming Foundation](https://evroaming.org/how-to-join/).
+> The `2.3.0/release/*` branches replace `master` as the reference for the current release.
 
-## Contents
+### Bugfix branches for OCPI 2.2.1, OCPI 2.2, and OCPI 2.1.1
 
- * [__Version History__](version_history.asciidoc)
- * [__Introduction__](introduction.asciidoc)
-   - [Terminology and Definitions](terminology.asciidoc)
-   - [Supported Topologies](topology.asciidoc)
- * __Protocol Meta Information__, describes the connections between the parties
-   - [Transport and Format](transport_and_format.asciidoc)
-   - [Status codes](status_codes.asciidoc)
-   - [Version information endpoint](version_information_endpoint.asciidoc)
-   - [Credentials & registration](credentials.asciidoc)
- * __Overview of Modules__, each section describes one module.
-   - [Locations](mod_locations.asciidoc)
-   - [Sessions](mod_sessions.asciidoc)
-   - [CDRs](mod_cdrs.asciidoc)
-   - [Tariffs](mod_tariffs.asciidoc)
-   - [Tokens](mod_tokens.asciidoc)
-   - [Commands](mod_commands.asciidoc)
-   - [Charging Profiles](mod_charging_profiles.asciidoc)
-   - [Hub Client Info](mod_hub_client_info.asciidoc)
+Fixes to earlier documentation live on dedicated bugfix branches:
 
- * __Generic Types__, describing all data types that are used by multiple objects
-   - [Types](types.asciidoc)
- * [__Changelog__](changelog.asciidoc)
+- [`release-2.2.1-bugfixes`](https://github.com/ocpi/ocpi/tree/release-2.2.1-bugfixes) — latest fixes to the 2.2.1
+  documentation
+- [`release-2.2-bugfixes`](https://github.com/ocpi/ocpi/tree/release-2.2-bugfixes) — latest fixes to the 2.2
+  documentation
+- [`release-2.1.1-bugfixes`](https://github.com/ocpi/ocpi/tree/release-2.1.1-bugfixes) — latest fixes to the 2.1.1
+  documentation
 
-### Current versions
+## OCPI 2.3.0 releases and branching strategy
 
-#### Release 2.2.1
+OCPI 2.3.0 is published as a **core specification** together with several **functional modules** that are packaged and
+released independently. This section explains how the branches, documents, and versions relate.
 
-Only minor changes, but breaking compatibility with 2.2 in order to support signed data exchange so that parties using OCPI can comply with consumer protection legislation. A more detailed overview is inside [the specification document itself](https://evroaming.org/app/uploads/2021/11/OCPI-2.2.1.pdf).
+### 2.3.0 branches
 
-#### Release 2.2-d2
+The 2.3.0 work is organized into three kinds of branches under the shared `2.3.0/` namespace: **release** branches (
+published sources of truth), **feature** branches (work in progress), and **hotfix** branches (corrections to a
+published release).
 
-- Support for Hubs 
-  - Message routing headers 
-  - Hub Client Info 
-- Support Platforms with multiple/different roles, additional roles 
-- Charging Profiles 
-- based Smart Charging 
-- Improvements:
-  - CDRs: Credit CDRs, VAT, Calibration law/Eichrecht support, Session_id, AuthorizationReference, CdrLocation, CdrToken
-  - Sessions: VAT, CdrToken, How to add a Charging Period
-  - Tariffs: Tariff types, Min/Max price, reservation tariff, Much more examples
-  - Locations: Multiple Tariffs, Lost of small improvements
-  - Tokens: Group_id, energy contract
-  - Commands: Cancel Reservation added
-- fixes some bugs of 2.1.1
+#### Releases
 
-#### Release 2.1.1-d2
+Release branches hold the published sources of truth — the core specification and each module.
 
-- Improvements from rel. 2.0
-- Chargepoint commands
-- realtime authorization
-- fixes some bugs of 2.1 (2.1 is now deprecated)
+| Branch                                                                               | Contents               | Role                                  |
+|--------------------------------------------------------------------------------------|------------------------|---------------------------------------|
+| [`2.3.0/release/core`](https://github.com/ocpi/ocpi/tree/2.3.0/release/core)         | Core specification     | **Source of truth for the core spec** |
+| [`2.3.0/release/payments`](https://github.com/ocpi/ocpi/tree/2.3.0/release/payments) | Core + Payments module | Source of truth for Payments          |
+| [`2.3.0/release/bookings`](https://github.com/ocpi/ocpi/tree/2.3.0/release/bookings) | Core + Bookings module | Source of truth for Bookings          |
 
-#### Release 2.0
+#### Features
 
-- Charge Point Exchange Static & Dynamic (with tariffing covering only start/kWh/time)
-- Authorization & token data exchange
-- Tariffing
-- Session Info exchange (cdr & ndr)
-- Registration (How to connect) & Security
+Feature branches hold work in progress. Once a module or change is ready, it is merged into the relevant release branch
+and the feature branch is archived.
 
+| Branch            | Contents                         | Role                                        |
+|-------------------|----------------------------------|---------------------------------------------|
+| `2.3.0/feature/*` | Modules or changes being drafted | Merged into a release branch, then archived |
 
-### Planned releases
+#### Hotfixes
 
-#### Release 3.0
+Hotfix branches collect corrections to an already-published release. As with feature branches, the fixes are merged into
+the relevant release branch and the hotfix branch is then archived.
 
-- ISO 15118 Plug&Charge
-- Eichrecht support
-- Performance improvements
+| Branch           | Contents                                          | Role                                        |
+|------------------|---------------------------------------------------|---------------------------------------------|
+| `2.3.0/hotfix/*` | Corrections being drafted for a published release | Merged into a release branch, then archived |
 
+> `release-2.3.0-bugfixes` predates the `2.3.0/release/*` convention. It holds edition 1 and is now frozen: all of its
+> fixes have been carried into `2.3.0/release/core`. New work and new implementations should follow the `2.3.0/release/*`
+> branches.
 
-## Building Process
+### Versioning of the 2.3.0 documents
 
-The OCPI Build Process has been improved. OCPI 2.0/2.1.1 was in markdown format, and diagrams where Plantuml.
+OCPI releases use a semantic-style version number of the form `MAJOR.MINOR.PATCH` (for example `2.0`, `2.1.1`, `2.2`,
+`2.2.1`). Any change to the specification produces a new number: a larger increment signals a broader or breaking
+change, a smaller one a minor or corrective change. Documentation revisions of the *same* specification are marked with
+a `-dN` suffix (for example `2.1.1-d2`, `2.2-d2`), indicating updated text and examples with no protocol change.
 
-For OCPI 2.2, the text of OCPI has been converted to asciidoc. 
-Asciidoc is easier to format the output, and chapter numbering and internal links are much easier to work with.
+> **Note — versioning methodology under discussion.**
+> One proposal is to adopt the CEN-CENELEC versioning methodology: the protocol version stays fixed, and changes are
+> expressed through multiple levels; for example, an **edition** (`ed2`) for changes to messages, fields, or datatypes,
+> and a **documentation update** (`-d2`) for text and examples only. The same methodology could also be applied to modules
+> so that each module carries its own edition and evolves independently of the core.
 
-The Plantuml is no longer converted to PNG images, but the SVG, making them much better readable, and even searchable in the PDF.
+### Compatibility matrix
 
-In OCPI 2.0 and 2.1.1, the JSON examples contained a lot of mistakes, where outdated compared to the text, or not even valid JSON. 
-To prevent issues with the examples in the specification, the examples are not placed in separate JSON files. 
-At the moment, the JSON files are check if they are valid JSON.
+| Document (PDF)                        | GitHub tag                | GitHub branch            | Core | Modules      | Remarks                                                                                             | Status           |
+|---------------------------------------|---------------------------|--------------------------|------|--------------|-----------------------------------------------------------------------------------------------------|------------------|
+| OCPI 2.3.0 (including Payments)       | `v2.3.0`                  | `release-2.3.0-bugfixes` | 1    | Payments 1   | The `release-2.3.0-bugfixes` branch will be deleted                                                 | Released         |
+| OCPI 2.3.0 Edition 1                  | `v2.3.0-ed1`              | `2.3.0/release/core`     | 1    | -            | Similar to OCPI 2.3.0 without the payment module                                                    | Internal Release |
+| **OCPI 2.3.0 Edition 2**              | `v2.3.0-ed2`              | `2.3.0/release/core`     | 2    | -            | Core improvements and Invoice Reconciliation                                                        | Planned          |
+| OCPI 2.3.0 Payments                   | `v2.3.0-payments`         | `2.3.0/release/payments` | 1    | Payments 1   | Exactly the same specification as OCPI 2.3.0 (including Payments)                                   | -                |
+| **OCPI 2.3.0 Edition 2 Payments**     | `v2.3.0-ed2-payments`     | `2.3.0/release/payments` | 2    | Payments 1   | Core changes are applied to the payment document. No changes to the Payment module. To be certified | Planned          |
+| OCPI 2.3.0 Bookings                   | -                         | `develop-2.3.0-booking`  | 1    | Bookings 1   | The `develop-2.3.0-booking` branch will be deleted                                                  | Released         |
+| OCPI 2.3.0 Bookings 1.1               | -                         | `develop-2.3.0-booking`  | 1    | Bookings 1.1 | The `develop-2.3.0-booking` branch will be deleted                                                  | Released         |
+| OCPI 2.3.0 Bookings                   | `v2.3.0-bookings`         | `2.3.0/release/bookings` | 1    | Bookings 1   | Exactly the same specification as `OCPI 2.3.0 Bookings`                                             | -                |
+| OCPI 2.3.0 Bookings 1.1               | `v2.3.0-bookings-ed2`     | `2.3.0/release/bookings` | 1    | Bookings 1.1 | Exactly the same specification as `OCPI 2.3.0 Bookings 1.1`                                         | -                |
+| **OCPI 2.3.0 Edition 2 Bookings 1.1** | `v2.3.0-ed2-bookings-ed2` | `2.3.0/release/bookings` | 2    | Bookings 1.1 | Both core changes and booking changes are applied.                                                  | Planned          |
 
-----
-1 Dec 2014 [Draft v4](releases/old/OCPI-Draftv4.pdf) is published
-17 June 2015 [Draft v5] is moved to a new branch that will be used as a reference as the OCPI specifications are being redefined and the specifications are restructured in different files, a file per chapter
+> **Notes**
+> - None of the 2.3.0 tags are published as GitHub *Releases* — they exist only as git tags.
+> - The current Bookings source of truth (Booking 1.1) is **not yet tagged**; the `v2.3.0-bookings` tag still points at Booking 1.0.
+> - `2.3.0/release/bookings` branches from the core lineage *before* edition 2, so it does not yet include the edition 2 core fixes or the Invoice Reconciliation module. Rebasing the module branches onto `2.3.0/release/core` would align every package on the same core edition.
+> - Two edition-1 baseline tags exist for the restructured branches — `v2.3.0-ed1` and `v2.3.0-edition1` (the latter is orphaned, on no branch). They do not correspond to a separate published document and should be consolidated.
+
+## Specification contents
+
+- [__Version History__](version_history.asciidoc)
+- [__Introduction__](introduction.asciidoc)
+    - [Terminology and Definitions](terminology.asciidoc)
+    - [Supported Topologies](topology.asciidoc)
+- __Protocol Meta Information__ — describes the connections between the parties
+    - [Transport and Format](transport_and_format.asciidoc)
+    - [Status codes](status_codes.asciidoc)
+    - [Version information endpoint](version_information_endpoint.asciidoc)
+    - [Credentials & registration](credentials.asciidoc)
+- __Overview of Modules__ — each section describes one module
+    - [Locations](mod_locations.asciidoc)
+    - [Sessions](mod_sessions.asciidoc)
+    - [CDRs](mod_cdrs.asciidoc)
+    - [Tariffs](mod_tariffs.asciidoc)
+    - [Tokens](mod_tokens.asciidoc)
+    - [Commands](mod_commands.asciidoc)
+    - [Charging Profiles](mod_charging_profiles.asciidoc)
+    - [Hub Client Info](mod_hub_client_info.asciidoc)
+    - [Invoice Reconciliation](mod_invoice_reconciliation.asciidoc) _(added in edition 2)_
+- __Generic Types__ — describing all data types that are used by multiple objects
+    - [Types](types.asciidoc)
+- [__Changelog__](changelog.asciidoc)
+
+Additional Modules
+
+- [Payments](https://github.com/ocpi/ocpi/blob/2.3.0/release/payments/mod_payments.asciidoc)
+- [Bookings](https://github.com/ocpi/ocpi/blob/2.3.0/release/bookings/mod_bookings.asciidoc)
