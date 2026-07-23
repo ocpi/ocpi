@@ -674,7 +674,7 @@ It contains the result of the PUT (SetChargingProfile) request send by the eMSP.
 [[mod_charging_profiles_clear_profiles_result_object]]
 ==== _ClearProfileResult_ Object
 
-The ClearProfileResult object is send by the CPO to the given `response_url` in a POST request.
+The ClearProfileResult object is sent by the CPO to the given `response_url` in a POST request.
 It contains the result of the DELETE (ClearProfile) request send by the eMSP.
 
 [cols="2,4,1,10",options="header"]
@@ -687,7 +687,7 @@ It contains the result of the DELETE (ClearProfile) request send by the eMSP.
 [[mod_charging_profiles_set_charging_profile_object]]
 ==== _SetChargingProfile_ Object
 
-Object set to a CPO to set a Charging Profile.
+Object sent to a CPO to set a Charging Profile.
 
 [cols="3,4,1,9",options="header"]
 |===
