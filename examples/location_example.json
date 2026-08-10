@@ -68,7 +68,7 @@
       {"parking_id": "3", "evse_position": "RIGHT"}
     ],
     "physical_reference": "2",
-    "floor_level": "-2",
+    "floor_level": "-1",
     "last_updated": "2015-06-29T20:39:09Z"
   }],
   "parking_places": [{
