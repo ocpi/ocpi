@@ -60,13 +60,21 @@ NOTE: +00:00 is not the same as UTC.
 
 [[types_displaytext_class]]
 === DisplayText _class_
+// A-08: the text field read "Text to be displayed to a end user. No markup, html etc. allowed."
+// That prohibition was not decidable — rejecting angle brackets also rejects legitimate operator
+// text such as "e-mail <info@cpo.nl> for help" — and it read as an instruction to validators,
+// which is what drove receivers to reject valid text. Reframed as a positive description of the
+// payload, which is what the protocol can constrain. What a receiver renders is deliberately not
+// specified: OCPI defines the message on the wire, not the presentation of it.
+// (The comment sits above the table because a `//` line inside an AsciiDoc table is parsed as
+// cell content, not as a comment.)
 
 [cols="3,2,1,10",options="header"]
 |===
 |Property |Type |Card. |Description 
 
 |language |<<types_string_type,string>>(2) |1 |Language Code ISO 639-1. 
-|text |<<types_string_type,string>>(512) |1 |Text to be displayed to a end user. No markup, html etc. allowed. 
+|text |<<types_string_type,string>>(512) |1 |Plain text to be displayed to an end user. 
 |===
 
 Example:
