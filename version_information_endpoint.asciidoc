@@ -90,11 +90,11 @@ No structure defined. This is open for every party to define themselves.
 
 Examples:
 
-`+https://www.server.com/ocpi/cpo/2.2.1+`
+`+https://www.server.com/ocpi/cpo/2.3.0+`
 
-`+https://www.server.com/ocpi/emsp/2.2.1+`
+`+https://www.server.com/ocpi/emsp/2.3.0+`
 
-`+https://ocpi.server.com/2.2.1/details+`
+`+https://ocpi.server.com/2.3.0/details+`
 
 This endpoint lists the supported endpoints and their URLs for a specific OCPI version. To notify the other party that the list of endpoints of your current version has changed, you can send a PUT request to the corresponding credentials endpoint (see the credentials chapter).
 
@@ -163,6 +163,7 @@ If there are dependencies between modules, it will be mentioned in the affected 
 |<<credentials.asciidoc#credentials_credentials_endpoint,Credentials &amp; Registration>> |credentials |Required for all implementations. +
                                                                    The `role` field has no function for this module.
 |<<mod_hub_client_info.asciidoc#mod_hub_client_info_module,Hub Client Info>> |hubclientinfo |
+|<<mod_invoice_reconciliation.asciidoc#mod_invoice_reconciliation_module,Invoice Reconciliation>> |invoicereconciliation |
 |<<mod_locations.asciidoc#mod_locations_locations_module,Locations>> |locations |
 |<<mod_sessions.asciidoc#mod_sessions_sessions_module,Sessions>> |sessions |
 |<<mod_tariffs.asciidoc#mod_tariffs_tariffs_module,Tariffs>> |tariffs |

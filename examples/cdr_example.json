@@ -20,8 +20,8 @@
     "postal_code": "9000",
     "country": "BEL",
     "coordinates": {
-      "latitude": "3.729944",
-      "longitude": "51.047599"
+      "latitude": "51.047599",
+      "longitude": "3.729944"
     },
     "evse_uid": "3256",
     "evse_id": "BE*BEC*E041503003",

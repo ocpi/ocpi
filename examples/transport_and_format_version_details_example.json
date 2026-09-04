@@ -1,14 +1,14 @@
 {
   "data": {
-    "version": "2.2",
+    "version": "2.3.0",
     "endpoints": [{
       "identifier": "credentials",
       "role": "SENDER",
-      "url": "https://example.com/ocpi/cpo/2.2/credentials"
+      "url": "https://example.com/ocpi/cpo/2.3.0/credentials"
     }, {
       "identifier": "locations",
       "role": "SENDER",
-      "url": "https://example.com/ocpi/cpo/2.2/locations"
+      "url": "https://example.com/ocpi/cpo/2.3.0/locations"
     }]
   },
   "status_code": 1000,

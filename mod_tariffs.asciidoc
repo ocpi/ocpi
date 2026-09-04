@@ -71,13 +71,13 @@ Endpoint structure definition:
 
 Examples:
 
-`+https://www.server.com/ocpi/cpo/2.2.1/tariffs/?date_from=2019-01-28T12:00:00&date_to=2019-01-29T12:00:00+`
+`+https://www.server.com/ocpi/cpo/2.3.0/tariffs/?date_from=2019-01-28T12:00:00&date_to=2019-01-29T12:00:00+`
 
-`+https://ocpi.server.com/2.2.1/tariffs/?offset=50+`
+`+https://ocpi.server.com/2.3.0/tariffs/?offset=50+`
 
-`+https://www.server.com/ocpi/2.2.1/tariffs/?date_from=2019-01-29T12:00:00&limit=100+`
+`+https://www.server.com/ocpi/2.3.0/tariffs/?date_from=2019-01-29T12:00:00&limit=100+`
 
-`+https://www.server.com/ocpi/cpo/2.2.1/tariffs/?offset=50&limit=100+`
+`+https://www.server.com/ocpi/cpo/2.3.0/tariffs/?offset=50&limit=100+`
 
 
 [[mod_tariffs_cpo_get_request_parameters]]
@@ -126,7 +126,7 @@ Endpoint structure definition:
 
 Example:
 
-`+https://www.server.com/ocpi/cpo/2.2.1/tariffs/BE/BEC/12+`
+`+https://www.server.com/ocpi/cpo/2.3.0/tariffs/BE/BEC/12+`
 
 
 [cols="2,12",options="header"]
@@ -208,7 +208,7 @@ The following parameters SHALL be provided as URL segments.
 
 [source,json]
 ----
-PUT To URL: https://www.server.com/ocpi/emsp/2.2.1/tariffs/NL/TNM/12
+PUT To URL: https://www.server.com/ocpi/emsp/2.3.0/tariffs/NL/TNM/12
 
 include::examples/tariff_put_example.json[]
 ----
@@ -230,8 +230,8 @@ The following parameters SHALL be provided as URL segments.
 |===
 |Parameter |Datatype |Required |Description
 
-|country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |yes |Country code of the CPO performing the PUT request on the eMSP's system.
-|party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |yes |Party ID (Provider ID) of the CPO performing the PUT request on the eMSP's system.
+|country_code |<<types.asciidoc#types_cistring_type,CiString>>(2) |yes |Country code of the CPO performing the DELETE request on the eMSP's system.
+|party_id |<<types.asciidoc#types_cistring_type,CiString>>(3) |yes |Party ID (Provider ID) of the CPO performing the DELETE request on the eMSP's system.
 |tariff_id |<<types.asciidoc#types_cistring_type,CiString>>(36) |yes |Tariff.id of the Tariff object to delete.
 |===
 
@@ -696,16 +696,15 @@ The step_size of the last time-based period is 5 so the parking time duration of
 The charging time is not affected by step_size because it is followed by another time-based period.
 
 For a charging session on a Saturday afternoon starting at 13:30 which takes 1:54 hours (114 minutes),
-where the driver uses a minimum of 43A of current (all the time, which is only theoretically possible) and is parking for an additional 71 minutes afterwards,
-this tariff will result in a total cost of € 12.28 (excl. VAT) or € 13.861 (incl. VAT). A breakdown is as follows:
+where the driver uses a minimum of 43A of current (all the time, which is only theoretically possible) and is parking for an additional 71 minutes afterwards, this tariff will result in a total cost of € 12.375 (excl. VAT) or € 13.975 (incl. VAT). A breakdown is as follows:
 
 [cols="2,2,2,1,1,1",options="header"]
 |===
 | Dimension | Quantity | Price ex VAT | Cost ex VAT | VAT | Cost inc VAT
 | Flat | 1 | 2.50 | 2.50 | 15% | 2.875
-| Charging time | 114 minutes | 1.25 per hour | 2.28 | 20% | 2.736
+| Charging time | 114 minutes | 1.25 per hour | 2.375 | 20% | 2.85
 | Parking time | 75 minutes | 6.00 per hour | 7.50 | 10% | 8.25
-| Total | | | 12.28 | | 13.861
+| Total | | | 12.375 | | 13.975
 |===
 
 The cost for parking time is 7.50, reflecting 75 minutes of parking, because the step_size of the last time-based period is applied to the 71 actual minutes of parking.
@@ -1004,7 +1003,7 @@ An EV driver plugs in at 16:55 and charges for 10 minutes (`TIME`).
 They then stop charging but stay plugged in for 2 more minutes (`PARKING_TIME`).
 The total session time is therefore 12 minutes. The parking time of 2 minutes is rounded to 15 minutes according to the step size of the last parking time period.
 
-As a result,t he session costs € 0.55 ex VAT.
+As a result, the session costs € 0.55 ex VAT.
 
 A breakdown is as follows:
 

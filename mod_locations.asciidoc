@@ -130,13 +130,13 @@ Endpoint structure definition:
 
 Examples:
 
-`+https://www.server.com/ocpi/cpo/2.2.1/locations/?date_from=2019-01-28T12:00:00&date_to=2019-01-29T12:00:00+`
+`+https://www.server.com/ocpi/cpo/2.3.0/locations/?date_from=2019-01-28T12:00:00&date_to=2019-01-29T12:00:00+`
 
-`+https://ocpi.server.com/2.2.1/locations/?offset=50+`
+`+https://ocpi.server.com/2.3.0/locations/?offset=50+`
 
-`+https://www.server.com/ocpi/2.2.1/locations/?date_from=2019-01-29T12:00:00&limit=100+`
+`+https://www.server.com/ocpi/2.3.0/locations/?date_from=2019-01-29T12:00:00&limit=100+`
 
-`+https://www.server.com/ocpi/cpo/2.2.1/locations/?offset=50&limit=100+`
+`+https://www.server.com/ocpi/cpo/2.3.0/locations/?offset=50&limit=100+`
 
 
 If the optional parameters `{date_from}` and/or `{date_to}` are provided, only Locations with 
@@ -184,11 +184,11 @@ Endpoint structure definition for retrieving a Location, EVSE or Connector:
 
 Examples:
 
-`+https://www.server.com/ocpi/cpo/2.2.1/locations/LOC1+`
+`+https://www.server.com/ocpi/cpo/2.3.0/locations/LOC1+`
 
-`+https://www.server.com/ocpi/cpo/2.2.1/locations/LOC1/3256+`
+`+https://www.server.com/ocpi/cpo/2.3.0/locations/LOC1/3256+`
 
-`+https://www.server.com/ocpi/cpo/2.2.1/locations/LOC1/3256/1+`
+`+https://www.server.com/ocpi/cpo/2.3.0/locations/LOC1/3256/1+`
 
 
 The following parameters can be provided as URL segments in the same order.
@@ -234,11 +234,11 @@ Endpoint structure definition:
 
 Examples:
 
-`+https://www.server.com/ocpi/emsp/2.2.1/locations/BE/BEC/LOC1+`
+`+https://www.server.com/ocpi/emsp/2.3.0/locations/BE/BEC/LOC1+`
 
-`+https://server.com/ocpi/2.2.1/locations/BE/BEC/LOC1/3256+`
+`+https://server.com/ocpi/2.3.0/locations/BE/BEC/LOC1/3256+`
 
-`+https://ocpi.server.com/2.2.1/locations/BE/BEC/LOC1/3256/1+`
+`+https://ocpi.server.com/2.3.0/locations/BE/BEC/LOC1/3256/1+`
 
 
 [cols="2,12",options="header"]
@@ -353,7 +353,7 @@ When not all required fields are specified, the object may be discarded.
 
 [source,json]
 ----
-PUT To URL: https://www.server.com/ocpi/emsp/2.2.1/locations/NL/TNM/1012/3256
+PUT To URL: https://www.server.com/ocpi/emsp/2.3.0/locations/NL/TNM/1012/3256
 
 include::examples/location_put_example_add_evse.json[]
 ----
@@ -383,7 +383,7 @@ In this case it is the EVSE with uid `3255` of the Location with id `1012`.
 
 [source,json]
 ----
-PATCH To URL: https://www.server.com/ocpi/emsp/2.2.1/locations/NL/TNM/1012/3255
+PATCH To URL: https://www.server.com/ocpi/emsp/2.3.0/locations/NL/TNM/1012/3255
 
 include::examples/location_patch_example_status.json[]
 ----
@@ -396,7 +396,7 @@ In this example the name of the Location with id `1012` is being updated.
 
 [source,json]
 ----
-PATCH To URL: https://www.server.com/ocpi/emsp/2.2.1/locations/NL/TNM/1012
+PATCH To URL: https://www.server.com/ocpi/emsp/2.3.0/locations/NL/TNM/1012
 
 
 include::examples/location_patch_example_location.json[]
@@ -410,7 +410,7 @@ In this example Connector `2` of EVSE `1` of Location `1012` receives a new pric
 
 [source,json]
 ----
-PATCH To URL: https://www.server.com/ocpi/emsp/2.2.1/locations/NL/TNM/1012/3255/2
+PATCH To URL: https://www.server.com/ocpi/emsp/2.3.0/locations/NL/TNM/1012/3255/2
 
 include::examples/location_patch_example_tariff.json[]
 ----
@@ -423,7 +423,7 @@ An EVSE can be deleted by updating its `status` property.
 
 [source,json]
 ----
-PATCH To URL: https://www.server.com/ocpi/emsp/2.2.1/locations/NL/TNM/1012/3256
+PATCH To URL: https://www.server.com/ocpi/emsp/2.3.0/locations/NL/TNM/1012/3256
 
 include::examples/location_patch_example_remove_evse.json[]
 ----
@@ -699,7 +699,7 @@ Describes a parking space that a vehicle can be parked in while charging.
 
 For EVSEs around which no identifiable delineated parking spaces are available, a Parking object may describe the limitations that apply for parking near the EVSE without describing a specific space. This occurs a lot with streetside parking, for example.
 
-NOTE: Parking objects were newly added in OCPI 2.3.0 relative to OCPI 2.2.1. The purpose of Parking objects is to allow CPOs in the EU to comply with requirements in the EU's Alternative Fuel Infrasturcture Regulation (AFIR) which requires CPOs to report the number of parking spots and certain properties of those parking spots to NAPs. When CPOs are not talking to NAPs, or not under EU jurisdiction, they are free to not send Parking objects in their Locations. All Locations receivers who are not NAPs are free to ignore Parking objects in the Location data that they receive.
+NOTE: Parking objects were newly added in OCPI 2.3.0 relative to OCPI 2.2.1. The purpose of Parking objects is to allow CPOs in the EU to comply with requirements in the EU's Alternative Fuel Infrastructure Regulation (AFIR) which requires CPOs to report the number of parking spots and certain properties of those parking spots to NAPs. When CPOs are not talking to NAPs, or not under EU jurisdiction, they are free to not send Parking objects in their Locations. All Locations receivers who are not NAPs are free to ignore Parking objects in the Location data that they receive.
 
 [cols="3,2,1,10",options="header"]
 |===
