@@ -335,9 +335,6 @@ include::examples/transport_and_format_version_info_example.json[]
 
 [[transport_and_format_example_version_details_response_one_object]]
 
-// Defect E-03: this example advertised "version": "2.2" with matching /2.2/ URLs; both were moved
-// to 2.3.0 together so the version field and the endpoint URLs stay consistent.
-// (The comment lives here because JSON permits no comments of its own.)
 ===== Example: Version details response (one object)
 
 [source,json]
