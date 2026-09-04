@@ -54,7 +54,7 @@ one for each <<mod_sessions_profile_type_enum,ProfileType>>.
 [[mod_sessions_reservation]]
 ==== Reservation
 
-When a EV driver makes a Reservation for a Charge Point/EVSE, the Sender SHALL create a new Session object with `status` = `RESERVED`
+When a EV driver makes a Reservation for a Charge Point/EVSE, the Sender SHALL create a new Session object with `status` = `RESERVATION`
 When the Push model is used, the CPO SHALL push the new Session object to the Receiver.
 
 When a reservation results in a charging session for the same `Token`, the Session object `status` to: `ACTIVE`
@@ -94,13 +94,13 @@ Endpoint structure definition:
 
 Examples:
 
-`+https://www.server.com/ocpi/cpo/2.2.1/sessions/?date_from=2019-01-28T12:00:00&date_to=2019-01-29T12:00:00+`
+`+https://www.server.com/ocpi/cpo/2.3.0/sessions/?date_from=2019-01-28T12:00:00&date_to=2019-01-29T12:00:00+`
 
-`+https://ocpi.server.com/2.2.1/sessions/?offset=50+`
+`+https://ocpi.server.com/2.3.0/sessions/?offset=50+`
 
-`+https://www.server.com/ocpi/2.2.1/sessions/?date_from=2019-01-29T12:00:00&limit=100+`
+`+https://www.server.com/ocpi/2.3.0/sessions/?date_from=2019-01-29T12:00:00&limit=100+`
 
-`+https://www.server.com/ocpi/cpo/2.2.1/sessions/?offset=50&limit=100+`
+`+https://www.server.com/ocpi/cpo/2.3.0/sessions/?offset=50&limit=100+`
 
 
 [[mod_sessions_cpo_get_request_parameters]]
@@ -146,7 +146,7 @@ Endpoint structure definition:
 
 Examples:
 
-`+https://www.server.com/ocpi/cpo/2.2.1/sessions/1234/charging_preferences+`
+`+https://www.server.com/ocpi/cpo/2.3.0/sessions/1234/charging_preferences+`
 
 NOTE: The `/charging_preferences` URL suffix is required when setting Charging Preferences.
 
@@ -201,7 +201,7 @@ Endpoint structure definition:
 
 Example:
 
-`+https://www.server.com/ocpi/emsp/2.2.1/sessions/BE/BEC/1234+`
+`+https://www.server.com/ocpi/emsp/2.3.0/sessions/BE/BEC/1234+`
 
 
 [cols="2,12",options="header"]
@@ -313,7 +313,7 @@ Patching the `total_cost` needs to be done on the <<mod_sessions_session_object,
 
 [source,json]
 ----
-PATCH https://www.server.com/ocpi/cpo/2.2.1/sessions/NL/TNM/101
+PATCH https://www.server.com/ocpi/cpo/2.3.0/sessions/NL/TNM/101
 
 include::examples/session_patch_example_total_cost.json[]
 ----
@@ -327,7 +327,7 @@ and updating all related fields.
 
 [source,json]
 ----
-PATCH https://www.server.com/ocpi/cpo/2.2.1/sessions/NL/TNM/101
+PATCH https://www.server.com/ocpi/cpo/2.3.0/sessions/NL/TNM/101
 
 include::examples/session_patch_example_charging_period.json[]
 ----
