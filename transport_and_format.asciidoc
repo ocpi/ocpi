@@ -407,14 +407,27 @@ but other parties are (themselves) not a CPO or other role in the EV charging la
 but do provide service to CPOs/eMSPs, etc.
 
 ===== Message Routing Headers
-When OCPI is used to communicate to/from a Platform or via a Hub (which is the most common usage of OCPI,
-only exception is a peer-to-peer connection between two parties that both have only one OCPI party and role implemented.)
-the following four HTTP headers are to be added to any request/response to allow messages to be routed.
+The following four HTTP headers are added to requests and responses to allow messages to be routed to
+the correct party. They are used whether a message is exchanged directly between two platforms or via
+a Hub.
 
-When implementing OCPI these four headers SHALL be implemented for any request/response to/from a Functional Module.
-This does not mean they have to be present in all request.
-There are situation/special request where some headers can or shall be omitted,
-See: <<transport_and_format_message_routing_open_routing_request,Open Routing Request>>
+Every party implementing OCPI SHALL support these four headers on any request/response to/from a
+Functional Module, and SHALL include them on every such request and response, except in the two cases
+named below. No other omission is permitted.
+
+*Exception 1: Open Routing Request.*
+A requesting party MAY choose to send an
+<<transport_and_format_message_routing_open_routing_request,Open Routing Request>> when it does not know
+the destination of the request. In such a request the two 'OCPI-to-' headers SHALL be omitted, since
+their absence is what asks the Hub to determine the destination.
+The two 'OCPI-from-' headers SHALL still be present.
+
+*Exception 2: peer-to-peer topology.*
+When two parties are connected directly, without a Hub, and each of them implements exactly one OCPI
+party and one role, the origin and destination of every message are already unambiguous. In this
+topology the four headers MAY be omitted entirely. If either side implements more than one party or
+more than one role, this exception does not apply and the headers SHALL be present, as described in
+<<transport_and_format_routing_headers_party_to_party,Party to Party (without Hub)>>.
 
 Only requests/responses from Function Modules: such as: <<mod_tokens.asciidoc#mod_tokens_tokens_module,Tokens>>,
 <<mod_locations.asciidoc#mod_locations_locations_module,Locations>>, <<mod_cdrs.asciidoc#mod_cdrs_cdrs_module,CDRs>> etc.
@@ -483,7 +496,7 @@ image::images/sd_put_boardcast.svg[OCPI Sequence Diagram of a Broadcast Push fro
 [[transport_and_format_message_routing_open_routing_request]]
 ===== Open Routing Request
 When a Hub has the intelligence to route messages based on the content of the request,
-or the requesting party does not know the destination of a request, the 'OCPI-to-' headers can be omitted in the request towards the Hub.
+or the requesting party does not know the destination of a request, the 'OCPI-to-' headers SHALL be omitted in the request towards the Hub.
 The Hub can then decide to which party a request needs to be routed, or that it needs to be broadcasted if the destination cannot be determined.
 
 This has nothing to do with <<transport_and_format_message_routing_broadcast_push,Broadcast Push>> though,
@@ -516,6 +529,7 @@ The following section shows which headers are required/optional and which 'OCPI-
 
 This is not an exclusive list, combinations are possible.
 
+[[transport_and_format_routing_headers_party_to_party]]
 ====== Party to Party (without Hub)
 
 This table contains the description of which headers are required to be used for which message when a request is sent
