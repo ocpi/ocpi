@@ -165,6 +165,7 @@ If there are dependencies between modules, it will be mentioned in the affected 
 |<<mod_hub_client_info.asciidoc#mod_hub_client_info_module,Hub Client Info>> |hubclientinfo |
 |<<mod_invoice_reconciliation.asciidoc#mod_invoice_reconciliation_module,Invoice Reconciliation>> |invoicereconciliation |
 |<<mod_locations.asciidoc#mod_locations_locations_module,Locations>> |locations |
+|<<mod_payments.asciidoc#mod_payments_payments_module,Payments>> |payments |
 |<<mod_sessions.asciidoc#mod_sessions_sessions_module,Sessions>> |sessions |
 |<<mod_tariffs.asciidoc#mod_tariffs_tariffs_module,Tariffs>> |tariffs |
 |<<mod_tokens.asciidoc#mod_tokens_tokens_module,Tokens>> |tokens |

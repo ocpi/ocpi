@@ -2,8 +2,12 @@
   "id": "452cf8a1-79aa-4a0e-9aee-dc788586053c",
   "authorization_reference": "pp-100100-1948213567",
   "total_costs": {
-    "excl_vat": 4.00,
-    "incl_vat": 4.40
+    "before_taxes": 4.00,
+    "taxes": [{
+      "name": "VAT",
+      "percentage": 10.0,
+      "amount": 0.40
+    }]
   },
   "currency": "EUR",
   "eft_data": [
