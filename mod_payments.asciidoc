@@ -78,6 +78,24 @@ image::images/payment_transaction.svg[Payment Transaction Flow]
 [[mod_payments_interfaces_and_endpoints]]
 === Interfaces and Endpoints
 
+// G-02: this module declares one Module Identifier, `payments`, but defined its methods against two
+// separate endpoint URL variables. An Endpoint object carries one url per identifier/role pair, so
+// one identifier cannot advertise two URLs, and nothing let a peer derive the second from the first.
+// Every implementer had to invent the paths, with no guarantee two implementations would agree.
+// Both collections are now fixed sub-paths of the single advertised endpoint, which is what all the
+// example URLs in this module already show.
+The Payments module advertises a single endpoint URL, `{payments_endpoint_url}`, under the module
+identifier `payments`. The two collections this module defines are reached at fixed sub-paths of that
+URL, so a peer can derive both from the one advertised endpoint:
+
+[cols="4,10",options="header"]
+|===
+|Collection |Path
+
+|Terminals |`{payments_endpoint_url}/terminals`
+|Financial Advice Confirmations |`{payments_endpoint_url}/financial-advice-confirmations`
+|===
+
 [[mod_payments_ptp_interface]]
 ==== Sender Interface
 
@@ -114,7 +132,7 @@ Fetch Terminals from a PTP system.
 
 Endpoint structure definition:
 
-`{payments_terminals_endpoint_url}?[date_from={date_from}]&amp;[date_to={date_to}]&amp;[offset={offset}]&amp;[limit={limit}]`
+`{payments_endpoint_url}/terminals?[date_from={date_from}]&amp;[date_to={date_to}]&amp;[offset={offset}]&amp;[limit={limit}]`
 
 Examples:
 
@@ -268,7 +286,7 @@ creation process by creating a Terminal object on the CPO side with calling the 
 
 Endpoint structure definition:
 
-`{payments_terminals_endpoint_url}/activate`
+`{payments_endpoint_url}/terminals/activate`
 
 Examples:
 
@@ -279,8 +297,21 @@ Examples:
 
 The request body contains an Terminal to activate.
 
-NOTE: The terminal_id is optional in the activation request as it will be set by the PTP.
-The cardinality for the remaining fields stays the same.
+// A-07: this exception to terminal_id's cardinality lived in a NOTE rather than in the definition of
+// the request body, so a receiver validating an activation request against the Terminal object
+// rejected a conforming message. It is now stated as part of the request body definition. The
+// activation path is collection-level while deactivation is identifier-level; that asymmetry is
+// deliberate, because activation is what causes an identifier to be assigned, and it is now
+// explained rather than left to be read as an inconsistency. `activate` is reserved as a
+// terminal_id so that an identifier can never occupy the same path as the action.
+In this request, and only in this request, `terminal_id` is OPTIONAL: the PTP assigns it as part of
+the activation and returns the resulting Terminal to the CPO by creating it on the CPO's system. The
+cardinality of every other field is as given in the <<mod_payments_terminal_object,Terminal>> object.
+
+This endpoint addresses the collection rather than a single Terminal, unlike
+<<mod_payments_ptp_terminal_post_deactivate_method,Deactivate>>, because no `terminal_id` exists yet
+at the moment of activation. The value `activate` SHALL NOT be used as a `terminal_id`, so that a
+Terminal can never occupy the same path as this action.
 
 [cols="4,1,12",options="header"]
 |===
@@ -308,7 +339,7 @@ terminal.
 
 Endpoint structure definition:
 
-`{payments_terminals_endpoint_url}/{terminal_id}/deactivate`
+`{payments_endpoint_url}/terminals/{terminal_id}/deactivate`
 
 Examples:
 
@@ -322,7 +353,7 @@ Fetch Financial Advice Confirmations from a PTP system.
 
 Endpoint structure definition:
 
-`{payments_financial_advice_confirmation_endpoint_url}?[date_from={date_from}]&amp;[date_to={date_to}]&amp;[offset={offset}]&amp;[limit={limit}]`
+`{payments_endpoint_url}/financial-advice-confirmations?[date_from={date_from}]&amp;[date_to={date_to}]&amp;[offset={offset}]&amp;[limit={limit}]`
 
 Examples:
 
@@ -454,9 +485,7 @@ The response contains the requested Terminal object.
 ===== *POST* Terminal Method
 
 The POST should be used by the PTP to create a newly shipped terminal on the CPO’s
-system. Here, if no activation was sent before no location ids should be included as the assignment will be done by the
-CPO. The object sent here can be just the terminal id or an object with additional
-data if known through the terminal order and/or activation process.
+system. Here, if no activation was sent before no location ids should be included as the assignment will be done by the CPO. The object sent here can be limited to the required fields, `terminal_id` and `last_updated`, or it can carry additional data if known through the terminal order and/or activation process.
 
 [[mod_payments_cpo_terminal_post_request_body]]
 ====== Request Body
