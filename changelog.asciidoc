@@ -2,6 +2,16 @@
 [[changelog_changelog]]
 == Changelog
 
+=== Changes between 2.3.0ed2 and 2.3.0ed3
+
+This edition adds no new functionality. The changes below clarify or correct text that could be read in more than one way.
+
+* Payments module: clarified that the module has one endpoint URL, with Terminals and Financial Advice Confirmations as its sub-paths `{payments_endpoint_url}/terminals` and `{payments_endpoint_url}/financial-advice-confirmations`, as the example URLs of the module already showed.
+* Payments module: clarified in the definition of the Terminal activation request that `terminal_id` is optional there, which was stated in a note, and that `activate` is therefore not a valid `terminal_id`.
+* Message routing headers: clarified the existing rule on when the four headers are omitted: the 'OCPI-to-' headers in an Open Routing Request, and all four between two directly connected parties that each implement one party and one role.
+* DisplayText: clarified that `text` is plain text. The sentence "No markup, html etc. allowed" is removed.
+* Sessions module: corrected the status of a Session for a reservation to `RESERVATION`, the value that SessionStatus defines. The text said `RESERVED`.
+
 === Changes between 2.3.0 and 2.3.0ed2
 
 * Fix definition of PARKING_TIME

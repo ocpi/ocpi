@@ -3,6 +3,20 @@
 [cols="4,5,6,16",options="header"]
 |===
 |Version |Date |Author |Description
+|2.3.0-ed3 | IN PROGRESS |
+Ben van Gameren +
+_ihomer_ +
+Reinier Lamers +
+_SWTCH Energy_ +
+Philipp Fischbacher +
+_ChargePoint_ +
+a|
+* Clarify the endpoint URL and the Terminal activation request of the Payments module
+* Clarify when the message routing headers are omitted
+* Clarify the text field of DisplayText
+* Correct the Session status of a reservation
+* Documentation updates
+
 |2.3.0-ed2 | 2026-06-18 |
 Ben van Gameren +
 _ihomer_ +
